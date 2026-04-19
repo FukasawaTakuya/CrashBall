@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>f32329a3-cc70-4f2f-8186-324a5b3dbf61</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>4877be50-d82b-49ce-b825-5f640c3498cf</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{a0e98398-99a2-486f-b9a3-05fb6f42f2e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component">
+      <UniqueIdentifier>{e32c75a7-da0e-49d0-9179-9aa310725125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{29b7dfcf-84bb-4f64-8cf8-3f301d1fa2bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ResourceManager">
+      <UniqueIdentifier>{5eef1fe5-dfc5-47f7-b9b8-a677dddeb6c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{f9deb155-1a85-47c1-a424-c1073da86613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CommonResources">
+      <UniqueIdentifier>{a54e43e4-49f6-46f5-bf04-c8ce7971f008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CollsionManager">
+      <UniqueIdentifier>{a4fa7639-348b-437a-aadb-eebace9c4dcf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="StepTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Component.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\RigitBody.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Transform.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Scene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\SceneManager.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\ModelManager.h">
+      <Filter>Game\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\ResourceManager.h">
+      <Filter>Game\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\GameObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CommonResources\CommonResources.h">
+      <Filter>Game\CommonResources</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\GameScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CollisionManager\Collision.h">
+      <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Ball.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Collider.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\RigitBody.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Transform.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\Scene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\SceneManager.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager\ModelManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager\ResourceManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\GameObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CommonResources\CommonResources.cpp">
+      <Filter>Game\CommonResources</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\GameScene.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollisionManager\Collision.cpp">
+      <Filter>Game\CollsionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Ball.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="directx.ico">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="settings.manifest">
+      <Filter>Assets</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

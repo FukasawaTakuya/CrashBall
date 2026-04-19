@@ -1,0 +1,298 @@
+#include "pch.h"
+#include "Collision.h"
+
+using namespace DirectX;
+
+/**
+ * \brief 球と平面の衝突判定
+ *
+ * \param sphere	球
+ * \param plane		平面
+ * \return
+ */
+bool Collision::IsCollision(Sphere* sphere, Plane* plane)
+{
+	// 球と平面の距離を求める
+	float distance = plane->CalcLength(sphere->GetPos());
+
+	// 距離が球の半径より小さければture
+	bool r = (distance < sphere->GetRadius());
+
+	return r;
+}
+bool Collision::IsCollision(Plane* plane, Sphere* sphere)
+{
+	return IsCollision(sphere, plane);
+}
+
+
+/**
+ * \brief 線分と平面の衝突判定.
+ * 
+ * \param segment	線分
+ * \param plane		平面
+ * \return 
+ */
+bool Collision::IsCollision(Segment* segment, Plane* plane)
+{
+	SimpleMath::Vector3 point =
+		CalcIntersection(segment, plane);
+
+	return IsCollision(segment, point);
+}
+
+/**
+ * \brief 線分と平面の衝突判定(交点から求める).
+ * 
+ * \param segment		線分
+ * \param intersection	平面との交点 
+ * \return 
+ */
+bool Collision::IsCollision(
+	Segment* segment, 
+	DirectX::SimpleMath::Vector3 intersection) 
+{ 
+	if ((intersection - segment->GetPos()).Length() <= 
+		segment->GetLength()) { 
+		return true; 
+	}
+	else return false; 
+}
+
+/**
+ * \brief 線分と三角形の衝突判定.
+ * 
+ * \param segment	線分
+ * \param triangle	三角形
+ * \return 
+ */
+bool Collision::IsCollision(Segment* segment, Triangle* triangle)
+{
+	// 線分と平面の交点
+	SimpleMath::Vector3 point
+		= CalcIntersection(segment, triangle->GetPlane());
+
+	// 線分と平面が衝突してないならfalse
+	if (!IsCollision(segment, point)) {
+		return false;
+	}
+
+	// 交点が三角形内にあるならtrue
+	return IsPointInTriangle(point, triangle);
+}
+
+/**
+ * \brief 線分と球の衝突判定.
+ * 
+ * \param segment	線分
+ * \param sphere	球
+ * \return 
+ */
+bool Collision::IsCollision(Segment* segment, Sphere* sphere)
+{
+	float xa = segment->GetPos().x - sphere->GetPos().x;
+	float ya = segment->GetPos().y - sphere->GetPos().y;
+	float za = segment->GetPos().z - sphere->GetPos().z;
+
+	float a
+		= std::pow(segment->GetVec().x, 2) 
+		+ std::pow(segment->GetVec().y, 2) 
+		+ std::pow(segment->GetVec().z, 2);
+	float b
+		= ( segment->GetVec().x * xa +
+			segment->GetVec().y * ya +
+			segment->GetVec().z * za ) * 2;
+	float c
+		= std::pow(xa, 2) + std::pow(ya, 2) + std::pow(za, 2) - sphere->GetRadius();
+
+	float d = std::pow(b, 2) - 4 * a * c;
+
+	if (d < 0.0f) return false;
+
+	d = std::sqrt(d);
+
+	float t1 = (-b + d) / (2 * a);
+	float t2 = (-b - d) / (2 * a);
+
+	if (t1 <= 1.0f && t1 >= 0.0f ||
+		t2 <= 1.0f && t2 >= 0.0f)
+	{
+		return true;
+	}
+	else return false;
+	
+}
+
+/**
+ * \brief 球と三角形の衝突判定.
+ * 
+ * \param sphere
+ * \param triangle
+ * \return 
+ */
+bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
+{
+	//OutputDebugString(L"\n");
+
+	// 球と三角形を含む平面との衝突判定
+	if (!IsCollision(sphere, triangle->GetPlane())) return false;
+
+	// 三角形の各頂点
+	SimpleMath::Vector3* pos = triangle->GetPoint();
+	// 三角形に沿うベクトル
+	SimpleMath::Vector3 vec[3];
+	vec[0] = pos[1] - pos[0];
+	vec[1] = pos[2] - pos[1];
+	vec[2] = pos[0] - pos[2];
+	// 三角形の各辺
+	Segment segments[3];
+	for (int i = 0; i < 3;i++) {
+		segments[i].SetSegment(pos[i], vec[i]);
+	}
+
+	// 各辺と球の衝突判定
+	//for (auto seg : segments) {
+	//	if (IsCollision(&seg, sphere)) {
+	//		OutputDebugString(L"call\n");
+	//		return true;
+	//	}
+	//}
+
+	// 平面から球に垂直に伸びる線分
+	Segment segment;
+	// 線分の設定
+	segment.SetSegment(sphere->GetPos(), 
+		-triangle->GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
+
+	// 線分と三角形の衝突判定
+	return IsCollision(&segment, triangle);
+}
+
+bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
+{
+	return false;
+}
+
+
+/**
+ * \brief 球と平面の衝突の解決
+ *
+ * \param ball
+ * \param plan
+ */
+//void Collision::ResolveCollision(Ball* ball, Plane* plan)
+//{
+//	// 球と平面の距離を求める
+//	float distance = plan->CalcLength(ball->GetPos());
+//
+//	// 補正距離を求める
+//	float overlap = ball->GetRadius() - distance;
+//
+//	// 補正方向
+//	DirectX::SimpleMath::Vector3 direction = plan->GetNormal();
+//
+//	ball->SetPos(ball->GetPos() + direction * overlap);
+//
+//	// 法線ベクトル
+//	SimpleMath::Vector3 vn = ball->GetVelocity().Dot(direction) * direction;
+//	// 接線ベクトル
+//	SimpleMath::Vector3 vt = ball->GetVelocity() - vn;
+//
+//	ball->SetVelocity(vt);
+//}
+
+/**
+ * \brief ある点が三角形の内側にあるか.
+ *
+ * \param point		任意の点
+ * \param triangle	三角形
+ * \return
+ */
+bool IsPointInTriangle(DirectX::SimpleMath::Vector3 point, Triangle* triangle)
+{
+	// 三角形の各頂点
+	SimpleMath::Vector3* pos = triangle->GetPoint();
+	// 三角形の法線ベクトル
+	SimpleMath::Vector3 normal = triangle->GetPlane()->GetNormal();
+
+	// 各頂点から任意の点へのベクトル
+	SimpleMath::Vector3 vt0 = point - pos[0];
+	SimpleMath::Vector3 vt1 = point - pos[1];
+	SimpleMath::Vector3 vt2 = point - pos[2];
+
+	// 三角形に沿うベクトル
+	SimpleMath::Vector3 v0 = pos[1] - pos[0];
+	SimpleMath::Vector3 v1 = pos[2] - pos[1];
+	SimpleMath::Vector3 v2 = pos[0] - pos[2];
+
+	// 法線ベクトルを求める
+	SimpleMath::Vector3 cross0 = vt0.Cross(v0);
+	SimpleMath::Vector3 cross1 = vt1.Cross(v1);
+	SimpleMath::Vector3 cross2 = vt2.Cross(v2);
+
+	// 法線ベクトルの内積
+	float dot0 = cross0.Dot(normal);
+	float dot1 = cross1.Dot(normal);
+	float dot2 = cross2.Dot(normal);
+
+	// 内積の積が0以上なら法線の向きが揃っている
+	if (dot0 * dot1 >= 0.0f &&
+		dot1 * dot2 >= 0.0f &&
+		dot2 * dot0 >= 0.0f) return true;
+	else return false;
+}
+
+
+/**
+ * 直線と平面の交点を求める.
+ *
+ * \param segment 線分
+ * \param plane 平面
+ * \return
+ */
+DirectX::SimpleMath::Vector3 CalcIntersection(
+	Segment* segment, Plane* plane)
+{
+	// 線分の始点と平面の距離
+	float distance = plane->CalcLength(segment->GetPos());
+
+
+	// 線分の方向
+	SimpleMath::Vector3 direction = segment->GetVec();
+	direction.Normalize();
+
+	float dot = direction.Dot(-plane->GetNormal());
+
+	// 直線と平面の交点の距離
+	float length = distance / dot;
+
+	// 交点を求める
+	SimpleMath::Vector3 intersection
+		= segment->GetPos() + direction * length;
+
+	return intersection;
+}
+
+DirectX::SimpleMath::Vector4 ConvertVector4(DirectX::SimpleMath::Vector3 v3)
+{
+
+	SimpleMath::Vector4 v4;
+
+	v4.x = v3.x;
+	v4.y = v3.y;
+	v4.z = v3.z;
+	v4.w = 1.0f;
+
+	return v4;
+}
+
+DirectX::SimpleMath::Vector3 ConvertVector3(DirectX::SimpleMath::Vector4 v4)
+{
+	SimpleMath::Vector3 v3;
+
+	v3.x = v4.x;
+	v3.y = v4.y;
+	v3.z = v4.z;
+
+	return v3;
+}

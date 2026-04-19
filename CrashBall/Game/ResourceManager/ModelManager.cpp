@@ -1,0 +1,38 @@
+#include "pch.h"
+#include "ModelManager.h"
+
+using namespace DirectX;
+
+ModelManager::ModelManager()
+{
+}
+
+ModelManager::~ModelManager()
+{
+}
+
+/**
+ * モデルの登録
+ * 
+ * \param key		マップのキー
+ * \param fileName ファイル名
+ */
+void ModelManager::RegisterModel(std::string key, const wchar_t* fileName)
+{
+	m_files.emplace(key, fileName);
+}
+
+void ModelManager::CreateModel(ID3D11Device1* device)
+{
+	// コンテナのクリア
+	m_models.clear();
+
+	EffectFactory fx(device);
+	fx.SetDirectory(L"Resources/Models");   // テクスチャーが貼ってある場合は設定する
+
+	for (auto& file : m_files) {
+		auto model = Model::CreateFromSDKMESH(device, file.second, fx);
+
+		m_models.emplace(file.first, std::move(model));
+	}
+}
