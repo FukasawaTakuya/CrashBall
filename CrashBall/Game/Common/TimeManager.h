@@ -5,8 +5,6 @@
 
 
 // ヘッダファイルの読み込み ===================================================
-#include "pch.h"
-#include "Game/Component/Component.h"
 
 // クラスの前方宣言 ===================================================
 
@@ -16,53 +14,60 @@
 /**
  * @brief 基底オブジェクト
  */
-class GameObject {
+class  TimeManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
-	// コンポーネントのコンテナ
-	std::vector<std::unique_ptr<Component>> m_components;
+	float m_elapsedTime = 0.0f;
+
+	float m_timeScale = 1.0f;
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-public:
+private:
 
 	// コンストラクタ
-	GameObject() = default;
+	TimeManager() = default;
+	TimeManager(const TimeManager&) = delete;
+	TimeManager& operator=(const TimeManager&) = delete;
 
 	// デストラクタ
-	~GameObject() = default;
+	~TimeManager() = default;
 
 	// 操作
 public:
+
 	// 取得/設定
 public:
 
-	// コンポーネントの追加
-	template<typename CompType, typename... Args>
-	void AddComponent(Args&&... args)
-	{
-		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
-		comp->SetOwner(this);
-		m_components.emplace_back(std::move(comp));
+	static TimeManager& Instance() {
+		static TimeManager instance;
+		return instance;
 	}
 
-	template<typename CompType>
-	CompType* GetComponent()
+	float GetElapsedTime() const
 	{
-		CompType* pComp = nullptr;
-		for (auto& comp : m_components)
-		{
-			pComp = dynamic_cast<CompType*>(comp.get());
+		return m_elapsedTime * m_timeScale;
+	}
 
-			if (pComp != nullptr) break;
-		}
+	float GetUnscaleElapsedTime() const
+	{
+		return m_elapsedTime;
+	}
 
-		return pComp;
+	void SetElapsedTime(float elapsedTime)
+	{
+		m_elapsedTime = elapsedTime;
+	}
+
+	void SetTimeScale(float timeScale)
+	{
+		m_timeScale = timeScale;
 	}
 
 	// 内部実装

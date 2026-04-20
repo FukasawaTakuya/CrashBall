@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Game/Component/Collider.h"
+#include "Game/GameObject/Ball.h"
 
 namespace Collision {
 
@@ -24,8 +25,8 @@ namespace Collision {
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
 
 
-	//// ‹…‚Æ•½–Ê‚ÌÕ“Ë‰ğŒˆ
-	//void ResolveCollision(Ball* ball, Plane* plan);
+	// ‹…‚Æ•½–Ê‚ÌÕ“Ë‰ğŒˆ
+	void ResolveCollision(Ball* ball, Plane* plan);
 }
 
 

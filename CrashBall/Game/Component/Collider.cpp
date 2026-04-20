@@ -4,12 +4,13 @@
 #include <string>
 
 #include "Collider.h"
+#include "Game/CollisionManager/Collision.h"
 
 using namespace DirectX;
 
-Sphere::Sphere(DirectX::SimpleMath::Vector3 pos, float radius)
-	: m_pos{ pos }
-	, m_radius{ radius }
+
+Sphere::Sphere(float radius)
+	: m_radius{ radius }
 {
 }
 
@@ -193,29 +194,31 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 	return true;
 }
 
-//bool Mesh::IsCollision(Sphere* sphere)
-//{
-//	m_hitFace = nullptr;
-//
-//	for (auto& face : m_faces) {
-//		if (Collision::IsCollision(sphere, face.get())) {
-//			m_hitFace = face.get();
-//			return true;
-//		}
-//	}
-//	return false;
-//}
-//
-//void Mesh::ResolveCol(Ball* ball)
-//{
-//	if (m_hitFace == nullptr) return;
-//
-//	Collision::ResolveCollision(ball, m_hitFace->GetPlane());
-//}
-//
-//void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)
-//{
-//	for (auto& face : m_faces) {
-//		face->Rotate(rotate, m_position);
-//	}
-//}
+bool Mesh::IsCollision(Sphere* sphere)
+{
+	m_hitFace = nullptr;
+
+	OutputDebugString(L"r:%f\n", sphere->GetRadius());
+
+	for (auto& face : m_faces) {
+		if (Collision::IsCollision(sphere, face.get())) {
+			m_hitFace = face.get();
+			return true;
+		}
+	}
+	return false;
+}
+
+void Mesh::ResolveCol(Ball* ball)
+{
+	if (m_hitFace == nullptr) return;
+
+	Collision::ResolveCollision(ball, m_hitFace->GetPlane());
+}
+
+void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)
+{
+	for (auto& face : m_faces) {
+		face->Rotate(rotate, m_position);
+	}
+}

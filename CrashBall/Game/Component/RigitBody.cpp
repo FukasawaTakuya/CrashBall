@@ -8,6 +8,9 @@
 
 #include "pch.h"
 #include "RigitBody.h"
+#include "Game/Common/TimeManager.h"
+
+using namespace DirectX;
 
 /**
  * \brief	コンストラクタ.
@@ -40,7 +43,7 @@ void RigitBody::Accel(DirectX::SimpleMath::Vector3 accel)
 
 void RigitBody::ApplyAccel()
 {
-	m_velocity += m_accel/* * elapsedTime*/;
+	m_velocity += m_accel * TimeManager::Instance().GetElapsedTime();
 }
 
 /**
@@ -49,7 +52,7 @@ void RigitBody::ApplyAccel()
  */
 void RigitBody::ApplyGravity()
 {
-	m_accel *= m_gravity;/* *elapsedTime*/
+	m_velocity += m_gravity * SimpleMath::Vector3::Down * TimeManager::Instance().GetElapsedTime();
 }
 
 /**

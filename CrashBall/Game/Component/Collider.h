@@ -25,7 +25,7 @@ protected:
 public:
 
 	// コンストラクタ
-	Sphere(DirectX::SimpleMath::Vector3 pos, float radius);
+	Sphere(float radius);
 	// デストラクタ
 	~Sphere() = default;
 
@@ -39,6 +39,8 @@ public:
 
 	// 座標の設定
 	void SetPos(DirectX::SimpleMath::Vector3 pos) { m_pos = pos; }
+
+	void SetRadius(float radius) { m_radius = radius; }
 };
 
 class Plane

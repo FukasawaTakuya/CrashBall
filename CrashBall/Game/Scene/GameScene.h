@@ -6,10 +6,9 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "Scene.h"
-//#include <Game/Ball.h>
-//#include <Game/Floor.h>
-//#include <Game/Camera.h>
-//#include <Game/MeshFloor.h>
+#include "Game/GameObject/Ball.h"
+#include "Game/GameObject/Floor.h"
+#include "Game/Common/Camera.h"
 //
 // クラスの前方宣言 ===================================================
 
@@ -26,17 +25,15 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	//std::unique_ptr<Floor> m_floor;
-	//std::unique_ptr<MeshFloor> m_meshFloor;
+	std::unique_ptr<MeshFloor> m_meshFloor;
 
-	//std::unique_ptr<Ball> m_ball;					// ボール
-	//DirectX::SimpleMath::Quaternion m_quaternion;	// ボールのクオータニオン
+	std::unique_ptr<Ball> m_ball;					// ボール
+	DirectX::SimpleMath::Quaternion m_quaternion;	// ボールのクオータニオン
 
-	//std::unique_ptr<Camera> m_camera;				// カメラ
+	std::unique_ptr<Camera> m_camera;				// カメラ
 
-	//DirectX::SimpleMath::Vector2 m_mousePrevPos;	// 前フレームのマウスの位置
+	DirectX::SimpleMath::Vector2 m_mousePrevPos;	// 前フレームのマウスの位置
 
-	//Triangle triangle;
 	
 
 	// メンバ関数の宣言 -------------------------------------------------

@@ -1,7 +1,11 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
+
+
+
 // ヘッダファイルの読み込み ===================================================
+#include "Game/Component/Collider.h"
 
 // クラスの前方宣言 ===================================================
 
@@ -11,7 +15,7 @@
 /**
  * @brief 基底オブジェクト
  */
-class CommonResources  {
+class  MeshFloor {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -19,49 +23,42 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	ID3D11Device1*			m_device;
-	ID3D11DeviceContext1*	m_context;
-	DirectX::CommonStates*	m_state;
+	DirectX::Model* m_pModel;					// モデル
+	DirectX::SimpleMath::Matrix m_rotate;		// 回転
 
+	std::unique_ptr<Mesh> m_mesh;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-private:
-	// コンストラクタ
-	CommonResources() = default;
-
-	CommonResources(const CommonResources&) = delete;
-
-	CommonResources& operator=(const CommonResources) = delete;
-
-	// デストラクタ
-	~CommonResources() = default;
-
 public:
 
-	static CommonResources& Instance() {
-		static CommonResources instance;
-		return instance;
-	}
+	// コンストラクタ
+	MeshFloor();
+
+	// デストラクタ
+	~MeshFloor();
 
 	// 操作
 public:
+	void Initialize();
 
-	void Initialize(
-		ID3D11Device1* device,
-		ID3D11DeviceContext1* context,
-		DirectX::CommonStates* state
-	);
+	void Update(float elapsedTime);
+
+	void Draw(DirectX::SimpleMath::Matrix proj, DirectX::SimpleMath::Matrix view);
+
+	void Rotate(DirectX::SimpleMath::Matrix rotate);
+
+	void SetModel(DirectX::Model* pModel) { 
+		m_pModel = pModel; 
+	}
+
 
 	// 取得/設定
 public:
 
-	ID3D11Device1*			GetDevice()	{ return m_device; }
-	ID3D11DeviceContext1*	GetContext(){ return m_context; }
-	DirectX::CommonStates*	GetState()	{ return m_state; }
+	Mesh* GetMesh() { return m_mesh.get(); }
 
 	// 内部実装
 private:
 
 };
-

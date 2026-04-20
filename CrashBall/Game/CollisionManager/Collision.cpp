@@ -15,8 +15,11 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 	// 球と平面の距離を求める
 	float distance = plane->CalcLength(sphere->GetPos());
 
+	//OutputDebugString(L"x:%f y:%f z:%f\n", sphere->GetPos().x, sphere->GetPos().y, sphere->GetPos().z);
+	//OutputDebugString(L"dis:%f  r:%f\n", distance, sphere->GetRadius());
+
 	// 距離が球の半径より小さければture
-	bool r = (distance < sphere->GetRadius());
+	bool r = (distance < 0.5f);
 
 	return r;
 }
@@ -132,8 +135,6 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
  */
 bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 {
-	//OutputDebugString(L"\n");
-
 	// 球と三角形を含む平面との衝突判定
 	if (!IsCollision(sphere, triangle->GetPlane())) return false;
 
@@ -180,26 +181,30 @@ bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
  * \param ball
  * \param plan
  */
-//void Collision::ResolveCollision(Ball* ball, Plane* plan)
-//{
-//	// 球と平面の距離を求める
-//	float distance = plan->CalcLength(ball->GetPos());
-//
-//	// 補正距離を求める
-//	float overlap = ball->GetRadius() - distance;
-//
-//	// 補正方向
-//	DirectX::SimpleMath::Vector3 direction = plan->GetNormal();
-//
-//	ball->SetPos(ball->GetPos() + direction * overlap);
-//
-//	// 法線ベクトル
-//	SimpleMath::Vector3 vn = ball->GetVelocity().Dot(direction) * direction;
-//	// 接線ベクトル
-//	SimpleMath::Vector3 vt = ball->GetVelocity() - vn;
-//
-//	ball->SetVelocity(vt);
-//}
+void Collision::ResolveCollision(Ball* ball, Plane* plan)
+{
+	Transform*	transform = ball->GetComponent<Transform>();
+	RigitBody*	rigidbody = ball->GetComponent<RigitBody>();
+	Sphere*		collider = ball->GetComponent<Sphere>();
+
+	// 球と平面の距離を求める
+	float distance = plan->CalcLength(transform->GetPosition());
+
+	// 補正距離を求める
+	float overlap = collider->GetRadius() - distance;
+
+	// 補正方向
+	DirectX::SimpleMath::Vector3 direction = plan->GetNormal();
+
+	transform->Translate(direction * overlap);
+
+	// 法線ベクトル
+	SimpleMath::Vector3 vn = rigidbody->GetVelocity().Dot(direction) * direction;
+	// 接線ベクトル
+	SimpleMath::Vector3 vt = rigidbody->GetVelocity() - vn;
+
+	rigidbody->SetVelocity(vt);
+}
 
 /**
  * \brief ある点が三角形の内側にあるか.

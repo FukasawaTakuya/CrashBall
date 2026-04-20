@@ -29,13 +29,13 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel;						// モデル
+	DirectX::Model* m_pModel = nullptr;						// モデル
 
-	DirectX::SimpleMath::Quaternion m_quaternion;	// クオータニオン
+	DirectX::SimpleMath::Quaternion m_rotateValue;	// クオータニオン rotatevalue
 
 	bool m_isGround;
 
-	RigitBody* m_rbody;
+	RigitBody* m_rigitbody;
 	Transform* m_transform;
 	Sphere* m_collider;
 
@@ -64,8 +64,6 @@ public:
 	void Move();
 
 	void Rotate();
-
-	void ApplyFriction();
 
 	// 取得/設定
 public:

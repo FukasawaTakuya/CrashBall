@@ -26,7 +26,7 @@ private:
 	using FileCollection = std::unordered_map<std::string, const wchar_t*>;
 	using ModelCollection = std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
 
-	FileCollection	m_files;	// ファイルリンク用のコンテナ
+	FileCollection	m_factory;	// モデルファクトリー
 	ModelCollection	m_models;	// モデル用のコンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------

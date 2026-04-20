@@ -1,0 +1,127 @@
+/*****************************************************************//**
+ * \file   Camera.h
+ * \brief  カメラに関するヘッダーファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+// 多重インクルードの防止 =====================================================
+#pragma once
+
+
+
+
+// ヘッダファイルの読み込み ===================================================
+
+// クラスの前方宣言 ===================================================
+
+
+
+// クラスの定義 ===============================================================
+/**
+ * @brief 基底オブジェクト
+ */
+class  Camera {
+
+	// クラス定数の宣言 -------------------------------------------------
+public:
+
+	static constexpr int WIDTH = 1280;
+
+	static constexpr int HEIGHT = 720;
+
+	static constexpr DirectX::SimpleMath::Vector3 OFFSET = { 0.0f, 8.0f, 10.0f };
+
+	static constexpr float ROTATE_LIMIT = 70.0f;			// 回転の限界値
+
+
+	// データメンバの宣言 -----------------------------------------------
+private:
+
+	DirectX::SimpleMath::Vector3 m_eye;				// 視点
+	DirectX::SimpleMath::Vector3 m_target;			// 注視点
+	DirectX::SimpleMath::Vector3 m_up;				// 上方向
+	DirectX::SimpleMath::Vector3 m_right;			// 前方向
+	DirectX::SimpleMath::Vector3 m_forward;			// 右方向
+	DirectX::SimpleMath::Matrix  m_projMat;			// 射影行列
+	DirectX::SimpleMath::Matrix  m_viewMat;			// ビュー行列
+	DirectX::SimpleMath::Vector3 m_offset;			// オフセット
+	
+	float m_zoomRate = 1.0f;								// 拡大倍率
+
+	// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
+public:
+
+	// コンストラクタ
+	Camera();
+
+	// デストラクタ
+	~Camera();
+
+	// 操作
+public:
+
+	// 初期化
+	void Initialize(DirectX::SimpleMath::Matrix projMat);
+
+	// 注視点のヨー
+	void YawTarget(float angle);
+
+	// 注視点のピッチ
+	void PitchTarget(float angle);
+
+	// カメラのX軸回転
+	void RotateX(float angle);
+
+	// カメラのY軸回転
+	void RotateY(float angle);
+
+	// ズーム
+	void Zoom(float value);
+
+	// 追従
+	void FollowCamera(DirectX::SimpleMath::Vector3 pos);
+
+	// 取得/設定
+public:
+
+	// 注視点の取得
+	DirectX::SimpleMath::Vector3 GetTarget();
+
+	// 視点の取得
+	DirectX::SimpleMath::Vector3 GetEye();
+
+	// Rayの取得
+	DirectX::SimpleMath::Vector3 GetRay(float x, float y);
+
+	// ビュー行列の取得
+	DirectX::SimpleMath::Matrix GetViewMat();
+
+	// 射影行列の取得
+	DirectX::SimpleMath::Matrix GetProjMat();
+
+	DirectX::SimpleMath::Vector3 GetForward();
+
+	DirectX::SimpleMath::Vector3 GetRight();
+
+
+	// 注視点のセット
+	void SetTarget(DirectX::SimpleMath::Vector3 target);
+
+	// 視点のセット
+	void SetEye(DirectX::SimpleMath::Vector3 eye);
+
+	// カメラのセット
+	void SetCamera(
+		const DirectX::SimpleMath::Vector3& eye,
+		const DirectX::SimpleMath::Vector3& target);
+
+	// TODO:ターゲットに向けてカメラを合わせる key:球面補間　ロックオン機能
+
+	// 内部実装
+private:
+
+	void UpdataView();
+};

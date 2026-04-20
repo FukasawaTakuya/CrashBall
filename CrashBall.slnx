@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="CrashBall/CrashBall.vcxproj" />
+  <Project Path="CrashBall/CrashBall.vcxproj" Id="98cf2800-518e-457b-a3c3-7d2a51d59802" />
 </Solution>

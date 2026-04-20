@@ -1,12 +1,7 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
 // ヘッダファイルの読み込み ===================================================
-#include "pch.h"
-#include "Game/Component/Component.h"
 
 // クラスの前方宣言 ===================================================
 
@@ -16,56 +11,55 @@
 /**
  * @brief 基底オブジェクト
  */
-class GameObject {
+class CommonResources  {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
-	// コンポーネントのコンテナ
-	std::vector<std::unique_ptr<Component>> m_components;
+	ID3D11Device1*			m_device;
+	ID3D11DeviceContext1*	m_context;
+	DirectX::CommonStates*	m_state;
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-public:
-
+private:
 	// コンストラクタ
-	GameObject() = default;
+	CommonResources() = default;
+	CommonResources(const CommonResources&) = delete;
+	CommonResources& operator=(const CommonResources&) = delete;
 
 	// デストラクタ
-	~GameObject() = default;
+	~CommonResources() = default;
+
+public:
+
+	static CommonResources& Instance() {
+		static CommonResources instance;
+		return instance;
+	}
 
 	// 操作
 public:
+
+	void Initialize(
+		ID3D11Device1* device,
+		ID3D11DeviceContext1* context,
+		DirectX::CommonStates* state
+	);
+
 	// 取得/設定
 public:
 
-	// コンポーネントの追加
-	template<typename CompType, typename... Args>
-	void AddComponent(Args&&... args)
-	{
-		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
-		comp->SetOwner(this);
-		m_components.emplace_back(std::move(comp));
-	}
-
-	template<typename CompType>
-	CompType* GetComponent()
-	{
-		CompType* pComp = nullptr;
-		for (auto& comp : m_components)
-		{
-			pComp = dynamic_cast<CompType*>(comp.get());
-
-			if (pComp != nullptr) break;
-		}
-
-		return pComp;
-	}
+	ID3D11Device1*			GetDevice()	{ return m_device; }
+	ID3D11DeviceContext1*	GetContext(){ return m_context; }
+	DirectX::CommonStates*	GetState()	{ return m_state; }
 
 	// 内部実装
 private:
 
 };
+

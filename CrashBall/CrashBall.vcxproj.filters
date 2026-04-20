@@ -23,11 +23,14 @@
     <Filter Include="Game\GameObject">
       <UniqueIdentifier>{f9deb155-1a85-47c1-a424-c1073da86613}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\CommonResources">
-      <UniqueIdentifier>{a54e43e4-49f6-46f5-bf04-c8ce7971f008}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\CollsionManager">
       <UniqueIdentifier>{a4fa7639-348b-437a-aadb-eebace9c4dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Common">
+      <UniqueIdentifier>{b24820ea-9bdf-4bb6-bb58-a43386d3e661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderer">
+      <UniqueIdentifier>{adad8435-81bf-4d1a-96fd-3dd0b57eedf7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,9 +69,6 @@
     <ClInclude Include="Game\GameObject\GameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CommonResources\CommonResources.h">
-      <Filter>Game\CommonResources</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Scene\GameScene.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
@@ -77,6 +77,24 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\Ball.h">
       <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Camera.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Floor.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\CommonResources.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\InputSystem.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Renderer\PrimitveRenderer.h">
+      <Filter>Game\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\TimeManager.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +128,6 @@
     <ClCompile Include="Game\GameObject\GameObject.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CommonResources\CommonResources.cpp">
-      <Filter>Game\CommonResources</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Scene\GameScene.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
@@ -121,6 +136,21 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Ball.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\Camera.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Floor.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\CommonResources.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\InputSystem.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Renderer\PrimitveRenderer.cpp">
+      <Filter>Game\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

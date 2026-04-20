@@ -6,10 +6,13 @@
 #include "Game.h"
 
 
-#include "Game/CommonResources/CommonResources.h"
+#include "Game/Common/CommonResources.h"
+#include "Game/Common/TimeManager.h"
 #include "Game/ResourceManager/ResourceManager.h"
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/Scene/GameScene.h"
+#include "Game/Renderer/PrimitveRenderer.h"
+#include <Game/Common/InputSystem.h>
 
 extern void ExitGame() noexcept;
 
@@ -41,8 +44,6 @@ void Game::Initialize(HWND window, int width, int height)
     // モデルの登録
     ModelManager* modelManager = resourceManager().GetModelManager();
     modelManager->RegisterModel("ball", L"Resources/Models/Ball2.sdkmesh");
-    modelManager->RegisterModel("floor", L"Resources/Models/floor.sdkmesh");
-    modelManager->RegisterModel("meshFloor", L"Resources/Models/meshFloor2.sdkmesh");
     modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
 
     // シーンの登録
@@ -93,7 +94,8 @@ void Game::Update(DX::StepTimer const& timer)
     // TODO: Add your game logic here.
     elapsedTime;
 
-    //InputSystem::Instance().Update();
+    TimeManager::Instance().SetElapsedTime(elapsedTime);
+    InputSystem::Instance().Update();
 
     m_sceneManager->Update(elapsedTime);
 
@@ -218,7 +220,7 @@ void Game::CreateDeviceDependentResources()
     device;
 
     // リソースの生成
-    //ResourceManager::Instance().CreateResources(device);
+    ResourceManager::Instance().CreateResources(device);
 
 
     // 射影行列の定義
@@ -227,7 +229,7 @@ void Game::CreateDeviceDependentResources()
         0.01f, 100.0f
     );
 
-    //PrimitiveManager::Instance().CreateResource(device, context, m_proj);
+    PrimitiveManager::Instance().CreateResource(device, context, m_proj);
 
     // リソース作成
     m_sceneManager->CreateResources(m_proj);

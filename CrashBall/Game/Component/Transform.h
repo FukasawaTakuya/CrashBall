@@ -27,6 +27,8 @@ private:
 
 	DirectX::SimpleMath::Matrix m_rotate;		// ‰ñ“]
 
+	DirectX::SimpleMath::Quaternion m_quaternion;
+
 	float m_scale = 1.0f;						// Šg‘å
 
 
@@ -48,14 +50,34 @@ public:
 	// ‰ñ“]
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 
+	void RotateQuaternion(
+		const DirectX::SimpleMath::Quaternion& quaternion);
+
 
 	// æ“¾/İ’è
 public:
 
-	DirectX::SimpleMath::Vector3 GetPosition()
+	DirectX::SimpleMath::Vector3 GetPosition() const
 	{
 		return m_position;
 	}
+
+	DirectX::SimpleMath::Matrix GetRotate()
+	{
+		return m_rotate;
+	}
+
+	DirectX::SimpleMath::Quaternion GetQuaternion()
+	{
+		return m_quaternion;
+	}
+
+	float GetScale() const
+	{
+		return m_scale;
+	}
+
+
 
 	void SetPosition(DirectX::SimpleMath::Vector3 position)
 	{
