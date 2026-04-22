@@ -166,7 +166,10 @@ private:
 
 	DirectX::SimpleMath::Vector3 m_position;
 
-	Triangle* m_hitFace;
+	float m_scale = 1.0f;
+
+	// TODO:ƒRƒ“ƒeƒi‚É‚·‚é
+	std::vector<Triangle*> m_hitFace;
 
 public:
 	bool LoadObjData(const wchar_t* filename);
@@ -174,7 +177,20 @@ public:
 	bool IsCollision(Sphere* sphere);
 
 	std::vector<std::unique_ptr<Triangle>>& GetFace() { return m_faces; }
-	Triangle* GetHitFace() { return m_hitFace; }
+	const std::vector<Triangle*>& GetHitFace() { return m_hitFace; }
+
+	void SetScale(float scale) {
+		m_scale = scale;
+	}
+
+	void SetHitFace(Triangle* face)
+	{
+		m_hitFace.emplace_back(face);
+	}
+	void ClearHitFace()
+	{
+		m_hitFace.clear();
+	}
 
 	void ResolveCol(Ball* ball);
 	void Rotate(DirectX::SimpleMath::Matrix rotate);

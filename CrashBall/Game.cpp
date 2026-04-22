@@ -11,8 +11,9 @@
 #include "Game/ResourceManager/ResourceManager.h"
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/Scene/GameScene.h"
-#include "Game/Renderer/PrimitveRenderer.h"
-#include <Game/Common/InputSystem.h>
+#include "Game/Renderer/PrimitveRendererManager.h"
+#include "Game/Renderer/ModelRendererManager.h"
+#include "Game/Common/InputSystem.h"
 
 extern void ExitGame() noexcept;
 
@@ -44,7 +45,7 @@ void Game::Initialize(HWND window, int width, int height)
     // モデルの登録
     ModelManager* modelManager = resourceManager().GetModelManager();
     modelManager->RegisterModel("ball", L"Resources/Models/Ball2.sdkmesh");
-    modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
+    modelManager->RegisterModel("Stage", L"Resources/Models/Stage2.sdkmesh");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
@@ -98,7 +99,6 @@ void Game::Update(DX::StepTimer const& timer)
     InputSystem::Instance().Update();
 
     m_sceneManager->Update(elapsedTime);
-
 }
 #pragma endregion
 
@@ -120,7 +120,18 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
+    auto& modelRendererManager = ModelRendererManager::Instance();
+    auto& primitiveRendererManager = PrimitiveRendererManager::Instance();
+
+    modelRendererManager.ClearCommandList();
+    primitiveRendererManager.ClearCommandList();
+
     m_sceneManager->Draw();
+
+
+    modelRendererManager.Draw(m_sceneManager->GetCamera());
+
+    primitiveRendererManager.Draw(m_sceneManager->GetCamera());
 
     m_deviceResources->PIXEndEvent();
 
@@ -226,10 +237,10 @@ void Game::CreateDeviceDependentResources()
     // 射影行列の定義
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
         XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
-        0.01f, 100.0f
+        0.01f, 150.0f
     );
 
-    PrimitiveManager::Instance().CreateResource(device, context, m_proj);
+    PrimitiveRendererManager::Instance().CreateResource(device, context, m_proj);
 
     // リソース作成
     m_sceneManager->CreateResources(m_proj);

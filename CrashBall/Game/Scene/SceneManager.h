@@ -1,6 +1,7 @@
 #pragma once
 
 class Scene;
+class Camera;
 
 class SceneManager{
 private:
@@ -38,6 +39,8 @@ public:
 
 	// シーン変更のリクエスト
 	void RequestScene(std::string nextScene);
+
+	Camera* GetCamera();
 
 
 private:

@@ -1,6 +1,6 @@
 /*****************************************************************//**
- * \file   GameScene.h
- * \brief  ゲームシーンに関するヘッダーファイル
+ * \file   ModelRendererManager.h
+ * \brief  モデル描画管理クラスに関するヘッダーファイル
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -10,19 +10,25 @@
 #pragma once
 
 // ヘッダファイルの読み込み ===================================================
-#include "Scene.h"
-#include "Game/GameObject/Ball.h"
-#include "Game/GameObject/Floor.h"
 #include "Game/Common/Camera.h"
-//
+
 // クラスの前方宣言 ===================================================
 
+
+// 構造体の宣言 ===================================================
+
+// 描画命令の登録用
+struct ModelDrawCommand
+{
+	DirectX::Model* pModel;				// モデルのポインタ
+	DirectX::SimpleMath::Matrix world;	// ワールド行列
+};
 
 // クラスの定義 ===============================================================
 /**
  * @brief 基底オブジェクト
  */
-class  GameScene : public Scene{
+class  ModelRendererManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -30,40 +36,38 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<MeshFloor> m_meshFloor;		// ステージ
-	std::unique_ptr<Ball> m_ball;				// ボール
+	std::vector<ModelDrawCommand> m_drawCommandList;
 
-	std::vector<Triangle*> m_hitFaces;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-public:
+private:
 
 	// コンストラクタ
-	GameScene(SceneManager* pSceneManager);
+	ModelRendererManager() = default;
+	ModelRendererManager(ModelRendererManager&) = delete;
+	ModelRendererManager& operator= (const ModelRendererManager&) = delete;
 
 	// デストラクタ
-	~GameScene();
+	~ModelRendererManager() = default;
 
 	// 操作
 public:
 
-	// 初期化
-	void Initialize() override;
+	// インスタンスの取得
+	static ModelRendererManager& Instance() {
+		static ModelRendererManager instance;
+		return instance;
+	}
 
-	// 更新
-	void Update(float elapsedTime) override;
+	// 描画命令の登録
+	void RegisterDrawCommand(const ModelDrawCommand& drawCommand);
+
+	// 描画命令のクリア
+	void ClearCommandList();
 
 	// 描画
-	void Draw() override;
-
-	// 終了
-	void Finalize() override;
-
-	// リソース作成
-	void CreateResources(DirectX::SimpleMath::Matrix projMat) override;
-
-	void SetModel() override;
+	void Draw(Camera* camera);
 
 
 	// 取得/設定

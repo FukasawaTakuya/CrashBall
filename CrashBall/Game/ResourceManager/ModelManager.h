@@ -1,14 +1,20 @@
+/*****************************************************************//**
+ * \file   ModelManager.h
+ * \brief  モデル管理クラスに関するヘッダーファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 // 多重インクルードの防止 =====================================================
 #pragma once
-
-
-
+#include "Game/Common/Camera.h"
 
 // ヘッダファイルの読み込み ===================================================
 
 // クラスの前方宣言 ===================================================
 
-
+// 構造体の宣言 ===================================================
 
 // クラスの定義 ===============================================================
 /**
@@ -23,8 +29,11 @@ public:
 private:
 
 	// エイリアス宣言
-	using FileCollection = std::unordered_map<std::string, const wchar_t*>;
-	using ModelCollection = std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
+	using FileCollection 
+		= std::unordered_map<std::string, const wchar_t*>;
+
+	using ModelCollection 
+		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
 
 	FileCollection	m_factory;	// モデルファクトリー
 	ModelCollection	m_models;	// モデル用のコンテナ

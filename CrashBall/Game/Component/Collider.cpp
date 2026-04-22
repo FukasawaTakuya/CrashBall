@@ -145,7 +145,7 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 			float x, y, z;
 			iss >> x >> y >> z;
 			z *= -1;
-			vertex.emplace_back(x, y, z);
+			vertex.emplace_back(x * m_scale , y * m_scale, z * m_scale);
 		}
 		else if (type == "f") {
 			std::vector<int> index;
@@ -181,39 +181,27 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 
 	ifs.close();
 
-	for (auto& face : m_faces) {
-		for (int i = 0; i < 3; i++) {
-			OutputDebugString(L"x:%f y:%f z:%f\n", 
-				face.get()->GetPoint()[i].x, face.get()->GetPoint()[i].y, face.get()->GetPoint()[i].z);
-		}
-		OutputDebugString(L"\n");
-	}
-
-	OutputDebugString(L"%d\n", m_faces.size());
-
 	return true;
 }
 
 bool Mesh::IsCollision(Sphere* sphere)
 {
-	m_hitFace = nullptr;
-
-	OutputDebugString(L"r:%f\n", sphere->GetRadius());
+	m_hitFace.clear();
 
 	for (auto& face : m_faces) {
 		if (Collision::IsCollision(sphere, face.get())) {
-			m_hitFace = face.get();
-			return true;
+			m_hitFace.emplace_back(face.get());
 		}
 	}
-	return false;
+	return !m_hitFace.empty();
 }
 
 void Mesh::ResolveCol(Ball* ball)
 {
-	if (m_hitFace == nullptr) return;
-
-	Collision::ResolveCollision(ball, m_hitFace->GetPlane());
+	for (auto hitFace : m_hitFace)
+	{
+		Collision::ResolveCollision(ball, hitFace->GetPlane());
+	}
 }
 
 void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)

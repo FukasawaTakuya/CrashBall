@@ -8,6 +8,4 @@ void InputSystem::Update() {
 
 	m_mouseTracker->Update(mouse);
 	m_keyboardTracker->Update(keyboard);
-
-	//OutputDebugString(L"%d\n", sizeof(mouse));
 }

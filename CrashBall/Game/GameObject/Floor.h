@@ -1,11 +1,11 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
 // ヘッダファイルの読み込み ===================================================
+#include "GameObject.h"
 #include "Game/Component/Collider.h"
+#include "Game/Component/ModelRenderer.h"
+#include "Game/Component/Transform.h"
 
 // クラスの前方宣言 ===================================================
 
@@ -15,18 +15,19 @@
 /**
  * @brief 基底オブジェクト
  */
-class  MeshFloor {
+class  MeshFloor : GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
+	const float SCALE = 10.0f;
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel;					// モデル
-	DirectX::SimpleMath::Matrix m_rotate;		// 回転
-
-	std::unique_ptr<Mesh> m_mesh;
+	Transform*		m_transform = nullptr;
+	Mesh*			m_collider	= nullptr;
+	ModelRenderer*	m_renderer	= nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -44,19 +45,18 @@ public:
 
 	void Update(float elapsedTime);
 
-	void Draw(DirectX::SimpleMath::Matrix proj, DirectX::SimpleMath::Matrix view);
+	void Draw();
 
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
-
-	void SetModel(DirectX::Model* pModel) { 
-		m_pModel = pModel; 
-	}
-
 
 	// 取得/設定
 public:
 
-	Mesh* GetMesh() { return m_mesh.get(); }
+	Mesh* GetMesh() { return m_collider; }
+
+	void SetModel(DirectX::Model* pModel) {
+		m_renderer->SetModel(pModel);
+	}
 
 	// 内部実装
 private:

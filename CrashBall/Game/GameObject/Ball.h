@@ -2,13 +2,12 @@
 #pragma once
 
 
-
-
 // ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
 #include "Game/Component/Collider.h"
 #include "Game/Component/RigitBody.h"
 #include "Game/Component/Transform.h"
+#include "Game/Component/ModelRenderer.h"
 
 // クラスの前方宣言 ===================================================
 
@@ -29,15 +28,14 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;						// モデル
-
-	DirectX::SimpleMath::Quaternion m_rotateValue;	// クオータニオン rotatevalue
+	DirectX::SimpleMath::Quaternion m_rotateValue;	// 回転値
 
 	bool m_isGround;
 
-	RigitBody* m_rigitbody;
-	Transform* m_transform;
-	Sphere* m_collider;
+	RigitBody*		m_rigitbody = nullptr;
+	Transform*		m_transform = nullptr;
+	Sphere*			m_collider	= nullptr;
+	ModelRenderer*	m_renderer	= nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -56,9 +54,7 @@ public:
 
 	void Update(float elapsedTime);
 
-	void Draw(DirectX::SimpleMath::Matrix proj, DirectX::SimpleMath::Matrix view);
-
-	void Accelarate(DirectX::SimpleMath::Vector3 accel);
+	void Draw();
 
 	// 移動
 	void Move();
@@ -70,7 +66,7 @@ public:
 
 	bool GetIsGround() { return m_isGround; }
 
-	void SetModel(DirectX::Model* pModel) { m_pModel = pModel; }
+	void SetModel(DirectX::Model* pModel) { m_renderer->SetModel(pModel); }
 
 	void SetIsGround(bool flag) { m_isGround = flag; }
 

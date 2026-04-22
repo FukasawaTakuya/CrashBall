@@ -191,12 +191,20 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Collider.h" />
     <ClInclude Include="Game\Component\Component.h" />
+    <ClInclude Include="Game\Component\ModelRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\RigitBody.h" />
     <ClInclude Include="Game\Component\Transform.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
     <ClInclude Include="Game\GameObject\Floor.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
-    <ClInclude Include="Game\Renderer\PrimitveRenderer.h" />
+    <ClInclude Include="Game\Renderer\ModelRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Renderer\PrimitveRendererManager.h" />
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Game\Scene\GameScene.h" />
@@ -213,12 +221,14 @@
     <ClCompile Include="Game\Common\CommonResources.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Component\Collider.cpp" />
+    <ClCompile Include="Game\Component\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\RigitBody.cpp" />
     <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Floor.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
-    <ClCompile Include="Game\Renderer\PrimitveRenderer.cpp" />
+    <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
+    <ClCompile Include="Game\Renderer\PrimitveRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />

@@ -1,12 +1,17 @@
 #pragma once
-#include "SceneManager.h"
 #include <string>
+
+#include "SceneManager.h"
+#include "Game/Common/Camera.h"
 
 class Scene {
 
 protected:
 
 	SceneManager* m_pSceneManager;
+
+	std::unique_ptr<Camera> m_camera;	// カメラ
+
 
 public:
 
@@ -25,6 +30,9 @@ public:
 	virtual void CreateResources(DirectX::SimpleMath::Matrix projMat) = 0;
 
 	virtual void SetModel() = 0;
+
+	Camera* GetCamera() { return m_camera.get(); }
+
 
 protected:
 	void ChangeScene(std::string nextScene);

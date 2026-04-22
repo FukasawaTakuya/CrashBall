@@ -1,5 +1,14 @@
+/*****************************************************************//**
+ * \file   ModelManager.cpp
+ * \brief  モデル管理クラスに関するソースファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "ModelManager.h"
+#include "Game/Common/CommonResources.h"
 
 using namespace DirectX;
 

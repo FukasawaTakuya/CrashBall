@@ -3,6 +3,7 @@
 
 Scene::Scene(SceneManager* pSceneManager)
 	: m_pSceneManager{ pSceneManager }
+	, m_camera{ std::make_unique<Camera>() }
 {
 }
 

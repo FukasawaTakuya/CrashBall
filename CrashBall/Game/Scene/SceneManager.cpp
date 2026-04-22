@@ -65,6 +65,11 @@ void SceneManager::RequestScene(std::string nextScene)
 	m_pRequestScene = m_scenes[nextScene].get();
 }
 
+Camera* SceneManager::GetCamera()
+{
+	return m_pCurrentScene->GetCamera();
+}
+
 // ƒV[ƒ“•ÏX
 void SceneManager::ChangeScene()
 {

@@ -1,11 +1,15 @@
+/*****************************************************************//**
+ * \file   GameObject.h
+ * \brief  基底オブジェクトに関するヘッダーファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
 // ヘッダファイルの読み込み ===================================================
-#include "pch.h"
 #include "Game/Component/Component.h"
 
 // クラスの前方宣言 ===================================================
@@ -44,11 +48,14 @@ public:
 
 	// コンポーネントの追加
 	template<typename CompType, typename... Args>
-	void AddComponent(Args&&... args)
+	CompType* AddComponent(Args&&... args)
 	{
 		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
 		comp->SetOwner(this);
+
+		CompType* pComp = comp.get();
 		m_components.emplace_back(std::move(comp));
+		return pComp;
 	}
 
 	template<typename CompType>

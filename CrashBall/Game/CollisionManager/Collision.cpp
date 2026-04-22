@@ -15,9 +15,6 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 	// 球と平面の距離を求める
 	float distance = plane->CalcLength(sphere->GetPos());
 
-	//OutputDebugString(L"x:%f y:%f z:%f\n", sphere->GetPos().x, sphere->GetPos().y, sphere->GetPos().z);
-	//OutputDebugString(L"dis:%f  r:%f\n", distance, sphere->GetRadius());
-
 	// 距離が球の半径より小さければture
 	bool r = (distance < 0.5f);
 
@@ -55,8 +52,8 @@ bool Collision::IsCollision(
 	Segment* segment, 
 	DirectX::SimpleMath::Vector3 intersection) 
 { 
-	if ((intersection - segment->GetPos()).Length() <= 
-		segment->GetLength()) { 
+	if ((intersection - segment->GetPos()).Length() <= segment->GetLength() &&
+		(intersection - (segment->GetPos() + segment->GetVec())).Length() <= segment->GetLength()) {
 		return true; 
 	}
 	else return false; 
@@ -154,7 +151,6 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	// 各辺と球の衝突判定
 	//for (auto seg : segments) {
 	//	if (IsCollision(&seg, sphere)) {
-	//		OutputDebugString(L"call\n");
 	//		return true;
 	//	}
 	//}
@@ -171,7 +167,14 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 
 bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 {
-	return false;
+	mesh->ClearHitFace();
+
+	for (auto& face : mesh->GetFace()) {
+		if (Collision::IsCollision(sphere, face.get())) {
+			mesh->SetHitFace(face.get());
+		}
+	}
+	return !mesh->GetHitFace().empty();
 }
 
 
@@ -204,6 +207,21 @@ void Collision::ResolveCollision(Ball* ball, Plane* plan)
 	SimpleMath::Vector3 vt = rigidbody->GetVelocity() - vn;
 
 	rigidbody->SetVelocity(vt);
+}
+
+/**
+ * \brief	球とメッシュの衝突解決.
+ * 
+ * \param	ball
+ * \param	mesh
+ */
+void Collision::ResolveCollision(Ball* ball, Mesh* mesh)
+{
+	for (auto hitFace : mesh->GetHitFace())
+	{
+		Collision::ResolveCollision(ball, hitFace->GetPlane());
+	}
+
 }
 
 /**

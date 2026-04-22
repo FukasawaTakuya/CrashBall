@@ -90,11 +90,17 @@
     <ClInclude Include="Game\Common\InputSystem.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\PrimitveRenderer.h">
+    <ClInclude Include="Game\Renderer\PrimitveRendererManager.h">
       <Filter>Game\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\TimeManager.h">
       <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ModelRenderer.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Renderer\ModelRendererManager.h">
+      <Filter>Game\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,8 +155,14 @@
     <ClCompile Include="Game\Common\InputSystem.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Renderer\PrimitveRenderer.cpp">
+    <ClCompile Include="Game\Renderer\PrimitveRendererManager.cpp">
       <Filter>Game\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Renderer\ModelRendererManager.cpp">
+      <Filter>Game\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\ModelRenderer.cpp">
+      <Filter>Game\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

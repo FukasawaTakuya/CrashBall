@@ -22,11 +22,15 @@ namespace Collision {
 	// 球と三角形の衝突判定
 	bool IsCollision(Sphere* sphere, Triangle* triangle);
 
+	// 球とメッシュの衝突判定
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
 
 
 	// 球と平面の衝突解決
 	void ResolveCollision(Ball* ball, Plane* plan);
+
+	// 球とメッシュの衝突解決
+	void ResolveCollision(Ball* ball, Mesh* mesh);
 }
 
 

@@ -13,9 +13,9 @@
 using namespace DirectX;
 
 /**
- * \brief	コンストラクタ.
+ * \brief コンストラクタ.
  * 
- * \param	摩擦係数
+ * \param 摩擦係数
  */
 RigitBody::RigitBody(float gravity, float friction)
 	: m_gravity{ gravity }
@@ -24,7 +24,7 @@ RigitBody::RigitBody(float gravity, float friction)
 }
 
 /**
- * \brief	デストラクタ.
+ * \brief デストラクタ.
  * 
  */
 RigitBody::~RigitBody()
@@ -32,9 +32,9 @@ RigitBody::~RigitBody()
 }
 
 /**
- * \brief	加速.
+ * \brief 加速.
  * 
- * \param	加速度
+ * \param 加速度
  */
 void RigitBody::Accel(DirectX::SimpleMath::Vector3 accel)
 {
@@ -47,7 +47,7 @@ void RigitBody::ApplyAccel()
 }
 
 /**
- * \brief	重力の適用.
+ * \brief 重力の適用.
  * 
  */
 void RigitBody::ApplyGravity()
@@ -56,7 +56,7 @@ void RigitBody::ApplyGravity()
 }
 
 /**
- * \brief	摩擦の適用.
+ * \brief 摩擦の適用.
  * 
  */
 void RigitBody::ApplyFriction()

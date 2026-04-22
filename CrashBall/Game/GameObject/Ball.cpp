@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Ball.h"
-
-#include "Game/Common/CommonResources.h"
 #include "Game/Common/TimeManager.h"
 
 using namespace DirectX;
@@ -9,13 +7,11 @@ using namespace DirectX;
 Ball::Ball(SimpleMath::Vector3 pos, float radius)
 	: m_isGround{false}
 {
-	AddComponent<Transform>();
-	AddComponent<RigitBody>(GRAVITY, FRICTION);
-	AddComponent<Sphere>(0.5f);
-
-	m_transform = GetComponent<Transform>();
-	m_rigitbody = GetComponent<RigitBody>();
-	m_collider	= GetComponent<Sphere>();
+	// コンポーネントの追加
+	m_transform = AddComponent<Transform>();
+	m_rigitbody = AddComponent<RigitBody>(GRAVITY, FRICTION);
+	m_collider	= AddComponent<Sphere>(0.5f);
+	m_renderer	= AddComponent<ModelRenderer>();
 
 	m_transform->SetPosition(pos);
 	m_rigitbody->SetVelocity(SimpleMath::Vector3::Zero);
@@ -29,30 +25,28 @@ void Ball::Update(float elapsedTime)
 {
 }
 
-void Ball::Draw(SimpleMath::Matrix proj, SimpleMath::Matrix view)
+void Ball::Draw()
 {
-	auto context = CommonResources::Instance().GetContext();
-	auto state = CommonResources::Instance().GetState();
-
+	// クオータニオンを回転させる
 	m_transform->RotateQuaternion(m_rotateValue);
 
+	// 拡大行列
 	SimpleMath::Matrix scale 
 		= SimpleMath::Matrix::CreateScale(0.025f);
+	// 回転行列
 	SimpleMath::Matrix rotate 
 		= SimpleMath::Matrix::CreateFromQuaternion(m_transform->GetQuaternion());
+	// 移動行列
 	SimpleMath::Matrix trans 
 		= SimpleMath::Matrix::CreateTranslation(m_transform->GetPosition());
 
-	SimpleMath::Matrix world
-		= scale * rotate * trans;
+	// ワールド行列
+	SimpleMath::Matrix world = scale * rotate * trans;
 
-	m_pModel->Draw(context, *state, world, view, proj);
+	// 描画
+	m_renderer->Draw(world);
 }
 
-void Ball::Accelarate(DirectX::SimpleMath::Vector3 accel)
-{
-	m_rigitbody->Accel(accel);
-}
 
 void Ball::Move()
 {
@@ -88,7 +82,7 @@ void Ball::Rotate()
 	// 回転量を求める
 	float forwardAngle = velocity.Length() * TimeManager::Instance().GetElapsedTime() / m_collider->GetRadius();
 
-	// クオータニオンを求める
+	// 回転値を求める
 	m_rotateValue = SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
 
 }

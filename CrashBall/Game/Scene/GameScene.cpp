@@ -10,12 +10,10 @@
 
 #include "pch.h"
 #include "GameScene.h"
-#include "Game/Common/CommonResources.h"
 #include "Game/Common/InputSystem.h"
-#include "Game/Common/TimeManager.h"
 #include "Game/CollisionManager/Collision.h"
 #include "Game/ResourceManager/ResourceManager.h"
-#include "Game/Renderer/PrimitveRenderer.h"
+#include "Game/Renderer/PrimitveRendererManager.h"
 
 // メンバ関数の定義 ===========================================================
 
@@ -30,7 +28,6 @@ GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(m_pSceneManager)
     , m_meshFloor{ std::make_unique<MeshFloor>()                               }
     , m_ball    { std::make_unique<Ball>(SimpleMath::Vector3::Up * 24.0f, 0.5f) }
-    , m_camera  { std::make_unique<Camera>() }                              
 {
 }
 
@@ -51,8 +48,6 @@ void GameScene::Initialize()
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
 }
 
-bool isDraw = true;
-
 void GameScene::Update(float elapsedTime)
 {
     auto key = Keyboard::Get().GetState();
@@ -61,29 +56,10 @@ void GameScene::Update(float elapsedTime)
     Transform* ballTransform = m_ball->GetComponent<Transform>();
     RigitBody* ballRigitbody = m_ball->GetComponent<RigitBody>();
 
-    // マウス操作---------------------------------------------------------------------------
-
-    SimpleMath::Vector2 mousePos
-        = InputSystem::Instance().GetMousePos();
-
-    m_mousePrevPos = mousePos;
-
-    // 平面の回転-----------------------------------------------------------------
-
-    if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::Enter))
-        isDraw = !isDraw;
-
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
-
         ballTransform->SetPosition(SimpleMath::Vector3::Up * 24.0f);
-        OutputDebugString(L"velo:%f\n", ballRigitbody->GetVelocity().y);
         ballRigitbody->SetVelocity(SimpleMath::Vector3::Up);
-        OutputDebugString(L"pos:%f\n", ballTransform->GetPosition().y);
-        
-
-        //m_ball->Initialize();
-
-        
+        m_hitFaces.clear();
     }
 
     ballRigitbody->ResetAccel();
@@ -104,21 +80,19 @@ void GameScene::Update(float elapsedTime)
         }
         if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::Space))
         {
-            ballRigitbody->AddVelocity(SimpleMath::Vector3::Up * 14.8f);
+            ballRigitbody->AddVelocity(m_camera->GetForward() * 35.8f);
         }
     }
 
-    //OutputDebugString(L"velo:%f\n", ballRigitbody->GetVelocity().y);
-    //OutputDebugString(L"%F\n", elapsedTime);
     m_ball->Move();
 
      // メッシュと球の衝突判定
-    if (m_meshFloor->GetMesh()->IsCollision(m_ball->GetComponent<Sphere>()))
+    if (Collision::IsCollision(m_ball->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
     {
         m_ball->SetIsGround(true);
 
         // 衝突の解決
-        m_meshFloor->GetMesh()->ResolveCol(m_ball.get());
+        Collision::ResolveCollision(m_ball.get(), m_meshFloor->GetMesh());
         // 摩擦の適用
         ballRigitbody->ApplyFriction();
 
@@ -148,54 +122,80 @@ void GameScene::Update(float elapsedTime)
     m_camera->FollowCamera(ballTransform->GetPosition());
 }
 
+
+/**
+ * \brief 描画.
+ * 
+ */
 void GameScene::Draw()
 {
-    m_ball->Draw(m_camera->GetProjMat(), m_camera->GetViewMat());
-    m_meshFloor->Draw(m_camera->GetProjMat(), m_camera->GetViewMat());
-
-    auto primitiveManager = PrimitiveManager::Instance;
-    primitiveManager().ApplyEffect(m_camera.get());
-
-    auto primitiveBatch = primitiveManager().GetPrimitiveBatch();
-    primitiveBatch->Begin();
+    m_ball->Draw();
+    //m_meshFloor->Draw();
 
 
-    if (isDraw) {
-        for (auto& face : m_meshFloor.get()->GetMesh()->GetFace())
-        {
-            VertexPositionColor pos{ face->GetCenter(), Colors::Green };
-            VertexPositionColor vec{ face->GetCenter() + face->GetPlane()->GetNormal(), Colors::Red };
-            //primitiveBatch->DrawLine(pos, vec);
+    auto primitiveRenderer = PrimitiveRendererManager::Instance;
 
-            VertexPositionColor pos1{ face->GetPoint()[0], Colors::Red };
-            VertexPositionColor pos2{ face->GetPoint()[1], Colors::Red };
-            VertexPositionColor pos3{ face->GetPoint()[2], Colors::Red };
-            primitiveBatch->DrawLine(pos1, pos2);
-            primitiveBatch->DrawLine(pos1, pos3);
-            primitiveBatch->DrawLine(pos3, pos2);
-        }
+    for (auto& face : m_meshFloor.get()->GetMesh()->GetFace())
+    {
+        std::vector<DirectX::VertexPositionColor> pos;
+        pos.emplace_back(face->GetPoint()[0], Colors::Black);
+        pos.emplace_back(face->GetPoint()[1], Colors::Black);
+        pos.emplace_back(face->GetPoint()[2], Colors::Black);
 
-        auto face = m_meshFloor->GetMesh()->GetHitFace();
-        if (face != nullptr) {
-            VertexPositionColor pos1{ face->GetPoint()[0], Colors::Blue };
-            VertexPositionColor pos2{ face->GetPoint()[1], Colors::Blue };
-            VertexPositionColor pos3{ face->GetPoint()[2], Colors::Blue };
-            //primitiveBatch->DrawTriangle(pos1, pos2, pos3);
-        }
+        primitiveRenderer().RegisterDrawCommand({
+            D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP,
+            pos, 3
+            });
+        
+        pos[0].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
+        pos[1].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
+        pos[2].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
 
+        primitiveRenderer().RegisterDrawCommand({
+            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+            pos, 3
+            });
     }
-    primitiveBatch->End();
 
+    auto& hitFace = m_meshFloor->GetMesh()->GetHitFace();
+    if (!hitFace.empty()) {
+        for (auto& face : hitFace)
+        {
+            for (auto& hitFaces : m_hitFaces)
+            {
+                if (face == hitFaces) break;
+            }
+            m_hitFaces.emplace_back(face);
+        }
+    }
+
+    for (auto& face : m_hitFaces)
+    {
+        std::vector<DirectX::VertexPositionColor> pos;
+        pos.emplace_back(face->GetPoint()[0], Colors::Blue);
+        pos.emplace_back(face->GetPoint()[1], Colors::Blue);
+        pos.emplace_back(face->GetPoint()[2], Colors::Blue);
+
+        primitiveRenderer().RegisterDrawCommand({
+            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+            pos, 3
+            });
+    }
 }
+
 
 void GameScene::Finalize()
 {
 }
 
+/**
+ * \brief リソースの作成.
+ * 
+ * \param projMat 射影行列
+ */
 void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
 {
     auto modelManager = ResourceManager::Instance().GetModelManager();
-
 
     m_ball->SetModel(modelManager->GetModel("ball")); 
 
@@ -206,7 +206,6 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
     DirectX::SimpleMath::Vector3 v3{ 10.0f, 0.0f, -10.0f };
 
     m_camera->Initialize(projMat);
-
 }
 
 void GameScene::SetModel()
