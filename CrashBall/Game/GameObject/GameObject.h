@@ -58,6 +58,7 @@ public:
 		return pComp;
 	}
 
+	// コンポーネントの取得
 	template<typename CompType>
 	CompType* GetComponent()
 	{

@@ -2,7 +2,7 @@
  * \file   ModelRenderer.cpp
  * \brief  モデル描画クラスに関するソースファイル
  * 
- * \author it252184
+ * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
 
@@ -33,6 +33,13 @@ ModelRenderer::~ModelRenderer()
  */
 void ModelRenderer::Draw(const DirectX::SimpleMath::Matrix& world)
 {
+	m_pModel->UpdateEffects([&](IEffect* pEffect)
+		{
+			BasicEffect* pBasicEffect = dynamic_cast<BasicEffect*>(pEffect);
+            pBasicEffect->SetLightingEnabled(true);
+		});
+
+
 	auto& modelManager = ModelRendererManager::Instance();
 
 	modelManager.RegisterDrawCommand({ m_pModel, world });

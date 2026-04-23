@@ -5,15 +5,14 @@
 #include "pch.h"
 #include "Game.h"
 
-
+#include "Game/Scene/GameScene.h"
+#include "Game/Common/InputSystem.h"
 #include "Game/Common/CommonResources.h"
 #include "Game/Common/TimeManager.h"
 #include "Game/ResourceManager/ResourceManager.h"
 #include "Game/ResourceManager/ModelManager.h"
-#include "Game/Scene/GameScene.h"
 #include "Game/Renderer/PrimitveRendererManager.h"
 #include "Game/Renderer/ModelRendererManager.h"
-#include "Game/Common/InputSystem.h"
 
 extern void ExitGame() noexcept;
 
@@ -56,7 +55,6 @@ void Game::Initialize(HWND window, int width, int height)
     // 初期シーンをセット
     m_sceneManager->SetStartScene();
 
-
     CreateDeviceDependentResources();
     CreateWindowSizeDependentResources();
 
@@ -95,6 +93,7 @@ void Game::Update(DX::StepTimer const& timer)
     // TODO: Add your game logic here.
     elapsedTime;
 
+    // 
     TimeManager::Instance().SetElapsedTime(elapsedTime);
     InputSystem::Instance().Update();
 
@@ -123,14 +122,14 @@ void Game::Render()
     auto& modelRendererManager = ModelRendererManager::Instance();
     auto& primitiveRendererManager = PrimitiveRendererManager::Instance();
 
+    // 描画命令のクリア
     modelRendererManager.ClearCommandList();
     primitiveRendererManager.ClearCommandList();
 
     m_sceneManager->Draw();
 
-
+    // 描画
     modelRendererManager.Draw(m_sceneManager->GetCamera());
-
     primitiveRendererManager.Draw(m_sceneManager->GetCamera());
 
     m_deviceResources->PIXEndEvent();

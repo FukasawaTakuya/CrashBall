@@ -168,7 +168,6 @@ private:
 
 	float m_scale = 1.0f;
 
-	// TODO:ƒRƒ“ƒeƒi‚É‚·‚é
 	std::vector<Triangle*> m_hitFace;
 
 public:

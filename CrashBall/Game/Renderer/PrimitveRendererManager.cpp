@@ -2,7 +2,7 @@
  * \file   PrimitveRendererManager.cpp
  * \brief  プリミティブ描画管理クラスに関するソースファイル
  * 
- * \author it252184
+ * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
 
@@ -26,7 +26,7 @@ void PrimitiveRendererManager::CreateResource(
 )
 {
     // プリミティブバッチの作成
-    m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionColor>>(context);
+    m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionNormalColor>>(context);
     // ベーシックエフェクトの作成
     m_basicEffect = std::make_unique<BasicEffect>(device);
 
@@ -34,12 +34,16 @@ void PrimitiveRendererManager::CreateResource(
     m_basicEffect->SetProjection(projMat);
     m_basicEffect->SetVertexColorEnabled(true);
 
+    m_basicEffect->SetLightingEnabled(true);
+
     // 入力レイアウトの設定
     DX::ThrowIfFailed(
-        CreateInputLayoutFromEffect<VertexPositionColor>(
+        CreateInputLayoutFromEffect<VertexPositionNormalColor>(
             device,
             m_basicEffect.get(),
             m_inputLayout.ReleaseAndGetAddressOf()));
+
+    m_basicEffect->SetPerPixelLighting(true);
 }
 
 /**
@@ -47,7 +51,7 @@ void PrimitiveRendererManager::CreateResource(
  * 
  * \param drawCommand 描画命令
  */
-void PrimitiveRendererManager::RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand)
+void PrimitiveRendererManager::RegisterDrawCommand(PrimitiveDrawCommand drawCommand)
 {
     m_drawCommand.emplace_back(drawCommand);
 }
@@ -71,15 +75,15 @@ void PrimitiveRendererManager::Draw(Camera* pCamera)
     auto context = CommonResources::Instance().GetContext();
     auto state = CommonResources::Instance().GetState();
 
-    // ブレンドステートの設定（不透明）
-    context->OMSetBlendState(state->AlphaBlend(), nullptr, 0xFFFFFFFF);
-    // 深度バッファの設定（通常）
+    // ブレンドステートの設定
+    context->OMSetBlendState(state->Opaque(), nullptr, 0xFFFFFFFF);
+    // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
-    // カリングの設定（カリングなし）
+    // カリングの設定
     context->RSSetState(state->CullClockwise());
 
     // ビュー行列のセット
-    m_basicEffect->SetView(camera->GetViewMat());
+    m_basicEffect->SetView(pCamera->GetViewMat());
     // ワールド行列のセット
     m_basicEffect->SetWorld(SimpleMath::Matrix::Identity);
 
@@ -94,10 +98,12 @@ void PrimitiveRendererManager::Draw(Camera* pCamera)
     // 描画命令の実行
     for (auto& drawCommand : m_drawCommand)
     {
+        if (drawCommand.vertices.empty()) continue;
+
         m_primitiveBatch->Draw(
             drawCommand.topology,
             drawCommand.vertices.data(),
-            drawCommand.vertexCount
+            drawCommand.vertices.size()
         );
     }
 

@@ -130,55 +130,44 @@ void GameScene::Update(float elapsedTime)
 void GameScene::Draw()
 {
     m_ball->Draw();
-    //m_meshFloor->Draw();
+    m_meshFloor->Draw();
 
 
     auto primitiveRenderer = PrimitiveRendererManager::Instance;
-
-    for (auto& face : m_meshFloor.get()->GetMesh()->GetFace())
-    {
-        std::vector<DirectX::VertexPositionColor> pos;
-        pos.emplace_back(face->GetPoint()[0], Colors::Black);
-        pos.emplace_back(face->GetPoint()[1], Colors::Black);
-        pos.emplace_back(face->GetPoint()[2], Colors::Black);
-
-        primitiveRenderer().RegisterDrawCommand({
-            D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP,
-            pos, 3
-            });
-        
-        pos[0].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
-        pos[1].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
-        pos[2].color = SimpleMath::Vector4{0.9f, 0.9f, 0.9f, 0.95f};
-
-        primitiveRenderer().RegisterDrawCommand({
-            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-            pos, 3
-            });
-    }
 
     auto& hitFace = m_meshFloor->GetMesh()->GetHitFace();
     if (!hitFace.empty()) {
         for (auto& face : hitFace)
         {
+            bool isPush = true;
             for (auto& hitFaces : m_hitFaces)
             {
-                if (face == hitFaces) break;
+                if (face == hitFaces)
+                {
+                    isPush = false;
+                    break;
+                }
             }
-            m_hitFaces.emplace_back(face);
+            if(isPush) m_hitFaces.emplace_back(face);
         }
     }
 
+    OutputDebugString(L"%d\n", m_hitFaces.size());
+
     for (auto& face : m_hitFaces)
     {
-        std::vector<DirectX::VertexPositionColor> pos;
-        pos.emplace_back(face->GetPoint()[0], Colors::Blue);
-        pos.emplace_back(face->GetPoint()[1], Colors::Blue);
-        pos.emplace_back(face->GetPoint()[2], Colors::Blue);
+
+        SimpleMath::Vector3 normal = face->GetPlane()->GetNormal();
+        assert(normal.Length() > 0.0f);
+
+        std::vector<VertexPositionNormalColor> pos;
+
+        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal,  Colors::Blue);
+        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal,  Colors::Blue);
+        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal,  Colors::Blue);
 
         primitiveRenderer().RegisterDrawCommand({
-            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-            pos, 3
+            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, pos
             });
     }
 }

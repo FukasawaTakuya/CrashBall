@@ -9,18 +9,14 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
 // ヘッダファイルの読み込み ===================================================
 
 // クラスの前方宣言 ===================================================
 
 
-
 // クラスの定義 ===============================================================
 /**
- * @brief 基底オブジェクト
+ * @brief カメラクラス
  */
 class  Camera {
 
@@ -31,7 +27,7 @@ public:
 
 	static constexpr int HEIGHT = 720;
 
-	static constexpr DirectX::SimpleMath::Vector3 OFFSET = { 0.0f, 8.0f, 10.0f };
+	static constexpr DirectX::SimpleMath::Vector3 OFFSET = { 0.0f, 8.0f, 10.0f };	// オフセット
 
 	static constexpr float ROTATE_LIMIT = 70.0f;			// 回転の限界値
 
@@ -48,7 +44,7 @@ private:
 	DirectX::SimpleMath::Matrix  m_viewMat;			// ビュー行列
 	DirectX::SimpleMath::Vector3 m_offset;			// オフセット
 	
-	float m_zoomRate = 1.0f;								// 拡大倍率
+	float m_zoomRate = 1.0f;						// 拡大倍率
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

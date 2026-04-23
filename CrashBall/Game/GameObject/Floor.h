@@ -10,6 +10,11 @@
 // クラスの前方宣言 ===================================================
 
 
+struct HitFloorInfo
+{
+	Triangle* face;
+
+};
 
 // クラスの定義 ===============================================================
 /**
@@ -28,6 +33,8 @@ private:
 	Transform*		m_transform = nullptr;
 	Mesh*			m_collider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
+
+	
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -48,6 +55,7 @@ public:
 	void Draw();
 
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
+
 
 	// 取得/設定
 public:

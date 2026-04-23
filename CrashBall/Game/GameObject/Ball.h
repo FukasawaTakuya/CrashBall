@@ -1,6 +1,13 @@
+/*****************************************************************//**
+ * \file   Ball.h
+ * \brief  ボールクラスに関するヘッダーファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 // 多重インクルードの防止 =====================================================
 #pragma once
-
 
 // ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
@@ -30,9 +37,9 @@ private:
 
 	DirectX::SimpleMath::Quaternion m_rotateValue;	// 回転値
 
-	bool m_isGround;
+	bool m_isGround = false;						// 地上フラグ
 
-	RigitBody*		m_rigitbody = nullptr;
+	RigitBody*		m_rigitbody = nullptr;			// コンポーネントのキャッシュ
 	Transform*		m_transform = nullptr;
 	Sphere*			m_collider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
@@ -64,7 +71,7 @@ public:
 	// 取得/設定
 public:
 
-	bool GetIsGround() { return m_isGround; }
+	bool GetIsGround() const { return m_isGround; }
 
 	void SetModel(DirectX::Model* pModel) { m_renderer->SetModel(pModel); }
 

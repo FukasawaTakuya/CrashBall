@@ -19,8 +19,7 @@
 struct PrimitiveDrawCommand
 {
 	D3D10_PRIMITIVE_TOPOLOGY topology;
-	std::vector<DirectX::VertexPositionColor> vertices;
-	size_t vertexCount;
+	std::vector<DirectX::VertexPositionNormalColor> vertices;
 };
 
 
@@ -36,7 +35,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionColor>> m_primitiveBatch;		// プリミティブバッチ
+	std::unique_ptr<DirectX::PrimitiveBatch<DirectX::VertexPositionNormalColor>> m_primitiveBatch;		// プリミティブバッチ
 
 	std::unique_ptr<DirectX::BasicEffect> m_basicEffect;		// ベーシックエフェクト
 
@@ -73,7 +72,7 @@ public:
 	);
 
 	// 描画命令の登録
-	void RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand);
+	void RegisterDrawCommand(PrimitiveDrawCommand drawCommand);
 
 	// 描画命令のクリア
 	void ClearCommandList();

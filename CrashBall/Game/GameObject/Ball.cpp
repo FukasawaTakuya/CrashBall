@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Ball.cpp
+ * \brief  ボールクラスに関するソースファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "Ball.h"
 #include "Game/Common/TimeManager.h"
@@ -5,7 +13,6 @@
 using namespace DirectX;
 
 Ball::Ball(SimpleMath::Vector3 pos, float radius)
-	: m_isGround{false}
 {
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
@@ -68,8 +75,7 @@ void Ball::Rotate()
 	SimpleMath::Vector3 velocity = m_rigitbody->GetVelocity();
 
 	// 進行方向のベクトル
-	SimpleMath::Vector3 dire = velocity;
-	dire.Normalize();
+	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);
 
 	SimpleMath::Vector3 v = SimpleMath::Vector3::Up;
 

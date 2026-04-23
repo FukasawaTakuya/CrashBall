@@ -89,7 +89,6 @@ DirectX::SimpleMath::Vector3 Plane::GetSlope()
 	slope.Normalize();
 
 	return slope;
-
 }
 
 void Triangle::SetTriangle(
