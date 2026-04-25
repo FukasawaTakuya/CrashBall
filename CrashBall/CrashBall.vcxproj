@@ -200,6 +200,10 @@
     <ClInclude Include="Game\GameObject\Ball.h" />
     <ClInclude Include="Game\GameObject\Floor.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
+    <ClInclude Include="Game\GameObject\Player\Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Renderer\ModelRendererManager.h">
       <SubType>
       </SubType>
@@ -210,6 +214,26 @@
     <ClInclude Include="Game\Scene\GameScene.h" />
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
+    <ClInclude Include="Game\State\Player\PlayerJumpState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerMoveState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateMachine.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\StateBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\StateMachine.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="StepTimer.h" />
   </ItemGroup>
@@ -227,6 +251,7 @@
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Floor.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
+    <ClCompile Include="Game\GameObject\Player\Player.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\PrimitveRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
@@ -234,6 +259,8 @@
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
+    <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

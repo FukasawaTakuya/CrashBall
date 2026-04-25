@@ -15,9 +15,9 @@ using namespace DirectX;
 /**
  * \brief リソースの作成.
  * 
- * \param device
- * \param context
- * \param projMat
+ * \param device    デバイス
+ * \param context   コンテキスト
+ * \param projMat   射影行列
  */
 void PrimitiveRendererManager::CreateResource(
 	ID3D11Device1* device,

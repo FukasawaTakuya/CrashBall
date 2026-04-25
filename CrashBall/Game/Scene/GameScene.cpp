@@ -27,7 +27,8 @@ using namespace DirectX;
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(m_pSceneManager)
     , m_meshFloor{ std::make_unique<MeshFloor>()                               }
-    , m_ball    { std::make_unique<Ball>(SimpleMath::Vector3::Up * 24.0f, 0.5f) }
+    , m_ball    { std::make_unique<Ball>(0.5f) }
+    , m_player  { std::make_unique<Player>(0.5f)}
 {
 }
 
@@ -42,10 +43,12 @@ GameScene::~GameScene()
  */
 void GameScene::Initialize()
 {
-    m_ball->Initialize();
+    m_player->Initialize(SimpleMath::Vector3::Up * 24.0f);
     m_meshFloor->Initialize();
 
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
+
+    m_player->SetCamera(m_camera.get());
 }
 
 void GameScene::Update(float elapsedTime)
@@ -53,12 +56,12 @@ void GameScene::Update(float elapsedTime)
     auto key = Keyboard::Get().GetState();
     auto mouse = Mouse::Get().GetState();
 
-    Transform* ballTransform = m_ball->GetComponent<Transform>();
-    RigitBody* ballRigitbody = m_ball->GetComponent<RigitBody>();
+    Transform* ballTransform = m_player->GetComponent<Transform>();
+    RigitBody* ballRigitbody = m_player->GetComponent<RigitBody>();
 
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
-        ballTransform->SetPosition(SimpleMath::Vector3::Up * 24.0f);
-        ballRigitbody->SetVelocity(SimpleMath::Vector3::Up);
+        m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
+        m_player->Initialize(SimpleMath::Vector3::Up * 24.0f);
         m_hitFaces.clear();
     }
 
@@ -82,9 +85,14 @@ void GameScene::Update(float elapsedTime)
         {
             ballRigitbody->AddVelocity(m_camera->GetForward() * 35.8f);
         }
+        if (ballRigitbody->GetVelocity().LengthSquared() > 0.0f) {
+            m_ball->Rotate();
+        }
     }
 
     m_ball->Move();
+
+    m_player->Update();
 
      // メッシュと球の衝突判定
     if (Collision::IsCollision(m_ball->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
@@ -95,12 +103,20 @@ void GameScene::Update(float elapsedTime)
         Collision::ResolveCollision(m_ball.get(), m_meshFloor->GetMesh());
         // 摩擦の適用
         ballRigitbody->ApplyFriction();
-
-        if (ballRigitbody->GetVelocity().LengthSquared() > 0.0f) {
-            m_ball->Rotate();
-        }
     }
     else m_ball->SetIsGround(false);
+
+    if (Collision::IsCollision(m_player->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
+    {
+        m_player->SetIsGround(true);
+
+        // 衝突の解決
+        Collision::ResolveCollision(m_player.get(), m_meshFloor->GetMesh());
+        // 摩擦の適用
+        ballRigitbody->ApplyFriction();
+    }
+    else m_player->SetIsGround(false);
+
 
 
     if (key.Right) {
@@ -129,13 +145,14 @@ void GameScene::Update(float elapsedTime)
  */
 void GameScene::Draw()
 {
-    m_ball->Draw();
+    //m_ball->Draw();
     m_meshFloor->Draw();
-
+    m_player->Draw();
 
     auto primitiveRenderer = PrimitiveRendererManager::Instance;
 
     auto& hitFace = m_meshFloor->GetMesh()->GetHitFace();
+
     if (!hitFace.empty()) {
         for (auto& face : hitFace)
         {
@@ -152,8 +169,6 @@ void GameScene::Draw()
         }
     }
 
-    OutputDebugString(L"%d\n", m_hitFaces.size());
-
     for (auto& face : m_hitFaces)
     {
 
@@ -162,9 +177,9 @@ void GameScene::Draw()
 
         std::vector<VertexPositionNormalColor> pos;
 
-        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal,  Colors::Blue);
-        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal,  Colors::Blue);
-        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal,  Colors::Blue);
+        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal,  Colors::White);
+        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal,  Colors::White);
+        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal,  Colors::White);
 
         primitiveRenderer().RegisterDrawCommand({
             D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, pos
@@ -187,6 +202,7 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
     auto modelManager = ResourceManager::Instance().GetModelManager();
 
     m_ball->SetModel(modelManager->GetModel("ball")); 
+    m_player->SetModel(modelManager->GetModel("ball"));
 
     m_meshFloor->SetModel(modelManager->GetModel("Stage"));
 

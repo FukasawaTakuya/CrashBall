@@ -52,6 +52,8 @@
 #include <tuple>
 #include <unordered_map>
 #include <string>
+#include <functional>
+#include <typeindex>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>

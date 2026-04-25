@@ -23,7 +23,6 @@ void MeshFloor::Initialize()
 	m_collider->SetScale(SCALE);
 	// コライダーデータの読み込み
 	m_collider->LoadObjData(L"Resources/Models/Stage2.obj");
-
 }
 
 void MeshFloor::Update(float elapsedTime)

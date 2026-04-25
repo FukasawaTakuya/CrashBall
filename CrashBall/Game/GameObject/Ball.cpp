@@ -12,37 +12,31 @@
 
 using namespace DirectX;
 
-Ball::Ball(SimpleMath::Vector3 pos, float radius)
+Ball::Ball(float radius)
 {
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
 	m_rigitbody = AddComponent<RigitBody>(GRAVITY, FRICTION);
 	m_collider	= AddComponent<Sphere>(0.5f);
 	m_renderer	= AddComponent<ModelRenderer>();
+}
 
-	m_transform->SetPosition(pos);
+void Ball::Initialize(SimpleMath::Vector3 position)
+{
+	m_transform->SetPosition(position);
 	m_rigitbody->SetVelocity(SimpleMath::Vector3::Zero);
-}
-
-void Ball::Initialize()
-{
-}
-
-void Ball::Update(float elapsedTime)
-{
 }
 
 void Ball::Draw()
 {
-	// クオータニオンを回転させる
-	m_transform->RotateQuaternion(m_rotateValue);
+	m_transform->Rotate(m_rotateValue);
 
 	// 拡大行列
 	SimpleMath::Matrix scale 
 		= SimpleMath::Matrix::CreateScale(0.025f);
 	// 回転行列
 	SimpleMath::Matrix rotate 
-		= SimpleMath::Matrix::CreateFromQuaternion(m_transform->GetQuaternion());
+		= m_transform->GetRotate();
 	// 移動行列
 	SimpleMath::Matrix trans 
 		= SimpleMath::Matrix::CreateTranslation(m_transform->GetPosition());
@@ -72,7 +66,7 @@ void Ball::Move()
 
 void Ball::Rotate()
 {
-	SimpleMath::Vector3 velocity = m_rigitbody->GetVelocity();
+	const SimpleMath::Vector3& velocity = m_rigitbody->GetVelocity();
 
 	// 進行方向のベクトル
 	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);
@@ -80,15 +74,20 @@ void Ball::Rotate()
 	SimpleMath::Vector3 v = SimpleMath::Vector3::Up;
 
 	// 進行方向に垂直なベクトルを求める
-	SimpleMath::Vector3 horizontalDirection = v.Cross(dire);
+	SimpleMath::Vector3 horizontalDirection 
+		= XMVector3Cross(SimpleMath::Vector3::Up, velocity);
 
 	// ゼロベクトルならリターン
 	if (horizontalDirection == SimpleMath::Vector3::Zero) return;
 
 	// 回転量を求める
-	float forwardAngle = velocity.Length() * TimeManager::Instance().GetElapsedTime() / m_collider->GetRadius();
+	float forwardAngle 
+		= velocity.Length() * TimeManager::Instance().GetElapsedTime() / m_collider->GetRadius();
 
 	// 回転値を求める
-	m_rotateValue = SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
+	SimpleMath::Quaternion quaternion
+		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
 
+	// 回転量をマトリクスに変換
+	m_rotateValue = SimpleMath::Matrix::CreateFromQuaternion(quaternion);
 }

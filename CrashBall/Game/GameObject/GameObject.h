@@ -26,7 +26,7 @@ class GameObject {
 public:
 
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
 	// コンポーネントのコンテナ
 	std::vector<std::unique_ptr<Component>> m_components;

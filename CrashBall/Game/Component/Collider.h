@@ -191,6 +191,11 @@ public:
 		m_hitFace.clear();
 	}
 
+	Triangle* GetFace(int index)
+	{
+		return m_faces[index].get();
+	}
+
 	void ResolveCol(Ball* ball);
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 };

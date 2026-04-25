@@ -35,21 +35,21 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Quaternion m_rotateValue;	// 回転値
+	DirectX::SimpleMath::Matrix m_rotateValue;		// 回転値
 
 	bool m_isGround = false;						// 地上フラグ
 
-	RigitBody*		m_rigitbody = nullptr;			// コンポーネントのキャッシュ
-	Transform*		m_transform = nullptr;
-	Sphere*			m_collider	= nullptr;
-	ModelRenderer*	m_renderer	= nullptr;
+	RigitBody*		m_rigitbody = nullptr;			// 物理演算のコンポーネント
+	Transform*		m_transform = nullptr;			// トランスフォームコンポーネント
+	Sphere*			m_collider	= nullptr;			// 球のコライダーのコンポーネント
+	ModelRenderer*	m_renderer	= nullptr;			// モデル描画のコンポーネント
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Ball(DirectX::SimpleMath::Vector3 pos, float radius);
+	Ball(float radius);
 
 	// デストラクタ
 	~Ball() = default;
@@ -57,9 +57,7 @@ public:
 	// 操作
 public:
 
-	void Initialize();
-
-	void Update(float elapsedTime);
+	void Initialize(SimpleMath::Vector3 position);
 
 	void Draw();
 

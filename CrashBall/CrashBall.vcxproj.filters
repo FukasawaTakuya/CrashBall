@@ -32,6 +32,15 @@
     <Filter Include="Game\Renderer">
       <UniqueIdentifier>{adad8435-81bf-4d1a-96fd-3dd0b57eedf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Player">
+      <UniqueIdentifier>{354947cc-107b-46c0-a892-008eaa1ac21c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\State">
+      <UniqueIdentifier>{f9066145-8684-4407-a536-7a639b9f95f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\State\PlayerState">
+      <UniqueIdentifier>{3787f6e5-d405-40fc-b105-d13a8c1f3835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -102,6 +111,24 @@
     <ClInclude Include="Game\Renderer\ModelRendererManager.h">
       <Filter>Game\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Game\State\StateBase.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\StateMachine.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Player\Player.h">
+      <Filter>Game\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateMachine.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerMoveState.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerJumpState.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -164,6 +191,11 @@
     <ClCompile Include="Game\Component\ModelRenderer.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\Player\Player.cpp">
+      <Filter>Game\GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
+    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
