@@ -6,21 +6,22 @@ Player::Player(float radius)
 	: Ball(radius)
 	, m_stateMachine{ std::make_unique<StateMachine<Player>>() }
 {
-	m_stateMachine->SetOwner(this);
-
+	// ステートの生成
 	m_stateMachine->CreateState<PlayerMoveState>();
 
+	// 初期化
 	m_stateMachine->Initialeze(this);
 
+	// 初期のステートのセット
 	m_stateMachine->ChangeState<PlayerMoveState>();
-
 }
 
 void Player::Update()
 {
 	m_stateMachine->Update();
 
+	// 移動処理
 	Move();
 
-	Rotate();
+	// 回転処理
 }

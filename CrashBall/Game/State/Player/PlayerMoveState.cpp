@@ -4,7 +4,6 @@
 #include "Game/Common/InputSystem.h"
 #include "Game/Common/Camera.h"
 
-
 /**
  * \brief コンストラクタ.
  * 
@@ -58,6 +57,9 @@ void PlayerMoveState::Update()
         if (key.S) {
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * 35.0f);
         }
+        m_owner->Rotate();
+
+        rigidbody->ApplyFriction();
     }
 }
 

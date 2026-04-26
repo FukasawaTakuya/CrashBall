@@ -32,9 +32,8 @@ public:
 private:
 
 	std::unique_ptr<MeshFloor> m_meshFloor;		// ステージ
-	std::unique_ptr<Ball> m_ball;				// ボール
 
-	std::unique_ptr<Player> m_player;
+	std::unique_ptr<Player> m_player;			// プレイヤー
 
 	std::vector<Triangle*> m_hitFaces;
 

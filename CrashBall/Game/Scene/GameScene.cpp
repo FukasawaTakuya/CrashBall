@@ -27,7 +27,6 @@ using namespace DirectX;
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(m_pSceneManager)
     , m_meshFloor{ std::make_unique<MeshFloor>()                               }
-    , m_ball    { std::make_unique<Ball>(0.5f) }
     , m_player  { std::make_unique<Player>(0.5f)}
 {
 }
@@ -56,55 +55,14 @@ void GameScene::Update(float elapsedTime)
     auto key = Keyboard::Get().GetState();
     auto mouse = Mouse::Get().GetState();
 
-    Transform* ballTransform = m_player->GetComponent<Transform>();
-    RigitBody* ballRigitbody = m_player->GetComponent<RigitBody>();
+    Transform* palyerTransform = m_player->GetComponent<Transform>();
 
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
-        m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
-        m_player->Initialize(SimpleMath::Vector3::Up * 24.0f);
+        m_player->Initialize(SimpleMath::Vector3::Up * 50.0f);
         m_hitFaces.clear();
     }
 
-    ballRigitbody->ResetAccel();
-
-    if (m_ball->GetIsGround())
-    {
-        if (key.D) {
-            ballRigitbody->Accel(m_camera->GetRight() * 35.0f);
-        }
-        if (key.A) {
-            ballRigitbody->Accel(-m_camera->GetRight() * 35.0f);
-        }
-        if (key.W) {
-            ballRigitbody->Accel(m_camera->GetForward() * 35.0f);
-        }
-        if (key.S) {
-            ballRigitbody->Accel(-m_camera->GetForward() * 35.0f);
-        }
-        if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::Space))
-        {
-            ballRigitbody->AddVelocity(m_camera->GetForward() * 35.8f);
-        }
-        if (ballRigitbody->GetVelocity().LengthSquared() > 0.0f) {
-            m_ball->Rotate();
-        }
-    }
-
-    m_ball->Move();
-
     m_player->Update();
-
-     // メッシュと球の衝突判定
-    if (Collision::IsCollision(m_ball->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
-    {
-        m_ball->SetIsGround(true);
-
-        // 衝突の解決
-        Collision::ResolveCollision(m_ball.get(), m_meshFloor->GetMesh());
-        // 摩擦の適用
-        ballRigitbody->ApplyFriction();
-    }
-    else m_ball->SetIsGround(false);
 
     if (Collision::IsCollision(m_player->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
     {
@@ -112,8 +70,6 @@ void GameScene::Update(float elapsedTime)
 
         // 衝突の解決
         Collision::ResolveCollision(m_player.get(), m_meshFloor->GetMesh());
-        // 摩擦の適用
-        ballRigitbody->ApplyFriction();
     }
     else m_player->SetIsGround(false);
 
@@ -135,7 +91,7 @@ void GameScene::Update(float elapsedTime)
     Mouse::Get().ResetScrollWheelValue();
     m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
 
-    m_camera->FollowCamera(ballTransform->GetPosition());
+    m_camera->FollowCamera(palyerTransform->GetPosition());
 }
 
 
@@ -145,7 +101,6 @@ void GameScene::Update(float elapsedTime)
  */
 void GameScene::Draw()
 {
-    //m_ball->Draw();
     m_meshFloor->Draw();
     m_player->Draw();
 
@@ -201,7 +156,6 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
 {
     auto modelManager = ResourceManager::Instance().GetModelManager();
 
-    m_ball->SetModel(modelManager->GetModel("ball")); 
     m_player->SetModel(modelManager->GetModel("ball"));
 
     m_meshFloor->SetModel(modelManager->GetModel("Stage"));
