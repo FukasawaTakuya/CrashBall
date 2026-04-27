@@ -129,6 +129,9 @@
     <ClInclude Include="Game\State\Player\PlayerJumpState.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h">
+      <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -26,8 +26,8 @@ using namespace DirectX;
  */
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(m_pSceneManager)
-    , m_meshFloor{ std::make_unique<MeshFloor>()                               }
-    , m_player  { std::make_unique<Player>(0.5f)}
+    , m_meshFloor{ std::make_unique<MeshFloor>()  }
+    , m_player   { std::make_unique<Player>(0.5f) }
 {
 }
 
@@ -72,8 +72,6 @@ void GameScene::Update(float elapsedTime)
         Collision::ResolveCollision(m_player.get(), m_meshFloor->GetMesh());
     }
     else m_player->SetIsGround(false);
-
-
 
     if (key.Right) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));

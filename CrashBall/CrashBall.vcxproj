@@ -182,6 +182,7 @@
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\CollisionManager\Collision.h" />
+    <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h" />
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />

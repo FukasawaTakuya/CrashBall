@@ -195,14 +195,6 @@ bool Mesh::IsCollision(Sphere* sphere)
 	return !m_hitFace.empty();
 }
 
-void Mesh::ResolveCol(Ball* ball)
-{
-	for (auto hitFace : m_hitFace)
-	{
-		Collision::ResolveCollision(ball, hitFace->GetPlane());
-	}
-}
-
 void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)
 {
 	for (auto& face : m_faces) {

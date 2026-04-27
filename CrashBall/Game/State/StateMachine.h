@@ -43,7 +43,11 @@ public:
 	// 操作
 public:
 
-	// 初期化
+	/**
+	 * \brief 初期化.
+	 * 
+	 * \param owner オーナー
+	 */
 	void Initialeze(Owner* owner)
 	{
 		// オーナーのセット
@@ -58,7 +62,10 @@ public:
 		}
 	}
 
-	// 更新
+	/**
+	 * \brief 更新.
+	 * 
+	 */
 	void Update()
 	{
 		// ステート変更命令の実行
@@ -71,7 +78,10 @@ public:
 			m_currentState->CallUpdate();
 	}
 
-	// ステートの変更
+	/**
+	 * \brief ステートの変更.
+	 * 
+	 */
 	template<typename State>
 	void ChangeState()
 	{

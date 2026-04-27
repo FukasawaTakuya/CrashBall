@@ -2,11 +2,18 @@
 #pragma once
 
 #include "Component.h"
+#include "Game/CollisionManager/CollisionLayerMask.h"
 
 class Ball;
 
 class Collider : public Component
 {
+protected:
+
+	ColliderLayer m_layer;
+
+	ColliderMask m_mask;
+
 public:
 
 	virtual void DrawCollider() {};
@@ -196,6 +203,5 @@ public:
 		return m_faces[index].get();
 	}
 
-	void ResolveCol(Ball* ball);
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 };
