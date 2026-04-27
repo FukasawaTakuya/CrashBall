@@ -11,7 +11,7 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
-#include "Game/Component/Collider.h"
+#include "Game/Component/Collider/Sphere.h"
 #include "Game/Component/RigitBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"

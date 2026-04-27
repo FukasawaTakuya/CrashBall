@@ -1,13 +1,17 @@
 #pragma once
 
 #include "Game/Component/Collider.h"
+
+#include "Game/Component/Collider/Sphere.h"
+#include "Game/Component/Collider/Plane.h"
+#include "Game/Component/Collider/Triangle.h"
+#include "Game/Component/Collider/Segment.h"
+#include "Game/Component/Collider/Mesh.h"
+
 #include "Game/GameObject/Ball.h"
 
 namespace Collision {
 
-	// 球と平面の衝突判定
-	bool IsCollision(Sphere* sphere, Plane* plane);
-	bool IsCollision(Plane* plane, Sphere* sphere);
 
 	// 線分と直線の衝突判定
 	bool IsCollision(Segment* segment, Plane* plane);
@@ -19,11 +23,19 @@ namespace Collision {
 	// 線分と球の衝突判定
 	bool IsCollision(Segment* segment, Sphere* sphere);
 
+	// 球と球の衝突判定
+	bool IsCollision(Sphere* sphere1, Sphere* sphere2);
+
+	// 球と平面の衝突判定
+	bool IsCollision(Sphere* sphere, Plane* plane);
+	bool IsCollision(Plane* plane, Sphere* sphere);
+
 	// 球と三角形の衝突判定
 	bool IsCollision(Sphere* sphere, Triangle* triangle);
 
 	// 球とメッシュの衝突判定
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
+	bool IsCollision(Mesh* mesh, Sphere* sphere);
 
 
 	// 球と平面の衝突解決

@@ -50,11 +50,15 @@ public:
 	template<typename CompType, typename... Args>
 	CompType* AddComponent(Args&&... args)
 	{
+		// コンポーネントの生成
 		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
 		comp->SetOwner(this);
 
+		// ポインタの取得
 		CompType* pComp = comp.get();
+		// コンテナに格納
 		m_components.emplace_back(std::move(comp));
+
 		return pComp;
 	}
 
@@ -62,11 +66,14 @@ public:
 	template<typename CompType>
 	CompType* GetComponent()
 	{
+		// コンポーネントのポインタ
 		CompType* pComp = nullptr;
 		for (auto& comp : m_components)
 		{
+			// アップキャスト
 			pComp = dynamic_cast<CompType*>(comp.get());
 
+			// null出ないならbreak
 			if (pComp != nullptr) break;
 		}
 

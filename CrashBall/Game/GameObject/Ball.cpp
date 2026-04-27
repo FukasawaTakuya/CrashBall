@@ -17,7 +17,7 @@ Ball::Ball(float radius)
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
 	m_rigitbody = AddComponent<RigitBody>(GRAVITY, FRICTION);
-	m_collider	= AddComponent<Sphere>(0.5f);
+	m_collider	= AddComponent<Sphere>(m_transform, radius);
 	m_renderer	= AddComponent<ModelRenderer>();
 }
 
@@ -59,9 +59,6 @@ void Ball::Move()
 
 	// 速度を加算
 	m_transform->Translate(m_rigitbody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
-
-	// コライダーの座標の更新
-	m_collider->SetPos(m_transform->GetPosition());
 }
 
 void Ball::Rotate()

@@ -13,7 +13,7 @@ using namespace DirectX;
 bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 {
 	// 球と平面の距離を求める
-	float distance = plane->CalcLength(sphere->GetPos());
+	float distance = plane->CalcLength(sphere->GetPosition());
 
 	// 距離が球の半径より小さければture
 	bool r = (distance < 0.5f);
@@ -90,9 +90,9 @@ bool Collision::IsCollision(Segment* segment, Triangle* triangle)
  */
 bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 {
-	float xa = segment->GetPos().x - sphere->GetPos().x;
-	float ya = segment->GetPos().y - sphere->GetPos().y;
-	float za = segment->GetPos().z - sphere->GetPos().z;
+	float xa = segment->GetPos().x - sphere->GetPosition().x;
+	float ya = segment->GetPos().y - sphere->GetPosition().y;
+	float za = segment->GetPos().z - sphere->GetPosition().z;
 
 	float a
 		= std::pow(segment->GetVec().x, 2) 
@@ -123,6 +123,16 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	
 }
 
+bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
+{
+	SimpleMath::Vector3 delta =
+		(sphere1->GetTransform()->GetPosition() - sphere2->GetTransform()->GetPosition());
+
+	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
+
+	return (delta.Length() <= radiusSum);
+
+}
 /**
  * \brief 球と三角形の衝突判定.
  * 
@@ -158,7 +168,7 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	// 平面から球に垂直に伸びる線分
 	Segment segment;
 	// 線分の設定
-	segment.SetSegment(sphere->GetPos(), 
+	segment.SetSegment(sphere->GetPosition(), 
 		-triangle->GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
 
 	// 線分と三角形の衝突判定
@@ -175,6 +185,11 @@ bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 		}
 	}
 	return !mesh->GetHitFace().empty();
+}
+
+bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
+{
+	return IsCollision(sphere, mesh);
 }
 
 

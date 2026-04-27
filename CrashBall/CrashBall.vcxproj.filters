@@ -41,6 +41,9 @@
     <Filter Include="Game\State\PlayerState">
       <UniqueIdentifier>{3787f6e5-d405-40fc-b105-d13a8c1f3835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Collider">
+      <UniqueIdentifier>{cadfcd69-48fa-442a-8853-6cb1cdc59f31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -132,6 +135,24 @@
     <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CollisionManager\CollisionManager.h">
+      <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider\Sphere.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider\Plane.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider\Triangle.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider\Segment.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Collider\Mesh.h">
+      <Filter>Game\Component\Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -199,6 +220,22 @@
     </ClCompile>
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
+    <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
+    <ClCompile Include="Game\Component\Collider\Sphere.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Collider\Plane.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Collider\Segment.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Collider\Triangle.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Collider\Mesh.cpp">
+      <Filter>Game\Component\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

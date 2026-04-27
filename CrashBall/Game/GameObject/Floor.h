@@ -3,7 +3,7 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
-#include "Game/Component/Collider.h"
+#include "Game/Component/Collider/Mesh.h"
 #include "Game/Component/ModelRenderer.h"
 #include "Game/Component/Transform.h"
 

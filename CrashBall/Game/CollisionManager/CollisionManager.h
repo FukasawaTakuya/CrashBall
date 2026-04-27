@@ -1,29 +1,16 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
 // ヘッダファイルの読み込み ===================================================
-#include "Game/State/StateMachine.h"
+#include "Game/GameObject/GameObject.h"
+
 // クラスの前方宣言 ===================================================
-class Player;
-
-// 列挙体の宣言 ===================================================
-
-enum PlayerMoveState
-{
-	None,
-	Idel,
-	Move,
-	Jump,
-};
 
 // クラスの定義 ===============================================================
 /**
- * @brief プレイヤーのステートマシン
+ * @brief 衝突管理クラス
  */
-class  PlayerStateMachine : public StateMachine<Player>{
+class  CollisionManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -31,23 +18,30 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-
+	std::vector<GameObject*> m_gameObjectList;	 // ゲームオブジェクトのリスト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	PlayerStateMachine() = default;
+	CollisionManager();
 
 	// デストラクタ
-	~PlayerStateMachine() = default;
+	~CollisionManager();
 
 	// 操作
 public:
 
+	void Update();
+
 	// 取得/設定
 public:
+
+	void SetCollider(GameObject* collider)
+	{
+		m_gameObjectList.push_back(collider);
+	}
 
 	// 内部実装
 private:

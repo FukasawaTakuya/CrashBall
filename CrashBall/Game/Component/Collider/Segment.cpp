@@ -1,0 +1,7 @@
+#include "pch.h"
+#include "Segment.h"
+
+Segment::Segment()
+	: Collider(ColliderType::Segment)
+{
+}
