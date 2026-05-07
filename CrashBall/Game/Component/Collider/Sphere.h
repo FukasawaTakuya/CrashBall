@@ -34,13 +34,6 @@ public:
 
 	void DrawCollider() override {};
 
-	bool OnCollide(Collider* collider) override;
-
-	bool OnCollideWith(Sphere* sphere) override;
-
-	bool OnCollideWith(Mesh* mash) override;
-
-
 
 	// À•W‚ÌŽæ“¾
 	DirectX::SimpleMath::Vector3 GetPosition() const { return m_transform->GetPosition(); }

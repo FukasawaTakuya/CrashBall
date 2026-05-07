@@ -3,6 +3,7 @@
 #include "Game/GameObject/Player/Player.h"
 #include "Game/Common/InputSystem.h"
 #include "Game/Common/Camera.h"
+#include "PlayerJumpState.h"
 
 /**
  * \brief コンストラクタ.

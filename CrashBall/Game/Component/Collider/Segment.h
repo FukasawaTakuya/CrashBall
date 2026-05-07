@@ -11,7 +11,6 @@
  * @brief 基底オブジェクト
  */
 class Segment
-	: public Collider
 {
 private:
 
@@ -22,16 +21,6 @@ private:
 public:
 
 	Segment();
-
-	void DrawCollider() override {};
-
-	bool OnCollide(Collider* collider) override { return false; }
-
-	bool OnCollideWith(Sphere* sphere) override { return false; }
-
-	bool OnCollideWith(Mesh* mash) override { return false; }
-
-
 
 public:
 

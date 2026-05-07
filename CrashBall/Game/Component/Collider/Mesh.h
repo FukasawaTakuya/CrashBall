@@ -35,16 +35,11 @@ public:
 
 	void DrawCollider() override {}
 
-	bool OnCollide(Collider* collider) override;
-
-	bool OnCollideWith(Sphere* sphere) override;
-
-	bool OnCollideWith(Mesh* mash) override;
-
 public:
 	bool LoadObjData(const wchar_t* filename);
 
 	std::vector<std::unique_ptr<Triangle>>& GetFace() { return m_faces; }
+
 	const std::vector<Triangle*>& GetHitFace() { return m_hitFace; }
 
 	void SetScale(float scale) {

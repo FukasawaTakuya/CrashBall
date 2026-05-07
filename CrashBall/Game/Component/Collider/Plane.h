@@ -12,7 +12,6 @@
 
 // ƒNƒ‰ƒX‚Ì’è‹` ===============================================================
 class Plane
-	: public Collider
 {
 private:
 
@@ -29,15 +28,6 @@ public:
 	~Plane() = default;
 
 public:
-
-	void DrawCollider() override {};
-
-	bool OnCollide(Collider* collider) override { return false; }
-
-	bool OnCollideWith(Sphere* sphere) override { return false; }
-
-	bool OnCollideWith(Mesh* mash) override { return false; }
-
 
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 

@@ -3,6 +3,8 @@
 #include "Collision.h"
 
 CollisionManager::CollisionManager()
+	: m_isCollsionTable			{ std::make_unique<IsCollisionTable>() }
+	, m_resolveCollisionTable	{ std::make_unique<ResolveCollisionTable>() }
 {
 }
 
@@ -12,23 +14,31 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::Update()
 {
-	for (auto& obj1 : m_gameObjectList)
+	for (auto& col1 : m_colliderList)
 	{
-		Collider* col1 = obj1->GetComponent<Collider>();
+		// レイヤーの取得
 		auto layer = col1->GetLayerMask().layer;
 
-		for (auto& obj2 : m_gameObjectList)
+		for (auto& col2 : m_colliderList)
 		{
+			// 同一オブジェクトならスキップ
+			if (col1 == col2) continue;
 
-			// 同一オブジェクトならリターン
-			if (obj1 == obj2) continue;
-
-			Collider* col2 = obj2->GetComponent<Collider>();
 			auto mask = col2->GetLayerMask().mask;
 
 			if (layer & mask)
 			{
-				col1->OnCollide(col2);
+				if (m_isCollsionTable->IsCollision(col1, col2))
+				{
+					m_resolveCollisionTable->ResolveCollision(col1, col2);
+
+					col1->OnCollisionStay(col2);
+					col2->OnCollisionStay(col1);
+				}
+				else {
+					col1->OnCollisionExit(col2);
+					col2->OnCollisionExit(col1);
+				}
 			}
 		}
 	}

@@ -15,6 +15,7 @@
 #include "Game/GameObject/Floor.h"
 #include "Game/Common/Camera.h"
 #include "Game/GameObject/Player/Player.h"
+#include <Game/CollisionManager/CollisionManager.h>
 //
 // クラスの前方宣言 ===================================================
 
@@ -36,6 +37,8 @@ private:
 	std::unique_ptr<Player> m_player;			// プレイヤー
 
 	std::vector<Triangle*> m_hitFaces;
+
+	std::unique_ptr<CollisionManager> m_collisionManager;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

@@ -187,6 +187,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
+    <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
@@ -267,6 +269,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\CollisionManager\Collision.cpp" />
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
+    <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
+    <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
     <ClCompile Include="Game\Common\Camera.cpp" />
     <ClCompile Include="Game\Common\CommonResources.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />

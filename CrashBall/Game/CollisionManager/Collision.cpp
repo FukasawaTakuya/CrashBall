@@ -16,7 +16,7 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 	float distance = plane->CalcLength(sphere->GetPosition());
 
 	// 距離が球の半径より小さければture
-	bool r = (distance < 0.5f);
+	bool r = (distance <= 0.5f);
 
 	return r;
 }
@@ -131,8 +131,9 @@ bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
 
 	return (delta.Length() <= radiusSum);
-
 }
+
+
 /**
  * \brief 球と三角形の衝突判定.
  * 
@@ -199,11 +200,11 @@ bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
  * \param ball
  * \param plan
  */
-void Collision::ResolveCollision(Ball* ball, Plane* plan)
+void Collision::ResolveCollision(Sphere* sphere, Plane* plan)
 {
-	Transform*	transform = ball->GetComponent<Transform>();
-	RigitBody*	rigidbody = ball->GetComponent<RigitBody>();
-	Sphere*		collider = ball->GetComponent<Sphere>();
+	Transform*	transform = sphere->GetOwner()->GetComponent<Transform>();
+	RigitBody*	rigidbody = sphere->GetOwner()->GetComponent<RigitBody>();
+	Sphere*		collider = sphere->GetOwner()->GetComponent<Sphere>();
 
 	// 球と平面の距離を求める
 	float distance = plan->CalcLength(transform->GetPosition());
@@ -230,11 +231,11 @@ void Collision::ResolveCollision(Ball* ball, Plane* plan)
  * \param	ball
  * \param	mesh
  */
-void Collision::ResolveCollision(Ball* ball, Mesh* mesh)
+void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 {
 	for (auto hitFace : mesh->GetHitFace())
 	{
-		Collision::ResolveCollision(ball, hitFace->GetPlane());
+		Collision::ResolveCollision(sphere, hitFace->GetPlane());
 	}
 
 }

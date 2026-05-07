@@ -3,8 +3,12 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "Game/GameObject/GameObject.h"
+#include "IsCollisionTable.h"
+#include "ResolveCollisionTable.h"
 
 // クラスの前方宣言 ===================================================
+
+
 
 // クラスの定義 ===============================================================
 /**
@@ -18,7 +22,11 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<GameObject*> m_gameObjectList;	 // ゲームオブジェクトのリスト
+	std::vector<Collider*> m_colliderList;	 // ゲームオブジェクトのリスト
+
+	std::unique_ptr<IsCollisionTable> m_isCollsionTable;
+
+	std::unique_ptr<ResolveCollisionTable> m_resolveCollisionTable;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -38,9 +46,9 @@ public:
 	// 取得/設定
 public:
 
-	void SetCollider(GameObject* collider)
+	void RegistCollider(Collider* collider)
 	{
-		m_gameObjectList.push_back(collider);
+		m_colliderList.push_back(collider);
 	}
 
 	// 内部実装

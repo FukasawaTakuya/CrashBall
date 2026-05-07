@@ -14,7 +14,6 @@
  * @brief 基底オブジェクト
  */
 class Triangle
-	: public Collider
 {
 private:
 
@@ -27,16 +26,6 @@ private:
 public:
 
 	Triangle();
-
-	void DrawCollider() override {};
-
-	bool OnCollide(Collider* collider) override { return false; }
-
-	bool OnCollideWith(Sphere* sphere) override { return false; }
-
-	bool OnCollideWith(Mesh* mash) override { return false; }
-
-
 
 public:
 

@@ -29,7 +29,6 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	
 	std::unique_ptr<StateMachine<Player>> m_stateMachine;	// ステートマシン
 
 	Camera* m_pCamera = nullptr;							// カメラのポインタ

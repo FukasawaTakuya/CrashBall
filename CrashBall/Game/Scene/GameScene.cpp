@@ -28,9 +28,14 @@ GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(m_pSceneManager)
     , m_meshFloor{ std::make_unique<MeshFloor>()  }
     , m_player   { std::make_unique<Player>(0.5f) }
+    , m_collisionManager{ std::make_unique<CollisionManager>() }
 {
 }
 
+/**
+ * @brief デストラクタ
+ * 
+ */
 GameScene::~GameScene()
 {
 }
@@ -48,8 +53,16 @@ void GameScene::Initialize()
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
 
     m_player->SetCamera(m_camera.get());
+
+    m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
+    m_collisionManager->RegistCollider(m_meshFloor->GetComponent<Mesh>());
 }
 
+/**
+ * @brief 更新.
+ * 
+ * \param elapsedTime 経過時間
+ */
 void GameScene::Update(float elapsedTime)
 {
     auto key = Keyboard::Get().GetState();
@@ -63,15 +76,7 @@ void GameScene::Update(float elapsedTime)
     }
 
     m_player->Update();
-
-    if (Collision::IsCollision(m_player->GetComponent<Sphere>(), m_meshFloor->GetMesh()))
-    {
-        m_player->SetIsGround(true);
-
-        // 衝突の解決
-        Collision::ResolveCollision(m_player.get(), m_meshFloor->GetMesh());
-    }
-    else m_player->SetIsGround(false);
+    m_collisionManager->Update();
 
     if (key.Right) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
@@ -126,13 +131,12 @@ void GameScene::Draw()
     {
 
         SimpleMath::Vector3 normal = face->GetPlane()->GetNormal();
-        assert(normal.Length() > 0.0f);
 
         std::vector<VertexPositionNormalColor> pos;
 
-        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal,  Colors::White);
-        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal,  Colors::White);
-        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal,  Colors::White);
+        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal, Colors::Blue);
+        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal, Colors::Blue);
+        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal, Colors::Blue);
 
         primitiveRenderer().RegisterDrawCommand({
             D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, pos
@@ -141,6 +145,10 @@ void GameScene::Draw()
 }
 
 
+/**
+ * @brief 終了処理.
+ * 
+ */
 void GameScene::Finalize()
 {
 }

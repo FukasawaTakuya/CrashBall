@@ -11,22 +11,6 @@ Mesh::Mesh()
 {
 }
 
-bool Mesh::OnCollide(Collider* collider)
-{
-	return collider->OnCollideWith(this);
-}
-
-
-bool Mesh::OnCollideWith(Sphere* sphere)
-{
-	return Collision::IsCollision(this, sphere);
-}
-
-bool Mesh::OnCollideWith(Mesh* mesh)
-{
-	return false;
-}
-
 bool Mesh::LoadObjData(const wchar_t* filename)
 {
 	std::vector<SimpleMath::Vector3> vertex;

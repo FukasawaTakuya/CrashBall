@@ -19,6 +19,8 @@ Ball::Ball(float radius)
 	m_rigitbody = AddComponent<RigitBody>(GRAVITY, FRICTION);
 	m_collider	= AddComponent<Sphere>(m_transform, radius);
 	m_renderer	= AddComponent<ModelRenderer>();
+
+	m_collider->SetLayerMask(LayerMask::Ball);
 }
 
 void Ball::Initialize(SimpleMath::Vector3 position)

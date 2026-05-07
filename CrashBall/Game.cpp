@@ -13,6 +13,7 @@
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/Renderer/PrimitveRendererManager.h"
 #include "Game/Renderer/ModelRendererManager.h"
+#include <chrono>
 
 extern void ExitGame() noexcept;
 
@@ -72,22 +73,28 @@ void Game::Initialize(HWND window, int width, int height)
     m_timer.SetTargetElapsedSeconds(1.0 / 60);
     */
 }
-
+auto start = std::chrono::high_resolution_clock::now();
 #pragma region Frame Update
 // Executes the basic game loop.
 void Game::Tick()
-{
+{ 
     m_timer.Tick([&]()
         {
             Update(m_timer);
         });
 
     Render();
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float, std::milli> elapsed = end - start;
+
+    //OutputDebugString(L"%.0f\n",  1.0f / (elapsed.count() / 1000.0f));
+    OutputDebugString(L"%d\n", (int)m_timer.GetFramesPerSecond());
 }
 
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
+    start = std::chrono::high_resolution_clock::now();
     float elapsedTime = float(timer.GetElapsedSeconds());
 
     // TODO: Add your game logic here.

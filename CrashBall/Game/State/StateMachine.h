@@ -63,10 +63,11 @@ public:
 		// ステート変更命令のクリア
 		m_changeStateCmd = []() {};
 
-		// 各ステートのオーナーのセット
+		// 各ステートのオーナーとステートマシンのセット
 		for (auto& state : m_states)
 		{
 			state.second->SetOwner(owner);
+			state.second->SetStateMachine(this);
 		}
 	}
 
@@ -138,9 +139,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// オーナーの設定
-	void SetOwner(Owner* owner) { m_owner = owner; }
 
 	// 内部実装
 private:

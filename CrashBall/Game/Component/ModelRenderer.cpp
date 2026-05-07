@@ -53,7 +53,9 @@ void ModelRenderer::Draw(const DirectX::SimpleMath::Matrix& world)
 
 	auto& modelManager = ModelRendererManager::Instance();
 
-	modelManager.RegisterDrawCommand({ m_pModel, world });
+	// モデルのポインタがnullでなければ描画命令登録
+	if(m_pModel != nullptr)
+		modelManager.RegisterDrawCommand({ m_pModel, world });
 }
 
 /**

@@ -153,6 +153,12 @@
     <ClInclude Include="Game\Component\Collider\Mesh.h">
       <Filter>Game\Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CollisionManager\IsCollisionTable.h">
+      <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h">
+      <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -218,8 +224,6 @@
     <ClCompile Include="Game\GameObject\Player\Player.cpp">
       <Filter>Game\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
-    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\Component\Collider\Sphere.cpp">
       <Filter>Game\Component\Collider</Filter>
@@ -236,6 +240,14 @@
     <ClCompile Include="Game\Component\Collider\Mesh.cpp">
       <Filter>Game\Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\State\Player\PlayerMoveState.cpp">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
+    <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

@@ -2,7 +2,6 @@
 #include "Triangle.h"
 
 Triangle::Triangle()
-	: Collider(ColliderType::Trianle)
 {
 }
 

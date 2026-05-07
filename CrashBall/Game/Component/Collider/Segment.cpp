@@ -2,6 +2,5 @@
 #include "Segment.h"
 
 Segment::Segment()
-	: Collider(ColliderType::Segment)
 {
 }

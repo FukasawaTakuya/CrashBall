@@ -31,10 +31,12 @@ struct CollisionLayerMask
 	ColliderMask mask;
 };
 
+// レイヤーマスク
 namespace LayerMask {
-	constexpr CollisionLayerMask DefaultLayerMask{ ColliderLayer::Default, ColliderMask::Default };
-	constexpr CollisionLayerMask BallLayerMask{ ColliderLayer::Ball, ColliderMask::Ball };
-	constexpr CollisionLayerMask GroundLayerMask{ ColliderLayer::Ground, ColliderMask::Ground };
+	constexpr CollisionLayerMask None	 { ColliderLayer::None, ColliderMask::None };
+	constexpr CollisionLayerMask Default { ColliderLayer::Default, ColliderMask::Default };
+	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball, ColliderMask::Ball };
+	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground, ColliderMask::Ground };
 }
 
 

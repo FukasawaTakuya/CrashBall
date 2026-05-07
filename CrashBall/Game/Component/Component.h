@@ -14,7 +14,6 @@
 // クラスの前方宣言 ===================================================
 class GameObject;
 
-
 using namespace DirectX;
 
 // クラスの定義 ===============================================================
@@ -47,6 +46,10 @@ public:
 	// 取得/設定
 public:
 
+	// オーナーの取得
+	GameObject* GetOwner() { return m_owner; }
+
+	// オーナーの設定
 	void SetOwner(GameObject* owner)
 	{
 		m_owner = owner;

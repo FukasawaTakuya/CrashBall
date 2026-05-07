@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Game/Component/Collider.h"
+#include "Game/Component/Transform.h"
+#include "Game/Component/Rigitbody.h"
 
 #include "Game/Component/Collider/Sphere.h"
 #include "Game/Component/Collider/Plane.h"
@@ -8,10 +10,10 @@
 #include "Game/Component/Collider/Segment.h"
 #include "Game/Component/Collider/Mesh.h"
 
-#include "Game/GameObject/Ball.h"
+#include "Game/GameObject/GameObject.h"
+
 
 namespace Collision {
-
 
 	// ü•ª‚Æ’¼ü‚ÌÕ“Ë”»’è
 	bool IsCollision(Segment* segment, Plane* plane);
@@ -39,10 +41,10 @@ namespace Collision {
 
 
 	// ‹…‚Æ•½–Ê‚ÌÕ“Ë‰ğŒˆ
-	void ResolveCollision(Ball* ball, Plane* plan);
+	void ResolveCollision(Sphere* sphere, Plane* plan);
 
 	// ‹…‚ÆƒƒbƒVƒ…‚ÌÕ“Ë‰ğŒˆ
-	void ResolveCollision(Ball* ball, Mesh* mesh);
+	void ResolveCollision(Sphere* sphere, Mesh* mesh);
 }
 
 

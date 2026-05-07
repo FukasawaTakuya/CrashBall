@@ -20,7 +20,7 @@ struct HitFloorInfo
 /**
  * @brief 基底オブジェクト
  */
-class  MeshFloor : GameObject {
+class  MeshFloor : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -33,8 +33,6 @@ private:
 	Transform*		m_transform = nullptr;
 	Mesh*			m_collider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
-
-	
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

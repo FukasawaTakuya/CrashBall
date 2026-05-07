@@ -2,7 +2,6 @@
 #include "Plane.h"
 
 Plane::Plane()
-	: Collider(ColliderType::Plane)
 {
 }
 
