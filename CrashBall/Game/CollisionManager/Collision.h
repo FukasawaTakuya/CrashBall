@@ -2,7 +2,7 @@
 
 #include "Game/Component/Collider.h"
 #include "Game/Component/Transform.h"
-#include "Game/Component/Rigitbody.h"
+#include "Game/Component/RigidBody.h"
 
 #include "Game/Component/Collider/Sphere.h"
 #include "Game/Component/Collider/Plane.h"
@@ -45,6 +45,9 @@ namespace Collision {
 
 	// ‹…‚ÆƒƒbƒVƒ…‚ÌÕ“Ë‰ğŒˆ
 	void ResolveCollision(Sphere* sphere, Mesh* mesh);
+
+	// ‹…‚Æ‹…‚ÌÕ“Ë‰ğŒˆ
+	void ResolveCollision(Sphere* sphere1, Sphere* sphere2);
 }
 
 

@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   RigitBody.cpp
+ * \file   RigidBody.cpp
  * \brief  物理挙動に関するソースファイル
  * 
  * \author 深沢拓矢
@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "RigitBody.h"
+#include "RigidBody.h"
 #include "Game/Common/TimeManager.h"
 
 using namespace DirectX;
@@ -17,7 +17,7 @@ using namespace DirectX;
  * 
  * \param 摩擦係数
  */
-RigitBody::RigitBody(float gravity, float friction)
+RigidBody::RigidBody(float gravity, float friction)
 	: m_gravity{ gravity }
 	, m_friction{ friction }
 {
@@ -27,7 +27,7 @@ RigitBody::RigitBody(float gravity, float friction)
  * \brief デストラクタ.
  * 
  */
-RigitBody::~RigitBody()
+RigidBody::~RigidBody()
 {
 }
 
@@ -36,12 +36,12 @@ RigitBody::~RigitBody()
  * 
  * \param 加速度
  */
-void RigitBody::Accel(DirectX::SimpleMath::Vector3 accel)
+void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
 {
 	m_accel += accel;
 }
 
-void RigitBody::ApplyAccel()
+void RigidBody::ApplyAccel()
 {
 	m_velocity += m_accel * TimeManager::Instance().GetElapsedTime();
 }
@@ -50,7 +50,7 @@ void RigitBody::ApplyAccel()
  * \brief 重力の適用.
  * 
  */
-void RigitBody::ApplyGravity()
+void RigidBody::ApplyGravity()
 {
 	m_velocity += m_gravity * SimpleMath::Vector3::Down * TimeManager::Instance().GetElapsedTime();
 }
@@ -59,7 +59,7 @@ void RigitBody::ApplyGravity()
  * \brief 摩擦の適用.
  * 
  */
-void RigitBody::ApplyFriction()
+void RigidBody::ApplyFriction()
 {
 	m_velocity *= m_friction;
 }

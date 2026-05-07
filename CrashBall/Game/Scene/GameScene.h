@@ -36,6 +36,8 @@ private:
 
 	std::unique_ptr<Player> m_player;			// プレイヤー
 
+	std::unique_ptr<Ball> m_ball;				// ボール
+
 	std::vector<Triangle*> m_hitFaces;
 
 	std::unique_ptr<CollisionManager> m_collisionManager;

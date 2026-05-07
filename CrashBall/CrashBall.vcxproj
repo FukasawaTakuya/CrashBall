@@ -222,7 +222,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Component\RigitBody.h" />
+    <ClInclude Include="Game\Component\RigidBody.h" />
     <ClInclude Include="Game\Component\Transform.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
     <ClInclude Include="Game\GameObject\Floor.h" />
@@ -281,7 +281,7 @@
     <ClCompile Include="Game\Component\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Collider\Triangle.cpp" />
     <ClCompile Include="Game\Component\ModelRenderer.cpp" />
-    <ClCompile Include="Game\Component\RigitBody.cpp" />
+    <ClCompile Include="Game\Component\RigidBody.cpp" />
     <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Floor.cpp" />

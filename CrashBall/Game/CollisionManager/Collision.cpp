@@ -203,7 +203,7 @@ bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
 void Collision::ResolveCollision(Sphere* sphere, Plane* plan)
 {
 	Transform*	transform = sphere->GetOwner()->GetComponent<Transform>();
-	RigitBody*	rigidbody = sphere->GetOwner()->GetComponent<RigitBody>();
+	RigidBody*	rigidbody = sphere->GetOwner()->GetComponent<RigidBody>();
 	Sphere*		collider = sphere->GetOwner()->GetComponent<Sphere>();
 
 	// 球と平面の距離を求める
@@ -226,7 +226,7 @@ void Collision::ResolveCollision(Sphere* sphere, Plane* plan)
 }
 
 /**
- * \brief	球とメッシュの衝突解決.
+ * \brief球とメッシュの衝突解決.
  * 
  * \param	ball
  * \param	mesh
@@ -238,6 +238,41 @@ void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 		Collision::ResolveCollision(sphere, hitFace->GetPlane());
 	}
 
+}
+
+/**
+ * \brief 球と球の衝突解決.
+ * 
+ * \param sphere1
+ * \param sphere2
+ */
+void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
+{
+	// 各コンポーネントの取得
+	Transform* transform1 = sphere1->GetOwner()->GetComponent<Transform>();
+	Transform* transform2 = sphere2->GetOwner()->GetComponent<Transform>();
+	RigidBody* rigidbody1 = sphere1->GetOwner()->GetComponent<RigidBody>();
+	RigidBody* rigidbody2 = sphere2->GetOwner()->GetComponent<RigidBody>();
+
+	// 座標の差
+	SimpleMath::Vector3 delta = sphere1->GetPosition() - sphere2->GetPosition();
+	// 球から球への方向
+	SimpleMath::Vector3 direction = XMVector3Normalize(delta);
+
+	// 半径の和
+	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
+
+	// 座標の補正
+	 transform1->Translate( direction * (radiusSum- delta.Length()) / 2.0f);
+	 transform2->Translate(-direction * (radiusSum- delta.Length()) / 2.0f);
+
+	// 速度の補正
+	SimpleMath::Vector3 vn1 = rigidbody1->GetVelocity().Dot(direction) * direction;
+	SimpleMath::Vector3 vn2 = rigidbody2->GetVelocity().Dot(direction) * direction;
+	SimpleMath::Vector3 vt1 = rigidbody1->GetVelocity() - vn1;
+	SimpleMath::Vector3 vt2 = rigidbody2->GetVelocity() - vn2;
+	rigidbody1->SetVelocity(vn2 + vt1);
+	rigidbody2->SetVelocity(vn1 + vt2);
 }
 
 /**

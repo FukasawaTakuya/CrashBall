@@ -33,6 +33,8 @@ ModelRenderer::~ModelRenderer()
  */
 void ModelRenderer::Draw(const DirectX::SimpleMath::Matrix& world)
 {
+	if (m_pModel == nullptr) return;
+
 	m_pModel->UpdateEffects([&](IEffect* pEffect)
 		{
 			BasicEffect* pBasicEffect = dynamic_cast<BasicEffect*>(pEffect);

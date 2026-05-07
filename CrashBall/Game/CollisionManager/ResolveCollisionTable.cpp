@@ -44,7 +44,7 @@ void ResolveCollisionTable::SphereVsSphere(Collider* col1, Collider* col2)
 	Sphere* sphere1 = static_cast<Sphere*>(col1);
 	Sphere* sphere2 = static_cast<Sphere*>(col2);
 
-	//Collision::ResolveCollision(sphere1, sphere2);
+	Collision::ResolveCollision(sphere1, sphere2);
 }
 
 void ResolveCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)

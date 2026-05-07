@@ -60,7 +60,7 @@
     <ClInclude Include="Game\Component\Component.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\RigitBody.h">
+    <ClInclude Include="Game\Component\RigidBody.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Transform.h">
@@ -170,7 +170,7 @@
     <ClCompile Include="Game\Component\Collider.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\RigitBody.cpp">
+    <ClCompile Include="Game\Component\RigidBody.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Transform.cpp">

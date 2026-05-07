@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   RigitBody.h
+ * \file   RigidBody.h
  * \brief  物理挙動に関するヘッダーファイル
  * 
  * \author 深沢拓矢
@@ -21,7 +21,7 @@
 /**
  * @brief 基底オブジェクト
  */
-class  RigitBody : public Component {
+class  RigidBody : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -44,10 +44,10 @@ private:
 public:
 
 	// コンストラクタ
-	RigitBody(float gravity, float friction);
+	RigidBody(float gravity, float friction);
 
 	// デストラクタ
-	~RigitBody();
+	~RigidBody();
 
 	// 操作
 public:

@@ -16,7 +16,7 @@ Ball::Ball(float radius)
 {
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
-	m_rigitbody = AddComponent<RigitBody>(GRAVITY, FRICTION);
+	m_rigidBody = AddComponent<RigidBody>(GRAVITY, FRICTION);
 	m_collider	= AddComponent<Sphere>(m_transform, radius);
 	m_renderer	= AddComponent<ModelRenderer>();
 
@@ -26,7 +26,7 @@ Ball::Ball(float radius)
 void Ball::Initialize(SimpleMath::Vector3 position)
 {
 	m_transform->SetPosition(position);
-	m_rigitbody->SetVelocity(SimpleMath::Vector3::Zero);
+	m_rigidBody->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 void Ball::Draw()
@@ -54,18 +54,18 @@ void Ball::Draw()
 void Ball::Move()
 {
 	// 重力の適用
-	m_rigitbody->ApplyGravity();
+	m_rigidBody->ApplyGravity();
 
 	// 加速度の適用
-	m_rigitbody->ApplyAccel();
+	m_rigidBody->ApplyAccel();
 
 	// 速度を加算
-	m_transform->Translate(m_rigitbody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
+	m_transform->Translate(m_rigidBody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
 }
 
 void Ball::Rotate()
 {
-	const SimpleMath::Vector3& velocity = m_rigitbody->GetVelocity();
+	const SimpleMath::Vector3& velocity = m_rigidBody->GetVelocity();
 
 	// 進行方向のベクトル
 	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);

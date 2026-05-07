@@ -29,6 +29,7 @@ GameScene::GameScene(SceneManager* pSceneManager)
     , m_meshFloor{ std::make_unique<MeshFloor>()  }
     , m_player   { std::make_unique<Player>(0.5f) }
     , m_collisionManager{ std::make_unique<CollisionManager>() }
+	, m_ball{ std::make_unique<Ball>(0.5f) }
 {
 }
 
@@ -49,6 +50,7 @@ void GameScene::Initialize()
 {
     m_player->Initialize(SimpleMath::Vector3::Up * 24.0f);
     m_meshFloor->Initialize();
+	m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
 
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
 
@@ -56,6 +58,7 @@ void GameScene::Initialize()
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_meshFloor->GetComponent<Mesh>());
+	m_collisionManager->RegistCollider(m_ball->GetComponent<Sphere>());
 }
 
 /**
@@ -72,11 +75,15 @@ void GameScene::Update(float elapsedTime)
 
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
         m_player->Initialize(SimpleMath::Vector3::Up * 50.0f);
+		m_ball->Initialize(SimpleMath::Vector3::Up * 50.0f);
         m_hitFaces.clear();
     }
 
     m_player->Update();
     m_collisionManager->Update();
+
+	m_ball->Move();
+	m_ball->Rotate();
 
     if (key.Right) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
@@ -106,6 +113,7 @@ void GameScene::Draw()
 {
     m_meshFloor->Draw();
     m_player->Draw();
+	m_ball->Draw();
 
     auto primitiveRenderer = PrimitiveRendererManager::Instance;
 
@@ -165,6 +173,8 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
     m_player->SetModel(modelManager->GetModel("ball"));
 
     m_meshFloor->SetModel(modelManager->GetModel("Stage"));
+
+	m_ball->SetModel(modelManager->GetModel("ball"));
 
     DirectX::SimpleMath::Vector3 v1{ -10.0f, 0.0f, -10.0f };
     DirectX::SimpleMath::Vector3 v2{ 0.0f, 0.0f, 10.0f };

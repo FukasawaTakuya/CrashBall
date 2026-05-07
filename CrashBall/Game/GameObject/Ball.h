@@ -12,7 +12,7 @@
 // ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
 #include "Game/Component/Collider/Sphere.h"
-#include "Game/Component/RigitBody.h"
+#include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
 
@@ -39,7 +39,7 @@ private:
 
 	bool m_isGround = false;						// 地上フラグ
 
-	RigitBody*		m_rigitbody = nullptr;			// 物理演算のコンポーネント
+	RigidBody*		m_rigidBody = nullptr;			// 物理演算のコンポーネント
 	Transform*		m_transform = nullptr;			// トランスフォームコンポーネント
 	Sphere*			m_collider	= nullptr;			// 球のコライダーのコンポーネント
 	ModelRenderer*	m_renderer	= nullptr;			// モデル描画のコンポーネント

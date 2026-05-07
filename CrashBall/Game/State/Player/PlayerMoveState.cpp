@@ -38,7 +38,7 @@ void PlayerMoveState::Update()
     // キー情報の取得
     auto key = Keyboard::Get().GetState();
     // 物理演算コンポーネントの取得
-    RigitBody* rigidbody = m_owner->GetComponent<RigitBody>();
+    RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 
     // 加速度のリセット
     rigidbody->ResetAccel();
