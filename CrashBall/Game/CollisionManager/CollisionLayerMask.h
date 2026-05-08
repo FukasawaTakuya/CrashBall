@@ -1,13 +1,19 @@
+/*****************************************************************//**
+ * \file   CollisionLayerMask.h
+ * \brief  衝突判定のレイヤーとマスクに関するヘッダーファイル
+ * 
+ * \author it252184
+ * \date   May 2026
+ *********************************************************************/
 #pragma once
 #include "pch.h"
-
 
 namespace {
 	// 衝突判定のレイヤー
 	enum class ColliderLayer : uint32_t
 	{
 		None = 0,
-		Default = 31,
+		Default = 1 << 32 - 1,
 		Ball = 1 << 0,
 		Ground = 1 << 1,
 	};
@@ -16,7 +22,7 @@ namespace {
 	enum class ColliderMask : uint32_t
 	{
 		None = 0,
-		Default = 31,
+		Default = 1 << 32 - 1,
 		Ball = static_cast<uint32_t>(ColliderLayer::Ball) |
 		static_cast<uint32_t>(ColliderLayer::Ground),
 		Ground = static_cast<uint32_t>(ColliderLayer::Ball),

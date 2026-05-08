@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   CollisionManager.cpp
+ * \brief  衝突管理クラスに関するソースファイル
+ * 
+ * \author it252184
+ * \date   May 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "CollisionManager.h"
 #include "Collision.h"

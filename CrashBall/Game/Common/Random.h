@@ -1,61 +1,64 @@
-/*****************************************************************//**
- * \file   PlayerMoveState.h
- * \brief  プレイヤー移動ステートに関するヘッダーファイル
- * 
- * \author 深沢拓矢
- * \date   April 2026
- *********************************************************************/
-
 // 多重インクルードの防止 =====================================================
 #pragma once
 
 // ヘッダファイルの読み込み ===================================================
-#include "Game/State/StateBase.h"
+#include <random>
 
 // クラスの前方宣言 ===================================================
-class Player;
+
 
 
 // クラスの定義 ===============================================================
 /**
- * @brief プレイヤー移動ステート
+ * @brief 基底オブジェクト
  */
-class  PlayerMoveState : public StateBase<Player> {
+class  Random {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	static constexpr float ACCELERATION = 35.0f;	// 加速度
-
-	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// 乱数生成エンジン
+	std::mt19937 m_engine;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-public:
+private:
 
 	// コンストラクタ
-	PlayerMoveState();
+	Random()
+		: m_engine(std::random_device{}()) {};
+	// コピーコンストラクタと代入演算子を削除
+	Random(Random&) = delete;
+	Random& operator=(const Random&) = delete;
 
 	// デストラクタ
-	~PlayerMoveState();
-
-	// 開始処理
-	void OnEnter() override;
-
-	// 更新処理
-	void Update() override;
-
-	// 終了処理
-	void OnExit() override;
+	~Random() = default;
 
 	// 操作
 public:
+	// インスタンスの取得
+	static Random& Instance() {
+		static Random instance;
+		return instance;
+	}
 
 	// 取得/設定
 public:
+
+	// 乱数の生成(int型)
+	int Range(int min, int max) {
+		std::uniform_int_distribution<int> dist(min, max);
+		return dist(m_engine);
+	}
+
+	// 乱数の生成(float型)
+	float Range(float min, float max) {
+		std::uniform_real_distribution<float> dist(min, max);
+		return dist(m_engine);
+	}
 
 	// 内部実装
 private:

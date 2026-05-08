@@ -44,6 +44,12 @@
     <Filter Include="Game\Component\Collider">
       <UniqueIdentifier>{cadfcd69-48fa-442a-8853-6cb1cdc59f31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\Enemy">
+      <UniqueIdentifier>{30491c6b-0a55-47f8-9ed7-a1935ba43089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\State\EnemyState">
+      <UniqueIdentifier>{76140965-af0e-4dd0-9e16-e87cdba8bdd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -123,9 +129,6 @@
     <ClInclude Include="Game\GameObject\Player\Player.h">
       <Filter>Game\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Game\State\Player\PlayerStateMachine.h">
-      <Filter>Game\State\PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerMoveState.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
@@ -158,6 +161,15 @@
     </ClInclude>
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h">
       <Filter>Game\CollsionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
+      <Filter>Game\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Random.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -247,7 +259,13 @@
       <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
-    <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
+    <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp">
+      <Filter>Game\GameObject\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
+    <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp">
+      <Filter>Game\CollsionManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

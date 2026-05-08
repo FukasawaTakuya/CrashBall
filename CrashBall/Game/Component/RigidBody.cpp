@@ -13,7 +13,7 @@
 using namespace DirectX;
 
 /**
- * \brief コンストラクタ.
+ * \brief コンストラクタ
  * 
  * \param 摩擦係数
  */
@@ -32,7 +32,7 @@ RigidBody::~RigidBody()
 }
 
 /**
- * \brief 加速.
+ * \brief 加速
  * 
  * \param 加速度
  */
@@ -47,7 +47,7 @@ void RigidBody::ApplyAccel()
 }
 
 /**
- * \brief 重力の適用.
+ * \brief 重力の適用
  * 
  */
 void RigidBody::ApplyGravity()
@@ -56,7 +56,7 @@ void RigidBody::ApplyGravity()
 }
 
 /**
- * \brief 摩擦の適用.
+ * \brief 摩擦の適用
  * 
  */
 void RigidBody::ApplyFriction()

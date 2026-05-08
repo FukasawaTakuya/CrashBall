@@ -30,7 +30,7 @@ class Ball : public GameObject {
 public:
 
 	static constexpr float GRAVITY = 25.8f;			// d—Í
-	static constexpr float FRICTION = 0.99f;		// –€CŒW”
+	static constexpr float FRICTION = 0.9925f;		// –€CŒW”
 
 	// ƒf[ƒ^ƒƒ“ƒo‚ÌéŒ¾ -----------------------------------------------
 private:
@@ -57,7 +57,7 @@ public:
 	// ‘€ì
 public:
 
-	void Initialize(SimpleMath::Vector3 position);
+	void Initialize(DirectX::SimpleMath::Vector3 position);
 
 	void Draw();
 

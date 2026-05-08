@@ -1,12 +1,21 @@
+/*****************************************************************//**
+ * \file   IsCollisionTable.h
+ * \brief  衝突検知関数テーブルに関するヘッダーファイル
+ * 
+ * \author it252184
+ * \date   May 2026
+ *********************************************************************/
+
+// 多重インクルードの防止 =====================================================
 #pragma once
 
+// ヘッダファイルの読み込み ===================================================
 #include "Game/Component/Collider.h"
 #include "Collision.h"
 
-
 // クラスの定義 ===============================================================
 /**
- * @brief 衝突判定関数のテーブル
+ * @brief 衝突検知関数テーブル
  */
 class  IsCollisionTable {
 
@@ -19,7 +28,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	Func m_isCollisionTable[TYPE_COUNT][TYPE_COUNT]{};	// 衝突判定関数のテーブル
+	Func m_isCollisionTable[TYPE_COUNT][TYPE_COUNT]{};	// 衝突検知関数のテーブル
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -37,11 +46,13 @@ public:
 	// 取得/設定
 public:
 
+	// 衝突判定
 	bool IsCollision(Collider* col1, Collider* col2);
 
 	// 内部実装
 private:
 
+	// コライダータイプをIntにキャスト
 	int ToInt(ColliderType type) { return static_cast<int>(type); }
 
 	// 球対球

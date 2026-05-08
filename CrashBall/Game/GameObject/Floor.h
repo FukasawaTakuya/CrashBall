@@ -48,7 +48,7 @@ public:
 public:
 	void Initialize();
 
-	void Update(float elapsedTime);
+	void Update();
 
 	void Draw();
 

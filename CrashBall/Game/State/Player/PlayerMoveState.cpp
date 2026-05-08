@@ -47,21 +47,22 @@ void PlayerMoveState::Update()
     if (m_owner->GetIsGround())
     {
         if (key.D) {
-            rigidbody->Accel(m_owner->GetCamera()->GetRight() * 35.0f);
+            rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
         if (key.A) {
-            rigidbody->Accel(-m_owner->GetCamera()->GetRight() * 35.0f);
+            rigidbody->Accel(-m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
         if (key.W) {
-            rigidbody->Accel(m_owner->GetCamera()->GetForward() * 35.0f);
+            rigidbody->Accel( m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
         if (key.S) {
-            rigidbody->Accel(-m_owner->GetCamera()->GetForward() * 35.0f);
+            rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
-        m_owner->Rotate();
-
-        rigidbody->ApplyFriction();
+        m_owner->Ball::Rotate();
     }
+
+	if (rigidbody->GetVelocity().Length() > MAX_SPEED)
+		rigidbody->SetVelocity(XMVector3Normalize(rigidbody->GetVelocity()) * MAX_SPEED);
 }
 
 /**

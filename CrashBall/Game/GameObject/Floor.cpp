@@ -28,7 +28,7 @@ void MeshFloor::Initialize()
 }
 
 
-void MeshFloor::Update(float elapsedTime)
+void MeshFloor::Update()
 {
 }
 

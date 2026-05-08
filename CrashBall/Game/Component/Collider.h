@@ -5,9 +5,6 @@
 #include "Transform.h"
 #include "Game/CollisionManager/CollisionLayerMask.h"
 
-class Sphere;
-class Mesh;
-
 enum class ColliderType
 {
 	None = -1,
@@ -46,7 +43,6 @@ public:
 public:
 
 	virtual void DrawCollider() = 0;
-
 
 	void OnCollisionEnter(Collider* other) {
 		m_onCollisionEnterCmd(other);

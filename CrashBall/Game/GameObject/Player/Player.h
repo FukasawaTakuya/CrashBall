@@ -46,7 +46,11 @@ public:
 	// ‘€ì
 public:
 
+	void Initialize(DirectX::SimpleMath::Vector3 position);
+
 	void Update();
+
+	void Draw();
 
 	// æ“¾/İ’è
 public:

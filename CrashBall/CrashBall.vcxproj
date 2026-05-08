@@ -192,6 +192,10 @@
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
+    <ClInclude Include="Game\Common\Random.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Common\TimeManager.h">
       <SubType>
       </SubType>
@@ -225,6 +229,10 @@
     <ClInclude Include="Game\Component\RigidBody.h" />
     <ClInclude Include="Game\Component\Transform.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
+    <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\GameObject\Floor.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\Player\Player.h">
@@ -241,15 +249,15 @@
     <ClInclude Include="Game\Scene\GameScene.h" />
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
+    <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerJumpState.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerMoveState.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\State\Player\PlayerStateMachine.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -284,6 +292,7 @@
     <ClCompile Include="Game\Component\RigidBody.cpp" />
     <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
+    <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Floor.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
@@ -294,6 +303,7 @@
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="Main.cpp" />

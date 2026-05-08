@@ -15,7 +15,8 @@
 #include "Game/GameObject/Floor.h"
 #include "Game/Common/Camera.h"
 #include "Game/GameObject/Player/Player.h"
-#include <Game/CollisionManager/CollisionManager.h>
+#include "Game/GameObject/Enemy/Enemy.h"
+#include "Game/CollisionManager/CollisionManager.h"
 //
 // クラスの前方宣言 ===================================================
 
@@ -37,6 +38,8 @@ private:
 	std::unique_ptr<Player> m_player;			// プレイヤー
 
 	std::unique_ptr<Ball> m_ball;				// ボール
+
+	std::unique_ptr<Enemy> m_enemy;			// 敵
 
 	std::vector<Triangle*> m_hitFaces;
 

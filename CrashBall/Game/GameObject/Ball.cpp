@@ -12,6 +12,8 @@
 
 using namespace DirectX;
 
+// メンバ関数の定義 ===========================================================
+
 Ball::Ball(float radius)
 {
 	// コンポーネントの追加
@@ -21,6 +23,24 @@ Ball::Ball(float radius)
 	m_renderer	= AddComponent<ModelRenderer>();
 
 	m_collider->SetLayerMask(LayerMask::Ball);
+
+	// 衝突中の処理の登録
+	m_collider->SetOnCollisionStayCmd([this](Collider* other)
+		{
+			if (other->GetType() == ColliderType::Mesh)
+			{
+				SetIsGround(true);
+			}
+		});
+
+	// 衝突終了時の処理の登録
+	m_collider->SetOnCollisionExitCmd([this](Collider* other)
+		{
+			if (other->GetType() == ColliderType::Mesh)
+			{
+				SetIsGround(false);
+			}
+		});
 }
 
 void Ball::Initialize(SimpleMath::Vector3 position)
@@ -59,15 +79,21 @@ void Ball::Move()
 	// 加速度の適用
 	m_rigidBody->ApplyAccel();
 
+	// 地上なら
+	if(m_isGround)
+		// 摩擦の適用
+		m_rigidBody->ApplyFriction();
+
 	// 速度を加算
 	m_transform->Translate(m_rigidBody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
 }
 
 void Ball::Rotate()
 {
+	// 速度の取得
 	const SimpleMath::Vector3& velocity = m_rigidBody->GetVelocity();
 
-	// 進行方向のベクトル
+	// 進行方向
 	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);
 
 	SimpleMath::Vector3 v = SimpleMath::Vector3::Up;

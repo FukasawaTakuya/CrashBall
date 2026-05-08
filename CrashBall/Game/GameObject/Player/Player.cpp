@@ -1,31 +1,12 @@
 #include "pch.h"
 #include "Player.h"
 #include "Game/State/Player/PlayerMoveState.h"
-#include <Game/State/Player/PlayerJumpState.h>
+#include "Game/State/Player/PlayerJumpState.h"
 
 Player::Player(float radius)
 	: Ball(radius)
 	, m_stateMachine{ std::make_unique<StateMachine<Player>>() }
 {
-
-	auto collider = GetComponent<Sphere>();
-
-	collider->SetOnCollisionStayCmd([this](Collider* other)
-		{
-			if (other->GetType() == ColliderType::Mesh)
-			{
-				SetIsGround(true);
-			}
-		});
-
-	collider->SetOnCollisionExitCmd([this](Collider* other)
-		{
-			if (other->GetType() == ColliderType::Mesh)
-			{
-				SetIsGround(false);
-			}
-		});
-
 	// ステートの生成
 	m_stateMachine->CreateState<PlayerMoveState>();
 
@@ -39,12 +20,22 @@ Player::Player(float radius)
 	m_stateMachine->ChangeState<PlayerJumpState>();
 }
 
+void Player::Initialize(DirectX::SimpleMath::Vector3 position)
+{
+	Ball::Initialize(position);
+}
+
 void Player::Update()
 {
-	m_stateMachine->Update();
+	// ステートマシンの更新
+	if (m_stateMachine != nullptr)
+		m_stateMachine->Update();
 
 	// 移動処理
-	Move();
+	Ball::Move();
+}
 
-	// 回転処理
+void Player::Draw()
+{
+	Ball::Draw();
 }
