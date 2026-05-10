@@ -44,14 +44,6 @@ void Enemy::Update()
 	if (m_stateMachine != nullptr)
 		m_stateMachine->Update();
 
-	RigidBody* rigidBody = GetComponent<RigidBody>();
-
-	rigidBody->SetVelocity({m_direction.x * 5.0f, rigidBody->GetVelocity().y, m_direction.z * 5.0f});
-
-	SimpleMath::Vector3 velocity = rigidBody->GetVelocity();
-
-	m_direction = XMVector3Normalize({ velocity.x, 0.0f, velocity.z });
-
 	Ball::Move();
 
 	Ball::Rotate();

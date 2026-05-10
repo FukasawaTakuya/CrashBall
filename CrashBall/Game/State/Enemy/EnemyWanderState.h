@@ -16,9 +16,11 @@ class  EnemyWanderState : public StateBase<Enemy> {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float DIRECTION_CIRCLE_DISTANCE = 0.0f;	// 方向を決めるための円との距離
+	static constexpr float DIRECTION_CIRCLE_DISTANCE = 6.5f;	// 方向を決めるための円との距離
 
-	static constexpr float DIRECTION_CIRCLE_RADIUS	 = 2.0f;	// 方向を決めるための円の半径
+	static constexpr float DIRECTION_CIRCLE_RADIUS	 = 15.0f;	// 方向を決めるための円の半径
+
+	static constexpr float WANDER_ACCELERATION = 30.0f;			// 徘徊の加速度
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -27,7 +29,9 @@ private:
 
 	float m_timer = 1.0f;
 
-	DirectX::SimpleMath::Vector3 m_targetDirection;		// 目標の進行方向
+	DirectX::SimpleMath::Vector3 m_targetDirection;		// 目標の入力方向
+
+	DirectX::SimpleMath::Vector3 m_currentDirection;	// 現在の入力方向
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -51,6 +55,8 @@ public:
 
 	// 操作
 public:
+
+	void AvoidWall(RigidBody* rigidbody, Transform* transform);
 
 	// 取得/設定
 public:

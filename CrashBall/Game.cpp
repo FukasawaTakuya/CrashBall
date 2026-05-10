@@ -131,13 +131,15 @@ void Game::Render()
 
     // 描画命令のクリア
     modelRendererManager.ClearCommandList();
-    primitiveRendererManager.ClearCommandList();
+    //primitiveRendererManager.ClearCommandList();
 
     m_sceneManager->Draw();
 
     // 描画
     modelRendererManager.Draw(m_sceneManager->GetCamera());
     primitiveRendererManager.Draw(m_sceneManager->GetCamera());
+
+    primitiveRendererManager.ClearCommandList();
 
     m_deviceResources->PIXEndEvent();
 

@@ -52,6 +52,7 @@ void GameScene::Initialize()
     m_meshFloor->Initialize();
 	m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
 	m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
+	m_enemy->SetFloor(m_meshFloor.get());
 
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
 
@@ -63,6 +64,8 @@ void GameScene::Initialize()
 	m_collisionManager->RegistCollider(m_enemy->GetComponent<Sphere>());
 }
 
+
+bool playerFollow = true;
 /**
  * @brief 更新.
  * 
@@ -78,8 +81,11 @@ void GameScene::Update(float elapsedTime)
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
         m_player->Initialize(SimpleMath::Vector3::Up * 50.0f);
 		m_ball->Initialize(SimpleMath::Vector3::Up * 50.0f);
-		m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 1.0f, 10.0f });
+		m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 1.0f });
         m_hitFaces.clear();
+    }
+    if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::F)) {
+        playerFollow = !playerFollow;
     }
 
     m_player->Update();
@@ -107,7 +113,12 @@ void GameScene::Update(float elapsedTime)
     Mouse::Get().ResetScrollWheelValue();
     m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
 
-    m_camera->FollowCamera(palyerTransform->GetPosition());
+    if (playerFollow) {
+        m_camera->FollowCamera(palyerTransform->GetPosition());
+    }
+    else {
+		m_camera->FollowCamera(m_enemy->GetComponent<Transform>()->GetPosition());
+    }
 }
 
 

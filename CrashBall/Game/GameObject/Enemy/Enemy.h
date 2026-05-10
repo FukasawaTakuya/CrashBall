@@ -5,7 +5,7 @@
 #include "Game/State/StateMachine.h"
 
 // クラスの前方宣言 ===================================================
-
+class MeshFloor;
 
 
 // クラスの定義 ===============================================================
@@ -24,6 +24,8 @@ private:
 
 	// 進行方向
 	DirectX::SimpleMath::Vector3 m_direction;
+
+	MeshFloor* m_pFloor = nullptr;	// 床のポインタ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -47,12 +49,19 @@ public:
 	// 描画処理
 	void Draw();
 
+
 	// 取得/設定
 public:
 
 	DirectX::SimpleMath::Vector3 GetDirection() const { return m_direction; }
 
 	void SetDirection(DirectX::SimpleMath::Vector3 direction) { m_direction = direction; }
+
+
+	void SetFloor(MeshFloor* pFloor) { m_pFloor = pFloor; }
+
+	MeshFloor* GetFloor() const { return m_pFloor; }
+
 
 	// 内部実装
 private:

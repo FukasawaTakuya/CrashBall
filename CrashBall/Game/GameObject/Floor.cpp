@@ -23,6 +23,7 @@ void MeshFloor::Initialize()
 {
 	// 拡大率の設定
 	m_collider->SetScale(SCALE);
+
 	// コライダーデータの読み込み
 	m_collider->LoadObjData(L"Resources/Models/Stage2.obj");
 }

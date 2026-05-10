@@ -38,9 +38,16 @@ public:
 public:
 	bool LoadObjData(const wchar_t* filename);
 
+		void AddFace(Triangle* face)
+	{
+		m_faces.emplace_back(std::make_unique<Triangle>(*face));
+	}
+
+
 	std::vector<std::unique_ptr<Triangle>>& GetFace() { return m_faces; }
 
 	const std::vector<Triangle*>& GetHitFace() { return m_hitFace; }
+
 
 	void SetScale(float scale) {
 		m_scale = scale;
