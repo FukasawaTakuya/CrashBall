@@ -28,7 +28,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	Func m_isCollisionTable[TYPE_COUNT][TYPE_COUNT]{};	// 衝突検知関数のテーブル
+	Func m_isCollisionTable[TYPE_COUNT][TYPE_COUNT];	// 衝突検知関数のテーブル
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

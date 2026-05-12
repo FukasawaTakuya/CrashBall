@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Floor.h"
 #include "Game/ResourceManager/ResourceManager.h"
-#include "Game/Renderer/PrimitveRendererManager.h"
+#include "Game/Renderer/PrimitiveRendererManager.h"
 
 using namespace DirectX;
 
@@ -26,6 +26,17 @@ void MeshFloor::Initialize()
 
 	// コライダーデータの読み込み
 	m_collider->LoadObjData(L"Resources/Models/Stage2.obj");
+
+	for (auto& face : m_collider->GetFace())
+	{
+		if (face->GetCenter().y >= 4.0f && face->GetCenter().y <= 8.0f)
+		{
+			m_stageMesh.push_back(face.get());
+		}
+		else {
+			m_wallMesh.push_back(face.get());
+		}
+	}
 }
 
 

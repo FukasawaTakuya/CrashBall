@@ -34,6 +34,9 @@ private:
 	Mesh*			m_collider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
 
+	std::vector<Triangle*> m_stageMesh;
+	std::vector<Triangle*> m_wallMesh;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -59,6 +62,17 @@ public:
 public:
 
 	Mesh* GetMesh() { return m_collider; }
+
+	const std::vector<Triangle*>& GetStageMesh()
+	{
+		return m_stageMesh;
+	}
+
+	const std::vector<Triangle*>& GetWallMesh()
+	{
+		return m_wallMesh;
+	}
+
 
 	void SetModel(DirectX::Model* pModel) {
 		m_renderer->SetModel(pModel);

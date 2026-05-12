@@ -1,14 +1,23 @@
+/*****************************************************************//**
+ * \file   EnemyWanderState.cpp
+ * \brief  敵の徘徊ステートに関するソースファイル
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
+ // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "EnemyWanderState.h"
+#include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/Common/Random.h"
 #include "Game/Common/TimeManager.h"
-#include "Game/GameObject/Enemy/Enemy.h"
-#include "Game/Component/Collider/Segment.h"
 #include "Game/GameObject/Floor.h"
-#include "Game/CollisionManager/Collision.h"
-#include <Game/Renderer/PrimitveRendererManager.h>
 
+// 名前空間の使用 ============================================================
 using namespace DirectX;
+
+// メンバ関数の定義 ===============================================================
 
 /**
  * @brief コンストラクタ
@@ -25,6 +34,14 @@ EnemyWanderState::EnemyWanderState()
  * 
  */
 EnemyWanderState::~EnemyWanderState()
+{
+}
+
+/**
+ * \brief 初期化処理
+ * 
+ */
+void EnemyWanderState::Initialize()
 {
 }
 
@@ -51,20 +68,18 @@ void EnemyWanderState::Update()
 	// 加速度のリセット
 	rigidbody->ResetAccel();
 
-	// 地上にいるときのみ徘徊する
-	if (!m_owner->GetIsGround()) return;
-
-	if (m_currentDirection == SimpleMath::Vector3::Zero)
-	{
-		float randomRadian = Random::Instance().Range(0.0f, XM_2PI);
-		m_currentDirection = { std::cos(randomRadian), 0.0f, std::sin(randomRadian) };
-	};
+	// タイマーを更新
+	m_timer += elapsedTime;
 
 	// 水平移動のみを正規化して取得
-	SimpleMath::Vector3 direction = { rigidbody->GetVelocity().x, 0.0f, rigidbody->GetVelocity().z };
+	SimpleMath::Vector3 direction = rigidbody->GetVelocity();
+	direction.y = 0.0f;
 	direction.Normalize();
 
-	if (m_timer >= 1.0f)
+	// 加速度方向を取得
+	SimpleMath::Vector3 accelDirection = m_owner->GetAccelDirection();
+
+	if (m_timer >= DIRECTION_CHANGE_INTERVAL)
 	{
 		// 円の中心
 		SimpleMath::Vector3 circleCenter =
@@ -78,48 +93,18 @@ void EnemyWanderState::Update()
 			SimpleMath::Vector3(std::cos(circleRadian), 0.0f, std::sin(circleRadian)) * DIRECTION_CIRCLE_RADIUS;
 
 		// 進行方向を更新
-		m_targetDirection = XMVector3Normalize(circlePoint - transform->GetPosition());
+		accelDirection = XMVector3Normalize(circlePoint - transform->GetPosition());
 
 		// 進行方向を水平移動のみにする
-		m_targetDirection.y = 0.0f;
-		m_targetDirection.Normalize();
+		accelDirection.y = 0.0f;
+		accelDirection.Normalize();
 
 		// タイマーをリセット
 		m_timer = 0.0f;
 	}
 	
-	m_timer += elapsedTime;
-
-	m_currentDirection = 
-		SimpleMath::Vector3::Lerp(m_currentDirection, m_targetDirection, elapsedTime * 5.0f);
-
-	// 壁回避処理
-	AvoidWall(rigidbody, transform);
-
-	// 進行方向を徐々に変える
-	rigidbody->Accel(m_targetDirection * WANDER_ACCELERATION);
-
-	//OutputDebugString(L"current x:%f y:%f z:%f\n ", m_currentDirection.x, m_currentDirection.y, m_currentDirection.z);
-	//OutputDebugString(L"target x:%f y:%f z:%f\n ", m_targetDirection.x, m_targetDirection.y, m_targetDirection.z);
-
-	std::vector<DirectX::VertexPositionNormalColor> pos
-	{
-		VertexPositionNormalColor(transform->GetPosition(), SimpleMath::Vector3::Up, Colors::Black),
-		VertexPositionNormalColor(transform->GetPosition() + m_currentDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Black),
-	};
-
-	std::vector<DirectX::VertexPositionNormalColor> pos2
-	{
-		VertexPositionNormalColor(transform->GetPosition(), SimpleMath::Vector3::Up, Colors::Red),
-		VertexPositionNormalColor(transform->GetPosition() + m_targetDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Red),
-	};
-
-	PrimitiveRendererManager::Instance().RegisterDrawCommand({
-		D3D10_PRIMITIVE_TOPOLOGY_LINELIST
-		, pos
-		});
-
-	
+	// 加速方向を設定
+	m_owner->SetAccelDirection(accelDirection);
 }
 
 /**
@@ -128,37 +113,4 @@ void EnemyWanderState::Update()
  */
 void EnemyWanderState::OnExit()
 {
-}
-
-/**
- * @brief 壁回避処理
- * 
- */
-void EnemyWanderState::AvoidWall(RigidBody* rigidbody, Transform* transform)
-{
-	MeshFloor* floor = m_owner->GetFloor();
-	for (auto& face : floor->GetMesh()->GetFace())
-	{
-			if (face->GetPlane()->GetNormal().y < 0.3f && face->GetPlane()->GetNormal().y > 0.0f)
-			{
-				if ((face->GetPlane()->CalcLength(transform->GetPosition()) <= 6.0f))
-				{
-
-					SimpleMath::Vector3 faceNormal = face->GetPlane()->GetNormal();
-					faceNormal.y = 0.0f;
-					faceNormal.Normalize();
-
-					SimpleMath::Vector3 vn = faceNormal.Dot(m_targetDirection) * faceNormal;
-					SimpleMath::Vector3 vt = m_targetDirection - vn;
-
-					m_targetDirection = vt + faceNormal;
-					m_targetDirection.Normalize();
-					m_timer = 0.0f;
-
-					m_currentDirection = m_targetDirection;
-				
-					return;
-				}
-			}
-	}
 }

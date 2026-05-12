@@ -108,7 +108,7 @@
     <ClInclude Include="Game\Common\InputSystem.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\PrimitveRendererManager.h">
+    <ClInclude Include="Game\Renderer\PrimitiveRendererManager.h">
       <Filter>Game\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\TimeManager.h">
@@ -171,6 +171,12 @@
     <ClInclude Include="Game\Common\Random.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Common\MyMath.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerAttackState.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -224,7 +230,7 @@
     <ClCompile Include="Game\Common\InputSystem.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Renderer\PrimitveRendererManager.cpp">
+    <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp">
       <Filter>Game\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp">
@@ -236,7 +242,6 @@
     <ClCompile Include="Game\GameObject\Player\Player.cpp">
       <Filter>Game\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\Component\Collider\Sphere.cpp">
       <Filter>Game\Component\Collider</Filter>
     </ClCompile>
@@ -258,13 +263,23 @@
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp">
       <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp">
       <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp">
       <Filter>Game\CollsionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp">
+      <Filter>Game\State\EnemyState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollisionManager\CollisionManager.cpp">
+      <Filter>Game\CollsionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp">
+      <Filter>Game\CollsionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\State\Player\PlayerAttackState.cpp">
+      <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "PrimitveRendererManager.h"
+#include "PrimitiveRendererManager.h"
 #include "Game/Common/CommonResources.h"
 
 using namespace DirectX;

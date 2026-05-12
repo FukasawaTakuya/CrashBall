@@ -42,6 +42,11 @@ public:
 	// デストラクタ
 	~PlayerMoveState();
 
+	// 操作
+private:
+	// 初期化処理
+	void Initialize() override;
+
 	// 開始処理
 	void OnEnter() override;
 
@@ -50,9 +55,6 @@ public:
 
 	// 終了処理
 	void OnExit() override;
-
-	// 操作
-public:
 
 	// 取得/設定
 public:

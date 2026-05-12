@@ -6,6 +6,7 @@
  * \date   April 2026
  *********************************************************************/
 
+ // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "Ball.h"
 #include "Game/Common/TimeManager.h"
@@ -25,7 +26,7 @@ Ball::Ball(float radius)
 	m_collider->SetLayerMask(LayerMask::Ball);
 
 	// 衝突中の処理の登録
-	m_collider->SetOnCollisionStayCmd([this](Collider* other)
+	m_collider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
 			if (other->GetType() == ColliderType::Mesh)
 			{
@@ -51,7 +52,7 @@ void Ball::Initialize(SimpleMath::Vector3 position)
 
 void Ball::Draw()
 {
-	m_transform->Rotate(m_rotateValue);
+	m_transform->Rotate(m_angularVelocity);
 
 	// 拡大行列
 	SimpleMath::Matrix scale 
@@ -109,10 +110,10 @@ void Ball::Rotate()
 	float forwardAngle 
 		= velocity.Length() * TimeManager::Instance().GetElapsedTime() / m_collider->GetRadius();
 
-	// 回転値を求める
+	// 角速度を求める
 	SimpleMath::Quaternion quaternion
 		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
 
-	// 回転量をマトリクスに変換
-	m_rotateValue = SimpleMath::Matrix::CreateFromQuaternion(quaternion);
+	// 角速度をマトリクスに変換
+	m_angularVelocity = SimpleMath::Matrix::CreateFromQuaternion(quaternion);
 }

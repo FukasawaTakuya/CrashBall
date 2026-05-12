@@ -12,7 +12,7 @@
 #include "Game/Common/InputSystem.h"
 #include "Game/CollisionManager/Collision.h"
 #include "Game/ResourceManager/ResourceManager.h"
-#include "Game/Renderer/PrimitveRendererManager.h"
+#include "Game/Renderer/PrimitiveRendererManager.h"
 
 // メンバ関数の定義 ===========================================================
 
@@ -48,7 +48,7 @@ GameScene::~GameScene()
  */
 void GameScene::Initialize()
 {
-    m_player->Initialize(SimpleMath::Vector3::Up * 24.0f);
+    m_player->Initialize(SimpleMath::Vector3::Up * 24.0f, m_enemy->GetComponent<Transform>());
     m_meshFloor->Initialize();
 	m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
 	m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
@@ -79,7 +79,7 @@ void GameScene::Update(float elapsedTime)
     Transform* palyerTransform = m_player->GetComponent<Transform>();
 
     if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
-        m_player->Initialize(SimpleMath::Vector3::Up * 50.0f);
+        m_player->Initialize(SimpleMath::Vector3::Up * 50.0f, m_enemy->GetComponent<Transform>());
 		m_ball->Initialize(SimpleMath::Vector3::Up * 50.0f);
 		m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 1.0f });
         m_hitFaces.clear();
@@ -94,8 +94,6 @@ void GameScene::Update(float elapsedTime)
 	m_enemy->Update();
 
     m_collisionManager->Update();
-
-    
 
     if (key.Right) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
@@ -137,12 +135,14 @@ void GameScene::Draw()
 
     auto& hitFace = m_meshFloor->GetMesh()->GetHitFace();
 
+    // 
     if (!hitFace.empty()) {
         for (auto& face : hitFace)
         {
             bool isPush = true;
             for (auto& hitFaces : m_hitFaces)
             {
+                // すでに登録していたらスキップ
                 if (face == hitFaces)
                 {
                     isPush = false;

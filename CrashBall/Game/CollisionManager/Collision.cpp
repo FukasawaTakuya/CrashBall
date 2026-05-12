@@ -6,8 +6,8 @@ using namespace DirectX;
 /**
  * \brief 球と平面の衝突判定
  *
- * \param sphere	球
- * \param plane		平面
+ * \param sphere 球
+ * \param plane 平面
  * \return
  */
 bool Collision::IsCollision(Sphere* sphere, Plane* plane)
@@ -16,7 +16,7 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 	float distance = plane->CalcLength(sphere->GetPosition());
 
 	// 距離が球の半径より小さければture
-	bool r = (distance <= 0.5f);
+	bool r = (distance <= sphere->GetRadius());
 
 	return r;
 }
@@ -27,31 +27,34 @@ bool Collision::IsCollision(Plane* plane, Sphere* sphere)
 
 
 /**
- * \brief 線分と平面の衝突判定.
+ * \brief 線分と平面の衝突判定
  * 
- * \param segment	線分
- * \param plane		平面
+ * \param segment 線分
+ * \param plane 平面
  * \return 
  */
 bool Collision::IsCollision(Segment* segment, Plane* plane)
 {
+	// 直線と平面の交点
 	SimpleMath::Vector3 point =
 		CalcIntersection(segment, plane);
 
+	// 交点から平面との衝突判定を行う
 	return IsCollision(segment, point);
 }
 
 /**
- * \brief 線分と平面の衝突判定(交点から求める).
+ * \brief 線分と平面の衝突判定(交点から求める)
  * 
- * \param segment		線分
- * \param intersection	平面との交点 
+ * \param segment 線分
+ * \param intersection 平面との交点 
  * \return 
  */
 bool Collision::IsCollision(
 	Segment* segment, 
 	DirectX::SimpleMath::Vector3 intersection) 
 { 
+	// 交点と線分の両端の距離が線分の長さ以下ならtrue
 	if ((intersection - segment->GetPos()).Length() <= segment->GetLength() &&
 		(intersection - (segment->GetPos() + segment->GetVec())).Length() <= segment->GetLength()) {
 		return true; 
@@ -60,10 +63,10 @@ bool Collision::IsCollision(
 }
 
 /**
- * \brief 線分と三角形の衝突判定.
+ * \brief 線分と三角形の衝突判定
  * 
- * \param segment	線分
- * \param triangle	三角形
+ * \param segment 線分
+ * \param triangle 三角形
  * \return 
  */
 bool Collision::IsCollision(Segment* segment, Triangle* triangle)
@@ -90,10 +93,12 @@ bool Collision::IsCollision(Segment* segment, Triangle* triangle)
  */
 bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 {
+	// 線分の始点と球の中心の距離
 	float xa = segment->GetPos().x - sphere->GetPosition().x;
 	float ya = segment->GetPos().y - sphere->GetPosition().y;
 	float za = segment->GetPos().z - sphere->GetPosition().z;
 
+	// 二次方程式の係数
 	float a
 		= std::pow(segment->GetVec().x, 2) 
 		+ std::pow(segment->GetVec().y, 2) 
@@ -105,31 +110,45 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	float c
 		= std::pow(xa, 2) + std::pow(ya, 2) + std::pow(za, 2) - sphere->GetRadius();
 
+	// 判別式
 	float d = std::pow(b, 2) - 4 * a * c;
 
+	// 判別式が負なら衝突していない
 	if (d < 0.0f) return false;
 
+	// 判別式の平方根
 	d = std::sqrt(d);
 
+	// 二次方程式の解
 	float t1 = (-b + d) / (2 * a);
 	float t2 = (-b - d) / (2 * a);
 
+	// 解が線分の範囲内にあるなら衝突している
 	if (t1 <= 1.0f && t1 >= 0.0f ||
 		t2 <= 1.0f && t2 >= 0.0f)
 	{
 		return true;
 	}
 	else return false;
-	
 }
 
+/**
+ * \brief 球と球の衝突判定
+ * 
+ * \param sphere1
+ * \param sphere2
+ * \return 
+ */
 bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 {
+	// 座標の差
 	SimpleMath::Vector3 delta =
 		(sphere1->GetTransform()->GetPosition() - sphere2->GetTransform()->GetPosition());
 
+	// 半径の和
 	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
 
+	// 座標の差の長さが半径の和以下ならtrue
 	return (delta.Length() <= radiusSum);
 }
 
@@ -159,6 +178,7 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 		segments[i].SetSegment(pos[i], vec[i]);
 	}
 
+	// 有効にすると衝突解決時にガタつくためコメントアウト
 	// 各辺と球の衝突判定
 	//for (auto seg : segments) {
 	//	if (IsCollision(&seg, sphere)) {
@@ -176,18 +196,27 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	return IsCollision(&segment, triangle);
 }
 
+/**
+ * \brief 球とメッシュの衝突判定
+ * 
+ * \param sphere
+ * \param mesh
+ * \return 
+ */
 bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 {
+	// 衝突している面をクリア
 	mesh->ClearHitFace();
 
+	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {
 		if (Collision::IsCollision(sphere, face.get())) {
 			mesh->SetHitFace(face.get());
 		}
 	}
+	// 衝突している面があるならtrue
 	return !mesh->GetHitFace().empty();
 }
-
 bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
 {
 	return IsCollision(sphere, mesh);
@@ -197,23 +226,23 @@ bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
 /**
  * \brief 球と平面の衝突の解決
  *
- * \param ball
- * \param plan
+ * \param sphere 球
+ * \param plane 平面
  */
-void Collision::ResolveCollision(Sphere* sphere, Plane* plan)
+void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
 {
 	Transform*	transform = sphere->GetOwner()->GetComponent<Transform>();
 	RigidBody*	rigidbody = sphere->GetOwner()->GetComponent<RigidBody>();
 	Sphere*		collider = sphere->GetOwner()->GetComponent<Sphere>();
 
 	// 球と平面の距離を求める
-	float distance = plan->CalcLength(transform->GetPosition());
+	float distance = plane->CalcLength(transform->GetPosition());
 
 	// 補正距離を求める
 	float overlap = collider->GetRadius() - distance;
 
 	// 補正方向
-	DirectX::SimpleMath::Vector3 direction = plan->GetNormal();
+	DirectX::SimpleMath::Vector3 direction = plane->GetNormal();
 
 	transform->Translate(direction * overlap);
 
@@ -226,10 +255,10 @@ void Collision::ResolveCollision(Sphere* sphere, Plane* plan)
 }
 
 /**
- * \brief球とメッシュの衝突解決.
+ * \brief 球とメッシュの衝突解決
  * 
- * \param	ball
- * \param	mesh
+ * \param sphere 球
+ * \param mesh メッシュ
  */
 void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 {
@@ -237,7 +266,6 @@ void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 	{
 		Collision::ResolveCollision(sphere, hitFace->GetPlane());
 	}
-
 }
 
 /**
@@ -278,8 +306,8 @@ void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 /**
  * \brief ある点が三角形の内側にあるか.
  *
- * \param point		任意の点
- * \param triangle	三角形
+ * \param point 任意の点
+ * \param triangle 三角形
  * \return
  */
 bool IsPointInTriangle(DirectX::SimpleMath::Vector3 point, Triangle* triangle)

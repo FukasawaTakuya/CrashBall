@@ -1,6 +1,6 @@
 /*****************************************************************//**
- * \file   EnemyWanderState.h
- * \brief  敵の徘徊ステートに関するヘッダーファイル
+ * \file   PlayerAttackState.h
+ * \brief  プレイヤー攻撃ステートに関するヘッダーファイル
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -8,44 +8,38 @@
 
 // 多重インクルードの防止 =====================================================
 #pragma once
+
 // ヘッダファイルの読み込み ===================================================
 #include "Game/State/StateBase.h"
-
 // クラスの前方宣言 ===================================================
-class Enemy;
+class Player;
 
 
 // クラスの定義 ===============================================================
 /**
- * @brief 敵徘徊ステート
+ * @brief プレイヤー攻撃ステート
  */
-class  EnemyWanderState : public StateBase<Enemy> {
+class  PlayerAttackState : public StateBase<Player>{
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float DIRECTION_CIRCLE_DISTANCE = 4.5f;	// 方向を決めるための円との距離
-
-	static constexpr float DIRECTION_CIRCLE_RADIUS	 = 10.0f;	// 方向を決めるための円の半径
-
-	static constexpr float DIRECTION_CHANGE_INTERVAL = 1.5f;	// 方向を変える間隔
+	static constexpr float ATTACK_DURATION = 0.5f;	// 攻撃の持続時間
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	float m_directionCircleRadian;						// 方向を決めるための円の角度
-
-	float m_timer = DIRECTION_CHANGE_INTERVAL;			// 
+	float m_timer;		// タイマー
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	EnemyWanderState();
+	PlayerAttackState();
 
 	// デストラクタ
-	~EnemyWanderState();
+	~PlayerAttackState();
 
 	// 操作
 private:

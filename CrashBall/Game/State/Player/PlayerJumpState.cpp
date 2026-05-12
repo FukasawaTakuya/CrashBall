@@ -12,6 +12,14 @@ PlayerJumpState::~PlayerJumpState()
 {
 }
 
+/**
+ * \brief 初期化処理
+ * 
+ */
+void PlayerJumpState::Initialize()
+{
+}
+
 void PlayerJumpState::OnEnter()
 {
 }

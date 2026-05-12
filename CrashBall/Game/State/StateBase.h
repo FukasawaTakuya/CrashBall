@@ -46,6 +46,9 @@ public:
 	// 操作
 protected:
 
+	// 初期化処理
+	virtual void Initialize()  = 0;
+
 	// 開始処理
 	virtual void OnEnter() = 0;
 
@@ -56,6 +59,13 @@ protected:
 	virtual void OnExit() = 0;
 
 public:
+
+	// 初期化処理の呼び出し関数
+	void CallInitialize() {
+		// nullチェック
+		if (m_owner == nullptr) return;
+		Initialize();
+	}
 	
 	// 開始処理の呼び出し関数
 	void CallOnEnter() {

@@ -21,7 +21,7 @@ public:
 private:
 
 	// 乱数生成エンジン
-	std::mt19937 m_engine;
+	std::mt19937 m_mt;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -29,7 +29,7 @@ private:
 
 	// コンストラクタ
 	Random()
-		: m_engine(std::random_device{}()) {};
+		: m_mt(std::random_device{}()) {};
 	// コピーコンストラクタと代入演算子を削除
 	Random(Random&) = delete;
 	Random& operator=(const Random&) = delete;
@@ -51,13 +51,13 @@ public:
 	// 乱数の生成(int型)
 	int Range(int min, int max) {
 		std::uniform_int_distribution<int> dist(min, max);
-		return dist(m_engine);
+		return dist(m_mt);
 	}
 
 	// 乱数の生成(float型)
 	float Range(float min, float max) {
 		std::uniform_real_distribution<float> dist(min, max);
-		return dist(m_engine);
+		return dist(m_mt);
 	}
 
 	// 内部実装

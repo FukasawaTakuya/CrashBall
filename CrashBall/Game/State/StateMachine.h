@@ -68,6 +68,7 @@ public:
 		{
 			state.second->SetOwner(owner);
 			state.second->SetStateMachine(this);
+			state.second->CallInitialize();
 		}
 	}
 

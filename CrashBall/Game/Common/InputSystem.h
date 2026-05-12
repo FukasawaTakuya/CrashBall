@@ -25,6 +25,7 @@ private:
 		, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>()	}
 	{}
 
+	// コピーコンストラクタと代入演算子を削除
 	InputSystem(const InputSystem&) = delete;
 	InputSystem& operator=(const InputSystem&) = delete;
 
@@ -44,6 +45,13 @@ public:
 	DirectX::Mouse::ButtonStateTracker*			GetMouseTracker()	{ return m_mouseTracker.get(); }
 	// キーボードのトラッカーの取得
 	DirectX::Keyboard::KeyboardStateTracker*	GetKeyboardTracker(){ return m_keyboardTracker.get(); }
+
+	bool IsKeyTrigger(DirectX::Keyboard::Keys key) {
+		return m_keyboardTracker->IsKeyPressed(key);
+	}
+	bool IsKeyRelease(DirectX::Keyboard::Keys key) {
+		return m_keyboardTracker->IsKeyReleased(key);
+	}
 
 	// マウス座標の取得
 	DirectX::SimpleMath::Vector2 GetMousePos() {

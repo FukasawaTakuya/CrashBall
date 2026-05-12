@@ -35,6 +35,7 @@ private:
 private:
 	// コンストラクタ
 	CommonResources() = default;
+	// コピーコンストラクタと代入演算子を削除
 	CommonResources(const CommonResources&) = delete;
 	CommonResources& operator=(const CommonResources&) = delete;
 

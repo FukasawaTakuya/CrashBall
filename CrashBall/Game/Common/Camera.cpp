@@ -5,12 +5,19 @@
  * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
+ // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "Camera.h"
 
+// 名前空間の使用 =============================================================
 using namespace DirectX;
 
+// メンバ関数の定義 ===========================================================
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 Camera::Camera()
 	: m_eye{}
 	, m_target{}
@@ -23,7 +30,10 @@ Camera::Camera()
 {
 }
 
-
+/**
+ * デストラクタ
+ * 
+ */
 Camera::~Camera()
 {
 }
@@ -33,44 +43,11 @@ Camera::~Camera()
  * 
  * \param projMat 射影行列
  */
-void Camera::Initialize(DirectX::SimpleMath::Matrix projMat)
+void Camera::Initialize(const DirectX::SimpleMath::Matrix& projMat)
 {
 	m_projMat = projMat;
 	m_offset = OFFSET;
 	m_zoomRate = 1.0f;
-}
-
-/**
- * \brief 注視点のヨー
- * 
- * \param angle	回転角度
- */
-void Camera::YawTarget(float angle)
-{
-	// クオータニオンを求める
-	SimpleMath::Quaternion quaternion = 
-		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angle);
-
-	// 前方ベクトルの回転
-	m_forward = XMVector3Rotate(m_forward, quaternion);
-
-	UpdataView();
-}
-
-/**
- * \brief 注視点のピッチ.
- * 
- * \param angle
- */
-void Camera::PitchTarget(float angle)
-{
-	SimpleMath::Quaternion quaternion =
-		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Right, angle);
-
-	// 前方ベクトルの回転
-	m_forward = XMVector3Rotate(m_forward, quaternion);
-
-	UpdataView();
 }
 
 /**
@@ -219,6 +196,7 @@ DirectX::SimpleMath::Matrix Camera::GetProjMat()
 
 DirectX::SimpleMath::Vector3 Camera::GetForward()
 {
+	// 水平方向の前方ベクトル
 	SimpleMath::Vector3 forward{ m_forward.x, 0.0f, m_forward.z };
 	forward.Normalize();
 
@@ -227,6 +205,7 @@ DirectX::SimpleMath::Vector3 Camera::GetForward()
 
 DirectX::SimpleMath::Vector3 Camera::GetRight()
 {
+	// 水平方向の右ベクトル
 	SimpleMath::Vector3 right{ m_right.x, 0.0f, m_right.z };
 	right.Normalize();
 
@@ -264,9 +243,8 @@ void Camera::SetCamera(
 	const DirectX::SimpleMath::Vector3& eye, 
 	const DirectX::SimpleMath::Vector3& target)
 {
-	m_eye = eye;
-	m_target = target;
-	m_forward = XMVector3Normalize(m_target - m_eye);
+	SetEye(eye);
+	SetTarget(target);
 
 	m_viewMat = SimpleMath::Matrix::CreateLookAt(m_eye, (m_eye + m_forward), m_up);
 }

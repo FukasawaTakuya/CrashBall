@@ -11,10 +11,10 @@
 
 // ヘッダファイルの読み込み ===================================================
 
-// クラスの前方宣言 ===================================================
+// クラスの前方宣言 ==========================================================
 
 
-// クラスの定義 ===============================================================
+// クラスの定義 ==============================================================
 /**
  * @brief カメラクラス
  */
@@ -60,13 +60,7 @@ public:
 public:
 
 	// 初期化
-	void Initialize(DirectX::SimpleMath::Matrix projMat);
-
-	// 注視点のヨー
-	void YawTarget(float angle);
-
-	// 注視点のピッチ
-	void PitchTarget(float angle);
+	void Initialize(const DirectX::SimpleMath::Matrix& projMat);
 
 	// カメラのX軸回転
 	void RotateX(float angle);
@@ -80,7 +74,7 @@ public:
 	// 追従
 	void FollowCamera(DirectX::SimpleMath::Vector3 pos);
 
-	// 取得/設定
+	// 取得 / 設定
 public:
 
 	// 注視点の取得
@@ -113,8 +107,6 @@ public:
 	void SetCamera(
 		const DirectX::SimpleMath::Vector3& eye,
 		const DirectX::SimpleMath::Vector3& target);
-
-	// TODO:ターゲットに向けてカメラを合わせる key:球面補間　ロックオン機能
 
 	// 内部実装
 private:

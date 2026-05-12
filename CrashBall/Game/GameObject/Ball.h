@@ -30,12 +30,12 @@ class Ball : public GameObject {
 public:
 
 	static constexpr float GRAVITY = 25.8f;			// 重力
-	static constexpr float FRICTION = 0.9925f;		// 摩擦係数
+	static constexpr float FRICTION = 0.992f;		// 摩擦係数
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Matrix m_rotateValue;		// 回転値
+	DirectX::SimpleMath::Matrix m_angularVelocity;	// 角速度
 
 	bool m_isGround = false;						// 地上フラグ
 
@@ -57,8 +57,10 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	void Initialize(DirectX::SimpleMath::Vector3 position);
 
+	// 描画
 	void Draw();
 
 	// 移動

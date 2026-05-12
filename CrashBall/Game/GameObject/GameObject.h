@@ -10,10 +10,10 @@
 #pragma once
 
 // ヘッダファイルの読み込み ===================================================
+#include "pch.h"
 #include "Game/Component/Component.h"
 
 // クラスの前方宣言 ===================================================
-
 
 
 // クラスの定義 ===============================================================
@@ -29,7 +29,7 @@ public:
 private:
 
 	// コンポーネントのコンテナ
-	std::vector<std::unique_ptr<Component>> m_components;
+	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_components;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -52,13 +52,15 @@ public:
 	{
 		// コンポーネントの生成
 		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
+		// オーナーの設定
 		comp->SetOwner(this);
 
 		// ポインタの取得
 		CompType* pComp = comp.get();
 		// コンテナに格納
-		m_components.emplace_back(std::move(comp));
+		m_components.emplace(typeid(CompType), std::move(comp));
 
+		// コンポーネントのポインタを返す
 		return pComp;
 	}
 
@@ -66,18 +68,14 @@ public:
 	template<typename CompType>
 	CompType* GetComponent()
 	{
-		// コンポーネントのポインタ
-		CompType* pComp = nullptr;
-		for (auto& comp : m_components)
-		{
-			// アップキャスト
-			pComp = dynamic_cast<CompType*>(comp.get());
-
-			// null出ないならbreak
-			if (pComp != nullptr) break;
+		// イテレータの取得
+		auto it = m_components.find(typeid(CompType));
+		// イテレータが終端でなければコンポーネントを返す
+		if (it != m_components.end()) {
+			return static_cast<CompType*>(it->second.get());
 		}
-
-		return pComp;
+		// イテレータが終端ならnullptrを返す
+		return nullptr;
 	}
 
 	// 内部実装

@@ -54,6 +54,7 @@
 #include <string>
 #include <functional>
 #include <typeindex>
+#include <algorithm>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>

@@ -116,6 +116,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/Zc:__cplusplus /ZH:SHA_256 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,6 +193,7 @@
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
+    <ClInclude Include="Game\Common\MyMath.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
       </SubType>
@@ -243,13 +245,17 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\PrimitveRendererManager.h" />
+    <ClInclude Include="Game\Renderer\PrimitiveRendererManager.h" />
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Game\Scene\GameScene.h" />
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerAttackState.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -297,13 +303,14 @@
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
-    <ClCompile Include="Game\Renderer\PrimitveRendererManager.cpp" />
+    <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
+    <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="Main.cpp" />

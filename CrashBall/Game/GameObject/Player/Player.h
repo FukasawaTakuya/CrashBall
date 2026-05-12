@@ -9,7 +9,6 @@
 // 多重インクルードの防止 =====================================================
 #pragma once
 
-
 // ヘッダファイルの読み込み ===================================================
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
@@ -33,6 +32,8 @@ private:
 
 	Camera* m_pCamera = nullptr;							// カメラのポインタ
 
+	const Transform* m_enemyTransform = nullptr;			// 敵のトランスフォーム
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -46,10 +47,15 @@ public:
 	// 操作
 public:
 
-	void Initialize(DirectX::SimpleMath::Vector3 position);
+	// 初期化
+	void Initialize(
+		DirectX::SimpleMath::Vector3 position,	
+		const Transform* enemyTransform);
 
+	// 更新
 	void Update();
 
+	// 描画
 	void Draw();
 
 	// 取得/設定
@@ -60,6 +66,9 @@ public:
 
 	// カメラのポインタのセット
 	void SetCamera(Camera* pCamera) { m_pCamera = pCamera; }
+
+	// 敵のトランスフォームの取得
+	const Transform* GetEnemyTransform() { return m_enemyTransform; }
 
 	// 内部実装
 private:

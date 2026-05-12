@@ -1,9 +1,21 @@
+/*****************************************************************//**
+ * \file   PlayerMoveState.cpp
+ * \brief  プレイヤー移動ステートに関するソースファイル
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+// ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/Common/InputSystem.h"
 #include "Game/Common/Camera.h"
 #include "PlayerJumpState.h"
+#include "PlayerAttackState.h"
+
+// メンバ関数の定義 ===================================================
 
 /**
  * \brief コンストラクタ.
@@ -18,6 +30,14 @@ PlayerMoveState::PlayerMoveState()
  * 
  */
 PlayerMoveState::~PlayerMoveState()
+{
+}
+
+/**
+ * \brief 初期化処理.
+ * 
+ */
+void PlayerMoveState::Initialize()
 {
 }
 
@@ -39,6 +59,8 @@ void PlayerMoveState::Update()
     auto key = Keyboard::Get().GetState();
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
+	// トランスフォームコンポーネントの取得
+	Transform* transform = m_owner->GetComponent<Transform>();
 
     // 加速度のリセット
     rigidbody->ResetAccel();
@@ -59,6 +81,11 @@ void PlayerMoveState::Update()
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
         m_owner->Ball::Rotate();
+    }
+
+    if (InputSystem::Instance().IsKeyTrigger(DirectX::Keyboard::Space))
+    {
+		m_pStateMachine->ChangeState<PlayerAttackState>();
     }
 
 	if (rigidbody->GetVelocity().Length() > MAX_SPEED)

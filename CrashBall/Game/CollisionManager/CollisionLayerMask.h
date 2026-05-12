@@ -8,27 +8,26 @@
 #pragma once
 #include "pch.h"
 
-namespace {
-	// 衝突判定のレイヤー
-	enum class ColliderLayer : uint32_t
-	{
-		None = 0,
-		Default = 1 << 32 - 1,
-		Ball = 1 << 0,
-		Ground = 1 << 1,
-	};
+// 衝突判定のレイヤー
+enum class ColliderLayer : uint32_t
+{
+	None	= 0,
+	Default = static_cast<uint32_t>(1 << 31) - 1,
+	Ball	= 1 << 0,
+	Ground	= 1 << 1,
+};
 
-	// 衝突判定のマスク
-	enum class ColliderMask : uint32_t
-	{
-		None = 0,
-		Default = 1 << 32 - 1,
-		Ball = static_cast<uint32_t>(ColliderLayer::Ball) |
-		static_cast<uint32_t>(ColliderLayer::Ground),
-		Ground = static_cast<uint32_t>(ColliderLayer::Ball),
-	};
-}
+// 衝突判定のマスク
+enum class ColliderMask : uint32_t
+{
+	None = 0,
+	Default = static_cast<uint32_t>(1 << 31) - 1,
 
+	Ball	= static_cast<uint32_t>(ColliderLayer::Ball) |
+			  static_cast<uint32_t>(ColliderLayer::Ground),
+
+	Ground	= static_cast<uint32_t>(ColliderLayer::Ball),
+};
 
 // レイヤーマスク
 struct CollisionLayerMask
@@ -44,7 +43,6 @@ namespace LayerMask {
 	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball, ColliderMask::Ball };
 	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground, ColliderMask::Ground };
 }
-
 
 
 // OR演算子のオーバーロード
