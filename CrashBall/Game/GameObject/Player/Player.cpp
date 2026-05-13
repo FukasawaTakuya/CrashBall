@@ -21,7 +21,7 @@
  * \param radius 半径
  */
 Player::Player(float radius)
-	: Ball(radius)
+	: Ball(radius, ObjectTag::Player)
 	, m_stateMachine{ std::make_unique<StateMachine<Player>>() }
 {
 	// ステートの生成

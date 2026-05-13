@@ -25,11 +25,11 @@ using namespace DirectX;
  */
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(pSceneManager)
-    , m_meshFloor{ std::make_unique<MeshFloor>()  }
-    , m_player   { std::make_unique<Player>(0.5f) }
-    , m_collisionManager{ std::make_unique<CollisionManager>() }
-	, m_ball{ std::make_unique<Ball>(0.5f) }
-	, m_enemy{ std::make_unique<Enemy>(0.5f) }
+    , m_meshFloor       (std::make_unique<MeshFloor>())
+    , m_player          (std::make_unique<Player>(0.5f))
+    , m_collisionManager(std::make_unique<CollisionManager>())
+	, m_ball            (std::make_unique<Ball>(0.5f))
+	, m_enemy           (std::make_unique<Enemy>(0.5f))
 {
 }
 
@@ -130,44 +130,6 @@ void GameScene::Draw()
     m_player->Draw();
 	m_ball->Draw();
 	m_enemy->Draw();
-
-    auto primitiveRenderer = PrimitiveRendererManager::Instance;
-
-    auto& hitFace = m_meshFloor->GetMesh()->GetHitFace();
-
-    // 
-    if (!hitFace.empty()) {
-        for (auto& face : hitFace)
-        {
-            bool isPush = true;
-            for (auto& hitFaces : m_hitFaces)
-            {
-                // すでに登録していたらスキップ
-                if (face == hitFaces)
-                {
-                    isPush = false;
-                    break;
-                }
-            }
-            if(isPush) m_hitFaces.emplace_back(face);
-        }
-    }
-
-    for (auto& face : m_hitFaces)
-    {
-
-        SimpleMath::Vector3 normal = face->GetPlane()->GetNormal();
-
-        std::vector<VertexPositionNormalColor> pos;
-
-        pos.emplace_back(face->GetPoint()[0] + normal * 0.01f, normal, Colors::Blue);
-        pos.emplace_back(face->GetPoint()[1] + normal * 0.01f, normal, Colors::Blue);
-        pos.emplace_back(face->GetPoint()[2] + normal * 0.01f, normal, Colors::Blue);
-
-        primitiveRenderer().RegisterDrawCommand({
-            D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST, pos
-            });
-    }
 }
 
 

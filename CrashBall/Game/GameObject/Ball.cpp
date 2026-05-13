@@ -15,7 +15,8 @@ using namespace DirectX;
 
 // メンバ関数の定義 ===========================================================
 
-Ball::Ball(float radius)
+Ball::Ball(float radius, ObjectTag tag)
+	: GameObject(tag)
 {
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
@@ -28,7 +29,7 @@ Ball::Ball(float radius)
 	// 衝突中の処理の登録
 	m_collider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
-			if (other->GetType() == ColliderType::Mesh)
+			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
 				SetIsGround(true);
 			}
@@ -37,7 +38,7 @@ Ball::Ball(float radius)
 	// 衝突終了時の処理の登録
 	m_collider->SetOnCollisionExitCmd([this](Collider* other)
 		{
-			if (other->GetType() == ColliderType::Mesh)
+			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
 				SetIsGround(false);
 			}

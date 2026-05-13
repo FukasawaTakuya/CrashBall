@@ -6,6 +6,7 @@
 using namespace DirectX;
 
 MeshFloor::MeshFloor()
+	: GameObject(ObjectTag::Stage)
 {
 	// コンポーネントの追加
 	m_transform = AddComponent<Transform>();
@@ -13,6 +14,24 @@ MeshFloor::MeshFloor()
 	m_renderer	= AddComponent<ModelRenderer>();
 
 	m_collider->SetLayerMask(LayerMask::Ground);
+
+	m_collider->SetOnCollisionEnterCmd([this](Collider* other)
+		{
+			if (other->GetOwner()->GetTag() == ObjectTag::Player)
+			{
+				for(auto& hitface : m_collider->GetHitFace())
+				{
+					PaintFace(hitface, Colors::Blue);
+				}
+			}
+			else if (other->GetOwner()->GetTag() == ObjectTag::Enemy)
+			{
+				for (auto& hitface : m_collider->GetHitFace())
+				{
+					PaintFace(hitface, Colors::Red);
+				}
+			}
+		});
 }
 
 MeshFloor::~MeshFloor()
@@ -32,6 +51,7 @@ void MeshFloor::Initialize()
 		if (face->GetCenter().y >= 4.0f && face->GetCenter().y <= 8.0f)
 		{
 			m_stageMesh.push_back(face.get());
+			m_faceColor.emplace(face.get(), Colors::White);
 		}
 		else {
 			m_wallMesh.push_back(face.get());
@@ -62,16 +82,22 @@ void MeshFloor::Draw()
 	SimpleMath::Matrix world = scale * rotate * trans;
 
 	// 描画
-	//m_renderer->Draw(world);
-
     for (auto& face : m_collider->GetFace())
     {
+		XMVECTORF32 faceColor = Colors::White;
+
+		auto it = m_faceColor.find(face.get());
+		if (it != m_faceColor.end())
+		{
+			faceColor = it->second;
+		}
+
 		// 頂点
 		std::vector<DirectX::VertexPositionNormalColor> pos
 		{
-			VertexPositionNormalColor(face->GetPoint()[0], face->GetPlane()->GetNormal(), Colors::White),
-			VertexPositionNormalColor(face->GetPoint()[1], face->GetPlane()->GetNormal(), Colors::White),
-			VertexPositionNormalColor(face->GetPoint()[2], face->GetPlane()->GetNormal(), Colors::White)
+			VertexPositionNormalColor(face->GetPoint()[0], face->GetPlane()->GetNormal(), faceColor),
+			VertexPositionNormalColor(face->GetPoint()[1], face->GetPlane()->GetNormal(), faceColor),
+			VertexPositionNormalColor(face->GetPoint()[2], face->GetPlane()->GetNormal(), faceColor)
 		};
 
 		// 描画命令登録
@@ -79,22 +105,6 @@ void MeshFloor::Draw()
             D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
             pos
             });
-
-		// 色変更
-		pos[0].color = SimpleMath::Vector4{ 0.0f, 0.0f, 0.0f, 1.0f };
-		pos[1].color = SimpleMath::Vector4{ 0.0f, 0.0f, 0.0f, 1.0f };
-		pos[2].color = SimpleMath::Vector4{ 0.0f, 0.0f, 0.0f, 1.0f };
-
-		// 線用の頂点を法線方向にずらす
-		pos[0].position = pos[0].position + face->GetPlane()->GetNormal() * 0.01f;
-		pos[1].position = pos[1].position + face->GetPlane()->GetNormal() * 0.01f;
-		pos[2].position = pos[2].position + face->GetPlane()->GetNormal() * 0.01f;
-
-		// 描画命令登録
-        //primitiveRenderer().RegisterDrawCommand({
-        //    D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP,
-        //    pos
-        //    });
     }
 }
 
@@ -102,4 +112,17 @@ void MeshFloor::Rotate(DirectX::SimpleMath::Matrix rotate)
 {
 	m_transform->Rotate(rotate);
 	m_collider->Rotate(rotate);
+}
+
+/**
+ * \brief 面に色を塗る
+ * 
+ * \param color
+ */
+void MeshFloor::PaintFace(Triangle* face, const XMVECTORF32& color)
+{
+	if (m_faceColor.find(face) != m_faceColor.end())
+	{
+		m_faceColor[face] = color;
+	}
 }

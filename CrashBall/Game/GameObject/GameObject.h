@@ -13,10 +13,18 @@
 #include "pch.h"
 #include "Game/Component/Component.h"
 
-// クラスの前方宣言 ===================================================
+// 列挙型の宣言 =============================================================
 
+// タグ
+enum class ObjectTag
+{
+	Defaut,
+	Player,
+	Enemy,
+	Stage,
+};
 
-// クラスの定義 ===============================================================
+// クラスの定義 =============================================================
 /**
  * @brief 基底オブジェクト
  */
@@ -31,12 +39,17 @@ private:
 	// コンポーネントのコンテナ
 	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_components;
 
+	// タグ
+	ObjectTag m_tag;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	GameObject() = default;
+	GameObject(ObjectTag tag = ObjectTag::Defaut)
+		: m_tag(tag)
+	{};
 
 	// デストラクタ
 	~GameObject() = default;
@@ -77,6 +90,9 @@ public:
 		// イテレータが終端ならnullptrを返す
 		return nullptr;
 	}
+
+	// タグの取得
+	ObjectTag GetTag() const { return m_tag; }
 
 	// 内部実装
 private:

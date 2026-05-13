@@ -22,7 +22,7 @@
  * \param radius 半径
  */
 Enemy::Enemy(float radius)
-	: Ball(radius)
+	: Ball(radius, ObjectTag::Enemy)
 	, m_stateMachine{ std::make_unique<StateMachine<Enemy>>() }
 {
 	// ステートの生成

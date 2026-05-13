@@ -2,8 +2,8 @@
  * \file   CollisionLayerMask.h
  * \brief  衝突判定のレイヤーとマスクに関するヘッダーファイル
  * 
- * \author it252184
- * \date   May 2026
+ * \author 深沢拓矢
+ * \date   April 2026
  *********************************************************************/
 #pragma once
 #include "pch.h"
@@ -11,17 +11,17 @@
 // 衝突判定のレイヤー
 enum class ColliderLayer : uint32_t
 {
-	None	= 0,
-	Default = static_cast<uint32_t>(1 << 31) - 1,
-	Ball	= 1 << 0,
-	Ground	= 1 << 1,
+	None	= 0u,
+	Default = ~0u,
+	Ball	= 1u << 0,
+	Ground	= 1u << 1,
 };
 
 // 衝突判定のマスク
 enum class ColliderMask : uint32_t
 {
-	None = 0,
-	Default = static_cast<uint32_t>(1 << 31) - 1,
+	None = 0u,
+	Default = ~0u,
 
 	Ball	= static_cast<uint32_t>(ColliderLayer::Ball) |
 			  static_cast<uint32_t>(ColliderLayer::Ground),
@@ -38,10 +38,10 @@ struct CollisionLayerMask
 
 // レイヤーマスク
 namespace LayerMask {
-	constexpr CollisionLayerMask None	 { ColliderLayer::None, ColliderMask::None };
-	constexpr CollisionLayerMask Default { ColliderLayer::Default, ColliderMask::Default };
-	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball, ColliderMask::Ball };
-	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground, ColliderMask::Ground };
+	constexpr CollisionLayerMask None	 { ColliderLayer::None,		ColliderMask::None		};
+	constexpr CollisionLayerMask Default { ColliderLayer::Default,	ColliderMask::Default	};
+	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball,		ColliderMask::Ball		};
+	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground,	ColliderMask::Ground	};
 }
 
 

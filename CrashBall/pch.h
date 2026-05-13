@@ -54,7 +54,7 @@
 #include <string>
 #include <functional>
 #include <typeindex>
-#include <algorithm>
+#include <unordered_set>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>

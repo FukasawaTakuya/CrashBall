@@ -49,7 +49,7 @@ private:
 public:
 
 	// コンストラクタ
-	Ball(float radius);
+	Ball(float radius, ObjectTag tag = ObjectTag::Defaut);
 
 	// デストラクタ
 	~Ball() = default;

@@ -42,7 +42,7 @@ void PlayerAttackState::Initialize()
 	m_owner->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other) 
 	{
 		// 敵のコライダーと衝突した場合、移動ステートに遷移
-		if (other->GetType() == ColliderType::Sphere) {
+		if (other->GetOwner()->GetTag() == ObjectTag::Enemy) {
 			m_pStateMachine->ChangeState<PlayerMoveState>();
 		}
 	});
