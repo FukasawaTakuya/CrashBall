@@ -6,15 +6,14 @@
  * \date   May 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "Enemy.h"
 #include "Game/State/Enemy/EnemyWanderState.h"
-#include "Game/GameObject/Floor.h"
+#include "Game/GameObject/Stage.h"
 #include "Game/Common/MyMath.h"
 #include "Game/Renderer/PrimitiveRendererManager.h"
 
-// メンバ関数の定義 ===============================================================
+using namespace DirectX;
 
 /**
  * \brief コンストラクタ.
@@ -44,7 +43,7 @@ Enemy::~Enemy()
 }
 
 /**
- * \brief 初期化処理
+ * \brief 初期化
  * 
  * \param position 初期位置
  */
@@ -54,7 +53,7 @@ void Enemy::Inisitialize(SimpleMath::Vector3 position)
 }
 
 /**
- * \brief 更新処理.
+ * \brief 更新
  * 
  */
 void Enemy::Update()
@@ -83,8 +82,8 @@ void Enemy::Update()
 
 	// デバッグ用の線の描画
 	VertexPositionNormalColor v[2]{
-		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition(), SimpleMath::Vector3::Up, Colors::Red),
-		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition() + m_debugDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Red)
+		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition(), SimpleMath::Vector3::Up, Colors::Black),
+		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition() + m_debugDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Black)
 	};
 
 	// 描画命令の登録
@@ -94,7 +93,7 @@ void Enemy::Update()
 }
 
 /**
- * \brief 描画処理.
+ * \brief 描画
  * 
  */
 void Enemy::Draw()
@@ -108,11 +107,11 @@ void Enemy::Draw()
  */
 void Enemy::AvoidWall()
 {
-	// トランスフォームコンポーネントの取得
+	// トランスフォームの取得
 	Transform* transform = GetComponent<Transform>();
 
 	// 壁のメッシュを取得
-	auto& wallMesh = m_pFloor->GetWallMesh();
+	auto& wallMesh = m_pStage->GetWallMesh();
 
 	for (auto wallFace : wallMesh)
 	{
@@ -124,15 +123,14 @@ void Enemy::AvoidWall()
 			faceNormal.y = 0.0f;
 			faceNormal.Normalize();
 
-			// 壁の法線方向のベクトル
+			// 加速方向の壁の法線方向のベクトル
 			SimpleMath::Vector3 vn = faceNormal.Dot(m_accelDirection) * faceNormal;
 			// 
 			SimpleMath::Vector3 vt = m_accelDirection - vn;
 
 			// 壁の法線法線ベクトルを加算
-			m_accelDirection = vt + faceNormal;
+			m_accelDirection = vt + faceNormal / 2.0f;
 			m_accelDirection.Normalize();
-			return;
 		}
 	}
 }

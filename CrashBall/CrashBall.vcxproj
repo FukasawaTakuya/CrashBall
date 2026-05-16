@@ -236,7 +236,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Floor.h" />
+    <ClInclude Include="Game\GameObject\Stage.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\Player\Player.h">
       <SubType>
@@ -300,7 +300,7 @@
     <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
-    <ClCompile Include="Game\GameObject\Floor.cpp" />
+    <ClCompile Include="Game\GameObject\Stage.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />

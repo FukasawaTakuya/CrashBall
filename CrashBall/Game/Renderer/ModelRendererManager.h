@@ -6,16 +6,9 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
 #include "Game/Common/Camera.h"
-
-// クラスの前方宣言 ===================================================
-
-
-// 構造体の宣言 ===================================================
 
 // 描画命令の登録用
 struct ModelDrawCommand
@@ -24,7 +17,7 @@ struct ModelDrawCommand
 	DirectX::SimpleMath::Matrix world;	// ワールド行列
 };
 
-// クラスの定義 ===============================================================
+
 /**
  * @brief 基底オブジェクト
  */
@@ -36,7 +29,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<ModelDrawCommand> m_drawCommandList;
+	std::vector<ModelDrawCommand> m_drawCommandList;	// 描画命令格納用のコンテナ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -45,6 +38,8 @@ private:
 
 	// コンストラクタ
 	ModelRendererManager() = default;
+
+	// 複数生成の禁止
 	ModelRendererManager(ModelRendererManager&) = delete;
 	ModelRendererManager& operator= (const ModelRendererManager&) = delete;
 

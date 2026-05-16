@@ -1,71 +1,68 @@
-// 多重インクルードの防止 =====================================================
+
 #pragma once
 
-
-
-
-// ヘッダファイルの読み込み ===================================================
 #include "Game/Component/Collider.h"
 #include "Triangle.h"
 #include "Sphere.h"
-// クラスの前方宣言 ===================================================
 
-
-
-// クラスの定義 ===============================================================
 /**
  * @brief 基底オブジェクト
  */
 class Mesh
 	: public Collider
 {
+
+	// データメンバの宣言 -----------------------------------------------
 private:
-	// メッシュ
-	std::vector<std::unique_ptr<Triangle>> m_faces;
 
-	DirectX::SimpleMath::Vector3 m_position;
+	std::vector<std::unique_ptr<Triangle>> m_faces;	// 面のコンテナ
 
-	float m_scale = 1.0f;
+	DirectX::SimpleMath::Vector3 m_position;		// 座標
 
-	std::vector<Triangle*> m_hitFace;
+	float m_scale = 1.0f;							// スケール
 
+	std::vector<Triangle*> m_collideFace;			// 衝突した面
+
+	// メンバ関数の宣言 -------------------------------------------------
+// コンストラクタ/デストラクタ
 public:
 
+	// コンストラクタ
 	Mesh();
 
+	// 操作
+public:
+
+	// コライダーの描画
 	void DrawCollider() override {}
 
-public:
+	// データの読み込み
 	bool LoadObjData(const wchar_t* filename);
 
-		void AddFace(Triangle* face)
-	{
-		m_faces.emplace_back(std::make_unique<Triangle>(*face));
-	}
-
-
-	std::vector<std::unique_ptr<Triangle>>& GetFace() { return m_faces; }
-
-	const std::vector<Triangle*>& GetHitFace() { return m_hitFace; }
-
-
-	void SetScale(float scale) {
-		m_scale = scale;
-	}
-
-	void SetHitFace(Triangle* face)
-	{
-		m_hitFace.emplace_back(face);
-	}
-	void ClearHitFace()
-	{
-		m_hitFace.clear();
-	}
-
-	Triangle* GetFace(int index)
-	{
-		return m_faces[index].get();
-	}
-
+	// 回転
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
+
+	// 取得/設定
+public:
+
+	// 面の取得
+	const std::vector<std::unique_ptr<Triangle>>& GetFace() const
+	{ 
+		return m_faces;
+	}
+
+	// 衝突した面の取得
+	const std::vector<Triangle*>& GetCollideFace() const
+	{ 
+		return m_collideFace;
+	}
+
+	// スケールの設定
+	void SetScale(float scale) { m_scale = scale; }
+
+	// 衝突した面の設定
+	void SetCollideFace(Triangle* face) { m_collideFace.emplace_back(face); }
+
+	// 衝突した面のクリア
+	void ClearCollideFace(){ m_collideFace.clear(); }
 };

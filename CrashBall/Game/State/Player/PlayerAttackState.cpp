@@ -6,14 +6,13 @@
  * \date   May 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "PlayerAttackState.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/Common/TimeManager.h"
 
-// メンバ関数の定義 ===================================================
+using namespace DirectX;
 
 /**
  * @brief コンストラクタ

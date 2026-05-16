@@ -68,6 +68,7 @@ public:
 	void CreateResource(
 		ID3D11Device1* device,
 		ID3D11DeviceContext1* context,
+		DirectX::CommonStates* state,
 		DirectX::SimpleMath::Matrix projMat
 	);
 

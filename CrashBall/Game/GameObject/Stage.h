@@ -5,31 +5,27 @@
 #include "Game/Component/ModelRenderer.h"
 #include "Game/Component/Transform.h"
 
-struct HitFloorInfo
-{
-	Triangle* face;
-
-};
 
 /**
- * @brief 床オブジェクト
+ * @brief ステージオブジェクト
  */
-class  MeshFloor : public GameObject {
+class  Stage : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	const float SCALE = 10.0f;
+	const float SCALE = 10.0f;								// スケール
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// コンポーネントのキャッシュ
 	Transform*		m_transform = nullptr;
-	Mesh*			m_collider	= nullptr;
+	Mesh*			m_meshCollider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
 
-	std::vector<Triangle*> m_stageMesh;
-	std::vector<Triangle*> m_wallMesh;
+	std::vector<Triangle*> m_floorMesh;						// 床メッシュ
+	std::vector<Triangle*> m_wallMesh;						// 壁メッシュ
 
 	std::unordered_map<Triangle*, XMVECTORF32> m_faceColor;	// 面の色情報
 
@@ -38,38 +34,43 @@ private:
 public:
 
 	// コンストラクタ
-	MeshFloor();
+	Stage();
 
 	// デストラクタ
-	~MeshFloor();
+	~Stage();
 
 	// 操作
 public:
+
+	// 初期化
 	void Initialize();
 
+	// 更新
 	void Update();
 
+	// 描画
 	void Draw();
 
+	// 回転
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 
 
 	// 取得/設定
 public:
 
-	Mesh* GetMesh() { return m_collider; }
-
-	const std::vector<Triangle*>& GetStageMesh()
+	// 床メッシュの取得
+	const std::vector<Triangle*>& GetFloorMesh()
 	{
-		return m_stageMesh;
+		return m_floorMesh;
 	}
 
+	// 壁メッシュの取得
 	const std::vector<Triangle*>& GetWallMesh()
 	{
 		return m_wallMesh;
 	}
 
-
+	// モデルのセット
 	void SetModel(DirectX::Model* pModel) {
 		m_renderer->SetModel(pModel);
 	}

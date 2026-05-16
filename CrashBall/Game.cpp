@@ -43,8 +43,8 @@ void Game::Initialize(HWND window, int width, int height)
 
     // モデルの登録
     ModelManager* modelManager = resourceManager().GetModelManager();
-    modelManager->RegisterModel("ball", L"Resources/Models/Ball2.sdkmesh");
-    modelManager->RegisterModel("Stage", L"Resources/Models/Stage2.sdkmesh");
+    modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
+    modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
@@ -242,7 +242,7 @@ void Game::CreateDeviceDependentResources()
         0.01f, 150.0f
     );
 
-    PrimitiveRendererManager::Instance().CreateResource(device, context, m_proj);
+    PrimitiveRendererManager::Instance().CreateResource(device, context, m_state.get(), m_proj);
 
     // リソース作成
     m_sceneManager->CreateResources(m_proj);

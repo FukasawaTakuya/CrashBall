@@ -12,9 +12,10 @@ void Plane::SetPlane(
 	m_vec4.x = normal.x;
 	m_vec4.y = normal.y;
 	m_vec4.z = normal.z;
-	m_point = point;
 
-	m_vec4.w = -(m_vec4.x * m_point.x + m_vec4.y * m_point.y + m_vec4.z * m_point.z);
+	m_normal = normal;
+
+	m_vec4.w = -(m_vec4.x * point.x + m_vec4.y * point.y + m_vec4.z * point.z);
 }
 
 void Plane::SetPlane(
@@ -38,42 +39,12 @@ void Plane::Rotate(DirectX::SimpleMath::Matrix rotate)
 	DirectX::SimpleMath::Vector4 newVec = DirectX::XMPlaneTransform(m_vec4, rotate);
 	// 平面情報の正規化
 	m_vec4 = DirectX::XMPlaneNormalize(newVec);
+	// 法線ベクトルの回転
+	m_normal = XMVector3Transform(m_normal, rotate);
 
 }
 
 float Plane::CalcLength(DirectX::SimpleMath::Vector3 point)
 {
 	return std::abs(m_vec4.x * point.x + m_vec4.y * point.y + m_vec4.z * point.z + m_vec4.w);
-}
-
-DirectX::SimpleMath::Vector3 Plane::GetNormal()
-{
-	// 法線ベクトル
-	DirectX::SimpleMath::Vector3 normal;
-	normal.x = m_vec4.x;
-	normal.y = m_vec4.y;
-	normal.z = m_vec4.z;
-
-	normal.Normalize();
-
-	return normal;
-}
-
-DirectX::SimpleMath::Vector3 Plane::GetSlope()
-{
-	// 重力の方向
-	DirectX::SimpleMath::Vector3 v = DirectX::SimpleMath::Vector3::Down;
-	// 法線ベクトル
-	DirectX::SimpleMath::Vector3 normal = GetNormal();
-
-	// 法線方向の成分
-	float sub = v.Dot(normal);
-
-	// 法線方向のベクトルを引く
-	DirectX::SimpleMath::Vector3 slope = v - sub * normal;
-
-	// 正規化
-	slope.Normalize();
-
-	return slope;
 }

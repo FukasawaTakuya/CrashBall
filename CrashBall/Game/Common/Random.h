@@ -1,16 +1,16 @@
-// 多重インクルードの防止 =====================================================
+/*****************************************************************//**
+ * \file   Random.h
+ * \brief  乱数生成クラスに関するヘッダーファイル
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
 #include <random>
 
-// クラスの前方宣言 ===================================================
-
-
-
-// クラスの定義 ===============================================================
 /**
- * @brief 基底オブジェクト
+ * @brief 乱数生成クラス
  */
 class  Random {
 
@@ -21,7 +21,7 @@ public:
 private:
 
 	// 乱数生成エンジン
-	std::mt19937 m_mt;
+	std::mt19937 m_randomEngin;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -29,8 +29,9 @@ private:
 
 	// コンストラクタ
 	Random()
-		: m_mt(std::random_device{}()) {};
-	// コピーコンストラクタと代入演算子を削除
+		: m_randomEngin(std::random_device{}()) {};
+
+	// 複数生成の禁止
 	Random(Random&) = delete;
 	Random& operator=(const Random&) = delete;
 
@@ -51,13 +52,13 @@ public:
 	// 乱数の生成(int型)
 	int Range(int min, int max) {
 		std::uniform_int_distribution<int> dist(min, max);
-		return dist(m_mt);
+		return dist(m_randomEngin);
 	}
 
 	// 乱数の生成(float型)
 	float Range(float min, float max) {
 		std::uniform_real_distribution<float> dist(min, max);
-		return dist(m_mt);
+		return dist(m_randomEngin);
 	}
 
 	// 内部実装

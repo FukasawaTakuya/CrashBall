@@ -6,15 +6,12 @@
  * \date   April 2026
  *********************************************************************/
 
-// ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "GameScene.h"
 #include "Game/Common/InputSystem.h"
 #include "Game/CollisionManager/Collision.h"
 #include "Game/ResourceManager/ResourceManager.h"
 #include "Game/Renderer/PrimitiveRendererManager.h"
-
-// メンバ関数の定義 ===========================================================
 
 using namespace DirectX;
 
@@ -25,7 +22,7 @@ using namespace DirectX;
  */
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(pSceneManager)
-    , m_meshFloor       (std::make_unique<MeshFloor>())
+    , m_Stage       (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(0.5f))
     , m_collisionManager(std::make_unique<CollisionManager>())
 	, m_ball            (std::make_unique<Ball>(0.5f))
@@ -49,17 +46,17 @@ GameScene::~GameScene()
 void GameScene::Initialize()
 {
     m_player->Initialize(SimpleMath::Vector3::Up * 24.0f, m_enemy->GetComponent<Transform>());
-    m_meshFloor->Initialize();
+    m_Stage->Initialize();
 	m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
 	m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
-	m_enemy->SetFloor(m_meshFloor.get());
+	m_enemy->SetFloor(m_Stage.get());
 
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
 
     m_player->SetCamera(m_camera.get());
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
-    m_collisionManager->RegistCollider(m_meshFloor->GetComponent<Mesh>());
+    m_collisionManager->RegistCollider(m_Stage->GetComponent<Mesh>());
 	m_collisionManager->RegistCollider(m_ball->GetComponent<Sphere>());
 	m_collisionManager->RegistCollider(m_enemy->GetComponent<Sphere>());
 }
@@ -74,17 +71,14 @@ bool playerFollow = true;
 void GameScene::Update(float elapsedTime)
 {
     auto key = Keyboard::Get().GetState();
-    auto mouse = Mouse::Get().GetState();
+    auto& input = InputSystem::Instance();
 
-    Transform* palyerTransform = m_player->GetComponent<Transform>();
-
-    if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::R)) {
+    if (input.GetKeyTrigger(Keyboard::R)) {
         m_player->Initialize(SimpleMath::Vector3::Up * 50.0f, m_enemy->GetComponent<Transform>());
 		m_ball->Initialize(SimpleMath::Vector3::Up * 50.0f);
 		m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 1.0f });
-        m_hitFaces.clear();
     }
-    if (InputSystem::Instance().GetKeyboardTracker()->IsKeyPressed(Keyboard::F)) {
+    if (input.GetKeyTrigger(Keyboard::F)) {
         playerFollow = !playerFollow;
     }
 
@@ -95,6 +89,7 @@ void GameScene::Update(float elapsedTime)
 
     m_collisionManager->Update();
 
+    // TODO:カメラ内部に書く
     if (key.Right) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
     }
@@ -108,11 +103,11 @@ void GameScene::Update(float elapsedTime)
         m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
     }
 
-    Mouse::Get().ResetScrollWheelValue();
-    m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
+    //Mouse::Get().ResetScrollWheelValue();
+    //m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
 
     if (playerFollow) {
-        m_camera->FollowCamera(palyerTransform->GetPosition());
+        m_camera->FollowCamera(m_player->GetComponent<Transform>()->GetPosition());
     }
     else {
 		m_camera->FollowCamera(m_enemy->GetComponent<Transform>()->GetPosition());
@@ -126,7 +121,7 @@ void GameScene::Update(float elapsedTime)
  */
 void GameScene::Draw()
 {
-    m_meshFloor->Draw();
+    m_Stage->Draw();
     m_player->Draw();
 	m_ball->Draw();
 	m_enemy->Draw();
@@ -152,7 +147,7 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
 
     m_player->SetModel(modelManager->GetModel("ball"));
 
-    m_meshFloor->SetModel(modelManager->GetModel("Stage"));
+    m_Stage->SetModel(modelManager->GetModel("Stage"));
 
 	m_ball->SetModel(modelManager->GetModel("ball"));
 

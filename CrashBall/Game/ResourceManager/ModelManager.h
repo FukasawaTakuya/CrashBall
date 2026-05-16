@@ -6,17 +6,10 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
+
 #include "Game/Common/Camera.h"
 
-// ヘッダファイルの読み込み ===================================================
-
-// クラスの前方宣言 ===================================================
-
-// 構造体の宣言 ===================================================
-
-// クラスの定義 ===============================================================
 /**
  * @brief 基底オブジェクト
  */
@@ -31,12 +24,11 @@ private:
 	// エイリアス宣言
 	using FileCollection 
 		= std::unordered_map<std::string, const wchar_t*>;
-
 	using ModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
 
 	FileCollection	m_factory;	// モデルファクトリー
-	ModelCollection	m_models;	// モデル用のコンテナ
+	ModelCollection	m_models;	// モデルのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -51,7 +43,7 @@ public:
 	// 操作
 public:
 
-	// モデルの登録
+	// ファクトリーに登録
 	void RegisterModel(std::string key, const wchar_t* fileName);
 
 	// モデルの作成
@@ -60,6 +52,7 @@ public:
 	// 取得/設定
 public:
 
+	// モデルの取得
 	DirectX::Model* GetModel(const std::string& key) { return m_models[key].get(); }
 
 	// 内部実装

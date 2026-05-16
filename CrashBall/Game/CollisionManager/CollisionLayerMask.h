@@ -5,7 +5,9 @@
  * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
+
 #pragma once
+
 #include "pch.h"
 
 // 衝突判定のレイヤー
@@ -36,6 +38,7 @@ struct CollisionLayerMask
 	ColliderMask mask;
 };
 
+
 // レイヤーマスク
 namespace LayerMask {
 	constexpr CollisionLayerMask None	 { ColliderLayer::None,		ColliderMask::None		};
@@ -43,7 +46,6 @@ namespace LayerMask {
 	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball,		ColliderMask::Ball		};
 	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground,	ColliderMask::Ground	};
 }
-
 
 // OR演算子のオーバーロード
 inline uint32_t operator|(ColliderLayer layer, ColliderMask mask)

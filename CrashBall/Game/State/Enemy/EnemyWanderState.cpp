@@ -6,26 +6,20 @@
  * \date   May 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "EnemyWanderState.h"
 #include "Game/GameObject/Enemy/Enemy.h"
+#include "Game/GameObject/Stage.h"
 #include "Game/Common/Random.h"
 #include "Game/Common/TimeManager.h"
-#include "Game/GameObject/Floor.h"
 
-// 名前空間の使用 ============================================================
 using namespace DirectX;
-
-// メンバ関数の定義 ===============================================================
 
 /**
  * @brief コンストラクタ
  * 
  */
 EnemyWanderState::EnemyWanderState()
-	: m_directionCircleRadian{}
-	, m_timer{ 1.0f }
 {
 }
 
@@ -51,6 +45,7 @@ void EnemyWanderState::Initialize()
  */
 void EnemyWanderState::OnEnter()
 {
+	m_timer = DIRECTION_CHANGE_INTERVAL;
 }
 
 /**
@@ -59,17 +54,14 @@ void EnemyWanderState::OnEnter()
  */
 void EnemyWanderState::Update()
 {
-	// コンポーネントの取得
 	Transform* transform = m_owner->GetComponent<Transform>();
 	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
-	// 前フレームの経過時間の取得
+
 	float elapsedTime = TimeManager::Instance().GetElapsedTime();
+	m_timer += elapsedTime;
 
 	// 加速度のリセット
 	rigidbody->ResetAccel();
-
-	// タイマーを更新
-	m_timer += elapsedTime;
 
 	// 水平移動のみを正規化して取得
 	SimpleMath::Vector3 direction = rigidbody->GetVelocity();

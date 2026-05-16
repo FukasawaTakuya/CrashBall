@@ -15,13 +15,14 @@ using namespace DirectX;
 /**
  * \brief リソースの作成.
  * 
- * \param device    デバイス
- * \param context   コンテキスト
- * \param projMat   射影行列
+ * \param device デバイス
+ * \param context コンテキスト
+ * \param projMat 射影行列
  */
 void PrimitiveRendererManager::CreateResource(
 	ID3D11Device1* device,
 	ID3D11DeviceContext1* context,
+    DirectX::CommonStates* state,
     DirectX::SimpleMath::Matrix projMat
 )
 {
@@ -34,6 +35,7 @@ void PrimitiveRendererManager::CreateResource(
     m_basicEffect->SetProjection(projMat);
     m_basicEffect->SetVertexColorEnabled(true);
 
+    // ライティングの有効化
     m_basicEffect->SetLightingEnabled(true);
 
     // 入力レイアウトの設定
@@ -43,7 +45,11 @@ void PrimitiveRendererManager::CreateResource(
             m_basicEffect.get(),
             m_inputLayout.ReleaseAndGetAddressOf()));
 
-    m_basicEffect->SetPerPixelLighting(true);
+    // ブレンドステートの設定
+    context->OMSetBlendState(state->Opaque(), nullptr, 0xFFFFFFFF);
+    // カリングの設定
+    context->RSSetState(state->CullClockwise());
+
 }
 
 /**
@@ -75,12 +81,8 @@ void PrimitiveRendererManager::Draw(Camera* pCamera)
     auto context = CommonResources::Instance().GetContext();
     auto state = CommonResources::Instance().GetState();
 
-    // ブレンドステートの設定
-    context->OMSetBlendState(state->Opaque(), nullptr, 0xFFFFFFFF);
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
-    // カリングの設定
-    context->RSSetState(state->CullClockwise());
 
     // ビュー行列のセット
     m_basicEffect->SetView(pCamera->GetViewMat());

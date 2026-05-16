@@ -6,22 +6,22 @@
  * \date   April 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "RigidBody.h"
 #include "Game/Common/TimeManager.h"
 
 using namespace DirectX;
 
-// メンバ関数の定義 ===================================================
-
 /**
  * \brief コンストラクタ
  * 
+ * \param 重力加速度
  * \param 摩擦係数
  */
-RigidBody::RigidBody(float gravity, float friction)
-	: m_gravity{ gravity }
+RigidBody::RigidBody(
+	float gravityAcceleration, 
+	float friction)
+	: m_gravityAcceleration{ gravityAcceleration }
 	, m_friction{ friction }
 {
 }
@@ -55,7 +55,7 @@ void RigidBody::ApplyAccel()
  */
 void RigidBody::ApplyGravity()
 {
-	m_velocity += m_gravity * SimpleMath::Vector3::Down * TimeManager::Instance().GetElapsedTime();
+	m_velocity += m_gravityAcceleration * SimpleMath::Vector3::Down * TimeManager::Instance().GetElapsedTime();
 }
 
 /**

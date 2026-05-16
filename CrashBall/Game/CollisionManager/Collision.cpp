@@ -206,16 +206,16 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 {
 	// 衝突している面をクリア
-	mesh->ClearHitFace();
+	mesh->ClearCollideFace();
 
 	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {
 		if (Collision::IsCollision(sphere, face.get())) {
-			mesh->SetHitFace(face.get());
+			mesh->SetCollideFace(face.get());
 		}
 	}
 	// 衝突している面があるならtrue
-	return !mesh->GetHitFace().empty();
+	return !mesh->GetCollideFace().empty();
 }
 bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
 {
@@ -262,7 +262,7 @@ void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
  */
 void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 {
-	for (auto hitFace : mesh->GetHitFace())
+	for (auto hitFace : mesh->GetCollideFace())
 	{
 		Collision::ResolveCollision(sphere, hitFace->GetPlane());
 	}

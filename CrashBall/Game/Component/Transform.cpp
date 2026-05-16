@@ -10,7 +10,7 @@
 #include "Transform.h"
 
 /**
- * \brief コンストラクタ.
+ * \brief コンストラクタ
  * 
  */
 Transform::Transform()
@@ -18,7 +18,7 @@ Transform::Transform()
 }
 
 /**
- * \brief デストラクタ.
+ * \brief デストラクタ
  * 
  */
 Transform::~Transform()
@@ -26,33 +26,21 @@ Transform::~Transform()
 }
 
 /**
- * \brief 移動.
+ * \brief 移動
  * 
- * \param trans
+ * \param trans 移動ベクトル
  */
-void Transform::Translate(DirectX::SimpleMath::Vector3 trans)
+void Transform::Translate(const DirectX::SimpleMath::Vector3& trans)
 {
 	m_position += trans;
 }
 
 /**
- * \brief 回転.
+ * \brief 回転
  * 
- * \param rotate
+ * \param rotate 回転行列
  */
 void Transform::Rotate(DirectX::SimpleMath::Matrix rotate)
 {
 	m_rotate *= rotate;
 }
-
-/**
- * \brief クオータニオンによる回転.
- * 
- * \param quaternion
- */
-void Transform::RotateQuaternion(
-	const DirectX::SimpleMath::Quaternion& quaternion)
-{
-	m_quaternion *= quaternion;
-}
-

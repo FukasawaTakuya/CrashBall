@@ -6,20 +6,14 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
 #include "Game/GameObject/GameObject.h"
 #include "IsCollisionTable.h"
 #include "ResolveCollisionTable.h"
 
-// クラスの前方宣言 ===================================================
 
-
-
-// クラスの定義 ===============================================================
-/**
+ /**
  * @brief 衝突管理クラス
  */
 class  CollisionManager {
@@ -30,11 +24,11 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<Collider*> m_colliderList;	 // ゲームオブジェクトのリスト
+	std::vector<Collider*> m_colliders;								// ゲームオブジェクトのキャッシュ
 
-	std::unique_ptr<IsCollisionTable> m_isCollsionTable;
+	std::unique_ptr<IsCollisionTable> m_isCollsionTable;			// 衝突検知関数テーブル
 
-	std::unique_ptr<ResolveCollisionTable> m_resolveCollisionTable;
+	std::unique_ptr<ResolveCollisionTable> m_resolveCollisionTable;	// 衝突解決関数テーブル
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -56,7 +50,7 @@ public:
 
 	void RegistCollider(Collider* collider)
 	{
-		m_colliderList.push_back(collider);
+		m_colliders.push_back(collider);
 	}
 
 	// 内部実装

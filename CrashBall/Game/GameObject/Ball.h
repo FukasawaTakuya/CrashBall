@@ -6,23 +6,17 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
 #include "GameObject.h"
 #include "Game/Component/Collider/Sphere.h"
 #include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
 
-// クラスの前方宣言 ===================================================
 
-
-
-// クラスの定義 ===============================================================
-/**
- * @brief 基底オブジェクト
+ /**
+ * @brief ボールクラス
  */
 class Ball : public GameObject {
 

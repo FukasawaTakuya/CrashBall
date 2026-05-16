@@ -99,7 +99,7 @@
     <ClInclude Include="Game\Common\Camera.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Floor.h">
+    <ClInclude Include="Game\GameObject\Stage.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\CommonResources.h">
@@ -221,7 +221,7 @@
     <ClCompile Include="Game\Common\Camera.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Floor.cpp">
+    <ClCompile Include="Game\GameObject\Stage.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\Common\CommonResources.cpp">

@@ -10,27 +10,40 @@
 #include "CollisionManager.h"
 #include "Collision.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 CollisionManager::CollisionManager()
 	: m_isCollsionTable			{ std::make_unique<IsCollisionTable>() }
 	, m_resolveCollisionTable	{ std::make_unique<ResolveCollisionTable>() }
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 CollisionManager::~CollisionManager()
 {
 }
 
+/**
+ * \brief 更新
+ * 
+ */
 void CollisionManager::Update()
 {
-	for (auto& col1 : m_colliderList)
+	for (size_t i = 0; i < m_colliders.size() - 1; i++)
 	{
 		// レイヤーの取得
-		auto layer = col1->GetLayerMask().layer;
+		auto layer = m_colliders[i]->GetLayerMask().layer;
 
-		for (auto& col2 : m_colliderList)
+		Collider* col1 = m_colliders[i];
+
+		for (size_t j = i + 1; j < m_colliders.size(); j++)
 		{
-			// 同一オブジェクトならスキップ
-			if (col1 == col2) continue;
+			Collider* col2 = m_colliders[j];
 
 			// マスクの取得
 			auto mask = col2->GetLayerMask().mask;

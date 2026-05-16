@@ -6,17 +6,14 @@
  * \date   May 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
-// ヘッダファイルの読み込み ===================================================
+
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
 
-// クラスの前方宣言 ===================================================
-class MeshFloor;
+class Stage;
 
 
-// クラスの定義 ===============================================================
 /**
  * @brief 敵オブジェクト
  */
@@ -36,7 +33,7 @@ private:
 
 	DirectX::SimpleMath::Vector3 m_accelDirection;			// 進行方向
 
-	MeshFloor* m_pFloor = nullptr;							// 床のポインタ
+	Stage* m_pStage = nullptr;								// ステージのポインタ
 
 	DirectX::SimpleMath::Vector3 m_debugDirection;			// デバッグ用の方向ベクトル
 
@@ -53,13 +50,13 @@ public:
 	// 操作
 public:
 
-	// 初期化処理
+	// 初期化
 	void Inisitialize(DirectX::SimpleMath::Vector3 position);
 
-	// 更新処理
+	// 更新
 	void Update();
 
-	// 描画処理
+	// 描画
 	void Draw();
 
 
@@ -69,19 +66,18 @@ public:
 	// 加速方向の取得
 	DirectX::SimpleMath::Vector3 GetAccelDirection() const { return m_accelDirection; }
 
+	// ステージのポインタの取得
+	Stage* GetFloor() const { return m_pStage; }
+
 	// 加速方向の設定
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }
 
-	// 床のセット
-	void SetFloor(MeshFloor* pFloor) { m_pFloor = pFloor; }
-
-	// 床のポインタの取得
-	MeshFloor* GetFloor() const { return m_pFloor; }
-
+	// ステージのポインタの設定
+	void SetFloor(Stage* pFloor) { m_pStage = pFloor; }
 
 	// 内部実装
 private:
 
-	// 壁回避処理
+	// 壁回避
 	void AvoidWall();
 };

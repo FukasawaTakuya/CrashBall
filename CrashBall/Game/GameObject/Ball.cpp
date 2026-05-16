@@ -6,14 +6,12 @@
  * \date   April 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "Ball.h"
 #include "Game/Common/TimeManager.h"
 
 using namespace DirectX;
 
-// メンバ関数の定義 ===========================================================
 
 Ball::Ball(float radius, ObjectTag tag)
 	: GameObject(tag)
@@ -24,7 +22,11 @@ Ball::Ball(float radius, ObjectTag tag)
 	m_collider	= AddComponent<Sphere>(m_transform, radius);
 	m_renderer	= AddComponent<ModelRenderer>();
 
+	// レイヤーマスクの設定
 	m_collider->SetLayerMask(LayerMask::Ball);
+
+	// スケールの設定
+	m_transform->SetScale(0.025f);
 
 	// 衝突中の処理の登録
 	m_collider->SetOnCollisionEnterCmd([this](Collider* other)
@@ -45,34 +47,34 @@ Ball::Ball(float radius, ObjectTag tag)
 		});
 }
 
+/**
+ * \brief 初期化
+ * 
+ * \param position 初期位置
+ */
 void Ball::Initialize(SimpleMath::Vector3 position)
 {
 	m_transform->SetPosition(position);
 	m_rigidBody->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
+/**
+ * \brief 描画
+ * 
+ */
 void Ball::Draw()
 {
+	// 回転
 	m_transform->Rotate(m_angularVelocity);
 
-	// 拡大行列
-	SimpleMath::Matrix scale 
-		= SimpleMath::Matrix::CreateScale(0.025f);
-	// 回転行列
-	SimpleMath::Matrix rotate 
-		= m_transform->GetRotate();
-	// 移動行列
-	SimpleMath::Matrix trans 
-		= SimpleMath::Matrix::CreateTranslation(m_transform->GetPosition());
-
-	// ワールド行列
-	SimpleMath::Matrix world = scale * rotate * trans;
-
 	// 描画
-	m_renderer->Draw(world);
+	m_renderer->Draw(m_transform->GetWorld());
 }
 
-
+/**
+ * \brief 移動
+ * 
+ */
 void Ball::Move()
 {
 	// 重力の適用
@@ -90,6 +92,10 @@ void Ball::Move()
 	m_transform->Translate(m_rigidBody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
 }
 
+/**
+ * \brief 回転
+ * 
+ */
 void Ball::Rotate()
 {
 	// 速度の取得

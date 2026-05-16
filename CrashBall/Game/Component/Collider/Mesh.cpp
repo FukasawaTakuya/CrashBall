@@ -6,11 +6,21 @@
 #include <string>
 #include "Game/CollisionManager/Collision.h"
 
+/**
+ * コンストラクタ
+ * 
+ */
 Mesh::Mesh()
 	: Collider(ColliderType::Mesh)
 {
 }
 
+/**
+ * データの読み込み
+ * 
+ * \param filename データのファイル名
+ * \return ファイルの読み込みができたか
+ */
 bool Mesh::LoadObjData(const wchar_t* filename)
 {
 	std::vector<SimpleMath::Vector3> vertex;
@@ -18,8 +28,6 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 	std::ifstream ifs(filename);
 
 	if (!ifs.is_open()) {
-		OutputDebugString(L"File Open Error! : %s", filename);
-
 		return false;
 	}
 
@@ -44,7 +52,7 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 				// 頂点情報だけ抜き取る
 				getline(iss, item, '/');
 				index.push_back(stoi(item));
-				//getline(iss, item, '/');
+				getline(iss, item, '/');
 				getline(iss, item, ' ');
 			}
 			// 残りの文字を確認
@@ -73,6 +81,11 @@ bool Mesh::LoadObjData(const wchar_t* filename)
 	return true;
 }
 
+/**
+ * \brief 回転
+ * 
+ * \param rotate 回転行列
+ */
 void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)
 {
 	for (auto& face : m_faces) {

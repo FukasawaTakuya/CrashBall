@@ -6,11 +6,8 @@
  * \date   May 2026
  *********************************************************************/
 
- // ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "ResolveCollisionTable.h"
-
-// メンバ関数の定義 ===================================================
 
 /**
  * \brief コンストラクタ
@@ -18,7 +15,7 @@
  */
 ResolveCollisionTable::ResolveCollisionTable()
 {
-	// 関数テーブルの登録
+	// 衝突解決関数テーブルの登録
 	m_table[ToInt(ColliderType::Sphere)]
 		[ToInt(ColliderType::Sphere)]
 		= SphereVsSphere;
@@ -102,5 +99,4 @@ void ResolveCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)
 void ResolveCollisionTable::MeshVsMesh(Collider* col1, Collider* col2)
 {
 	// 実装なし
-	
 }

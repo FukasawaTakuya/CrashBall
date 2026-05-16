@@ -6,16 +6,15 @@
  * \date   April 2026
  *********************************************************************/
 
-// ヘッダファイルの読み込み ===================================================
 #include "pch.h"
 #include "PlayerMoveState.h"
+#include "PlayerJumpState.h"
+#include "PlayerAttackState.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/Common/InputSystem.h"
 #include "Game/Common/Camera.h"
-#include "PlayerJumpState.h"
-#include "PlayerAttackState.h"
 
-// メンバ関数の定義 ===================================================
+using namespace DirectX;
 
 /**
  * \brief コンストラクタ.
@@ -55,8 +54,9 @@ void PlayerMoveState::OnEnter()
  */
 void PlayerMoveState::Update()
 {
-    // キー情報の取得
-    auto key = Keyboard::Get().GetState();
+    // 入力情報
+    auto& input = InputSystem::Instance();
+
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 	// トランスフォームコンポーネントの取得
@@ -68,26 +68,28 @@ void PlayerMoveState::Update()
     // 地上にいる場合
     if (m_owner->GetIsGround())
     {
-        if (key.D) {
+        if (input.GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (key.A) {
+        if (input.GetKeyDown(Keyboard::A)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (key.W) {
+        if (input.GetKeyDown(Keyboard::W)) {
             rigidbody->Accel( m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
-        if (key.S) {
+        if (input.GetKeyDown(Keyboard::S)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
         m_owner->Ball::Rotate();
     }
 
-    if (InputSystem::Instance().IsKeyTrigger(DirectX::Keyboard::Space))
+    // スペースキーが押されたら攻撃ステートに遷移
+    if (InputSystem::Instance().GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
     }
 
+    // 速度制限
 	if (rigidbody->GetVelocity().Length() > MAX_SPEED)
 		rigidbody->SetVelocity(XMVector3Normalize(rigidbody->GetVelocity()) * MAX_SPEED);
 }

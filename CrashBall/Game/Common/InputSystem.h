@@ -11,6 +11,7 @@ enum class PlayActionFlag
 
 class InputSystem{
 
+	// データメンバの宣言 -----------------------------------------------
 private:
 
 	std::unique_ptr<DirectX::Mouse::ButtonStateTracker>			m_mouseTracker;			// マウスのトラッカー
@@ -18,38 +19,48 @@ private:
 
 	//PlayActionFlag flag;
 
+		// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
 private:
 
+	// コンストラクタ
 	InputSystem() 
 		: m_mouseTracker	{ std::make_unique<DirectX::Mouse::ButtonStateTracker>()		}
 		, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>()	}
 	{}
 
-	// コピーコンストラクタと代入演算子を削除
+	// 複数生成の禁止
 	InputSystem(const InputSystem&) = delete;
 	InputSystem& operator=(const InputSystem&) = delete;
 
 public:
+
+	// インスタンスの取得
 	static InputSystem& Instance() {
 		static InputSystem instance;
 		return instance;
 	}
 
+	// 操作
 public:
 
+	// 更新
 	void Update();
 
 public:
 
-	// マウスのトラッカーの取得
-	DirectX::Mouse::ButtonStateTracker*			GetMouseTracker()	{ return m_mouseTracker.get(); }
-	// キーボードのトラッカーの取得
-	DirectX::Keyboard::KeyboardStateTracker*	GetKeyboardTracker(){ return m_keyboardTracker.get(); }
+	// キーの状態を取得
+	bool GetKeyDown(DirectX::Keyboard::Keys key)
+	{
+		return DirectX::Keyboard::Get().GetState().IsKeyDown(key);
+	}
 
-	bool IsKeyTrigger(DirectX::Keyboard::Keys key) {
+	// キートリガーの取得
+	bool GetKeyTrigger(DirectX::Keyboard::Keys key) {
 		return m_keyboardTracker->IsKeyPressed(key);
 	}
-	bool IsKeyRelease(DirectX::Keyboard::Keys key) {
+	// キーリリースの取得
+	bool GetKeyRelease(DirectX::Keyboard::Keys key) {
 		return m_keyboardTracker->IsKeyReleased(key);
 	}
 
