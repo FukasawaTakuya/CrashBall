@@ -103,8 +103,9 @@ void GameScene::Update(float elapsedTime)
         m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
     }
 
-    //Mouse::Get().ResetScrollWheelValue();
-    //m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
+    auto mouse = Mouse::Get().GetState();
+    Mouse::Get().ResetScrollWheelValue();
+    m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
 
     if (playerFollow) {
         m_camera->FollowCamera(m_player->GetComponent<Transform>()->GetPosition());

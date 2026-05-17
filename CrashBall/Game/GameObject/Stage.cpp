@@ -46,8 +46,9 @@ Stage::Stage()
 			}
 		});
 
+	
 	// コライダーデータの読み込み
-	m_meshCollider->LoadObjData(L"Resources/Models/Stage.obj");
+	m_meshCollider->LoadJson(L"Resources/Models/Stage.json", SCALE);
 
 	for (auto& face : m_meshCollider->GetFace())
 	{
@@ -122,6 +123,11 @@ void Stage::Draw()
 			D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			pos
 			});
+
+		//primitiveRenderer().RegisterDrawCommand({
+		//	D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP,
+		//	pos
+		//	});
 	}
 }
 

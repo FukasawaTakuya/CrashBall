@@ -5,6 +5,15 @@ Triangle::Triangle()
 {
 }
 
+Triangle::Triangle(const Triangle& triangle, float scale)
+	: m_point{ 
+		triangle.m_point[0] * scale,
+		triangle.m_point[1] * scale,
+		triangle.m_point[2] * scale
+	}
+{
+	m_plane.SetPlane(m_point[0], m_point[1], m_point[2]);
+}
 void Triangle::SetTriangle(
 	DirectX::SimpleMath::Vector3 point1,
 	DirectX::SimpleMath::Vector3 point2,

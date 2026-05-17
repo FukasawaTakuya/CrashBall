@@ -55,6 +55,7 @@
 #include <functional>
 #include <typeindex>
 #include <unordered_set>
+#include <nlohmann/json.hpp>
 
 #ifdef _DEBUG
 #include <dxgidebug.h>

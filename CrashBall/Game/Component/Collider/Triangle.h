@@ -1,15 +1,10 @@
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-
-
-
-// ヘッダファイルの読み込み ===================================================
 #include "Game/Component/Collider.h"
 #include "Plane.h"
-// クラスの前方宣言 ===================================================
 
-// クラスの定義 ===============================================================
+using namespace nlohmann;
+
 /**
  * @brief 基底オブジェクト
  */
@@ -26,6 +21,7 @@ private:
 public:
 
 	Triangle();
+	Triangle(const Triangle& triangle, float scale = 1.0f);
 
 public:
 
@@ -53,4 +49,15 @@ public:
 		DirectX::SimpleMath::Vector3 point3);
 
 	void Rotate(DirectX::SimpleMath::Matrix rotate, DirectX::SimpleMath::Vector3 center);
+
+public:
+	friend void from_json(const json& j, Triangle& triangle);
+
 };
+
+inline void from_json(const json& j, Triangle& triangle) {
+	j.at("point1").get_to(triangle.m_point[0]);
+	j.at("point2").get_to(triangle.m_point[1]);
+	j.at("point3").get_to(triangle.m_point[2]);
+}
+

@@ -6,6 +6,8 @@
 #include <string>
 #include "Game/CollisionManager/Collision.h"
 
+using namespace nlohmann;
+
 /**
  * コンストラクタ
  * 
@@ -19,66 +21,27 @@ Mesh::Mesh()
  * データの読み込み
  * 
  * \param filename データのファイル名
- * \return ファイルの読み込みができたか
  */
-bool Mesh::LoadObjData(const wchar_t* filename)
+void Mesh::LoadJson(const wchar_t* fileName, float scale)
 {
-	std::vector<SimpleMath::Vector3> vertex;
-
-	std::ifstream ifs(filename);
+	std::ifstream ifs(fileName);
 
 	if (!ifs.is_open()) {
-		return false;
+		return;
 	}
 
-	std::string line;
+	json data;
 
-	while (std::getline(ifs, line)) {
+	ifs >> data;
 
-		std::istringstream iss(line);
-		std::string type;
-		iss >> type;
-		if (type == "v") {
-			float x, y, z;
-			iss >> x >> y >> z;
-			z *= -1;
-			vertex.emplace_back(x * m_scale, y * m_scale, z * m_scale);
-		}
-		else if (type == "f") {
-			std::vector<int> index;
-
-			std::string item;
-			for (int i = 0; i < 3; i++) {
-				// 頂点情報だけ抜き取る
-				getline(iss, item, '/');
-				index.push_back(stoi(item));
-				getline(iss, item, '/');
-				getline(iss, item, ' ');
-			}
-			// 残りの文字を確認
-			getline(iss, item);
-			if (item.size() >= 5) {
-				std::istringstream ss(item);
-				std::string num;
-				getline(ss, num, '/');
-				index.push_back(stoi(num));
-
-				m_faces.push_back(std::make_unique<Triangle>());
-				m_faces.back()->SetTriangle(vertex[index[0] - 1], vertex[index[3] - 1], vertex[index[2] - 1]);
-				m_faces.push_back(std::make_unique<Triangle>());
-				m_faces.back()->SetTriangle(vertex[index[0] - 1], vertex[index[2] - 1], vertex[index[1] - 1]);
-			}
-			else {
-				m_faces.push_back(std::make_unique<Triangle>());
-				m_faces.back()->SetTriangle(vertex[index[0] - 1], vertex[index[2] - 1], vertex[index[1] - 1]);
-			}
-		}
-
+	for (auto face : data["Face"])
+	{
+		m_faces.push_back(
+			std::make_unique<Triangle>(face, scale)
+		);
 	}
 
 	ifs.close();
-
-	return true;
 }
 
 /**

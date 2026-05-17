@@ -37,7 +37,7 @@ public:
 	void DrawCollider() override {}
 
 	// ƒf[ƒ^‚Ì“Ç‚İ‚İ
-	bool LoadObjData(const wchar_t* filename);
+	void LoadJson(const wchar_t* fileName, float scale = 1.0f);
 
 	// ‰ñ“]
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
