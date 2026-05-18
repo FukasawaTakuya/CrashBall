@@ -1,20 +1,18 @@
 #pragma once
+#include "ISceneController.h"
+#include "Game/Common/GameContext.h"
 
 class Scene;
 class Camera;
 
-class SceneManager{
+class SceneManager : public ISceneController{
 private:
 
-	using SceneCollection = std::unordered_map<std::string, std::unique_ptr<Scene>>;
-
-	SceneCollection m_scenes;
+	std::unordered_map<SceneID, std::unique_ptr<Scene>> m_scenes;
 
 	Scene* m_pCurrentScene;
 
 	Scene* m_pRequestScene;
-
-	int m_alpha;
 
 public:
 
@@ -23,7 +21,7 @@ public:
 	~SceneManager();
 
 	// シーンの登録
-	void RegisterScene(std::string sceneName, std::unique_ptr<Scene> scene);
+	void RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene);
 
 	// 最初のシーンのセット
 	void SetStartScene();
@@ -38,7 +36,7 @@ public:
 	void CreateResources(DirectX::SimpleMath::Matrix projMat);
 
 	// シーン変更のリクエスト
-	void RequestScene(std::string nextScene);
+	void RequestChangeScene(SceneID nextSceneID) override;
 
 	Camera* GetCamera();
 

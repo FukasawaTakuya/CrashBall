@@ -39,9 +39,6 @@ public:
 	// ƒf[ƒ^‚Ì“Ç‚İ‚İ
 	void LoadJson(const wchar_t* fileName, float scale = 1.0f);
 
-	// ‰ñ“]
-	void Rotate(DirectX::SimpleMath::Matrix rotate);
-
 	// æ“¾/İ’è
 public:
 

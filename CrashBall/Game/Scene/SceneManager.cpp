@@ -5,7 +5,6 @@
 SceneManager::SceneManager()
 	: m_pCurrentScene{ nullptr }
 	, m_pRequestScene{ nullptr }
-	, m_alpha{ 255 }
 {
 }
 
@@ -15,15 +14,15 @@ SceneManager::~SceneManager()
 }
 
 // シーンの登録
-void SceneManager::RegisterScene(std::string sceneName, std::unique_ptr<Scene> scene)
+void SceneManager::RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene)
 {
-	m_scenes.emplace(sceneName, std::move(scene));
+	m_scenes.emplace(sceneID, std::move(scene));
 }
 
 // 最初のシーンのセット
 void SceneManager::SetStartScene()
 {
-	m_pCurrentScene = m_scenes["GameScene"].get();
+	m_pCurrentScene = m_scenes[SceneID::Game].get();
 	m_pCurrentScene->Initialize();
 }
 
@@ -31,8 +30,7 @@ void SceneManager::SetStartScene()
 void SceneManager::Update(float elapsedTime)
 {
 	if (m_pRequestScene) {
-		if(m_alpha >= 255)
-			ChangeScene();
+		ChangeScene();
 	}
 
 	if (m_pCurrentScene && !m_pRequestScene) {
@@ -52,17 +50,18 @@ void SceneManager::CreateResources(DirectX::SimpleMath::Matrix projMat)
 }
 
 // シーン変更のリクエスト
-void SceneManager::RequestScene(std::string nextScene)
+void SceneManager::RequestChangeScene(SceneID nextSceneID)
 {
-	// シーンが未登録？
-	if (m_scenes.count(nextScene) == 0)
+	auto it = m_scenes.find(nextSceneID);
+	// シーンが未登録
+	if (it == m_scenes.end())
 	{
-		OutputDebugString(L"%sは登録されていません。", nextScene.c_str());
+		OutputDebugString(L"登録されていません。");
 		return;
 	}
 
 	// 登録されたリクエストシーンを取得
-	m_pRequestScene = m_scenes[nextScene].get();
+	m_pRequestScene = it->second.get();
 }
 
 Camera* SceneManager::GetCamera()

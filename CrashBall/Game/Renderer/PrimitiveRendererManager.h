@@ -6,28 +6,15 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
+#include "Game/Interface/IPrimitiveRendererManager.h"
 #include "Game/Common/Camera.h"
-// クラスの前方宣言 ===================================================
 
-// 構造体の前方宣言 ===================================================
-
-// 描画命令用
-struct PrimitiveDrawCommand
-{
-	D3D10_PRIMITIVE_TOPOLOGY topology;
-	std::vector<DirectX::VertexPositionNormalColor> vertices;
-};
-
-
-// クラスの定義 ===============================================================
 /**
- * @brief 基底オブジェクト
+ * @brief プリミティブ描画管理クラス
  */
-class  PrimitiveRendererManager {
+class  PrimitiveRendererManager : public IPrimitiveRendererManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -50,6 +37,8 @@ private:
 
 	// コンストラクタ
 	PrimitiveRendererManager() = default;
+
+	// 複数生成の禁止
 	PrimitiveRendererManager(PrimitiveRendererManager&) = delete;
 	PrimitiveRendererManager& operator= (const PrimitiveRendererManager&) = delete;
 
@@ -73,7 +62,7 @@ public:
 	);
 
 	// 描画命令の登録
-	void RegisterDrawCommand(PrimitiveDrawCommand drawCommand);
+	void RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand) override;
 
 	// 描画命令のクリア
 	void ClearCommandList();

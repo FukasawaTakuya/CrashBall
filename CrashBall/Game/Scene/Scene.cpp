@@ -2,12 +2,12 @@
 #include "Scene.h"
 
 Scene::Scene(SceneManager* pSceneManager)
-	: m_pSceneManager{ pSceneManager }
+	: m_pSceneController{ pSceneManager }
 	, m_camera{ std::make_unique<Camera>() }
 {
 }
 
-void Scene::ChangeScene(std::string nextScene)
+void Scene::ChangeScene(SceneID nextSceneID)
 {
-	m_pSceneManager->RequestScene(nextScene);
+	m_pSceneController->RequestChangeScene(nextSceneID);
 }

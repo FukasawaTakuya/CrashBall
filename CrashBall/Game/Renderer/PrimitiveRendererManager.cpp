@@ -33,8 +33,9 @@ void PrimitiveRendererManager::CreateResource(
 
     // 射影行列のセット
     m_basicEffect->SetProjection(projMat);
-    m_basicEffect->SetVertexColorEnabled(true);
 
+    // 頂点カラーの有効化
+    m_basicEffect->SetVertexColorEnabled(true);
     // ライティングの有効化
     m_basicEffect->SetLightingEnabled(true);
 
@@ -57,7 +58,7 @@ void PrimitiveRendererManager::CreateResource(
  * 
  * \param drawCommand 描画命令
  */
-void PrimitiveRendererManager::RegisterDrawCommand(PrimitiveDrawCommand drawCommand)
+void PrimitiveRendererManager::RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand)
 {
     m_drawCommand.emplace_back(drawCommand);
 }

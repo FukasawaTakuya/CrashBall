@@ -50,6 +50,9 @@
     <Filter Include="Game\State\EnemyState">
       <UniqueIdentifier>{76140965-af0e-4dd0-9e16-e87cdba8bdd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Interface">
+      <UniqueIdentifier>{4443c768-e6c9-42e0-aeb3-5cdec1233a59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -176,6 +179,27 @@
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerAttackState.h">
       <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\ISceneController.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelRendererManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IInputSystem.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITimeManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\GameContext.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

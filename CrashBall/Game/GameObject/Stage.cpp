@@ -5,7 +5,6 @@
 
 using namespace DirectX;
 
-
 /**
  * \brief コンストラクタ
  * 
@@ -123,23 +122,7 @@ void Stage::Draw()
 			D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			pos
 			});
-
-		//primitiveRenderer().RegisterDrawCommand({
-		//	D3D10_PRIMITIVE_TOPOLOGY_LINESTRIP,
-		//	pos
-		//	});
 	}
-}
-
-/**
- * \brief 回転
- *
- * \param rotate
- */
-void Stage::Rotate(DirectX::SimpleMath::Matrix rotate)
-{
-	m_transform->Rotate(rotate);
-	m_meshCollider->Rotate(rotate);
 }
 
 /**

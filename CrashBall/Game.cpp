@@ -41,15 +41,24 @@ void Game::Initialize(HWND window, int width, int height)
     auto resourceManager = ResourceManager::Instance;
     resourceManager().CreateManager();
 
-    // モデルの登録
+    // コンテキストの初期化
+    m_gameContext.emplace(
+        &InputSystem::Instance(),
+        &TimeManager::Instance(),
+        ResourceManager::Instance().GetModelManager(),
+        &ModelRendererManager::Instance(),
+        &PrimitiveRendererManager::Instance()
+    );
+    
     ModelManager* modelManager = resourceManager().GetModelManager();
+    // モデルファクトリーの登録
     modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
     modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
 
-    m_sceneManager->RegisterScene("GameScene",
+    m_sceneManager->RegisterScene(SceneID::Game,
         std::make_unique<GameScene>(m_sceneManager.get()));
 
     // 初期シーンをセット

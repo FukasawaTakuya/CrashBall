@@ -193,6 +193,7 @@
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
+    <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\MyMath.h" />
     <ClInclude Include="Game\Common\Random.h">
@@ -242,6 +243,26 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Interface\IInputSystem.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITimeManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Renderer\ModelRendererManager.h">
       <SubType>
       </SubType>
@@ -250,6 +271,10 @@
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Game\Scene\GameScene.h" />
+    <ClInclude Include="Game\Scene\ISceneController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">

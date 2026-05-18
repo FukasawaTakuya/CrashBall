@@ -12,7 +12,6 @@
 
 #include "Game/GameObject/GameObject.h"
 
-
 namespace Collision {
 
 	// ü•ª‚Æ’¼ü‚ÌÕ“Ë”»’è
@@ -38,6 +37,7 @@ namespace Collision {
 	// ‹…‚ÆƒƒbƒVƒ…‚ÌÕ“Ë”»’è
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
 	bool IsCollision(Mesh* mesh, Sphere* sphere);
+
 
 
 	// ‹…‚Æ•½–Ê‚ÌÕ“Ë‰ğŒˆ

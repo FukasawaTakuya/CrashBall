@@ -2,13 +2,14 @@
 #include <string>
 
 #include "SceneManager.h"
+#include "ISceneController.h"
 #include "Game/Common/Camera.h"
 
 class Scene {
 
 protected:
 
-	SceneManager* m_pSceneManager;
+	ISceneController* m_pSceneController;
 
 	std::unique_ptr<Camera> m_camera;	// カメラ
 
@@ -35,5 +36,5 @@ public:
 
 
 protected:
-	void ChangeScene(std::string nextScene);
+	void ChangeScene(SceneID nextSceneID);
 };

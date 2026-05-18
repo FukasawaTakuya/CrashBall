@@ -71,6 +71,7 @@ public:
 		return m_scale;
 	}
 
+	// ワールド行列の取得
 	DirectX::SimpleMath::Matrix GetWorld() const
 	{
 		// 拡大行列

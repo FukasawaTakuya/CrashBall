@@ -8,12 +8,12 @@
 
 #pragma once
 
-#include "Game/Common/Camera.h"
+#include "Game/Interface/IModelManager.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief モデル管理クラス
  */
-class  ModelManager {
+class  ModelManager : public IModelManager{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -53,7 +53,7 @@ public:
 public:
 
 	// モデルの取得
-	DirectX::Model* GetModel(const std::string& key) { return m_models[key].get(); }
+	DirectX::Model* GetModel(const std::string& key) override { return m_models[key].get(); }
 
 	// 内部実装
 private:

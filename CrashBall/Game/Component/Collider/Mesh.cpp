@@ -2,9 +2,6 @@
 #include "Mesh.h"
 
 #include <fstream>
-#include <sstream>
-#include <string>
-#include "Game/CollisionManager/Collision.h"
 
 using namespace nlohmann;
 
@@ -34,7 +31,7 @@ void Mesh::LoadJson(const wchar_t* fileName, float scale)
 
 	ifs >> data;
 
-	for (auto face : data["Face"])
+	for (auto& face : data["Face"])
 	{
 		m_faces.push_back(
 			std::make_unique<Triangle>(face, scale)
@@ -42,16 +39,4 @@ void Mesh::LoadJson(const wchar_t* fileName, float scale)
 	}
 
 	ifs.close();
-}
-
-/**
- * \brief 回転
- * 
- * \param rotate 回転行列
- */
-void Mesh::Rotate(DirectX::SimpleMath::Matrix rotate)
-{
-	for (auto& face : m_faces) {
-		face->Rotate(rotate, m_position);
-	}
 }

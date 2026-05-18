@@ -11,6 +11,7 @@
 
 
 #include "Game/Scene/SceneManager.h"
+#include "Game/Common/GameContext.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -25,14 +26,16 @@ private:
     // Rendering loop timer.
     DX::StepTimer                           m_timer;
 
-    //
+    // コモンステート
     std::unique_ptr<DirectX::CommonStates> m_state;
 
-    //
+    // 射影行列
     DirectX::SimpleMath::Matrix m_proj;
 
+    // シーン管理オブジェクト
     std::unique_ptr<SceneManager>   m_sceneManager;
 
+    std::optional<GameContext> m_gameContext;
 
 public:
 

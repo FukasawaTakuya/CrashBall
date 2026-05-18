@@ -51,9 +51,6 @@ public:
 	// 描画
 	void Draw();
 
-	// 回転
-	void Rotate(DirectX::SimpleMath::Matrix rotate);
-
 
 	// 取得/設定
 public:

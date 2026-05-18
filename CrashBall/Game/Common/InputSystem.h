@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Game/Interface/IInputSystem.h"
+
 enum class PlayActionFlag
 {
 	Up		= 1 << 0,
@@ -9,7 +11,7 @@ enum class PlayActionFlag
 	Jump	= 1 << 4,
 };
 
-class InputSystem{
+class InputSystem : public IInputSystem{
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -50,22 +52,25 @@ public:
 public:
 
 	// キーの状態を取得
-	bool GetKeyDown(DirectX::Keyboard::Keys key)
+	bool GetKeyDown(DirectX::Keyboard::Keys key) override
 	{
 		return DirectX::Keyboard::Get().GetState().IsKeyDown(key);
 	}
 
 	// キートリガーの取得
-	bool GetKeyTrigger(DirectX::Keyboard::Keys key) {
+	bool GetKeyTrigger(DirectX::Keyboard::Keys key) override
+	{
 		return m_keyboardTracker->IsKeyPressed(key);
 	}
 	// キーリリースの取得
-	bool GetKeyRelease(DirectX::Keyboard::Keys key) {
+	bool GetKeyRelease(DirectX::Keyboard::Keys key) override
+	{
 		return m_keyboardTracker->IsKeyReleased(key);
 	}
 
 	// マウス座標の取得
-	DirectX::SimpleMath::Vector2 GetMousePos() {
+	DirectX::SimpleMath::Vector2 GetMousePos() override
+	{
 		auto mouse = DirectX::Mouse::Get().GetState();
 		return DirectX::SimpleMath::Vector2( static_cast<float>(mouse.x), static_cast<float>(mouse.y) );
 	}

@@ -6,11 +6,8 @@ class Plane
 {
 private:
 
-	// 平面情報
-	DirectX::SimpleMath::Vector4 m_vec4;
-
-	// 法線ベクトル
-	DirectX::SimpleMath::Vector3 m_normal;
+	DirectX::SimpleMath::Vector4 m_vec4;	// 平面情報
+	DirectX::SimpleMath::Vector3 m_normal;	// 法線ベクトル
 
 public:
 

@@ -6,20 +6,14 @@
  * \date   April 2026
  *********************************************************************/
 
-// 多重インクルードの防止 =====================================================
 #pragma once
 
-// ヘッダファイルの読み込み ===================================================
+#include "Game/Interface/ITimeManager.h"
 
-// クラスの前方宣言 ===================================================
-
-
-
-// クラスの定義 ===============================================================
 /**
- * @brief 基底オブジェクト
+ * @brief 時間管理クラス
  */
-class  TimeManager {
+class  TimeManager : public ITimeManager{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -55,22 +49,22 @@ public:
 		return instance;
 	}
 
-	float GetElapsedTime() const
+	float GetElapsedTime() const override
 	{
 		return m_elapsedTime * m_timeScale;
 	}
 
-	float GetUnscaleElapsedTime() const
+	float GetUnscaleElapsedTime() const override
 	{
 		return m_elapsedTime;
 	}
 
-	void SetElapsedTime(float elapsedTime)
+	void SetElapsedTime(float elapsedTime) override
 	{
 		m_elapsedTime = elapsedTime;
 	}
 
-	void SetTimeScale(float timeScale)
+	void SetTimeScale(float timeScale) override
 	{
 		m_timeScale = timeScale;
 	}

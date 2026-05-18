@@ -9,19 +9,12 @@
 #pragma once
 
 #include "Game/Common/Camera.h"
-
-// 描画命令の登録用
-struct ModelDrawCommand
-{
-	DirectX::Model* pModel;				// モデルのポインタ
-	DirectX::SimpleMath::Matrix world;	// ワールド行列
-};
-
+#include "Game/Interface/IModelRendererManager.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief モデル描画管理クラス
  */
-class  ModelRendererManager {
+class  ModelRendererManager : public IModelRendererManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -56,7 +49,7 @@ public:
 	}
 
 	// 描画命令の登録
-	void RegisterDrawCommand(const ModelDrawCommand& drawCommand);
+	void RegisterDrawCommand(const ModelDrawCommand& drawCommand) override;
 
 	// 描画命令のクリア
 	void ClearCommandList();
