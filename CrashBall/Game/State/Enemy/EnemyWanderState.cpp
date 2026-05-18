@@ -11,7 +11,7 @@
 #include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/GameObject/Stage.h"
 #include "Game/Common/Random.h"
-#include "Game/Common/TimeManager.h"
+#include "Game/ServiceLocator/TimeService.h"
 
 using namespace DirectX;
 
@@ -57,7 +57,8 @@ void EnemyWanderState::Update()
 	Transform* transform = m_owner->GetComponent<Transform>();
 	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 
-	float elapsedTime = TimeManager::Instance().GetElapsedTime();
+	float elapsedTime 
+		= TimeService::Instance().GetTime()->GetElapsedTime();
 	m_timer += elapsedTime;
 
 	// 加速度のリセット

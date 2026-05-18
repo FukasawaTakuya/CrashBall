@@ -43,14 +43,16 @@ public:
 public:
 
 	// 初期化
-	void Initialize();
+	void Initialize() override;
 
 	// 更新
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Draw();
+	void Render(const GameContext& gameContext) override;
 
+	// 終了処理
+	void Finalize() override;
 
 	// 取得/設定
 public:

@@ -9,9 +9,9 @@
 #include "pch.h"
 #include "Ball.h"
 #include "Game/Common/TimeManager.h"
+#include <Game/ServiceLocator/TimeService.h>
 
 using namespace DirectX;
-
 
 Ball::Ball(float radius, ObjectTag tag)
 	: GameObject(tag)
@@ -52,23 +52,39 @@ Ball::Ball(float radius, ObjectTag tag)
  * 
  * \param position 初期位置
  */
-void Ball::Initialize(SimpleMath::Vector3 position)
+void Ball::Initialize()
 {
-	m_transform->SetPosition(position);
-	m_rigidBody->SetVelocity(SimpleMath::Vector3::Zero);
+}
+
+void Ball::Update(const GameContext& gameContext)
+{
 }
 
 /**
  * \brief 描画
  * 
  */
-void Ball::Draw()
+void Ball::Render(const GameContext& gameContext)
 {
 	// 回転
 	m_transform->Rotate(m_angularVelocity);
 
+	// 描画管理クラスのインターフェース
+	IModelRendererManager* rendererManager
+		= gameContext.m_pModelRendererManager;
+
 	// 描画
-	m_renderer->Draw(m_transform->GetWorld());
+	m_renderer->Render(rendererManager, m_transform->GetWorld());
+}
+
+
+/**
+ * \brief 終了処理
+ * 
+ * \param gameContext
+ */
+void Ball::Finalize()
+{
 }
 
 /**
@@ -89,7 +105,7 @@ void Ball::Move()
 		m_rigidBody->ApplyFriction();
 
 	// 速度を加算
-	m_transform->Translate(m_rigidBody->GetVelocity() * TimeManager::Instance().GetElapsedTime());
+	m_transform->Translate(m_rigidBody->GetVelocity() * TimeService::Instance().GetTime()->GetElapsedTime());
 }
 
 /**
@@ -115,7 +131,7 @@ void Ball::Rotate()
 
 	// 回転量を求める
 	float forwardAngle 
-		= velocity.Length() * TimeManager::Instance().GetElapsedTime() / m_collider->GetRadius();
+		= velocity.Length() * TimeService::Instance().GetTime()->GetElapsedTime() / m_collider->GetRadius();
 
 	// 角速度を求める
 	SimpleMath::Quaternion quaternion
@@ -123,4 +139,10 @@ void Ball::Rotate()
 
 	// 角速度をマトリクスに変換
 	m_angularVelocity = SimpleMath::Matrix::CreateFromQuaternion(quaternion);
+}
+
+void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)
+{
+	m_transform->SetPosition(position);
+	m_rigidBody->SetVelocity(SimpleMath::Vector3::Zero);
 }

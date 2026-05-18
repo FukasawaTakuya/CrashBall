@@ -14,7 +14,6 @@ class  GameContext {
 	// データメンバの宣言 -----------------------------------------------
 public:
 
-	IInputSystem*				m_pInputSystem;
 	ITimeManager*				m_pTimeManager;
 	IModelManager*				m_pModelManager;
 	IModelRendererManager*		m_pModelRendererManager;
@@ -26,13 +25,11 @@ public:
 
 	// コンストラクタ
 	GameContext(
-		IInputSystem*				pInputSystem,
 		ITimeManager*				pTimeManager,
 		IModelManager*				pModelManager,
 		IModelRendererManager*		pModelRendererManager,
 		IPrimitiveRendererManager*	pPrimitiveRendererManager
-	)	: m_pInputSystem(pInputSystem)
-		, m_pTimeManager(pTimeManager)
+	)	: m_pTimeManager(pTimeManager)
 		, m_pModelManager(pModelManager)
 		, m_pModelRendererManager(pModelRendererManager)
 		, m_pPrimitiveRendererManager(pPrimitiveRendererManager)

@@ -39,19 +39,15 @@ Player::Player(float radius)
  * \param position 初期位置
  * \param enemyTransform 敵のトランスフォーム
  */
-void Player::Initialize(
-	DirectX::SimpleMath::Vector3 position, 
-	const Transform* enemyTransform)
+void Player::Initialize()
 {
-	Ball::Initialize(position);
-	m_enemyTransform = enemyTransform;
 }
 
 /**
  * \brief 更新処理
  * 
  */
-void Player::Update()
+void Player::Update(const GameContext& gameContext)
 {
 	// ステートマシンの更新
 	if (m_stateMachine != nullptr)
@@ -65,7 +61,16 @@ void Player::Update()
  * \brief 描画処理
  * 
  */
-void Player::Draw()
+void Player::Render(const GameContext& gameContext)
 {
-	Ball::Draw();
+	Ball::Render(gameContext);
+}
+
+/**
+ * \brief 終了処理
+ * 
+ * \param gameContext
+ */
+void Player::Finalize()
+{
 }

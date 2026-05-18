@@ -34,7 +34,7 @@ void ModelRendererManager::ClearCommandList()
  * 
  * \param カメラ
  */
-void ModelRendererManager::Draw(Camera* camera)
+void ModelRendererManager::Render(Camera* camera)
 {
 	auto context = CommonResources::Instance().GetContext();
 	auto state = CommonResources::Instance().GetState();

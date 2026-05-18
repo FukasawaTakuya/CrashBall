@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "RigidBody.h"
-#include "Game/Common/TimeManager.h"
+#include "Game/ServiceLocator/TimeService.h"
 
 using namespace DirectX;
 
@@ -46,7 +46,7 @@ void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
 
 void RigidBody::ApplyAccel()
 {
-	m_velocity += m_accel * TimeManager::Instance().GetElapsedTime();
+	m_velocity += m_accel * TimeService::Instance().GetTime()->GetElapsedTime();
 }
 
 /**
@@ -55,7 +55,7 @@ void RigidBody::ApplyAccel()
  */
 void RigidBody::ApplyGravity()
 {
-	m_velocity += m_gravityAcceleration * SimpleMath::Vector3::Down * TimeManager::Instance().GetElapsedTime();
+	m_velocity += m_gravityAcceleration * SimpleMath::Vector3::Down * TimeService::Instance().GetTime()->GetElapsedTime();
 }
 
 /**

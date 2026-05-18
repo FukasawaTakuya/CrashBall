@@ -6,13 +6,8 @@
 #include "Game.h"
 
 #include "Game/Scene/GameScene.h"
-#include "Game/Common/InputSystem.h"
-#include "Game/Common/CommonResources.h"
-#include "Game/Common/TimeManager.h"
 #include "Game/ResourceManager/ResourceManager.h"
-#include "Game/ResourceManager/ModelManager.h"
-#include "Game/Renderer/PrimitiveRendererManager.h"
-#include "Game/Renderer/ModelRendererManager.h"
+#include "Game/ServiceLocator/TimeService.h"
 
 extern void ExitGame() noexcept;
 
@@ -37,23 +32,27 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateDeviceResources();
     m_deviceResources->CreateWindowSizeDependentResources();
 
-    // マネージャーの作成
-    auto resourceManager = ResourceManager::Instance;
-    resourceManager().CreateManager();
+    m_inputSystem = std::make_unique<InputSystem>();
+    m_timeManager = std::make_unique<TimeManager>();
+    m_modelManager = std::make_unique<ModelManager>();
+    m_modelRendererManager = std::make_unique<ModelRendererManager>();
+    m_primitiveRendererManager = std::make_unique<PrimitiveRendererManager>();
 
     // コンテキストの初期化
     m_gameContext.emplace(
-        &InputSystem::Instance(),
-        &TimeManager::Instance(),
-        ResourceManager::Instance().GetModelManager(),
-        &ModelRendererManager::Instance(),
-        &PrimitiveRendererManager::Instance()
+        m_timeManager.get(),
+        m_modelManager.get(),
+        m_modelRendererManager.get(),
+        m_primitiveRendererManager.get()
     );
-    
-    ModelManager* modelManager = resourceManager().GetModelManager();
+
+    // サービスロケーターに設定
+    InputService::Instance().SetInput(m_inputSystem.get());
+    TimeService::Instance().SetTime(m_timeManager.get());
+
     // モデルファクトリーの登録
-    modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
-    modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
+    m_modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
+    m_modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
@@ -104,10 +103,10 @@ void Game::Update(DX::StepTimer const& timer)
     elapsedTime;
 
     // 
-    TimeManager::Instance().SetElapsedTime(elapsedTime);
-    InputSystem::Instance().Update();
+    m_timeManager->SetElapsedTime(elapsedTime);
+    m_inputSystem->Update();
 
-    m_sceneManager->Update(elapsedTime);
+    m_sceneManager->Update(*m_gameContext);
 }
 #pragma endregion
 
@@ -129,20 +128,15 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
-    auto& modelRendererManager = ModelRendererManager::Instance();
-    auto& primitiveRendererManager = PrimitiveRendererManager::Instance();
-
     // 描画命令のクリア
-    modelRendererManager.ClearCommandList();
-    //primitiveRendererManager.ClearCommandList();
+    m_modelRendererManager->ClearCommandList();
+    m_primitiveRendererManager->ClearCommandList();
 
-    m_sceneManager->Draw();
+    m_sceneManager->Render(*m_gameContext);
 
     // 描画
-    modelRendererManager.Draw(m_sceneManager->GetCamera());
-    primitiveRendererManager.Draw(m_sceneManager->GetCamera());
-
-    primitiveRendererManager.ClearCommandList();
+    m_modelRendererManager->Render(m_sceneManager->GetCamera());
+    m_primitiveRendererManager->Render(m_sceneManager->GetCamera());
 
     m_deviceResources->PIXEndEvent();
 
@@ -234,16 +228,16 @@ void Game::CreateDeviceDependentResources()
     auto context = m_deviceResources->GetD3DDeviceContext();
     m_state = std::make_unique<DirectX::CommonStates>(device);
 
-    int w, h;
-
-    GetDefaultSize(w, h);
-
     // TODO: Initialize device dependent objects here (independent of window size).
     device;
 
     // リソースの生成
-    ResourceManager::Instance().CreateResources(device);
+    m_modelManager->CreateModel(device);
 
+
+    int w, h;
+
+    GetDefaultSize(w, h);
 
     // 射影行列の定義
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
@@ -251,16 +245,31 @@ void Game::CreateDeviceDependentResources()
         0.01f, 150.0f
     );
 
-    PrimitiveRendererManager::Instance().CreateResource(device, context, m_state.get(), m_proj);
+
+    m_primitiveRendererManager->CreateResource(device, context, m_state.get(), m_proj);
 
     // リソース作成
-    m_sceneManager->CreateResources(m_proj);
+    m_sceneManager->CreateDeviceResources(*m_gameContext);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
+
+    int w, h;
+
+    GetDefaultSize(w, h);
+
+    // 射影行列の定義
+    m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
+        XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
+        0.01f, 150.0f
+    );
+
+        // リソース作成
+    m_sceneManager->CreateWindowSizeResources(m_proj);
+
 }
 
 void Game::OnDeviceLost()

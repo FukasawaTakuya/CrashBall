@@ -23,7 +23,7 @@ private:
 
 		// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-private:
+public:
 
 	// コンストラクタ
 	InputSystem() 
@@ -31,17 +31,7 @@ private:
 		, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>()	}
 	{}
 
-	// 複数生成の禁止
-	InputSystem(const InputSystem&) = delete;
-	InputSystem& operator=(const InputSystem&) = delete;
-
 public:
-
-	// インスタンスの取得
-	static InputSystem& Instance() {
-		static InputSystem instance;
-		return instance;
-	}
 
 	// 操作
 public:

@@ -10,7 +10,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	m_pCurrentScene->Finalize();
+	//m_pCurrentScene->Finalize();
 }
 
 // シーンの登録
@@ -27,26 +27,34 @@ void SceneManager::SetStartScene()
 }
 
 // 更新
-void SceneManager::Update(float elapsedTime)
+void SceneManager::Update(const GameContext& gameContext)
 {
 	if (m_pRequestScene) {
 		ChangeScene();
 	}
 
 	if (m_pCurrentScene && !m_pRequestScene) {
-		m_pCurrentScene->Update(elapsedTime);
+		m_pCurrentScene->Update(gameContext);
 	}
 }
 
 // 描画
-void SceneManager::Draw()
+void SceneManager::Render(const GameContext& gameCotext)
 {
-	if (m_pCurrentScene) m_pCurrentScene->Draw();
+	if (m_pCurrentScene) m_pCurrentScene->Draw(gameCotext);
 }
 
-void SceneManager::CreateResources(DirectX::SimpleMath::Matrix projMat)
+void SceneManager::CreateDeviceResources(const GameContext& gameCotext)
 {
-	if (m_pCurrentScene) m_pCurrentScene->CreateResources(projMat);
+	if (m_pCurrentScene) 
+		m_pCurrentScene->CreateDeviceResources(gameCotext);
+}
+
+void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
+{
+	if (m_pCurrentScene)
+		m_pCurrentScene->CreateWindowSizeResources(proj);
+
 }
 
 // シーン変更のリクエスト

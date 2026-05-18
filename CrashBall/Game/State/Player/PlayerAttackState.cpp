@@ -10,7 +10,7 @@
 #include "PlayerAttackState.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
-#include "Game/Common/TimeManager.h"
+#include <Game/ServiceLocator/TimeService.h>
 
 using namespace DirectX;
 
@@ -72,7 +72,7 @@ void PlayerAttackState::Update()
 	rigidbody->SetVelocity(attackDirection * 30.0f);
 
 	// タイマーの更新
-	m_timer += TimeManager::Instance().GetElapsedTime();
+	m_timer += TimeService::Instance().GetTime()->GetElapsedTime();
 
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
 	if (m_timer >= ATTACK_DURATION) {

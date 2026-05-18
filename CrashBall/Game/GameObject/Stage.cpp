@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Stage.h"
-#include "Game/ResourceManager/ResourceManager.h"
-#include "Game/Renderer/PrimitiveRendererManager.h"
 
 using namespace DirectX;
 
@@ -84,7 +82,7 @@ void Stage::Initialize()
  * \brief 更新
  *
  */
-void Stage::Update()
+void Stage::Update(const GameContext& gameContext)
 {
 }
 
@@ -92,9 +90,9 @@ void Stage::Update()
  * \brief 描画
  *
  */
-void Stage::Draw()
+void Stage::Render(const GameContext& gameContext)
 {
-	auto& primitiveRenderer = PrimitiveRendererManager::Instance;
+	auto primitiveRenderer = gameContext.m_pPrimitiveRendererManager;
 
 	// 描画
 	for (auto& face : m_meshCollider->GetFace())
@@ -118,11 +116,20 @@ void Stage::Draw()
 		};
 
 		// 描画命令登録
-		primitiveRenderer().RegisterDrawCommand({
+		primitiveRenderer->RegisterDrawCommand({
 			D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			pos
 			});
 	}
+}
+
+/**
+ * \brief 終了処理
+ * 
+ * \param gameContext
+ */
+void Stage::Finalize()
+{
 }
 
 /**

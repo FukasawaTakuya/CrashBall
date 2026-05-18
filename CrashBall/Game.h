@@ -11,6 +11,16 @@
 
 
 #include "Game/Scene/SceneManager.h"
+
+#include "Game/Common/InputSystem.h"
+#include "Game/Common/CommonResources.h"
+#include "Game/Common/TimeManager.h"
+#include "Game/Common/InputService.h"
+
+#include "Game/Renderer/PrimitiveRendererManager.h"
+#include "Game/Renderer/ModelRendererManager.h"
+#include "Game/ResourceManager/ModelManager.h"
+
 #include "Game/Common/GameContext.h"
 
 
@@ -34,6 +44,12 @@ private:
 
     // シーン管理オブジェクト
     std::unique_ptr<SceneManager>   m_sceneManager;
+
+    std::unique_ptr<InputSystem> m_inputSystem;
+    std::unique_ptr<TimeManager> m_timeManager;
+    std::unique_ptr<ModelManager> m_modelManager;
+    std::unique_ptr<ModelRendererManager> m_modelRendererManager;
+    std::unique_ptr<PrimitiveRendererManager> m_primitiveRendererManager;
 
     std::optional<GameContext> m_gameContext;
 

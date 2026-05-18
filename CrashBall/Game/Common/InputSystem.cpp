@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "InputSystem.h"
 
-void InputSystem::Update() {
+void InputSystem::Update() 
+{
 
 	auto mouse		= DirectX::Mouse::Get().GetState();
 	auto keyboard	= DirectX::Keyboard::Get().GetState();

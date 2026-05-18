@@ -52,14 +52,21 @@ public:
 public:
 
 	// ‰Šú‰»
-	void Initialize(DirectX::SimpleMath::Vector3 position);
+	virtual void Initialize() override;
+
+	// XV
+	virtual void Update(const GameContext& gameContext) override;
 
 	// •`‰æ
-	void Draw();
+	virtual void Render(const GameContext& gameContext) override;
+
+	// I—¹ˆ—
+	void Finalize() override;
 
 	// ˆÚ“®
 	void Move();
 
+	// ‰ñ“]
 	void Rotate();
 
 	// Žæ“¾/Ý’è
@@ -70,6 +77,8 @@ public:
 	void SetModel(DirectX::Model* pModel) { m_renderer->SetModel(pModel); }
 
 	void SetIsGround(bool flag) { m_isGround = flag; }
+
+	void SetPosition(DirectX::SimpleMath::Vector3 position);
 
 	// “à•”ŽÀ‘•
 private:

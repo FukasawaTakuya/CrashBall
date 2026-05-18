@@ -51,14 +51,16 @@ public:
 public:
 
 	// ‰Šú‰»
-	void Inisitialize(DirectX::SimpleMath::Vector3 position);
+	void Initialize() override;
 
 	// XV
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// •`‰æ
-	void Draw();
+	void Render(const GameContext& gameContext) override;
 
+	// I—¹ˆ—
+	void Finalize() override;
 
 	// æ“¾/İ’è
 public:

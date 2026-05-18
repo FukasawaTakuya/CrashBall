@@ -53,6 +53,9 @@
     <Filter Include="Game\Interface">
       <UniqueIdentifier>{4443c768-e6c9-42e0-aeb3-5cdec1233a59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ServiceLocator">
+      <UniqueIdentifier>{12c09a80-0442-45f7-b6be-55ca9c8513f0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -200,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="Game\Common\GameContext.h">
       <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\TimeService.h">
+      <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\InputService.h">
+      <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

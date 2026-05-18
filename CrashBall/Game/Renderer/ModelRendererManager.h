@@ -27,26 +27,16 @@ private:
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-private:
+public:
 
 	// コンストラクタ
 	ModelRendererManager() = default;
-
-	// 複数生成の禁止
-	ModelRendererManager(ModelRendererManager&) = delete;
-	ModelRendererManager& operator= (const ModelRendererManager&) = delete;
 
 	// デストラクタ
 	~ModelRendererManager() = default;
 
 	// 操作
 public:
-
-	// インスタンスの取得
-	static ModelRendererManager& Instance() {
-		static ModelRendererManager instance;
-		return instance;
-	}
 
 	// 描画命令の登録
 	void RegisterDrawCommand(const ModelDrawCommand& drawCommand) override;
@@ -55,7 +45,7 @@ public:
 	void ClearCommandList();
 
 	// 描画
-	void Draw(Camera* camera);
+	void Render(Camera* camera);
 
 
 	// 取得/設定

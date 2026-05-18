@@ -47,16 +47,15 @@ Enemy::~Enemy()
  * 
  * \param position 初期位置
  */
-void Enemy::Inisitialize(SimpleMath::Vector3 position)
+void Enemy::Initialize()
 {
-	Ball::Initialize(position);
 }
 
 /**
  * \brief 更新
  * 
  */
-void Enemy::Update()
+void Enemy::Update(const GameContext& gameContext)
 {
 	RigidBody* rigidbody = GetComponent<RigidBody>();
 	rigidbody->ResetAccel();
@@ -79,6 +78,15 @@ void Enemy::Update()
 
 	// デバッグ用の方向ベクトル
 	m_debugDirection = Slerp(m_debugDirection, m_accelDirection, 0.05f);
+}
+
+/**
+ * \brief 描画
+ * 
+ */
+void Enemy::Render(const GameContext& gameContext)
+{
+	Ball::Render(gameContext);
 
 	// デバッグ用の線の描画
 	VertexPositionNormalColor v[2]{
@@ -87,18 +95,19 @@ void Enemy::Update()
 	};
 
 	// 描画命令の登録
-	PrimitiveRendererManager::Instance().RegisterDrawCommand({
+	gameContext.m_pPrimitiveRendererManager->RegisterDrawCommand({
 		D3D10_PRIMITIVE_TOPOLOGY_LINELIST, std::vector<VertexPositionNormalColor>(std::begin(v), std::end(v))
 		});
+
 }
 
 /**
- * \brief 描画
+ * \brief 終了処理
  * 
+ * \param gameContext
  */
-void Enemy::Draw()
+void Enemy::Finalize()
 {
-	Ball::Draw();
 }
 
 /**

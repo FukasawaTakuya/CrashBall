@@ -33,25 +33,16 @@ private:
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-private:
+public:
 
 	// コンストラクタ
 	PrimitiveRendererManager() = default;
-
-	// 複数生成の禁止
-	PrimitiveRendererManager(PrimitiveRendererManager&) = delete;
-	PrimitiveRendererManager& operator= (const PrimitiveRendererManager&) = delete;
 
 	// デストラクタ
 	~PrimitiveRendererManager() = default;
 
 	// 操作
 public:
-	// インスタンスの取得
-	static PrimitiveRendererManager& Instance() {
-		static PrimitiveRendererManager instance;
-		return instance;
-	}
 
 	// リソースの生成
 	void CreateResource(
@@ -68,7 +59,7 @@ public:
 	void ClearCommandList();
 
 	// 描画
-	void Draw(Camera* pCamera);
+	void Render(Camera* pCamera);
 
 
 	// 取得/設定

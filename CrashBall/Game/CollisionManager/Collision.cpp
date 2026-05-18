@@ -358,7 +358,6 @@ DirectX::SimpleMath::Vector3 CalcIntersection(
 	// 線分の始点と平面の距離
 	float distance = plane->CalcLength(segment->GetPos());
 
-
 	// 線分の方向
 	SimpleMath::Vector3 direction = segment->GetVec();
 	direction.Normalize();

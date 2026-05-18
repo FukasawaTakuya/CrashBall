@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "ModelRenderer.h"
-#include "Game/Renderer/ModelRendererManager.h"
 
 /**
  * \brief コンストラクタ.
@@ -31,15 +30,15 @@ ModelRenderer::~ModelRenderer()
  * 
  * \param ワールド行列
  */
-void ModelRenderer::Draw(const DirectX::SimpleMath::Matrix& world)
+void ModelRenderer::Render(
+	IModelRendererManager* rendererManager, 
+	const DirectX::SimpleMath::Matrix& world)
 {
 	if (m_pModel == nullptr) return;
 
-	auto& modelManager = ModelRendererManager::Instance();
-
 	// 描画命令の登録
 	if(m_pModel != nullptr)
-		modelManager.RegisterDrawCommand({ m_pModel, world });
+		rendererManager->RegisterDrawCommand({ m_pModel, world });
 }
 
 /**

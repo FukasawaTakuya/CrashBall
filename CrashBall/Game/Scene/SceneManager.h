@@ -27,13 +27,15 @@ public:
 	void SetStartScene();
 
 	// 更新
-	void Update(float elapsedTime);
+	void Update(const GameContext& gameCotext);
 
 	// 描画
-	void Draw();
+	void Render(const GameContext& gameCotext);
 
 	// リソース作成
-	void CreateResources(DirectX::SimpleMath::Matrix projMat);
+	void CreateDeviceResources(const GameContext& gameCotext);
+
+	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
 
 	// シーン変更のリクエスト
 	void RequestChangeScene(SceneID nextSceneID) override;

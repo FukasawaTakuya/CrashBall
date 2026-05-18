@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Component.h"
+#include "Game/Interface/IModelRendererManager.h"
 
  /**
  * @brief 基底オブジェクト
@@ -37,7 +38,7 @@ public:
 public:
 
 	// 描画
-	void Draw(const DirectX::SimpleMath::Matrix& world);
+	void Render(IModelRendererManager* rendererManager, const DirectX::SimpleMath::Matrix& world);
 
 	// 取得/設定
 public:

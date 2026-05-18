@@ -277,6 +277,11 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
+    <ClInclude Include="Game\ServiceLocator\InputService.h" />
+    <ClInclude Include="Game\ServiceLocator\TimeService.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
       <SubType>
       </SubType>

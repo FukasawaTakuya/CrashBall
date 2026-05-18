@@ -28,12 +28,10 @@ private:
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
-private:
+public:
 
 	// コンストラクタ
 	TimeManager() = default;
-	TimeManager(const TimeManager&) = delete;
-	TimeManager& operator=(const TimeManager&) = delete;
 
 	// デストラクタ
 	~TimeManager() = default;
@@ -43,11 +41,6 @@ public:
 
 	// 取得/設定
 public:
-
-	static TimeManager& Instance() {
-		static TimeManager instance;
-		return instance;
-	}
 
 	float GetElapsedTime() const override
 	{

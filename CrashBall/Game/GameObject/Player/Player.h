@@ -44,15 +44,16 @@ public:
 public:
 
 	// 初期化
-	void Initialize(
-		DirectX::SimpleMath::Vector3 position,	
-		const Transform* enemyTransform);
+	void Initialize() override;
 
 	// 更新
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Draw();
+	void Render(const GameContext& gameContext) override;
+
+	// 終了処理
+	void Finalize() override;
 
 	// 取得/設定
 public:
@@ -65,6 +66,11 @@ public:
 
 	// 敵のトランスフォームの取得
 	const Transform* GetEnemyTransform() { return m_enemyTransform; }
+
+	void SetEnemyTransform(Transform* enemyTransform)
+	{
+		m_enemyTransform = enemyTransform;
+	}
 
 	// 内部実装
 private:

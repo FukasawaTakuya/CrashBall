@@ -8,8 +8,11 @@
 
 #pragma once
 
-#include "pch.h"
+#include <unordered_map>
+#include <algorithm>
+
 #include "Game/Component/Component.h"
+#include "Game/Common/GameContext.h"
 
 
 // É^ÉO
@@ -52,6 +55,15 @@ public:
 
 	// ëÄçÏ
 public:
+
+	virtual void Initialize() = 0;
+
+	virtual void Update(const GameContext& gameContext) = 0;
+
+	virtual void Render(const GameContext& gameContext) = 0;
+
+	virtual void Finalize() = 0;
+
 	// éÊìæ/ê›íË
 public:
 

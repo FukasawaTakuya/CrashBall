@@ -8,10 +8,10 @@
 
 #include "pch.h"
 #include "GameScene.h"
-#include "Game/Common/InputSystem.h"
 #include "Game/CollisionManager/Collision.h"
 #include "Game/ResourceManager/ResourceManager.h"
 #include "Game/Renderer/PrimitiveRendererManager.h"
+#include "Game/ServiceLocator/InputService.h"
 
 using namespace DirectX;
 
@@ -45,15 +45,16 @@ GameScene::~GameScene()
  */
 void GameScene::Initialize()
 {
-    m_player->Initialize(SimpleMath::Vector3::Up * 24.0f, m_enemy->GetComponent<Transform>());
-    m_Stage->Initialize();
-	m_ball->Initialize(SimpleMath::Vector3::Up * 24.0f);
-	m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
+    m_player->SetPosition(SimpleMath::Vector3::Up * 24.0f);
+    m_player->SetEnemyTransform(m_enemy->GetComponent<Transform>());
+    m_player->SetCamera(m_camera.get());
+
+	m_ball->SetPosition(SimpleMath::Vector3::Up * 24.0f);
+
+	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
 	m_enemy->SetFloor(m_Stage.get());
 
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
-
-    m_player->SetCamera(m_camera.get());
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_Stage->GetComponent<Mesh>());
@@ -68,38 +69,39 @@ bool playerFollow = true;
  * 
  * \param elapsedTime 経過時間
  */
-void GameScene::Update(float elapsedTime)
+void GameScene::Update(const GameContext& gameContext)
 {
     auto key = Keyboard::Get().GetState();
-    auto& input = InputSystem::Instance();
+    auto input = InputService::Instance().GetInput();
+    float elapsedTime = gameContext.m_pTimeManager->GetElapsedTime();
 
-    if (input.GetKeyTrigger(Keyboard::R)) {
-        m_player->Initialize(SimpleMath::Vector3::Up * 50.0f, m_enemy->GetComponent<Transform>());
-		m_ball->Initialize(SimpleMath::Vector3::Up * 50.0f);
-		m_enemy->Inisitialize(SimpleMath::Vector3{ 0.0f, 10.0f, 1.0f });
+    if (input->GetKeyTrigger(Keyboard::R)) {
+        m_player->SetPosition(SimpleMath::Vector3::Up * 24.0f);
+        m_ball->SetPosition(SimpleMath::Vector3::Up * 24.0f);
+        m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
     }
-    if (input.GetKeyTrigger(Keyboard::F)) {
+    if (input->GetKeyTrigger(Keyboard::F)) {
         playerFollow = !playerFollow;
     }
 
-    m_player->Update();
+    m_player->Update(gameContext);
     m_ball->Move();
     m_ball->Rotate();
-	m_enemy->Update();
+	m_enemy->Update(gameContext);
 
     m_collisionManager->Update();
 
     // TODO:カメラ内部に書く
-    if (key.Right) {
+    if (input->GetKeyDown(Keyboard::Right)) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
     }
-    if (key.Left) {
+    if (input->GetKeyDown(Keyboard::Left)) {
         m_camera->RotateX(XMConvertToRadians(-45.0f * elapsedTime));
     }
-    if (key.Up) {
+    if (input->GetKeyDown(Keyboard::Up)) {
         m_camera->RotateY(XMConvertToRadians(45.0f * elapsedTime));
     }
-    if (key.Down) {
+    if (input->GetKeyDown(Keyboard::Down)) {
         m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
     }
 
@@ -120,12 +122,12 @@ void GameScene::Update(float elapsedTime)
  * \brief 描画.
  * 
  */
-void GameScene::Draw()
+void GameScene::Draw(const GameContext& gameContext)
 {
-    m_Stage->Draw();
-    m_player->Draw();
-	m_ball->Draw();
-	m_enemy->Draw();
+    m_Stage->Render(gameContext);
+    m_player->Render(gameContext);
+	m_ball->Render(gameContext);
+	m_enemy->Render(gameContext);
 }
 
 
@@ -142,9 +144,9 @@ void GameScene::Finalize()
  * 
  * \param projMat 射影行列
  */
-void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
+void GameScene::CreateDeviceResources(const GameContext& gameContext)
 {
-    auto modelManager = ResourceManager::Instance().GetModelManager();
+    auto modelManager = gameContext.m_pModelManager;
 
     m_player->SetModel(modelManager->GetModel("ball"));
 
@@ -157,8 +159,11 @@ void GameScene::CreateResources(DirectX::SimpleMath::Matrix projMat)
     DirectX::SimpleMath::Vector3 v1{ -10.0f, 0.0f, -10.0f };
     DirectX::SimpleMath::Vector3 v2{ 0.0f, 0.0f, 10.0f };
     DirectX::SimpleMath::Vector3 v3{ 10.0f, 0.0f, -10.0f };
+}
 
-    m_camera->Initialize(projMat);
+void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
+{
+    m_camera->Initialize(proj);
 }
 
 void GameScene::SetModel()

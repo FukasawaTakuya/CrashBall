@@ -11,7 +11,7 @@
 #include "PlayerJumpState.h"
 #include "PlayerAttackState.h"
 #include "Game/GameObject/Player/Player.h"
-#include "Game/Common/InputSystem.h"
+#include "Game/ServiceLocator/InputService.h"
 #include "Game/Common/Camera.h"
 
 using namespace DirectX;
@@ -55,7 +55,7 @@ void PlayerMoveState::OnEnter()
 void PlayerMoveState::Update()
 {
     // 入力情報
-    auto& input = InputSystem::Instance();
+    auto input = InputService::Instance().GetInput();
 
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
@@ -68,23 +68,23 @@ void PlayerMoveState::Update()
     // 地上にいる場合
     if (m_owner->GetIsGround())
     {
-        if (input.GetKeyDown(Keyboard::D)) {
+        if (input->GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (input.GetKeyDown(Keyboard::A)) {
+        if (input->GetKeyDown(Keyboard::A)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (input.GetKeyDown(Keyboard::W)) {
+        if (input->GetKeyDown(Keyboard::W)) {
             rigidbody->Accel( m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
-        if (input.GetKeyDown(Keyboard::S)) {
+        if (input->GetKeyDown(Keyboard::S)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
         m_owner->Ball::Rotate();
     }
 
     // スペースキーが押されたら攻撃ステートに遷移
-    if (InputSystem::Instance().GetKeyTrigger(DirectX::Keyboard::Space))
+    if (input->GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
     }

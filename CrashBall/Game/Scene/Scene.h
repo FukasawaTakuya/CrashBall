@@ -3,6 +3,7 @@
 
 #include "SceneManager.h"
 #include "ISceneController.h"
+#include "Game/Common/GameContext.h"
 #include "Game/Common/Camera.h"
 
 class Scene {
@@ -22,13 +23,15 @@ public:
 
 	virtual void Initialize() = 0;
 
-	virtual void Update(float elapsedTime) = 0;
+	virtual void Update(const GameContext& gameContext) = 0;
 
-	virtual void Draw() = 0;
+	virtual void Draw(const GameContext& gameContext) = 0;
 
 	virtual void Finalize() = 0;
 
-	virtual void CreateResources(DirectX::SimpleMath::Matrix projMat) = 0;
+	virtual void CreateDeviceResources(const GameContext& gameContext) = 0;
+
+	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) = 0;
 
 	virtual void SetModel() = 0;
 

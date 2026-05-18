@@ -54,16 +54,19 @@ public:
 	void Initialize() override;
 
 	// 更新
-	void Update(float elapsedTime) override;
+	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Draw() override;
+	void Draw(const GameContext& gameContext) override;
 
 	// 終了
 	void Finalize() override;
 
 	// リソース作成
-	void CreateResources(DirectX::SimpleMath::Matrix projMat) override;
+	void CreateDeviceResources(const GameContext& gameContext) override;
+
+	// リソース作成
+	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
 	// モデルの設定
 	void SetModel() override;

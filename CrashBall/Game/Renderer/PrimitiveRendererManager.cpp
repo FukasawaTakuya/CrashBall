@@ -77,7 +77,7 @@ void PrimitiveRendererManager::ClearCommandList()
  * 
  * \param pCamera カメラのポインタ
  */
-void PrimitiveRendererManager::Draw(Camera* pCamera)
+void PrimitiveRendererManager::Render(Camera* pCamera)
 {
     auto context = CommonResources::Instance().GetContext();
     auto state = CommonResources::Instance().GetState();
