@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   GameObject.h
- * \brief  基底オブジェクトに関するヘッダーファイル
+ * \brief  基底オブジェクト 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -56,12 +56,16 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	virtual void Initialize() = 0;
 
+	// 更新
 	virtual void Update(const GameContext& gameContext) = 0;
 
+	// 描画
 	virtual void Render(const GameContext& gameContext) = 0;
 
+	// 終了処理
 	virtual void Finalize() = 0;
 
 	// 取得/設定
@@ -96,7 +100,7 @@ public:
 			return static_cast<CompType*>(it->second.get());
 		}
 		// イテレータが終端ならnullptrを返す
-		return nullptr;
+		else return nullptr;
 	}
 
 	// タグの取得

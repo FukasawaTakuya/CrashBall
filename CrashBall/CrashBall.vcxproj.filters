@@ -56,6 +56,9 @@
     <Filter Include="Game\ServiceLocator">
       <UniqueIdentifier>{12c09a80-0442-45f7-b6be-55ca9c8513f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Engine">
+      <UniqueIdentifier>{054a8c06-6a5d-4375-a7e5-576939b23d39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -195,20 +198,26 @@
     <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\IInputSystem.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ITimeManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\GameContext.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ServiceLocator\TimeService.h">
+    <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
       <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ServiceLocator\InputService.h">
+    <ClInclude Include="Game\ServiceLocator\Service.h">
       <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\ITimeService.h">
+      <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Engine\Time.h">
+      <Filter>Game\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\IInputService.h">
+      <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Engine\Input.h">
+      <Filter>Game\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   PlayerAttackState.cpp
- * \brief  プレイヤー攻撃ステートに関するソースファイル
+ * \brief  プレイヤー攻撃ステート 
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -10,7 +10,7 @@
 #include "PlayerAttackState.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
-#include <Game/ServiceLocator/TimeService.h>
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -72,7 +72,7 @@ void PlayerAttackState::Update()
 	rigidbody->SetVelocity(attackDirection * 30.0f);
 
 	// タイマーの更新
-	m_timer += TimeService::Instance().GetTime()->GetElapsedTime();
+	m_timer += Time::GetElapsedTime();
 
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
 	if (m_timer >= ATTACK_DURATION) {

@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   PrimitveRendererManager.cpp
- * \brief  プリミティブ描画管理クラスに関するソースファイル
+ * \brief  プリミティブ描画管理クラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -22,17 +22,13 @@ using namespace DirectX;
 void PrimitiveRendererManager::CreateResource(
 	ID3D11Device1* device,
 	ID3D11DeviceContext1* context,
-    DirectX::CommonStates* state,
-    DirectX::SimpleMath::Matrix projMat
+    DirectX::CommonStates* state
 )
 {
     // プリミティブバッチの作成
     m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionNormalColor>>(context);
     // ベーシックエフェクトの作成
     m_basicEffect = std::make_unique<BasicEffect>(device);
-
-    // 射影行列のセット
-    m_basicEffect->SetProjection(projMat);
 
     // 頂点カラーの有効化
     m_basicEffect->SetVertexColorEnabled(true);
@@ -75,18 +71,20 @@ void PrimitiveRendererManager::ClearCommandList()
 /**
  * \brief 描画.
  * 
- * \param pCamera カメラのポインタ
+ * \param context コンテキスト
+ * \param state コモンステート
+ * \param camera カメラのポインタ
  */
-void PrimitiveRendererManager::Render(Camera* pCamera)
+void PrimitiveRendererManager::Render(
+    ID3D11DeviceContext1* context,
+    DirectX::CommonStates* state,
+    Camera* camera)
 {
-    auto context = CommonResources::Instance().GetContext();
-    auto state = CommonResources::Instance().GetState();
-
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
 
     // ビュー行列のセット
-    m_basicEffect->SetView(pCamera->GetViewMat());
+    m_basicEffect->SetView(camera->GetViewMat());
     // ワールド行列のセット
     m_basicEffect->SetWorld(SimpleMath::Matrix::Identity);
 
@@ -112,4 +110,10 @@ void PrimitiveRendererManager::Render(Camera* pCamera)
 
     // 描画終了
     m_primitiveBatch->End();
+}
+
+void PrimitiveRendererManager::SetProj(DirectX::SimpleMath::Matrix proj)
+{
+    // 射影行列のセット
+    m_basicEffect->SetProjection(proj);
 }

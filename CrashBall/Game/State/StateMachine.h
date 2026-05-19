@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   StateMachine.h
- * \brief  ステートマシンに関するヘッダーファイル
+ * \brief  ステートマシン 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -23,13 +23,17 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// エイリアス宣言
+	using StateCache = std::unordered_map<std::type_index, std::unique_ptr<StateBase<Owner>>>;
+
+
 	std::function<void()> m_changeStateCmd = []() {};		// ステート変更命令
 
 	Owner* m_owner = nullptr;								// オーナー
 
 	StateBase<Owner>* m_currentState = nullptr;				// 今のステート
 
-	std::unordered_map<std::type_index, std::unique_ptr<StateBase<Owner>>> m_states;	// ステートのキャッシュ
+	StateCache m_states;									// ステートのキャッシュ
 
 
 	// メンバ関数の宣言 -------------------------------------------------

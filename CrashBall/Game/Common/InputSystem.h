@@ -1,6 +1,14 @@
+/*****************************************************************//**
+ * \file   InputSystem.h
+ * \brief  入力システム
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #pragma once
 
-#include "Game/Interface/IInputSystem.h"
+#include "Game/ServiceLocator/IInputService.h"
 
 enum class PlayActionFlag
 {
@@ -11,7 +19,7 @@ enum class PlayActionFlag
 	Jump	= 1 << 4,
 };
 
-class InputSystem : public IInputSystem{
+class InputSystem : public IInputService {
 
 	// データメンバの宣言 -----------------------------------------------
 private:

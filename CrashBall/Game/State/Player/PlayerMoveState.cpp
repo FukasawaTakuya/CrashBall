@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   PlayerMoveState.cpp
- * \brief  プレイヤー移動ステートに関するソースファイル
+ * \brief  プレイヤー移動ステート 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -11,8 +11,8 @@
 #include "PlayerJumpState.h"
 #include "PlayerAttackState.h"
 #include "Game/GameObject/Player/Player.h"
-#include "Game/ServiceLocator/InputService.h"
 #include "Game/Common/Camera.h"
+#include "Game/Engine/Input.h"
 
 using namespace DirectX;
 
@@ -54,9 +54,6 @@ void PlayerMoveState::OnEnter()
  */
 void PlayerMoveState::Update()
 {
-    // 入力情報
-    auto input = InputService::Instance().GetInput();
-
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 	// トランスフォームコンポーネントの取得
@@ -68,23 +65,23 @@ void PlayerMoveState::Update()
     // 地上にいる場合
     if (m_owner->GetIsGround())
     {
-        if (input->GetKeyDown(Keyboard::D)) {
+        if (Input::GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (input->GetKeyDown(Keyboard::A)) {
+        if (Input::GetKeyDown(Keyboard::A)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetRight()   * ACCELERATION);
         }
-        if (input->GetKeyDown(Keyboard::W)) {
+        if (Input::GetKeyDown(Keyboard::W)) {
             rigidbody->Accel( m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
-        if (input->GetKeyDown(Keyboard::S)) {
+        if (Input::GetKeyDown(Keyboard::S)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
         m_owner->Ball::Rotate();
     }
 
     // スペースキーが押されたら攻撃ステートに遷移
-    if (input->GetKeyTrigger(DirectX::Keyboard::Space))
+    if (Input::GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
     }

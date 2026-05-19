@@ -1,10 +1,19 @@
+/*****************************************************************//**
+ * \file   ITimeService.h
+ * \brief  時間管理クラスのインターフェース
+ * 
+ * \author it252184
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
+#include "Game/ServiceLocator/Service.h"
 
 /**
  * @brief 基底オブジェクト
  */
-class  ITimeManager {
+class  ITimeService : public Service {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -17,10 +26,10 @@ private:
 public:
 
 	// コンストラクタ
-	ITimeManager() = default;
+	ITimeService() = default;
 
 	// デストラクタ
-	virtual ~ITimeManager() = default;
+	virtual ~ITimeService() = default;
 
 	// 操作
 public:
@@ -31,8 +40,6 @@ public:
 	virtual float GetElapsedTime() const = 0;
 
 	virtual float GetUnscaleElapsedTime() const = 0;
-
-	virtual void SetElapsedTime(float elapsedTime) = 0;
 
 	virtual void SetTimeScale(float timeScale) = 0;
 

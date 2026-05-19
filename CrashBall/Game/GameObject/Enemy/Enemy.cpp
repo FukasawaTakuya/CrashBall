@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Enemy.cpp
- * \brief  敵オブジェクトに関するソースファイル
+ * \brief  敵クラス 
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -11,7 +11,6 @@
 #include "Game/State/Enemy/EnemyWanderState.h"
 #include "Game/GameObject/Stage.h"
 #include "Game/Common/MyMath.h"
-#include "Game/Renderer/PrimitiveRendererManager.h"
 
 using namespace DirectX;
 

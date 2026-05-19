@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Ball.cpp
- * \brief  ボールクラスに関するソースファイル
+ * \brief  ボールクラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -8,8 +8,7 @@
 
 #include "pch.h"
 #include "Ball.h"
-#include "Game/Common/TimeManager.h"
-#include <Game/ServiceLocator/TimeService.h>
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -105,7 +104,7 @@ void Ball::Move()
 		m_rigidBody->ApplyFriction();
 
 	// 速度を加算
-	m_transform->Translate(m_rigidBody->GetVelocity() * TimeService::Instance().GetTime()->GetElapsedTime());
+	m_transform->Translate(m_rigidBody->GetVelocity() * Time::GetElapsedTime());
 }
 
 /**
@@ -131,7 +130,7 @@ void Ball::Rotate()
 
 	// 回転量を求める
 	float forwardAngle 
-		= velocity.Length() * TimeService::Instance().GetTime()->GetElapsedTime() / m_collider->GetRadius();
+		= velocity.Length() * Time::GetElapsedTime() / m_collider->GetRadius();
 
 	// 角速度を求める
 	SimpleMath::Quaternion quaternion

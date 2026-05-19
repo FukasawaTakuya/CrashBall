@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Ball.h
- * \brief  ボールクラスに関するヘッダーファイル
+ * \brief  ボールクラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -13,7 +13,6 @@
 #include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
-
 
  /**
  * @brief ボールクラス

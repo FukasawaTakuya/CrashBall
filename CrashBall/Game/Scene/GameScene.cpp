@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   GameScene.cpp
- * \brief  ゲームシーンに関するソースファイル
+ * \brief  ゲームシーンクラス
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -8,10 +8,8 @@
 
 #include "pch.h"
 #include "GameScene.h"
-#include "Game/CollisionManager/Collision.h"
-#include "Game/ResourceManager/ResourceManager.h"
-#include "Game/Renderer/PrimitiveRendererManager.h"
-#include "Game/ServiceLocator/InputService.h"
+#include "Game/Engine/Input.h"
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -22,7 +20,7 @@ using namespace DirectX;
  */
 GameScene::GameScene(SceneManager* pSceneManager)
 	: Scene(pSceneManager)
-    , m_Stage       (std::make_unique<Stage>())
+    , m_Stage           (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(0.5f))
     , m_collisionManager(std::make_unique<CollisionManager>())
 	, m_ball            (std::make_unique<Ball>(0.5f))
@@ -67,20 +65,19 @@ bool playerFollow = true;
 /**
  * @brief 更新.
  * 
- * \param elapsedTime 経過時間
+ * \param 
  */
 void GameScene::Update(const GameContext& gameContext)
 {
     auto key = Keyboard::Get().GetState();
-    auto input = InputService::Instance().GetInput();
-    float elapsedTime = gameContext.m_pTimeManager->GetElapsedTime();
+    float elapsedTime = Time::GetElapsedTime();
 
-    if (input->GetKeyTrigger(Keyboard::R)) {
+    if (Input::GetKeyTrigger(Keyboard::R)) {
         m_player->SetPosition(SimpleMath::Vector3::Up * 24.0f);
         m_ball->SetPosition(SimpleMath::Vector3::Up * 24.0f);
         m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
     }
-    if (input->GetKeyTrigger(Keyboard::F)) {
+    if (Input::GetKeyTrigger(Keyboard::F)) {
         playerFollow = !playerFollow;
     }
 
@@ -92,22 +89,22 @@ void GameScene::Update(const GameContext& gameContext)
     m_collisionManager->Update();
 
     // TODO:カメラ内部に書く
-    if (input->GetKeyDown(Keyboard::Right)) {
+    if (Input::GetKeyDown(Keyboard::Right)) {
         m_camera->RotateX(XMConvertToRadians(45.0f * elapsedTime));
     }
-    if (input->GetKeyDown(Keyboard::Left)) {
+    if (Input::GetKeyDown(Keyboard::Left)) {
         m_camera->RotateX(XMConvertToRadians(-45.0f * elapsedTime));
     }
-    if (input->GetKeyDown(Keyboard::Up)) {
+    if (Input::GetKeyDown(Keyboard::Up)) {
         m_camera->RotateY(XMConvertToRadians(45.0f * elapsedTime));
     }
-    if (input->GetKeyDown(Keyboard::Down)) {
+    if (Input::GetKeyDown(Keyboard::Down)) {
         m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
     }
 
-    auto mouse = Mouse::Get().GetState();
-    Mouse::Get().ResetScrollWheelValue();
-    m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
+    //auto mouse = Mouse::Get().GetState();
+    //Mouse::Get().ResetScrollWheelValue();
+    //m_camera->Zoom(-mouse.scrollWheelValue / 500.0f);
 
     if (playerFollow) {
         m_camera->FollowCamera(m_player->GetComponent<Transform>()->GetPosition());
@@ -149,16 +146,9 @@ void GameScene::CreateDeviceResources(const GameContext& gameContext)
     auto modelManager = gameContext.m_pModelManager;
 
     m_player->SetModel(modelManager->GetModel("ball"));
-
     m_Stage->SetModel(modelManager->GetModel("Stage"));
-
 	m_ball->SetModel(modelManager->GetModel("ball"));
-
 	m_enemy->SetModel(modelManager->GetModel("ball"));
-
-    DirectX::SimpleMath::Vector3 v1{ -10.0f, 0.0f, -10.0f };
-    DirectX::SimpleMath::Vector3 v2{ 0.0f, 0.0f, 10.0f };
-    DirectX::SimpleMath::Vector3 v3{ 10.0f, 0.0f, -10.0f };
 }
 
 void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)

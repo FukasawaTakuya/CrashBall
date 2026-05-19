@@ -232,6 +232,8 @@
     </ClInclude>
     <ClInclude Include="Game\Component\RigidBody.h" />
     <ClInclude Include="Game\Component\Transform.h" />
+    <ClInclude Include="Game\Engine\Input.h" />
+    <ClInclude Include="Game\Engine\Time.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
     <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
       <SubType>
@@ -240,10 +242,6 @@
     <ClInclude Include="Game\GameObject\Stage.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\Player\Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\IInputSystem.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -256,10 +254,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ITimeManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -277,8 +271,13 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\Scene.h" />
     <ClInclude Include="Game\Scene\SceneManager.h" />
-    <ClInclude Include="Game\ServiceLocator\InputService.h" />
-    <ClInclude Include="Game\ServiceLocator\TimeService.h">
+    <ClInclude Include="Game\ServiceLocator\IInputService.h" />
+    <ClInclude Include="Game\ServiceLocator\ITimeService.h" />
+    <ClInclude Include="Game\ServiceLocator\Service.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
       <SubType>
       </SubType>
     </ClInclude>

@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Random.h
- * \brief  乱数生成クラスに関するヘッダーファイル
+ * \brief  乱数生成クラス 
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -40,28 +40,36 @@ private:
 
 	// 操作
 public:
-	// インスタンスの取得
-	static Random& Instance() {
-		static Random instance;
-		return instance;
-	}
 
 	// 取得/設定
 public:
 
 	// 乱数の生成(int型)
-	int Range(int min, int max) {
+	static int Range(int min, int max) {
+		// インスタンスの取得
+		auto& instance = GetInstance();
+
 		std::uniform_int_distribution<int> dist(min, max);
-		return dist(m_randomEngin);
+		return dist(instance.m_randomEngin);
 	}
 
 	// 乱数の生成(float型)
-	float Range(float min, float max) {
+	static float Range(float min, float max) {
+		// インスタンスの取得
+		auto& instance = GetInstance();
+
 		std::uniform_real_distribution<float> dist(min, max);
-		return dist(m_randomEngin);
+		return dist(instance.m_randomEngin);
 	}
 
 	// 内部実装
 private:
+
+	// インスタンスの取得
+	static Random& GetInstance()
+	{
+		static Random instance;
+		return instance;
+	}
 
 };

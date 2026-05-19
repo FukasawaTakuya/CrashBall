@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   EnemyWanderState.cpp
- * \brief  敵の徘徊ステートに関するソースファイル
+ * \brief  敵の徘徊ステート 
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -9,9 +9,8 @@
 #include "pch.h"
 #include "EnemyWanderState.h"
 #include "Game/GameObject/Enemy/Enemy.h"
-#include "Game/GameObject/Stage.h"
 #include "Game/Common/Random.h"
-#include "Game/ServiceLocator/TimeService.h"
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -57,9 +56,8 @@ void EnemyWanderState::Update()
 	Transform* transform = m_owner->GetComponent<Transform>();
 	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 
-	float elapsedTime 
-		= TimeService::Instance().GetTime()->GetElapsedTime();
-	m_timer += elapsedTime;
+	
+	m_timer += Time::GetElapsedTime();
 
 	// 加速度のリセット
 	rigidbody->ResetAccel();
@@ -79,7 +77,7 @@ void EnemyWanderState::Update()
 			transform->GetPosition() + direction * DIRECTION_CIRCLE_DISTANCE;
 
 		// 円の角度を更新
-		float circleRadian = Random::Instance().Range(0.0f, XM_2PI);
+		float circleRadian = Random::Range(0.0f, XM_2PI);
 
 		// 円周上の点
 		SimpleMath::Vector3 circlePoint = circleCenter +

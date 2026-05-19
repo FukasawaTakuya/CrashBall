@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   PrimitveRendererManager.h
- * \brief  プリミティブ描画管理クラスに関するヘッダーファイル
+ * \brief  プリミティブ描画管理クラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -48,8 +48,7 @@ public:
 	void CreateResource(
 		ID3D11Device1* device,
 		ID3D11DeviceContext1* context,
-		DirectX::CommonStates* state,
-		DirectX::SimpleMath::Matrix projMat
+		DirectX::CommonStates* state
 	);
 
 	// 描画命令の登録
@@ -59,11 +58,17 @@ public:
 	void ClearCommandList();
 
 	// 描画
-	void Render(Camera* pCamera);
+	void Render(
+		ID3D11DeviceContext1* context,
+		DirectX::CommonStates* state, 
+		Camera* camera);
 
 
 	// 取得/設定
 public:
+
+	// 射影行列の設定
+	void SetProj(DirectX::SimpleMath::Matrix proj);
 
 	// 内部実装
 private:

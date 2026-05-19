@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Enemy.h
- * \brief  敵オブジェクトに関するヘッダーファイル
+ * \brief  敵クラス
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -15,7 +15,7 @@ class Stage;
 
 
 /**
- * @brief 敵オブジェクト
+ * @brief 敵クラス
  */
 class  Enemy : public Ball 
 {

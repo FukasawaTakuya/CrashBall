@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   TimeManager.h
- * \brief  時間管理クラスに関するヘッダーファイル
+ * \brief  時間管理クラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -8,12 +8,12 @@
 
 #pragma once
 
-#include "Game/Interface/ITimeManager.h"
+#include "Game/ServiceLocator/ITimeService.h"
 
 /**
  * @brief 時間管理クラス
  */
-class  TimeManager : public ITimeManager{
+class  TimeManager : public ITimeService{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -52,14 +52,14 @@ public:
 		return m_elapsedTime;
 	}
 
-	void SetElapsedTime(float elapsedTime) override
-	{
-		m_elapsedTime = elapsedTime;
-	}
-
 	void SetTimeScale(float timeScale) override
 	{
 		m_timeScale = timeScale;
+	}
+
+	void SetElapsedTime(float elapsedTime)
+	{
+		m_elapsedTime = elapsedTime;
 	}
 
 	// 内部実装

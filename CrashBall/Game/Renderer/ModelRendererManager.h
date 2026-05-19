@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   ModelRendererManager.h
- * \brief  モデル描画管理クラスに関するヘッダーファイル
+ * \brief  モデル描画管理クラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -45,7 +45,10 @@ public:
 	void ClearCommandList();
 
 	// 描画
-	void Render(Camera* camera);
+	void Render(
+		ID3D11DeviceContext1* context,
+		DirectX::CommonStates* state,
+		Camera* pCamera);
 
 
 	// 取得/設定

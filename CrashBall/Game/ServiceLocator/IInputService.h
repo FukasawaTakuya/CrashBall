@@ -1,6 +1,6 @@
 /*****************************************************************//**
- * \file   IInputSystem.h
- * \brief  入力システムクラスのインターフェースに関するヘッダーファイル
+ * \file   IInputService.h
+ * \brief  入力システムクラスのインターフェース
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -10,10 +10,12 @@
 #include <Keyboard.h>
 #include <SimpleMath.h>
 
+#include "Game/ServiceLocator/Service.h"
+
 /**
  * @brief 入力システムクラスのインターフェース
  */
-class  IInputSystem {
+class  IInputService : public Service{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -26,10 +28,10 @@ private:
 public:
 
 	// コンストラクタ
-	IInputSystem() = default;
+	IInputService() = default;
 
 	// デストラクタ
-	virtual ~IInputSystem() = default;
+	virtual ~IInputService() = default;
 
 	// 操作
 public:

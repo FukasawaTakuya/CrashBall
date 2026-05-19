@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   RigidBody.cpp
- * \brief  物理挙動に関するソースファイル
+ * \brief  物理演算コンポーネントクラス
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "RigidBody.h"
-#include "Game/ServiceLocator/TimeService.h"
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -44,9 +44,13 @@ void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
 	m_accel += accel;
 }
 
+/**
+ * \brief 加速度の適用
+ * 
+ */
 void RigidBody::ApplyAccel()
 {
-	m_velocity += m_accel * TimeService::Instance().GetTime()->GetElapsedTime();
+	m_velocity += m_accel * Time::GetElapsedTime();
 }
 
 /**
@@ -55,7 +59,8 @@ void RigidBody::ApplyAccel()
  */
 void RigidBody::ApplyGravity()
 {
-	m_velocity += m_gravityAcceleration * SimpleMath::Vector3::Down * TimeService::Instance().GetTime()->GetElapsedTime();
+	m_velocity += m_gravityAcceleration * 
+		SimpleMath::Vector3::Down * Time::GetElapsedTime();
 }
 
 /**

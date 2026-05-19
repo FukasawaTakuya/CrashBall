@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   ModelRendererManager.cpp
- * \brief  モデル描画管理クラスに関するソースファイル
+ * \brief  モデル描画管理クラス 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "ModelRendererManager.h"
 #include "Game/Common/CommonResources.h"
+
+using namespace DirectX;
 
 /**
  * \brief 描画命令の登録.
@@ -30,17 +32,19 @@ void ModelRendererManager::ClearCommandList()
 }
 
 /**
- * \brief 描画.
+ * \brief 描画
  * 
- * \param カメラ
+ * \param context コンテキスト
+ * \param state コモンステート
+ * \param camera カメラのポインタ
  */
-void ModelRendererManager::Render(Camera* camera)
+void ModelRendererManager::Render(
+	ID3D11DeviceContext1* context,
+	DirectX::CommonStates* state,
+	Camera* camera)
 {
-	auto context = CommonResources::Instance().GetContext();
-	auto state = CommonResources::Instance().GetState();
-
-	DirectX::SimpleMath::Matrix view = camera->GetViewMat();
-	DirectX::SimpleMath::Matrix proj = camera->GetProjMat();
+	SimpleMath::Matrix view = camera->GetViewMat();
+	SimpleMath::Matrix proj = camera->GetProjMat();
 
 	for (auto& drawCommand : m_drawCommandList)
 	{

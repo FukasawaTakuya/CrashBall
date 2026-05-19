@@ -6,8 +6,9 @@
 #include "Game.h"
 
 #include "Game/Scene/GameScene.h"
-#include "Game/ResourceManager/ResourceManager.h"
-#include "Game/ServiceLocator/TimeService.h"
+#include "Game/ServiceLocator/ServiceLocator.h"
+#include "Game/ServiceLocator/ITimeService.h"
+#include "Game/ServiceLocator/IInputService.h"
 
 extern void ExitGame() noexcept;
 
@@ -32,31 +33,29 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateDeviceResources();
     m_deviceResources->CreateWindowSizeDependentResources();
 
-    m_inputSystem = std::make_unique<InputSystem>();
-    m_timeManager = std::make_unique<TimeManager>();
-    m_modelManager = std::make_unique<ModelManager>();
-    m_modelRendererManager = std::make_unique<ModelRendererManager>();
-    m_primitiveRendererManager = std::make_unique<PrimitiveRendererManager>();
+    m_inputSystem               = std::make_unique<InputSystem>();
+    m_timeManager               = std::make_unique<TimeManager>();
+    m_modelManager              = std::make_unique<ModelManager>();
+    m_modelRendererManager      = std::make_unique<ModelRendererManager>();
+    m_primitiveRendererManager  = std::make_unique<PrimitiveRendererManager>();
 
     // コンテキストの初期化
     m_gameContext.emplace(
-        m_timeManager.get(),
         m_modelManager.get(),
         m_modelRendererManager.get(),
         m_primitiveRendererManager.get()
     );
 
     // サービスロケーターに設定
-    InputService::Instance().SetInput(m_inputSystem.get());
-    TimeService::Instance().SetTime(m_timeManager.get());
+    ServiceLocator::Set<ITimeService>(m_timeManager.get());
+    ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
-    // モデルファクトリーの登録
+    // モデルファクトリー登録
     m_modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
     m_modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
-
     m_sceneManager->RegisterScene(SceneID::Game,
         std::make_unique<GameScene>(m_sceneManager.get()));
 
@@ -135,8 +134,8 @@ void Game::Render()
     m_sceneManager->Render(*m_gameContext);
 
     // 描画
-    m_modelRendererManager->Render(m_sceneManager->GetCamera());
-    m_primitiveRendererManager->Render(m_sceneManager->GetCamera());
+    m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+    m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
 
     m_deviceResources->PIXEndEvent();
 
@@ -231,22 +230,10 @@ void Game::CreateDeviceDependentResources()
     // TODO: Initialize device dependent objects here (independent of window size).
     device;
 
-    // リソースの生成
+    // モデルの生成
     m_modelManager->CreateModel(device);
 
-
-    int w, h;
-
-    GetDefaultSize(w, h);
-
-    // 射影行列の定義
-    m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
-        XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
-        0.01f, 150.0f
-    );
-
-
-    m_primitiveRendererManager->CreateResource(device, context, m_state.get(), m_proj);
+    m_primitiveRendererManager->CreateResource(device, context, m_state.get());
 
     // リソース作成
     m_sceneManager->CreateDeviceResources(*m_gameContext);
@@ -267,7 +254,8 @@ void Game::CreateWindowSizeDependentResources()
         0.01f, 150.0f
     );
 
-        // リソース作成
+    m_primitiveRendererManager->SetProj(m_proj);
+    // リソース作成
     m_sceneManager->CreateWindowSizeResources(m_proj);
 
 }

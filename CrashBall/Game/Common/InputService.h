@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #pragma once
-#include "Game/Interface/IInputSystem.h"
+#include "Game/ServiceLocator/IInputService.h"
 
 /**
  * @brief 入力取得クラス
@@ -20,7 +20,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	IInputSystem* m_input;
+	IInputService* m_input;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -48,10 +48,10 @@ public:
 public:
 
 	// 入力の取得
-	IInputSystem* GetInput() { return m_input; }
+	IInputService* GetInput() { return m_input; }
 
 	// 入力システムのインターフェースの設定
-	void SetInput(IInputSystem* input) { m_input = input; }
+	void SetInput(IInputService* input) { m_input = input; }
 
 	// 内部実装
 private:
