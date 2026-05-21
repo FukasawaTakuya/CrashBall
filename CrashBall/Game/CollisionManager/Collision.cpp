@@ -124,8 +124,9 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	float t2 = (-b - d) / (2 * a);
 
 	// 解が線分の範囲内にあるなら衝突している
-	if (t1 <= 1.0f && t1 >= 0.0f ||
+	if ((t1 <= 1.0f && t1 >= 0.0f ||
 		t2 <= 1.0f && t2 >= 0.0f)
+		&& std::abs(t1 - t2) <= 0.2f)
 	{
 		return true;
 	}

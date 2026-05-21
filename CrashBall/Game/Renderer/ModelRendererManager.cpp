@@ -17,9 +17,9 @@ using namespace DirectX;
  * 
  * \param 描画命令
  */
-void ModelRendererManager::RegisterDrawCommand(const ModelDrawCommand& drawCommand)
+void ModelRendererManager::RegisterRenderCommand(const ModelRenderCommand& renderCommand)
 {
-	m_drawCommandList.emplace_back(drawCommand);
+	m_renderCommandList.emplace_back(renderCommand);
 }
 
 /**
@@ -28,7 +28,7 @@ void ModelRendererManager::RegisterDrawCommand(const ModelDrawCommand& drawComma
  */
 void ModelRendererManager::ClearCommandList()
 {
-	m_drawCommandList.clear();
+	m_renderCommandList.clear();
 }
 
 /**
@@ -46,8 +46,8 @@ void ModelRendererManager::Render(
 	SimpleMath::Matrix view = camera->GetViewMat();
 	SimpleMath::Matrix proj = camera->GetProjMat();
 
-	for (auto& drawCommand : m_drawCommandList)
+	for (auto& renderCommand : m_renderCommandList)
 	{
-		drawCommand.pModel->Draw(context, *state, drawCommand.world, view, proj);
+		renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
 	}
 }

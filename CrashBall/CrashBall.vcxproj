@@ -231,6 +231,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\RigidBody.h" />
+    <ClInclude Include="Game\Component\SpriteRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Transform.h" />
     <ClInclude Include="Game\Engine\Input.h" />
     <ClInclude Include="Game\Engine\Time.h" />
@@ -257,13 +261,29 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Renderer\ModelRendererManager.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Renderer\PrimitiveRendererManager.h" />
+    <ClInclude Include="Game\Renderer\SpriteRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Game\ResourceManager\SpriteManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Scene\GameScene.h" />
     <ClInclude Include="Game\Scene\ISceneController.h">
       <SubType>
@@ -326,6 +346,7 @@
     <ClCompile Include="Game\Component\Collider\Triangle.cpp" />
     <ClCompile Include="Game\Component\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\RigidBody.cpp" />
+    <ClCompile Include="Game\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
@@ -334,8 +355,10 @@
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
+    <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />

@@ -219,6 +219,21 @@
     <ClInclude Include="Game\Engine\Input.h">
       <Filter>Game\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Game\ResourceManager\SpriteManager.h">
+      <Filter>Game\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\SpriteRenderer.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Renderer\SpriteRendererManager.h">
+      <Filter>Game\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -322,6 +337,15 @@
     </ClCompile>
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp">
       <Filter>Game\State\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager\SpriteManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\SpriteRenderer.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp">
+      <Filter>Game\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

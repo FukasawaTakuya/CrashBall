@@ -12,7 +12,7 @@
 #include <vector>
 
  // •`‰æ–½—ß—p
-struct PrimitiveDrawCommand
+struct PrimitiveRenderCommand
 {
 	D3D10_PRIMITIVE_TOPOLOGY topology;
 	std::vector<DirectX::VertexPositionNormalColor> vertices;
@@ -46,7 +46,7 @@ public:
 public:
 
 	// •`‰æ–½—ß‚Ì“o˜^
-	virtual void RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand) = 0;
+	virtual void RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand) = 0;
 
 	// æ“¾/İ’è
 public:

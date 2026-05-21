@@ -22,7 +22,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<ModelDrawCommand> m_drawCommandList;	// 描画命令格納用のコンテナ
+	std::vector<ModelRenderCommand> m_renderCommandList;	// 描画命令格納用のコンテナ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -39,7 +39,7 @@ public:
 public:
 
 	// 描画命令の登録
-	void RegisterDrawCommand(const ModelDrawCommand& drawCommand) override;
+	void RegisterRenderCommand(const ModelRenderCommand& renderCommand) override;
 
 	// 描画命令のクリア
 	void ClearCommandList();

@@ -18,7 +18,10 @@
 
 #include "Game/Renderer/PrimitiveRendererManager.h"
 #include "Game/Renderer/ModelRendererManager.h"
+#include "Game/Renderer/SpriteRendererManager.h"
+
 #include "Game/ResourceManager/ModelManager.h"
+#include "Game/ResourceManager/SpriteManager.h"
 
 #include "Game/Common/GameContext.h"
 
@@ -47,8 +50,10 @@ private:
     std::unique_ptr<InputSystem> m_inputSystem;
     std::unique_ptr<TimeManager> m_timeManager;
     std::unique_ptr<ModelManager> m_modelManager;
+    std::unique_ptr<SpriteManager> m_spriteManager;
     std::unique_ptr<ModelRendererManager> m_modelRendererManager;
     std::unique_ptr<PrimitiveRendererManager> m_primitiveRendererManager;
+    std::unique_ptr<SpriteRendererManager> m_spriteRendererManager;
 
     std::optional<GameContext> m_gameContext;
 

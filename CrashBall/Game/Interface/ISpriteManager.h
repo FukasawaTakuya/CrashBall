@@ -1,28 +1,19 @@
 /*****************************************************************//**
- * \file   IModelRendererManager.h
- * \brief  モデル描画管理クラスのインターフェース 
+ * \file   ISpriteManager.h
+ * \brief  スプライト管理クラスのインターフェース
  * 
  * \author 深沢拓矢
  * \date   May 2026
  *********************************************************************/
 
 #pragma once
-
-#include <Model.h>
-#include <SimpleMath.h>
-
-// 描画命令の登録用
-struct ModelRenderCommand
-{
-	DirectX::Model* pModel;				// モデルのポインタ
-	DirectX::SimpleMath::Matrix world;	// ワールド行列
-};
-
+#include <d3d11.h>
+#include <string>
 
 /**
- * @brief モデル描画管理クラスのインターフェース
+ * @brief スプライト管理クラスのインターフェース
  */
-class  IModelRendererManager {
+class  ISpriteManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -30,26 +21,24 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	IModelRendererManager() = default;
+	ISpriteManager() = default;
 
 	// デストラクタ
-	virtual ~IModelRendererManager() = default;
+	virtual ~ISpriteManager() = default;
 
 	// 操作
 public:
 
+	// スプライトの取得
+	virtual ID3D11ShaderResourceView* GetSprite(const std::string& key) = 0;
+
 	// 取得/設定
 public:
-	// 描画命令の登録
-	virtual void RegisterRenderCommand(const ModelRenderCommand& renderCommand) = 0;
-
 
 	// 内部実装
 private:

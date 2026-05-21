@@ -116,7 +116,7 @@ void Stage::Render(const GameContext& gameContext)
 		};
 
 		// 描画命令登録
-		primitiveRenderer->RegisterDrawCommand({
+		primitiveRenderer->RegisterRenderCommand({
 			D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			pos
 			});

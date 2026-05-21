@@ -36,8 +36,10 @@ void Game::Initialize(HWND window, int width, int height)
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
     m_modelManager              = std::make_unique<ModelManager>();
+    m_spriteManager             = std::make_unique<SpriteManager>();
     m_modelRendererManager      = std::make_unique<ModelRendererManager>();
     m_primitiveRendererManager  = std::make_unique<PrimitiveRendererManager>();
+    m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
 
     // コンテキストの初期化
     m_gameContext.emplace(
@@ -51,8 +53,10 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
     // モデルファクトリー登録
-    m_modelManager->RegisterModel("ball", L"Resources/Models/Ball.sdkmesh");
-    m_modelManager->RegisterModel("Stage", L"Resources/Models/Stage.sdkmesh");
+    m_modelManager->RegisterFactory("ball", L"Resources/Models/Ball.sdkmesh");
+    m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
+
+    m_spriteManager->RegisterFactory("test", L"Resources/Sprite/robot.dds");
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
@@ -130,12 +134,19 @@ void Game::Render()
     // 描画命令のクリア
     m_modelRendererManager->ClearCommandList();
     m_primitiveRendererManager->ClearCommandList();
+    m_spriteRendererManager->ClearRenderCmd();
 
     m_sceneManager->Render(*m_gameContext);
 
     // 描画
     m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
     m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+
+    auto test = m_spriteManager->GetSprite("test");
+    if (test != nullptr)
+        m_spriteRendererManager->RegisterRenderCommand(test, RECT(0, 0, 100, 100));
+
+    m_spriteRendererManager->Reder();
 
     m_deviceResources->PIXEndEvent();
 
@@ -231,9 +242,11 @@ void Game::CreateDeviceDependentResources()
     device;
 
     // モデルの生成
+    m_spriteManager->CreateSprite(device);
     m_modelManager->CreateModel(device);
-
+    
     m_primitiveRendererManager->CreateResource(device, context, m_state.get());
+    m_spriteRendererManager->CreateSpriteBatch(context);
 
     // リソース作成
     m_sceneManager->CreateDeviceResources(*m_gameContext);

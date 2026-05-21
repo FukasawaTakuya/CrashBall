@@ -94,7 +94,7 @@ void Enemy::Render(const GameContext& gameContext)
 	};
 
 	// 描画命令の登録
-	gameContext.m_pPrimitiveRendererManager->RegisterDrawCommand({
+	gameContext.m_pPrimitiveRendererManager->RegisterRenderCommand({
 		D3D10_PRIMITIVE_TOPOLOGY_LINELIST, std::vector<VertexPositionNormalColor>(std::begin(v), std::end(v))
 		});
 

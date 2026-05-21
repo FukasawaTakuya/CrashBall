@@ -54,9 +54,9 @@ void PrimitiveRendererManager::CreateResource(
  * 
  * \param drawCommand 描画命令
  */
-void PrimitiveRendererManager::RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand)
+void PrimitiveRendererManager::RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand)
 {
-    m_drawCommand.emplace_back(drawCommand);
+    m_renderCommand.emplace_back(renderCommand);
 }
 
 /**
@@ -65,7 +65,7 @@ void PrimitiveRendererManager::RegisterDrawCommand(const PrimitiveDrawCommand& d
  */
 void PrimitiveRendererManager::ClearCommandList()
 {
-    m_drawCommand.clear();
+    m_renderCommand.clear();
 }
 
 /**
@@ -97,14 +97,14 @@ void PrimitiveRendererManager::Render(
     m_primitiveBatch->Begin();
 
     // 描画命令の実行
-    for (auto& drawCommand : m_drawCommand)
+    for (auto& renderCommand : m_renderCommand)
     {
-        if (drawCommand.vertices.empty()) continue;
+        if (renderCommand.vertices.empty()) continue;
 
         m_primitiveBatch->Draw(
-            drawCommand.topology,
-            drawCommand.vertices.data(),
-            drawCommand.vertices.size()
+            renderCommand.topology,
+            renderCommand.vertices.data(),
+            renderCommand.vertices.size()
         );
     }
 

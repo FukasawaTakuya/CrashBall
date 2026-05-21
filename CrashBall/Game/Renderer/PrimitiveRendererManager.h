@@ -28,7 +28,7 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;	// 入力レイアウト
 
-	std::vector<PrimitiveDrawCommand> m_drawCommand;			// 命令コンテナ
+	std::vector<PrimitiveRenderCommand> m_renderCommand;			// 命令コンテナ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -52,7 +52,7 @@ public:
 	);
 
 	// 描画命令の登録
-	void RegisterDrawCommand(const PrimitiveDrawCommand& drawCommand) override;
+	void RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand) override;
 
 	// 描画命令のクリア
 	void ClearCommandList();

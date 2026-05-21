@@ -34,9 +34,9 @@ ModelManager::~ModelManager()
  * \param key　キー
  * \param fileName	ファイル名
  */
-void ModelManager::RegisterModel(std::string key, const wchar_t* fileName)
+void ModelManager::RegisterFactory(std::string key, const wchar_t* fileName)
 {
-	m_factory.emplace(key, fileName);
+	m_modelFactory.emplace(key, fileName);
 }
 
 /**
@@ -51,9 +51,20 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 	EffectFactory fx(device);
 	fx.SetDirectory(L"Resources/Models");
 
-	for (auto& file : m_factory) {
+	for (auto& file : m_modelFactory) {
 		auto model = Model::CreateFromSDKMESH(device, file.second, fx);
 
 		m_models.emplace(file.first, std::move(model));
 	}
+}
+
+DirectX::Model* ModelManager::GetModel(const std::string& key)
+{
+	auto it = m_models.find(key);
+
+	if (it != m_models.end())
+	{
+		return it->second.get();
+	}
+	else return nullptr;
 }

@@ -1,19 +1,19 @@
 /*****************************************************************//**
- * \file   ModelManager.h
- * \brief  モデル管理クラス 
+ * \file   SpriteManager.h
+ * \brief  スプライト管理クラス
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   May 2026
  *********************************************************************/
+
+#include "Game/Interface/ISpriteManager.h"
 
 #pragma once
 
-#include "Game/Interface/IModelManager.h"
-
 /**
- * @brief モデル管理クラス
+ * @brief スプライト管理クラス
  */
-class  ModelManager : public IModelManager{
+class  SpriteManager : public ISpriteManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -22,23 +22,24 @@ public:
 private:
 
 	// エイリアス宣言
-	using FileCollection 
+	using FileCollection
 		= std::unordered_map<std::string, const wchar_t*>;
-	using ModelCollection 
-		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
+	using SpriteCollection
+		= std::unordered_map<std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>;
 
-	FileCollection	m_modelFactory;	// モデルファクトリー
-	ModelCollection	m_models;	// モデルのキャッシュ
+	FileCollection		m_factory;	// スプライトファクトリー
+	SpriteCollection	m_sprites;	// スプライトのキャッシュ
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ModelManager();
+	SpriteManager();
 
 	// デストラクタ
-	~ModelManager();
+	~SpriteManager();
 
 	// 操作
 public:
@@ -47,13 +48,13 @@ public:
 	void RegisterFactory(std::string key, const wchar_t* fileName);
 
 	// モデルの作成
-	void CreateModel(ID3D11Device1* device);
+	void CreateSprite(ID3D11Device1* device);
 
 	// 取得/設定
 public:
 
 	// モデルの取得
-	DirectX::Model* GetModel(const std::string& key) override;
+	ID3D11ShaderResourceView* GetSprite(const std::string& key) override ;
 
 	// 内部実装
 private:

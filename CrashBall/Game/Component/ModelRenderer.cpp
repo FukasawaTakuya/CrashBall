@@ -38,7 +38,7 @@ void ModelRenderer::Render(
 
 	// 描画命令の登録
 	if(m_pModel != nullptr)
-		rendererManager->RegisterDrawCommand({ m_pModel, world });
+		rendererManager->RegisterRenderCommand({ m_pModel, world });
 }
 
 /**
