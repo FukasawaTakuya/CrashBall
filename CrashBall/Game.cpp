@@ -142,9 +142,9 @@ void Game::Render()
     m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
     m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
 
-    auto test = m_spriteManager->GetSprite("test");
-    if (test != nullptr)
-        m_spriteRendererManager->RegisterRenderCommand(test, RECT(0, 0, 100, 100));
+    //auto test = m_spriteManager->GetSprite("test");
+    //if (test != nullptr)
+    //    m_spriteRendererManager->RegisterRenderCommand(test, RECT(0, 0, 100, 100));
 
     m_spriteRendererManager->Reder();
 
