@@ -59,6 +59,9 @@
     <Filter Include="Game\Engine">
       <UniqueIdentifier>{054a8c06-6a5d-4375-a7e5-576939b23d39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Context">
+      <UniqueIdentifier>{54930483-4af3-46bd-817a-10ed53f56fa9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -198,9 +201,6 @@
     <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Common\GameContext.h">
-      <Filter>Game\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
       <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
@@ -233,6 +233,24 @@
     </ClInclude>
     <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
       <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Context\RenderContext.h">
+      <Filter>Game\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Context\ResourceContext.h">
+      <Filter>Game\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Context\GameContext.h">
+      <Filter>Game\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITextRendererManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Renderer\TextRendererManager.h">
+      <Filter>Game\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\SoundManager.h">
+      <Filter>Game\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +365,7 @@
     <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp">
       <Filter>Game\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Renderer\TextRendererManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

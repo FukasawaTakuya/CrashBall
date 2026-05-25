@@ -11,7 +11,7 @@
 #include "Component.h"
 
 /**
- * @brief 物理演算コンポーネント
+ * \brief 物理演算コンポーネント
  */
 class  RigidBody : public Component {
 

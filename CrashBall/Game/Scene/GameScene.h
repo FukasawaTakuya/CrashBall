@@ -42,7 +42,7 @@ private:
 public:
 
 	// コンストラクタ
-	GameScene(SceneManager* pSceneManager);
+	GameScene(ISceneController* pSceneManager);
 
 	// デストラクタ
 	~GameScene();
@@ -57,13 +57,13 @@ public:
 	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Draw(const GameContext& gameContext) override;
+	void Draw(const RenderContext& renderContext) override;
 
 	// 終了
 	void Finalize() override;
 
 	// リソース作成
-	void CreateDeviceResources(const GameContext& gameContext) override;
+	void CreateDeviceResources(const ResourceContext& resourceContext) override;
 
 	// リソース作成
 	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;

@@ -61,15 +61,15 @@ void Player::Update(const GameContext& gameContext)
  * \brief 描画処理
  * 
  */
-void Player::Render(const GameContext& gameContext)
+void Player::Render(const RenderContext& renderContext)
 {
-	Ball::Render(gameContext);
+	Ball::Render(renderContext);
 }
 
 /**
  * \brief 終了処理
  * 
- * \param gameContext
+ * \param RenderContext
  */
 void Player::Finalize()
 {

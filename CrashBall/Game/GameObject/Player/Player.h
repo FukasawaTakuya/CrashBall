@@ -50,7 +50,7 @@ public:
 	void Update(const GameContext& gameContext) override;
 
 	// •`‰æ
-	void Render(const GameContext& gameContext) override;
+	void Render(const RenderContext& renderContext) override;
 
 	// I—¹ˆ—
 	void Finalize() override;

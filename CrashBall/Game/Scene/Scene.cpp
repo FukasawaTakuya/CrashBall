@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Scene.h"
 
-Scene::Scene(SceneManager* pSceneManager)
+Scene::Scene(ISceneController* pSceneManager)
 	: m_pSceneController{ pSceneManager }
 	, m_camera{ std::make_unique<Camera>() }
 {

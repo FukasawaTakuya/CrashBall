@@ -19,7 +19,7 @@ using namespace DirectX;
  * \param context コンテキスト
  * \param projMat 射影行列
  */
-void PrimitiveRendererManager::CreateResource(
+void PrimitiveRendererManager::Create(
 	ID3D11Device1* device,
 	ID3D11DeviceContext1* context,
     DirectX::CommonStates* state
@@ -46,24 +46,27 @@ void PrimitiveRendererManager::CreateResource(
     context->OMSetBlendState(state->Opaque(), nullptr, 0xFFFFFFFF);
     // カリングの設定
     context->RSSetState(state->CullClockwise());
-
 }
 
 /**
  * \brief 描画命令の登録.
  * 
- * \param drawCommand 描画命令
+ * \param topology トポロジー
+ * \param vertices 頂点
  */
-void PrimitiveRendererManager::RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand)
+void PrimitiveRendererManager::RegisterRenderCommand(
+    D3D10_PRIMITIVE_TOPOLOGY topology,
+    const std::vector<DirectX::VertexPositionNormalColor>& vertices
+)
 {
-    m_renderCommand.emplace_back(renderCommand);
+    m_renderCommand.emplace_back(topology, vertices);
 }
 
 /**
  * \brief 描画命令のクリア.
  * 
  */
-void PrimitiveRendererManager::ClearCommandList()
+void PrimitiveRendererManager::ClearRenderCommand()
 {
     m_renderCommand.clear();
 }

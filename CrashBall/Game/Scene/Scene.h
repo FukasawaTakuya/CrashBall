@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
 
-#include "SceneManager.h"
 #include "ISceneController.h"
-#include "Game/Common/GameContext.h"
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 #include "Game/Common/Camera.h"
 
 class Scene {
@@ -17,7 +18,7 @@ protected:
 
 public:
 
-	Scene(SceneManager* pSceneManager);
+	Scene(ISceneController* pSceneManager);
 
 	virtual ~Scene() = default;
 
@@ -25,11 +26,11 @@ public:
 
 	virtual void Update(const GameContext& gameContext) = 0;
 
-	virtual void Draw(const GameContext& gameContext) = 0;
+	virtual void Draw(const RenderContext& renderContext) = 0;
 
 	virtual void Finalize() = 0;
 
-	virtual void CreateDeviceResources(const GameContext& gameContext) = 0;
+	virtual void CreateDeviceResources(const ResourceContext& resourceContext) = 0;
 
 	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) = 0;
 

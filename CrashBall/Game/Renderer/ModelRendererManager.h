@@ -22,7 +22,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<ModelRenderCommand> m_renderCommandList;	// 描画命令格納用のコンテナ
+	std::vector<ModelRenderCommand> m_renderCommand;	// 描画命令コンテナ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -39,10 +39,13 @@ public:
 public:
 
 	// 描画命令の登録
-	void RegisterRenderCommand(const ModelRenderCommand& renderCommand) override;
+	void RegisterRenderCommand(
+		DirectX::Model* model,
+		const DirectX::SimpleMath::Matrix& world
+	) override;
 
 	// 描画命令のクリア
-	void ClearCommandList();
+	void ClearRenderCommand();
 
 	// 描画
 	void Render(

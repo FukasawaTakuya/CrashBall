@@ -193,7 +193,6 @@
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Common\Camera.h" />
     <ClInclude Include="Game\Common\CommonResources.h" />
-    <ClInclude Include="Game\Common\GameContext.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\MyMath.h" />
     <ClInclude Include="Game\Common\Random.h">
@@ -236,6 +235,15 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Transform.h" />
+    <ClInclude Include="Game\Context\GameContext.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Context\RenderContext.h" />
+    <ClInclude Include="Game\Context\ResourceContext.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Engine\Input.h" />
     <ClInclude Include="Game\Engine\Time.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
@@ -269,6 +277,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Interface\ITextRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Renderer\ModelRendererManager.h">
       <SubType>
       </SubType>
@@ -278,8 +290,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Renderer\TextRendererManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Game\ResourceManager\SoundManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ResourceManager\SpriteManager.h">
       <SubType>
       </SubType>
@@ -356,6 +376,7 @@
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp" />
+    <ClCompile Include="Game\Renderer\TextRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />

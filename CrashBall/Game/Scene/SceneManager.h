@@ -1,6 +1,9 @@
 #pragma once
 #include "ISceneController.h"
-#include "Game/Common/GameContext.h"
+
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 
 class Scene;
 class Camera;
@@ -30,10 +33,10 @@ public:
 	void Update(const GameContext& gameCotext);
 
 	// ï`âÊ
-	void Render(const GameContext& gameCotext);
+	void Render(const RenderContext& renderCotext);
 
 	// ÉäÉ\Å[ÉXçÏê¨
-	void CreateDeviceResources(const GameContext& gameCotext);
+	void CreateDeviceResources(const ResourceContext& resourceCotext);
 
 	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
 

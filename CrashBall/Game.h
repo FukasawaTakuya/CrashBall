@@ -13,17 +13,19 @@
 #include "Game/Scene/SceneManager.h"
 
 #include "Game/Common/InputSystem.h"
-#include "Game/Common/CommonResources.h"
 #include "Game/Common/TimeManager.h"
 
 #include "Game/Renderer/PrimitiveRendererManager.h"
 #include "Game/Renderer/ModelRendererManager.h"
 #include "Game/Renderer/SpriteRendererManager.h"
+#include "Game/Renderer/TextRendererManager.h"
 
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/ResourceManager/SpriteManager.h"
 
-#include "Game/Common/GameContext.h"
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -38,24 +40,25 @@ private:
     // Rendering loop timer.
     DX::StepTimer                           m_timer;
 
-    // コモンステート
-    std::unique_ptr<DirectX::CommonStates> m_state;
+    
+    std::unique_ptr<DirectX::CommonStates> m_state; // コモンステート
 
-    // 射影行列
-    DirectX::SimpleMath::Matrix m_proj;
+    DirectX::SimpleMath::Matrix m_proj; // 射影行列
+    
+    std::unique_ptr<SceneManager>   m_sceneManager; // シーン管理
 
-    // シーン管理オブジェクト
-    std::unique_ptr<SceneManager>   m_sceneManager;
+    std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム
+    std::unique_ptr<TimeManager>                m_timeManager;                  // 時間管理
+    std::unique_ptr<ModelManager>               m_modelManager;                 // モデル管理
+    std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理
+    std::unique_ptr<ModelRendererManager>       m_modelRendererManager;         // モデル描画管理
+    std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理
+    std::unique_ptr<SpriteRendererManager>      m_spriteRendererManager;        // スプライト描画管理
+    std::unique_ptr<TextRendererManager>        m_textRendererManager;          // テキスト描画管理
 
-    std::unique_ptr<InputSystem> m_inputSystem;
-    std::unique_ptr<TimeManager> m_timeManager;
-    std::unique_ptr<ModelManager> m_modelManager;
-    std::unique_ptr<SpriteManager> m_spriteManager;
-    std::unique_ptr<ModelRendererManager> m_modelRendererManager;
-    std::unique_ptr<PrimitiveRendererManager> m_primitiveRendererManager;
-    std::unique_ptr<SpriteRendererManager> m_spriteRendererManager;
-
-    std::optional<GameContext> m_gameContext;
+    std::optional<GameContext>      m_gameContext;      // ゲームプレイ用のコンテキスト
+    std::optional<RenderContext>    m_renderContext;    // 描画用のコンテキスト
+    std::optional<ResourceContext>  m_resourceContext;  // リソース用のコンテキスト
 
 public:
 

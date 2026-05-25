@@ -200,8 +200,8 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 /**
  * \brief 球とメッシュの衝突判定
  * 
- * \param sphere
- * \param mesh
+ * \param sphere 球
+ * \param mesh メッシュ
  * \return 
  */
 bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
@@ -272,8 +272,8 @@ void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 /**
  * \brief 球と球の衝突解決.
  * 
- * \param sphere1
- * \param sphere2
+ * \param sphere1 球１
+ * \param sphere2 球２
  */
 void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 {

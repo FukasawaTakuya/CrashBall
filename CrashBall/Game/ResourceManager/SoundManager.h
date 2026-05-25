@@ -1,55 +1,38 @@
 /*****************************************************************//**
- * \file   PlayerMoveState.h
- * \brief  プレイヤー移動ステート 
+ * \file   SoundManager.h
+ * \brief  サウンド管理クラス
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   May 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Game/State/StateBase.h"
-
-class Player;
-
 /**
- * @brief プレイヤー移動ステート
+ * @brief サウンド管理クラス
  */
-class  PlayerMoveState : public StateBase<Player> {
+class  SoundManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	static constexpr float ACCELERATION = 35.0f;	// 加速度 
-
-	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
-
 	// データメンバの宣言 -----------------------------------------------
 private:
+
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	PlayerMoveState();
+	SoundManager() = default;
 
 	// デストラクタ
-	~PlayerMoveState();
+	~SoundManager() = default;
 
 	// 操作
-private:
-	// 初期化処理
-	void Initialize() override;
-
-	// 開始処理
-	void OnEnter() override;
-
-	// 更新処理
-	void Update() override;
-
-	// 終了処理
-	void OnExit() override;
+public:
 
 	// 取得/設定
 public:

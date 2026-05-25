@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
+#include <SpriteFont.h>
 
 struct SpriteRenderCmd
 {
@@ -43,6 +44,8 @@ public:
 		ID3D11ShaderResourceView* pSprite,
 		const RECT rect,
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) = 0;
+
+	//virtual void RednerText() = 0;
 
 
 	// éÊìæ/ê›íË

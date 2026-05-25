@@ -11,9 +11,9 @@ Stage::Stage()
 	: GameObject(ObjectTag::Stage)
 {
 	// コンポーネントの追加
-	m_transform = AddComponent<Transform>();
-	m_meshCollider = AddComponent<Mesh>();
-	m_renderer = AddComponent<ModelRenderer>();
+	m_transform		= AddComponent<Transform>();
+	m_meshCollider	= AddComponent<Mesh>();
+	m_renderer		= AddComponent<ModelRenderer>();
 
 	// レイヤーマスクの設定
 	m_meshCollider->SetLayerMask(LayerMask::Ground);
@@ -53,7 +53,7 @@ Stage::Stage()
 		if (face->GetCenter().y >= 4.0f && face->GetCenter().y <= 8.0f)
 		{
 			m_floorMesh.push_back(face.get());
-			m_faceColor.emplace(face.get(), Colors::White);
+			m_floorColor.emplace(face.get(), Colors::White);
 		}
 		// 壁メッシュ
 		else {
@@ -90,9 +90,9 @@ void Stage::Update(const GameContext& gameContext)
  * \brief 描画
  *
  */
-void Stage::Render(const GameContext& gameContext)
+void Stage::Render(const RenderContext& renderContext)
 {
-	auto primitiveRenderer = gameContext.m_pPrimitiveRendererManager;
+	auto primitiveRenderer = renderContext.m_pPrimitiveRendererManager;
 
 	// 描画
 	for (auto& face : m_meshCollider->GetFace())
@@ -101,8 +101,8 @@ void Stage::Render(const GameContext& gameContext)
 		XMVECTORF32 faceColor = Colors::White;
 
 		// 面の色情報が登録されているなら
-		auto it = m_faceColor.find(face.get());
-		if (it != m_faceColor.end())
+		auto it = m_floorColor.find(face.get());
+		if (it != m_floorColor.end())
 		{
 			faceColor = it->second;
 		}
@@ -116,17 +116,18 @@ void Stage::Render(const GameContext& gameContext)
 		};
 
 		// 描画命令登録
-		primitiveRenderer->RegisterRenderCommand({
+		primitiveRenderer->RegisterRenderCommand(
 			D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
 			pos
-			});
+		);
 	}
+
 }
 
 /**
  * \brief 終了処理
- * 
- * \param gameContext
+ *
+ * \param RenderContext
  */
 void Stage::Finalize()
 {
@@ -134,15 +135,15 @@ void Stage::Finalize()
 
 /**
  * \brief 面に色を塗る
- * 
+ *
  * \param color
  */
 void Stage::PaintFace(Triangle* face, const XMVECTORF32& color)
 {
 	// 面情報が登録されているなら
-	if (m_faceColor.find(face) != m_faceColor.end())
+	if (m_floorColor.find(face) != m_floorColor.end())
 	{
 		// 色の変更
-		m_faceColor[face] = color;
+		m_floorColor[face] = color;
 	}
 }

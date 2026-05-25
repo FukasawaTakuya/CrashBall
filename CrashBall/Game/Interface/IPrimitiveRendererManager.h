@@ -30,8 +30,6 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -46,7 +44,10 @@ public:
 public:
 
 	// 描画命令の登録
-	virtual void RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand) = 0;
+	virtual void RegisterRenderCommand(
+		D3D10_PRIMITIVE_TOPOLOGY topology,
+		const std::vector<DirectX::VertexPositionNormalColor>& vertices
+	) = 0;
 
 	// 取得/設定
 public:

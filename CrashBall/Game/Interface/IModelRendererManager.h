@@ -47,9 +47,12 @@ public:
 
 	// æ“¾/İ’è
 public:
-	// •`‰æ–½—ß‚Ì“o˜^
-	virtual void RegisterRenderCommand(const ModelRenderCommand& renderCommand) = 0;
 
+	// •`‰æ–½—ß‚Ì“o˜^
+	virtual void RegisterRenderCommand(
+		DirectX::Model* model,
+		const DirectX::SimpleMath::Matrix& world
+	) = 0;
 
 	// “à•”À‘•
 private:

@@ -24,7 +24,7 @@ private:
 
 	static constexpr float ACCELERATINON = 30.0f;		// 加速度
 
-	static constexpr float AVOID_WALL_DISTANCE = 6.0f;	// 壁回避の距離
+	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -57,7 +57,7 @@ public:
 	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Render(const GameContext& gameContext) override;
+	void Render(const RenderContext& renderContext) override;
 
 	// 終了処理
 	void Finalize() override;

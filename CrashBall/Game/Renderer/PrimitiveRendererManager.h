@@ -28,7 +28,7 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;	// 入力レイアウト
 
-	std::vector<PrimitiveRenderCommand> m_renderCommand;			// 命令コンテナ
+	std::vector<PrimitiveRenderCommand> m_renderCommand;		// 描画命令コンテナ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -45,17 +45,20 @@ public:
 public:
 
 	// リソースの生成
-	void CreateResource(
+	void Create(
 		ID3D11Device1* device,
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state
 	);
 
 	// 描画命令の登録
-	void RegisterRenderCommand(const PrimitiveRenderCommand& renderCommand) override;
+	void RegisterRenderCommand(
+		D3D10_PRIMITIVE_TOPOLOGY topology,
+		const std::vector<DirectX::VertexPositionNormalColor>& vertices
+	) override;
 
 	// 描画命令のクリア
-	void ClearCommandList();
+	void ClearRenderCommand();
 
 	// 描画
 	void Render(

@@ -15,20 +15,24 @@ using namespace DirectX;
 /**
  * \brief 描画命令の登録.
  * 
- * \param 描画命令
+ * \param model
+ * \param world
  */
-void ModelRendererManager::RegisterRenderCommand(const ModelRenderCommand& renderCommand)
+void ModelRendererManager::RegisterRenderCommand(
+	DirectX::Model* model,
+	const DirectX::SimpleMath::Matrix& world
+)
 {
-	m_renderCommandList.emplace_back(renderCommand);
+	m_renderCommand.emplace_back(model, world);
 }
 
 /**
  * \brief 描画命令のクリア
  * 
  */
-void ModelRendererManager::ClearCommandList()
+void ModelRendererManager::ClearRenderCommand()
 {
-	m_renderCommandList.clear();
+	m_renderCommand.clear();
 }
 
 /**
@@ -46,7 +50,7 @@ void ModelRendererManager::Render(
 	SimpleMath::Matrix view = camera->GetViewMat();
 	SimpleMath::Matrix proj = camera->GetProjMat();
 
-	for (auto& renderCommand : m_renderCommandList)
+	for (auto& renderCommand : m_renderCommand)
 	{
 		renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
 	}

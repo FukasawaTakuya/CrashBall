@@ -63,14 +63,14 @@ void Ball::Update(const GameContext& gameContext)
  * \brief 描画
  * 
  */
-void Ball::Render(const GameContext& gameContext)
+void Ball::Render(const RenderContext& renderContext)
 {
 	// 回転
 	m_transform->Rotate(m_angularVelocity);
 
 	// 描画管理クラスのインターフェース
 	IModelRendererManager* rendererManager
-		= gameContext.m_pModelRendererManager;
+		= renderContext.m_pModelRendererManager;
 
 	// 描画
 	m_renderer->Render(rendererManager, m_transform->GetWorld());
@@ -80,7 +80,7 @@ void Ball::Render(const GameContext& gameContext)
 /**
  * \brief 終了処理
  * 
- * \param gameContext
+ * \param RenderContext
  */
 void Ball::Finalize()
 {

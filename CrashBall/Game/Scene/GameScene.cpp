@@ -18,7 +18,7 @@ using namespace DirectX;
  * 
  * \param pSceneManager シーンマネージャー
  */
-GameScene::GameScene(SceneManager* pSceneManager)
+GameScene::GameScene(ISceneController* pSceneManager)
 	: Scene(pSceneManager)
     , m_Stage           (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(0.5f))
@@ -119,12 +119,12 @@ void GameScene::Update(const GameContext& gameContext)
  * \brief 描画.
  * 
  */
-void GameScene::Draw(const GameContext& gameContext)
+void GameScene::Draw(const RenderContext& renderContext)
 {
-    m_Stage->Render(gameContext);
-    m_player->Render(gameContext);
-	m_ball->Render(gameContext);
-	m_enemy->Render(gameContext);
+    m_Stage->Render(renderContext);
+    m_player->Render(renderContext);
+	m_ball->Render(renderContext);
+	m_enemy->Render(renderContext);
 }
 
 
@@ -141,9 +141,9 @@ void GameScene::Finalize()
  * 
  * \param projMat 射影行列
  */
-void GameScene::CreateDeviceResources(const GameContext& gameContext)
+void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
-    auto modelManager = gameContext.m_pModelManager;
+    auto modelManager = resourceContext.m_pModelManager;
 
     m_player->SetModel(modelManager->GetModel("ball"));
     m_Stage->SetModel(modelManager->GetModel("Stage"));

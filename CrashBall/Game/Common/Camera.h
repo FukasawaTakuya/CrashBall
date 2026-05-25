@@ -21,7 +21,7 @@ public:
 
 	static constexpr int HEIGHT = 720;
 
-	static constexpr DirectX::SimpleMath::Vector3 OFFSET = { 0.0f, 8.0f, 10.0f };	// オフセット
+	static constexpr DirectX::SimpleMath::Vector3 OFFSET = { 0.0f, 4.5f, 12.0f };	// オフセット
 
 	static constexpr float ROTATE_LIMIT = 70.0f;			// 回転の限界値
 
@@ -86,6 +86,7 @@ public:
 	// 射影行列の取得
 	DirectX::SimpleMath::Matrix GetProjMat();
 
+	// 前方向(XZ平面)のベクトルの取得
 	DirectX::SimpleMath::Vector3 GetForward();
 
 	DirectX::SimpleMath::Vector3 GetRight();

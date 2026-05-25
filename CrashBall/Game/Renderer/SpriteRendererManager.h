@@ -24,7 +24,7 @@ private:
 
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;	// スプライトバッチ
 
-	std::vector<SpriteRenderCmd> m_renderCmd;				// 描画命令
+	std::vector<SpriteRenderCmd> m_renderCommad;				// 描画命令コンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -48,10 +48,10 @@ public:
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) override;
 
 	// 描画命令のクリア
-	void ClearRenderCmd();
+	void ClearRenderCommand();
 
 	// スプライトバッチの作成
-	void CreateSpriteBatch(ID3D11DeviceContext1* context);
+	void Create(ID3D11DeviceContext1* context);
 
 	// 取得/設定
 public:

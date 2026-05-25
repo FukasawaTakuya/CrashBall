@@ -24,10 +24,10 @@ private:
 	Mesh*			m_meshCollider	= nullptr;
 	ModelRenderer*	m_renderer	= nullptr;
 
-	std::vector<Triangle*> m_floorMesh;						// 床メッシュ
-	std::vector<Triangle*> m_wallMesh;						// 壁メッシュ
+	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
+	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
-	std::unordered_map<Triangle*, XMVECTORF32> m_faceColor;	// 面の色情報
+	std::unordered_map<Triangle*, XMVECTORF32> m_floorColor;	// 床メッシュの色情報
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -49,7 +49,7 @@ public:
 	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Render(const GameContext& gameContext) override;
+	void Render(const RenderContext& renderContext) override;
 
 	// 終了処理
 	void Finalize() override;

@@ -57,7 +57,7 @@ public:
 	virtual void Update(const GameContext& gameContext) override;
 
 	// •`‰æ
-	virtual void Render(const GameContext& gameContext) override;
+	virtual void Render(const RenderContext& renderContext) override;
 
 	// I—¹ˆ—
 	void Finalize() override;

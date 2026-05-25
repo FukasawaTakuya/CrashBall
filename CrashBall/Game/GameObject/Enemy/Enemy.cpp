@@ -81,29 +81,27 @@ void Enemy::Update(const GameContext& gameContext)
 
 /**
  * \brief 描画
- * 
+ * \param RenderContext
  */
-void Enemy::Render(const GameContext& gameContext)
+void Enemy::Render(const RenderContext& renderContext)
 {
-	Ball::Render(gameContext);
+	Ball::Render(renderContext);
 
 	// デバッグ用の線の描画
-	VertexPositionNormalColor v[2]{
+	std::vector<VertexPositionNormalColor> v{
 		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition(), SimpleMath::Vector3::Up, Colors::Black),
 		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition() + m_debugDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Black)
 	};
-
 	// 描画命令の登録
-	gameContext.m_pPrimitiveRendererManager->RegisterRenderCommand({
-		D3D10_PRIMITIVE_TOPOLOGY_LINELIST, std::vector<VertexPositionNormalColor>(std::begin(v), std::end(v))
-		});
-
+	renderContext.m_pPrimitiveRendererManager->RegisterRenderCommand(
+		D3D10_PRIMITIVE_TOPOLOGY_LINELIST, 
+		v
+		);
 }
 
 /**
  * \brief 終了処理
  * 
- * \param gameContext
  */
 void Enemy::Finalize()
 {
@@ -121,7 +119,7 @@ void Enemy::AvoidWall()
 	// 壁のメッシュを取得
 	auto& wallMesh = m_pStage->GetWallMesh();
 
-	for (auto wallFace : wallMesh)
+	for (auto& wallFace : wallMesh)
 	{
 		// 壁との距離が一定以下のとき
 		if ((wallFace->GetPlane()->CalcLength(transform->GetPosition()) <= AVOID_WALL_DISTANCE))
@@ -131,14 +129,21 @@ void Enemy::AvoidWall()
 			faceNormal.y = 0.0f;
 			faceNormal.Normalize();
 
-			// 加速方向の壁の法線方向のベクトル
-			SimpleMath::Vector3 vn = faceNormal.Dot(m_accelDirection) * faceNormal;
-			// 
-			SimpleMath::Vector3 vt = m_accelDirection - vn;
+			// 進行方向と壁の方向が同じなら加速方向を補正
+			if (m_accelDirection.Dot(-faceNormal) > 0.0f)
+			{
+				// 加速方向の壁の法線方向のベクトル
+				SimpleMath::Vector3 vn = faceNormal.Dot(m_accelDirection) * faceNormal;
+				// 接線ベクトルを求める
+				SimpleMath::Vector3 vt = m_accelDirection - vn;
 
-			// 壁の法線法線ベクトルを加算
-			m_accelDirection = vt + faceNormal / 2.0f;
-			m_accelDirection.Normalize();
+				// 進行方向に接線ベクトルを設定
+				m_accelDirection = vt;
+				m_accelDirection.Normalize();
+			}
+
+			RigidBody* rigidbody = GetComponent<RigidBody>();
+			rigidbody->Accel(faceNormal * 1.0f);
 		}
 	}
 }

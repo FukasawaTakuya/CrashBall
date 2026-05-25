@@ -12,7 +12,9 @@
 #include <algorithm>
 
 #include "Game/Component/Component.h"
-#include "Game/Common/GameContext.h"
+
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
 
 
 // É^ÉO
@@ -63,7 +65,7 @@ public:
 	virtual void Update(const GameContext& gameContext) = 0;
 
 	// ï`âÊ
-	virtual void Render(const GameContext& gameContext) = 0;
+	virtual void Render(const RenderContext& RenderContext) = 0;
 
 	// èIóπèàóù
 	virtual void Finalize() = 0;

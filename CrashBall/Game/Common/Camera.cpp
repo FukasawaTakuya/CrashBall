@@ -56,6 +56,7 @@ void Camera::RotateX(float angle)
 {
 	if (m_offset == SimpleMath::Vector3::Zero) return;
 
+	// 下方向ベクトルを軸に回転するクオータニオンを求める
 	SimpleMath::Quaternion quaternion =
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angle);
 
@@ -88,7 +89,7 @@ void Camera::RotateY(float angle)
 	m_right = XMVector3Cross(SimpleMath::Vector3::Up, m_forward);
 	m_right.Normalize();
 
-	// クオータニオンを求める
+	// 右ベクトルを軸に回転するクオータニオンを求める
 	SimpleMath::Quaternion quaternion =
 		SimpleMath::Quaternion::CreateFromAxisAngle(m_right, angle);
 

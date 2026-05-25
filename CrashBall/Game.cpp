@@ -36,26 +36,31 @@ void Game::Initialize(HWND window, int width, int height)
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
     m_modelManager              = std::make_unique<ModelManager>();
-    m_spriteManager             = std::make_unique<SpriteManager>();
-    m_modelRendererManager      = std::make_unique<ModelRendererManager>();
     m_primitiveRendererManager  = std::make_unique<PrimitiveRendererManager>();
     m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
+    m_spriteManager             = std::make_unique<SpriteManager>();
+    m_modelRendererManager      = std::make_unique<ModelRendererManager>();
+    m_textRendererManager       = std::make_unique<TextRendererManager>();
 
-    // コンテキストの初期化
-    m_gameContext.emplace(
-        m_modelManager.get(),
+    // 各コンテキストの初期化
+    m_gameContext.emplace();
+    m_renderContext.emplace(
         m_modelRendererManager.get(),
-        m_primitiveRendererManager.get()
+        m_primitiveRendererManager.get(),
+        m_spriteRendererManager.get()
     );
-
+    m_resourceContext.emplace(
+        m_modelManager.get(),
+        m_spriteManager.get()
+    );
+    
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
-    // モデルファクトリー登録
+    // ファクトリーに作成するリソースを登録
     m_modelManager->RegisterFactory("ball", L"Resources/Models/Ball.sdkmesh");
     m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
-
     m_spriteManager->RegisterFactory("test", L"Resources/Sprite/robot.dds");
 
     // シーンの登録
@@ -66,16 +71,19 @@ void Game::Initialize(HWND window, int width, int height)
     // 初期シーンをセット
     m_sceneManager->SetStartScene();
 
+    // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
+
+    auto device = m_deviceResources->GetD3DDevice();
+    auto context = m_deviceResources->GetD3DDeviceContext();
+    // 描画管理オブジェクトの初期化
+    m_primitiveRendererManager->Create(device, context, m_state.get());
+    m_spriteRendererManager->Create(context);
+    m_textRendererManager->Create(device, context);
+
+    // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
 
-    // 共通リソースの作成
-    auto commonResources = CommonResources::Instance;
-    commonResources().Initialize(
-        m_deviceResources->GetD3DDevice(),
-        m_deviceResources->GetD3DDeviceContext(),
-        m_state.get()
-    );
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
     /*
@@ -93,8 +101,6 @@ void Game::Tick()
         });
 
     Render();
-
-    OutputDebugString(L"%d\n", (int)m_timer.GetFramesPerSecond());
 }
 
 // Updates the world.
@@ -125,28 +131,39 @@ void Game::Render()
 
     Clear();
 
+    // 描画命令のクリア
+    m_modelRendererManager->ClearRenderCommand();
+    m_primitiveRendererManager->ClearRenderCommand();
+    m_spriteRendererManager->ClearRenderCommand();
+    m_textRendererManager->ClearnRenderCommand();
+
+    // FPSの描画
+    m_textRendererManager->RegisterRenderCommand(
+        SimpleMath::Vector2::Zero,
+        Colors::White,
+        1.0f,
+        L"FPS:{} \n debug",
+        (int)m_timer.GetFramesPerSecond()
+    );
+
+
     m_deviceResources->PIXBeginEvent(L"Render");
     auto context = m_deviceResources->GetD3DDeviceContext();
 
     // TODO: Add your rendering code here.
     context;
 
-    // 描画命令のクリア
-    m_modelRendererManager->ClearCommandList();
-    m_primitiveRendererManager->ClearCommandList();
-    m_spriteRendererManager->ClearRenderCmd();
+    // シーン内での描画命令登録
+    m_sceneManager->Render(*m_renderContext);
 
-    m_sceneManager->Render(*m_gameContext);
-
-    // 描画
+    // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+    // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
-
-    //auto test = m_spriteManager->GetSprite("test");
-    //if (test != nullptr)
-    //    m_spriteRendererManager->RegisterRenderCommand(test, RECT(0, 0, 100, 100));
-
+    // スプライトの描画
     m_spriteRendererManager->Reder();
+    // テキストの描画
+    m_textRendererManager->Render();
 
     m_deviceResources->PIXEndEvent();
 
@@ -245,11 +262,8 @@ void Game::CreateDeviceDependentResources()
     m_spriteManager->CreateSprite(device);
     m_modelManager->CreateModel(device);
     
-    m_primitiveRendererManager->CreateResource(device, context, m_state.get());
-    m_spriteRendererManager->CreateSpriteBatch(context);
-
-    // リソース作成
-    m_sceneManager->CreateDeviceResources(*m_gameContext);
+    // デバイス依存のリソース作成
+    m_sceneManager->CreateDeviceResources(*m_resourceContext);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -267,8 +281,10 @@ void Game::CreateWindowSizeDependentResources()
         0.01f, 150.0f
     );
 
+    // 射影行列の設定
     m_primitiveRendererManager->SetProj(m_proj);
-    // リソース作成
+
+    // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources(m_proj);
 
 }

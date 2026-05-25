@@ -27,7 +27,7 @@ void SpriteRendererManager::Reder()
 {
 	m_spriteBatch->Begin();
 
-	for (auto& renderCmd : m_renderCmd)
+	for (auto& renderCmd : m_renderCommad)
 	{
 		m_spriteBatch->Draw(
 			renderCmd.pSprite,
@@ -41,22 +41,22 @@ void SpriteRendererManager::Reder()
 
 /**
  * \brief 描画命令の登録
- * 
+ *
  * \param pSprite スプライトのポインタ
  * \param rect 描画範囲
  * \param color 色
  */
 void SpriteRendererManager::RegisterRenderCommand(
 	ID3D11ShaderResourceView* pSprite,
-	const RECT rect, 
+	const RECT rect,
 	const DirectX::XMVECTORF32 color)
 {
-	m_renderCmd.emplace_back(pSprite, rect, color);
+	m_renderCommad.emplace_back(pSprite, rect, color);
 }
 
-void SpriteRendererManager::ClearRenderCmd()
+void SpriteRendererManager::ClearRenderCommand()
 {
-	m_renderCmd.clear();
+	m_renderCommad.clear();
 }
 
 /**
@@ -64,7 +64,7 @@ void SpriteRendererManager::ClearRenderCmd()
  * 
  * \param context デバイスコンテキスト
  */
-void SpriteRendererManager::CreateSpriteBatch(ID3D11DeviceContext1* context)
+void SpriteRendererManager::Create(ID3D11DeviceContext1* context)
 {
 	m_spriteBatch = std::make_unique<SpriteBatch>(context);
 }

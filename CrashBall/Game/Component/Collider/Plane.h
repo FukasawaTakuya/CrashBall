@@ -20,10 +20,12 @@ public:
 	// ‰ñ“]
 	void Rotate(DirectX::SimpleMath::Matrix rotate);
 
-	float CalcLength(DirectX::SimpleMath::Vector3 point);
+	// ‚ ‚é“_‚Æ‚ÌÅ’Z‹——£‚ğ‹‚ß‚é
+	float CalcLength(DirectX::SimpleMath::Vector3 point) const;
 
 public:
 
+	// –@ü‚Ìæ“¾
 	DirectX::SimpleMath::Vector3 GetNormal() const { return m_normal; }
 
 	// •½–Ê‚Ìİ’è

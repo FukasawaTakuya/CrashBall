@@ -1,28 +1,22 @@
 /*****************************************************************//**
- * \file   PlayerMoveState.h
- * \brief  プレイヤー移動ステート 
+ * \file   GameContext.h
+ * \brief  ゲームプレイ用のコンテキスト
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   May 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Game/State/StateBase.h"
-
-class Player;
+#include "Game/ServiceLocator/IInputService.h"
 
 /**
- * @brief プレイヤー移動ステート
+ * @brief ゲームプレイ用のコンテキスト
  */
-class  PlayerMoveState : public StateBase<Player> {
+class  GameContext {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
-
-	static constexpr float ACCELERATION = 35.0f;	// 加速度 
-
-	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -32,24 +26,13 @@ private:
 public:
 
 	// コンストラクタ
-	PlayerMoveState();
+	GameContext() = default;
 
 	// デストラクタ
-	~PlayerMoveState();
+	~GameContext() = default;
 
 	// 操作
-private:
-	// 初期化処理
-	void Initialize() override;
-
-	// 開始処理
-	void OnEnter() override;
-
-	// 更新処理
-	void Update() override;
-
-	// 終了処理
-	void OnExit() override;
+public:
 
 	// 取得/設定
 public:

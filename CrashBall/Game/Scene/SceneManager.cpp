@@ -39,15 +39,15 @@ void SceneManager::Update(const GameContext& gameContext)
 }
 
 // •`‰æ
-void SceneManager::Render(const GameContext& gameCotext)
+void SceneManager::Render(const RenderContext& renderCotext)
 {
-	if (m_pCurrentScene) m_pCurrentScene->Draw(gameCotext);
+	if (m_pCurrentScene) m_pCurrentScene->Draw(renderCotext);
 }
 
-void SceneManager::CreateDeviceResources(const GameContext& gameCotext)
+void SceneManager::CreateDeviceResources(const ResourceContext& resourceCotext)
 {
 	if (m_pCurrentScene) 
-		m_pCurrentScene->CreateDeviceResources(gameCotext);
+		m_pCurrentScene->CreateDeviceResources(resourceCotext);
 }
 
 void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
