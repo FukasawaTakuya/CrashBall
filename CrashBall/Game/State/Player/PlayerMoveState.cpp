@@ -56,8 +56,6 @@ void PlayerMoveState::Update()
 {
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
-	// トランスフォームコンポーネントの取得
-	Transform* transform = m_owner->GetComponent<Transform>();
 
     // 加速度のリセット
     rigidbody->ResetAccel();

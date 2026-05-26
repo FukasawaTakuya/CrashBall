@@ -26,9 +26,6 @@ void PlayerJumpState::OnEnter()
 
 void PlayerJumpState::Update()
 {
-    // 物理演算コンポーネントの取得
-    RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
-
     auto key = Keyboard::Get().GetState();
 
     if (key.Space) m_pStateMachine->ChangeState<PlayerMoveState>();

@@ -30,8 +30,6 @@ private:
 	FileCollection		m_factory;	// スプライトファクトリー
 	SpriteCollection	m_sprites;	// スプライトのキャッシュ
 
-	std::unique_ptr<DirectX::SpriteFont> m_spriteFont;
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -57,12 +55,6 @@ public:
 
 	// モデルの取得
 	ID3D11ShaderResourceView* GetSprite(const std::string& key) override ;
-
-	// スプライトフォントの取得
-	DirectX::SpriteFont* GetSpriteFont()
-	{
-		return m_spriteFont.get();
-	}
 
 	// 内部実装
 private:

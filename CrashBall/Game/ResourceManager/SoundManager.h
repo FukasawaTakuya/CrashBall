@@ -19,7 +19,18 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// エイリアス宣言
+	using FileCollection
+		= std::unordered_map<std::string, const wchar_t*>;
+	using SoundCollection
+		= std::unordered_map<std::string, std::unique_ptr<DirectX::SoundEffect>>;
 
+	FileCollection	m_bgmfactory;	// 
+	FileCollection	m_sefactory;
+	SoundCollection	m_bgmSounds;	// BGMのキャッシュ
+	SoundCollection	m_seSounds;		// SEのキャッシュ
+
+	// TODO:AudioEngine持たせるか
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -29,10 +40,18 @@ public:
 	SoundManager() = default;
 
 	// デストラクタ
-	~SoundManager() = default;
+	~SoundManager();
 
 	// 操作
 public:
+
+	void CreateSound();
+
+	void PlayBGM(const std::string& key);
+
+	void StopBGM();
+
+	void PlaySE(const std::string& key);
 
 	// 取得/設定
 public:

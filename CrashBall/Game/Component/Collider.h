@@ -33,9 +33,10 @@ class Collider : public Component
 
 protected:
 
-	ColliderType m_type = ColliderType::None;								// コライダーのタイプ
 
-	CollisionLayerMask m_layerMask = LayerMask::Default;					// レイヤーマスク
+	ColliderType m_type = ColliderType::None;			// コライダーのタイプ
+
+	CollisionLayerMask m_layerMask = LayerMask::Default;// レイヤーマスク
 
 	std::vector<CollisionCmd> m_onCollisionEnterCmd = { [](Collider*) {} };	// 衝突開始命令
 	std::vector<CollisionCmd> m_onCollisionStayCmd  = { [](Collider*) {} };	// 衝突継続命令
@@ -43,13 +44,13 @@ protected:
 
 	std::unordered_set<Collider*> m_collideObject;							// 衝突しているオブジェクト
 
+	Transform* m_transform = nullptr;	// トランスフォーム
+
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Collider(ColliderType type)
-		: m_type{ type }
-	{}
+	Collider(ColliderType type);
 
 	// デストラクタ
 	virtual ~Collider() = default;
@@ -110,6 +111,11 @@ public:
 	CollisionLayerMask GetLayerMask() const { return m_layerMask; }
 
 	ColliderType GetType() const { return m_type; }
+
+	// トランスフォームの取得
+	Transform* GetTransform() { return m_transform; }
+
+	void SetTransform(Transform* transfrom) { m_transform = transfrom; }
 
 	void SetLayerMask(CollisionLayerMask layerMask){ m_layerMask = layerMask; }
 

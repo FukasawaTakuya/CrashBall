@@ -252,7 +252,6 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
-    auto context = m_deviceResources->GetD3DDeviceContext();
     m_state = std::make_unique<DirectX::CommonStates>(device);
 
     // TODO: Initialize device dependent objects here (independent of window size).

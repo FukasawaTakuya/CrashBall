@@ -11,25 +11,15 @@
 #include <unordered_map>
 #include <algorithm>
 
-#include "Game/Component/Component.h"
+#include "Game/GameObject/IGameObject.h"
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
-
-// タグ
-enum class ObjectTag
-{
-	Defaut,
-	Player,
-	Enemy,
-	Stage,
-};
-
 /**
  * @brief 基底オブジェクト
  */
-class GameObject {
+class GameObject : public IGameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -91,24 +81,25 @@ public:
 		return pComp;
 	}
 
-	// コンポーネントの取得
-	template<typename CompType>
-	CompType* GetComponent()
-	{
-		// イテレータの取得
-		auto it = m_components.find(typeid(CompType));
-		// イテレータが終端でなければコンポーネントを返す
-		if (it != m_components.end()) {
-			return static_cast<CompType*>(it->second.get());
-		}
-		// イテレータが終端ならnullptrを返す
-		else return nullptr;
-	}
-
 	// タグの取得
-	ObjectTag GetTag() const { return m_tag; }
+	ObjectTag GetTag() const override { return m_tag; }
+
+	// コンポーネントの取得
+	// template<typename CompType>
+	using IGameObject::GetComponent;
 
 	// 内部実装
 private:
 
+	// 関数テンプレート無しでコンポーネントを取得する
+	Component* GetComponent(std::type_index type) override
+	{
+		auto it = m_components.find(type);
+			// イテレータが終端でなければコンポーネントを返す
+			if (it != m_components.end()) {
+				return it->second.get();
+			}
+			// イテレータが終端ならnullptrを返す
+			else return nullptr;
+	}
 };

@@ -8,19 +8,16 @@
 class Sphere
 	: public Collider
 {
-protected:
-
-	Transform* m_transform;	// トランスフォーム
+private:
 
 	float m_radius;			// 半径
 
 public:
 
 	// コンストラクタ
-	Sphere(Transform* transform, float radius)
+	Sphere(float radius)
 		: Collider(ColliderType::Sphere)
 		, m_radius{ radius }
-		, m_transform{ transform }
 	{}
 
 	// デストラクタ
@@ -36,9 +33,6 @@ public:
 
 	// 半径の取得
 	float GetRadius() const { return m_radius; }
-
-	// トランスフォームの取得
-	Transform* GetTransform() { return m_transform; }
 
 	// 半径の設定
 	void SetRadius(float radius) { m_radius = radius; }

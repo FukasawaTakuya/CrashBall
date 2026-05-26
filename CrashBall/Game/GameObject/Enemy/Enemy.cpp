@@ -88,15 +88,15 @@ void Enemy::Render(const RenderContext& renderContext)
 	Ball::Render(renderContext);
 
 	// デバッグ用の線の描画
-	std::vector<VertexPositionNormalColor> v{
-		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition(), SimpleMath::Vector3::Up, Colors::Black),
-		VertexPositionNormalColor(GetComponent<Transform>()->GetPosition() + m_debugDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Black)
-	};
-	// 描画命令の登録
-	renderContext.m_pPrimitiveRendererManager->RegisterRenderCommand(
-		D3D10_PRIMITIVE_TOPOLOGY_LINELIST, 
-		v
-		);
+	//std::vector<VertexPositionNormalColor> v{
+	//	VertexPositionNormalColor(GetComponent<Transform>()->GetPosition(), SimpleMath::Vector3::Up, Colors::Black),
+	//	VertexPositionNormalColor(GetComponent<Transform>()->GetPosition() + m_debugDirection * 3.0f, SimpleMath::Vector3::Up, Colors::Black)
+	//};
+	//// 描画命令の登録
+	//renderContext.m_pPrimitiveRendererManager->RegisterRenderCommand(
+	//	D3D10_PRIMITIVE_TOPOLOGY_LINELIST, 
+	//	v
+	//	);
 }
 
 /**
@@ -143,7 +143,7 @@ void Enemy::AvoidWall()
 			}
 
 			RigidBody* rigidbody = GetComponent<RigidBody>();
-			rigidbody->Accel(faceNormal * 1.0f);
+			rigidbody->Accel(faceNormal * 2.0f);
 		}
 	}
 }

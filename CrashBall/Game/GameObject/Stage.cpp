@@ -15,12 +15,10 @@ Stage::Stage()
 	m_meshCollider	= AddComponent<Mesh>();
 	m_renderer		= AddComponent<ModelRenderer>();
 
+	// トランスフォームの設定
+	m_meshCollider->SetTransform(m_transform);
 	// レイヤーマスクの設定
 	m_meshCollider->SetLayerMask(LayerMask::Ground);
-
-	// 拡大率の設定
-	m_meshCollider->SetScale(SCALE);
-	m_transform->SetScale(SCALE);
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)

@@ -22,7 +22,7 @@ class  Enemy : public Ball
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ACCELERATINON = 30.0f;		// 加速度
+	static constexpr float ACCELERATINON = 37.0f;		// 加速度
 
 	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
 

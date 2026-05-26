@@ -16,19 +16,21 @@ Ball::Ball(float radius, ObjectTag tag)
 	: GameObject(tag)
 {
 	// コンポーネントの追加
-	m_transform = AddComponent<Transform>();
-	m_rigidBody = AddComponent<RigidBody>(GRAVITY, FRICTION);
-	m_collider	= AddComponent<Sphere>(m_transform, radius);
-	m_renderer	= AddComponent<ModelRenderer>();
+	m_transform		 = AddComponent<Transform>();
+	m_rigidBody		 = AddComponent<RigidBody>(GRAVITY, FRICTION);
+	m_sphereCollider = AddComponent<Sphere>(radius);
+	m_renderer		 = AddComponent<ModelRenderer>();
 
+	// トランスフォームの設定
+	m_sphereCollider->SetTransform(m_transform);
 	// レイヤーマスクの設定
-	m_collider->SetLayerMask(LayerMask::Ball);
+	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 
 	// スケールの設定
 	m_transform->SetScale(0.025f);
 
 	// 衝突中の処理の登録
-	m_collider->SetOnCollisionEnterCmd([this](Collider* other)
+	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
 			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
@@ -37,7 +39,7 @@ Ball::Ball(float radius, ObjectTag tag)
 		});
 
 	// 衝突終了時の処理の登録
-	m_collider->SetOnCollisionExitCmd([this](Collider* other)
+	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
 		{
 			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
@@ -130,14 +132,12 @@ void Ball::Rotate()
 
 	// 回転量を求める
 	float forwardAngle 
-		= velocity.Length() * Time::GetElapsedTime() / m_collider->GetRadius();
+		= velocity.Length() * Time::GetElapsedTime() / m_sphereCollider->GetRadius();
 
 	// 角速度を求める
 	SimpleMath::Quaternion quaternion
 		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
-
-	// 角速度をマトリクスに変換
-	m_angularVelocity = SimpleMath::Matrix::CreateFromQuaternion(quaternion);
+	m_angularVelocity = quaternion;
 }
 
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)

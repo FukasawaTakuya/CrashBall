@@ -26,16 +26,16 @@ public:
 	static constexpr float FRICTION = 0.992f;		// 摩擦係数
 
 	// データメンバの宣言 -----------------------------------------------
-private:
+protected:
 
-	DirectX::SimpleMath::Matrix m_angularVelocity;	// 角速度
+	DirectX::SimpleMath::Quaternion m_angularVelocity;	// 角速度
 
 	bool m_isGround = false;						// 地上フラグ
 
-	RigidBody*		m_rigidBody = nullptr;			// 物理演算のコンポーネント
-	Transform*		m_transform = nullptr;			// トランスフォームコンポーネント
-	Sphere*			m_collider	= nullptr;			// 球のコライダーのコンポーネント
-	ModelRenderer*	m_renderer	= nullptr;			// モデル描画のコンポーネント
+	RigidBody*		m_rigidBody		 = nullptr;		// 物理演算のコンポーネント
+	Transform*		m_transform		 = nullptr;		// トランスフォームのコンポーネント
+	Sphere*			m_sphereCollider = nullptr;		// 球のコライダーのコンポーネント
+	ModelRenderer*	m_renderer		 = nullptr;		// モデル描画のコンポーネント
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

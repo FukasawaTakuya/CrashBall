@@ -8,7 +8,7 @@
 
 #pragma once
 
-class GameObject;
+#include "Game/GameObject/IGameObject.h"
 
 /**
  * @brief 基底コンポーネント
@@ -21,7 +21,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	GameObject* m_owner = nullptr;
+	IGameObject* m_owner = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -40,10 +40,10 @@ public:
 public:
 
 	// オーナーの取得
-	GameObject* GetOwner() { return m_owner; }
+	IGameObject* GetOwner() { return m_owner; }
 
 	// オーナーの設定
-	void SetOwner(GameObject* owner)
+	void SetOwner(IGameObject* owner)
 	{
 		m_owner = owner;
 	}

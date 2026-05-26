@@ -56,7 +56,6 @@ void EnemyWanderState::Update()
 	Transform* transform = m_owner->GetComponent<Transform>();
 	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 
-	
 	m_timer += Time::GetElapsedTime();
 
 	// 加速度のリセット
@@ -90,7 +89,6 @@ void EnemyWanderState::Update()
 		accelDirection.y = 0.0f;
 		accelDirection.Normalize();
 
-		// タイマーをリセット
 		m_timer = 0.0f;
 	}
 	

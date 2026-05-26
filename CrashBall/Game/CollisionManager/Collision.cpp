@@ -142,9 +142,12 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
  */
 bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 {
+	Transform* transform1 = sphere1->GetOwner()->GetComponent<Transform>();
+	Transform* transform2 = sphere2->GetOwner()->GetComponent<Transform>();
+
 	// 座標の差
 	SimpleMath::Vector3 delta =
-		(sphere1->GetTransform()->GetPosition() - sphere2->GetTransform()->GetPosition());
+		(transform1->GetPosition() - transform2->GetPosition());
 
 	// 半径の和
 	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
@@ -338,7 +341,7 @@ bool IsPointInTriangle(DirectX::SimpleMath::Vector3 point, Triangle* triangle)
 	float dot1 = cross1.Dot(normal);
 	float dot2 = cross2.Dot(normal);
 
-	// 内積の積が0以上なら法線の向きが揃っている
+	// 法線が同じ向きかどうか
 	if (dot0 * dot1 >= 0.0f &&
 		dot1 * dot2 >= 0.0f &&
 		dot2 * dot0 >= 0.0f) return true;
