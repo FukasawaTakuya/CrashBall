@@ -35,19 +35,27 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
+
     m_modelManager              = std::make_unique<ModelManager>();
+    m_spriteManager             = std::make_unique<SpriteManager>();
+    m_soundManager              = std::make_unique<SoundManager>();
+
     m_primitiveRendererManager  = std::make_unique<PrimitiveRendererManager>();
     m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
-    m_spriteManager             = std::make_unique<SpriteManager>();
     m_modelRendererManager      = std::make_unique<ModelRendererManager>();
     m_textRendererManager       = std::make_unique<TextRendererManager>();
+
+    m_soundPlayer               = std::make_unique<SoundPlayer>();
+
 
     // 各コンテキストの初期化
     m_gameContext.emplace();
     m_renderContext.emplace(
         m_modelRendererManager.get(),
         m_primitiveRendererManager.get(),
-        m_spriteRendererManager.get()
+        m_spriteRendererManager.get(),
+        m_textRendererManager.get()
+
     );
     m_resourceContext.emplace(
         m_modelManager.get(),
@@ -62,6 +70,10 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager->RegisterFactory("ball", L"Resources/Models/Ball.sdkmesh");
     m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
     m_spriteManager->RegisterFactory("test", L"Resources/Sprite/robot.dds");
+    m_soundManager->RegisterFactory("test", L"Resources/Sound/ks043.wav");
+
+    // サウンドの作成
+    m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
@@ -114,8 +126,12 @@ void Game::Update(DX::StepTimer const& timer)
     // 
     m_timeManager->SetElapsedTime(elapsedTime);
     m_inputSystem->Update();
+    m_soundPlayer->Update();
 
     m_sceneManager->Update(*m_gameContext);
+
+    m_soundPlayer->PlayBgm(m_soundManager.get());
+    m_soundPlayer->PlaySe(m_soundManager.get());
 }
 #pragma endregion
 
@@ -142,8 +158,9 @@ void Game::Render()
         SimpleMath::Vector2::Zero,
         Colors::White,
         1.0f,
-        L"FPS:{} \n debug",
-        (int)m_timer.GetFramesPerSecond()
+        L"FPS:{} \n debug {}",
+        (int)m_timer.GetFramesPerSecond(),
+        0.0f
     );
 
 

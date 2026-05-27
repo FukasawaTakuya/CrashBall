@@ -142,8 +142,15 @@ void Enemy::AvoidWall()
 				m_accelDirection.Normalize();
 			}
 
-			RigidBody* rigidbody = GetComponent<RigidBody>();
-			rigidbody->Accel(faceNormal * 2.0f);
+			SimpleMath::Vector3 direction = XMVector3Normalize(m_rigidbody->GetVelocity());
+			if (direction.Dot(-faceNormal) > 0.0f)
+			{
+				m_rigidbody->Accel(faceNormal * 3.0f);
+			}
+			else
+			{
+				m_rigidbody->Accel(faceNormal * 0.7f);
+			}
 		}
 	}
 }

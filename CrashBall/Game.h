@@ -22,6 +22,9 @@
 
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/ResourceManager/SpriteManager.h"
+#include "Game/ResourceManager/SoundManager.h"
+
+#include "Game/SoundPlayer/SoundPlayer.h"
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -49,12 +52,18 @@ private:
 
     std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム
     std::unique_ptr<TimeManager>                m_timeManager;                  // 時間管理
+
     std::unique_ptr<ModelManager>               m_modelManager;                 // モデル管理
     std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理
+    std::unique_ptr<SoundManager>               m_soundManager;                 // サウンド管理
+
     std::unique_ptr<ModelRendererManager>       m_modelRendererManager;         // モデル描画管理
     std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理
     std::unique_ptr<SpriteRendererManager>      m_spriteRendererManager;        // スプライト描画管理
     std::unique_ptr<TextRendererManager>        m_textRendererManager;          // テキスト描画管理
+
+    std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
+
 
     std::optional<GameContext>      m_gameContext;      // ゲームプレイ用のコンテキスト
     std::optional<RenderContext>    m_renderContext;    // 描画用のコンテキスト

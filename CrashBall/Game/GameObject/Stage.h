@@ -14,20 +14,24 @@ class  Stage : public GameObject {
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	const float SCALE = 10.0f;								// スケール
+	const float SCALE = 15.0f;	// スケール
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// コンポーネントのキャッシュ
-	Transform*		m_transform = nullptr;
+	Transform*		m_transform		= nullptr;
 	Mesh*			m_meshCollider	= nullptr;
-	ModelRenderer*	m_renderer	= nullptr;
+	ModelRenderer*	m_renderer		= nullptr;
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
 	std::unordered_map<Triangle*, XMVECTORF32> m_floorColor;	// 床メッシュの色情報
+
+	int m_playerMeshCount = 0;
+
+	int m_enemyMeshCount = 0;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

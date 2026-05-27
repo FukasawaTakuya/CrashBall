@@ -39,16 +39,9 @@ public:
 		DirectX::SimpleMath::Vector2 position,
 		DirectX::XMVECTORF32 color,
 		float scale,
-		const std::wstring& text);
+		const std::wstring& text) override;
 
-	template <typename... Arg>
-	void RegisterRenderCommand(
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::XMVECTORF32 color,
-		float scale,
-		std::wformat_string<Arg...> fmt,
-		Arg&&... arg
-	);
+	using ITextRendererManager::RegisterRenderCommand;
 
 	void ClearnRenderCommand();
 
@@ -63,19 +56,3 @@ public:
 private:
 
 };
-
-template<typename ...Arg>
-inline void TextRendererManager::RegisterRenderCommand(
-	DirectX::SimpleMath::Vector2 position,
-	DirectX::XMVECTORF32 color, 
-	float scale, 
-	std::wformat_string<Arg...> fmt, 
-	Arg && ...arg)
-{
-	RegisterRenderCommand(
-		position,
-		color,
-		scale,
-		std::format(fmt, std::forward<Arg>(arg)...)
-	);
-}

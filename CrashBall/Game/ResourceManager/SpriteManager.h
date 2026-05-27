@@ -45,7 +45,7 @@ public:
 public:
 
 	// ファクトリーに登録
-	void RegisterFactory(std::string key, const wchar_t* fileName);
+	void RegisterFactory(const std::string& key, const wchar_t* fileName);
 
 	// モデルの作成
 	void CreateSprite(ID3D11Device1* device);

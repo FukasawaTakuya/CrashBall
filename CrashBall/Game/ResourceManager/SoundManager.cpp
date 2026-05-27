@@ -3,26 +3,77 @@
 
 using namespace DirectX;
 
+SoundManager::SoundManager()
+{
+}
+
 SoundManager::~SoundManager()
 {
 }
 
-void SoundManager::CreateSound()
+void SoundManager::RegisterFactory(
+	const std::string& key, 
+	const wchar_t* fileName)
+{
+	m_bgmfactory.emplace(key, fileName);
+}
+
+void SoundManager::CreateSound(DirectX::AudioEngine* audioEngine)
 {
 	for (auto& file : m_bgmfactory)
 	{
-		m_bgmSounds.emplace(std::make_unique<SoundEffect>())
+		m_bgmSounds.emplace(
+			file.first,
+			std::make_unique<SoundEffect>(
+				audioEngine,
+				file.second
+			)
+		);
+	}
+
+	for (auto& file : m_sefactory)
+	{
+		m_seSounds.emplace(
+			file.first,
+			std::make_unique<SoundEffect>(
+				audioEngine,
+				file.second
+			)
+		);
 	}
 }
 
-void SoundManager::PlayBGM(const std::string& key)
+/**
+ * \brief BGMの取得
+ * 
+ * \param key キー
+ * \return サウンドエフェクトのポインタ
+ */
+DirectX::SoundEffect* SoundManager::GetBgmSound(const std::string key)
 {
+	auto it = m_bgmSounds.find(key);
+	// イテレータが終端でなければ
+	if (it != m_bgmSounds.end())
+	{
+		return it->second.get();
+	}
+	else return nullptr;
 }
 
-void SoundManager::StopBGM()
+/**
+ * \brief SEの取得
+ * 
+ * \param key キー
+ * \return サウンドエフェクトのポインタ
+ */
+DirectX::SoundEffect* SoundManager::GetSeSound(const std::string key)
 {
-}
+	auto it = m_seSounds.find(key);
+	// イテレータが終端でなければ
+	if (it != m_seSounds.end())
+	{
+		return it->second.get();
+	}
+	else return nullptr;
 
-void SoundManager::PlaySE(const std::string& key)
-{
 }

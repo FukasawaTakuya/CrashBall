@@ -273,6 +273,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundPlayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Interface\ISpriteManager.h">
       <SubType>
       </SubType>
@@ -322,6 +330,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\SoundPlayer\SoundPlayer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -388,6 +400,7 @@
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />

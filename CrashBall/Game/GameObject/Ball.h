@@ -32,7 +32,7 @@ protected:
 
 	bool m_isGround = false;						// 地上フラグ
 
-	RigidBody*		m_rigidBody		 = nullptr;		// 物理演算のコンポーネント
+	RigidBody*		m_rigidbody		 = nullptr;		// 物理演算のコンポーネント
 	Transform*		m_transform		 = nullptr;		// トランスフォームのコンポーネント
 	Sphere*			m_sphereCollider = nullptr;		// 球のコライダーのコンポーネント
 	ModelRenderer*	m_renderer		 = nullptr;		// モデル描画のコンポーネント

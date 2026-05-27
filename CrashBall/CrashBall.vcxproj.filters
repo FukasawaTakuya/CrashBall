@@ -65,6 +65,9 @@
     <Filter Include="Game\Geometory">
       <UniqueIdentifier>{bcd5b5de-478c-4a92-9c2c-e79f13e17105}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\SoundPlayer">
+      <UniqueIdentifier>{95d5e292-da18-48f3-b1f8-fbd1681bbd8c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -258,6 +261,15 @@
     <ClInclude Include="Game\GameObject\IGameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundPlayer.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\SoundPlayer\SoundPlayer.h">
+      <Filter>Game\SoundPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -374,7 +386,12 @@
     <ClCompile Include="Game\Renderer\TextRendererManager.cpp">
       <Filter>Game\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
+    <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp">
+      <Filter>Game\SoundPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager\SoundManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

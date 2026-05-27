@@ -17,7 +17,7 @@ Ball::Ball(float radius, ObjectTag tag)
 {
 	// コンポーネントの追加
 	m_transform		 = AddComponent<Transform>();
-	m_rigidBody		 = AddComponent<RigidBody>(GRAVITY, FRICTION);
+	m_rigidbody		 = AddComponent<RigidBody>(GRAVITY, FRICTION);
 	m_sphereCollider = AddComponent<Sphere>(radius);
 	m_renderer		 = AddComponent<ModelRenderer>();
 
@@ -95,18 +95,18 @@ void Ball::Finalize()
 void Ball::Move()
 {
 	// 重力の適用
-	m_rigidBody->ApplyGravity();
+	m_rigidbody->ApplyGravity();
 
 	// 加速度の適用
-	m_rigidBody->ApplyAccel();
+	m_rigidbody->ApplyAccel();
 
 	// 地上なら
 	if(m_isGround)
 		// 摩擦の適用
-		m_rigidBody->ApplyFriction();
+		m_rigidbody->ApplyFriction();
 
 	// 速度を加算
-	m_transform->Translate(m_rigidBody->GetVelocity() * Time::GetElapsedTime());
+	m_transform->Translate(m_rigidbody->GetVelocity() * Time::GetElapsedTime());
 }
 
 /**
@@ -116,7 +116,7 @@ void Ball::Move()
 void Ball::Rotate()
 {
 	// 速度の取得
-	const SimpleMath::Vector3& velocity = m_rigidBody->GetVelocity();
+	const SimpleMath::Vector3& velocity = m_rigidbody->GetVelocity();
 
 	// 進行方向
 	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);
@@ -143,5 +143,5 @@ void Ball::Rotate()
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)
 {
 	m_transform->SetPosition(position);
-	m_rigidBody->SetVelocity(SimpleMath::Vector3::Zero);
+	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 }

@@ -28,7 +28,7 @@ Stage::Stage()
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, Colors::Blue);
+					PaintFace(hitface, Colors::LightSkyBlue);
 				}
 			}
 			// 衝突オブジェクトが敵の時の処理
@@ -36,7 +36,7 @@ Stage::Stage()
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, Colors::Red);
+					PaintFace(hitface, Colors::LightPink);
 				}
 			}
 		});
@@ -48,7 +48,8 @@ Stage::Stage()
 	for (auto& face : m_meshCollider->GetFace())
 	{
 		// 床メッシュ
-		if (face->GetCenter().y >= 4.0f && face->GetCenter().y <= 8.0f)
+		if (face->GetPlane()->GetNormal().y >= 0.3f && 
+			face->GetCenter().y <= 20.0f)
 		{
 			m_floorMesh.push_back(face.get());
 			m_floorColor.emplace(face.get(), Colors::White);
@@ -82,6 +83,19 @@ void Stage::Initialize()
  */
 void Stage::Update(const GameContext& gameContext)
 {
+	m_playerMeshCount =
+		std::count_if(m_floorColor.begin(), m_floorColor.end(),
+			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
+			{
+				return floorColor.second == Colors::White;
+			});
+
+	m_enemyMeshCount =
+		std::count_if(m_floorColor.begin(), m_floorColor.end(),
+			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
+			{
+				return floorColor.second == Colors::LightPink;
+			});
 }
 
 /**
@@ -90,7 +104,7 @@ void Stage::Update(const GameContext& gameContext)
  */
 void Stage::Render(const RenderContext& renderContext)
 {
-	auto primitiveRenderer = renderContext.m_pPrimitiveRendererManager;
+	auto& primitiveRenderer = renderContext.m_pPrimitiveRendererManager;
 
 	// 描画
 	for (auto& face : m_meshCollider->GetFace())
@@ -120,6 +134,10 @@ void Stage::Render(const RenderContext& renderContext)
 		);
 	}
 
+	auto& textRenderer = renderContext.m_pTextRendererManager;
+
+	textRenderer->RegisterRenderCommand({ 200.0f, 0.0f }, Colors::White, 1.0f,
+		L"Player : {}  Enemy : {}", 1, 2);
 }
 
 /**

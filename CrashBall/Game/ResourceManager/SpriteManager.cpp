@@ -26,7 +26,7 @@ SpriteManager::~SpriteManager()
  * \param key キー
  * \param fileName ファイル名
  */
-void SpriteManager::RegisterFactory(std::string key, const wchar_t* fileName)
+void SpriteManager::RegisterFactory(const std::string& key, const wchar_t* fileName)
 {
 	m_factory.emplace(key, fileName);
 }

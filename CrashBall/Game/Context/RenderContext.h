@@ -11,6 +11,7 @@
 #include "Game/Interface/IModelRendererManager.h"
 #include "Game/Interface/IPrimitiveRendererManager.h"
 #include "Game/Interface/ISpriteRendererManager.h"
+#include "Game/Interface/ITextRendererManager.h"
 
 /**
  * @brief 描画用のコンテキスト
@@ -23,6 +24,7 @@ public:
 	IModelRendererManager*		m_pModelRendererManager;		// モデル描画管理
 	IPrimitiveRendererManager*	m_pPrimitiveRendererManager;	// プリミティブ描画管理
 	ISpriteRendererManager*		m_pSpriteRendererManager;		// スプライト描画管理
+	ITextRendererManager*		m_pTextRendererManager;			// テキスト描画管理
  
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -34,14 +36,17 @@ public:
 	 * \param pModelRendererManager モデル描画管理
 	 * \param pPrimitiveRendererManager プリミティブ描画管理
 	 * \param pSpriteRendererManager スプライト描画管理
+	 * \param pTextRendererManager テキスト描画管理
 	 */
 	RenderContext(
 		IModelRendererManager*		pModelRendererManager,
 		IPrimitiveRendererManager*	pPrimitiveRendererManager,
-		ISpriteRendererManager*		pSpriteRendererManager)	
+		ISpriteRendererManager*		pSpriteRendererManager,
+		ITextRendererManager*		pTextRendererManager)
 		: m_pModelRendererManager(pModelRendererManager)
 		, m_pPrimitiveRendererManager(pPrimitiveRendererManager)
 		, m_pSpriteRendererManager(pSpriteRendererManager)
+		, m_pTextRendererManager(pTextRendererManager)
 	{}
 
 	// デストラクタ

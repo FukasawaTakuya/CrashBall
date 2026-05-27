@@ -24,7 +24,7 @@ private:
 
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;	// スプライトバッチ
 
-	std::vector<SpriteRenderCmd> m_renderCommad;				// 描画命令コンテナ
+	std::vector<SpriteRenderCmd> m_renderCommad;			// 描画命令コンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

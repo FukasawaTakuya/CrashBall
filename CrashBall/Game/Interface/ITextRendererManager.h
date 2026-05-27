@@ -48,6 +48,21 @@ public:
 		float scale,
 		const std::wstring& text) = 0;
 
+	template<typename ...Arg>
+	inline void RegisterRenderCommand(
+		DirectX::SimpleMath::Vector2 position,
+		DirectX::XMVECTORF32 color,
+		float scale,
+		std::wformat_string<Arg...> fmt,
+		Arg && ...arg)
+	{
+		RegisterRenderCommand(
+			position,
+			color,
+			scale,
+			std::format(fmt, std::forward<Arg>(arg)...)
+		);
+	}
 	// “à•”ŽÀ‘•
 private:
 

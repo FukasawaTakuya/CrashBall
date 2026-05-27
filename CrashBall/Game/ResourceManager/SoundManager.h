@@ -7,11 +7,12 @@
  *********************************************************************/
 
 #pragma once
+#include "Game/Interface/ISoundManager.h"
 
 /**
  * @brief サウンド管理クラス
  */
-class  SoundManager {
+class  SoundManager : public ISoundManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -19,7 +20,6 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// エイリアス宣言
 	using FileCollection
 		= std::unordered_map<std::string, const wchar_t*>;
 	using SoundCollection
@@ -30,14 +30,12 @@ private:
 	SoundCollection	m_bgmSounds;	// BGMのキャッシュ
 	SoundCollection	m_seSounds;		// SEのキャッシュ
 
-	// TODO:AudioEngine持たせるか
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	SoundManager() = default;
+	SoundManager();
 
 	// デストラクタ
 	~SoundManager();
@@ -45,16 +43,22 @@ public:
 	// 操作
 public:
 
-	void CreateSound();
+	void RegisterFactory(const std::string& key, const wchar_t* fileName);
 
-	void PlayBGM(const std::string& key);
+	// 音声の作成
+	void CreateSound(DirectX::AudioEngine* audioEngine);
 
-	void StopBGM();
-
-	void PlaySE(const std::string& key);
 
 	// 取得/設定
 public:
+
+	// BGMの取得
+	DirectX::SoundEffect* GetBgmSound(const std::string key);
+
+	// SEの取得
+	DirectX::SoundEffect* GetSeSound(const std::string key);
+
+
 
 	// 内部実装
 private:

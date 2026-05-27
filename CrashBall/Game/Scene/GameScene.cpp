@@ -85,6 +85,7 @@ void GameScene::Update(const GameContext& gameContext)
     m_ball->Move();
     m_ball->Rotate();
 	m_enemy->Update(gameContext);
+    m_Stage->Update(gameContext);
 
     m_collisionManager->Update();
 
