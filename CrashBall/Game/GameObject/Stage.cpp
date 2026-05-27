@@ -87,14 +87,14 @@ void Stage::Update(const GameContext& gameContext)
 		std::count_if(m_floorColor.begin(), m_floorColor.end(),
 			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
 			{
-				return floorColor.second == Colors::White;
+				return XMVector4Equal(floorColor.second, Colors::LightSkyBlue);
 			});
 
 	m_enemyMeshCount =
 		std::count_if(m_floorColor.begin(), m_floorColor.end(),
 			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
 			{
-				return floorColor.second == Colors::LightPink;
+				return XMVector4Equal(floorColor.second, Colors::LightPink);
 			});
 }
 
@@ -137,7 +137,7 @@ void Stage::Render(const RenderContext& renderContext)
 	auto& textRenderer = renderContext.m_pTextRendererManager;
 
 	textRenderer->RegisterRenderCommand({ 200.0f, 0.0f }, Colors::White, 1.0f,
-		L"Player : {}  Enemy : {}", 1, 2);
+		L"Player : {}  Enemy : {}",m_playerMeshCount, m_enemyMeshCount);
 }
 
 /**
