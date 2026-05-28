@@ -15,8 +15,6 @@ Stage::Stage()
 	m_meshCollider	= AddComponent<Mesh>();
 	m_renderer		= AddComponent<ModelRenderer>();
 
-	// トランスフォームの設定
-	m_meshCollider->SetTransform(m_transform);
 	// レイヤーマスクの設定
 	m_meshCollider->SetLayerMask(LayerMask::Ground);
 

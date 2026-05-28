@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "SpriteRenderer.h"
 
-SpriteRenderer::SpriteRenderer()
+SpriteRenderer::SpriteRenderer(IGameObject* owner)
+	: Component(owner)
 {
 }
 

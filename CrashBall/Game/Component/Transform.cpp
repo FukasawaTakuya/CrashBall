@@ -13,7 +13,8 @@
  * \brief コンストラクタ
  * 
  */
-Transform::Transform()
+Transform::Transform(IGameObject* owner)
+	: Component(owner)
 {
 }
 

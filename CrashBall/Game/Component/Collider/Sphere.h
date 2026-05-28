@@ -15,8 +15,10 @@ private:
 public:
 
 	// コンストラクタ
-	Sphere(float radius)
-		: Collider(ColliderType::Sphere)
+	Sphere(
+		IGameObject* owner, 
+		float radius)
+		: Collider(owner, ColliderType::Sphere)
 		, m_radius{ radius }
 	{}
 

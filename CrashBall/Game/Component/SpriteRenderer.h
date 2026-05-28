@@ -20,7 +20,7 @@ private:
 public:
 
 	// コンストラクタ
-	SpriteRenderer();
+	SpriteRenderer(IGameObject* owner);
 
 	// デストラクタ
 	~SpriteRenderer();

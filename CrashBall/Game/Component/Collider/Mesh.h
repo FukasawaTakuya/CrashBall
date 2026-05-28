@@ -28,7 +28,7 @@ private:
 public:
 
 	// コンストラクタ
-	Mesh();
+	Mesh(IGameObject* owner);
 
 	// 操作
 public:

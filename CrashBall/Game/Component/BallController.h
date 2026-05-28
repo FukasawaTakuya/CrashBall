@@ -33,7 +33,7 @@ private:
 public:
 
 	// コンストラクタ
-	BallController();
+	BallController(IGameObject* owner);
 
 	// デストラクタ
 	~BallController();

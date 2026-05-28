@@ -36,7 +36,7 @@ private:
 public:
 
 	// コンストラクタ
-	Transform();
+	Transform(IGameObject* owner);
 
 	// デストラクタ
 	~Transform();

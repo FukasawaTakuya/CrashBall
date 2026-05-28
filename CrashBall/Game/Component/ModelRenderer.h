@@ -29,7 +29,7 @@ private:
 public:
 
 	// コンストラクタ
-	ModelRenderer();
+	ModelRenderer(IGameObject* owner);
 
 	// デストラクタ
 	~ModelRenderer();

@@ -28,7 +28,8 @@ protected:
 public:
 
 	// コンストラクタ
-	Component() = default;
+	Component(IGameObject* owner)
+		: m_owner(owner) {} ;
 
 	// デストラクタ
 	virtual ~Component() = default;

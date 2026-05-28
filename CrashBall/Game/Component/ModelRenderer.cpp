@@ -13,7 +13,8 @@
  * \brief コンストラクタ.
  * 
  */
-ModelRenderer::ModelRenderer()
+ModelRenderer::ModelRenderer(IGameObject* owner)
+	: Component(owner)
 {
 }
 

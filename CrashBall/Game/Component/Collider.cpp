@@ -4,9 +4,11 @@
 
 using namespace DirectX;
 
-Collider::Collider(ColliderType type)
-	: m_type{ type }
+Collider::Collider(
+	IGameObject* owner,
+	ColliderType type)
+	: Component(owner)
+	, m_type{ type }
 {
-	// SetOwner前に呼ばれるためエラー
-	//m_transform = m_owner->GetComponent<Transform>();
+	m_transform = m_owner->GetComponent<Transform>();
 }

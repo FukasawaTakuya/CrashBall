@@ -2,8 +2,12 @@
 #include "BallController.h"
 #include "Game/Engine/Time.h"
 
-BallController::BallController()
+BallController::BallController(IGameObject* owner)
+	: Component(owner)
 {
+	m_transform = m_owner->GetComponent<Transform>();
+	m_rigidbody = m_owner->GetComponent<RigidBody>();
+	m_sphereCollider = m_owner->GetComponent<Sphere>();
 }
 
 BallController::~BallController()
@@ -12,9 +16,6 @@ BallController::~BallController()
 
 void BallController::Initialize()
 {
-	m_transform = m_owner->GetComponent<Transform>();
-	m_rigidbody = m_owner->GetComponent<RigidBody>();
-	m_sphereCollider = m_owner->GetComponent<Sphere>();
 }
 
 void BallController::Update(GameContext gameContext)

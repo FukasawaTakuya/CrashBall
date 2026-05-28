@@ -68,9 +68,7 @@ public:
 	CompType* AddComponent(Args&&... args)
 	{
 		// コンポーネントの生成
-		auto comp = std::make_unique<CompType>(std::forward<Args>(args)...);
-		// オーナーの設定
-		comp->SetOwner(this);
+		auto comp = std::make_unique<CompType>(this, std::forward<Args>(args)...);
 
 		// ポインタの取得
 		CompType* pComp = comp.get();

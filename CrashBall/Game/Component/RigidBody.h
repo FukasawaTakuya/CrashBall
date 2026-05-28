@@ -34,7 +34,7 @@ private:
 public:
 
 	// コンストラクタ
-	RigidBody(float gravityAcceleration, float friction);
+	RigidBody(IGameObject* owner, float gravityAcceleration, float friction);
 
 	// デストラクタ
 	~RigidBody();

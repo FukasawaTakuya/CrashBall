@@ -20,12 +20,8 @@ Ball::Ball(float radius, ObjectTag tag)
 	m_rigidbody		 = AddComponent<RigidBody>(GRAVITY, FRICTION);
 	m_sphereCollider = AddComponent<Sphere>(radius);
 	m_renderer		 = AddComponent<ModelRenderer>();
-
 	m_ballController = AddComponent<BallController>();
-	m_ballController->Initialize();
 
-	// トランスフォームの設定
-	m_sphereCollider->SetTransform(m_transform);
 	// レイヤーマスクの設定
 	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 

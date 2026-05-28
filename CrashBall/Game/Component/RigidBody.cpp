@@ -19,9 +19,11 @@ using namespace DirectX;
  * \param 摩擦係数
  */
 RigidBody::RigidBody(
+	IGameObject* owner,
 	float gravityAcceleration, 
 	float friction)
-	: m_gravityAcceleration{ gravityAcceleration }
+	: Component(owner)
+	, m_gravityAcceleration{ gravityAcceleration }
 	, m_friction{ friction }
 {
 }

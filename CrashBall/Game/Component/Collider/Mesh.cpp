@@ -9,8 +9,8 @@ using namespace nlohmann;
  * コンストラクタ
  * 
  */
-Mesh::Mesh()
-	: Collider(ColliderType::Mesh)
+Mesh::Mesh(IGameObject* owner)
+	: Collider(owner, ColliderType::Mesh)
 {
 }
 
