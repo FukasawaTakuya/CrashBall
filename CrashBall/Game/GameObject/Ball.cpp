@@ -59,6 +59,17 @@ void Ball::Initialize()
 
 void Ball::Update(const GameContext& gameContext)
 {
+	// 移動
+	Move();
+
+	// 地上なら回転を加算する
+	if (m_isGround)
+	{
+		AddRotate();
+	}
+
+	// 回転
+	Rotate();
 }
 
 /**
@@ -67,9 +78,6 @@ void Ball::Update(const GameContext& gameContext)
  */
 void Ball::Render(const RenderContext& renderContext)
 {
-	// 回転
-	m_transform->Rotate(m_angularVelocity);
-
 	// 描画管理クラスのインターフェース
 	IModelRendererManager* rendererManager
 		= renderContext.m_pModelRendererManager;
@@ -110,10 +118,10 @@ void Ball::Move()
 }
 
 /**
- * \brief 回転
+ * \brief 回転の加算
  * 
  */
-void Ball::Rotate()
+void Ball::AddRotate()
 {
 	// 速度の取得
 	const SimpleMath::Vector3& velocity = m_rigidbody->GetVelocity();
@@ -124,20 +132,30 @@ void Ball::Rotate()
 	SimpleMath::Vector3 v = SimpleMath::Vector3::Up;
 
 	// 進行方向に垂直なベクトルを求める
-	SimpleMath::Vector3 horizontalDirection 
+	SimpleMath::Vector3 horizontalDirection
 		= XMVector3Cross(SimpleMath::Vector3::Up, velocity);
 
 	// ゼロベクトルならリターン
 	if (horizontalDirection == SimpleMath::Vector3::Zero) return;
 
 	// 回転量を求める
-	float forwardAngle 
+	float forwardAngle
 		= velocity.Length() * Time::GetElapsedTime() / m_sphereCollider->GetRadius();
 
 	// 角速度を求める
 	SimpleMath::Quaternion quaternion
 		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
 	m_angularVelocity = quaternion;
+}
+
+/**
+ * \brief 回転
+ * 
+ */
+void Ball::Rotate()
+{
+	// 回転
+	m_transform->Rotate(m_angularVelocity);
 }
 
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)

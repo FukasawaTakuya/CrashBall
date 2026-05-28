@@ -53,8 +53,13 @@ void Player::Update(const GameContext& gameContext)
 	if (m_stateMachine != nullptr)
 		m_stateMachine->Update();
 
+	Ball::Update(gameContext);
+
 	// 移動処理
-	Ball::Move();
+	//Ball::Move();
+
+	//// 回転
+	//m_transform->Rotate(m_angularVelocity);
 }
 
 /**

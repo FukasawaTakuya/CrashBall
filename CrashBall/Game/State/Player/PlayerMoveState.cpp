@@ -76,7 +76,6 @@ void PlayerMoveState::Update()
         if (Input::GetKeyDown(Keyboard::S)) {
             rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
         }
-        m_owner->Ball::Rotate();
     }
 
     // スペースキーが押されたら攻撃ステートに遷移

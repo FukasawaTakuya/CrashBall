@@ -72,8 +72,7 @@ void Enemy::Update(const GameContext& gameContext)
 	}
 
 	// 移動と回転
-	Ball::Move();
-	Ball::Rotate();
+	Ball::Update(gameContext);
 
 	// デバッグ用の方向ベクトル
 	m_debugDirection = Slerp(m_debugDirection, m_accelDirection, 0.05f);

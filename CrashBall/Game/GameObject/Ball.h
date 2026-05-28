@@ -65,6 +65,9 @@ public:
 	// ˆÚ“®
 	void Move();
 
+	// ‰ñ“]‚Ì‰ÁŽZ
+	void AddRotate();
+
 	// ‰ñ“]
 	void Rotate();
 
