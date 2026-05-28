@@ -48,6 +48,7 @@ public:
 		float scale,
 		const std::wstring& text) = 0;
 
+	// ‘®•t•¶š—ñ‚Ì•`‰æ–½—ß‚Ì“o˜^
 	template<typename ...Arg>
 	inline void RegisterRenderCommand(
 		DirectX::SimpleMath::Vector2 position,
@@ -63,6 +64,7 @@ public:
 			std::format(fmt, std::forward<Arg>(arg)...)
 		);
 	}
+
 	// “à•”À‘•
 private:
 

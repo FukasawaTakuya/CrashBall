@@ -9,7 +9,6 @@
 
 #include <memory>
 
-
 #include "Game/Scene/SceneManager.h"
 
 #include "Game/Common/InputSystem.h"

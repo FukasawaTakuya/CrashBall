@@ -27,7 +27,7 @@ private:
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
-	std::unordered_map<Triangle*, XMVECTORF32> m_floorColor;	// 床メッシュの色情報
+	std::unordered_map<Triangle*, XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
 
 	int m_playerMeshCount = 0;
 

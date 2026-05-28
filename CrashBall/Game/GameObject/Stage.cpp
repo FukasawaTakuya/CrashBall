@@ -52,7 +52,7 @@ Stage::Stage()
 			face->GetCenter().y <= 20.0f)
 		{
 			m_floorMesh.push_back(face.get());
-			m_floorColor.emplace(face.get(), Colors::White);
+			m_floorMeshColor.emplace(face.get(), Colors::White);
 		}
 		// 壁メッシュ
 		else {
@@ -75,6 +75,10 @@ Stage::~Stage()
  */
 void Stage::Initialize()
 {
+	for (auto& floorMeshColor : m_floorMeshColor)
+	{
+		floorMeshColor.second = Colors::White;
+	}
 }
 
 /**
@@ -84,17 +88,17 @@ void Stage::Initialize()
 void Stage::Update(const GameContext& gameContext)
 {
 	m_playerMeshCount =
-		std::count_if(m_floorColor.begin(), m_floorColor.end(),
-			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
+		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
+			[](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorColor.second, Colors::LightSkyBlue);
+				return XMVector4Equal(floorMeshColor.second, Colors::LightSkyBlue);
 			});
 
 	m_enemyMeshCount =
-		std::count_if(m_floorColor.begin(), m_floorColor.end(),
-			[](const std::pair<Triangle*, XMVECTORF32>& floorColor)
+		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
+			[](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorColor.second, Colors::LightPink);
+				return XMVector4Equal(floorMeshColor.second, Colors::LightPink);
 			});
 }
 
@@ -113,8 +117,8 @@ void Stage::Render(const RenderContext& renderContext)
 		XMVECTORF32 faceColor = Colors::White;
 
 		// 面の色情報が登録されているなら
-		auto it = m_floorColor.find(face.get());
-		if (it != m_floorColor.end())
+		auto it = m_floorMeshColor.find(face.get());
+		if (it != m_floorMeshColor.end())
 		{
 			faceColor = it->second;
 		}
@@ -137,7 +141,7 @@ void Stage::Render(const RenderContext& renderContext)
 	auto& textRenderer = renderContext.m_pTextRendererManager;
 
 	textRenderer->RegisterRenderCommand({ 200.0f, 0.0f }, Colors::White, 1.0f,
-		L"Player : {}  Enemy : {}",m_playerMeshCount, m_enemyMeshCount);
+		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);
 }
 
 /**
@@ -157,9 +161,9 @@ void Stage::Finalize()
 void Stage::PaintFace(Triangle* face, const XMVECTORF32& color)
 {
 	// 面情報が登録されているなら
-	if (m_floorColor.find(face) != m_floorColor.end())
+	if (m_floorMeshColor.find(face) != m_floorMeshColor.end())
 	{
 		// 色の変更
-		m_floorColor[face] = color;
+		m_floorMeshColor[face] = color;
 	}
 }

@@ -47,7 +47,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
-
     // 各コンテキストの初期化
     m_gameContext.emplace();
     m_renderContext.emplace(
@@ -158,9 +157,8 @@ void Game::Render()
         SimpleMath::Vector2::Zero,
         Colors::White,
         1.0f,
-        L"FPS:{} \n debug {}",
-        (int)m_timer.GetFramesPerSecond(),
-        0.0f
+        L"FPS:{}",
+        (int)m_timer.GetFramesPerSecond()
     );
 
 

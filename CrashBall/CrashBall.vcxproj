@@ -203,6 +203,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Component\BallController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Collider.h" />
     <ClInclude Include="Game\Component\Collider\Mesh.h">
       <SubType>
@@ -374,6 +378,7 @@
     <ClCompile Include="Game\Common\Camera.cpp" />
     <ClCompile Include="Game\Common\CommonResources.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
+    <ClCompile Include="Game\Component\BallController.cpp" />
     <ClCompile Include="Game\Component\Collider.cpp" />
     <ClCompile Include="Game\Component\Collider\Mesh.cpp" />
     <ClCompile Include="Game\Component\Collider\Plane.cpp" />

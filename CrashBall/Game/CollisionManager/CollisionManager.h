@@ -2,7 +2,7 @@
  * \file   CollisionManager.h
  * \brief  衝突管理クラス 
  * 
- * \author it252184
+ * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
 
@@ -24,7 +24,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::vector<Collider*> m_colliders;								// ゲームオブジェクトのキャッシュ
+	std::vector<Collider*> m_colliders;								// コライダー
 
 	std::unique_ptr<IsCollisionTable> m_isCollsionTable;			// 衝突検知関数テーブル
 

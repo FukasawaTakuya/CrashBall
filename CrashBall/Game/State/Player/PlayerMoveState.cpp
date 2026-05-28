@@ -10,6 +10,7 @@
 #include "PlayerMoveState.h"
 #include "PlayerJumpState.h"
 #include "PlayerAttackState.h"
+
 #include "Game/GameObject/Player/Player.h"
 #include "Game/Common/Camera.h"
 #include "Game/Engine/Input.h"
@@ -82,6 +83,7 @@ void PlayerMoveState::Update()
     if (Input::GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
+        // TODO:面消費通知 PlayerComponent移行
     }
 
     // 速度制限

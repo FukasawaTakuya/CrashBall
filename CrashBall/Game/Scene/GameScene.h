@@ -27,11 +27,9 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<Stage> m_Stage;		// ステージ
+	std::unique_ptr<Stage> m_stage;		// ステージ
 
 	std::unique_ptr<Player> m_player;	// プレイヤー
-
-	std::unique_ptr<Ball> m_ball;		// ボール
 
 	std::unique_ptr<Enemy> m_enemy;		// 敵
 

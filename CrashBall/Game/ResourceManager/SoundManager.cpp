@@ -3,14 +3,28 @@
 
 using namespace DirectX;
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 SoundManager::SoundManager()
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 SoundManager::~SoundManager()
 {
 }
 
+/**
+ * \brief ファクトリーに登録
+ * 
+ * \param key
+ * \param fileName
+ */
 void SoundManager::RegisterFactory(
 	const std::string& key, 
 	const wchar_t* fileName)
@@ -18,6 +32,11 @@ void SoundManager::RegisterFactory(
 	m_bgmfactory.emplace(key, fileName);
 }
 
+/**
+ * \brief サウンドの生成
+ * 
+ * \param audioEngine オーディオエンジン
+ */
 void SoundManager::CreateSound(DirectX::AudioEngine* audioEngine)
 {
 	for (auto& file : m_bgmfactory)

@@ -22,16 +22,15 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<DirectX::AudioEngine> m_audioEngine;
+	std::unique_ptr<DirectX::AudioEngine> m_audioEngine;	// オーディオエンジン
 
-	std::string m_playBgmCommand;
+	std::string m_playBgmCommand;	
 	std::vector<std::string> m_playSeCommand;
 
-	std::unique_ptr<DirectX::SoundEffectInstance> m_currentBgm;
+	std::unique_ptr<DirectX::SoundEffectInstance> m_currentBgm;	// 現在流れているBGM
 
-	float m_bgmValume = 1.0f;
-
-	float m_seValume = 1.0f;
+	float m_bgmValume = 1.0f;	// BGMのボリューム
+	float m_seValume = 1.0f;	// SEのボリューム
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -57,9 +56,9 @@ public:
 	// BGMの再生命令の登録
 	void RegisterPlayBgmCommand(const std::string& key) override;
 
-	// 現在のBGMを再生
+	// 現在BGMの再開命令の登録 
 	void RegisterResumeCurrentBgm() override;
-	// 現在のBGMを停止
+	// 現在BGMの一時停止命令の登録
 	void RegisterPauseCurrentBgm() override;
 
 	// SEの再生命令の登録
@@ -69,6 +68,7 @@ public:
 	// 取得/設定 
 public: 
 
+	// オーディオエンジンの取得
 	DirectX::AudioEngine* GetAudioEngine()
 	{
 		return m_audioEngine.get();
