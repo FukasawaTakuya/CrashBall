@@ -58,9 +58,6 @@ void PlayerMoveState::Update()
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
 
-    // 加速度のリセット
-    rigidbody->ResetAccel();
-
     // 地上にいる場合
     if (m_owner->GetIsGround())
     {

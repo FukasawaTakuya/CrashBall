@@ -13,6 +13,7 @@
 #include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
+#include "Game/Component/BallController.h"
 
  /**
  * @brief ボールクラス
@@ -36,6 +37,8 @@ protected:
 	Transform*		m_transform		 = nullptr;		// トランスフォームのコンポーネント
 	Sphere*			m_sphereCollider = nullptr;		// 球のコライダーのコンポーネント
 	ModelRenderer*	m_renderer		 = nullptr;		// モデル描画のコンポーネント
+
+	BallController* m_ballController;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -62,23 +65,12 @@ public:
 	// 終了処理
 	void Finalize() override;
 
-	// 移動
-	void Move();
-
-	// 回転の加算
-	void AddRotate();
-
-	// 回転
-	void Rotate();
-
 	// 取得/設定
 public:
 
-	bool GetIsGround() const { return m_isGround; }
+	bool GetIsGround() const { return m_ballController->GetIsGround(); }
 
 	void SetModel(DirectX::Model* pModel) { m_renderer->SetModel(pModel); }
-
-	void SetIsGround(bool flag) { m_isGround = flag; }
 
 	void SetPosition(DirectX::SimpleMath::Vector3 position);
 

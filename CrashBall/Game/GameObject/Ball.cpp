@@ -21,6 +21,9 @@ Ball::Ball(float radius, ObjectTag tag)
 	m_sphereCollider = AddComponent<Sphere>(radius);
 	m_renderer		 = AddComponent<ModelRenderer>();
 
+	m_ballController = AddComponent<BallController>();
+	m_ballController->Initialize();
+
 	// トランスフォームの設定
 	m_sphereCollider->SetTransform(m_transform);
 	// レイヤーマスクの設定
@@ -34,7 +37,7 @@ Ball::Ball(float radius, ObjectTag tag)
 		{
 			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
-				SetIsGround(true);
+				m_ballController->SetIsGround(true);
 			}
 		});
 
@@ -43,7 +46,7 @@ Ball::Ball(float radius, ObjectTag tag)
 		{
 			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
 			{
-				SetIsGround(false);
+				m_ballController->SetIsGround(false);
 			}
 		});
 }
@@ -59,17 +62,7 @@ void Ball::Initialize()
 
 void Ball::Update(const GameContext& gameContext)
 {
-	// 移動
-	Move();
-
-	// 地上なら回転を加算する
-	if (m_isGround)
-	{
-		AddRotate();
-	}
-
-	// 回転
-	Rotate();
+	m_ballController->Update(gameContext);
 }
 
 /**
@@ -94,68 +87,6 @@ void Ball::Render(const RenderContext& renderContext)
  */
 void Ball::Finalize()
 {
-}
-
-/**
- * \brief 移動
- * 
- */
-void Ball::Move()
-{
-	// 重力の適用
-	m_rigidbody->ApplyGravity();
-
-	// 加速度の適用
-	m_rigidbody->ApplyAccel();
-
-	// 地上なら
-	if(m_isGround)
-		// 摩擦の適用
-		m_rigidbody->ApplyFriction();
-
-	// 速度を加算
-	m_transform->Translate(m_rigidbody->GetVelocity() * Time::GetElapsedTime());
-}
-
-/**
- * \brief 回転の加算
- * 
- */
-void Ball::AddRotate()
-{
-	// 速度の取得
-	const SimpleMath::Vector3& velocity = m_rigidbody->GetVelocity();
-
-	// 進行方向
-	SimpleMath::Vector3 dire = XMVector3Normalize(velocity);
-
-	SimpleMath::Vector3 v = SimpleMath::Vector3::Up;
-
-	// 進行方向に垂直なベクトルを求める
-	SimpleMath::Vector3 horizontalDirection
-		= XMVector3Cross(SimpleMath::Vector3::Up, velocity);
-
-	// ゼロベクトルならリターン
-	if (horizontalDirection == SimpleMath::Vector3::Zero) return;
-
-	// 回転量を求める
-	float forwardAngle
-		= velocity.Length() * Time::GetElapsedTime() / m_sphereCollider->GetRadius();
-
-	// 角速度を求める
-	SimpleMath::Quaternion quaternion
-		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
-	m_angularVelocity = quaternion;
-}
-
-/**
- * \brief 回転
- * 
- */
-void Ball::Rotate()
-{
-	// 回転
-	m_transform->Rotate(m_angularVelocity);
 }
 
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)

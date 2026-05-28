@@ -56,9 +56,6 @@ void Enemy::Initialize()
  */
 void Enemy::Update(const GameContext& gameContext)
 {
-	RigidBody* rigidbody = GetComponent<RigidBody>();
-	rigidbody->ResetAccel();
-
 	if (m_stateMachine != nullptr)
 		m_stateMachine->Update();
 
@@ -68,7 +65,7 @@ void Enemy::Update(const GameContext& gameContext)
 		// 壁回避処理
 		AvoidWall();
 		// 進行方向を徐々に変える
-		rigidbody->Accel(m_accelDirection * ACCELERATINON);
+		m_rigidbody->Accel(m_accelDirection * ACCELERATINON);
 	}
 
 	// 移動と回転

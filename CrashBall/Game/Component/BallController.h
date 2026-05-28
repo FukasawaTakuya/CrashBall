@@ -6,6 +6,7 @@
 #include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
+#include <Game/Context/GameContext.h>
 
 /**
  * @brief ボール操作クラス
@@ -15,9 +16,6 @@ class  BallController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	static constexpr float GRAVITY = 25.8f;			// 重力
-	static constexpr float FRICTION = 0.992f;		// 摩擦係数
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -25,12 +23,10 @@ private:
 
 	bool m_isGround = false;						// 地上フラグ
 
-	RigidBody* m_rigidbody = nullptr;		// 物理演算のコンポーネント
-	Transform* m_transform = nullptr;		// トランスフォームのコンポーネント
-	Sphere* m_sphereCollider = nullptr;		// 球のコライダーのコンポーネント
-	ModelRenderer* m_renderer = nullptr;		// モデル描画のコンポーネント
-
-
+	Transform*		m_transform			= nullptr;		// トランスフォームのコンポーネント
+	RigidBody*		m_rigidbody			= nullptr;		// 物理演算のコンポーネント
+	Sphere*			m_sphereCollider	= nullptr;		// 球のコライダーのコンポーネント
+	ModelRenderer*	m_renderer			= nullptr;		// モデル描画のコンポーネント
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -45,8 +41,26 @@ public:
 	// 操作
 public:
 
+	void Initialize();
+
+	void Update(GameContext gameContext);
+
+	// 移動
+	void Move();
+
+	// 回転の加算
+	void AddRotate();
+
+	// 回転
+	void Rotate();
+
 	// 取得/設定
 public:
+
+	bool GetIsGround() const { return m_isGround; }
+
+	void SetIsGround(bool flag) { m_isGround = flag; }
+
 
 	// 内部実装
 private:
