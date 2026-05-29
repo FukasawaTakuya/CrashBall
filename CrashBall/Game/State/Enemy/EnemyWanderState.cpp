@@ -18,7 +18,8 @@ using namespace DirectX;
  * @brief コンストラクタ
  * 
  */
-EnemyWanderState::EnemyWanderState()
+EnemyWanderState::EnemyWanderState(const EnemyStateContext& stateContext)
+	: EnemyStateBase(stateContext)
 {
 }
 
@@ -53,8 +54,8 @@ void EnemyWanderState::OnEnter()
  */
 void EnemyWanderState::Update()
 {
-	Transform* transform = m_owner->GetComponent<Transform>();
-	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
+	Transform* transform = m_stateContext.trasnform;
+	RigidBody* rigidbody = m_stateContext.rigidbody;
 
 	m_timer += Time::GetElapsedTime();
 

@@ -25,10 +25,6 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	Camera* m_pCamera = nullptr;							// カメラのポインタ
-
-	const Transform* m_enemyTransform = nullptr;			// 敵のトランスフォーム
-
 	PlayerController* m_playerController;
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -58,21 +54,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// カメラのポインタの取得
-	Camera* GetCamera() { return m_playerController->GetCamera(); }
-
-	// カメラのポインタのセット
-	void SetCamera(Camera* pCamera) { m_playerController->SetCamera(pCamera); }
-
-	// 敵のトランスフォームの取得
-	const Transform* GetEnemyTransform() { return m_playerController->GetEnemyTransform(); }
-
-	// 敵のトランスフォームの設定
-	void SetEnemyTransform(Transform* enemyTransform)
-	{
-		m_playerController->SetEnemyTransform(enemyTransform);
-	}
 
 	// 内部実装
 private:

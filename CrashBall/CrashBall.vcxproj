@@ -229,6 +229,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Component.h" />
+    <ClInclude Include="Game\Component\EnemyController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\ModelRenderer.h">
       <SubType>
       </SubType>
@@ -345,6 +349,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\State\Enemy\EnemyStateContext.h" />
+    <ClInclude Include="Game\State\Enemy\EnemyStateBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
       <SubType>
       </SubType>
@@ -398,6 +407,7 @@
     <ClCompile Include="Game\Component\Collider\Segment.cpp" />
     <ClCompile Include="Game\Component\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Collider\Triangle.cpp" />
+    <ClCompile Include="Game\Component\EnemyController.cpp" />
     <ClCompile Include="Game\Component\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\PlayerController.cpp" />
     <ClCompile Include="Game\Component\RigidBody.cpp" />

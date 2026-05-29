@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Game/State/StateBase.h"
-#include "Game/Component/PlayerController.h"
-#include "PlayerStateContext.h"
+#include "Game/Component/EnemyController.h"
+#include "EnemyStateContext.h"
 
 /**
  * @brief 基底オブジェクト
  */
-class  PlayerStateBase : public StateBase<PlayerController>{
+class  EnemyStateBase : public StateBase<EnemyController>{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -15,20 +15,19 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	PlayerStateContext m_stateContext;	// プレイヤーステート用のコンテキスト
-	
+	EnemyStateContext m_stateContext;	// 敵ステート用のコンテキスト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	PlayerStateBase(const PlayerStateContext& stateContext)
+	EnemyStateBase(const EnemyStateContext& stateContext)
 		: m_stateContext(stateContext)
 	{}
 
 	// デストラクタ
-	~PlayerStateBase() = default;
+	~EnemyStateBase() = default;
 
 	// 操作
 public:

@@ -9,13 +9,14 @@
 #pragma once
 
 #include "Game/State/StateBase.h"
+#include "EnemyStateBase.h"
 
 class Enemy;
 
 /**
  * @brief 敵徘徊ステート
  */
-class  EnemyWanderState : public StateBase<Enemy> {
+class  EnemyWanderState : public EnemyStateBase {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -38,7 +39,7 @@ private:
 public:
 
 	// コンストラクタ
-	EnemyWanderState();
+	EnemyWanderState(const EnemyStateContext& stateContext);
 
 	// デストラクタ
 	~EnemyWanderState();

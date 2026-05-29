@@ -288,6 +288,15 @@
     <ClInclude Include="Game\State\Player\PlayerStateBase.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\EnemyController.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Enemy\EnemyStateBase.h">
+      <Filter>Game\State\EnemyState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Enemy\EnemyStateContext.h">
+      <Filter>Game\State\EnemyState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -416,6 +425,7 @@
     <ClCompile Include="Game\Component\PlayerController.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Component\EnemyController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
