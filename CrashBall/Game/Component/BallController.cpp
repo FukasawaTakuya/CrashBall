@@ -5,9 +5,9 @@
 BallController::BallController(IGameObject* owner)
 	: Component(owner)
 {
-	m_transform = m_owner->GetComponent<Transform>();
-	m_rigidbody = m_owner->GetComponent<RigidBody>();
-	m_sphereCollider = m_owner->GetComponent<Sphere>();
+	m_transform			= GetGameObject()->GetComponent<Transform>();
+	m_rigidbody			= GetGameObject()->GetComponent<RigidBody>();
+	m_sphereCollider	= GetGameObject()->GetComponent<Sphere>();
 }
 
 BallController::~BallController()

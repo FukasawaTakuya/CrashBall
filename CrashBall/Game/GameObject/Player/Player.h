@@ -10,6 +10,7 @@
 
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
+#include "Game/Component/PlayerController.h"
 
 class Camera;
 
@@ -24,11 +25,11 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<StateMachine<Player>> m_stateMachine;	// ステートマシン
-
 	Camera* m_pCamera = nullptr;							// カメラのポインタ
 
 	const Transform* m_enemyTransform = nullptr;			// 敵のトランスフォーム
+
+	PlayerController* m_playerController;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -59,17 +60,18 @@ public:
 public:
 
 	// カメラのポインタの取得
-	Camera* GetCamera() { return m_pCamera; }
+	Camera* GetCamera() { return m_playerController->GetCamera(); }
 
 	// カメラのポインタのセット
-	void SetCamera(Camera* pCamera) { m_pCamera = pCamera; }
+	void SetCamera(Camera* pCamera) { m_playerController->SetCamera(pCamera); }
 
 	// 敵のトランスフォームの取得
-	const Transform* GetEnemyTransform() { return m_enemyTransform; }
+	const Transform* GetEnemyTransform() { return m_playerController->GetEnemyTransform(); }
 
+	// 敵のトランスフォームの設定
 	void SetEnemyTransform(Transform* enemyTransform)
 	{
-		m_enemyTransform = enemyTransform;
+		m_playerController->SetEnemyTransform(enemyTransform);
 	}
 
 	// 内部実装

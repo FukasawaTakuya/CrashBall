@@ -18,8 +18,9 @@ using namespace DirectX;
  * @brief コンストラクタ
  * 
  */
-PlayerAttackState::PlayerAttackState()
-	: m_timer{ 0.0f }
+PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
+	: PlayerStateBase(stateContext)
+	, m_timer{ 0.0f }
 {
 }
 
@@ -37,14 +38,6 @@ PlayerAttackState::~PlayerAttackState()
  */
 void PlayerAttackState::Initialize()
 {
-	// 衝突検知時の処理の設定
-	m_owner->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other) 
-	{
-		// 敵のコライダーと衝突した場合、移動ステートに遷移
-		if (other->GetOwner()->GetTag() == ObjectTag::Enemy) {
-			m_pStateMachine->ChangeState<PlayerMoveState>();
-		}
-	});
 }
 
 /**
@@ -62,11 +55,15 @@ void PlayerAttackState::OnEnter()
  */
 void PlayerAttackState::Update()
 {
-	RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
-	Transform* transform = m_owner->GetComponent<Transform>();
+	// 物理演算
+	RigidBody* rigidbody = m_stateContext.rigitbody;
+	// トランスフォーム
+	Transform* transform = m_stateContext.transform;
+	// プレイヤー操作
+	PlayerController* playerController = m_stateContext.playerController;
 
 	SimpleMath::Vector3 attackDirection 
-		= m_owner->GetEnemyTransform()->GetPosition() - transform->GetPosition();
+		= playerController->GetEnemyTransform()->GetPosition() - transform->GetPosition();
 	attackDirection.Normalize();
 
 	rigidbody->SetVelocity(attackDirection * 30.0f);

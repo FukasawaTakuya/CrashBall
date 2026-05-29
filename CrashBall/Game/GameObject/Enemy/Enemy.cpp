@@ -21,13 +21,13 @@ using namespace DirectX;
  */
 Enemy::Enemy(float radius)
 	: Ball(radius, ObjectTag::Enemy)
-	, m_stateMachine{ std::make_unique<StateMachine<Enemy>>() }
+	, m_stateMachine{ std::make_unique<StateMachine<Enemy>>(this) }
 {
 	// ステートの生成
 	m_stateMachine->CreateState<EnemyWanderState>();
 
 	// ステートマシンの初期化
-	m_stateMachine->Initialeze(this);
+	//m_stateMachine->Initialeze(this);
 
 	// ステートの変更
 	m_stateMachine->ChangeState<EnemyWanderState>();

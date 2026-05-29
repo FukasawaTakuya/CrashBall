@@ -19,18 +19,8 @@
  */
 Player::Player(float radius)
 	: Ball(radius, ObjectTag::Player)
-	, m_stateMachine{ std::make_unique<StateMachine<Player>>() }
 {
-	// ステートの生成
-	m_stateMachine->CreateState<PlayerMoveState>();
-	m_stateMachine->CreateState<PlayerJumpState>();
-	m_stateMachine->CreateState<PlayerAttackState>();
-
-	// 初期化
-	m_stateMachine->Initialeze(this);
-
-	// 初期のステートのセット
-	m_stateMachine->ChangeState<PlayerMoveState>();
+	m_playerController = AddComponent<PlayerController>();
 }
 
 /**
@@ -49,17 +39,9 @@ void Player::Initialize()
  */
 void Player::Update(const GameContext& gameContext)
 {
-	// ステートマシンの更新
-	if (m_stateMachine != nullptr)
-		m_stateMachine->Update();
+	m_playerController->Update(gameContext);
 
 	Ball::Update(gameContext);
-
-	// 移動処理
-	//Ball::Move();
-
-	//// 回転
-	//m_transform->Rotate(m_angularVelocity);
 }
 
 /**

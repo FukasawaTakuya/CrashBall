@@ -10,5 +10,5 @@ Collider::Collider(
 	: Component(owner)
 	, m_type{ type }
 {
-	m_transform = m_owner->GetComponent<Transform>();
+	m_transform = GetGameObject()->GetComponent<Transform>();
 }

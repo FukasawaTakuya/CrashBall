@@ -8,11 +8,8 @@
 
 #include "pch.h"
 #include "PlayerMoveState.h"
-#include "PlayerJumpState.h"
 #include "PlayerAttackState.h"
 
-#include "Game/GameObject/Player/Player.h"
-#include "Game/Common/Camera.h"
 #include "Game/Engine/Input.h"
 
 using namespace DirectX;
@@ -21,7 +18,8 @@ using namespace DirectX;
  * \brief コンストラクタ.
  * 
  */
-PlayerMoveState::PlayerMoveState()
+PlayerMoveState::PlayerMoveState(const PlayerStateContext& stateContext)
+    : PlayerStateBase(stateContext)
 {
 }
 
@@ -56,10 +54,10 @@ void PlayerMoveState::OnEnter()
 void PlayerMoveState::Update()
 {
     // 物理演算コンポーネントの取得
-    RigidBody* rigidbody = m_owner->GetComponent<RigidBody>();
+    RigidBody* rigidbody = m_stateContext.rigitbody;
 
     // 地上にいる場合
-    if (m_owner->GetIsGround())
+    if (m_owner->GetGameObject()->GetComponent<BallController>()->GetIsGround())
     {
         if (Input::GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
@@ -79,7 +77,7 @@ void PlayerMoveState::Update()
     if (Input::GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
-        // TODO:面消費通知 PlayerComponent移行
+        // TODO:面消費通知 PlayerController移行
     }
 
     // 速度制限

@@ -142,8 +142,8 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
  */
 bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 {
-	Transform* transform1 = sphere1->GetOwner()->GetComponent<Transform>();
-	Transform* transform2 = sphere2->GetOwner()->GetComponent<Transform>();
+	Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
+	Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
 
 	// 座標の差
 	SimpleMath::Vector3 delta =
@@ -235,15 +235,14 @@ bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
  */
 void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
 {
-	Transform*	transform = sphere->GetOwner()->GetComponent<Transform>();
-	RigidBody*	rigidbody = sphere->GetOwner()->GetComponent<RigidBody>();
-	Sphere*		collider = sphere->GetOwner()->GetComponent<Sphere>();
+	Transform*	transform = sphere->GetGameObject()->GetComponent<Transform>();
+	RigidBody*	rigidbody = sphere->GetGameObject()->GetComponent<RigidBody>();
 
 	// 球と平面の距離を求める
 	float distance = plane->CalcLength(transform->GetPosition());
 
 	// 補正距離を求める
-	float overlap = collider->GetRadius() - distance;
+	float overlap = sphere->GetRadius() - distance;
 
 	// 補正方向
 	DirectX::SimpleMath::Vector3 direction = plane->GetNormal();
@@ -281,10 +280,10 @@ void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
 void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 {
 	// 各コンポーネントの取得
-	Transform* transform1 = sphere1->GetOwner()->GetComponent<Transform>();
-	Transform* transform2 = sphere2->GetOwner()->GetComponent<Transform>();
-	RigidBody* rigidbody1 = sphere1->GetOwner()->GetComponent<RigidBody>();
-	RigidBody* rigidbody2 = sphere2->GetOwner()->GetComponent<RigidBody>();
+	Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
+	Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
+	RigidBody* rigidbody1 = sphere1->GetGameObject()->GetComponent<RigidBody>();
+	RigidBody* rigidbody2 = sphere2->GetGameObject()->GetComponent<RigidBody>();
 
 	// 座標の差
 	SimpleMath::Vector3 delta = sphere1->GetPosition() - sphere2->GetPosition();

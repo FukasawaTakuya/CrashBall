@@ -26,13 +26,12 @@ private:
 	// エイリアス宣言
 	using StateCache = std::unordered_map<std::type_index, std::unique_ptr<StateBase<Owner>>>;
 
-
 	std::function<void()> m_changeStateCmd = []() {};		// ステート変更命令
 
 	Owner* m_owner = nullptr;								// オーナー
 
 	StateBase<Owner>* m_currentState = nullptr;				// 今のステート
-
+	
 	StateCache m_states;									// ステートのキャッシュ
 
 
@@ -41,7 +40,9 @@ private:
 public:
 
 	// コンストラクタ
-	StateMachine() = default;
+	StateMachine(Owner* owner)
+		: m_owner(owner) 
+	{}
 
 	// デストラクタ
 	~StateMachine() = default;
@@ -66,7 +67,7 @@ public:
 		{
 			state.second->SetOwner(owner);
 			state.second->SetStateMachine(this);
-			state.second->CallInitialize();
+			//state.second->CallInitialize();
 		}
 	}
 
@@ -123,8 +124,8 @@ public:
 	}
 
 	// ステートの生成
-	template<typename State>
-	void CreateState()
+	template<typename State, typename... Args>
+	void CreateState(Args&&... args)
 	{
 		// イテレータの取得
 		auto it = m_states.find(typeid(State));
@@ -133,11 +134,24 @@ public:
 		if (it != m_states.end()) return;
 
 		// ステートの生成
-		m_states.emplace(typeid(State), std::make_unique<State>());
+		std::unique_ptr<StateBase<Owner>> state = std::make_unique<State>(std::forward<Args>(args)...);
+
+		// オーナーを設定
+		state->SetOwner(m_owner);
+		// ステートマシンを設定
+		state->SetStateMachine(this);
+
+		m_states.emplace(typeid(State), std::move(state));
 	}
 
 	// 取得/設定
 public:
+
+	// 現在のステートの型情報を取得
+	std::type_index GetCurrentStateType()
+	{
+		return typeid(*m_currentState);
+	}
 
 	// 内部実装
 private:

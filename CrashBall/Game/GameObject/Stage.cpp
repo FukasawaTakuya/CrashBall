@@ -22,7 +22,7 @@ Stage::Stage()
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
 		{
 			// 衝突オブジェクトがプレイヤーの時の処理
-			if (other->GetOwner()->GetTag() == ObjectTag::Player)
+			if (other->GetGameObject()->GetTag() == ObjectTag::Player)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
@@ -30,7 +30,7 @@ Stage::Stage()
 				}
 			}
 			// 衝突オブジェクトが敵の時の処理
-			else if (other->GetOwner()->GetTag() == ObjectTag::Enemy)
+			else if (other->GetGameObject()->GetTag() == ObjectTag::Enemy)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{

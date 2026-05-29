@@ -21,7 +21,7 @@ private:
 
 	DirectX::SimpleMath::Quaternion m_angularVelocity;	// 角速度
 
-	bool m_isGround = false;						// 地上フラグ
+	bool m_isGround = false;							// 地上フラグ
 
 	Transform*		m_transform			= nullptr;		// トランスフォームのコンポーネント
 	RigidBody*		m_rigidbody			= nullptr;		// 物理演算のコンポーネント

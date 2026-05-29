@@ -8,14 +8,12 @@
 
 #pragma once
 
-#include "Game/State/StateBase.h"
-
-class Player;
+#include "PlayerStateBase.h"
 
 /**
  * @brief プレイヤー攻撃ステート
  */
-class  PlayerAttackState : public StateBase<Player>{
+class  PlayerAttackState : public PlayerStateBase{
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -32,7 +30,7 @@ private:
 public:
 
 	// コンストラクタ
-	PlayerAttackState();
+	PlayerAttackState(const PlayerStateContext& stateContext);
 
 	// デストラクタ
 	~PlayerAttackState();

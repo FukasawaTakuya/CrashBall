@@ -19,17 +19,17 @@ class  Component {
 public:
 
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
-	IGameObject* m_owner = nullptr;	// オーナー
+	IGameObject* m_gameObject = nullptr;	// オーナー
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Component(IGameObject* owner)
-		: m_owner(owner) {} ;
+	Component(IGameObject* gameObject)
+		: m_gameObject(gameObject) {} ;
 
 	// デストラクタ
 	virtual ~Component() = default;
@@ -41,12 +41,12 @@ public:
 public:
 
 	// オーナーの取得
-	IGameObject* GetOwner() { return m_owner; }
+	IGameObject* GetGameObject() { return m_gameObject; }
 
 	// オーナーの設定
-	void SetOwner(IGameObject* owner)
+	void SetGameObject(IGameObject* gameObject)
 	{
-		m_owner = owner;
+		m_gameObject = gameObject;
 	}
 
 	// 内部実装

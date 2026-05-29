@@ -22,9 +22,18 @@ GameScene::GameScene(ISceneController* pSceneManager)
 	: Scene(pSceneManager)
     , m_stage           (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(0.5f))
-    , m_collisionManager(std::make_unique<CollisionManager>())
 	, m_enemy           (std::make_unique<Enemy>(0.5f))
+    , m_collisionManager(std::make_unique<CollisionManager>())
 {
+    PlayerController* playerController = m_player->GetComponent<PlayerController>();
+    playerController->SetEnemyTransform(m_enemy->GetComponent<Transform>());
+    playerController->SetCamera(m_camera.get());
+
+    m_enemy->SetFloor(m_stage.get());
+
+    m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
+    m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
+    m_collisionManager->RegistCollider(m_enemy->GetComponent<Sphere>());
 }
 
 /**
@@ -42,18 +51,10 @@ GameScene::~GameScene()
  */
 void GameScene::Initialize()
 {
-    m_player->SetPosition(SimpleMath::Vector3::Up * 24.0f);
-    m_player->SetEnemyTransform(m_enemy->GetComponent<Transform>());
-    m_player->SetCamera(m_camera.get());
-
-	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
-	m_enemy->SetFloor(m_stage.get());
-
+    m_player->SetPosition(SimpleMath::Vector3::Up * 12.0f);
+	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 12.0f, 10.0f });
     m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
-
-    m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
-    m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
-	m_collisionManager->RegistCollider(m_enemy->GetComponent<Sphere>());
+    m_stage->Initialize();
 }
 
 
@@ -69,9 +70,7 @@ void GameScene::Update(const GameContext& gameContext)
     float elapsedTime = Time::GetElapsedTime();
 
     if (Input::GetKeyTrigger(Keyboard::R)) {
-        m_player->SetPosition(SimpleMath::Vector3::Up * 24.0f);
-        m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 10.0f, 10.0f });
-        m_stage->Initialize();
+        Initialize();
     }
     if (Input::GetKeyTrigger(Keyboard::F)) {
         playerFollow = !playerFollow;
@@ -90,12 +89,12 @@ void GameScene::Update(const GameContext& gameContext)
     if (Input::GetKeyDown(Keyboard::Left)) {
         m_camera->RotateX(XMConvertToRadians(-45.0f * elapsedTime));
     }
-    //if (Input::GetKeyDown(Keyboard::Up)) {
-    //    m_camera->RotateY(XMConvertToRadians(45.0f * elapsedTime));
-    //}
-    //if (Input::GetKeyDown(Keyboard::Down)) {
-    //    m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
-    //}
+    if (Input::GetKeyDown(Keyboard::Up)) {
+        m_camera->RotateY(XMConvertToRadians(45.0f * elapsedTime));
+    }
+    if (Input::GetKeyDown(Keyboard::Down)) {
+        m_camera->RotateY(XMConvertToRadians(-45.0f * elapsedTime));
+    }
 
     if (playerFollow) {
         m_camera->FollowCamera(m_player->GetComponent<Transform>()->GetPosition());
@@ -135,9 +134,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
     auto modelManager = resourceContext.m_pModelManager;
 
-    m_player->SetModel(modelManager->GetModel("ball"));
-    m_stage->SetModel(modelManager->GetModel("Stage"));
-	m_enemy->SetModel(modelManager->GetModel("ball"));
+    m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
+	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
 }
 
 void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)

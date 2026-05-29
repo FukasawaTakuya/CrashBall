@@ -60,7 +60,7 @@ void Camera::RotateX(float angle)
 	SimpleMath::Quaternion quaternion =
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angle);
 
-	// オフセット
+	// オフセットを回転
 	m_offset = XMVector3Rotate(m_offset, quaternion);
 
 	UpdataView();

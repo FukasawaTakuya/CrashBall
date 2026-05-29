@@ -70,8 +70,6 @@ public:
 
 	bool GetIsGround() const { return m_ballController->GetIsGround(); }
 
-	void SetModel(DirectX::Model* pModel) { m_renderer->SetModel(pModel); }
-
 	void SetPosition(DirectX::SimpleMath::Vector3 position);
 
 	// “à•”ŽÀ‘•

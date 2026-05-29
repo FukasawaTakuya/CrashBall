@@ -276,6 +276,18 @@
     <ClInclude Include="Game\Component\BallController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\PlayerController.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\StateContext.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateContext.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateBase.h">
+      <Filter>Game\State\PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -398,7 +410,12 @@
     <ClCompile Include="Game\Component\Transform.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\BallController.cpp" />
+    <ClCompile Include="Game\Component\BallController.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\PlayerController.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

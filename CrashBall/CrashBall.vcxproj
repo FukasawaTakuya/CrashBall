@@ -233,6 +233,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Component\PlayerController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\RigidBody.h" />
     <ClInclude Include="Game\Component\SpriteRenderer.h">
       <SubType>
@@ -357,7 +361,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\Player\PlayerStateContext.h" />
     <ClInclude Include="Game\State\StateBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\State\StateContext.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -386,6 +399,7 @@
     <ClCompile Include="Game\Component\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Collider\Triangle.cpp" />
     <ClCompile Include="Game\Component\ModelRenderer.cpp" />
+    <ClCompile Include="Game\Component\PlayerController.cpp" />
     <ClCompile Include="Game\Component\RigidBody.cpp" />
     <ClCompile Include="Game\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Transform.cpp" />

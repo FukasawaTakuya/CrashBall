@@ -26,12 +26,13 @@ Ball::Ball(float radius, ObjectTag tag)
 	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 
 	// スケールの設定
+	// TODO:コライダーがスケールを参照するのでどっちも直す
 	m_transform->SetScale(0.025f);
 
 	// 衝突中の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
-			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
+			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
 			{
 				m_ballController->SetIsGround(true);
 			}
@@ -40,7 +41,7 @@ Ball::Ball(float radius, ObjectTag tag)
 	// 衝突終了時の処理の登録
 	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
 		{
-			if (other->GetOwner()->GetTag() == ObjectTag::Stage)
+			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
 			{
 				m_ballController->SetIsGround(false);
 			}
@@ -87,6 +88,6 @@ void Ball::Finalize()
 
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)
 {
-	m_transform->SetPosition(position);
-	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+	GetComponent<Transform>()->SetPosition(position);
+	GetComponent<RigidBody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
