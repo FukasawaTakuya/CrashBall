@@ -84,6 +84,9 @@ void StageController::Update(const GameContext& gameContext)
 			{
 				return XMVector4Equal(floorMeshColor.second, ENEMY_COLOR);
 			});
+
+	m_normalMeshCount
+		= m_floorMesh.size() - m_playerMeshCount - m_enemyMeshCount;
 }
 
 void StageController::Render(const RenderContext& renderContext)

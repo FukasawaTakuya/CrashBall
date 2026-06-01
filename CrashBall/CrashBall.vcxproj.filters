@@ -303,6 +303,9 @@
     <ClInclude Include="Game\Component\Default\Transform.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\IFloorMeshGetter.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -2,6 +2,7 @@
 
 #include "Default/Component.h"
 #include "IWallMeshGetter.h"
+#include "IFloorMeshGetter.h"
 
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/ModelRenderer.h"
@@ -12,7 +13,11 @@
 /**
  * \brief ステージ操作コンポーネント
  */
-class  StageController : public Component, public IWallMeshGetter {
+class  StageController : 
+	public Component, 
+	public IWallMeshGetter,
+	public IFloorMeshGetter
+{
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -33,9 +38,11 @@ private:
 
 	std::unordered_map<Triangle*, XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
 
-	int m_playerMeshCount = 0;	// プレイヤーの面の数
+	int m_playerMeshCount = 0;	// プレイヤーが塗った面の数
 
-	int m_enemyMeshCount = 0;	// 敵の面の数
+	int m_enemyMeshCount = 0;	// 敵が塗ったの面の数
+
+	int m_normalMeshCount = 0;	// 何も塗られていない面の数
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -70,6 +77,24 @@ public:
 	const std::vector<Triangle*>& GetWallMesh() const override
 	{
 		return m_wallMesh;
+	}
+
+	// プレイヤーが塗った面の数の取得
+	int GetPlayerMeshCount() const override
+	{
+		return m_playerMeshCount;
+	}
+
+	// 敵が塗ったの面の数の取得
+	int GetEnemyMeshCount() const override
+	{
+		return m_enemyMeshCount;
+	}
+
+	// 何も塗られていない面の数の取得
+	int GetNormalMeshCount() const override
+	{
+		return m_normalMeshCount;
 	}
 
 	// 内部実装

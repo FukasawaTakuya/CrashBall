@@ -1,19 +1,17 @@
 /*****************************************************************//**
- * \file   IWallMeshGetter.h
- * \brief  壁メッシュ取得クラスのインターフェース
+ * \file   IFloorMeshGetter.h
+ * \brief  床メッシュ取得クラスのインターフェース
  * 
  * \author 深沢拓矢
  * \date   June 2026
  *********************************************************************/
 
 #pragma once
-#include <vector>
-#include "Default/Collider/Triangle.h"
 
 /**
- * @brief 壁メッシュ取得クラスのインターフェース
+ * \brief 床メッシュ取得クラスのインターフェース
  */
-class  IWallMeshGetter {
+class  IFloorMeshGetter {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -21,15 +19,17 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	IWallMeshGetter() = default;
+	IFloorMeshGetter() = default;
 
 	// デストラクタ
-	~IWallMeshGetter() = default;
+	~IFloorMeshGetter() = default;
 
 	// 操作
 public:
@@ -37,8 +37,14 @@ public:
 	// 取得/設定
 public:
 
-	// 壁メッシュの取得
-	virtual const std::vector<Triangle*>& GetWallMesh() const = 0;
+	// プレイヤーが塗った面の数の取得
+	virtual int GetPlayerMeshCount() const = 0;
+
+	// 敵が塗ったの面の数の取得
+	virtual int GetEnemyMeshCount() const = 0;
+
+	// 何も塗られていない面の数の取得
+	virtual int GetNormalMeshCount() const = 0;
 
 	// 内部実装
 private:
