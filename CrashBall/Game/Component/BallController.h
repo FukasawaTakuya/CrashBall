@@ -6,7 +6,8 @@
 #include "Game/Component/RigidBody.h"
 #include "Game/Component/Transform.h"
 #include "Game/Component/ModelRenderer.h"
-#include <Game/Context/GameContext.h>
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
 
 /**
  * \brief ボール操作クラス
@@ -14,7 +15,7 @@
 class  BallController : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
+private:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -33,7 +34,7 @@ private:
 public:
 
 	// コンストラクタ
-	BallController(IGameObject* owner);
+	BallController(IGameObject* gameObject);
 
 	// デストラクタ
 	~BallController();
@@ -41,9 +42,17 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	void Initialize();
 
-	void Update(GameContext gameContext);
+	// 更新
+	void Update(const GameContext& gameContext);
+
+	// 描画
+	void Render(const RenderContext& renderContext);
+
+	// 終了処理
+	void Finalize();
 
 	// 移動
 	void Move();
@@ -59,10 +68,8 @@ public:
 
 	bool GetIsGround() const { return m_isGround; }
 
-	void SetIsGround(bool flag) { m_isGround = flag; }
-
-
 	// 内部実装
 private:
 
+	void SetIsGround(bool flag) { m_isGround = flag; }
 };

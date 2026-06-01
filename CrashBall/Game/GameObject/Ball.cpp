@@ -16,45 +16,22 @@ Ball::Ball(float radius, ObjectTag tag)
 	: GameObject(tag)
 {
 	// コンポーネントの追加
-	m_transform		 = AddComponent<Transform>();
-	m_rigidbody		 = AddComponent<RigidBody>(GRAVITY, FRICTION);
-	m_sphereCollider = AddComponent<Sphere>(radius);
-	m_renderer		 = AddComponent<ModelRenderer>();
+	AddComponent<Transform>();
+	AddComponent<RigidBody>(GRAVITY, FRICTION);
+	AddComponent<Sphere>(radius);
+	AddComponent<ModelRenderer>();
+
+	// ボール操作のキャッシュ
 	m_ballController = AddComponent<BallController>();
-
-	// レイヤーマスクの設定
-	m_sphereCollider->SetLayerMask(LayerMask::Ball);
-
-	// スケールの設定
-	// TODO:コライダーがスケールを参照するのでどっちも直す
-	m_transform->SetScale(0.025f);
-
-	// 衝突中の処理の登録
-	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
-		{
-			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
-			{
-				m_ballController->SetIsGround(true);
-			}
-		});
-
-	// 衝突終了時の処理の登録
-	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
-		{
-			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
-			{
-				m_ballController->SetIsGround(false);
-			}
-		});
 }
 
 /**
  * \brief 初期化
  * 
- * \param position 初期位置
  */
 void Ball::Initialize()
 {
+	m_ballController->Initialize();
 }
 
 void Ball::Update(const GameContext& gameContext)
@@ -68,22 +45,17 @@ void Ball::Update(const GameContext& gameContext)
  */
 void Ball::Render(const RenderContext& renderContext)
 {
-	// 描画管理クラスのインターフェース
-	IModelRendererManager* rendererManager
-		= renderContext.m_pModelRendererManager;
-
-	// 描画
-	m_renderer->Render(rendererManager, m_transform->GetWorld());
+	m_ballController->Render(renderContext);
 }
 
 
 /**
  * \brief 終了処理
  * 
- * \param RenderContext
  */
 void Ball::Finalize()
 {
+	m_ballController->Finalize();
 }
 
 void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)

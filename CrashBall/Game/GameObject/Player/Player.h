@@ -25,7 +25,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	PlayerController* m_playerController;
+	PlayerController* m_playerController;	// プレイヤー操作
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

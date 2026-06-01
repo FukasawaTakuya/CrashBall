@@ -45,18 +45,6 @@ void Enemy::Initialize()
  */
 void Enemy::Update(const GameContext& gameContext)
 {
-	//if (m_stateMachine != nullptr)
-	//	m_stateMachine->Update();
-
-	//// 地上にいるとき
-	//if (GetIsGround())
-	//{
-	//	// 壁回避処理
-	//	AvoidWall();
-	//	// 進行方向を徐々に変える
-	//	m_rigidbody->Accel(m_accelDirection * ACCELERATINON);
-	//}
-
 	m_enemyController->Update(gameContext);
 
 	// 移動と回転

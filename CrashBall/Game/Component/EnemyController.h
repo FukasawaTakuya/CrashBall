@@ -62,7 +62,6 @@ public:
 	// ステージのポインタの設定
 	void SetFloor(Stage* pFloor) { m_pStage = pFloor; }
 
-
 	// 内部実装
 private:
 

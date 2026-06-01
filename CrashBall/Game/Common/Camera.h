@@ -72,24 +72,24 @@ public:
 public:
 
 	// 注視点の取得
-	DirectX::SimpleMath::Vector3 GetTarget();
+	DirectX::SimpleMath::Vector3 GetTarget() const;
 
 	// 視点の取得
-	DirectX::SimpleMath::Vector3 GetEye();
+	DirectX::SimpleMath::Vector3 GetEye() const;
 
 	// Rayの取得
-	DirectX::SimpleMath::Vector3 GetRay(float x, float y);
+	DirectX::SimpleMath::Vector3 GetRay(float x, float y) const;
 
 	// ビュー行列の取得
-	DirectX::SimpleMath::Matrix GetViewMat();
+	DirectX::SimpleMath::Matrix GetViewMat() const;
 
 	// 射影行列の取得
-	DirectX::SimpleMath::Matrix GetProjMat();
+	DirectX::SimpleMath::Matrix GetProjMat() const;
 
 	// 前方向(XZ平面)のベクトルの取得
-	DirectX::SimpleMath::Vector3 GetForward();
+	DirectX::SimpleMath::Vector3 GetForward() const;
 
-	DirectX::SimpleMath::Vector3 GetRight();
+	DirectX::SimpleMath::Vector3 GetRight() const;
 
 
 	// 注視点のセット

@@ -8,10 +8,12 @@ PlayerController::PlayerController(IGameObject* owner)
 	: Component(owner)
 	, m_stateMachine{ std::make_unique<StateMachine<PlayerController>>(this) }
 {
-	PlayerStateContext stateContext =
+	// プレイヤーステート用のコンテキスト
+	PlayerStateContext stateContext
 	{
 		GetGameObject()->GetComponent<RigidBody>(),
 		GetGameObject()->GetComponent<Transform>(),
+		GetGameObject()->GetComponent<BallController>(),
 		this
 	};
 

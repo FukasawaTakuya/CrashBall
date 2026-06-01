@@ -29,16 +29,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	DirectX::SimpleMath::Quaternion m_angularVelocity;	// 角速度
-
-	bool m_isGround = false;						// 地上フラグ
-
-	RigidBody*		m_rigidbody		 = nullptr;		// 物理演算のコンポーネント
-	Transform*		m_transform		 = nullptr;		// トランスフォームのコンポーネント
-	Sphere*			m_sphereCollider = nullptr;		// 球のコライダーのコンポーネント
-	ModelRenderer*	m_renderer		 = nullptr;		// モデル描画のコンポーネント
-
-	BallController* m_ballController;
+	BallController* m_ballController;	// ボール操作
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

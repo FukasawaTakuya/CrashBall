@@ -126,7 +126,7 @@ void Camera::FollowCamera(DirectX::SimpleMath::Vector3 pos)
  * 
  * \return 視点
  */
-DirectX::SimpleMath::Vector3 Camera::GetEye()
+DirectX::SimpleMath::Vector3 Camera::GetEye() const
 {
 	return m_eye;
 }
@@ -136,7 +136,7 @@ DirectX::SimpleMath::Vector3 Camera::GetEye()
  * 
  * \return 注視点
  */
-DirectX::SimpleMath::Vector3 Camera::GetTarget()
+DirectX::SimpleMath::Vector3 Camera::GetTarget() const
 {
 	return m_target;
 }
@@ -148,7 +148,7 @@ DirectX::SimpleMath::Vector3 Camera::GetTarget()
  * \param y	マウスのy座標
  * \return 
  */
-DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y)
+DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y) const
 {
 	SimpleMath::Vector3 nearPos
 		= XMVector3Unproject(
@@ -177,22 +177,22 @@ DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y)
  * 
  * \return ビュー行列
  */
-DirectX::SimpleMath::Matrix Camera::GetViewMat()
+DirectX::SimpleMath::Matrix Camera::GetViewMat() const
 {
 	return m_viewMat;
 }
 
 /**
  * \brief 射影行列の取得
- * 
+ *
  * \return 射影行列
  */
-DirectX::SimpleMath::Matrix Camera::GetProjMat()
+DirectX::SimpleMath::Matrix Camera::GetProjMat() const
 {
 	return m_projMat;
 }
 
-DirectX::SimpleMath::Vector3 Camera::GetForward()
+DirectX::SimpleMath::Vector3 Camera::GetForward() const
 {
 	// 水平方向の前方ベクトル
 	SimpleMath::Vector3 forward{ m_forward.x, 0.0f, m_forward.z };
@@ -201,7 +201,7 @@ DirectX::SimpleMath::Vector3 Camera::GetForward()
 	return forward;
 }
 
-DirectX::SimpleMath::Vector3 Camera::GetRight()
+DirectX::SimpleMath::Vector3 Camera::GetRight() const
 {
 	// 水平方向の右ベクトル
 	SimpleMath::Vector3 right{ m_right.x, 0.0f, m_right.z };

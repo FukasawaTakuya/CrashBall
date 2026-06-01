@@ -2,12 +2,38 @@
 #include "BallController.h"
 #include "Game/Engine/Time.h"
 
-BallController::BallController(IGameObject* owner)
-	: Component(owner)
+BallController::BallController(IGameObject* gameObject)
+	: Component(gameObject)
 {
+	// コンポーネントのキャッシュ
 	m_transform			= GetGameObject()->GetComponent<Transform>();
 	m_rigidbody			= GetGameObject()->GetComponent<RigidBody>();
 	m_sphereCollider	= GetGameObject()->GetComponent<Sphere>();
+	m_renderer			= GetGameObject()->GetComponent<ModelRenderer>();
+
+	// レイヤーマスクの設定
+	m_sphereCollider->SetLayerMask(LayerMask::Ball);
+
+	// スケールの設定
+	m_transform->SetScale(0.025f);
+
+	// 衝突中の処理の登録
+	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
+		{
+			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
+			{
+				SetIsGround(true);
+			}
+		});
+
+	// 衝突終了時の処理の登録
+	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
+		{
+			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
+			{
+				SetIsGround(false);
+			}
+		});
 }
 
 BallController::~BallController()
@@ -18,7 +44,7 @@ void BallController::Initialize()
 {
 }
 
-void BallController::Update(GameContext gameContext)
+void BallController::Update(const GameContext& gameContext)
 {
 	// 移動
 	Move();
@@ -31,6 +57,20 @@ void BallController::Update(GameContext gameContext)
 
 	// 回転
 	Rotate();
+}
+
+void BallController::Render(const RenderContext& renderContext)
+{
+	// 描画管理クラスのインターフェース
+	IModelRendererManager* rendererManager
+		= renderContext.m_pModelRendererManager;
+
+	// 描画
+	m_renderer->Render(rendererManager, m_transform->GetWorld());
+}
+
+void BallController::Finalize()
+{
 }
 
 void BallController::Move()

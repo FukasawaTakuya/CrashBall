@@ -55,21 +55,23 @@ void PlayerMoveState::Update()
 {
     // 物理演算コンポーネントの取得
     RigidBody* rigidbody = m_stateContext.rigitbody;
+    // プレイヤー操作コンポーネントの取得
+    PlayerController* playerController = m_stateContext.playerController;
 
     // 地上にいる場合
-    if (m_owner->GetGameObject()->GetComponent<BallController>()->GetIsGround())
+    if (m_stateContext.ballController->GetIsGround())
     {
         if (Input::GetKeyDown(Keyboard::D)) {
-            rigidbody->Accel( m_owner->GetCamera()->GetRight()   * ACCELERATION);
+            rigidbody->Accel( playerController->GetCamera()->GetRight()   * ACCELERATION);
         }
         if (Input::GetKeyDown(Keyboard::A)) {
-            rigidbody->Accel(-m_owner->GetCamera()->GetRight()   * ACCELERATION);
+            rigidbody->Accel(-playerController->GetCamera()->GetRight()   * ACCELERATION);
         }
         if (Input::GetKeyDown(Keyboard::W)) {
-            rigidbody->Accel( m_owner->GetCamera()->GetForward() * ACCELERATION);
+            rigidbody->Accel( playerController->GetCamera()->GetForward() * ACCELERATION);
         }
         if (Input::GetKeyDown(Keyboard::S)) {
-            rigidbody->Accel(-m_owner->GetCamera()->GetForward() * ACCELERATION);
+            rigidbody->Accel(-playerController->GetCamera()->GetForward() * ACCELERATION);
         }
     }
 
@@ -77,7 +79,7 @@ void PlayerMoveState::Update()
     if (Input::GetKeyTrigger(DirectX::Keyboard::Space))
     {
 		m_pStateMachine->ChangeState<PlayerAttackState>();
-        // TODO:面消費通知 PlayerController移行
+        // TODO:面消費通知 
     }
 
     // 速度制限

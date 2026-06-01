@@ -4,6 +4,7 @@
 #include "Game/Component/Collider/Mesh.h"
 #include "Game/Component/ModelRenderer.h"
 #include "Game/Component/Transform.h"
+#include "Game/Component/StageController.h"
 
 
 /**
@@ -12,26 +13,12 @@
 class  Stage : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	const float SCALE = 15.0f;	// スケール
+private:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// コンポーネントのキャッシュ
-	Transform*		m_transform		= nullptr;
-	Mesh*			m_meshCollider	= nullptr;
-	ModelRenderer*	m_renderer		= nullptr;
-
-	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
-	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
-
-	std::unordered_map<Triangle*, XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
-
-	int m_playerMeshCount = 0;
-
-	int m_enemyMeshCount = 0;
+	StageController* m_stageController;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -61,27 +48,7 @@ public:
 	// 取得/設定
 public:
 
-	// 床メッシュの取得
-	const std::vector<Triangle*>& GetFloorMesh()
-	{
-		return m_floorMesh;
-	}
-
-	// 壁メッシュの取得
-	const std::vector<Triangle*>& GetWallMesh()
-	{
-		return m_wallMesh;
-	}
-
-	// モデルのセット
-	void SetModel(DirectX::Model* pModel) {
-		m_renderer->SetModel(pModel);
-	}
-
 	// 内部実装
 private:
-
-	// 面に色を塗る
-	void PaintFace(Triangle* face, const XMVECTORF32& color);
 
 };

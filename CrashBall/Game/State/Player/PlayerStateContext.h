@@ -8,5 +8,6 @@ struct PlayerStateContext
 {
 	RigidBody* rigitbody;
 	Transform* transform;
+	BallController* ballController;
 	PlayerController* playerController;
 };

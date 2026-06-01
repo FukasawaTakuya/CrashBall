@@ -25,7 +25,7 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	EnemyController* m_enemyController = nullptr;
+	EnemyController* m_enemyController;	// 敵操作
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
