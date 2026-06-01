@@ -14,7 +14,7 @@
 class Enemy;
 
 /**
- * @brief 敵徘徊ステート
+ * \brief 敵徘徊ステート
  */
 class  EnemyWanderState : public EnemyStateBase {
 

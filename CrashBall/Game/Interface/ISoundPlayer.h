@@ -11,7 +11,7 @@
 #include <string>
 
 /**
- * @brief 音声再生クラスのインターフェース
+ * \brief 音声再生クラスのインターフェース
  */
 class  ISoundPlayer {
 

@@ -7,7 +7,7 @@
 
 
 /**
- * @brief プレイヤー操作クラス
+ * \brief プレイヤー操作クラス
  */
 class  PlayerController : public Component {
 

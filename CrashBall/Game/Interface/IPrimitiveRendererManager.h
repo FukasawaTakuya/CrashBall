@@ -20,7 +20,7 @@ struct PrimitiveRenderCommand
 
 
 /**
- * @brief プリミティブ描画管理クラスのインターフェース
+ * \brief プリミティブ描画管理クラスのインターフェース
  */
 class  IPrimitiveRendererManager {
 

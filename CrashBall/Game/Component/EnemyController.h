@@ -7,7 +7,7 @@
 
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class  EnemyController : public Component{
 

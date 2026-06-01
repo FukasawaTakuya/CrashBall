@@ -18,10 +18,11 @@ enum class ColliderType
 	None = -1,
 	Sphere,
 	Mesh,
+	TypeCount,
 };
 
 // タイプ数
-constexpr int TYPE_COUNT = 2;
+constexpr int TYPE_COUNT = static_cast<int>(ColliderType::TypeCount);
 
 /**
  * \brief 基底コライダー

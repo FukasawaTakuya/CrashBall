@@ -17,7 +17,7 @@
 #include "Game/Context/RenderContext.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class GameObject : public IGameObject {
 

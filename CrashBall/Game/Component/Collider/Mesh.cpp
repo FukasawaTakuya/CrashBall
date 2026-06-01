@@ -6,7 +6,7 @@
 using namespace nlohmann;
 
 /**
- * コンストラクタ
+ * \brief コンストラクタ
  * 
  */
 Mesh::Mesh(IGameObject* owner)
@@ -15,13 +15,15 @@ Mesh::Mesh(IGameObject* owner)
 }
 
 /**
- * データの読み込み
+ * \brief データの読み込み
  * 
  * \param filename データのファイル名
  */
-void Mesh::LoadJson(const wchar_t* fileName, float scale)
+void Mesh::LoadJson(const wchar_t* fileName)
 {
 	std::ifstream ifs(fileName);
+
+	float scale = m_transform->GetScale();
 
 	if (!ifs.is_open()) {
 		return;

@@ -14,9 +14,8 @@
 
 class Stage;
 
-
 /**
- * @brief 敵クラス
+ * \brief 敵クラス
  */
 class  Enemy : public Ball 
 {

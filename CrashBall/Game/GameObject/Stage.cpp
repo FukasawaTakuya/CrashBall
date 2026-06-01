@@ -15,6 +15,12 @@ Stage::Stage()
 	m_meshCollider	= AddComponent<Mesh>();
 	m_renderer		= AddComponent<ModelRenderer>();
 
+	// 
+	m_transform->SetScale(SCALE);
+
+	// コライダーデータの読み込み
+	m_meshCollider->LoadJson(L"Resources/Models/Stage.json");
+
 	// レイヤーマスクの設定
 	m_meshCollider->SetLayerMask(LayerMask::Ground);
 
@@ -38,10 +44,6 @@ Stage::Stage()
 				}
 			}
 		});
-
-	
-	// コライダーデータの読み込み
-	m_meshCollider->LoadJson(L"Resources/Models/Stage.json", SCALE);
 
 	for (auto& face : m_meshCollider->GetFace())
 	{

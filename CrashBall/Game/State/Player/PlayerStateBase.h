@@ -5,7 +5,7 @@
 #include "PlayerStateContext.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class  PlayerStateBase : public StateBase<PlayerController>{
 

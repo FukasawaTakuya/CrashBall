@@ -6,7 +6,7 @@
 #include "Sphere.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class Mesh
 	: public Collider
@@ -37,7 +37,7 @@ public:
 	void DrawCollider() override {}
 
 	// データの読み込み
-	void LoadJson(const wchar_t* fileName, float scale = 1.0f);
+	void LoadJson(const wchar_t* fileName);
 
 	// 取得/設定
 public:

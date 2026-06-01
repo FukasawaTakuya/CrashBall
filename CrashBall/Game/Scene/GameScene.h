@@ -17,7 +17,7 @@
 #include "Game/CollisionManager/CollisionManager.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class  GameScene : public Scene{
 

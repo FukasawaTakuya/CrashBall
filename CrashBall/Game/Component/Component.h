@@ -11,7 +11,7 @@
 #include "Game/GameObject/IGameObject.h"
 
 /**
- * @brief 基底コンポーネント
+ * \brief 基底コンポーネント
  */
 class  Component {
 

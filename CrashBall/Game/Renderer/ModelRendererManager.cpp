@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "ModelRendererManager.h"
-#include "Game/Common/CommonResources.h"
 
 using namespace DirectX;
 

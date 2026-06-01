@@ -12,7 +12,7 @@
 #include "pch.h"
 
 /**
- * @brief ステートマシン
+ * \brief ステートマシン
  */
 template <typename Owner>
 class  StateMachine {

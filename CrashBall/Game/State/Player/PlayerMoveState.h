@@ -13,7 +13,7 @@
 class Player;
 
 /**
- * @brief プレイヤー移動ステート
+ * \brief プレイヤー移動ステート
  */
 class  PlayerMoveState : public PlayerStateBase {
 

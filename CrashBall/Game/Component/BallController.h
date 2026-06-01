@@ -9,7 +9,7 @@
 #include <Game/Context/GameContext.h>
 
 /**
- * @brief ボール操作クラス
+ * \brief ボール操作クラス
  */
 class  BallController : public Component {
 

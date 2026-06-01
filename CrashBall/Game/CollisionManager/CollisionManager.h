@@ -14,7 +14,7 @@
 
 
  /**
- * @brief 衝突管理クラス
+ * \brief 衝突管理クラス
  */
 class  CollisionManager {
 

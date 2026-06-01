@@ -15,7 +15,7 @@
 using namespace DirectX;
 
 /**
- * @brief コンストラクタ
+ * \brief コンストラクタ
  * 
  */
 EnemyWanderState::EnemyWanderState(const EnemyStateContext& stateContext)
@@ -24,7 +24,7 @@ EnemyWanderState::EnemyWanderState(const EnemyStateContext& stateContext)
 }
 
 /**
- * @brief デストラクタ
+ * \brief デストラクタ
  * 
  */
 EnemyWanderState::~EnemyWanderState()
@@ -40,7 +40,7 @@ void EnemyWanderState::Initialize()
 }
 
 /**
- * @brief 開始処理
+ * \brief 開始処理
  * 
  */
 void EnemyWanderState::OnEnter()
@@ -49,7 +49,7 @@ void EnemyWanderState::OnEnter()
 }
 
 /**
- * @brief 更新処理
+ * \brief 更新処理
  * 
  */
 void EnemyWanderState::Update()
@@ -98,7 +98,7 @@ void EnemyWanderState::Update()
 }
 
 /**
- * @brief 終了処理
+ * \brief 終了処理
  * 
  */
 void EnemyWanderState::OnExit()

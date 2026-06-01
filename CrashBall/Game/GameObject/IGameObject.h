@@ -12,7 +12,7 @@ enum class ObjectTag
 class Component;
 
 /**
- * @brief 基底オブジェクトのインターフェース
+ * \brief 基底オブジェクトのインターフェース
  */
 class  IGameObject {
 

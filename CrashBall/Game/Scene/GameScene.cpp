@@ -14,15 +14,15 @@
 using namespace DirectX;
 
 /**
- * @brief コンストラクタ
+ * \brief コンストラクタ
  * 
  * \param pSceneManager シーンマネージャー
  */
 GameScene::GameScene(ISceneController* pSceneManager)
 	: Scene(pSceneManager)
     , m_stage           (std::make_unique<Stage>())
-    , m_player          (std::make_unique<Player>(0.5f))
-	, m_enemy           (std::make_unique<Enemy>(0.5f))
+    , m_player          (std::make_unique<Player>(20.0f))
+	, m_enemy           (std::make_unique<Enemy>(20.0f))
     , m_collisionManager(std::make_unique<CollisionManager>())
 {
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
@@ -37,7 +37,7 @@ GameScene::GameScene(ISceneController* pSceneManager)
 }
 
 /**
- * @brief デストラクタ
+ * \brief デストラクタ
  * 
  */
 GameScene::~GameScene()
@@ -45,7 +45,7 @@ GameScene::~GameScene()
 }
 
 /**
- * @brief 初期化
+ * \brief 初期化
  * 
  * \param projMat 射影行列
  */
@@ -60,7 +60,7 @@ void GameScene::Initialize()
 
 bool playerFollow = true;
 /**
- * @brief 更新.
+ * \brief 更新.
  * 
  * \param 
  */
@@ -114,11 +114,12 @@ void GameScene::Draw(const RenderContext& renderContext)
     m_stage->Render(renderContext);
     m_player->Render(renderContext);
 	m_enemy->Render(renderContext);
+
 }
 
 
 /**
- * @brief 終了処理.
+ * \brief 終了処理.
  * 
  */
 void GameScene::Finalize()

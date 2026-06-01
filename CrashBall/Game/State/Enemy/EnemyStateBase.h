@@ -5,7 +5,7 @@
 #include "EnemyStateContext.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class  EnemyStateBase : public StateBase<EnemyController>{
 

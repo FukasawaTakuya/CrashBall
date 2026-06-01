@@ -11,7 +11,7 @@
 #include "PlayerStateBase.h"
 
 /**
- * @brief プレイヤー攻撃ステート
+ * \brief プレイヤー攻撃ステート
  */
 class  PlayerAttackState : public PlayerStateBase{
 

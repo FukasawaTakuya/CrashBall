@@ -246,14 +246,14 @@ void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
 
 	// 補正方向
 	DirectX::SimpleMath::Vector3 direction = plane->GetNormal();
-
+	// 位置の補正
 	transform->Translate(direction * overlap);
 
 	// 法線ベクトル
 	SimpleMath::Vector3 vn = rigidbody->GetVelocity().Dot(direction) * direction;
 	// 接線ベクトル
 	SimpleMath::Vector3 vt = rigidbody->GetVelocity() - vn;
-
+	// 速度の補正
 	rigidbody->SetVelocity(vt);
 }
 
@@ -375,28 +375,4 @@ DirectX::SimpleMath::Vector3 CalcIntersection(
 		= segment->GetPos() + direction * length;
 
 	return intersection;
-}
-
-DirectX::SimpleMath::Vector4 ConvertVector4(DirectX::SimpleMath::Vector3 v3)
-{
-
-	SimpleMath::Vector4 v4;
-
-	v4.x = v3.x;
-	v4.y = v3.y;
-	v4.z = v3.z;
-	v4.w = 1.0f;
-
-	return v4;
-}
-
-DirectX::SimpleMath::Vector3 ConvertVector3(DirectX::SimpleMath::Vector4 v4)
-{
-	SimpleMath::Vector3 v3;
-
-	v3.x = v4.x;
-	v3.y = v4.y;
-	v3.z = v4.z;
-
-	return v3;
 }

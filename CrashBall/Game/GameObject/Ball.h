@@ -16,7 +16,7 @@
 #include "Game/Component/BallController.h"
 
  /**
- * @brief ボールクラス
+ * \brief ボールクラス
  */
 class Ball : public GameObject {
 

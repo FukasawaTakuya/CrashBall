@@ -20,7 +20,7 @@ struct ModelRenderCommand
 
 
 /**
- * @brief モデル描画管理クラスのインターフェース
+ * \brief モデル描画管理クラスのインターフェース
  */
 class  IModelRendererManager {
 

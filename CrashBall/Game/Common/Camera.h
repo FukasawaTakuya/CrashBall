@@ -10,12 +10,12 @@
 
 
  /**
- * @brief カメラクラス
+ * \brief カメラクラス
  */
 class  Camera {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
+private:
 
 	static constexpr int WIDTH = 1280;
 
@@ -27,7 +27,7 @@ public:
 
 
 	// データメンバの宣言 -----------------------------------------------
-private:
+protected:
 
 	DirectX::SimpleMath::Vector3 m_eye;				// 視点
 	DirectX::SimpleMath::Vector3 m_target;			// 注視点

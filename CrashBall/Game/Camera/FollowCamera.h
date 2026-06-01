@@ -1,10 +1,12 @@
 #pragma once
-#include <Audio.h>
+
+#include "Game/Common/Camera.h"
+#include "Game/Component/Transform.h"
 
 /**
- * \brief サウンド管理クラスのインターフェース
+ * \brief 追従カメラ
  */
-class  ISoundManager {
+class  FollowCamera : public Camera{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -12,28 +14,29 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	Transform* m_followTransfrom;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ISoundManager() = default;
+	FollowCamera() = default;
 
 	// デストラクタ
-	~ISoundManager() = default;
+	~FollowCamera() = default;
 
 	// 操作
 public:
 
+	// カメラのX軸回転
+	//void RotateX(float angle);
+
+
 	// 取得/設定
 public:
 
-	// BGMの取得
-	virtual DirectX::SoundEffect* GetBgmSound(const std::string key) = 0;
-
-	// SEの取得
-	virtual DirectX::SoundEffect* GetSeSound(const std::string key) = 0;
+	//void SetFollowTransfrom(Transform* transform);
 
 	// 内部実装
 private:

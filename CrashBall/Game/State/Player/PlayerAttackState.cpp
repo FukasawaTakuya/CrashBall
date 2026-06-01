@@ -15,7 +15,7 @@
 using namespace DirectX;
 
 /**
- * @brief コンストラクタ
+ * \brief コンストラクタ
  * 
  */
 PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
@@ -25,7 +25,7 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 }
 
 /**
- * @brief デストラクタ
+ * \brief デストラクタ
  * 
  */
 PlayerAttackState::~PlayerAttackState()

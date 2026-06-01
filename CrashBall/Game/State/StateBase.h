@@ -14,7 +14,7 @@ template <typename Owner>
 class StateMachine;
 
 /**
- * @brief 基底ステート
+ * \brief 基底ステート
  */
 template <typename Owner>
 class  StateBase {

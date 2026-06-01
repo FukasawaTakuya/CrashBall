@@ -66,10 +66,8 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
     // ファクトリーに作成するリソースを登録
-    m_modelManager->RegisterFactory("ball", L"Resources/Models/Ball.sdkmesh");
+    m_modelManager->RegisterFactory("ball", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
-    m_spriteManager->RegisterFactory("test", L"Resources/Sprite/robot.dds");
-    m_soundManager->RegisterFactory("test", L"Resources/Sound/ks043.wav");
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());

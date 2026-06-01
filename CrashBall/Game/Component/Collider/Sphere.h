@@ -3,7 +3,7 @@
 #include "Game/Component/Collider.h"
 
 /**
- * @brief 基底オブジェクト
+ * \brief 基底オブジェクト
  */
 class Sphere
 	: public Collider
@@ -34,7 +34,7 @@ public:
 	DirectX::SimpleMath::Vector3 GetPosition() const { return m_transform->GetPosition(); }
 
 	// 半径の取得
-	float GetRadius() const { return m_radius; }
+	float GetRadius() const { return m_radius * m_transform->GetScale(); }
 
 	// 半径の設定
 	void SetRadius(float radius) { m_radius = radius; }

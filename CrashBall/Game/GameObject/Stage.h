@@ -7,7 +7,7 @@
 
 
 /**
- * @brief ステージオブジェクト
+ * \brief ステージオブジェクト
  */
 class  Stage : public GameObject {
 

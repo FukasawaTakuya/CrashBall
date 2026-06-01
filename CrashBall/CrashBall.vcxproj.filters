@@ -71,6 +71,9 @@
     <Filter Include="Game\Component\Default\Collider">
       <UniqueIdentifier>{cadfcd69-48fa-442a-8853-6cb1cdc59f31}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{c99422db-8071-42f4-9497-3bbbd18e0b8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -110,9 +113,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\Stage.h">
       <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Common\CommonResources.h">
-      <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\InputSystem.h">
       <Filter>Game\Common</Filter>
@@ -175,9 +175,6 @@
       <Filter>Game\State\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\Random.h">
-      <Filter>Game\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Common\MyMath.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerAttackState.h">
@@ -297,6 +294,9 @@
     <ClInclude Include="Game\State\Enemy\EnemyStateContext.h">
       <Filter>Game\State\EnemyState</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Camera\FollowCamera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -334,9 +334,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage.cpp">
       <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Common\CommonResources.cpp">
-      <Filter>Game\Common</Filter>
     </ClCompile>
     <ClCompile Include="Game\Common\InputSystem.cpp">
       <Filter>Game\Common</Filter>
@@ -425,7 +422,12 @@
     <ClCompile Include="Game\Component\PlayerController.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\EnemyController.cpp" />
+    <ClCompile Include="Game\Component\EnemyController.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\FollowCamera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

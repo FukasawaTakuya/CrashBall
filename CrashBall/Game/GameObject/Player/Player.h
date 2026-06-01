@@ -15,7 +15,7 @@
 class Camera;
 
 /**
- * @brief プレイヤークラス
+ * \brief プレイヤークラス
  */
 class  Player : public Ball{
 

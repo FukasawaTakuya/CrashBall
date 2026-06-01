@@ -13,7 +13,7 @@ struct TextRenderCmd
 
 
 /**
- * @brief テキスト描画管理クラスのインターフェース
+ * \brief テキスト描画管理クラスのインターフェース
  */
 class  ITextRendererManager {
 
