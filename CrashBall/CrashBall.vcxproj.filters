@@ -147,21 +147,6 @@
     <ClInclude Include="Game\CollisionManager\CollisionManager.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Sphere.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Plane.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Triangle.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Segment.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Mesh.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
@@ -252,24 +237,6 @@
     <ClInclude Include="Game\Interface\ISoundManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Collider.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Component.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\ModelRenderer.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\RigidBody.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\SpriteRenderer.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Transform.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\BallController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
@@ -299,6 +266,42 @@
     </ClInclude>
     <ClInclude Include="Game\Component\StageController.h">
       <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\IWallMeshGetter.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Collider.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Mesh.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Plane.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Segment.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Sphere.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Collider\Triangle.h">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Component.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\ModelRenderer.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\RigidBody.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\SpriteRenderer.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Transform.h">
+      <Filter>Game\Component\Default</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,21 +353,6 @@
     <ClCompile Include="Game\GameObject\Player\Player.cpp">
       <Filter>Game\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Collider\Sphere.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Collider\Plane.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Collider\Segment.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Collider\Triangle.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Collider\Mesh.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="Game\State\Player\PlayerJumpState.cpp">
       <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
@@ -404,21 +392,6 @@
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp">
       <Filter>Game\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Collider.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\ModelRenderer.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\RigidBody.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\SpriteRenderer.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Transform.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\BallController.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
@@ -432,6 +405,36 @@
       <Filter>Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\StageController.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Collider.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Collider\Plane.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Collider\Segment.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\RigidBody.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Transform.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

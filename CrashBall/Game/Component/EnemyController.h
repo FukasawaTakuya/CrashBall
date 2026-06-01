@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Component.h"
+#include "Default/Component.h"
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
 
@@ -27,11 +27,9 @@ private:
 	Transform* m_transform = nullptr;				// トランスフォーム
 	BallController* m_ballController = nullptr;		// ボール管理
 
-	DirectX::SimpleMath::Vector3 m_accelDirection;			// 進行方向
+	DirectX::SimpleMath::Vector3 m_accelDirection;	// 進行方向
 
-	Stage* m_pStage = nullptr;								// ステージのポインタ
-
-	DirectX::SimpleMath::Vector3 m_debugDirection;			// デバッグ用の方向ベクトル
+	const IWallMeshGetter* m_wallMeshGetter;		// 壁メッシュの取得クラス
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -60,7 +58,7 @@ public:
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }
 
 	// ステージのポインタの設定
-	void SetFloor(Stage* pFloor) { m_pStage = pFloor; }
+	void SetFloor(IWallMeshGetter* meshGetter) { m_wallMeshGetter = meshGetter; }
 
 	// 内部実装
 private:

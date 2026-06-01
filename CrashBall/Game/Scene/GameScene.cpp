@@ -29,7 +29,7 @@ GameScene::GameScene(ISceneController* pSceneManager)
     playerController->SetEnemyTransform(m_enemy->GetComponent<Transform>());
     playerController->SetCamera(m_camera.get());
 
-    m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage.get());
+    m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());

@@ -209,33 +209,22 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Component\Collider.h" />
-    <ClInclude Include="Game\Component\Collider\Mesh.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Plane.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Segment.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Sphere.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Collider\Triangle.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Component.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Collider.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Plane.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Segment.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Triangle.h" />
+    <ClInclude Include="Game\Component\Default\Component.h" />
+    <ClInclude Include="Game\Component\Default\ModelRenderer.h" />
+    <ClInclude Include="Game\Component\Default\RigidBody.h" />
+    <ClInclude Include="Game\Component\Default\SpriteRenderer.h" />
+    <ClInclude Include="Game\Component\Default\Transform.h" />
     <ClInclude Include="Game\Component\EnemyController.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Component\ModelRenderer.h">
+    <ClInclude Include="Game\Component\IWallMeshGetter.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -243,16 +232,10 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Component\RigidBody.h" />
-    <ClInclude Include="Game\Component\SpriteRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Component\StageController.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Component\Transform.h" />
     <ClInclude Include="Game\Context\GameContext.h">
       <SubType>
       </SubType>
@@ -407,19 +390,19 @@
     <ClCompile Include="Game\Common\Camera.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Component\BallController.cpp" />
-    <ClCompile Include="Game\Component\Collider.cpp" />
-    <ClCompile Include="Game\Component\Collider\Mesh.cpp" />
-    <ClCompile Include="Game\Component\Collider\Plane.cpp" />
-    <ClCompile Include="Game\Component\Collider\Segment.cpp" />
-    <ClCompile Include="Game\Component\Collider\Sphere.cpp" />
-    <ClCompile Include="Game\Component\Collider\Triangle.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Plane.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Segment.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp" />
+    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\RigidBody.cpp" />
+    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\Transform.cpp" />
     <ClCompile Include="Game\Component\EnemyController.cpp" />
-    <ClCompile Include="Game\Component\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\PlayerController.cpp" />
-    <ClCompile Include="Game\Component\RigidBody.cpp" />
-    <ClCompile Include="Game\Component\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\StageController.cpp" />
-    <ClCompile Include="Game\Component\Transform.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Stage.cpp" />

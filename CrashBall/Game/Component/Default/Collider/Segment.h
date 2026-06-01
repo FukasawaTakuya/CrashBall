@@ -7,7 +7,7 @@
  *********************************************************************/
 #pragma once
 
-#include "Game/Component/Collider.h"
+#include "Game/Component/Default/Collider/Collider.h"
 
 /**
  * @brief ü•ªƒNƒ‰ƒX

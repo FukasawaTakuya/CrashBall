@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Game/Component/Collider.h"
+#include "Game/Component/Default/Collider/Collider.h"
 #include "Triangle.h"
 #include "Sphere.h"
 

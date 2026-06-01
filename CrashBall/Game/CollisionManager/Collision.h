@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Game/Component/Collider.h"
-#include "Game/Component/Transform.h"
-#include "Game/Component/RigidBody.h"
+#include "Game/Component/Default/Collider/Collider.h"
+#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/RigidBody.h"
 
-#include "Game/Component/Collider/Sphere.h"
-#include "Game/Component/Collider/Plane.h"
-#include "Game/Component/Collider/Triangle.h"
-#include "Game/Component/Collider/Segment.h"
-#include "Game/Component/Collider/Mesh.h"
+#include "Game/Component/Default/Collider/Sphere.h"
+#include "Game/Component/Default/Collider/Plane.h"
+#include "Game/Component/Default/Collider/Triangle.h"
+#include "Game/Component/Default/Collider/Segment.h"
+#include "Game/Component/Default/Collider/Mesh.h"
 
 #include "Game/GameObject/GameObject.h"
 

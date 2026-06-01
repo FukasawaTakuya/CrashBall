@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/Component/Collider.h"
+#include "Game/Component/Default/Collider/Collider.h"
 
 class Plane
 {

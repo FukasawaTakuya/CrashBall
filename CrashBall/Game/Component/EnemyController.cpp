@@ -49,7 +49,7 @@ void EnemyController::Update(const GameContext& gameContext)
 void EnemyController::AvoidWall()
 {
 	// 壁のメッシュを取得
-	auto& wallMesh = m_pStage->GetComponent<StageController>()->GetWallMesh();
+	auto& wallMesh = m_wallMeshGetter->GetWallMesh();
 
 	for (auto& wallFace : wallMesh)
 	{

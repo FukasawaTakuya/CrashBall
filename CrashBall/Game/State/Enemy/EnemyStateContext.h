@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Game/Component/Transform.h"
-#include "Game/Component/Rigidbody.h"
+#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/Rigidbody.h"
 
 
 struct EnemyStateContext

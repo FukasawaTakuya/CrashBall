@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Component.h"
+#include "Default/Component.h"
 
-#include "Game/Component/Collider/Sphere.h"
-#include "Game/Component/RigidBody.h"
-#include "Game/Component/Transform.h"
-#include "Game/Component/ModelRenderer.h"
+#include "Game/Component/Default/Collider/Sphere.h"
+#include "Game/Component/Default/RigidBody.h"
+#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/ModelRenderer.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Game/Component/Component.h"
+#include "Default/Component.h"
 
 #include "Game/State/StateMachine.h"
 #include "Game/Common/Camera.h"
@@ -19,9 +19,9 @@ private:
 
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
-	Camera* m_pCamera = nullptr;							// カメラのポインタ
+	const Camera* m_pCamera;			// カメラのポインタ
 
-	const Transform* m_enemyTransform = nullptr;			// 敵のトランスフォーム
+	const Transform* m_enemyTransform;	// 敵のトランスフォーム
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -43,7 +43,7 @@ public:
 public:
 
 	// カメラのポインタの取得
-	Camera* GetCamera() { return m_pCamera; }
+	const Camera* GetCamera() { return m_pCamera; }
 
 	// カメラのポインタのセット
 	void SetCamera(Camera* pCamera) { m_pCamera = pCamera; }

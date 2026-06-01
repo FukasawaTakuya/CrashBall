@@ -8,11 +8,8 @@
 
 #include "pch.h"
 #include "Player.h"
-#include "Game/State/Player/PlayerMoveState.h"
-#include "Game/State/Player/PlayerJumpState.h"
-#include "Game/State/Player/PlayerAttackState.h"
 
-/**
+ /**
  * \brief コンストラクタ
  * 
  * \param radius 半径

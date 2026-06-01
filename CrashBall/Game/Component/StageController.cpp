@@ -26,7 +26,7 @@ StageController::StageController(IGameObject* gameObject)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, Colors::LightSkyBlue);
+					PaintFace(hitface, PLAYER_COLOR);
 				}
 			}
 			// 衝突オブジェクトが敵の時の処理
@@ -34,7 +34,7 @@ StageController::StageController(IGameObject* gameObject)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, Colors::LightPink);
+					PaintFace(hitface, ENEMY_COLOR);
 				}
 			}
 		});
@@ -73,16 +73,16 @@ void StageController::Update(const GameContext& gameContext)
 {
 	m_playerMeshCount =
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-			[](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
+			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorMeshColor.second, Colors::LightSkyBlue);
+				return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
 			});
 
 	m_enemyMeshCount =
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-			[](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
+			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorMeshColor.second, Colors::LightPink);
+				return XMVector4Equal(floorMeshColor.second, ENEMY_COLOR);
 			});
 }
 

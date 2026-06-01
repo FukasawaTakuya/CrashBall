@@ -1,12 +1,11 @@
 #pragma once
-
-#include "Game/Common/Camera.h"
-#include "Game/Component/Default/Transform.h"
+#include <vector>
+#include "Default/Collider/Triangle.h"
 
 /**
- * \brief 追従カメラ
+ * @brief ステージ操作
  */
-class  FollowCamera : public Camera{
+class  IWallMeshGetter {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -14,29 +13,24 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	Transform* m_followTransfrom;
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	FollowCamera() = default;
+	IWallMeshGetter() = default;
 
 	// デストラクタ
-	~FollowCamera() = default;
+	~IWallMeshGetter() = default;
 
 	// 操作
 public:
 
-	// カメラのX軸回転
-	//void RotateX(float angle);
-
-
 	// 取得/設定
 public:
 
-	//void SetFollowTransfrom(Transform* transform);
+	// 壁メッシュの取得
+	virtual const std::vector<Triangle*>& GetWallMesh() const = 0;
 
 	// 内部実装
 private:

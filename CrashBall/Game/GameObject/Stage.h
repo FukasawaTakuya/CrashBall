@@ -1,9 +1,9 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Game/Component/Collider/Mesh.h"
-#include "Game/Component/ModelRenderer.h"
-#include "Game/Component/Transform.h"
+#include "Game/Component/Default/Collider/Mesh.h"
+#include "Game/Component/Default/ModelRenderer.h"
+#include "Game/Component/Default/Transform.h"
 #include "Game/Component/StageController.h"
 
 

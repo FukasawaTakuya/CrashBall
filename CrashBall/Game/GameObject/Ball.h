@@ -9,10 +9,10 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Game/Component/Collider/Sphere.h"
-#include "Game/Component/RigidBody.h"
-#include "Game/Component/Transform.h"
-#include "Game/Component/ModelRenderer.h"
+#include "Game/Component/Default/Collider/Sphere.h"
+#include "Game/Component/Default/RigidBody.h"
+#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/ModelRenderer.h"
 #include "Game/Component/BallController.h"
 
  /**
