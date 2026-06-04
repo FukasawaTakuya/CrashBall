@@ -21,7 +21,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	IGameObject* m_gameObject = nullptr;	// オーナー
+	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -40,7 +40,7 @@ public:
 	// 取得/設定
 public:
 
-	// オーナーの取得
+	// ゲームオブジェクトの取得
 	IGameObject* GetGameObject() { return m_gameObject; }
 
 	// 内部実装

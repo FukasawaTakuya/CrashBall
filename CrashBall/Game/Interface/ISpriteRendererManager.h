@@ -9,6 +9,7 @@ struct SpriteRenderCmd
 {
 	ID3D11ShaderResourceView* pSprite;
 	RECT rect;
+	int orderInLayer;
 	DirectX::XMVECTORF32 color;
 };
 
@@ -43,9 +44,8 @@ public:
 	virtual void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const RECT rect,
+		int orderInLayer = 0,
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) = 0;
-
-	//virtual void RednerText() = 0;
 
 
 	// éÊìæ/ê›íË

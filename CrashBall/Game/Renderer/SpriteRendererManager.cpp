@@ -25,6 +25,12 @@ SpriteRendererManager::~SpriteRendererManager()
  */
 void SpriteRendererManager::Reder()
 {
+	std::sort(m_renderCommad.begin(), m_renderCommad.end(),
+		[](const SpriteRenderCmd& renderCommand1, const SpriteRenderCmd& renderCommand2)
+		{
+			return renderCommand1.orderInLayer < renderCommand2.orderInLayer;
+		});
+
 	m_spriteBatch->Begin();
 
 	for (auto& renderCmd : m_renderCommad)
@@ -49,9 +55,10 @@ void SpriteRendererManager::Reder()
 void SpriteRendererManager::RegisterRenderCommand(
 	ID3D11ShaderResourceView* pSprite,
 	const RECT rect,
-	const DirectX::XMVECTORF32 color)
+	int orderInLayer,
+	const DirectX::XMVECTORF32 color = DirectX::Colors::White)
 {
-	m_renderCommad.emplace_back(pSprite, rect, color);
+	m_renderCommad.emplace_back(pSprite, rect, orderInLayer, color);
 }
 
 void SpriteRendererManager::ClearRenderCommand()

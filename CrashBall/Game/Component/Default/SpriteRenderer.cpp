@@ -10,6 +10,11 @@ SpriteRenderer::~SpriteRenderer()
 {
 }
 
+void SpriteRenderer::Render(ISpriteRendererManager* rendererManager, const RECT& rect)
+{
+	//rendererManager
+}
+
 void SpriteRenderer::SetSprite(ID3D11ShaderResourceView* pSprite)
 {
 	m_pSprite = pSprite;

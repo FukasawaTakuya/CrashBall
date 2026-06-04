@@ -45,6 +45,7 @@ public:
 	void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const RECT rect,
+		int orderInLayer = 0,
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) override;
 
 	// •`‰æ–½—ß‚ÌƒNƒŠƒA
