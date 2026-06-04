@@ -62,11 +62,12 @@ void PlayerAttackState::Update()
 	// プレイヤー操作
 	PlayerController* playerController = m_stateContext.playerController;
 
+	// 攻撃方向
 	SimpleMath::Vector3 attackDirection 
 		= playerController->GetEnemyTransform()->GetPosition() - transform->GetPosition();
 	attackDirection.Normalize();
 
-	rigidbody->SetVelocity(attackDirection * 30.0f);
+	rigidbody->SetVelocity(attackDirection * ATTACK_SPEED);
 
 	// タイマーの更新
 	m_timer += Time::GetElapsedTime();
@@ -74,6 +75,7 @@ void PlayerAttackState::Update()
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
 	if (m_timer >= ATTACK_DURATION) {
 		m_pStateMachine->ChangeState<PlayerMoveState>();
+		rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 	}
 }
 

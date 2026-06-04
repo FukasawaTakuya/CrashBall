@@ -53,10 +53,12 @@ void PlayerMoveState::OnEnter()
  */
 void PlayerMoveState::Update()
 {
-    // 物理演算コンポーネントの取得
+    // 物理演算コンポーネント
     RigidBody* rigidbody = m_stateContext.rigitbody;
-    // プレイヤー操作コンポーネントの取得
+    // プレイヤー操作コンポーネント
     PlayerController* playerController = m_stateContext.playerController;
+    // プレイヤーステータス操作コンポーネント
+    PlayerStatusController* playerStatusController = m_stateContext.playerStatusController;
 
     // 地上にいる場合
     if (m_stateContext.ballController->GetIsGround())
@@ -75,11 +77,16 @@ void PlayerMoveState::Update()
         }
     }
 
-    // スペースキーが押されたら攻撃ステートに遷移
-    if (Input::GetKeyTrigger(DirectX::Keyboard::Space))
+    // スペースキーが押されたとき攻撃が可能なら攻撃ステートに遷移
+    if (Input::GetKeyTrigger(DirectX::Keyboard::Space) &&
+        playerStatusController->GetCanAttack())
     {
+        // ステートの遷移
 		m_pStateMachine->ChangeState<PlayerAttackState>();
-        // TODO:面消費通知 
+        // 攻撃力を求める
+        playerStatusController->CalcAttackPower();
+        // 面消費
+        playerController->GetPaintConsumer()->ConsumePaint(ATTACK_COST_FACE_COUNT);
     }
 
     // 速度制限

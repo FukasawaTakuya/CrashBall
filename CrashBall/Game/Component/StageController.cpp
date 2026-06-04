@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "StageController.h"
+#include "Game/Engine/Input.h"
 
 StageController::StageController(IGameObject* gameObject)
 	: Component(gameObject)
@@ -47,7 +48,7 @@ StageController::StageController(IGameObject* gameObject)
 			face->GetCenter().y <= 20.0f)
 		{
 			m_floorMesh.push_back(face.get());
-			m_floorMeshColor.emplace(face.get(), Colors::White);
+			m_floorMeshColor.emplace(face.get(), DEFAULT_COLOR);
 		}
 		// 壁メッシュ
 		else {
@@ -61,6 +62,10 @@ StageController::~StageController()
 {
 }
 
+/**
+ * \brief 初期化
+ * 
+ */
 void StageController::Initialize()
 {
 	for (auto& floorMeshColor : m_floorMeshColor)
@@ -69,6 +74,11 @@ void StageController::Initialize()
 	}
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param gameContext
+ */
 void StageController::Update(const GameContext& gameContext)
 {
 	m_playerMeshCount =
@@ -89,6 +99,12 @@ void StageController::Update(const GameContext& gameContext)
 		= m_floorMesh.size() - m_playerMeshCount - m_enemyMeshCount;
 }
 
+
+/**
+ * \brief 描画
+ * 
+ * \param renderContext
+ */
 void StageController::Render(const RenderContext& renderContext)
 {
 	auto& primitiveRenderer = renderContext.m_pPrimitiveRendererManager;
@@ -126,12 +142,56 @@ void StageController::Render(const RenderContext& renderContext)
 	textRenderer->RegisterRenderCommand({ 200.0f, 0.0f }, Colors::White, 1.0f,
 		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);
 
+	if (Input::GetKeyTrigger(Keyboard::Space))
+	{
+		//ConsumePaint();
+	}
 }
 
+/**
+ * \brief 終了処理
+ * 
+ */
 void StageController::Finalize()
 {
 }
 
+/**
+ * \brief 面の消費
+ * 
+ * \param 消費する面の数
+ */
+void StageController::ConsumePaint(int consumePaintNum)
+{
+	std::vector<std::pair<Triangle*, XMVECTORF32>> playerFaceColor;
+
+	// プレイヤーの面を取り出す
+	std::copy_if(m_floorMeshColor.begin(), m_floorMeshColor.end(), std::back_inserter(playerFaceColor),
+		[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor) {
+			return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
+		});
+
+	// プレイヤーの面の数がリセットするプレイヤーの面の数より小さければreturn
+	if (playerFaceColor.size() < consumePaintNum)
+	{
+		return;
+	}
+
+	// プレイヤーの面をデフォルトの色に戻す
+	std::for_each_n(playerFaceColor.begin(), consumePaintNum,
+		[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
+		{
+			PaintFace(floorMeshColor.first, DEFAULT_COLOR);
+		});
+}
+
+
+/**
+ * \brief 面を塗る
+ * 
+ * \param face
+ * \param color
+ */
 void StageController::PaintFace(
 	Triangle* face, 
 	const XMVECTORF32& color)

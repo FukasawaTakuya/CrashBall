@@ -18,6 +18,8 @@ private:
 
 	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
 
+	static constexpr float MAX_HP = 200.0f;				// 最大体力
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -31,6 +33,7 @@ private:
 
 	const IWallMeshGetter* m_wallMeshGetter;		// 壁メッシュの取得クラス
 
+	float m_hp;	// 体力
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -45,14 +48,22 @@ public:
 	// 操作
 public:
 
+	// 初期化
+	void Initialize();
+
 	// 更新
 	void Update(const GameContext& gameContext);
+
+	void Damage(float damage);
 
 	// 取得/設定
 public:
 
 	// 加速方向の取得
 	DirectX::SimpleMath::Vector3 GetAccelDirection() const { return m_accelDirection; }
+
+	// 体力の取得
+	float GetHp() const { return m_hp; }
 
 	// 加速方向の設定
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }

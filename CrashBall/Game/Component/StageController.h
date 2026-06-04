@@ -3,6 +3,7 @@
 #include "Default/Component.h"
 #include "IWallMeshGetter.h"
 #include "IFloorMeshGetter.h"
+#include "IPaintConsumer.h"
 
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/ModelRenderer.h"
@@ -14,9 +15,10 @@
  * \brief ステージ操作コンポーネント
  */
 class  StageController : 
-	public Component, 
-	public IWallMeshGetter,
-	public IFloorMeshGetter
+	public Component,			// 基底コンポーネント
+	public IWallMeshGetter,		// 壁メッシュ取得
+	public IFloorMeshGetter,	// 床メッシュ取得
+	public IPaintConsumer		// ペイント消費
 {
 
 	// クラス定数の宣言 -------------------------------------------------
@@ -24,8 +26,11 @@ private:
 
 	static constexpr float SCALE = 15.0f;	// スケール
 
-	const XMVECTORF32 PLAYER_COLOR = DirectX::Colors::LightSkyBlue;	// プレイヤー床のの色
-	const XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の床の色
+	const XMVECTORF32 PLAYER_COLOR = DirectX::Colors::LightSkyBlue;	// プレイヤーの面の色
+	const XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の面の色
+	const XMVECTORF32 DEFAULT_COLOR = DirectX::Colors::White;		// デフォルトの面の色
+
+	static constexpr int RESET_PLAYERFACE_NUM = 30;					// リセットするプレイヤーの面の数
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -68,6 +73,9 @@ public:
 
 	// 終了処理
 	void Finalize();
+
+	// 面の消費
+	void ConsumePaint(int consumePaintNum) override;
 
 
 	// 取得/設定

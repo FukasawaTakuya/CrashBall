@@ -24,6 +24,9 @@ public:
 
 	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
 
+	static constexpr int ATTACK_COST_FACE_COUNT = 20;	// 消費する面の数
+
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 

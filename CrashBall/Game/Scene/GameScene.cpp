@@ -28,6 +28,7 @@ GameScene::GameScene(ISceneController* pSceneManager)
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
     playerController->SetEnemyTransform(m_enemy->GetComponent<Transform>());
     playerController->SetCamera(m_camera.get());
+    playerController->SetStageInterface(m_stage->GetComponent<StageController>());
 
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
@@ -53,8 +54,8 @@ void GameScene::Initialize()
 {
     m_player->SetPosition(SimpleMath::Vector3::Up * 12.0f);
 	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 12.0f, 10.0f });
-    m_camera->SetCamera(SimpleMath::Vector3{ 0.0f, 18.0f, 25.0f }, SimpleMath::Vector3::Zero);
     m_stage->Initialize();
+    m_enemy->Initialize();
 }
 
 

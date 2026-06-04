@@ -37,6 +37,7 @@ Enemy::~Enemy()
  */
 void Enemy::Initialize()
 {
+	m_enemyController->Initialize();
 }
 
 /**
@@ -58,6 +59,13 @@ void Enemy::Update(const GameContext& gameContext)
 void Enemy::Render(const RenderContext& renderContext)
 {
 	Ball::Render(renderContext);
+
+	renderContext.m_pTextRendererManager->RegisterRenderCommand(
+		SimpleMath::Vector2(0.0f, 30.0f),
+		Colors::White,
+		1.0f,
+		L"EnemyHp: {}", m_enemyController->GetHp()
+	);
 }
 
 /**

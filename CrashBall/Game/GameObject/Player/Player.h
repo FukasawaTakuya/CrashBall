@@ -11,8 +11,7 @@
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
 #include "Game/Component/PlayerController.h"
-
-class Camera;
+#include "Game/Component/PlayerStatusController.h"
 
 /**
  * \brief プレイヤークラス
@@ -26,6 +25,8 @@ public:
 private:
 
 	PlayerController* m_playerController;	// プレイヤー操作
+
+	PlayerStatusController* m_playerStatusController;	// プレイヤーステータス操作
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

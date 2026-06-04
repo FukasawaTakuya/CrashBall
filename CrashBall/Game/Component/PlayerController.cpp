@@ -3,6 +3,7 @@
 
 #include "Game/State/Player/PlayerMoveState.h"
 #include "Game/State/Player/PlayerAttackState.h"
+#include "EnemyController.h"
 
 PlayerController::PlayerController(IGameObject* owner)
 	: Component(owner)
@@ -14,6 +15,7 @@ PlayerController::PlayerController(IGameObject* owner)
 		GetGameObject()->GetComponent<RigidBody>(),
 		GetGameObject()->GetComponent<Transform>(),
 		GetGameObject()->GetComponent<BallController>(),
+		GetGameObject()->GetComponent<PlayerStatusController>(),
 		this
 	};
 
@@ -24,15 +26,18 @@ PlayerController::PlayerController(IGameObject* owner)
 	// 初期のステートのセット
 	m_stateMachine->ChangeState<PlayerMoveState>();
 
+	// 衝突した瞬間の処理
 	GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
 		{
-			// 敵のコライダーと衝突した場合、移動ステートに遷移
+			// 敵のコライダーと衝突したとき攻撃ステートなら
 			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy &&
-				m_stateMachine->GetCurrentStateType() == typeid(PlayerAttackState)) {
+				m_stateMachine->GetCurrentStateType() == typeid(PlayerAttackState))
+			{
+				other->GetGameObject()->GetComponent<EnemyController>()
+					->Damage(GetGameObject()->GetComponent<PlayerStatusController>()->GetAttackPower());
 				m_stateMachine->ChangeState<PlayerMoveState>();
 			}
 		});
-
 }
 
 PlayerController::~PlayerController()

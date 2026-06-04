@@ -43,12 +43,6 @@ public:
 	// オーナーの取得
 	IGameObject* GetGameObject() { return m_gameObject; }
 
-	// オーナーの設定
-	void SetGameObject(IGameObject* gameObject)
-	{
-		m_gameObject = gameObject;
-	}
-
 	// 内部実装
 private:
 

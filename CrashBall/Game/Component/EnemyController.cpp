@@ -27,8 +27,21 @@ EnemyController::EnemyController(IGameObject* gameObject)
 
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 EnemyController::~EnemyController()
 {
+}
+
+/**
+ * \brief 初期化
+ * 
+ */
+void EnemyController::Initialize()
+{
+	m_hp = MAX_HP;
 }
 
 void EnemyController::Update(const GameContext& gameContext)
@@ -41,9 +54,19 @@ void EnemyController::Update(const GameContext& gameContext)
 	{
 		// 壁回避処理
 		AvoidWall();
-		// 進行方向を徐々に変える
+		// 加速
 		m_rigidbody->Accel(m_accelDirection * ACCELERATINON);
 	}
+}
+
+/**
+ * \brief ダメージ処理
+ * 
+ * \param damage
+ */
+void EnemyController::Damage(float damage)
+{
+	m_hp -= damage;
 }
 
 void EnemyController::AvoidWall()
@@ -76,10 +99,12 @@ void EnemyController::AvoidWall()
 
 			// 進行方向
 			SimpleMath::Vector3 direction = XMVector3Normalize(m_rigidbody->GetVelocity());
+			// 進行方向と壁の方向が同じなら強い力で速度を補正
 			if (direction.Dot(-faceNormal) > 0.0f)
 			{
 				m_rigidbody->Accel(faceNormal * 3.0f);
 			}
+			// 弱い力で速度を補正
 			else
 			{
 				m_rigidbody->Accel(faceNormal * 0.7f);

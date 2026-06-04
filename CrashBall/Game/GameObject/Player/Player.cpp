@@ -17,14 +17,13 @@
 Player::Player(float radius)
 	: Ball(radius, ObjectTag::Player)
 {
+	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
 }
 
 /**
  * \brief 初期化
  * 
- * \param position 初期位置
- * \param enemyTransform 敵のトランスフォーム
  */
 void Player::Initialize()
 {
@@ -36,6 +35,7 @@ void Player::Initialize()
  */
 void Player::Update(const GameContext& gameContext)
 {
+	m_playerStatusController->Update();
 	m_playerController->Update(gameContext);
 
 	Ball::Update(gameContext);
@@ -53,7 +53,6 @@ void Player::Render(const RenderContext& renderContext)
 /**
  * \brief 終了処理
  * 
- * \param RenderContext
  */
 void Player::Finalize()
 {
