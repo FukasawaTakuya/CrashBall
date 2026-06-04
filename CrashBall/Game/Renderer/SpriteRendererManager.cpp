@@ -56,7 +56,7 @@ void SpriteRendererManager::RegisterRenderCommand(
 	ID3D11ShaderResourceView* pSprite,
 	const RECT rect,
 	int orderInLayer,
-	const DirectX::XMVECTORF32 color = DirectX::Colors::White)
+	const DirectX::XMVECTORF32 color)
 {
 	m_renderCommad.emplace_back(pSprite, rect, orderInLayer, color);
 }
