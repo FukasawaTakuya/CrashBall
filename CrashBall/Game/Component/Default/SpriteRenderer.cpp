@@ -1,21 +1,36 @@
 #include "pch.h"
 #include "SpriteRenderer.h"
 
-SpriteRenderer::SpriteRenderer(IGameObject* owner)
-	: Component(owner)
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有しているオブジェクト
+ */
+SpriteRenderer::SpriteRenderer(IGameObject* gameObject)
+	: Component(gameObject)
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 SpriteRenderer::~SpriteRenderer()
 {
 }
 
+/**
+ * \brief 描画
+ * 
+ * \param rendererManager 描画管理
+ * \param rect 描画範囲
+ */
 void SpriteRenderer::Render(ISpriteRendererManager* rendererManager, const RECT& rect)
 {
-	//rendererManager
-}
-
-void SpriteRenderer::SetSprite(ID3D11ShaderResourceView* pSprite)
-{
-	m_pSprite = pSprite;
+	rendererManager->RegisterRenderCommand(
+		m_pSprite,
+		rect,
+		m_orderInLayer,
+		m_color
+	);
 }

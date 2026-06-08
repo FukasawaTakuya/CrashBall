@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "Game/Common/Screen.h"
 #include "Game/Scene/GameScene.h"
 #include "Game/ServiceLocator/ServiceLocator.h"
 #include "Game/ServiceLocator/ITimeService.h"
@@ -129,6 +130,7 @@ void Game::Update(DX::StepTimer const& timer)
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
+
 }
 #pragma endregion
 
@@ -154,7 +156,7 @@ void Game::Render()
     m_textRendererManager->RegisterRenderCommand(
         SimpleMath::Vector2::Zero,
         Colors::White,
-        1.0f,
+        1.5f * Screen::GetScreenRate(),
         L"FPS:{}",
         (int)m_timer.GetFramesPerSecond()
     );
@@ -255,8 +257,8 @@ void Game::OnWindowSizeChanged(int width, int height)
 void Game::GetDefaultSize(int& width, int& height) const noexcept
 {
     // TODO: Change to desired default window size (note minimum size is 320x200).
-    width = 1280;
-    height = 720;
+    width = Screen::WIDTH;
+    height = Screen::HEIGHT;
 }
 #pragma endregion
 
@@ -287,6 +289,8 @@ void Game::CreateWindowSizeDependentResources()
 
     GetDefaultSize(w, h);
 
+    Screen::CalcScreenRate(m_deviceResources->IsFullscreen());
+
     // 射影行列の定義
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
         XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
@@ -298,7 +302,6 @@ void Game::CreateWindowSizeDependentResources()
 
     // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources(m_proj);
-
 }
 
 void Game::OnDeviceLost()

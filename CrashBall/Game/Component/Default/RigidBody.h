@@ -69,7 +69,6 @@ public:
 	// 加速度のリセット
 	void ResetAccel() { m_accel = DirectX::SimpleMath::Vector3::Zero; }
 
-
 	// 内部実装
 private:
 

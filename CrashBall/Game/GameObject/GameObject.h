@@ -16,6 +16,8 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
+#include "Game/Component/Default/Component.h"
+
 /**
  * \brief 基底オブジェクト
  */

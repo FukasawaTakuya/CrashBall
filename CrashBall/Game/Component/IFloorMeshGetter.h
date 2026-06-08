@@ -44,6 +44,13 @@ public:
 	// 何も塗られていない面の数の取得
 	virtual int GetNormalMeshCount() const = 0;
 
+	// プレイヤーの面の色の取得
+	virtual const DirectX::XMVECTORF32& GetPlayerColor() const = 0;
+
+	// 敵の面の色の取得
+	virtual const DirectX::XMVECTORF32& GetEnemyColor() const = 0;
+
+
 	// 内部実装
 private:
 

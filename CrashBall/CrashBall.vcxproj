@@ -201,6 +201,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Common\Screen.h" />
     <ClInclude Include="Game\Common\TimeManager.h">
       <SubType>
       </SubType>
@@ -217,10 +218,18 @@
     <ClInclude Include="Game\Component\Default\Collider\Triangle.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
     <ClInclude Include="Game\Component\Default\ModelRenderer.h" />
+    <ClInclude Include="Game\Component\Default\RectTransform.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\RigidBody.h" />
     <ClInclude Include="Game\Component\Default\SpriteRenderer.h" />
     <ClInclude Include="Game\Component\Default\Transform.h" />
     <ClInclude Include="Game\Component\EnemyController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -254,6 +263,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Context\UIContext.h" />
     <ClInclude Include="Game\Engine\Input.h" />
     <ClInclude Include="Game\Engine\Time.h" />
     <ClInclude Include="Game\GameObject\Ball.h" />
@@ -268,6 +278,18 @@
     <ClInclude Include="Game\GameObject\Stage.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
     <ClInclude Include="Game\GameObject\Player\Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\FloorMeshGauge.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Panel.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -398,6 +420,7 @@
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
     <ClCompile Include="Game\Common\Camera.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
+    <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\BallController.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
@@ -405,11 +428,14 @@
     <ClCompile Include="Game\Component\Default\Collider\Segment.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp" />
+    <ClCompile Include="Game\Component\Default\Component.cpp" />
     <ClCompile Include="Game\Component\Default\ModelRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\RectTransform.cpp" />
     <ClCompile Include="Game\Component\Default\RigidBody.cpp" />
     <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Transform.cpp" />
     <ClCompile Include="Game\Component\EnemyController.cpp" />
+    <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp" />
     <ClCompile Include="Game\Component\PlayerController.cpp" />
     <ClCompile Include="Game\Component\PlayerStatusController.cpp" />
     <ClCompile Include="Game\Component\StageController.cpp" />
@@ -418,6 +444,9 @@
     <ClCompile Include="Game\GameObject\Stage.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\FloorMeshGauge.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\Panel.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp" />

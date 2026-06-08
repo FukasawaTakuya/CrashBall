@@ -25,20 +25,21 @@ SpriteRendererManager::~SpriteRendererManager()
  */
 void SpriteRendererManager::Reder()
 {
+	// 描画順にソート
 	std::sort(m_renderCommad.begin(), m_renderCommad.end(),
-		[](const SpriteRenderCmd& renderCommand1, const SpriteRenderCmd& renderCommand2)
+		[](const SpriteRenderCommand& renderCommand1, const SpriteRenderCommand& renderCommand2)
 		{
 			return renderCommand1.orderInLayer < renderCommand2.orderInLayer;
 		});
 
 	m_spriteBatch->Begin();
 
-	for (auto& renderCmd : m_renderCommad)
+	for (auto& renderCommand : m_renderCommad)
 	{
 		m_spriteBatch->Draw(
-			renderCmd.pSprite,
-			renderCmd.rect,
-			renderCmd.color
+			renderCommand.pSprite,
+			renderCommand.rect,
+			renderCommand.color
 		);
 	}
 

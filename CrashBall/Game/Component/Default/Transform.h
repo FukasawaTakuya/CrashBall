@@ -24,11 +24,13 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Vector3 m_position;		// 移動
+	DirectX::SimpleMath::Vector3 m_position;		// 位置
 
 	DirectX::SimpleMath::Quaternion m_quaternion;	// 回転
 
 	float m_scale = 1.0f;							// スケール
+
+	Transform* m_parentTransform = nullptr;			// 親のトランスフォーム
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -56,19 +58,31 @@ public:
 	// ポジションの取得
 	DirectX::SimpleMath::Vector3 GetPosition() const
 	{
-		return m_position;
+		if (m_parentTransform != nullptr)
+		{
+			return m_parentTransform->GetPosition() + m_position;
+		}
+		else return m_position;
 	}
 
 	// 回転の取得
 	DirectX::SimpleMath::Quaternion GetQuaternion() const
 	{
-		return m_quaternion;
+		if (m_parentTransform != nullptr)
+		{
+			return m_parentTransform->GetQuaternion() * m_quaternion;
+		}
+		else return m_quaternion;
 	}
 
 	// スケールの取得
 	float GetScale() const
 	{
-		return m_scale;
+		if (m_parentTransform != nullptr)
+		{
+			return m_parentTransform->GetScale() * m_scale;
+		}
+		else return m_scale;
 	}
 
 	// ワールド行列の取得
@@ -76,13 +90,13 @@ public:
 	{
 		// 拡大行列
 		SimpleMath::Matrix scale
-			= SimpleMath::Matrix::CreateScale(m_scale);
+			= SimpleMath::Matrix::CreateScale(GetScale());
 		// 回転行列
 		SimpleMath::Matrix rotate
-			= SimpleMath::Matrix::CreateFromQuaternion(m_quaternion);
+			= SimpleMath::Matrix::CreateFromQuaternion(GetQuaternion());
 		// 移動行列
 		SimpleMath::Matrix trans
-			= SimpleMath::Matrix::CreateTranslation(m_position);
+			= SimpleMath::Matrix::CreateTranslation(GetPosition());
 
 		// ワールド行列
 		SimpleMath::Matrix world = scale * rotate * trans;
@@ -97,7 +111,7 @@ public:
 	}
 
 	// 回転の設定
-	void SetRotate(DirectX::SimpleMath::Quaternion quaternion)
+	void SetQuaternion(DirectX::SimpleMath::Quaternion quaternion)
 	{
 		m_quaternion = quaternion;
 	}
@@ -106,6 +120,12 @@ public:
 	void SetScale(float scale)
 	{
 		m_scale = scale;
+	}
+
+	// 親トランスフォームの設定
+	void SetParent(Transform* parent)
+	{
+		m_parentTransform = parent;
 	}
 
 	// 内部実装

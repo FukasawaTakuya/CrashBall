@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   StageController.h
+ * \brief  ステータス操作コンポーネント
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Default/Component.h"
@@ -104,6 +112,19 @@ public:
 	{
 		return m_normalMeshCount;
 	}
+
+	// プレイヤーの面の色の取得
+	const XMVECTORF32& GetPlayerColor() const 
+	{
+		return PLAYER_COLOR;
+	}
+
+	// 敵の面の色の取得
+	const XMVECTORF32& GetEnemyColor() const
+	{
+		return ENEMY_COLOR;
+	}
+
 
 	// 内部実装
 private:

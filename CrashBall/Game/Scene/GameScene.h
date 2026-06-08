@@ -14,6 +14,7 @@
 #include "Game/Common/Camera.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/GameObject/Enemy/Enemy.h"
+#include "Game/GameObject/UIObject/GamePanel.h"
 #include "Game/CollisionManager/CollisionManager.h"
 
 /**
@@ -32,6 +33,8 @@ private:
 	std::unique_ptr<Player> m_player;	// プレイヤー
 
 	std::unique_ptr<Enemy> m_enemy;		// 敵
+
+	std::unique_ptr<GamePanel> m_gamePanel;	// パネル
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 

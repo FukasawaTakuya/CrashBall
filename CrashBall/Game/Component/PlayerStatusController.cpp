@@ -1,15 +1,36 @@
+/*****************************************************************//**
+ * \file   PlayerStatusController.cpp
+ * \brief  プレイヤーステータス管理コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "PlayerStatusController.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
 PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
 	: Component(gameObject)
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 PlayerStatusController::~PlayerStatusController()
 {
 }
 
+/**
+ * \brief 更新
+ * 
+ */
 void PlayerStatusController::Update()
 {
 	if (m_floorMeshGetter == nullptr) return;
@@ -39,5 +60,4 @@ void PlayerStatusController::CalcAttackPower()
 
 	// 攻撃力を範囲内に収める
 	m_attackPower = std::clamp(m_attackPower, 0.0f, MAX_ATTACK_POWER);
-
 }

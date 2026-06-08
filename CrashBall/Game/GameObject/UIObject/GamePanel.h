@@ -1,52 +1,64 @@
 /*****************************************************************//**
- * \file   ModelRenderer.h
- * \brief  モデル描画クラス 
+ * \file   GamePanel.h
+ * \brief  ゲーム用のパネル
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   June 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Component.h"
-#include "Game/Interface/IModelRendererManager.h"
+#include "Panel.h"
 
- /**
- * @brief 基底オブジェクト
+#include "Game/Context/UIContext.h"
+
+/**
+ * @brief ゲーム用のパネル
  */
-class  ModelRenderer : public Component {
+class  GamePanel : public Panel {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
+private:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
-	
+	UIContext m_uiContext;	// UI用のコンテキスト
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ModelRenderer(IGameObject* owner);
+	GamePanel();
 
 	// デストラクタ
-	~ModelRenderer();
+	~GamePanel();
 
 	// 操作
 public:
 
+	// 初期化
+	void Initialize();
+
+	// 更新
+	void Update(const GameContext& gameContext);
+
 	// 描画
-	void Render(IModelRendererManager* rendererManager, const DirectX::SimpleMath::Matrix& world);
+	void Render(const RenderContext& RenderContext);
+
+	// 終了処理
+	void Finalize();
+
 
 	// 取得/設定
 public:
-	
-	// モデルの設定
-	void SetModel(DirectX::Model* pModel)
+
+	// UI用のコンテキストの設定
+	void SetUIContext(const UIContext& uiContext)
 	{
-		m_pModel = pModel;
+		m_uiContext = uiContext;
 	}
 
 	// 内部実装

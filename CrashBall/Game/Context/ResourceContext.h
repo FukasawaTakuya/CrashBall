@@ -15,44 +15,9 @@
 /**
  * \brief リソース用のコンテキスト
  */
-class  ResourceContext {
+struct  ResourceContext {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	IModelManager* m_pModelManager;
-	ISpriteManager* m_pSpriteManager;
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	// メンバ関数の宣言 -------------------------------------------------
-	// コンストラクタ/デストラクタ
-public:
-
-	/**
-	 * \brief コンストラクタ
-	 * 
-	 * \param pModelManager モデル管理
-	 * \param pSpriteManager スプライト管理
-	 */
-	ResourceContext(
-		IModelManager*	pModelManager,
-		ISpriteManager* pSpriteManager)
-		: m_pModelManager	(pModelManager)
-		, m_pSpriteManager	(pSpriteManager)
-	{}
-
-	// デストラクタ
-	~ResourceContext() = default;
-
-	// 操作
-public:
-
-	// 取得/設定
-public:
-
-	// 内部実装
-private:
+	IModelManager* modelManager;	// モデル管理クラス
+	ISpriteManager* spriteManager;	// スプライト管理クラス
 
 };

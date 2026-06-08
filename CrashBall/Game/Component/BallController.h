@@ -1,7 +1,14 @@
+/*****************************************************************//**
+ * \file   BallController.h
+ * \brief  ボール操作コンポーネント
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Default/Component.h"
-
 #include "Game/Component/Default/Collider/Sphere.h"
 #include "Game/Component/Default/RigidBody.h"
 #include "Game/Component/Default/Transform.h"
@@ -10,12 +17,14 @@
 #include "Game/Context/RenderContext.h"
 
 /**
- * \brief ボール操作クラス
+ * \brief ボール操作コンポーネント
  */
 class  BallController : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
+
+	static constexpr float SCALE = 0.025f;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -66,10 +75,12 @@ public:
 	// 取得/設定
 public:
 
+	// 地上フラグの取得
 	bool GetIsGround() const { return m_isGround; }
 
 	// 内部実装
 private:
 
+	// 地上フラグの設定
 	void SetIsGround(bool flag) { m_isGround = flag; }
 };

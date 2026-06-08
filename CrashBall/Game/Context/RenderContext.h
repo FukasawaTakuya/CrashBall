@@ -16,49 +16,11 @@
 /**
  * @brief 描画用のコンテキスト
  */
-class  RenderContext {
+struct  RenderContext {
 
-	// データメンバの宣言 -----------------------------------------------
-public:
-
-	IModelRendererManager*		m_pModelRendererManager;		// モデル描画管理
-	IPrimitiveRendererManager*	m_pPrimitiveRendererManager;	// プリミティブ描画管理
-	ISpriteRendererManager*		m_pSpriteRendererManager;		// スプライト描画管理
-	ITextRendererManager*		m_pTextRendererManager;			// テキスト描画管理
- 
-	// メンバ関数の宣言 -------------------------------------------------
-	// コンストラクタ/デストラクタ
-public:
-
-	/**
-	 * \brief コンストラクタ
-	 * 
-	 * \param pModelRendererManager モデル描画管理
-	 * \param pPrimitiveRendererManager プリミティブ描画管理
-	 * \param pSpriteRendererManager スプライト描画管理
-	 * \param pTextRendererManager テキスト描画管理
-	 */
-	RenderContext(
-		IModelRendererManager*		pModelRendererManager,
-		IPrimitiveRendererManager*	pPrimitiveRendererManager,
-		ISpriteRendererManager*		pSpriteRendererManager,
-		ITextRendererManager*		pTextRendererManager)
-		: m_pModelRendererManager(pModelRendererManager)
-		, m_pPrimitiveRendererManager(pPrimitiveRendererManager)
-		, m_pSpriteRendererManager(pSpriteRendererManager)
-		, m_pTextRendererManager(pTextRendererManager)
-	{}
-
-	// デストラクタ
-	~RenderContext() = default;
-
-	// 操作
-public:
-
-	// 取得/設定
-public:
-
-	// 内部実装
-private:
+	IModelRendererManager*		modelRendererManager;		// モデル描画管理
+	IPrimitiveRendererManager*	primitiveRendererManager;	// プリミティブ描画管理
+	ISpriteRendererManager*		spriteRendererManager;		// スプライト描画管理
+	ITextRendererManager*		textRendererManager;		// テキスト描画管理
 
 };

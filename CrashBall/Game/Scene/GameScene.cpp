@@ -23,6 +23,7 @@ GameScene::GameScene(ISceneController* pSceneManager)
     , m_stage           (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(20.0f))
 	, m_enemy           (std::make_unique<Enemy>(20.0f))
+    , m_gamePanel       (std::make_unique<GamePanel>())
     , m_collisionManager(std::make_unique<CollisionManager>())
 {
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
@@ -31,6 +32,15 @@ GameScene::GameScene(ISceneController* pSceneManager)
     playerController->SetStageInterface(m_stage->GetComponent<StageController>());
 
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
+
+    //m_gamePanel->SetUIContext(
+    //    {
+    //        pSceneManager,
+    //        m_stage->GetComponent<StageController>(),
+    //        m_player->GetComponent<PlayerStatusController>(),
+    //        m_enemy->GetComponent<EnemyController>()
+    //    }
+    //    );
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
@@ -134,7 +144,7 @@ void GameScene::Finalize()
  */
 void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
-    auto modelManager = resourceContext.m_pModelManager;
+    auto modelManager = resourceContext.modelManager;
 
     m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
 	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));

@@ -1,7 +1,20 @@
+/*****************************************************************//**
+ * \file   BallController.cpp
+ * \brief  ボール操作コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "BallController.h"
 #include "Game/Engine/Time.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
 BallController::BallController(IGameObject* gameObject)
 	: Component(gameObject)
 {
@@ -15,7 +28,7 @@ BallController::BallController(IGameObject* gameObject)
 	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 
 	// スケールの設定
-	m_transform->SetScale(0.025f);
+	m_transform->SetScale(SCALE);
 
 	// 衝突中の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
@@ -36,14 +49,27 @@ BallController::BallController(IGameObject* gameObject)
 		});
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 BallController::~BallController()
 {
 }
 
+/**
+ * \brief 初期化
+ * 
+ */
 void BallController::Initialize()
 {
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
 void BallController::Update(const GameContext& gameContext)
 {
 	// 移動
@@ -59,20 +85,35 @@ void BallController::Update(const GameContext& gameContext)
 	Rotate();
 }
 
+/**
+ * \brief 描画
+ * 
+ * \param renderContext 描画用のコンテキスト
+ */
 void BallController::Render(const RenderContext& renderContext)
 {
 	// 描画管理クラスのインターフェース
 	IModelRendererManager* rendererManager
-		= renderContext.m_pModelRendererManager;
+		= renderContext.modelRendererManager;
 
 	// 描画
 	m_renderer->Render(rendererManager, m_transform->GetWorld());
 }
 
+
+/**
+ * \brief 終了処理
+ * 
+ */
 void BallController::Finalize()
 {
 }
 
+
+/**
+ * \brief 移動
+ * 
+ */
 void BallController::Move()
 {
 	// 重力の適用
@@ -93,6 +134,11 @@ void BallController::Move()
 	m_rigidbody->ResetAccel();
 }
 
+
+/**
+ * \brief 回転の加算
+ * 
+ */
 void BallController::AddRotate()
 {
 	// 速度の取得
@@ -120,6 +166,11 @@ void BallController::AddRotate()
 	m_angularVelocity = quaternion;
 }
 
+
+/**
+ * \brief 回転
+ * 
+ */
 void BallController::Rotate()
 {
 	// 回転

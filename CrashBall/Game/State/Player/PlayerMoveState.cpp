@@ -63,6 +63,7 @@ void PlayerMoveState::Update()
     // 地上にいる場合
     if (m_stateContext.ballController->GetIsGround())
     {
+        // 入力に応じて加速
         if (Input::GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( playerController->GetCamera()->GetRight()   * ACCELERATION);
         }

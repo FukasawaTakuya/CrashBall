@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ISpriteRendererManager.h
+ * \brief  スプライト描画管理クラスのインターフェース
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include <d3d11.h>
@@ -5,7 +13,8 @@
 #include <DirectXColors.h>
 #include <SpriteFont.h>
 
-struct SpriteRenderCmd
+// 描画命令
+struct SpriteRenderCommand
 {
 	ID3D11ShaderResourceView* pSprite;
 	RECT rect;
@@ -15,7 +24,7 @@ struct SpriteRenderCmd
 
 
 /**
- * @brief 基底オブジェクト
+ * @brief スプライト描画管理クラスのインターフェース
  */
 class  ISpriteRendererManager {
 

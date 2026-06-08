@@ -1,20 +1,20 @@
 /*****************************************************************//**
- * \file   ModelRenderer.h
- * \brief  モデル描画クラス 
+ * \file   FloorMeshGauge.h
+ * \brief  
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   June 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Component.h"
-#include "Game/Interface/IModelRendererManager.h"
+#include "Game/Component/IFloorMeshGetter.h"
+#include "Game/GameObject/GameObject.h"
 
- /**
- * @brief 基底オブジェクト
+/**
+ * @brief 
  */
-class  ModelRenderer : public Component {
+class  FloorMeshGauge : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -22,32 +22,24 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
-	
+	IFloorMeshGetter* floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ModelRenderer(IGameObject* owner);
+	FloorMeshGauge();
 
 	// デストラクタ
-	~ModelRenderer();
+	~FloorMeshGauge();
 
 	// 操作
 public:
 
-	// 描画
-	void Render(IModelRendererManager* rendererManager, const DirectX::SimpleMath::Matrix& world);
-
 	// 取得/設定
 public:
-	
-	// モデルの設定
-	void SetModel(DirectX::Model* pModel)
-	{
-		m_pModel = pModel;
-	}
 
 	// 内部実装
 private:

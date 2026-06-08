@@ -15,16 +15,13 @@ EnemyController::EnemyController(IGameObject* gameObject)
 	// ステートの生成
 	m_stateMachine->CreateState<EnemyWanderState>(stateContext);
 
-	// ステートの変更
+	// 初期ステートの設定
 	m_stateMachine->ChangeState<EnemyWanderState>();
 
-	// トランスフォーム
+	// コンポーネントのキャッシュ
 	m_transform = GetGameObject()->GetComponent<Transform>();
-	// 物理演算
 	m_rigidbody = GetGameObject()->GetComponent<RigidBody>();
-	// ボール管理
 	m_ballController = GetGameObject()->GetComponent<BallController>();
-
 }
 
 /**
@@ -44,15 +41,21 @@ void EnemyController::Initialize()
 	m_hp = MAX_HP;
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
 void EnemyController::Update(const GameContext& gameContext)
 {
+	// ステートの更新
 	if (m_stateMachine != nullptr)
 		m_stateMachine->Update();
 
 	// 地上にいるとき
 	if (m_ballController->GetIsGround())
 	{
-		// 壁回避処理
+		// 壁回避
 		AvoidWall();
 		// 加速
 		m_rigidbody->Accel(m_accelDirection * ACCELERATINON);
@@ -62,13 +65,17 @@ void EnemyController::Update(const GameContext& gameContext)
 /**
  * \brief ダメージ処理
  * 
- * \param damage
+ * \param damage ダメージ
  */
 void EnemyController::Damage(float damage)
 {
-	m_hp -= damage;
+	m_hp = std::clamp(m_hp - damage, 0.0f, MAX_HP);
 }
 
+/**
+ * \brief 壁回避
+ * 
+ */
 void EnemyController::AvoidWall()
 {
 	// 壁のメッシュを取得

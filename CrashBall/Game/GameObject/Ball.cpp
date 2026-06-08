@@ -21,7 +21,7 @@ Ball::Ball(float radius, ObjectTag tag)
 	AddComponent<Sphere>(radius);
 	AddComponent<ModelRenderer>();
 
-	// ボール操作のキャッシュ
+	// ボール操作コンポーネントのキャッシュ
 	m_ballController = AddComponent<BallController>();
 }
 

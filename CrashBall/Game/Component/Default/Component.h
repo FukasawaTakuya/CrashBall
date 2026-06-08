@@ -28,8 +28,7 @@ private:
 public:
 
 	// コンストラクタ
-	Component(IGameObject* gameObject)
-		: m_gameObject(gameObject) {} ;
+	Component(IGameObject* gameObject);
 
 	// デストラクタ
 	virtual ~Component() = default;

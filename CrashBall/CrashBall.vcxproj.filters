@@ -74,6 +74,9 @@
     <Filter Include="Game\Camera">
       <UniqueIdentifier>{c99422db-8071-42f4-9497-3bbbd18e0b8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UIObject">
+      <UniqueIdentifier>{0fe180a6-d2e2-415f-b4a8-433f0fc9aa25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -312,6 +315,27 @@
     <ClInclude Include="Game\Component\PlayerStatusController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Panel.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\RectTransform.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Context\UIContext.h">
+      <Filter>Game\Context</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\FloorMeshGauge.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Screen.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -446,7 +470,26 @@
     <ClCompile Include="Game\Component\StageController.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\PlayerStatusController.cpp" />
+    <ClCompile Include="Game\Component\PlayerStatusController.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Panel.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\RectTransform.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Component.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp" />
+    <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\FloorMeshGauge.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\Screen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

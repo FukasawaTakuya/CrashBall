@@ -1,13 +1,19 @@
+/*****************************************************************//**
+ * \file   EnemyController.h
+ * \brief  敵操作コンポーネント
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Default/Component.h"
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
 
-
-
 /**
- * \brief 基底オブジェクト
+ * \brief 敵操作コンポーネント
  */
 class  EnemyController : public Component{
 
@@ -25,15 +31,15 @@ private:
 
 	std::unique_ptr<StateMachine<EnemyController>> m_stateMachine;	// ステートマシン
 
-	RigidBody* m_rigidbody = nullptr;				// 物理演算
-	Transform* m_transform = nullptr;				// トランスフォーム
+	Transform* m_transform = nullptr;				// トランスフォームのコンポーネント
+	RigidBody* m_rigidbody = nullptr;				// 物理演算のコンポーネント
 	BallController* m_ballController = nullptr;		// ボール管理
 
-	DirectX::SimpleMath::Vector3 m_accelDirection;	// 進行方向
+	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
 
-	const IWallMeshGetter* m_wallMeshGetter;		// 壁メッシュの取得クラス
+	const IWallMeshGetter* m_wallMeshGetter = nullptr;		// 壁メッシュの取得クラス
 
-	float m_hp;	// 体力
+	float m_hp = MAX_HP;	// 体力
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -54,6 +60,7 @@ public:
 	// 更新
 	void Update(const GameContext& gameContext);
 
+	// ダメージ処理
 	void Damage(float damage);
 
 	// 取得/設定
@@ -74,5 +81,6 @@ public:
 	// 内部実装
 private:
 
+	// 壁回避
 	void AvoidWall();
 };

@@ -10,7 +10,6 @@
 
 #include "Game/Interface/ISpriteRendererManager.h"
 
-
 /**
  * @brief スプライト描画管理クラス
  */
@@ -24,7 +23,7 @@ private:
 
 	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;	// スプライトバッチ
 
-	std::vector<SpriteRenderCmd> m_renderCommad;			// 描画命令コンテナ
+	std::vector<SpriteRenderCommand> m_renderCommad;		// 描画命令コンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -39,13 +38,14 @@ public:
 	// 操作
 public:
 
+	// 描画
 	void Reder();
 
 	// 描画命令の登録
 	void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const RECT rect,
-		int orderInLayer = 0dddd,
+		int orderInLayer,
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) override;
 
 	// 描画命令のクリア

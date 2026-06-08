@@ -1,7 +1,21 @@
-#include "pch.h"
-#include "StageController.h"
-#include "Game/Engine/Input.h"
+/*****************************************************************//**
+ * \file   StageController.cpp
+ * \brief  ステータス操作コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
 
+
+#include "pch.h"
+#include "Game/Common/Screen.h"
+#include "StageController.h"
+
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
 StageController::StageController(IGameObject* gameObject)
 	: Component(gameObject)
 {
@@ -58,6 +72,10 @@ StageController::StageController(IGameObject* gameObject)
 
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 StageController::~StageController()
 {
 }
@@ -107,7 +125,7 @@ void StageController::Update(const GameContext& gameContext)
  */
 void StageController::Render(const RenderContext& renderContext)
 {
-	auto& primitiveRenderer = renderContext.m_pPrimitiveRendererManager;
+	auto& primitiveRenderer = renderContext.primitiveRendererManager;
 
 	// 描画
 	for (auto& face : m_meshCollider->GetFace())
@@ -137,15 +155,14 @@ void StageController::Render(const RenderContext& renderContext)
 		);
 	}
 
-	auto& textRenderer = renderContext.m_pTextRendererManager;
+	auto& textRenderer = renderContext.textRendererManager;
 
-	textRenderer->RegisterRenderCommand({ 200.0f, 0.0f }, Colors::White, 1.0f,
+	textRenderer->RegisterRenderCommand(
+		SimpleMath::Vector2(200.0f * Screen::GetScreenRate(), 0.0f), 
+		Colors::White, 
+		1.5f * Screen::GetScreenRate(),
 		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);
 
-	if (Input::GetKeyTrigger(Keyboard::Space))
-	{
-		//ConsumePaint();
-	}
 }
 
 /**

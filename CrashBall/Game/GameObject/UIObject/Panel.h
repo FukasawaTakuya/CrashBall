@@ -1,20 +1,21 @@
 /*****************************************************************//**
- * \file   ModelRenderer.h
- * \brief  モデル描画クラス 
+ * \file   Panel.h
+ * \brief  UIをまとめるパネルオブジェクト
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   June 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Component.h"
-#include "Game/Interface/IModelRendererManager.h"
+#include "Game/GameObject/GameObject.h"
 
- /**
- * @brief 基底オブジェクト
+#include "Game/Component/Default/RectTransform.h"
+
+/**
+ * @brief UIをまとめるパネルオブジェクト
  */
-class  ModelRenderer : public Component {
+class  Panel : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -22,32 +23,34 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
-	
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ModelRenderer(IGameObject* owner);
+	Panel();
 
 	// デストラクタ
-	~ModelRenderer();
+	virtual ~Panel();
 
 	// 操作
 public:
 
+	// 初期化
+	virtual void Initialize() = 0;
+
+	// 更新
+	virtual void Update(const GameContext& gameContext) = 0;
+
 	// 描画
-	void Render(IModelRendererManager* rendererManager, const DirectX::SimpleMath::Matrix& world);
+	virtual void Render(const RenderContext& RenderContext) = 0;
+
+	// 終了処理
+	virtual void Finalize() = 0;
 
 	// 取得/設定
 public:
-	
-	// モデルの設定
-	void SetModel(DirectX::Model* pModel)
-	{
-		m_pModel = pModel;
-	}
 
 	// 内部実装
 private:

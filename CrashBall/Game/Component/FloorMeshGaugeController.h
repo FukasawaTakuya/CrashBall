@@ -1,0 +1,62 @@
+﻿/*****************************************************************//**
+ * \file   FloorMeshGaugeController.h
+ * \brief  
+ * 
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
+#pragma once
+
+#include "Game/Component/Default/Component.h"
+#include "Default/SpriteRenderer.h"
+#include "Default/RectTransform.h"
+#include "IFloorMeshGetter.h"
+
+
+/**
+ * @brief 
+ */
+class  FloorMeshGaugeController : public Component {
+
+	// クラス定数の宣言 -------------------------------------------------
+private:
+
+	static constexpr float LENGTH = 300.0f;	// 長さ
+
+	// データメンバの宣言 -----------------------------------------------
+private:
+
+	SpriteRenderer* m_spriteRenderer = nullptr;		// スプライト描画コンポーネント
+
+	RectTransform* m_rectTransfrom = nullptr;		// トランスフォーム
+
+	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
+
+	// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
+public:
+
+	// コンストラクタ
+	FloorMeshGaugeController(IGameObject* gameObject);
+
+	// デストラクタ
+	~FloorMeshGaugeController();
+
+	// 操作
+public:
+
+	void Update();
+
+	// 取得/設定
+public:
+
+	//  床メッシュ取得コンポーネント
+	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
+	{
+		m_floorMeshGetter = floorMeshGetter;
+	}
+	// 内部実装
+private:
+
+};

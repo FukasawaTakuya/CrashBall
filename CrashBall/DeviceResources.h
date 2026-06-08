@@ -67,6 +67,12 @@ namespace DX
         DXGI_COLOR_SPACE_TYPE   GetColorSpace() const noexcept          { return m_colorSpace; }
         unsigned int            GetDeviceOptions() const noexcept       { return m_options; }
 
+        bool IsFullscreen() const
+        {
+            DWORD style = GetWindowLong(m_window, GWL_STYLE);
+            return (style & WS_POPUP) != 0;
+        }
+
         // Performance events
         void PIXBeginEvent(_In_z_ const wchar_t* name)
         {

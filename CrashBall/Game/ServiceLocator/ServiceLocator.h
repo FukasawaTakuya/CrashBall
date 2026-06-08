@@ -60,6 +60,7 @@ public:
 	template <typename ServiceType>
 	static void Set(ServiceType* service)
 	{
+		// インスタンスの取得
 		auto& instance = GetInstance();
 		// イテレータの取得
 		auto it = instance.m_services.find(typeid(ServiceType));

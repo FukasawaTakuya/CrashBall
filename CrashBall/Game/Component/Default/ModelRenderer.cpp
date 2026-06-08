@@ -27,8 +27,9 @@ ModelRenderer::~ModelRenderer()
 }
 
 /**
- * \brief モデルの描画.
+ * \brief モデルの描画
  * 
+ * \param 描画管理
  * \param ワールド行列
  */
 void ModelRenderer::Render(
@@ -42,12 +43,3 @@ void ModelRenderer::Render(
 		rendererManager->RegisterRenderCommand(m_pModel, world);
 }
 
-/**
- * \brief モデルの設定
- * 
- * \param モデルのポインタ
- */
-void ModelRenderer::SetModel(DirectX::Model* pModel)
-{
-	m_pModel = pModel;
-}

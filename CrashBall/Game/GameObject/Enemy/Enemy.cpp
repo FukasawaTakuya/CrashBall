@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "Enemy.h"
+#include <Game/Common/Screen.h>
 
 using namespace DirectX;
 
@@ -60,10 +61,10 @@ void Enemy::Render(const RenderContext& renderContext)
 {
 	Ball::Render(renderContext);
 
-	renderContext.m_pTextRendererManager->RegisterRenderCommand(
-		SimpleMath::Vector2(0.0f, 30.0f),
+	renderContext.textRendererManager->RegisterRenderCommand(
+		SimpleMath::Vector2(0.0f, 30.0f * Screen::GetScreenRate()),
 		Colors::White,
-		1.0f,
+		1.5f * Screen::GetScreenRate(),
 		L"EnemyHp: {}", m_enemyController->GetHp()
 	);
 }

@@ -43,7 +43,7 @@ protected:
 	std::vector<CollisionCmd> m_onCollisionStayCmd  = { [](Collider*) {} };	// 衝突継続命令
 	std::vector<CollisionCmd> m_onCollisionExitCmd  = { [](Collider*) {} };	// 衝突終了命令
 
-	std::unordered_set<Collider*> m_collideObject;							// 衝突しているオブジェクト
+	std::unordered_set<Collider*> m_collideObject;	// 衝突しているオブジェクト
 
 	Transform* m_transform = nullptr;	// トランスフォーム
 
@@ -63,49 +63,24 @@ public:
 	virtual void DrawCollider() = 0;
 
 	// 衝突検知時の処理の実行
-	void OnCollisionEnter(Collider* other) {
-		for (auto& cmd : m_onCollisionEnterCmd) {
-			cmd(other);
-		}
-	};
+	void OnCollisionEnter(Collider* other);
 
 	// 衝突検知中の処理の実行
-	void OnCollisionStay(Collider* other) {
-		for (auto& cmd : m_onCollisionStayCmd) {
-			cmd(other);
-		}
-	};
+	void OnCollisionStay(Collider* other);
 
 	// 衝突から抜けた時の処理の実行
-	void OnCollisionExit(Collider* other) {
-		for (auto& cmd : m_onCollisionExitCmd) {
-			cmd(other);
-		}
-	};
+	void OnCollisionExit(Collider* other);
 
 	// 衝突中のオブジェクトに追加
-	void AddCollideObject(Collider* collider)
-	{
-		m_collideObject.insert(collider);
-	}
+	void AddCollideObject(Collider* collider);
 
 	// 衝突中のオブジェクトから削除
-	void EraseCollideObject(Collider* collider)
-	{
-		if (m_collideObject.find(collider) != m_collideObject.end())
-		{
-			m_collideObject.erase(collider);
-		}
-	}
+	void EraseCollideObject(Collider* collider);
 
 	// 衝突中のオブジェクトか調べる
-	bool IsCollideObject(Collider* collider) const
-	{
-		return (m_collideObject.find(collider) != m_collideObject.end());
-	}
+	bool IsCollideObject(Collider* collider) const;
 
-
-	// 取得 / 設定
+	// 取得/設定
 public:
 
 	// レイヤーマスクの取得
@@ -116,14 +91,19 @@ public:
 	// トランスフォームの取得
 	Transform* GetTransform() { return m_transform; }
 
+	// トランスフォームの取得
 	void SetTransform(Transform* transfrom) { m_transform = transfrom; }
 
+	// レイヤーマスクの取得
 	void SetLayerMask(CollisionLayerMask layerMask){ m_layerMask = layerMask; }
 
+	// 衝突時の処理の設定
 	void SetOnCollisionEnterCmd(CollisionCmd cmd) { m_onCollisionEnterCmd.push_back(cmd); }
 
+	// 衝突中の処理の設定
 	void SetOnCollisionStayCmd(CollisionCmd cmd)  { m_onCollisionStayCmd.push_back(cmd); }
 
+	// 衝突から抜けた時の処理の設定
 	void SetOnCollisionExitCmd(CollisionCmd cmd)  { m_onCollisionExitCmd.push_back(cmd); }
 };
 
