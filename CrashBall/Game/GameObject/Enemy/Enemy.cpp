@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   Enemy.cpp
  * \brief  敵クラス 
  * 
@@ -55,7 +55,7 @@ void Enemy::Update(const GameContext& gameContext)
 
 /**
  * \brief 描画
- * \param RenderContext
+ * \param RenderContext 描画用のコンテキスト
  */
 void Enemy::Render(const RenderContext& renderContext)
 {
@@ -65,6 +65,8 @@ void Enemy::Render(const RenderContext& renderContext)
 		SimpleMath::Vector2(0.0f, 30.0f * Screen::GetScreenRate()),
 		Colors::White,
 		1.5f * Screen::GetScreenRate(),
+		SimpleMath::Vector2::Zero,
+		1.0f,
 		L"EnemyHp: {}", m_enemyController->GetHp()
 	);
 }

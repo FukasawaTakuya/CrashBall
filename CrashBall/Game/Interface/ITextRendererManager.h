@@ -8,6 +8,8 @@ struct TextRenderCmd
 	DirectX::SimpleMath::Vector2 position;
 	DirectX::XMVECTORF32 color;
 	float scale;
+	DirectX::SimpleMath::Vector2 origin;
+	float layerDepth;
 	std::wstring text;
 };
 
@@ -43,24 +45,30 @@ public:
 
 	// ï`âÊñΩóﬂÇÃìoò^
 	virtual void RegisterRenderCommand(
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::XMVECTORF32 color,
+		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
 		float scale,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth,
 		const std::wstring& text) = 0;
 
 	// èëéÆïtï∂éöóÒÇÃï`âÊñΩóﬂÇÃìoò^
 	template<typename ...Arg>
 	inline void RegisterRenderCommand(
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::XMVECTORF32 color,
+		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
 		float scale,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth,
 		std::wformat_string<Arg...> fmt,
-		Arg && ...arg)
+		Arg&& ...arg)
 	{
 		RegisterRenderCommand(
 			position,
 			color,
 			scale,
+			origin,
+			layerDepth,
 			std::format(fmt, std::forward<Arg>(arg)...)
 		);
 	}

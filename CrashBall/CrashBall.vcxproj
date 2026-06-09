@@ -224,6 +224,10 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\RigidBody.h" />
     <ClInclude Include="Game\Component\Default\SpriteRenderer.h" />
+    <ClInclude Include="Game\Component\Default\TextRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Transform.h" />
     <ClInclude Include="Game\Component\EnemyController.h">
       <SubType>
@@ -433,6 +437,7 @@
     <ClCompile Include="Game\Component\Default\RectTransform.cpp" />
     <ClCompile Include="Game\Component\Default\RigidBody.cpp" />
     <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\TextRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Transform.cpp" />
     <ClCompile Include="Game\Component\EnemyController.cpp" />
     <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp" />

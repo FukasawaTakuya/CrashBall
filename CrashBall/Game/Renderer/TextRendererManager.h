@@ -2,6 +2,8 @@
 
 #include "Game/Interface/ITextRendererManager.h"
 
+
+
 /**
  * @brief ƒeƒLƒXƒg•`‰æŠÇ—ƒNƒ‰ƒX
  */
@@ -32,13 +34,15 @@ public:
 	// ‘€ì
 public:
 
-	void Render();
+	void Render(DirectX::SpriteBatch* spriteBatch);
 
 	// •`‰æ–½—ß‚Ì“o˜^
 	void RegisterRenderCommand(
-		DirectX::SimpleMath::Vector2 position,
-		DirectX::XMVECTORF32 color,
+		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
 		float scale,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth,
 		const std::wstring& text) override;
 
 	using ITextRendererManager::RegisterRenderCommand;

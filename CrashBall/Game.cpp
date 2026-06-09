@@ -1,4 +1,4 @@
-//
+﻿//
 // Game.cpp
 //
 
@@ -70,6 +70,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager->RegisterFactory("ball", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
 
+    m_spriteManager->RegisterFactory("UI", L"Resources/Sprite/UI.dds");
+
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
@@ -90,6 +92,9 @@ void Game::Initialize(HWND window, int width, int height)
     m_primitiveRendererManager->Create(device, context, m_state.get());
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
+
+    // スプライトバッチの作成
+    m_spriteBatch = std::make_unique<SpriteBatch>(context);
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
@@ -157,6 +162,8 @@ void Game::Render()
         SimpleMath::Vector2::Zero,
         Colors::White,
         1.5f * Screen::GetScreenRate(),
+        SimpleMath::Vector2::Zero,
+        0.0f,
         L"FPS:{}",
         (int)m_timer.GetFramesPerSecond()
     );
@@ -175,10 +182,17 @@ void Game::Render()
     m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+
+    // スプライト関連描画開始
+    m_spriteBatch->Begin(SpriteSortMode_FrontToBack, m_state->NonPremultiplied());
+
     // スプライトの描画
-    m_spriteRendererManager->Reder();
+    m_spriteRendererManager->Render(m_spriteBatch.get());
     // テキストの描画
-    m_textRendererManager->Render();
+    m_textRendererManager->Render(m_spriteBatch.get());
+
+    // スプライト関連描画終了
+    m_spriteBatch->End();
 
     m_deviceResources->PIXEndEvent();
 

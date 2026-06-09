@@ -336,6 +336,9 @@
     <ClInclude Include="Game\Common\Screen.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Default\TextRenderer.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -490,6 +493,7 @@
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\Common\Screen.cpp" />
+    <ClCompile Include="Game\Component\Default\TextRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

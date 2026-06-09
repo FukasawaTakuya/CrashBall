@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   ModelRendererManager.cpp
  * \brief  モデル描画管理クラス 
  * 
@@ -51,6 +51,8 @@ void ModelRendererManager::Render(
 
 	for (auto& renderCommand : m_renderCommand)
 	{
+		if (renderCommand.pModel == nullptr) return;
+
 		renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
 	}
 }

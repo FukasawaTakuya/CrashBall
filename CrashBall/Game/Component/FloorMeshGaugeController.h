@@ -12,6 +12,8 @@
 #include "Default/SpriteRenderer.h"
 #include "Default/RectTransform.h"
 #include "IFloorMeshGetter.h"
+#include <Game/Context/GameContext.h>
+#include <Game/Context/RenderContext.h>
 
 
 /**
@@ -46,12 +48,22 @@ public:
 	// 操作
 public:
 
-	void Update();
+	// 初期化
+	void Initialize();
+
+	// 更新
+	void Update(const GameContext& gameContext);
+
+	// 描画
+	void Render(const RenderContext& renderContext);
+
+	// 終了処理
+	void Finalize();
 
 	// 取得/設定
 public:
 
-	//  床メッシュ取得コンポーネント
+	//  床メッシュ取得コンポーネントの設定
 	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
 	{
 		m_floorMeshGetter = floorMeshGetter;

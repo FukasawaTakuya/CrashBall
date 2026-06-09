@@ -10,6 +10,7 @@
 
 #include "Game/Component/IFloorMeshGetter.h"
 #include "Game/GameObject/GameObject.h"
+#include <Game/Component/FloorMeshGaugeController.h>
 
 /**
  * @brief 
@@ -21,6 +22,8 @@ public:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
+
+	FloorMeshGaugeController* m_floorMeshGaugeController;
 
 	IFloorMeshGetter* floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
@@ -34,6 +37,19 @@ public:
 
 	// デストラクタ
 	~FloorMeshGauge();
+
+	// 初期化
+	void Initialize();
+
+	// 更新
+	void Update(const GameContext& gameContext);
+
+	// 描画
+	void Render(const RenderContext& renderContext);
+
+	// 終了処理
+	void Finalize();
+
 
 	// 操作
 public:

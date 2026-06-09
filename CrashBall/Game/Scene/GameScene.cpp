@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   GameScene.cpp
  * \brief  ゲームシーンクラス
  * 
@@ -33,14 +33,14 @@ GameScene::GameScene(ISceneController* pSceneManager)
 
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
-    //m_gamePanel->SetUIContext(
-    //    {
-    //        pSceneManager,
-    //        m_stage->GetComponent<StageController>(),
-    //        m_player->GetComponent<PlayerStatusController>(),
-    //        m_enemy->GetComponent<EnemyController>()
-    //    }
-    //    );
+    m_gamePanel->SetUIContext(
+        {
+            pSceneManager,
+            m_stage->GetComponent<StageController>(),
+            m_player->GetComponent<PlayerStatusController>(),
+            m_enemy->GetComponent<EnemyController>()
+        }
+    );
 
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
@@ -125,7 +125,7 @@ void GameScene::Draw(const RenderContext& renderContext)
     m_stage->Render(renderContext);
     m_player->Render(renderContext);
 	m_enemy->Render(renderContext);
-
+    m_gamePanel->Render(renderContext);
 }
 
 
@@ -148,6 +148,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 
     m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
 	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
+
+    m_gamePanel->SetSprite(resourceContext);
 }
 
 void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)

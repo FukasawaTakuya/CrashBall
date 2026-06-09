@@ -1,4 +1,4 @@
-//
+﻿//
 // Game.h
 //
 
@@ -46,6 +46,8 @@ private:
     std::unique_ptr<DirectX::CommonStates> m_state; // コモンステート
 
     DirectX::SimpleMath::Matrix m_proj; // 射影行列
+
+    std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;  // スプライトバッチ
     
     std::unique_ptr<SceneManager>   m_sceneManager; // シーン管理
 

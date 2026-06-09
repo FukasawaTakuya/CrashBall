@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Collision.h"
 
 using namespace DirectX;
@@ -100,18 +100,16 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 
 	// 二次方程式の係数
 	float a
-		= std::pow(segment->GetVec().x, 2) 
-		+ std::pow(segment->GetVec().y, 2) 
-		+ std::pow(segment->GetVec().z, 2);
+		= segment->GetVec().Dot(segment->GetVec());
 	float b
 		= ( segment->GetVec().x * xa +
 			segment->GetVec().y * ya +
 			segment->GetVec().z * za ) * 2;
 	float c
-		= std::pow(xa, 2) + std::pow(ya, 2) + std::pow(za, 2) - sphere->GetRadius();
+		= (xa * xa) + (ya * ya) + (za * za) - sphere->GetRadius();
 
 	// 判別式
-	float d = std::pow(b, 2) - 4 * a * c;
+	float d = (b * b) - 4 * a * c;
 
 	// 判別式が負なら衝突していない
 	if (d < 0.0f) return false;
@@ -126,7 +124,7 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	// 解が線分の範囲内にあるなら衝突している
 	if ((t1 <= 1.0f && t1 >= 0.0f ||
 		t2 <= 1.0f && t2 >= 0.0f)
-		&& std::abs(t1 - t2) <= 0.2f)
+		&& std::fabsf(t1 - t2) <= 0.5f)
 	{
 		return true;
 	}

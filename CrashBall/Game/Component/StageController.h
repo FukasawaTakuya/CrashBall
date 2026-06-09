@@ -38,8 +38,6 @@ private:
 	const XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の面の色
 	const XMVECTORF32 DEFAULT_COLOR = DirectX::Colors::White;		// デフォルトの面の色
 
-	static constexpr int RESET_PLAYERFACE_NUM = 30;					// リセットするプレイヤーの面の数
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

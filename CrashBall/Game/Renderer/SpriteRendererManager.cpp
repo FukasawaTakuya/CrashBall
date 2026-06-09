@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SpriteRendererManager.h"
 
 using namespace DirectX;
@@ -23,27 +23,24 @@ SpriteRendererManager::~SpriteRendererManager()
  * \brief 描画
  * 
  */
-void SpriteRendererManager::Reder()
+void SpriteRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
-	// 描画順にソート
-	std::sort(m_renderCommad.begin(), m_renderCommad.end(),
-		[](const SpriteRenderCommand& renderCommand1, const SpriteRenderCommand& renderCommand2)
-		{
-			return renderCommand1.orderInLayer < renderCommand2.orderInLayer;
-		});
-
-	m_spriteBatch->Begin();
-
 	for (auto& renderCommand : m_renderCommad)
 	{
-		m_spriteBatch->Draw(
+		if (renderCommand.pSprite == nullptr) continue;
+
+		spriteBatch->Draw(
 			renderCommand.pSprite,
-			renderCommand.rect,
-			renderCommand.color
+			renderCommand.position,
+			nullptr,
+			renderCommand.color,
+			0.0f,
+			renderCommand.origin,
+			1.0f,
+			SpriteEffects_None,
+			renderCommand.layerDepth
 		);
 	}
-
-	m_spriteBatch->End();
 }
 
 /**
@@ -55,11 +52,12 @@ void SpriteRendererManager::Reder()
  */
 void SpriteRendererManager::RegisterRenderCommand(
 	ID3D11ShaderResourceView* pSprite,
-	const RECT rect,
-	int orderInLayer,
+	const DirectX::SimpleMath::Vector2& position,
+	const DirectX::SimpleMath::Vector2& origin,
+	float layerDepth,
 	const DirectX::XMVECTORF32 color)
 {
-	m_renderCommad.emplace_back(pSprite, rect, orderInLayer, color);
+	m_renderCommad.emplace_back(pSprite, position, origin, layerDepth, color);
 }
 
 void SpriteRendererManager::ClearRenderCommand()

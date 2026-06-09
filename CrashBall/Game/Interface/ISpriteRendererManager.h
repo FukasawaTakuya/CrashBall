@@ -17,8 +17,9 @@
 struct SpriteRenderCommand
 {
 	ID3D11ShaderResourceView* pSprite;
-	RECT rect;
-	int orderInLayer;
+	DirectX::SimpleMath::Vector2 position;
+	DirectX::SimpleMath::Vector2 origin;
+	float layerDepth;
 	DirectX::XMVECTORF32 color;
 };
 
@@ -52,8 +53,9 @@ public:
 	// •`‰æ–½—ß‚Ì“o˜^
 	virtual void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
-		const RECT rect,
-		int orderInLayer = 0,
+		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth,
 		const DirectX::XMVECTORF32 color = DirectX::Colors::White) = 0;
 
 

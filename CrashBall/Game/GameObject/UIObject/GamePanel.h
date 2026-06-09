@@ -11,6 +11,9 @@
 #include "Panel.h"
 
 #include "Game/Context/UIContext.h"
+#include "Game/Context/ResourceContext.h"
+
+#include "Game/GameObject/UIObject/FloorMeshGauge.h"
 
 /**
  * @brief ゲーム用のパネル
@@ -24,6 +27,8 @@ private:
 private:
 
 	UIContext m_uiContext;	// UI用のコンテキスト
+
+	std::unique_ptr<FloorMeshGauge> m_floorMeshGauge;	// 現在の面の色を表すゲージ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -46,7 +51,7 @@ public:
 	void Update(const GameContext& gameContext);
 
 	// 描画
-	void Render(const RenderContext& RenderContext);
+	void Render(const RenderContext& renderContext);
 
 	// 終了処理
 	void Finalize();
@@ -60,6 +65,8 @@ public:
 	{
 		m_uiContext = uiContext;
 	}
+
+	void SetSprite(const ResourceContext& resourceContext);
 
 	// 内部実装
 private:

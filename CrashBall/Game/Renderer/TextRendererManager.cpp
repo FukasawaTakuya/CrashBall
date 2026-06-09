@@ -11,36 +11,38 @@ TextRendererManager::~TextRendererManager()
 {
 }
 
-void TextRendererManager::Render()
+void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
-	m_spriteBatch->Begin();
-
 	for (auto& renderCmd : m_renderCommad)
 	{
 		m_spriteFont->DrawString(
-			m_spriteBatch.get(),
+			spriteBatch,
 			renderCmd.text.c_str(),
 			renderCmd.position,
 			renderCmd.color,
 			0.0f,
-			SimpleMath::Vector3::Zero,
-			renderCmd.scale
+			renderCmd.origin,
+			renderCmd.scale,
+			SpriteEffects_None,
+			renderCmd.layerDepth
 		);
 	}
-
-	m_spriteBatch->End();
 }
 
 void TextRendererManager::RegisterRenderCommand(
-	DirectX::SimpleMath::Vector2 position, 
-	DirectX::XMVECTORF32 color, 
-	float scale, 
+	const DirectX::SimpleMath::Vector2& position, 
+	const DirectX::XMVECTORF32& color, 
+	float scale,
+	const DirectX::SimpleMath::Vector2& origin,
+	float layerDepth,
 	const std::wstring& text)
 {
 	m_renderCommad.emplace_back(
 		position,
 		color,
 		scale,
+		origin,
+		layerDepth,
 		text
 	);
 }

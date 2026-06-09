@@ -9,12 +9,23 @@
 #pragma once
 
 #include "Component.h"
+#include "RectTransform.h"
 #include "Game/Interface/ISpriteRendererManager.h"
+
+enum class Anchor
+{
+	Center = 0,
+	LeftTop,
+	LeftCenter,
+	RightTop,
+	RightCenter,
+	AnchorNum,
+};
 
 /**
  * @brief スプライト描画管理コンポーネント
  */
-class  SpriteRenderer : public Component{
+class  SpriteRenderer : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -24,16 +35,22 @@ private:
 
 	ID3D11ShaderResourceView* m_pSprite = nullptr;	// スプライトのポインタ
 
-	int m_orderInLayer = 0;		// 描画順
+	float m_layerDepth = 0.0f;		// 描画順
 
 	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;	// 色
+
+	float m_width = 0.0f;	// 横幅
+	float m_height = 0.0f;	// 縦幅
+	Anchor m_anchor;		// アンカー
+
+	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	SpriteRenderer(IGameObject* gameObject);
+	SpriteRenderer(IGameObject* gameObject, Anchor anchor = Anchor::Center);
 
 	// デストラクタ
 	~SpriteRenderer();
@@ -41,8 +58,7 @@ public:
 	// 操作
 public:
 
-	// 描画
-	void Render(ISpriteRendererManager* rendererManager, const RECT& rect);
+	void Render(ISpriteRendererManager* rendererManager);
 
 	// 取得/設定
 public:
@@ -50,13 +66,23 @@ public:
 	// スプライトの設定
 	void SetSprite(ID3D11ShaderResourceView* pSprite)
 	{
+		// スプライトの設定
 		m_pSprite = pSprite;
+
+		// スプライトのサイズを求める
+		ID3D11Resource* resource;
+		m_pSprite->GetResource(&resource);
+		ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
+		D3D11_TEXTURE2D_DESC desc;
+		texture->GetDesc(&desc);
+		m_width = desc.Width;
+		m_height = desc.Height;
 	}
 
 	// 描画順の設定
-	void SetOrderInLayer(int orderInLayer)
+	void SetLayerDepth(float layerDepth)
 	{
-		m_orderInLayer = orderInLayer;
+		m_layerDepth = layerDepth;
 	}
 
 	// 色の設定

@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   StageController.cpp
  * \brief  ステータス操作コンポーネント
  *
@@ -161,6 +161,8 @@ void StageController::Render(const RenderContext& renderContext)
 		SimpleMath::Vector2(200.0f * Screen::GetScreenRate(), 0.0f), 
 		Colors::White, 
 		1.5f * Screen::GetScreenRate(),
+		SimpleMath::Vector2::Zero,
+		1.0f,
 		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);
 
 }

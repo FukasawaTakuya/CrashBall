@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   GamePanel.cpp
  * \brief  ゲーム用のパネル
  *
@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "GamePanel.h"
+#include <Game/Component/Default/SpriteRenderer.h>
 
 /**
  * \brief コンストラクタ
@@ -15,6 +16,7 @@
  */
 GamePanel::GamePanel()
 	: Panel()
+	, m_floorMeshGauge(std::make_unique<FloorMeshGauge>())
 {
 }
 
@@ -48,8 +50,9 @@ void GamePanel::Update(const GameContext& gameContext)
  * 
  * \param RenderContext 描画用のコンテキスト
  */
-void GamePanel::Render(const RenderContext& RenderContext)
+void GamePanel::Render(const RenderContext& renderContext)
 {
+	m_floorMeshGauge->Render(renderContext);
 }
 
 /**
@@ -58,4 +61,17 @@ void GamePanel::Render(const RenderContext& RenderContext)
  */
 void GamePanel::Finalize()
 {
+}
+
+/**
+ * \brief スプライトの設定
+ * 
+ * \param resourceContext
+ */
+void GamePanel::SetSprite(const ResourceContext& resourceContext)
+{
+	ISpriteManager* spriteManager = resourceContext.spriteManager;
+
+	m_floorMeshGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("UI"));
 }
