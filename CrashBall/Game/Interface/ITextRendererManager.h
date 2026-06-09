@@ -3,14 +3,14 @@
 #include <string>
 #include <SimpleMath.h>
 
-struct TextRenderCmd
+struct TextRenderCommand
 {
-	DirectX::SimpleMath::Vector2 position;
-	DirectX::XMVECTORF32 color;
-	float scale;
-	DirectX::SimpleMath::Vector2 origin;
-	float layerDepth;
-	std::wstring text;
+	DirectX::SimpleMath::Vector2 position;	// 描画位置
+	DirectX::XMVECTORF32 color;				// 色
+	float scale;							// スケール
+	DirectX::SimpleMath::Vector2 origin;	// 基準位置
+	float layerDepth;						// 描画順
+	std::wstring text;						// テキスト
 };
 
 

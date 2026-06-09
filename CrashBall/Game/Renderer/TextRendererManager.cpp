@@ -3,14 +3,28 @@
 
 using namespace DirectX;
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 TextRendererManager::TextRendererManager()
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 TextRendererManager::~TextRendererManager()
 {
 }
 
+
+/**
+ * \brief 描画
+ * 
+ * \param spriteBatch スプライトバッチ
+ */
 void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
 	for (auto& renderCmd : m_renderCommad)
@@ -29,6 +43,16 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 	}
 }
 
+/**
+ * \brief 描画命令の登録
+ * 
+ * \param position 描画位置
+ * \param color 色
+ * \param scale スケール
+ * \param origin 基準位置
+ * \param layerDepth 描画順
+ * \param text テキスト
+ */
 void TextRendererManager::RegisterRenderCommand(
 	const DirectX::SimpleMath::Vector2& position, 
 	const DirectX::XMVECTORF32& color, 
@@ -47,6 +71,10 @@ void TextRendererManager::RegisterRenderCommand(
 	);
 }
 
+/**
+ * \brief 描画命令のクリア
+ * 
+ */
 void TextRendererManager::ClearnRenderCommand()
 {
 	m_renderCommad.clear();

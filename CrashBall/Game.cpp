@@ -184,7 +184,7 @@ void Game::Render()
     m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
 
     // スプライト関連描画開始
-    m_spriteBatch->Begin(SpriteSortMode_FrontToBack, m_state->NonPremultiplied());
+    m_spriteBatch->Begin(SpriteSortMode_FrontToBack);
 
     // スプライトの描画
     m_spriteRendererManager->Render(m_spriteBatch.get());
