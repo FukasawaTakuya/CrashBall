@@ -30,6 +30,7 @@ void FloorMeshGauge::Initialize()
 
 void FloorMeshGauge::Update(const GameContext& gameContext)
 {
+	m_floorMeshGaugeController->Update(gameContext);
 }
 
 void FloorMeshGauge::Render(const RenderContext& renderContext)

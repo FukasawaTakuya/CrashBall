@@ -154,17 +154,16 @@ void Game::Render()
     m_textRendererManager->ClearnRenderCommand();
 
     // FPSの描画
-    m_textRendererManager->RegisterRenderCommand(
+    m_textRendererManager->DebugRender(
         SimpleMath::Vector2::Zero,
         Colors::White,
         0.0f,
-        1.5f * Screen::GetScreenRate(),
+        1.5f,
         SimpleMath::Vector2::Zero,
         0.0f,
         L"FPS:{}",
-        (int)m_timer.GetFramesPerSecond()
+        m_timer.GetFramesPerSecond()
     );
-
 
     m_deviceResources->PIXBeginEvent(L"Render");
     auto context = m_deviceResources->GetD3DDeviceContext();

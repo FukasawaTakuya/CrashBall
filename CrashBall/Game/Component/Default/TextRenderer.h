@@ -12,17 +12,6 @@
 #include "Game/Context/RenderContext.h"
 #include "RectTransform.h"
 
-enum class TextAnchor
-{
-	Center = 0,
-	LeftTop,
-	LeftCenter,
-	RightTop,
-	RightCenter,
-	AnchorNum,
-};
-
-
 /**
  * @brief テキスト描画コンポーネント
  */
@@ -37,10 +26,10 @@ private:
 	DirectX::SpriteFont* m_pSpriteFont = nullptr;			// スプライトフォント
 	std::wstring m_text;									// テキスト
 	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;	// 色
+	float m_fontScale = 1.0f;								// フォントのスケール
 	float m_width = 0.0f;									// 横幅
 	float m_height = 0.0f;									// 縦幅
 	float m_layerDepth = 1.0f;								// 描画順
-	TextAnchor m_anchor = TextAnchor::Center;				// アンカー
 	RectTransform* m_rectTransform = nullptr;				// トランスフォームのキャッシュ
 		
 	// メンバ関数の宣言 -------------------------------------------------
@@ -77,6 +66,12 @@ public:
 	void SetColor(const DirectX::XMVECTORF32& color)
 	{
 		m_color = color;
+	}
+
+	// フォントのスケールの設定
+	void SetFontScale(float fontScale)
+	{
+		m_fontScale = fontScale;
 	}
 
 	// テキストの設定

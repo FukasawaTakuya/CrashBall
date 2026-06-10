@@ -2,18 +2,19 @@
 #include "Screen.h"
 
 namespace {
-	float screenRate = Screen::HEIGHT / Screen::FULL_HEIGHT;
+	float screenRate;
 }
 
 void Screen::CalcScreenRate(bool isFullScreen)
 {
 	if (isFullScreen)
 	{
-		screenRate = 1.0f;
+		screenRate = FULL_HEIGHT / HEIGHT;
+		
 	}
 	else
 	{
-		screenRate = HEIGHT / FULL_HEIGHT;
+		screenRate = 1.0f;
 	}
 }
 

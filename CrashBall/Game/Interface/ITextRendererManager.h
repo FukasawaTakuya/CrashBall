@@ -5,6 +5,7 @@
 
 struct TextRenderCommand
 {
+	DirectX::SpriteFont* pSpriteFont;		// スプライトフォント
 	DirectX::SimpleMath::Vector2 position;	// 描画位置
 	DirectX::XMVECTORF32 color;				// 色
 	float rotate;							// 回転
@@ -46,6 +47,7 @@ public:
 
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
+		DirectX::SpriteFont* pSpriteFont,
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::XMVECTORF32& color,
 		float rotate,
@@ -54,26 +56,36 @@ public:
 		float layerDepth,
 		const std::wstring& text) = 0;
 
-	// 書式付文字列の描画命令の登録
-	template<typename ...Arg>
-	inline void RegisterRenderCommand(
+	// デバッグ描画
+	virtual void DebugRender(
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::XMVECTORF32& color,
 		float rotate,
 		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
 		float layerDepth,
-		std::wformat_string<Arg...> fmt,
-		Arg&& ...arg)
+		const std::wstring& text) = 0;
+
+	// 書式付文字列のデバッグ描画描画命令の登録
+	template<typename ...Args>
+	inline void DebugRender(
+		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
+		float rotate,
+		float scale,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth,
+		std::wformat_string<Args...> fmt,
+		Args&& ...args)
 	{
-		RegisterRenderCommand(
+		DebugRender(
 			position,
 			color,
 			rotate,
 			scale,
 			origin,
 			layerDepth,
-			std::format(fmt, std::forward<Arg>(arg)...)
+			std::format(fmt, std::forward<Args>(args)...)
 		);
 	}
 

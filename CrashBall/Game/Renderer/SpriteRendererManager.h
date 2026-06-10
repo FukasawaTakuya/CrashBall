@@ -45,9 +45,21 @@ public:
 	void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const DirectX::SimpleMath::Vector2& position,
+		const RECT& srcRect,
 		const DirectX::XMVECTORF32& color,
 		float rotate,
 		float scale,
+		const DirectX::SimpleMath::Vector2& origin,
+		float layerDepth) override;
+
+	// •`‰æ–½—ß‚Ì“o˜^
+	void RegisterRenderCommand(
+		ID3D11ShaderResourceView* pSprite,
+		const DirectX::SimpleMath::Vector2& position,
+		const RECT& srcRect,
+		const DirectX::XMVECTORF32& color,
+		float rotate,
+		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,
 		float layerDepth) override;
 

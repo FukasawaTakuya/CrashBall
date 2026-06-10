@@ -85,7 +85,6 @@ public:
 	ObjectTag GetTag() const override { return m_tag; }
 
 	// コンポーネントの取得
-	// template<typename CompType>
 	using IGameObject::GetComponent;
 
 	// 内部実装

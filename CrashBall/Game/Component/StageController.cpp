@@ -157,11 +157,11 @@ void StageController::Render(const RenderContext& renderContext)
 
 	auto& textRenderer = renderContext.textRendererManager;
 
-	textRenderer->RegisterRenderCommand(
-		SimpleMath::Vector2(200.0f * Screen::GetScreenRate(), 0.0f), 
-		Colors::White, 
+	textRenderer->DebugRender(
+		SimpleMath::Vector2(200.0f, 200.0f), 
+		Colors::Black, 
 		0.0f,
-		1.5f * Screen::GetScreenRate(),
+		1.5f,
 		SimpleMath::Vector2::Zero,
 		1.0f,
 		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);

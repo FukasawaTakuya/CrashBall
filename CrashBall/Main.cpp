@@ -228,6 +228,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             RECT rc;
             GetClientRect(hWnd, &rc);
 
+            AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
+
             game->OnWindowSizeChanged(rc.right - rc.left, rc.bottom - rc.top);
         }
         break;
@@ -298,9 +300,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                 if (game)
                     game->GetDefaultSize(width, height);
 
+                RECT rc =
+                {
+                    0, 0, width, height
+                };
+                AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
+
                 ShowWindow(hWnd, SW_SHOWNORMAL);
 
-                SetWindowPos(hWnd, HWND_TOP, 0, 0, width, height, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
+                SetWindowPos(hWnd, HWND_TOP, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOMOVE | SWP_NOZORDER | SWP_FRAMECHANGED);
             }
             else
             {

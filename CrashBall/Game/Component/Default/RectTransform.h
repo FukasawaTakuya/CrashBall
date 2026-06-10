@@ -13,22 +13,30 @@
 // 基準位置
 enum class Origin
 {
-	Center = 0,
+	CenterTop = 0,
+	Center,
+	CenterBottom,
 	LeftTop,
 	LeftCenter,
+	LeftBottom,
 	RightTop,
 	RightCenter,
+	RigitBottom,
 	OriginNum,
 };
 
 // 基準位置を決めるためのオフセット
 const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
 {
+	DirectX::SimpleMath::Vector2(0.5f, 0.0f),	// CenterTop
 	DirectX::SimpleMath::Vector2(0.5f, 0.5f),	// Center
+	DirectX::SimpleMath::Vector2(0.5f, 1.0f),	// CenterBottom
 	DirectX::SimpleMath::Vector2(0.0f, 0.0f),	// LeftTop
 	DirectX::SimpleMath::Vector2(0.0f, 0.5f),	// LeftCenter
+	DirectX::SimpleMath::Vector2(0.0f, 1.0f),	// LeftBottom
 	DirectX::SimpleMath::Vector2(1.0f, 0.0f),	// RightTop
 	DirectX::SimpleMath::Vector2(1.0f, 0.5f),	// RightCenter
+	DirectX::SimpleMath::Vector2(1.0f, 1.0f),	// RightBottom
 };
 
 /**

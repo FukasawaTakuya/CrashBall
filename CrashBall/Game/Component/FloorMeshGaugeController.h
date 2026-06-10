@@ -38,6 +38,9 @@ private:
 
 	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
+	float m_gauge = 1.0f;
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

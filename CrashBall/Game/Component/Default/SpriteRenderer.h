@@ -32,7 +32,12 @@ private:
 	float m_width = 0.0f;	// 横幅
 	float m_height = 0.0f;	// 縦幅
 
+	DirectX::SimpleMath::Vector2 m_spriteScale = DirectX::SimpleMath::Vector2::One;	// スプライトのスケール
+
 	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
+
+	float m_valueX = 1.0f;
+	float m_valueY = 1.0f;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -78,6 +83,23 @@ public:
 	void SetColor(const DirectX::XMVECTORF32& color)
 	{
 		m_color = color;
+	}
+
+	// スプライトのスケールの設定
+	void SetSpriteScale(float spriteScale)
+	{
+		SetSpriteScale(DirectX::SimpleMath::Vector2::One * spriteScale);
+	}
+
+	// スプライトのスケールの設定
+	void SetSpriteScale(const DirectX::SimpleMath::Vector2& spriteScale)
+	{
+		m_spriteScale = spriteScale;
+	}
+
+	void SetVelueX(float valueX)
+	{
+		m_valueX = valueX;
 	}
 
 	// 内部実装

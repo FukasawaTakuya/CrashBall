@@ -29,11 +29,13 @@ TextRenderer::~TextRenderer()
  */
 void TextRenderer::Render(ITextRendererManager* rendererManager)
 {
+	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(
+		m_pSpriteFont,
 		m_rectTransform->GetPosition(),
 		m_color,
 		m_rectTransform->GetRotate(),
-		m_rectTransform->GetScale(),
+		m_fontScale * m_rectTransform->GetScale(),
 		m_rectTransform->GetOrigin(m_width, m_height),
 		m_layerDepth,
 		m_text

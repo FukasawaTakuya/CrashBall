@@ -1,5 +1,7 @@
 ﻿#include "pch.h"
 #include "FloorMeshGaugeController.h"
+#include "Game/Common/Screen.h"
+#include "Game/Engine/Time.h"
 
 using namespace DirectX;
 
@@ -20,9 +22,12 @@ FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
 
 	m_spriteRenderer->SetLayerDepth(1.0f);
 
-	m_rectTransfrom->SetPosition(SimpleMath::Vector2(640, 360));
+	m_rectTransfrom->SetPosition(SimpleMath::Vector2(Screen::CENTER_X, 50.0f));
 	//m_rectTransfrom->SetRotate(XM_PI / 4);
+	m_rectTransfrom->SetScale(1.0f);
 	m_rectTransfrom->SetOrigin(Origin::Center);
+
+	m_spriteRenderer->SetSpriteScale(SimpleMath::Vector2(8.0f, 0.4f));
 }
 
 /**
@@ -48,7 +53,9 @@ void FloorMeshGaugeController::Initialize()
  */
 void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
+	m_gauge = std::lerp(m_gauge, 0.1f, Time::GetElapsedTime() * 4.0f);
 
+	m_spriteRenderer->SetVelueX(m_gauge);
 }
 
 /**

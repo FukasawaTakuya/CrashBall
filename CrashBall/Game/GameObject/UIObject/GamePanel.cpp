@@ -43,6 +43,7 @@ void GamePanel::Initialize()
  */ 
 void GamePanel::Update(const GameContext& gameContext)
 {
+	m_floorMeshGauge->Update(gameContext);
 }
 
 /**

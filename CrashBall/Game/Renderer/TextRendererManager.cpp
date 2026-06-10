@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "TextRendererManager.h"
+#include "Game/Common/Screen.h"
 
 using namespace DirectX;
 
@@ -35,18 +36,35 @@ TextRendererManager::~TextRendererManager()
  */
 void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
+	// テキスト描画
 	for (auto& renderCommand : m_renderCommad)
 	{
-		m_spriteFont->DrawString(
+		renderCommand.pSpriteFont->DrawString(
 			spriteBatch,
 			renderCommand.text.c_str(),
-			renderCommand.position,
+			renderCommand.position * Screen::GetScreenRate(),
 			renderCommand.color,
 			renderCommand.rotate,
 			renderCommand.origin,
-			renderCommand.scale,
+			renderCommand.scale * Screen::GetScreenRate(),
 			SpriteEffects_None,
 			renderCommand.layerDepth
+		);
+	}
+
+	// デバッグ描画
+	for (auto& debugRenderCommand : m_debugRenderCommad)
+	{
+		debugRenderCommand.pSpriteFont->DrawString(
+			spriteBatch,
+			debugRenderCommand.text.c_str(),
+			debugRenderCommand.position,
+			debugRenderCommand.color,
+			debugRenderCommand.rotate,
+			debugRenderCommand.origin,
+			debugRenderCommand.scale,
+			SpriteEffects_None,
+			debugRenderCommand.layerDepth
 		);
 	}
 }
@@ -63,6 +81,7 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
  * \param text テキスト
  */
 void TextRendererManager::RegisterRenderCommand(
+	DirectX::SpriteFont* pSpriteFont,
 	const DirectX::SimpleMath::Vector2& position,
 	const DirectX::XMVECTORF32& color,
 	float rotate,
@@ -72,6 +91,27 @@ void TextRendererManager::RegisterRenderCommand(
 	const std::wstring& text)
 {
 	m_renderCommad.emplace_back(
+		pSpriteFont,
+		position,
+		color,
+		rotate,
+		scale,
+		origin,
+		layerDepth,
+		text
+	);
+}
+
+void TextRendererManager::DebugRender(
+	const DirectX::SimpleMath::Vector2& position, 
+	const DirectX::XMVECTORF32& color, 
+	float rotate, float scale, 
+	const DirectX::SimpleMath::Vector2& origin, 
+	float layerDepth, 
+	const std::wstring& text)
+{
+	m_debugRenderCommad.emplace_back(
+		m_debugFont.get(),
 		position,
 		color,
 		rotate,
@@ -89,13 +129,14 @@ void TextRendererManager::RegisterRenderCommand(
 void TextRendererManager::ClearnRenderCommand()
 {
 	m_renderCommad.clear();
+	m_debugRenderCommad.clear();
 }
 
 void TextRendererManager::Create(
 	ID3D11Device1* device, 
 	ID3D11DeviceContext1* context)
 {
-	m_spriteFont = std::make_unique<SpriteFont>(device, L"Resources/SpriteFont/myfont.spritefont");
+	m_debugFont = std::make_unique<SpriteFont>(device, L"Resources/SpriteFont/myfont.spritefont");
 	m_spriteBatch = std::make_unique<SpriteBatch>(context);
 }
 

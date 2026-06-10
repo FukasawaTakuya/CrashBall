@@ -113,6 +113,8 @@ void GameScene::Update(const GameContext& gameContext)
     else {
 		m_camera->FollowCamera(m_enemy->GetComponent<Transform>()->GetPosition());
     }
+
+    m_gamePanel->Update(gameContext);
 }
 
 
