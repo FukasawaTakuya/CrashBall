@@ -45,9 +45,11 @@ public:
 	void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
+		float rotate,
+		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
-		float layerDepth,
-		const DirectX::XMVECTORF32 color = DirectX::Colors::White) override;
+		float layerDepth) override;
 
 	// •`‰æ–½—ß‚ÌƒNƒŠƒA
 	void ClearRenderCommand();

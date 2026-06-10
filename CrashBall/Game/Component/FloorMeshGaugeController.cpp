@@ -13,10 +13,16 @@ FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
 {
 	// コンポーネントのキャッシュ
 	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
+	m_rectTransfrom = GetGameObject()->GetComponent<RectTransform>();
+	m_textRenderer = GetGameObject()->GetComponent<TextRenderer>();
 
 	m_spriteRenderer->SetColor({ 0.0f, 0.0f, 0.0f, 0.5f });
 
 	m_spriteRenderer->SetLayerDepth(1.0f);
+
+	m_rectTransfrom->SetPosition(SimpleMath::Vector2(640, 360));
+	//m_rectTransfrom->SetRotate(XM_PI / 4);
+	m_rectTransfrom->SetOrigin(Origin::Center);
 }
 
 /**
@@ -42,6 +48,7 @@ void FloorMeshGaugeController::Initialize()
  */
 void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
+
 }
 
 /**
@@ -52,8 +59,12 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 void FloorMeshGaugeController::Render(const RenderContext& renderContext)
 {
 	ISpriteRendererManager* rendererManger = renderContext.spriteRendererManager;
+	ITextRendererManager* renderer = renderContext.textRendererManager;
 
 	m_spriteRenderer->Render(rendererManger);
+
+	m_textRenderer->SetText(L"test");
+	m_textRenderer->Render(renderer);
 }
 
 /**

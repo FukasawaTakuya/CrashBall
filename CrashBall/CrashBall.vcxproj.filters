@@ -339,6 +339,12 @@
     <ClInclude Include="Game\Component\Default\TextRenderer.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
+    <ClInclude Include="Game\ResourceManager\TextManager.h">
+      <Filter>Game\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITextManager.h">
+      <Filter>Game\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -493,7 +499,12 @@
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\Common\Screen.cpp" />
-    <ClCompile Include="Game\Component\Default\TextRenderer.cpp" />
+    <ClCompile Include="Game\ResourceManager\TextManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

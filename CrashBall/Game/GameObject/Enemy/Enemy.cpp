@@ -64,6 +64,7 @@ void Enemy::Render(const RenderContext& renderContext)
 	renderContext.textRendererManager->RegisterRenderCommand(
 		SimpleMath::Vector2(0.0f, 30.0f * Screen::GetScreenRate()),
 		Colors::White,
+		0.0f,
 		1.5f * Screen::GetScreenRate(),
 		SimpleMath::Vector2::Zero,
 		1.0f,

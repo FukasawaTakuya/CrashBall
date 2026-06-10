@@ -21,12 +21,12 @@ public:
 private:
 
 	using FileCollection
-		= std::unordered_map<std::string, const wchar_t*>;
+		= std::unordered_map<std::string, std::wstring>;
 	using SoundCollection
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::SoundEffect>>;
 
-	FileCollection	m_bgmfactory;	// 
-	FileCollection	m_sefactory;
+	FileCollection	m_bgmfile;	// BGMのファイル名 
+	FileCollection	m_sefile;	// SEのファイル名
 	SoundCollection	m_bgmSounds;	// BGMのキャッシュ
 	SoundCollection	m_seSounds;		// SEのキャッシュ
 
@@ -43,7 +43,11 @@ public:
 	// 操作
 public:
 
-	void RegisterFactory(const std::string& key, const wchar_t* fileName);
+	// BGMのファイル名を登録
+	void RegisterBgmFile(const std::string& key, const std::wstring& fileName);
+
+	// SEのファイル名を登録
+	void RegisterSeFile(const std::string& key, const std::wstring& fileName);
 
 	// 音声の作成
 	void CreateSound(DirectX::AudioEngine* audioEngine);
@@ -53,12 +57,10 @@ public:
 public:
 
 	// BGMの取得
-	DirectX::SoundEffect* GetBgmSound(const std::string key);
+	DirectX::SoundEffect* GetBgmSound(const std::string key) override;
 
 	// SEの取得
-	DirectX::SoundEffect* GetSeSound(const std::string key);
-
-
+	DirectX::SoundEffect* GetSeSound(const std::string key) override;
 
 	// 内部実装
 private:

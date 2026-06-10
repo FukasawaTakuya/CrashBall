@@ -23,11 +23,11 @@ private:
 
 	// エイリアス宣言
 	using FileCollection 
-		= std::unordered_map<std::string, const wchar_t*>;
+		= std::unordered_map<std::string, std::wstring>;
 	using ModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
 
-	FileCollection	m_modelFactory;	// モデルファクトリー
+	FileCollection	m_files;	// ファイル名
 	ModelCollection	m_models;	// モデルのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -43,8 +43,8 @@ public:
 	// 操作
 public:
 
-	// ファクトリーに登録
-	void RegisterFactory(std::string key, const wchar_t* fileName);
+	// ファイル名を登録
+	void RegisterFile(std::string key, const std::wstring& fileName);
 
 	// モデルの作成
 	void CreateModel(ID3D11Device1* device);

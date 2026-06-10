@@ -71,7 +71,11 @@ void GamePanel::Finalize()
 void GamePanel::SetSprite(const ResourceContext& resourceContext)
 {
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
+	ITextManager* textManager = resourceContext.textManager;
 
 	m_floorMeshGauge->
 		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("UI"));
+
+	m_floorMeshGauge->
+		GetComponent<TextRenderer>()->SetSpriteFont(textManager->GetSpriteFont("default"));
 }

@@ -20,16 +20,29 @@ SoundManager::~SoundManager()
 }
 
 /**
- * \brief ファクトリーに登録
+ * \brief BGMのファイル名を登録
  * 
- * \param key
- * \param fileName
+ * \param key キー
+ * \param fileName ファイル名
  */
-void SoundManager::RegisterFactory(
+void SoundManager::RegisterBgmFile(
 	const std::string& key, 
-	const wchar_t* fileName)
+	const std::wstring& fileName)
 {
-	m_bgmfactory.emplace(key, fileName);
+	m_bgmfile.emplace(key, fileName);
+}
+
+/**
+ * \brief SEのファイル名を登録
+ *
+ * \param key キー
+ * \param fileName ファイル名
+ */
+void SoundManager::RegisterSeFile(
+	const std::string& key,
+	const std::wstring& fileName)
+{
+	m_sefile.emplace(key, fileName);
 }
 
 /**
@@ -39,26 +52,22 @@ void SoundManager::RegisterFactory(
  */
 void SoundManager::CreateSound(DirectX::AudioEngine* audioEngine)
 {
-	for (auto& file : m_bgmfactory)
+	for (auto& file : m_bgmfile)
 	{
-		m_bgmSounds.emplace(
-			file.first,
-			std::make_unique<SoundEffect>(
-				audioEngine,
-				file.second
-			)
-		);
+		// BGMの作成
+		std::unique_ptr<SoundEffect> bgm 
+			= std::make_unique<SoundEffect>(audioEngine, file.second.c_str());
+		// コンテナに追加
+		m_bgmSounds.emplace(file.first, std::move(bgm));
 	}
 
-	for (auto& file : m_sefactory)
+	for (auto& file : m_sefile)
 	{
-		m_seSounds.emplace(
-			file.first,
-			std::make_unique<SoundEffect>(
-				audioEngine,
-				file.second
-			)
-		);
+		// SEの作成
+		std::unique_ptr<SoundEffect> se
+			= std::make_unique<SoundEffect>(audioEngine, file.second.c_str());
+		// コンテナに追加
+		m_seSounds.emplace(file.first, std::move(se));
 	}
 }
 
@@ -66,7 +75,7 @@ void SoundManager::CreateSound(DirectX::AudioEngine* audioEngine)
  * \brief BGMの取得
  * 
  * \param key キー
- * \return サウンドエフェクトのポインタ
+ * \return サウンドエフェクト
  */
 DirectX::SoundEffect* SoundManager::GetBgmSound(const std::string key)
 {
@@ -83,7 +92,7 @@ DirectX::SoundEffect* SoundManager::GetBgmSound(const std::string key)
  * \brief SEの取得
  * 
  * \param key キー
- * \return サウンドエフェクトのポインタ
+ * \return サウンドエフェクト
  */
 DirectX::SoundEffect* SoundManager::GetSeSound(const std::string key)
 {

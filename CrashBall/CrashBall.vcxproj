@@ -325,6 +325,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Interface\ITextManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Interface\ITextRendererManager.h">
       <SubType>
       </SubType>
@@ -349,6 +353,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\SpriteManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\TextManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -460,6 +468,7 @@
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
+    <ClCompile Include="Game\ResourceManager\TextManager.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />

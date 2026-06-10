@@ -21,14 +21,16 @@ SpriteManager::~SpriteManager()
 }
 
 /**
- * \brief ファクトリーに登録
+ * \brief ファイル名を登録
  * 
  * \param key キー
  * \param fileName ファイル名
  */
-void SpriteManager::RegisterFactory(const std::string& key, const wchar_t* fileName)
+void SpriteManager::RegisterFile(
+	const std::string& key, 
+	const std::wstring& fileName)
 {
-	m_factory.emplace(key, fileName);
+	m_files.emplace(key, fileName);
 }
 
 /**
@@ -38,22 +40,23 @@ void SpriteManager::RegisterFactory(const std::string& key, const wchar_t* fileN
  */
 void SpriteManager::CreateSprite(ID3D11Device1* device)
 {
-	// コンテナのクリア
 	m_sprites.clear();
 
-	for (auto& file : m_factory)
+	for (auto& file : m_files)
 	{
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture;
 
+		// スプライトの作成
 		DX::ThrowIfFailed(
 			CreateDDSTextureFromFile(
 				device,
-				file.second,
+				file.second.c_str(),
 				nullptr,
 				texture.ReleaseAndGetAddressOf()
 			)
 		);
 
+		// コンテナに追加
 		m_sprites.emplace(file.first, std::move(texture));
 	}
 }
@@ -62,11 +65,10 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
  * \brief スプライトの取得
  * 
  * \param key キー
- * \return スプライトのポインタ
+ * \return スプライト
  */
 ID3D11ShaderResourceView* SpriteManager::GetSprite(const std::string& key)
 {
-	// キーから探す
 	auto it = m_sprites.find(key);
 
 	if (it != m_sprites.end())

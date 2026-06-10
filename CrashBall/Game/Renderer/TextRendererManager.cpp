@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   TextRendererManager.cpp
+ * \brief  テキスト描画管理クラス
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "TextRendererManager.h"
 
@@ -27,18 +35,18 @@ TextRendererManager::~TextRendererManager()
  */
 void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
-	for (auto& renderCmd : m_renderCommad)
+	for (auto& renderCommand : m_renderCommad)
 	{
 		m_spriteFont->DrawString(
 			spriteBatch,
-			renderCmd.text.c_str(),
-			renderCmd.position,
-			renderCmd.color,
-			0.0f,
-			renderCmd.origin,
-			renderCmd.scale,
+			renderCommand.text.c_str(),
+			renderCommand.position,
+			renderCommand.color,
+			renderCommand.rotate,
+			renderCommand.origin,
+			renderCommand.scale,
 			SpriteEffects_None,
-			renderCmd.layerDepth
+			renderCommand.layerDepth
 		);
 	}
 }
@@ -48,14 +56,16 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
  * 
  * \param position 描画位置
  * \param color 色
+ * \param rotate 回転
  * \param scale スケール
  * \param origin 基準位置
  * \param layerDepth 描画順
  * \param text テキスト
  */
 void TextRendererManager::RegisterRenderCommand(
-	const DirectX::SimpleMath::Vector2& position, 
-	const DirectX::XMVECTORF32& color, 
+	const DirectX::SimpleMath::Vector2& position,
+	const DirectX::XMVECTORF32& color,
+	float rotate,
 	float scale,
 	const DirectX::SimpleMath::Vector2& origin,
 	float layerDepth,
@@ -64,6 +74,7 @@ void TextRendererManager::RegisterRenderCommand(
 	m_renderCommad.emplace_back(
 		position,
 		color,
+		rotate,
 		scale,
 		origin,
 		layerDepth,

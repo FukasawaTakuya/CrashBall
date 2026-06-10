@@ -21,13 +21,12 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// エイリアス宣言
 	using FileCollection
-		= std::unordered_map<std::string, const wchar_t*>;
+		= std::unordered_map<std::string, std::wstring>;
 	using SpriteCollection
 		= std::unordered_map<std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>;
 
-	FileCollection		m_factory;	// スプライトファクトリー
+	FileCollection		m_files;	// ファイル名
 	SpriteCollection	m_sprites;	// スプライトのキャッシュ
 
 
@@ -44,8 +43,8 @@ public:
 	// 操作
 public:
 
-	// ファクトリーに登録
-	void RegisterFactory(const std::string& key, const wchar_t* fileName);
+	// ファイル名を登録
+	void RegisterFile(const std::string& key, const std::wstring& fileName);
 
 	// モデルの作成
 	void CreateSprite(ID3D11Device1* device);

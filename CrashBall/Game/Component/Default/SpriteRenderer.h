@@ -12,16 +12,6 @@
 #include "RectTransform.h"
 #include "Game/Interface/ISpriteRendererManager.h"
 
-enum class Anchor
-{
-	Center = 0,
-	LeftTop,
-	LeftCenter,
-	RightTop,
-	RightCenter,
-	AnchorNum,
-};
-
 /**
  * @brief スプライト描画管理コンポーネント
  */
@@ -41,7 +31,6 @@ private:
 
 	float m_width = 0.0f;	// 横幅
 	float m_height = 0.0f;	// 縦幅
-	Anchor m_anchor;		// アンカー
 
 	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
@@ -50,7 +39,7 @@ private:
 public:
 
 	// コンストラクタ
-	SpriteRenderer(IGameObject* gameObject, Anchor anchor = Anchor::Center);
+	SpriteRenderer(IGameObject* gameObject);
 
 	// デストラクタ
 	~SpriteRenderer();

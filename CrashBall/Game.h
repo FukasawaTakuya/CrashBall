@@ -7,8 +7,6 @@
 #include "DeviceResources.h"
 #include "StepTimer.h"
 
-#include <memory>
-
 #include "Game/Scene/SceneManager.h"
 
 #include "Game/Common/InputSystem.h"
@@ -22,6 +20,7 @@
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/ResourceManager/SpriteManager.h"
 #include "Game/ResourceManager/SoundManager.h"
+#include "Game/ResourceManager/TextManager.h"
 
 #include "Game/SoundPlayer/SoundPlayer.h"
 
@@ -57,6 +56,7 @@ private:
     std::unique_ptr<ModelManager>               m_modelManager;                 // モデル管理
     std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理
     std::unique_ptr<SoundManager>               m_soundManager;                 // サウンド管理
+    std::unique_ptr<TextManager>                m_textManager;                  // テキスト管理
 
     std::unique_ptr<ModelRendererManager>       m_modelRendererManager;         // モデル描画管理
     std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理
@@ -65,10 +65,9 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-
-    std::optional<GameContext>      m_gameContext;      // ゲームプレイ用のコンテキスト
-    std::optional<RenderContext>    m_renderContext;    // 描画用のコンテキスト
-    std::optional<ResourceContext>  m_resourceContext;  // リソース用のコンテキスト
+    GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
+    RenderContext   m_renderContext;    // 描画用のコンテキスト
+    ResourceContext m_resourceContext;  // リソース用のコンテキスト
 
 public:
 

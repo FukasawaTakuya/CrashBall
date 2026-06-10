@@ -40,6 +40,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager              = std::make_unique<ModelManager>();
     m_spriteManager             = std::make_unique<SpriteManager>();
     m_soundManager              = std::make_unique<SoundManager>();
+    m_textManager               = std::make_unique<TextManager>();
 
     m_primitiveRendererManager  = std::make_unique<PrimitiveRendererManager>();
     m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
@@ -49,28 +50,33 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
     // 各コンテキストの初期化
-    m_gameContext.emplace();
-    m_renderContext.emplace(
+    m_gameContext =
+    {
+
+    };
+    m_renderContext =
+    {
         m_modelRendererManager.get(),
         m_primitiveRendererManager.get(),
         m_spriteRendererManager.get(),
         m_textRendererManager.get()
-
-    );
-    m_resourceContext.emplace(
+    };
+    m_resourceContext =
+    {
         m_modelManager.get(),
-        m_spriteManager.get()
-    );
+        m_spriteManager.get(),
+        m_textManager.get()
+    };
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
-    // ファクトリーに作成するリソースを登録
-    m_modelManager->RegisterFactory("ball", L"Resources/Models/ball.sdkmesh");
-    m_modelManager->RegisterFactory("Stage", L"Resources/Models/Stage.sdkmesh");
-
-    m_spriteManager->RegisterFactory("UI", L"Resources/Sprite/UI.dds");
+    // 作成するリソースのファイル名を登録
+    m_modelManager->RegisterFile("ball", L"Resources/Models/ball.sdkmesh");
+    m_modelManager->RegisterFile("Stage", L"Resources/Models/Stage.sdkmesh");
+    m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
+    m_textManager->RegisterFile("default", L"Resources/SpriteFont/myfont.spritefont");
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
@@ -85,16 +91,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
-
-    auto device = m_deviceResources->GetD3DDevice();
-    auto context = m_deviceResources->GetD3DDeviceContext();
-    // 描画管理オブジェクトの初期化
-    m_primitiveRendererManager->Create(device, context, m_state.get());
-    m_spriteRendererManager->Create(context);
-    m_textRendererManager->Create(device, context);
-
-    // スプライトバッチの作成
-    m_spriteBatch = std::make_unique<SpriteBatch>(context);
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
@@ -131,7 +127,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_inputSystem->Update();
     m_soundPlayer->Update();
 
-    m_sceneManager->Update(*m_gameContext);
+    m_sceneManager->Update(m_gameContext);
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
@@ -161,6 +157,7 @@ void Game::Render()
     m_textRendererManager->RegisterRenderCommand(
         SimpleMath::Vector2::Zero,
         Colors::White,
+        0.0f,
         1.5f * Screen::GetScreenRate(),
         SimpleMath::Vector2::Zero,
         0.0f,
@@ -176,7 +173,7 @@ void Game::Render()
     context;
 
     // シーン内での描画命令登録
-    m_sceneManager->Render(*m_renderContext);
+    m_sceneManager->Render(m_renderContext);
 
     // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
@@ -281,17 +278,25 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
 void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
-    m_state = std::make_unique<DirectX::CommonStates>(device);
+    auto context = m_deviceResources->GetD3DDeviceContext();
 
-    // TODO: Initialize device dependent objects here (independent of window size).
-    device;
+    // コモンステートの作成
+    m_state = std::make_unique<DirectX::CommonStates>(device);
+    // スプライトバッチの作成
+    m_spriteBatch = std::make_unique<SpriteBatch>(context);
 
     // モデルの生成
     m_spriteManager->CreateSprite(device);
     m_modelManager->CreateModel(device);
+    m_textManager->CreateSpriteFont(device);
     
     // デバイス依存のリソース作成
-    m_sceneManager->CreateDeviceResources(*m_resourceContext);
+    m_sceneManager->CreateDeviceResources(m_resourceContext);
+
+    // 描画管理オブジェクトの初期化
+    m_primitiveRendererManager->Create(device, context, m_state.get());
+    m_spriteRendererManager->Create(context);
+    m_textRendererManager->Create(device, context);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

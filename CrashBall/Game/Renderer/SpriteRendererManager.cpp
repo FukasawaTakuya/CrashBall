@@ -34,9 +34,9 @@ void SpriteRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 			renderCommand.position,
 			nullptr,
 			renderCommand.color,
-			0.0f,
+			renderCommand.rotate,
 			renderCommand.origin,
-			1.0f,
+			renderCommand.scale,
 			SpriteEffects_None,
 			renderCommand.layerDepth
 		);
@@ -45,19 +45,25 @@ void SpriteRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 
 /**
  * \brief 描画命令の登録
- *
- * \param pSprite スプライトのポインタ
- * \param rect 描画範囲
+ * 
+ * \param pSprite スプライト
+ * \param position 描画位置
  * \param color 色
+ * \param rotate 回転
+ * \param scale スケール
+ * \param origin 基準位置
+ * \param layerDepth 描画順
  */
 void SpriteRendererManager::RegisterRenderCommand(
 	ID3D11ShaderResourceView* pSprite,
 	const DirectX::SimpleMath::Vector2& position,
+	const DirectX::XMVECTORF32& color,
+	float rotate,
+	float scale,
 	const DirectX::SimpleMath::Vector2& origin,
-	float layerDepth,
-	const DirectX::XMVECTORF32 color)
+	float layerDepth)
 {
-	m_renderCommad.emplace_back(pSprite, position, origin, layerDepth, color);
+	m_renderCommad.emplace_back(pSprite, position, color, rotate, scale, origin, layerDepth);
 }
 
 void SpriteRendererManager::ClearRenderCommand()

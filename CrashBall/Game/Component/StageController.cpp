@@ -160,6 +160,7 @@ void StageController::Render(const RenderContext& renderContext)
 	textRenderer->RegisterRenderCommand(
 		SimpleMath::Vector2(200.0f * Screen::GetScreenRate(), 0.0f), 
 		Colors::White, 
+		0.0f,
 		1.5f * Screen::GetScreenRate(),
 		SimpleMath::Vector2::Zero,
 		1.0f,

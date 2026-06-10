@@ -9,8 +9,8 @@
 #pragma once
 
 #include "Game/Interface/IModelManager.h"
-
 #include "Game/Interface/ISpriteManager.h"
+#include "Game/Interface/ITextManager.h"
 
 /**
  * \brief リソース用のコンテキスト
@@ -19,5 +19,5 @@ struct  ResourceContext {
 
 	IModelManager* modelManager;	// モデル管理クラス
 	ISpriteManager* spriteManager;	// スプライト管理クラス
-
+	ITextManager* textManager;		// テキスト管理クラス
 };

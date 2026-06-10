@@ -14,6 +14,7 @@
 #include "IFloorMeshGetter.h"
 #include <Game/Context/GameContext.h>
 #include <Game/Context/RenderContext.h>
+#include "Default/TextRenderer.h"
 
 
 /**
@@ -30,6 +31,8 @@ private:
 private:
 
 	SpriteRenderer* m_spriteRenderer = nullptr;		// スプライト描画コンポーネント
+
+	TextRenderer* m_textRenderer = nullptr;
 
 	RectTransform* m_rectTransfrom = nullptr;		// トランスフォーム
 

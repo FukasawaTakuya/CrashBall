@@ -10,6 +10,27 @@
 
 #include "Game/Component/Default/Component.h"
 
+// 基準位置
+enum class Origin
+{
+	Center = 0,
+	LeftTop,
+	LeftCenter,
+	RightTop,
+	RightCenter,
+	OriginNum,
+};
+
+// 基準位置を決めるためのオフセット
+const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
+{
+	DirectX::SimpleMath::Vector2(0.5f, 0.5f),	// Center
+	DirectX::SimpleMath::Vector2(0.0f, 0.0f),	// LeftTop
+	DirectX::SimpleMath::Vector2(0.0f, 0.5f),	// LeftCenter
+	DirectX::SimpleMath::Vector2(1.0f, 0.0f),	// RightTop
+	DirectX::SimpleMath::Vector2(1.0f, 0.5f),	// RightCenter
+};
+
 /**
  * @brief 2Dのトランスフォームコンポーネント
  */
@@ -27,6 +48,8 @@ private:
 
 	float m_scale = 1.0f;		// スケール
 
+	Origin m_origin = Origin::Center;	// 基準位置
+
 	RectTransform* m_parentTransfrom = nullptr;	// 親のトランスフォーム
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -41,6 +64,12 @@ public:
 
 	// 操作
 public:
+
+	// 移動
+	void Translate(DirectX::SimpleMath::Vector2 trans);
+
+	// 回転
+	void Rotate(float rotate);
 
 	// 取得/設定
 public:
@@ -75,6 +104,14 @@ public:
 		else return m_scale;
 	}
 
+	// 基準位置の取得
+	DirectX::SimpleMath::Vector2 GetOrigin(float width, float height) const
+	{
+		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
+
+		return DirectX::SimpleMath::Vector2(offset.x * width, offset.y * height);
+	}
+
 	// ポジションの設定
 	void SetPosition(const DirectX::SimpleMath::Vector2& position)
 	{
@@ -91,6 +128,20 @@ public:
 	void SetScale(float scale)
 	{
 		m_scale = scale;
+	}
+
+	// 基準位置の設定
+	void SetOrigin(Origin origin)
+	{
+		m_origin = origin;
+	}
+
+	// 親のトランスフォームの設定
+	void SetParent(RectTransform* parent)
+	{
+		m_parentTransfrom = parent;
+		// ローカル座標にする
+		m_position -= m_parentTransfrom->GetPosition();
 	}
 
 	// 内部実装

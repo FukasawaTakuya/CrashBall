@@ -16,11 +16,13 @@
 // 描画命令
 struct SpriteRenderCommand
 {
-	ID3D11ShaderResourceView* pSprite;
-	DirectX::SimpleMath::Vector2 position;
-	DirectX::SimpleMath::Vector2 origin;
-	float layerDepth;
-	DirectX::XMVECTORF32 color;
+	ID3D11ShaderResourceView* pSprite;		// スプライト
+	DirectX::SimpleMath::Vector2 position;	// 描画位置
+	DirectX::XMVECTORF32 color;				// 色
+	float rotate;							// 回転
+	float scale;							// スケール
+	DirectX::SimpleMath::Vector2 origin;	// 基準位置
+	float layerDepth;						// 描画順
 };
 
 
@@ -54,9 +56,11 @@ public:
 	virtual void RegisterRenderCommand(
 		ID3D11ShaderResourceView* pSprite,
 		const DirectX::SimpleMath::Vector2& position,
+		const DirectX::XMVECTORF32& color,
+		float rotate,
+		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
-		float layerDepth,
-		const DirectX::XMVECTORF32 color = DirectX::Colors::White) = 0;
+		float layerDepth) = 0;
 
 
 	// 取得/設定

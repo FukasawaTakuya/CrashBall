@@ -56,7 +56,7 @@ public:
 	// 操作
 public:
 
-	void Render(RenderContext& renderContext);
+	void Render(ITextRendererManager* rendererManager);
 
 	// 取得/設定
 public:
@@ -82,6 +82,8 @@ public:
 	// テキストの設定
 	void SetText(const std::wstring& text)
 	{
+		if (m_pSpriteFont == nullptr) return;
+
 		m_text = text;
 
 		// サイズを求める

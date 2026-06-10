@@ -1,8 +1,14 @@
+/*****************************************************************//**
+ * \file   TextRendererManager.h
+ * \brief  テキスト描画管理クラス
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/Interface/ITextRendererManager.h"
-
-
 
 /**
  * @brief テキスト描画管理クラス
@@ -40,6 +46,7 @@ public:
 	void RegisterRenderCommand(
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::XMVECTORF32& color,
+		float rotate,
 		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
 		float layerDepth,

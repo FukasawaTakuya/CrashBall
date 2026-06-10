@@ -101,7 +101,11 @@ public:
 		// ワールド行列
 		SimpleMath::Matrix world = scale * rotate * trans;
 
-		return world;
+		if (m_parentTransform != nullptr)
+		{
+			return m_parentTransform->GetWorld() * world;
+		}
+		else return world;
 	}
 
 	// ポジションの設定
@@ -126,6 +130,8 @@ public:
 	void SetParent(Transform* parent)
 	{
 		m_parentTransform = parent;
+		// ローカル座標にする
+		m_position -= m_parentTransform->GetPosition();
 	}
 
 	// 内部実装

@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 #include "FloorMeshGauge.h"
 #include "Game/Component/Default/SpriteRenderer.h"
+#include "Game/Component/Default/TextRenderer.h"
 
 /**
  * \brief コンストラクタ
@@ -9,7 +10,8 @@
 FloorMeshGauge::FloorMeshGauge()
 {
 	AddComponent<RectTransform>();
-	AddComponent<SpriteRenderer>(Anchor::LeftTop);
+	AddComponent<SpriteRenderer>();
+	AddComponent<TextRenderer>();
 
 	m_floorMeshGaugeController = AddComponent<FloorMeshGaugeController>();
 }
