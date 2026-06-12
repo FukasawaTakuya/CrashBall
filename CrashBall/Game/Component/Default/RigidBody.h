@@ -29,6 +29,8 @@ private:
 
 	float m_friction;							// 摩擦係数
 
+	float m_isDynamic = 1.0f;					// 動的か(1 = ture, 0 = false)
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

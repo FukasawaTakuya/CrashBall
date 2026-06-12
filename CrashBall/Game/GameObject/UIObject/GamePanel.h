@@ -13,7 +13,8 @@
 #include "Game/Context/UIContext.h"
 #include "Game/Context/ResourceContext.h"
 
-#include "Game/GameObject/UIObject/FloorMeshGauge.h"
+#include "FloorMeshGauge.h"
+#include "PaintMeshBar.h"
 
 /**
  * @brief ゲーム用のパネル
@@ -30,6 +31,9 @@ private:
 
 	std::unique_ptr<FloorMeshGauge> m_floorMeshGauge;	// 現在の面の色を表すゲージ
 
+	std::unique_ptr<PaintMeshBar> m_playerMeshBar;		// プレイヤーが塗った面を表示するバー
+
+	std::unique_ptr<PaintMeshBar> m_enemyMeshBar;		// 敵が塗った面を表示するバー
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -64,6 +68,15 @@ public:
 	void SetUIContext(const UIContext& uiContext)
 	{
 		m_uiContext = uiContext;
+
+
+		m_floorMeshGauge->GetComponent<FloorMeshGaugeController>()
+			->SetContext(
+				m_uiContext.floorMeshGetter,
+				m_playerMeshBar.get(),
+				m_enemyMeshBar.get()
+			);
+
 	}
 
 	void SetSprite(const ResourceContext& resourceContext);

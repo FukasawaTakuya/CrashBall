@@ -29,6 +29,8 @@ public:
 	// 最初のシーンのセット
 	void SetStartScene();
 
+	void Initialize();
+
 	// 更新
 	void Update(const GameContext& gameCotext);
 

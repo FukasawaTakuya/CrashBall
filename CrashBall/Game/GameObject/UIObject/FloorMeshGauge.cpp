@@ -26,6 +26,7 @@ FloorMeshGauge::~FloorMeshGauge()
 
 void FloorMeshGauge::Initialize()
 {
+	m_floorMeshGaugeController->Initialize();
 }
 
 void FloorMeshGauge::Update(const GameContext& gameContext)

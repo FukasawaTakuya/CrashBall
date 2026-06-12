@@ -111,6 +111,12 @@ public:
 		return m_normalMeshCount;
 	}
 
+	// 面の合計の取得
+	int GetTotalMeshCount() const override
+	{
+		return m_floorMeshColor.size();
+	}
+
 	// プレイヤーの面の色の取得
 	const XMVECTORF32& GetPlayerColor() const 
 	{

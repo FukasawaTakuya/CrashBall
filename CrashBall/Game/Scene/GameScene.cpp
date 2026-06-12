@@ -66,6 +66,7 @@ void GameScene::Initialize()
 	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 12.0f, 10.0f });
     m_stage->Initialize();
     m_enemy->Initialize();
+    m_gamePanel->Initialize();
 }
 
 

@@ -17,6 +17,8 @@
 GamePanel::GamePanel()
 	: Panel()
 	, m_floorMeshGauge(std::make_unique<FloorMeshGauge>())
+	, m_playerMeshBar(std::make_unique<PaintMeshBar>())
+	, m_enemyMeshBar(std::make_unique<PaintMeshBar>())
 {
 }
 
@@ -34,6 +36,7 @@ GamePanel::~GamePanel()
  */
 void GamePanel::Initialize()
 {
+	m_floorMeshGauge->Initialize();
 }
 
 /**
@@ -54,6 +57,9 @@ void GamePanel::Update(const GameContext& gameContext)
 void GamePanel::Render(const RenderContext& renderContext)
 {
 	m_floorMeshGauge->Render(renderContext);
+	m_enemyMeshBar->Render(renderContext);
+	m_playerMeshBar->Render(renderContext);
+
 }
 
 /**
@@ -75,7 +81,14 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	ITextManager* textManager = resourceContext.textManager;
 
 	m_floorMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("UI"));
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
+
+	m_playerMeshBar->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
+
+	m_enemyMeshBar->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
+
 
 	m_floorMeshGauge->
 		GetComponent<TextRenderer>()->SetSpriteFont(textManager->GetSpriteFont("default"));

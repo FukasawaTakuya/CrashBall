@@ -11,10 +11,11 @@
 #include "Game/Component/Default/Component.h"
 #include "Default/SpriteRenderer.h"
 #include "Default/RectTransform.h"
-#include "IFloorMeshGetter.h"
-#include <Game/Context/GameContext.h>
-#include <Game/Context/RenderContext.h>
 #include "Default/TextRenderer.h"
+#include "IFloorMeshGetter.h"
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
+#include "Game/Common/Screen.h"
 
 
 /**
@@ -25,7 +26,8 @@ class  FloorMeshGaugeController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float LENGTH = 300.0f;	// 長さ
+	static constexpr DirectX::SimpleMath::Vector2 POSITION = { Screen::CENTER_X, 50.0f };	// 描画位置
+
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -38,8 +40,14 @@ private:
 
 	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
-	float m_gauge = 1.0f;
+	IGameObject* m_pPalyerMeshBar = nullptr;
 
+	IGameObject* m_pEnemyMeshBar = nullptr;
+
+	SpriteRenderer* m_playerBarSpriteRenderer	= nullptr;
+	SpriteRenderer* m_enemyBarSpriteRenderer	= nullptr;
+	RectTransform* m_playerBarRectTransform		= nullptr;
+	RectTransform* m_enemyBarRectTransform		= nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -74,6 +82,12 @@ public:
 	{
 		m_floorMeshGetter = floorMeshGetter;
 	}
+
+	void SetContext(
+		IFloorMeshGetter* floorMeshGetter,
+		IGameObject* pPlayerMeshBar,
+		IGameObject* pEnemyMeshBar);
+
 	// 内部実装
 private:
 

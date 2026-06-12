@@ -58,11 +58,11 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 		debugRenderCommand.pSpriteFont->DrawString(
 			spriteBatch,
 			debugRenderCommand.text.c_str(),
-			debugRenderCommand.position,
+			debugRenderCommand.position * Screen::GetScreenRate(),
 			debugRenderCommand.color,
 			debugRenderCommand.rotate,
 			debugRenderCommand.origin,
-			debugRenderCommand.scale,
+			debugRenderCommand.scale * Screen::GetScreenRate(),
 			SpriteEffects_None,
 			debugRenderCommand.layerDepth
 		);

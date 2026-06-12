@@ -345,6 +345,9 @@
     <ClInclude Include="Game\Interface\ITextManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\PaintMeshBar.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -504,6 +507,9 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
       <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\PaintMeshBar.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

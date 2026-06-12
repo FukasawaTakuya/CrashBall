@@ -10,7 +10,6 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	//m_pCurrentScene->Finalize();
 }
 
 // ƒV[ƒ“‚Ì“o˜^
@@ -23,6 +22,10 @@ void SceneManager::RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene)
 void SceneManager::SetStartScene()
 {
 	m_pCurrentScene = m_scenes[SceneID::Game].get();
+}
+
+void SceneManager::Initialize()
+{
 	m_pCurrentScene->Initialize();
 }
 

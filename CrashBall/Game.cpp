@@ -76,7 +76,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager->RegisterFile("ball", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("Stage", L"Resources/Models/Stage.sdkmesh");
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
-    m_textManager->RegisterFile("default", L"Resources/SpriteFont/myfont.spritefont");
+    m_spriteManager->RegisterFile("Bar", L"Resources/Sprite/Gauge.dds");
+    m_textManager->RegisterFile("default", L"Resources/SpriteFont/default.spritefont");
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
@@ -94,6 +95,9 @@ void Game::Initialize(HWND window, int width, int height)
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
+
+    // 初期処理
+    m_sceneManager->Initialize();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -122,7 +126,7 @@ void Game::Update(DX::StepTimer const& timer)
     // TODO: Add your game logic here.
     elapsedTime;
 
-    // 
+    // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
     m_inputSystem->Update();
     m_soundPlayer->Update();

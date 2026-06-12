@@ -120,10 +120,36 @@ public:
 		return DirectX::SimpleMath::Vector2(offset.x * width, offset.y * height);
 	}
 
+	// 左端のX座標の取得
+	float GetLeft(float width) const
+	{
+		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
+
+		float leftPos = m_position.x - width * offset.x;
+
+		return leftPos;
+	}
+
+	// 右端のX座標の取得
+	float GetRight(float width) const
+	{
+		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
+
+		float rightPos = m_position.x + width * (1.0f - offset.x);
+
+		return rightPos;
+	}
+
+
 	// ポジションの設定
 	void SetPosition(const DirectX::SimpleMath::Vector2& position)
 	{
 		m_position = position;
+		// 親がいるならローカル座標にする
+		if (m_parentTransfrom != nullptr)
+		{
+			m_position -= m_parentTransfrom->GetPosition();
+		}
 	}
 
 	// 回転の設定

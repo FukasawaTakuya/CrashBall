@@ -1,4 +1,12 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   SpriteRenderer.cpp
+ * \brief  スプライト描画コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
+#include "pch.h"
 #include "SpriteRenderer.h"
 
 using namespace DirectX;
@@ -25,12 +33,27 @@ SpriteRenderer::~SpriteRenderer()
 /**
  * \brief 描画
  * 
- * \param rendererManager 描画管理クラス
+ * \param rendererManager スプライト描画管理クラス
  */
 void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 {
-	// 切り取り領域
-	RECT srcRect = RECT(0.0f, 0.0f, m_width * m_valueX, m_height * m_valueY);
+	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)] * m_fillAmount;
+
+	SimpleMath::Vector4 baseRect = SourceBaseRECT[static_cast<int>(m_fillOrigin)];
+
+	baseRect.x *= m_width;
+	baseRect.z *= m_width;
+	baseRect.y *= m_height;
+	baseRect.w *= m_height;
+
+	offset.x *= m_width;
+	offset.z *= m_width;
+	offset.y *= m_height;
+	offset.w *= m_height;
+
+	SimpleMath::Vector4 rect = baseRect + offset;
+
+	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
 	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(
