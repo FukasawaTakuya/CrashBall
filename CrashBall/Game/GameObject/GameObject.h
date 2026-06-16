@@ -57,7 +57,7 @@ public:
 	virtual void Update(const GameContext& gameContext) = 0;
 
 	// •`‰æ
-	virtual void Render(const RenderContext& RenderContext) = 0;
+	virtual void Render(const RenderContext& renderContext) = 0;
 
 	// I—¹ˆ—
 	virtual void Finalize() = 0;

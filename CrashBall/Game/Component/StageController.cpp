@@ -1,11 +1,10 @@
 ﻿/*****************************************************************//**
  * \file   StageController.cpp
- * \brief  ステータス操作コンポーネント
+ * \brief  ステージ操作コンポーネント
  *
  * \author 深沢拓矢
  * \date   May 2026
  *********************************************************************/
-
 
 #include "pch.h"
 #include "Game/Common/Screen.h"
@@ -19,9 +18,8 @@
 StageController::StageController(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	// コンポーネントの追加
+	// キャッシュの取得
 	Transform* transform = GetGameObject()->GetComponent<Transform>();
-
 	m_meshCollider = GetGameObject()->GetComponent<Mesh>();
 
 	// スケールの設定
@@ -86,6 +84,7 @@ StageController::~StageController()
  */
 void StageController::Initialize()
 {
+	// 色をデフォルトに戻す
 	for (auto& floorMeshColor : m_floorMeshColor)
 	{
 		floorMeshColor.second = Colors::White;
@@ -99,6 +98,7 @@ void StageController::Initialize()
  */
 void StageController::Update(const GameContext& gameContext)
 {
+	// プレイヤーが塗った面を数える
 	m_playerMeshCount =
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
 			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
@@ -106,15 +106,13 @@ void StageController::Update(const GameContext& gameContext)
 				return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
 			});
 
+	// 敵が塗った面を数える
 	m_enemyMeshCount =
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
 			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
 				return XMVector4Equal(floorMeshColor.second, ENEMY_COLOR);
 			});
-
-	m_normalMeshCount
-		= m_floorMesh.size() - m_playerMeshCount - m_enemyMeshCount;
 }
 
 
@@ -154,18 +152,6 @@ void StageController::Render(const RenderContext& renderContext)
 			pos
 		);
 	}
-
-	auto& textRenderer = renderContext.textRendererManager;
-
-	textRenderer->DebugRender(
-		SimpleMath::Vector2(200.0f, 200.0f), 
-		Colors::Black, 
-		0.0f,
-		1.5f,
-		SimpleMath::Vector2::Zero,
-		1.0f,
-		L"Player : {}  Enemy : {}", m_playerMeshCount, m_enemyMeshCount);
-
 }
 
 /**
@@ -191,7 +177,7 @@ void StageController::ConsumePaint(int consumePaintNum)
 			return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
 		});
 
-	// プレイヤーの面の数がリセットするプレイヤーの面の数より小さければreturn
+	// プレイヤーの面の数が消費するプレイヤーの面の数より少なければreturn
 	if (playerFaceColor.size() < consumePaintNum)
 	{
 		return;
@@ -205,12 +191,11 @@ void StageController::ConsumePaint(int consumePaintNum)
 		});
 }
 
-
 /**
  * \brief 面を塗る
  * 
- * \param face
- * \param color
+ * \param face 塗る面のポインタ
+ * \param color 色
  */
 void StageController::PaintFace(
 	Triangle* face, 

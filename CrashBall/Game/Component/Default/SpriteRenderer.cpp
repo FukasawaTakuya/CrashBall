@@ -37,22 +37,21 @@ SpriteRenderer::~SpriteRenderer()
  */
 void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 {
+	// オフセット
 	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)] * m_fillAmount;
 
+	// もとの描画領域
 	SimpleMath::Vector4 baseRect = SourceBaseRECT[static_cast<int>(m_fillOrigin)];
 
-	baseRect.x *= m_width;
-	baseRect.z *= m_width;
-	baseRect.y *= m_height;
-	baseRect.w *= m_height;
+	SimpleMath::Vector4 Size(m_width, m_height, m_width, m_height);
 
-	offset.x *= m_width;
-	offset.z *= m_width;
-	offset.y *= m_height;
-	offset.w *= m_height;
+	offset *= Size;
+	baseRect *= Size;
 
+	// 描画領域
 	SimpleMath::Vector4 rect = baseRect + offset;
 
+	// RECTに直す
 	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
 	// 描画命令の登録

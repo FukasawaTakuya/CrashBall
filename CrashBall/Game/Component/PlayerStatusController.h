@@ -23,7 +23,9 @@ private:
 
 	static constexpr float MAX_ATTACK_POWER = 80.0f;	// 最大攻撃力
 
-	static constexpr int ATTACK_REQUIRED_FACE = 20;		// 攻撃可能ボーダー
+public:
+
+	static constexpr int ATTACK_COST = 20;	// 攻撃コスト
 
 	// データメンバの宣言 -----------------------------------------------
 private:

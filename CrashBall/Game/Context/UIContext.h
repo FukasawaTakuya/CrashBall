@@ -22,5 +22,4 @@ struct  UIContext {
 	IFloorMeshGetter* floorMeshGetter = nullptr;				// 床メッシュ取得コンポーネント
 	PlayerStatusController* playerStatusController = nullptr;	// 攻撃可能ボーダーを取得 TODO:インターフェース実装
 	EnemyController* enenyController = nullptr;					// 敵の体力を取得 TODO:インターフェース実装
-
 };

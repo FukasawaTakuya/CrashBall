@@ -1,22 +1,20 @@
 /*****************************************************************//**
- * \file   Player.h
- * \brief  プレイヤークラス 
+ * \file   TextObject.h
+ * \brief  テキスト描画オブジェクト
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   June 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Game/GameObject/Ball.h"
-#include "Game/State/StateMachine.h"
-#include "Game/Component/PlayerController.h"
-#include "Game/Component/PlayerStatusController.h"
+#include "Game/GameObject/GameObject.h"
+#include "Game/Component/Default/TextRenderer.h"
 
 /**
- * \brief プレイヤークラス
+ * @brief テキスト描画オブジェクト
  */
-class  Player : public Ball {
+class  TextObject : public GameObject{
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -24,19 +22,18 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	PlayerController* m_playerController;	// プレイヤー操作
-
-	PlayerStatusController* m_playerStatusController;	// プレイヤーステータス操作
+	// テキスト描画コンポーネントのキャッシュ
+	TextRenderer* m_textRenderer = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Player(float radius);
+	TextObject();
 
 	// デストラクタ
-	~Player() = default;
+	~TextObject();
 
 	// 操作
 public:
@@ -53,8 +50,22 @@ public:
 	// 終了処理
 	void Finalize() override;
 
+
 	// 取得/設定
 public:
+
+	// テキストの設定
+	void SetText(const std::wstring& text)
+	{
+		m_textRenderer->SetText(text);
+	}
+
+	template<typename... Args>
+	void SetText(std::wformat_string<Args...> fmt, 
+		Args&&... args)
+	{
+		SetText(std::format(fmt, std::forward<Args>(args)...));
+	}
 
 	// 内部実装
 private:

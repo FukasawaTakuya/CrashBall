@@ -6,8 +6,6 @@ namespace Screen
 	// フルスクリーン
 	static constexpr float FULL_WIDTH = 1920.0f;
 	static constexpr float FULL_HEIGHT = 1080.0f;
-	static constexpr float FULL_CENTER_X = FULL_WIDTH  / 2.0f;
-	static constexpr float FULL_CENTER_Y = FULL_HEIGHT / 2.0f;
 
 	static constexpr float WIDTH = 1280.0f;
 	static constexpr float HEIGHT = 720.0f;

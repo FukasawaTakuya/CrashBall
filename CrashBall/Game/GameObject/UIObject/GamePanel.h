@@ -13,12 +13,15 @@
 #include "Game/Context/UIContext.h"
 #include "Game/Context/ResourceContext.h"
 
-#include "FloorMeshGauge.h"
-#include "PaintMeshBar.h"
+#include "Object2D.h"
+#include "TextObject.h"
 
-/**
- * @brief ゲーム用のパネル
- */
+#include "Game/Component/FloorMeshGaugeController.h"
+#include "Game/Component/AttackGaugeController.h"
+
+ /**
+  * @brief ゲーム用のパネル
+  */
 class  GamePanel : public Panel {
 
 	// クラス定数の宣言 -------------------------------------------------
@@ -29,11 +32,23 @@ private:
 
 	UIContext m_uiContext;	// UI用のコンテキスト
 
-	std::unique_ptr<FloorMeshGauge> m_floorMeshGauge;	// 現在の面の色を表すゲージ
+	// FloorMeshGaugeControllerで操作
+	std::unique_ptr<Object2D>	m_playerMeshGauge;		// プレイヤーが塗った面を表示するゲージ
+	std::unique_ptr<Object2D>	m_enemyMeshGauge;		// 敵が塗った面を表示するゲージ
+	std::unique_ptr<Object2D>	m_gaugeTrack;			// ゲージの土台
+	std::unique_ptr<Object2D>	m_gaugeBackGround;		// ゲージの背景
+	std::unique_ptr<TextObject>	m_playerMeshNumText;	// プレイヤーのメッシュ数表示
+	std::unique_ptr<TextObject>	m_enemyMeshNumText;		// 敵のメッシュ数表示
 
-	std::unique_ptr<PaintMeshBar> m_playerMeshBar;		// プレイヤーが塗った面を表示するバー
+	// AttackGaugeControllerで操作
+	std::unique_ptr<Object2D> m_attackGauge;		// 攻撃ゲージ
+	std::unique_ptr<Object2D> m_attackGaugeTrack;	// 攻撃ゲージの土台
 
-	std::unique_ptr<PaintMeshBar> m_enemyMeshBar;		// 敵が塗った面を表示するバー
+
+	// 床メッシュゲージ操作コンポーネントのキャッシュ
+	FloorMeshGaugeController* m_floorMeshGaugeController = nullptr;
+	// 攻撃ゲージ操作コンポーネントのキャッシュ
+	AttackGaugeController* m_attackGaugeController = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -69,14 +84,16 @@ public:
 	{
 		m_uiContext = uiContext;
 
-
-		m_floorMeshGauge->GetComponent<FloorMeshGaugeController>()
-			->SetContext(
-				m_uiContext.floorMeshGetter,
-				m_playerMeshBar.get(),
-				m_enemyMeshBar.get()
+		// ゲージに設定
+		m_floorMeshGaugeController
+			->SetFloorMeshGetter(
+				m_uiContext.floorMeshGetter
 			);
 
+		m_attackGaugeController
+			->SetFloorMeshGetter(
+				m_uiContext.floorMeshGetter
+			);
 	}
 
 	void SetSprite(const ResourceContext& resourceContext);

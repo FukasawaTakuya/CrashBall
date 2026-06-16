@@ -15,14 +15,15 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
- * \param 重力加速度
- * \param 摩擦係数
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param gravityAcceleration 重力加速度
+ * \param friction 摩擦係数
  */
 RigidBody::RigidBody(
-	IGameObject* owner,
+	IGameObject* gameObject,
 	float gravityAcceleration, 
 	float friction)
-	: Component(owner)
+	: Component(gameObject)
 	, m_gravityAcceleration{ gravityAcceleration }
 	, m_friction{ friction }
 {
@@ -39,7 +40,7 @@ RigidBody::~RigidBody()
 /**
  * \brief 加速
  * 
- * \param 加速度
+ * \param accel 加速度
  */
 void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
 {

@@ -9,12 +9,15 @@
 #pragma once
 
 #include "Scene.h"
+
 #include "Game/GameObject/Ball.h"
 #include "Game/GameObject/Stage.h"
-#include "Game/Common/Camera.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/GameObject/UIObject/GamePanel.h"
+
+#include "Game/Common/Camera.h"
+
 #include "Game/CollisionManager/CollisionManager.h"
 
 /**
@@ -29,11 +32,8 @@ public:
 private:
 
 	std::unique_ptr<Stage> m_stage;		// ステージ
-
 	std::unique_ptr<Player> m_player;	// プレイヤー
-
 	std::unique_ptr<Enemy> m_enemy;		// 敵
-
 	std::unique_ptr<GamePanel> m_gamePanel;	// パネル
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト

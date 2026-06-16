@@ -34,7 +34,7 @@ namespace
 
 // LPWSTR = 読み取り専用のポインタ型 const wchar_t*と同じ
 // タイトルバーに表示する文字
-LPCWSTR g_szAppName = L"TKPractice";
+LPCWSTR g_szAppName = L"Crash&Paint";
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 void ExitGame() noexcept;

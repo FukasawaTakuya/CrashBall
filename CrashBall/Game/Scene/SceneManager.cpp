@@ -18,18 +18,30 @@ void SceneManager::RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene)
 	m_scenes.emplace(sceneID, std::move(scene));
 }
 
-// 最初のシーンのセット
+/**
+ * \brief 最初のシーンのセット
+ * 
+ */
 void SceneManager::SetStartScene()
 {
 	m_pCurrentScene = m_scenes[SceneID::Game].get();
+	m_pCurrentScene->Initialize();
 }
 
+/**
+ * \brief 初期化
+ * 
+ */
 void SceneManager::Initialize()
 {
 	m_pCurrentScene->Initialize();
 }
 
-// 更新
+/**
+ * \brief 更新
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
 void SceneManager::Update(const GameContext& gameContext)
 {
 	if (m_pRequestScene) {
@@ -41,26 +53,48 @@ void SceneManager::Update(const GameContext& gameContext)
 	}
 }
 
-// 描画
+/**
+ * \brief描画
+ * 
+ * \param renderCotext 描画用のコンテキスト
+ */
 void SceneManager::Render(const RenderContext& renderCotext)
 {
 	if (m_pCurrentScene) m_pCurrentScene->Draw(renderCotext);
 }
 
+/**
+ * \brief デバイス依存のリソース作成
+ * 
+ * \param resourceCotext リソース用のコンテキスト
+ */
 void SceneManager::CreateDeviceResources(const ResourceContext& resourceCotext)
 {
-	if (m_pCurrentScene) 
-		m_pCurrentScene->CreateDeviceResources(resourceCotext);
+	for (auto& scene : m_scenes)
+	{
+		scene.second->CreateDeviceResources(resourceCotext);
+	}
 }
 
+/**
+ * \brief ウインドウサイズ依存のリソース作成
+ * 
+ * \param proj 射影行列
+ */
 void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
 {
-	if (m_pCurrentScene)
-		m_pCurrentScene->CreateWindowSizeResources(proj);
+	for (auto& scene : m_scenes)
+	{
+		scene.second->CreateWindowSizeResources(proj);
+	}
 
 }
 
-// シーン変更のリクエスト
+/**
+ * \brief シーン変更のリクエスト
+ * 
+ * \param nextSceneID 次のシーンのID
+ */
 void SceneManager::RequestChangeScene(SceneID nextSceneID)
 {
 	auto it = m_scenes.find(nextSceneID);
@@ -75,12 +109,10 @@ void SceneManager::RequestChangeScene(SceneID nextSceneID)
 	m_pRequestScene = it->second.get();
 }
 
-Camera* SceneManager::GetCamera()
-{
-	return m_pCurrentScene->GetCamera();
-}
-
-// シーン変更
+/**
+ * \brief シーン変更
+ * 
+ */
 void SceneManager::ChangeScene()
 {
 	m_pCurrentScene->Finalize();

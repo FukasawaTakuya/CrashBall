@@ -10,6 +10,7 @@
 #include "PlayerAttackState.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
+#include "Game/Component/EnemyController.h"
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;
@@ -22,6 +23,19 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 	: PlayerStateBase(stateContext)
 	, m_timer{ 0.0f }
 {
+	// 衝突した瞬間の処理
+	m_stateContext.playerController->GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
+		{
+			// 敵のコライダーと衝突したとき攻撃ステートなら
+			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy)
+			{
+				// ダメージ処理
+				other->GetGameObject()->GetComponent<EnemyController>()
+					->Damage(m_stateContext.playerStatusController->GetAttackPower());
+				// 移動ステートに遷移
+				m_pStateMachine->ChangeState<PlayerMoveState>();
+			}
+		});
 }
 
 /**

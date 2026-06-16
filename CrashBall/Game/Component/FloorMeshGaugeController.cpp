@@ -4,26 +4,68 @@
 
 using namespace DirectX;
 
-/**
- * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- */
-FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
+FloorMeshGaugeController::FloorMeshGaugeController(
+	IGameObject* gameObject, 
+	IGameObject* pPalyerMeshGauge, 
+	IGameObject* pEnemyMeshGauge, 
+	IGameObject* pGaugeTrack,
+	IGameObject* pGaugeBackGround, 
+	IGameObject* pPlayerMeshNumText, 
+	IGameObject* pEnemyMeshNumText)
 	: Component(gameObject)
+	, m_pPalyerMeshGauge(pPalyerMeshGauge)
+	, m_pEnemyMeshGauge(pEnemyMeshGauge)
+	, m_pGaugeTrack(pGaugeTrack)
+	, m_pGaugeBackGround(pGaugeBackGround)
+	, m_pPlayerMeshNumText(pPlayerMeshNumText)
+	, m_pEnemyMeshNumText(pEnemyMeshNumText)
 {
 	// コンポーネントのキャッシュ
-	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
-	m_rectTransfrom = GetGameObject()->GetComponent<RectTransform>();
-	m_textRenderer = GetGameObject()->GetComponent<TextRenderer>();
-
+	m_gaugeTrackRenderer = m_pGaugeTrack->GetComponent<SpriteRenderer>();
+	m_gaugeTrackTransform = m_pGaugeTrack->GetComponent<RectTransform>();
 	// 描画位置
-	m_rectTransfrom->SetPosition(POSITION);
+	m_gaugeTrackTransform->SetPosition(POSITION);
 	// 基準位置
-	m_rectTransfrom->SetOrigin(Origin::Center);
+	m_gaugeTrackTransform->SetOrigin(Origin::Center);
+	// 
+	m_gaugeTrackRenderer->SetLayerDepth(0.1f);
 
-	// テキストの色
-	m_textRenderer->SetColor(Colors::Black);
+	// 背景の描画コンポーネント
+	SpriteRenderer* backGroundRenderer
+		= m_pGaugeBackGround->GetComponent<SpriteRenderer>();
+	// スケール
+	backGroundRenderer->SetSpriteScale(SimpleMath::Vector2(1.1f, 3.0f));
+	// 色
+	backGroundRenderer->SetColor({ 0.0f, 0.0f, 0.0f, 0.4f });
+	// 背景の初期位置設定
+	m_pGaugeBackGround->GetComponent<RectTransform>()->SetPosition({ Screen::CENTER_X, Screen::HEIGHT - 50.f });
+
+	// ゲージのコンポーネントのキャッシュの取得
+	m_playerGaugeRenderer = m_pPalyerMeshGauge->GetComponent<SpriteRenderer>();
+	m_playerGaugeTransform = m_pPalyerMeshGauge->GetComponent<RectTransform>();
+	m_enemyGaugeRenderer = m_pEnemyMeshGauge->GetComponent<SpriteRenderer>();
+	m_enemyGaugeTransform = m_pEnemyMeshGauge->GetComponent<RectTransform>();
+
+	// 描画順の設定
+	m_playerGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
+	m_enemyGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
+
+	// 基準位置の設定
+	m_playerGaugeTransform->SetOrigin(Origin::LeftCenter);
+	m_enemyGaugeTransform->SetOrigin(Origin::LeftCenter);
+
+	// 切り取りの起点の設定
+	m_enemyGaugeRenderer->SetFillOrigin(FillOrigin::Right);
+
+	RectTransform* playerTextTransform = m_pPlayerMeshNumText->GetComponent<RectTransform>();
+	RectTransform* enemyTextTransform = m_pEnemyMeshNumText->GetComponent<RectTransform>();
+	// テキストの初期位置
+	playerTextTransform->SetPosition({ Screen::CENTER_X - 250.0f, Screen::HEIGHT - 85.0f });
+	enemyTextTransform->SetPosition({ Screen::CENTER_X + 250.0f, Screen::HEIGHT - 85.0f });
+
+	// 
+	m_playerTextRenderer = pPlayerMeshNumText->GetComponent<TextRenderer>();
+	m_enemyTextRenderer = pEnemyMeshNumText->GetComponent<TextRenderer>();
 }
 
 /**
@@ -40,33 +82,24 @@ FloorMeshGaugeController::~FloorMeshGaugeController()
  */
 void FloorMeshGaugeController::Initialize()
 {
-	// コンポーネントのキャッシュの取得
-	m_playerBarSpriteRenderer	= m_pPalyerMeshBar->GetComponent<SpriteRenderer>();
-	m_playerBarRectTransform	= m_pPalyerMeshBar->GetComponent<RectTransform>();
-	m_enemyBarSpriteRenderer	= m_pEnemyMeshBar->GetComponent<SpriteRenderer>();
-	m_enemyBarRectTransform		= m_pEnemyMeshBar->GetComponent<RectTransform>();
-
 	// 色の設定
-	m_playerBarSpriteRenderer->SetColor(m_floorMeshGetter->GetPlayerColor());
-	m_enemyBarSpriteRenderer->SetColor(m_floorMeshGetter->GetEnemyColor());
+	m_playerGaugeRenderer->SetColor(m_floorMeshGetter->GetPlayerColor());
+	m_enemyGaugeRenderer->SetColor(m_floorMeshGetter->GetEnemyColor());
 
-	// 基準位置の設定
-	m_playerBarRectTransform->SetOrigin(Origin::LeftCenter);
-	m_enemyBarRectTransform->SetOrigin(Origin::LeftCenter);
+	// テキストの色の設定
+	m_playerTextRenderer->SetColor(m_floorMeshGetter->GetPlayerColor());
+	m_enemyTextRenderer->SetColor(m_floorMeshGetter->GetEnemyColor());
 
-	m_playerBarSpriteRenderer->SetFillAmount(0.0f);
-	m_enemyBarSpriteRenderer->SetFillAmount(0.0f);
 
-	m_enemyBarSpriteRenderer->SetFillOrigin(FillOrigin::Right);
+	// 切り取り量の設定
+	m_playerGaugeRenderer->SetFillAmount(0.0f);
+	m_enemyGaugeRenderer->SetFillAmount(0.0f);
 
+	m_enemyGaugeTransform
+		->SetPosition({ m_playerGaugeTransform->GetRight(m_playerGaugeRenderer->GetWidth()), POSITION.y });
 	// 描画位置の設定
-	m_playerBarRectTransform
-		->SetPosition({ m_rectTransfrom->GetLeft(m_spriteRenderer->GetWidth()), POSITION.y });
-	m_enemyBarRectTransform
-		->SetPosition({ m_playerBarRectTransform->GetRight(m_playerBarSpriteRenderer->GetWidth()), POSITION.y });
-
-	m_textRenderer->SetText(L"test");
-
+	m_playerGaugeTransform
+		->SetPosition({ m_gaugeTrackTransform->GetLeft(m_gaugeTrackRenderer->GetWidth()), POSITION.y });
 }
 
 /**
@@ -76,18 +109,27 @@ void FloorMeshGaugeController::Initialize()
  */
 void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
-	float playerValue = (float)m_floorMeshGetter->GetPlayerMeshCount() / (float)m_floorMeshGetter->GetTotalMeshCount();
-	float enemyValue = (float)m_floorMeshGetter->GetEnemyMeshCount() / (float)m_floorMeshGetter->GetTotalMeshCount();
+	// 全体の面に対する塗った面の割合
+	float playerFillAmount = (float)m_floorMeshGetter->GetPlayerMeshCount() / (float)m_floorMeshGetter->GetTotalMeshCount();
+	float enemyFillAmount = (float)m_floorMeshGetter->GetEnemyMeshCount() / (float)m_floorMeshGetter->GetTotalMeshCount();
 
-	playerValue = std::lerp(m_playerBarSpriteRenderer->GetFillAmount(), playerValue, Time::GetElapsedTime() * 5.0f);
-	enemyValue = std::lerp(m_enemyBarSpriteRenderer->GetFillAmount(), enemyValue, Time::GetElapsedTime() * 5.0f);
+	// 線形補完でスライドさせる
+	playerFillAmount = std::lerp(m_playerGaugeRenderer->GetFillAmount(), playerFillAmount, Time::GetElapsedTime() * 5.0f);
+	enemyFillAmount = std::lerp(m_enemyGaugeRenderer->GetFillAmount(), enemyFillAmount, Time::GetElapsedTime() * 5.0f);
 
-	m_playerBarSpriteRenderer->SetFillAmount(playerValue);
-	m_enemyBarSpriteRenderer->SetFillAmount(enemyValue);
+	// 切り取り量の設定
+	m_playerGaugeRenderer->SetFillAmount(playerFillAmount);
+	m_enemyGaugeRenderer->SetFillAmount(enemyFillAmount);
 
 	// 敵のバーの位置を設定
-	m_enemyBarRectTransform
-		->SetPosition({ m_playerBarRectTransform->GetRight(m_playerBarSpriteRenderer->GetWidth()) - 1.0f, POSITION.y });
+	m_enemyGaugeTransform
+		->SetPosition({ m_playerGaugeTransform->GetRight(m_playerGaugeRenderer->GetWidth()), POSITION.y });
+
+	m_playerTextRenderer->SetText(L"Player:{}面", m_floorMeshGetter->GetPlayerMeshCount());
+	m_enemyTextRenderer->SetText(L"Enemy:{}面", m_floorMeshGetter->GetEnemyMeshCount());
+
+	m_playerTextRenderer->SetFontScale(0.75f);
+	m_enemyTextRenderer->SetFontScale(0.75f);
 }
 
 /**
@@ -97,12 +139,10 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
  */
 void FloorMeshGaugeController::Render(const RenderContext& renderContext)
 {
-	ISpriteRendererManager* rendererManger = renderContext.spriteRendererManager;
-	ITextRendererManager* renderer = renderContext.textRendererManager;
+	ISpriteRendererManager* sprite = renderContext.spriteRendererManager;
+	ITextRendererManager* text = renderContext.textRendererManager;
 
-	m_spriteRenderer->Render(rendererManger);
-
-	m_textRenderer->Render(renderer);
+	//m_spriteRenderer->Render(sprite);
 }
 
 /**
@@ -111,14 +151,4 @@ void FloorMeshGaugeController::Render(const RenderContext& renderContext)
  */
 void FloorMeshGaugeController::Finalize()
 {
-}
-
-void FloorMeshGaugeController::SetContext(
-	IFloorMeshGetter* floorMeshGetter, 
-	IGameObject* pPlayerMeshBar, 
-	IGameObject* pEnemyMeshBar)
-{
-	m_floorMeshGetter = floorMeshGetter;
-	m_pPalyerMeshBar = pPlayerMeshBar;
-	m_pEnemyMeshBar = pEnemyMeshBar;
 }

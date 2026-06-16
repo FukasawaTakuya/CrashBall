@@ -327,9 +327,6 @@
     <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\FloorMeshGauge.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
@@ -345,8 +342,14 @@
     <ClInclude Include="Game\Interface\ITextManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\PaintMeshBar.h">
+    <ClInclude Include="Game\GameObject\UIObject\TextObject.h">
       <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Object2D.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\AttackGaugeController.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -494,12 +497,8 @@
     <ClCompile Include="Game\Component\Default\Component.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp" />
     <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp">
       <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\FloorMeshGauge.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp">
@@ -508,9 +507,12 @@
     <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\PaintMeshBar.cpp">
+    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
+    <ClCompile Include="Game\Component\AttackGaugeController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

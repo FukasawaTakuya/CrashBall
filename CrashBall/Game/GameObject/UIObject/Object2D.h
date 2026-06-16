@@ -1,6 +1,6 @@
 /*****************************************************************//**
- * \file   FloorMeshGauge.h
- * \brief  
+ * \file   Object2D.h
+ * \brief  2Dオブジェクト
  * 
  * \author 深沢拓矢
  * \date   June 2026
@@ -8,14 +8,13 @@
 
 #pragma once
 
-#include "Game/Component/IFloorMeshGetter.h"
 #include "Game/GameObject/GameObject.h"
-#include "Game/Component/FloorMeshGaugeController.h"
+#include "Game/Component/Default/SpriteRenderer.h"
 
 /**
- * @brief 
+ * @brief 2Dオブジェクト
  */
-class  FloorMeshGauge : public GameObject {
+class  Object2D : public GameObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -23,36 +22,33 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	FloorMeshGaugeController* m_floorMeshGaugeController;
-
-	IFloorMeshGetter* floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
-
+	// スプライト描画コンポーネントのキャッシュ
+	SpriteRenderer* m_spriteRenderer = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	FloorMeshGauge();
+	Object2D();
 
 	// デストラクタ
-	~FloorMeshGauge();
-
-	// 初期化
-	void Initialize();
-
-	// 更新
-	void Update(const GameContext& gameContext);
-
-	// 描画
-	void Render(const RenderContext& renderContext);
-
-	// 終了処理
-	void Finalize();
-
+	~Object2D();
 
 	// 操作
 public:
+
+	// 初期化
+	virtual void Initialize() override;
+
+	// 更新
+	virtual void Update(const GameContext& gameContext) override;
+
+	// 描画
+	virtual void Render(const RenderContext& renderContext) override;
+
+	// 終了処理
+	virtual void Finalize() override;
 
 	// 取得/設定
 public:

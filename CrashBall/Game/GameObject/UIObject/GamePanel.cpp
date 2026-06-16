@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "GamePanel.h"
-#include <Game/Component/Default/SpriteRenderer.h>
+#include "Game/Component/Default/SpriteRenderer.h"
 
 /**
  * \brief コンストラクタ
@@ -16,10 +16,31 @@
  */
 GamePanel::GamePanel()
 	: Panel()
-	, m_floorMeshGauge(std::make_unique<FloorMeshGauge>())
-	, m_playerMeshBar(std::make_unique<PaintMeshBar>())
-	, m_enemyMeshBar(std::make_unique<PaintMeshBar>())
+	, m_playerMeshGauge		 (std::make_unique<Object2D>())
+	, m_enemyMeshGauge		 (std::make_unique<Object2D>())
+	, m_playerMeshNumText	 (std::make_unique<TextObject>())
+	, m_enemyMeshNumText	 (std::make_unique<TextObject>())
+	, m_gaugeBackGround		 (std::make_unique<Object2D>())
+	, m_gaugeTrack			 (std::make_unique<Object2D>())
+	, m_attackGauge			 (std::make_unique<Object2D>())
+	, m_attackGaugeTrack		 (std::make_unique<Object2D>())
 {
+
+	m_floorMeshGaugeController =
+		AddComponent<FloorMeshGaugeController>(
+			m_playerMeshGauge.get(),
+			m_enemyMeshGauge.get(),
+			m_gaugeTrack.get(),
+			m_gaugeBackGround.get(),
+			m_playerMeshNumText.get(),
+			m_enemyMeshNumText.get()
+		);
+
+	m_attackGaugeController =
+		AddComponent<AttackGaugeController>(
+			m_attackGauge.get(),
+			m_attackGaugeTrack.get()
+		);
 }
 
 /**
@@ -36,7 +57,8 @@ GamePanel::~GamePanel()
  */
 void GamePanel::Initialize()
 {
-	m_floorMeshGauge->Initialize();
+	m_floorMeshGaugeController->Initialize();
+	m_attackGaugeController->Initilize();
 }
 
 /**
@@ -46,7 +68,8 @@ void GamePanel::Initialize()
  */ 
 void GamePanel::Update(const GameContext& gameContext)
 {
-	m_floorMeshGauge->Update(gameContext);
+	m_floorMeshGaugeController->Update(gameContext);
+	m_attackGaugeController->Update(gameContext);
 }
 
 /**
@@ -56,10 +79,14 @@ void GamePanel::Update(const GameContext& gameContext)
  */
 void GamePanel::Render(const RenderContext& renderContext)
 {
-	m_floorMeshGauge->Render(renderContext);
-	m_enemyMeshBar->Render(renderContext);
-	m_playerMeshBar->Render(renderContext);
-
+	m_enemyMeshGauge->Render(renderContext);
+	m_playerMeshGauge->Render(renderContext);
+	m_playerMeshNumText->Render(renderContext);
+	m_enemyMeshNumText->Render(renderContext);
+	m_gaugeBackGround->Render(renderContext);
+	m_gaugeTrack->Render(renderContext);
+	m_attackGauge->Render(renderContext);
+	m_attackGaugeTrack->Render(renderContext);
 }
 
 /**
@@ -73,23 +100,29 @@ void GamePanel::Finalize()
 /**
  * \brief スプライトの設定
  * 
- * \param resourceContext
+ * \param resourceContext 
  */
 void GamePanel::SetSprite(const ResourceContext& resourceContext)
 {
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
-	m_floorMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
+	m_gaugeTrack->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
+	m_playerMeshGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
+	m_enemyMeshGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
+	m_gaugeBackGround->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
 
-	m_playerMeshBar->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
+	m_playerMeshNumText->GetComponent<TextRenderer>()
+		->SetSpriteFont(textManager->GetSpriteFont("default"));
+	m_enemyMeshNumText->GetComponent<TextRenderer>()
+		->SetSpriteFont(textManager->GetSpriteFont("default"));
 
-	m_enemyMeshBar->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Bar"));
-
-
-	m_floorMeshGauge->
-		GetComponent<TextRenderer>()->SetSpriteFont(textManager->GetSpriteFont("default"));
+	m_attackGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("AttackIcon"));
+	m_attackGaugeTrack->
+		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("AttackIcon"));
 }

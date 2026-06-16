@@ -38,22 +38,6 @@ PlayerController::PlayerController(IGameObject* gameObject)
 
 	// 初期のステートのセット
 	m_stateMachine->ChangeState<PlayerMoveState>();
-
-	// 衝突した瞬間の処理
-	GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
-		{
-			// 敵のコライダーと衝突したとき攻撃ステートなら
-			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy &&
-				m_stateMachine->GetCurrentStateType() == typeid(PlayerAttackState))
-			{
-				// ダメージ処理
-				other->GetGameObject()->GetComponent<EnemyController>()
-					->Damage(GetGameObject()->GetComponent<PlayerStatusController>()->GetAttackPower());
-				// 移動ステートに遷移
-				m_stateMachine->ChangeState<PlayerMoveState>();
-
-			}
-		});
 }
 
 /**

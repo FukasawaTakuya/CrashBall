@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   StageController.h
- * \brief  ステータス操作コンポーネント
+ * \brief  ステージ操作コンポーネント
  * 
  * \author 深沢拓矢
  * \date   May 2026
@@ -24,8 +24,8 @@
  */
 class  StageController : 
 	public Component,			// 基底コンポーネント
-	public IWallMeshGetter,		// 壁メッシュ取得
-	public IFloorMeshGetter,	// 床メッシュ取得
+	public IWallMeshGetter,		// 壁メッシュ関連情報取得
+	public IFloorMeshGetter,	// 床メッシュ関連情報取得
 	public IPaintConsumer		// ペイント消費
 {
 
@@ -34,9 +34,9 @@ private:
 
 	static constexpr float SCALE = 15.0f;	// スケール
 
-	const XMVECTORF32 PLAYER_COLOR = DirectX::Colors::LightSkyBlue;	// プレイヤーの面の色
-	const XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の面の色
-	const XMVECTORF32 DEFAULT_COLOR = DirectX::Colors::White;		// デフォルトの面の色
+	const DirectX::XMVECTORF32 PLAYER_COLOR = DirectX::Colors::LightSkyBlue;	// プレイヤーの面の色
+	const DirectX::XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の面の色
+	const DirectX::XMVECTORF32 DEFAULT_COLOR = DirectX::Colors::White;		// デフォルトの面の色
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -47,7 +47,7 @@ private:
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
-	std::unordered_map<Triangle*, XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
+	std::unordered_map<Triangle*, DirectX::XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
 
 	int m_playerMeshCount = 0;	// プレイヤーが塗った面の数
 
@@ -118,13 +118,13 @@ public:
 	}
 
 	// プレイヤーの面の色の取得
-	const XMVECTORF32& GetPlayerColor() const 
+	const DirectX::XMVECTORF32& GetPlayerColor() const 
 	{
 		return PLAYER_COLOR;
 	}
 
 	// 敵の面の色の取得
-	const XMVECTORF32& GetEnemyColor() const
+	const DirectX::XMVECTORF32& GetEnemyColor() const
 	{
 		return ENEMY_COLOR;
 	}
@@ -134,6 +134,6 @@ public:
 private:
 
 	// 面に色を塗る
-	void PaintFace(Triangle* face, const XMVECTORF32& color);
+	void PaintFace(Triangle* face, const DirectX::XMVECTORF32& color);
 
 };

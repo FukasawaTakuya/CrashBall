@@ -18,13 +18,11 @@ class Player;
 class  PlayerMoveState : public PlayerStateBase {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
+private:
 
 	static constexpr float ACCELERATION = 35.0f;	// 加速度 
 
 	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
-
-	static constexpr int ATTACK_COST_FACE_COUNT = 20;	// 消費する面の数
 
 
 	// データメンバの宣言 -----------------------------------------------

@@ -35,8 +35,8 @@ void PlayerStatusController::Update()
 {
 	if (m_floorMeshGetter == nullptr) return;
 
-	// プレイヤーの面の数が必須数より多ければフラグをオン
-	if (m_floorMeshGetter->GetPlayerMeshCount() >= ATTACK_REQUIRED_FACE)
+	// プレイヤーの面の数が攻撃コストより多ければフラグをオン
+	if (m_floorMeshGetter->GetPlayerMeshCount() >= ATTACK_COST)
 	{
 		m_canAttack = true;
 	}

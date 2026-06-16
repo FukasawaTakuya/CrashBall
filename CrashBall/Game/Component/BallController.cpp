@@ -30,7 +30,7 @@ BallController::BallController(IGameObject* gameObject)
 	// スケールの設定
 	m_transform->SetScale(SCALE);
 
-	// 衝突中の処理の登録
+	// 衝突時の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
 			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)

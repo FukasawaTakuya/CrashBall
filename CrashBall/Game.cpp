@@ -76,7 +76,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager->RegisterFile("ball", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("Stage", L"Resources/Models/Stage.sdkmesh");
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
-    m_spriteManager->RegisterFile("Bar", L"Resources/Sprite/Gauge.dds");
+    m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
+    m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/default.spritefont");
 
     // サウンドの作成
@@ -87,17 +88,14 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager->RegisterScene(SceneID::Game,
         std::make_unique<GameScene>(m_sceneManager.get()));
 
-    // 初期シーンをセット
-    m_sceneManager->SetStartScene();
-
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
 
-    // 初期処理
-    m_sceneManager->Initialize();
+    // 初期シーンをセット
+    m_sceneManager->SetStartScene();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:

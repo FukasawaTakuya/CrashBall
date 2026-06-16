@@ -87,7 +87,7 @@ void PlayerMoveState::Update()
         // 攻撃力を求める
         playerStatusController->CalcAttackPower();
         // 面消費
-        playerController->GetPaintConsumer()->ConsumePaint(ATTACK_COST_FACE_COUNT);
+        playerController->GetPaintConsumer()->ConsumePaint(playerStatusController->ATTACK_COST);
     }
 
     // 速度制限

@@ -5,7 +5,8 @@
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
 
-class Scene;
+#include "Scene.h"
+
 class Camera;
 
 class SceneManager : public ISceneController{
@@ -29,6 +30,7 @@ public:
 	// 最初のシーンのセット
 	void SetStartScene();
 
+	// 初期化
 	void Initialize();
 
 	// 更新
@@ -37,15 +39,21 @@ public:
 	// 描画
 	void Render(const RenderContext& renderCotext);
 
-	// リソース作成
+	// デバイス依存のリソース作成
 	void CreateDeviceResources(const ResourceContext& resourceCotext);
 
+	// ウインドウサイズ依存のリソース作成
 	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
 
 	// シーン変更のリクエスト
 	void RequestChangeScene(SceneID nextSceneID) override;
 
-	Camera* GetCamera();
+	// カメラの取得
+	Camera* GetCamera() const
+	{
+		return m_pCurrentScene->GetCamera();
+	}
+
 
 
 private:

@@ -15,11 +15,11 @@
  // 切り取りの基準位置
 enum class FillOrigin
 {
-	CenterHorizon,
+	CenterHorizon = 0,
 	CenterVertical,
 	Left,
-	Right,
 	Top,
+	Right,
 	Bottom,
 	OriginNum,
 };
@@ -30,18 +30,19 @@ const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin
 	DirectX::SimpleMath::Vector4(-0.5f,  0.0f, 0.5f, 0.0f),	// CenterHorizon
 	DirectX::SimpleMath::Vector4( 0.0f, -0.5f, 0.0f, 0.5f),	// CenterVartical
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 1.0f, 0.0f),	// Left
-	DirectX::SimpleMath::Vector4(-1.0f,  0.0f, 0.0f, 0.0f),	// Right
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 0.0f, 1.0f),	// Top
+	DirectX::SimpleMath::Vector4(-1.0f,  0.0f, 0.0f, 0.0f),	// Right
 	DirectX::SimpleMath::Vector4( 0.0f, -1.0f, 0.0f, 0.0f),	// Bottom
 };
 
+// 切り取りの基準位置を決めるためのもとになる切り取り領域
 const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::OriginNum)]
 {
 	DirectX::SimpleMath::Vector4(0.5f, 0.0f, 0.5f, 1.0f),	// CenterHorizon
-	DirectX::SimpleMath::Vector4(0.0f, 1.0f, 1.0f, 1.0f),	// CenterVartical
+	DirectX::SimpleMath::Vector4(0.0f, 0.5f, 1.0f, 0.5f),	// CenterVartical
 	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),	// Left
+	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 1.0f, 0.0f),	// Top
 	DirectX::SimpleMath::Vector4(1.0f, 0.0f, 1.0f, 1.0f),	// Right
-	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),	// Top
 	DirectX::SimpleMath::Vector4(0.0f, 1.0f, 1.0f, 1.0f),	// Bottom
 };
 
@@ -56,21 +57,15 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	ID3D11ShaderResourceView* m_pSprite = nullptr;	// スプライトのポインタ
-
-	float m_layerDepth = 0.0f;		// 描画順
-
-	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;	// 色
-
-	float m_width = 0.0f;	// 横幅
-	float m_height = 0.0f;	// 縦幅
-
-	DirectX::SimpleMath::Vector2 m_spriteScale = DirectX::SimpleMath::Vector2::One;	// スプライトのスケール
-
-	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
-
-	FillOrigin m_fillOrigin = FillOrigin::Left;	// 切り取りの起点
-	float m_fillAmount = 1.0f;					// 切り取り割合
+	ID3D11ShaderResourceView* m_pSprite = nullptr;					// スプライトのポインタ
+	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;			// 色
+	float m_width = 0.0f;											// 横幅
+	float m_height = 0.0f;											// 縦幅
+	DirectX::SimpleMath::Vector2 m_spriteScale = { 1.0f, 1.0f };	// スプライトのスケール
+	float m_layerDepth = 0.0f;										// 描画順
+	RectTransform* m_rectTransform = nullptr;						// トランスフォームのキャッシュ
+	FillOrigin m_fillOrigin = FillOrigin::Left;						// 切り取りの起点
+	float m_fillAmount = 1.0f;										// 切り取り量
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -94,16 +89,33 @@ public:
 	// 横幅の取得
 	float GetWidth() const
 	{
-		return m_width * m_spriteScale.x * m_fillAmount;
+		// 切り取りが横方向の場合
+		if (static_cast<int>(m_fillOrigin) % 2 == 0)
+		{
+			return m_width * m_spriteScale.x * m_fillAmount;
+		}
+		else
+		{
+			return m_width * m_spriteScale.x;
+		}
 	}
 
 	// 縦幅の取得
 	float GetHeight() const
 	{
-		return m_height;
+		// 切り取りが縦方向の場合
+		if (static_cast<int>(m_fillOrigin) % 2 == 1)
+		{
+			return m_height * m_spriteScale.y * m_fillAmount;
+		}
+		else
+		{
+			return m_height * m_spriteScale.y;
+		}
+
 	}
 
-	// 切り取り割合を取得
+	// 切り取り量を取得
 	float GetFillAmount() const
 	{
 		return m_fillAmount;
@@ -149,7 +161,7 @@ public:
 		m_spriteScale = spriteScale;
 	}
 
-	// 切り取り割合を設定
+	// 切り取り量を設定
 	void SetFillAmount(float fillAmount)
 	{
 		m_fillAmount = fillAmount;
