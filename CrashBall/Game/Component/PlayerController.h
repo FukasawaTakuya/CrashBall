@@ -30,8 +30,6 @@ private:
 
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
-	PlayerStatusController* m_playerStateController = nullptr;		// プレイヤーステータス管理コンポーネント
-
 	const Camera* m_pCamera = nullptr;				// カメラのポインタ
 
 	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
@@ -86,7 +84,6 @@ public:
 		// 床メッシュ取得コンポーネントを設定
 		GetGameObject()->GetComponent<PlayerStatusController>()->SetFloorMeshGetter(stageController);
 	}
-
 
 	// 内部実装
 private:

@@ -50,6 +50,7 @@ public:
 		float rotate,
 		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
+		DirectX::SpriteEffects spriteEffects,
 		float layerDepth) override;
 
 	// •`‰æ–½—ß‚Ì“o˜^
@@ -61,6 +62,7 @@ public:
 		float rotate,
 		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,
+		DirectX::SpriteEffects spriteEffects,
 		float layerDepth) override;
 
 	// •`‰æ–½—ß‚ÌƒNƒŠƒA

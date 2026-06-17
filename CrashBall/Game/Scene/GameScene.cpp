@@ -26,11 +26,13 @@ GameScene::GameScene(ISceneController* pSceneManager)
     , m_gamePanel       (std::make_unique<GamePanel>())
     , m_collisionManager(std::make_unique<CollisionManager>())
 {
+    // プレイヤーのの初期設定
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
     playerController->SetEnemyTransform(m_enemy->GetComponent<Transform>());
     playerController->SetCamera(m_camera.get());
     playerController->SetStageInterface(m_stage->GetComponent<StageController>());
 
+    // 敵の初期設定
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     m_gamePanel->SetUIContext(
@@ -42,9 +44,14 @@ GameScene::GameScene(ISceneController* pSceneManager)
         }
     );
 
+    // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
     m_collisionManager->RegistCollider(m_enemy->GetComponent<Sphere>());
+
+    // 読み取り専用のキャッシュ
+    m_enemyController = m_enemy->GetComponent<EnemyController>();
+    m_stageController = m_stage->GetComponent<StageController>();
 }
 
 /**
@@ -115,6 +122,14 @@ void GameScene::Update(const GameContext& gameContext)
 		m_camera->FollowCamera(m_enemy->GetComponent<Transform>()->GetPosition());
     }
 
+    m_gamePanel->SetUIValue(
+        m_stageController->GetPlayerMeshCount(),
+        m_stageController->GetEnemyMeshCount(),
+        m_stageController->GetTotalMeshCount(),
+        PlayerStatusController::ATTACK_COST,
+        m_enemyController->GetHp()
+    );
+
     m_gamePanel->Update(gameContext);
 }
 
@@ -149,8 +164,30 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
     auto modelManager = resourceContext.modelManager;
 
-    m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
-	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("ball"));
+    m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("player"));
+	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("enemy"));
+
+    auto playerModel = m_player->GetComponent<ModelRenderer>()->GetModel();
+    auto enemyModel = m_enemy->GetComponent<ModelRenderer>()->GetModel();
+
+    playerModel->UpdateEffects(
+        [&](IEffect* effect) {
+
+            BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
+            if (basic)
+            {
+                basic->SetDiffuseColor(Colors::LightSkyBlue);
+            }
+        });
+    enemyModel->UpdateEffects(
+        [&](IEffect* effect) {
+
+            BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
+            if (basic)
+            {
+                basic->SetDiffuseColor(Colors::LightPink);
+            }
+        });
 
     m_gamePanel->SetSprite(resourceContext);
 }

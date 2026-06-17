@@ -12,9 +12,10 @@
 /**
  * \brief コンストラクタ.
  * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
-ModelRenderer::ModelRenderer(IGameObject* owner)
-	: Component(owner)
+ModelRenderer::ModelRenderer(IGameObject* gameObject)
+	: Component(gameObject)
 {
 }
 

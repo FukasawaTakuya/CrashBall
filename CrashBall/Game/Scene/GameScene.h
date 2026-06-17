@@ -38,6 +38,12 @@ private:
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
+	// 読み取り専用のコンポーネントのキャッシュ
+	const EnemyController* m_enemyController = nullptr;
+	const PlayerStatusController* m_playerStatusController = nullptr;
+	const StageController* m_stageController = nullptr;
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

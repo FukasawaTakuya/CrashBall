@@ -28,7 +28,7 @@ void PlayerJumpState::Update()
 {
     auto key = Keyboard::Get().GetState();
 
-    if (key.Space) m_pStateMachine->ChangeState<PlayerMoveState>();
+    //aif (key.Space) m_pStateMachine->ChangeState<PlayerMoveState>();
 }
 
 void PlayerJumpState::OnExit()

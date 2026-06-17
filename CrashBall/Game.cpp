@@ -73,12 +73,12 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
     // 作成するリソースのファイル名を登録
-    m_modelManager->RegisterFile("ball", L"Resources/Models/ball.sdkmesh");
-    m_modelManager->RegisterFile("Stage", L"Resources/Models/Stage.sdkmesh");
+    m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
+    m_modelManager->RegisterFile("enemy", L"Resources/Models/ball.sdkmesh");
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
     m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
-    m_textManager->RegisterFile("default", L"Resources/SpriteFont/default.spritefont");
+    m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());

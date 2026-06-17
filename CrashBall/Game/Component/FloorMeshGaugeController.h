@@ -14,31 +14,28 @@
 #include "Default/RectTransform.h"
 #include "Default/TextRenderer.h"
 
-#include "IFloorMeshGetter.h"
-
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
 #include "Game/Common/Screen.h"
 
 /**
- * @brief 
+ * @brief 床メッシュゲージ
  */
 class  FloorMeshGaugeController : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr DirectX::SimpleMath::Vector2 POSITION 
+	static constexpr DirectX::SimpleMath::Vector2 GAUGE_POSITION 
 		= { Screen::CENTER_X, Screen::HEIGHT - 50.0f };	// 描画位置
+
+	//static constexpr DirectX::SimpleMath::Vector2 
 
 	float GAUGE_LAYER_DEPTH = 0.2f;		// ゲージの描画順
 
 	// データメンバの宣言 -----------------------------------------------
 private:
-
-
-	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
 	// 管理ゲームオブジェクト
 	IGameObject* m_pPalyerMeshGauge		= nullptr;	// プレイヤーが塗った面のゲージ
@@ -61,6 +58,10 @@ private:
 	// テキストのコンポーネントのキャッシュ
 	TextRenderer* m_playerTextRenderer = nullptr;
 	TextRenderer* m_enemyTextRenderer  = nullptr;
+
+	int m_playerMeshCount = 0;	// プレイヤーの面の数
+	int m_enemyMeshCount = 0;	// 敵の面の数
+	int m_totalMeshCount = 0;	// 全体の面の数
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -98,10 +99,16 @@ public:
 	// 取得/設定
 public:
 
-	//  床メッシュ取得コンポーネントの設定
-	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
+	// UI表示に必要な数値を設定
+	void SetUIValue(
+		int playerMeshCount,
+		int enemyMeshCount,
+		int totalMeshCount
+	)
 	{
-		m_floorMeshGetter = floorMeshGetter;
+		m_playerMeshCount = playerMeshCount;
+		m_enemyMeshCount  = enemyMeshCount;
+		m_totalMeshCount  = totalMeshCount;
 	}
 
 	// 内部実装

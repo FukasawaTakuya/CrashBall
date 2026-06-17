@@ -63,6 +63,7 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 		m_rectTransform->GetRotate(),
 		m_spriteScale * m_rectTransform->GetScale(),
 		m_rectTransform->GetOrigin(m_width, m_height),
+		m_spriteEffects,
 		m_layerDepth
 	);
 }

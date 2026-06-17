@@ -31,9 +31,10 @@ private:
 
 	std::unique_ptr<StateMachine<EnemyController>> m_stateMachine;	// ステートマシン
 
-	Transform* m_transform = nullptr;				// トランスフォームのコンポーネント
-	RigidBody* m_rigidbody = nullptr;				// 物理演算のコンポーネント
-	BallController* m_ballController = nullptr;		// ボール管理
+	Transform* m_transform = nullptr;				// トランスフォームコンポーネントのキャッシュ
+	RigidBody* m_rigidbody = nullptr;				// 物理演算コンポーネントのキャッシュ
+	ModelRenderer* m_modelRenderer = nullptr;		// モデル描画コンポーネントのキャッシュ
+	BallController* m_ballController = nullptr;		// ボール操作コンポーネントのキャッシュ
 
 	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
 

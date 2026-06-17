@@ -81,6 +81,7 @@ void PlayerAttackState::Update()
 		= playerController->GetEnemyTransform()->GetPosition() - transform->GetPosition();
 	attackDirection.Normalize();
 
+	// 速度の設定
 	rigidbody->SetVelocity(attackDirection * ATTACK_SPEED);
 
 	// タイマーの更新

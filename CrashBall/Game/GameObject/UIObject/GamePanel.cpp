@@ -23,7 +23,9 @@ GamePanel::GamePanel()
 	, m_gaugeBackGround		 (std::make_unique<Object2D>())
 	, m_gaugeTrack			 (std::make_unique<Object2D>())
 	, m_attackGauge			 (std::make_unique<Object2D>())
-	, m_attackGaugeTrack		 (std::make_unique<Object2D>())
+	, m_attackGaugeTrack	 (std::make_unique<Object2D>())
+	, m_enemyHpGauge		 (std::make_unique<Object2D>())
+	, m_enemyHpText			 (std::make_unique<TextObject>())
 {
 
 	m_floorMeshGaugeController =
@@ -41,11 +43,17 @@ GamePanel::GamePanel()
 			m_attackGauge.get(),
 			m_attackGaugeTrack.get()
 		);
+
+	m_enemyHpGaugeController =
+		AddComponent<EnemyHpGaugeController>(
+			m_enemyHpGauge.get(),
+			m_enemyHpText.get()
+		);
 }
 
 /**
  * \brief デストラクタ
- * 
+ *
  */
 GamePanel::~GamePanel()
 {
@@ -53,7 +61,7 @@ GamePanel::~GamePanel()
 
 /**
  * \brief 初期化
- * 
+ *
  */
 void GamePanel::Initialize()
 {
@@ -63,18 +71,29 @@ void GamePanel::Initialize()
 
 /**
  * \brief 更新
- * 
+ *
  * \param gameContext ゲーム用のコンテキスト
- */ 
+ */
 void GamePanel::Update(const GameContext& gameContext)
 {
+	// UIの数値を設定
+	m_floorMeshGaugeController->SetUIValue(
+		m_playerMeshCount,
+		m_enemyMeshCount,
+		m_totalMeshCount);
+	m_attackGaugeController->SetUIValue(
+		m_playerMeshCount,
+		m_playerAttackCost
+	);
+
 	m_floorMeshGaugeController->Update(gameContext);
 	m_attackGaugeController->Update(gameContext);
+	m_enemyHpGaugeController->Update(gameContext);
 }
 
 /**
  * \brief 描画
- * 
+ *
  * \param RenderContext 描画用のコンテキスト
  */
 void GamePanel::Render(const RenderContext& renderContext)
@@ -87,11 +106,13 @@ void GamePanel::Render(const RenderContext& renderContext)
 	m_gaugeTrack->Render(renderContext);
 	m_attackGauge->Render(renderContext);
 	m_attackGaugeTrack->Render(renderContext);
+	m_enemyHpGauge->Render(renderContext);
+	m_enemyHpText->Render(renderContext);
 }
 
 /**
  * \brief 終了処理
- * 
+ *
  */
 void GamePanel::Finalize()
 {
@@ -99,30 +120,42 @@ void GamePanel::Finalize()
 
 /**
  * \brief スプライトの設定
- * 
- * \param resourceContext 
+ *
+ * \param resourceContext
  */
 void GamePanel::SetSprite(const ResourceContext& resourceContext)
 {
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
-	m_gaugeTrack->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
-	m_playerMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
-	m_enemyMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
-	m_gaugeBackGround->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("Gauge"));
+	ID3D11ShaderResourceView* gaugeSprite =
+		spriteManager->GetSprite("Gauge");
+	ID3D11ShaderResourceView* attakcIconSprite =
+		spriteManager->GetSprite("AttackIcon");
+	SpriteFont* defaultFont = textManager->GetSpriteFont("default");
 
-	m_playerMeshNumText->GetComponent<TextRenderer>()
-		->SetSpriteFont(textManager->GetSpriteFont("default"));
-	m_enemyMeshNumText->GetComponent<TextRenderer>()
-		->SetSpriteFont(textManager->GetSpriteFont("default"));
+
+	m_gaugeTrack->
+		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	m_playerMeshGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	m_enemyMeshGauge->
+		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	m_gaugeBackGround->
+		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+
+	m_playerMeshNumText
+		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
+	m_enemyMeshNumText
+		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 
 	m_attackGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("AttackIcon"));
+		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
 	m_attackGaugeTrack->
-		GetComponent<SpriteRenderer>()->SetSprite(spriteManager->GetSprite("AttackIcon"));
+		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
+
+	m_enemyHpGauge
+		->GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	m_enemyHpText
+		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 }

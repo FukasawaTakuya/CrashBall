@@ -11,7 +11,7 @@
 #include <d3d11.h>
 #include <DirectXMath.h>
 #include <DirectXColors.h>
-#include <SpriteFont.h>
+#include <SpriteBatch.h>
 
 // •`‰æ–½—ß
 struct SpriteRenderCommand
@@ -23,6 +23,7 @@ struct SpriteRenderCommand
 	float rotate;							// ‰ñ“]
 	DirectX::SimpleMath::Vector2 scale;		// ƒXƒP[ƒ‹
 	DirectX::SimpleMath::Vector2 origin;	// Šî€ˆÊ’u
+	DirectX::SpriteEffects spriteEffects;			// ”½“]
 	float layerDepth;						// •`‰æ‡
 };
 
@@ -62,6 +63,7 @@ public:
 		float rotate,
 		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
+		DirectX::SpriteEffects spriteEffects,
 		float layerDepth) = 0;
 
 	virtual void RegisterRenderCommand(
@@ -72,6 +74,7 @@ public:
 		float rotate,
 		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,
+		DirectX::SpriteEffects spriteEffects,
 		float layerDepth) = 0;
 
 

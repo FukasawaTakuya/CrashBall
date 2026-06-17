@@ -38,7 +38,7 @@ void SpriteRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 			renderCommand.rotate,
 			renderCommand.origin,
 			renderCommand.scale * Screen::GetScreenRate(),
-			SpriteEffects_None,
+			renderCommand.spriteEffects,
 			renderCommand.layerDepth
 		);
 	}
@@ -63,6 +63,7 @@ void SpriteRendererManager::RegisterRenderCommand(
 	float rotate,
 	float scale,
 	const DirectX::SimpleMath::Vector2& origin,
+	DirectX::SpriteEffects spriteEffects,
 	float layerDepth)
 {
 	RegisterRenderCommand(
@@ -73,6 +74,7 @@ void SpriteRendererManager::RegisterRenderCommand(
 		rotate, 
 		SimpleMath::Vector2(scale, scale), 
 		origin, 
+		spriteEffects,
 		layerDepth);
 }
 
@@ -95,6 +97,7 @@ void SpriteRendererManager::RegisterRenderCommand(
 	float rotate, 
 	const DirectX::SimpleMath::Vector2& scale, 
 	const DirectX::SimpleMath::Vector2& origin, 
+	DirectX::SpriteEffects spriteEffects,
 	float layerDepth)
 {
 	m_renderCommad.emplace_back(
@@ -105,6 +108,7 @@ void SpriteRendererManager::RegisterRenderCommand(
 		rotate, 
 		scale, 
 		origin, 
+		spriteEffects,
 		layerDepth);
 }
 

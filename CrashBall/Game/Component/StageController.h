@@ -117,18 +117,6 @@ public:
 		return m_floorMeshColor.size();
 	}
 
-	// プレイヤーの面の色の取得
-	const DirectX::XMVECTORF32& GetPlayerColor() const 
-	{
-		return PLAYER_COLOR;
-	}
-
-	// 敵の面の色の取得
-	const DirectX::XMVECTORF32& GetEnemyColor() const
-	{
-		return ENEMY_COLOR;
-	}
-
 
 	// 内部実装
 private:

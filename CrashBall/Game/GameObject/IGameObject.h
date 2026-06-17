@@ -50,6 +50,7 @@ public:
 
 	// コンポーネントの取得
 	template<typename CompType>
+	requires std::derived_from<CompType, Component>
 	CompType* GetComponent()
 	{
 		auto comp = GetComponent(typeid(CompType));

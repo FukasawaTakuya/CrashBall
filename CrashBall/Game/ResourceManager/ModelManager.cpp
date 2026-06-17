@@ -49,11 +49,12 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 {
 	m_models.clear();
 
-	EffectFactory fx(device);
-	// テクスチャのパスを設定
-	fx.SetDirectory(L"Resources/Models");
-
 	for (auto& file : m_files) {
+
+		EffectFactory fx(device);
+		// テクスチャのパスを設定
+		fx.SetDirectory(L"Resources/Models");
+
 		// モデルを作成
 		std::unique_ptr<Model> model = Model::CreateFromSDKMESH(device, file.second.c_str(), fx);
 		// コンテナに追加

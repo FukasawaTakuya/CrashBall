@@ -12,9 +12,8 @@
 #include "Game/GameObject/IGameObject.h"
 #include "Game/Context/GameContext.h"
 #include "Default/SpriteRenderer.h"
+#include "Game/Common/Screen.h"
 
-#include "IFloorMeshGetter.h"
-#include "PlayerStatusController.h"
 
 /**
  * @brief 攻撃ゲージ操作コンポーネント
@@ -24,8 +23,9 @@ class  AttackGaugeController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	const DirectX::XMVECTORF32 GAUGE_COLOR = DirectX::Colors::Yellow;	// プレイヤーの面の色
-	const DirectX::XMVECTORF32 GAUGE_TRACK_COLOR = DirectX::Colors::Gray;
+	// 攻撃ゲージの描画位置
+	static constexpr DirectX::SimpleMath::Vector2
+		GAUGE_POSITION = DirectX::SimpleMath::Vector2(Screen::CENTER_X, Screen::CENTER_Y + 150.f);
 
 
 	// データメンバの宣言 -----------------------------------------------
@@ -34,10 +34,10 @@ private:
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
 	IGameObject* m_pAttackGaugeTrack  = nullptr;	// 攻撃ゲージの土台
 
-	SpriteRenderer* m_gaugeRenderer = nullptr;
-	SpriteRenderer* m_gaugeTrackRenderer = nullptr;
+	SpriteRenderer* m_gaugeRenderer = nullptr;		// ゲージの描画コンポーネントのキャッシュ
 
-	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
+	int m_playerMeshCount = 0;	// プレイヤーの面の数
+	int m_playerAttackCost = 0;	// プレイヤーの攻撃コスト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -56,17 +56,23 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	void Initilize();
 
+	// 更新
 	void Update(const GameContext& gameContext);
 
 	// 取得/設定
 public:
 
-	//  床メッシュ取得コンポーネントの設定
-	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
+	// UI表示に必要な数値の設定
+	void SetUIValue(
+		int playerMeshCount,
+		int playerAttackCost
+	)
 	{
-		m_floorMeshGetter = floorMeshGetter;
+		m_playerMeshCount = playerMeshCount;
+		m_playerAttackCost = playerAttackCost;
 	}
 
 

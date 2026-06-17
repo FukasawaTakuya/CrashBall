@@ -92,6 +92,7 @@ public:
 	 * 
 	 */
 	template<typename State>
+	requires std::derived_from<State, StateBase<Owner>>
 	void ChangeState()
 	{
 		// オーナーがいないならリターン
@@ -125,6 +126,7 @@ public:
 
 	// ステートの生成
 	template<typename State, typename... Args>
+	requires std::derived_from<State, StateBase<Owner>>
 	void CreateState(Args&&... args)
 	{
 		// イテレータの取得

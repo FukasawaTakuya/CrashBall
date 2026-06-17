@@ -18,6 +18,7 @@
 
 #include "Game/Component/FloorMeshGaugeController.h"
 #include "Game/Component/AttackGaugeController.h"
+#include "Game/Component/EnemyHpGaugeController.h"
 
  /**
   * @brief ゲーム用のパネル
@@ -37,18 +38,29 @@ private:
 	std::unique_ptr<Object2D>	m_enemyMeshGauge;		// 敵が塗った面を表示するゲージ
 	std::unique_ptr<Object2D>	m_gaugeTrack;			// ゲージの土台
 	std::unique_ptr<Object2D>	m_gaugeBackGround;		// ゲージの背景
-	std::unique_ptr<TextObject>	m_playerMeshNumText;	// プレイヤーのメッシュ数表示
-	std::unique_ptr<TextObject>	m_enemyMeshNumText;		// 敵のメッシュ数表示
+	std::unique_ptr<TextObject>	m_playerMeshNumText;	// プレイヤーのメッシュ数表示テキスト
+	std::unique_ptr<TextObject>	m_enemyMeshNumText;		// 敵のメッシュ数表示テキスト
 
 	// AttackGaugeControllerで操作
 	std::unique_ptr<Object2D> m_attackGauge;		// 攻撃ゲージ
 	std::unique_ptr<Object2D> m_attackGaugeTrack;	// 攻撃ゲージの土台
 
+	// EnemyHpGaugeControllerで操作
+	std::unique_ptr<Object2D> m_enemyHpGauge;
+	std::unique_ptr<TextObject> m_enemyHpText;	// 攻撃コスト表示テキスト
 
 	// 床メッシュゲージ操作コンポーネントのキャッシュ
 	FloorMeshGaugeController* m_floorMeshGaugeController = nullptr;
 	// 攻撃ゲージ操作コンポーネントのキャッシュ
 	AttackGaugeController* m_attackGaugeController = nullptr;
+
+	EnemyHpGaugeController* m_enemyHpGaugeController = nullptr;
+
+	int m_playerMeshCount  = 0;	// プレイヤーの面の数
+	int m_enemyMeshCount   = 0;	// 敵の面の数
+	int m_totalMeshCount   = 0;	// 全体の面の数
+	int m_playerAttackCost = 0;	// プレイヤーの攻撃コスト
+	int m_enemyHp		   = 0;	// 敵のHp
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -83,17 +95,22 @@ public:
 	void SetUIContext(const UIContext& uiContext)
 	{
 		m_uiContext = uiContext;
+	}
 
-		// ゲージに設定
-		m_floorMeshGaugeController
-			->SetFloorMeshGetter(
-				m_uiContext.floorMeshGetter
-			);
-
-		m_attackGaugeController
-			->SetFloorMeshGetter(
-				m_uiContext.floorMeshGetter
-			);
+	// UI表示に必要な数値を設定
+	void SetUIValue(
+		int playerMeshCount,
+		int enemyMeshCount,
+		int totalMeshCount,
+		int playerAttackCost,
+		int enemyHp
+	)
+	{
+		m_playerMeshCount	= playerMeshCount;
+		m_enemyMeshCount	= enemyMeshCount;
+		m_totalMeshCount	= totalMeshCount;
+		m_playerAttackCost	= playerAttackCost;
+		m_enemyHp			= enemyHp;
 	}
 
 	void SetSprite(const ResourceContext& resourceContext);

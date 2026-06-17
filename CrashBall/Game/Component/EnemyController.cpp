@@ -21,6 +21,7 @@ EnemyController::EnemyController(IGameObject* gameObject)
 	// コンポーネントのキャッシュ
 	m_transform = GetGameObject()->GetComponent<Transform>();
 	m_rigidbody = GetGameObject()->GetComponent<RigidBody>();
+	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
 	m_ballController = GetGameObject()->GetComponent<BallController>();
 }
 

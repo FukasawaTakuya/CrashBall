@@ -29,7 +29,7 @@ private:
 public:
 
 	// コンストラクタ
-	ModelRenderer(IGameObject* owner);
+	ModelRenderer(IGameObject* gameObject);
 
 	// デストラクタ
 	~ModelRenderer();
@@ -42,6 +42,11 @@ public:
 
 	// 取得/設定
 public:
+
+	DirectX::Model* GetModel()
+	{
+		return m_pModel;
+	}
 	
 	// モデルの設定
 	void SetModel(DirectX::Model* pModel)

@@ -77,6 +77,9 @@
     <Filter Include="Game\GameObject\UIObject">
       <UniqueIdentifier>{0fe180a6-d2e2-415f-b4a8-433f0fc9aa25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Color">
+      <UniqueIdentifier>{e5508e09-70cd-4bc8-a112-2ef8117b9aa3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -351,6 +354,12 @@
     <ClInclude Include="Game\Component\AttackGaugeController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Color\GameColor.h">
+      <Filter>Game\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\EnemyHpGaugeController.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -513,6 +522,7 @@
     <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
     <ClCompile Include="Game\Component\AttackGaugeController.cpp" />
+    <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

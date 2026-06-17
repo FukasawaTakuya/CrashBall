@@ -67,6 +67,8 @@ private:
 	FillOrigin m_fillOrigin = FillOrigin::Left;						// 切り取りの起点
 	float m_fillAmount = 1.0f;										// 切り取り量
 
+	DirectX::SpriteEffects m_spriteEffects = DirectX::SpriteEffects::SpriteEffects_None;// 反転するか
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -171,6 +173,11 @@ public:
 	void SetFillOrigin(FillOrigin fillOrigin)
 	{
 		m_fillOrigin = fillOrigin;
+	}
+
+	void SetSpriteEffects(DirectX::SpriteEffects spriteEffects)
+	{
+		m_spriteEffects = spriteEffects;
 	}
 
 	// 内部実装

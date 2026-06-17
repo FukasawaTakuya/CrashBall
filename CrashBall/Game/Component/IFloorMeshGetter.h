@@ -47,13 +47,6 @@ public:
 	// 面の合計の取得
 	virtual int GetTotalMeshCount() const = 0;
 
-	// プレイヤーの面の色の取得
-	virtual const DirectX::XMVECTORF32& GetPlayerColor() const = 0;
-
-	// 敵の面の色の取得
-	virtual const DirectX::XMVECTORF32& GetEnemyColor() const = 0;
-
-
 	// 内部実装
 private:
 
