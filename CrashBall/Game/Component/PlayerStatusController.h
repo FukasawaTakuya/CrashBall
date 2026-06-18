@@ -37,6 +37,8 @@ private:
 
 	bool m_canAttack = false;	// 攻撃可能かどうか
 
+	bool m_isAttack = false;	// 攻撃中かどうか
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -54,9 +56,6 @@ public:
 	// 更新
 	void Update();
 
-	// 攻撃力を求める
-	void CalcAttackPower();
-
 	// 取得/設定
 public:
 
@@ -70,6 +69,11 @@ public:
 	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
 	{
 		m_floorMeshGetter = floorMeshGetter;
+	}
+
+	void SetIsAttack(bool isAttack)
+	{
+		m_isAttack = isAttack;
 	}
 
 	// 内部実装

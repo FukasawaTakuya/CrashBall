@@ -35,6 +35,8 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 					->Damage(m_stateContext.playerStatusController->GetAttackPower());
 				// 移動ステートに遷移
 				m_pStateMachine->ChangeState<PlayerMoveState>();
+				// 攻撃フラグを設定
+				m_stateContext.playerStatusController->SetIsAttack(false);
 			}
 		});
 }
@@ -90,8 +92,12 @@ void PlayerAttackState::Update()
 
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
 	if (m_timer >= ATTACK_DURATION) {
+		// ステート遷移
 		m_pStateMachine->ChangeState<PlayerMoveState>();
+		// 移動速度を0にする
 		rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+		// 攻撃フラグを設定
+		m_stateContext.playerStatusController->SetIsAttack(false);
 	}
 }
 

@@ -89,7 +89,7 @@ void GamePanel::Update(const GameContext& gameContext)
 	m_attackGaugeController->SetUIValue(
 		m_playerMeshCount,
 		m_playerAttackCost,
-		std::max(m_playerMeshCount - m_enemyMeshCount, (int)PlayerStatusController::MIN_ATTACK_POWER)
+		m_playerAttackPower
 	);
 	m_enemyHpGaugeController->SetUIValue(
 		m_enemyHp,

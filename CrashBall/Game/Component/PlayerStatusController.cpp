@@ -44,20 +44,16 @@ void PlayerStatusController::Update()
 	{
 		m_canAttack = false;
 	}
-}
 
-/**
- * \brief 攻撃力を求める
- * 
- */
-void PlayerStatusController::CalcAttackPower()
-{
-	int playerMeshCount = m_floorMeshGetter->GetPlayerMeshCount();
-	int enemyMeshCount = m_floorMeshGetter->GetEnemyMeshCount();
+	if (!m_isAttack)
+	{
+		int playerMeshCount = m_floorMeshGetter->GetPlayerMeshCount();
+		int enemyMeshCount = m_floorMeshGetter->GetEnemyMeshCount();
 
-	m_attackPower
-		= (playerMeshCount - enemyMeshCount) * ATTACK_PER_FACE;
+		m_attackPower
+			= (playerMeshCount - enemyMeshCount) * ATTACK_PER_FACE;
 
-	// 攻撃力を範囲内に収める
-	m_attackPower = std::max(m_attackPower, MIN_ATTACK_POWER);
+		// 攻撃力を範囲内に収める
+		m_attackPower = std::max(m_attackPower, MIN_ATTACK_POWER);
+	}
 }

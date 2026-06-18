@@ -84,10 +84,10 @@ void PlayerMoveState::Update()
     {
         // ステートの遷移
 		m_pStateMachine->ChangeState<PlayerAttackState>();
-        // 攻撃力を求める
-        playerStatusController->CalcAttackPower();
         // 面消費
         playerController->GetPaintConsumer()->ConsumePaint(playerStatusController->ATTACK_COST);
+        // 攻撃フラグを設定
+        playerStatusController->SetIsAttack(true);
     }
 
     // 速度制限
