@@ -13,7 +13,6 @@
 #include "Game/Engine/Time.h"
 #include "Default/TextRenderer.h"
 
-
 using namespace DirectX;
 
 /**
@@ -27,29 +26,35 @@ using namespace DirectX;
 AttackGaugeController::AttackGaugeController(
 	IGameObject* gameObejct, 
 	IGameObject* pAttackGauge, 
-	IGameObject* pAttackGaugeTrack
-	)
+	IGameObject* pAttackGaugeTrack,
+	IGameObject* pAttackPowerText)
 	: Component(gameObejct)
 	, m_pAttackGauge(pAttackGauge)
 	, m_pAttackGaugeTrack(pAttackGaugeTrack)
+	, m_pAttackPowerText(pAttackPowerText)
 {
 	// 描画位置の設定
 	m_pAttackGauge->GetComponent<RectTransform>()
 		->SetPosition(GAUGE_POSITION);
 	m_pAttackGaugeTrack->GetComponent<RectTransform>()
 		->SetPosition(GAUGE_POSITION);
+	m_pAttackPowerText->GetComponent<RectTransform>()
+		->SetPosition(TEXT_POSITION);
 
 	// キャッシュの取得
 	m_gaugeRenderer = m_pAttackGauge->GetComponent<SpriteRenderer>();
+	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
 
 	SpriteRenderer* gaugeTrackRenderer = m_pAttackGaugeTrack->GetComponent<SpriteRenderer>();
 
 	// 描画順の設定
 	m_gaugeRenderer->SetLayerDepth(0.1f);
+	m_attackPowerTextRenderer->SetLayerDepth(0.2f);
 
-	// スプライトのスケールの設定
-	m_gaugeRenderer->SetSpriteScale(0.4f);
-	gaugeTrackRenderer->SetSpriteScale(0.4f);
+	// スケールの設定
+	m_gaugeRenderer->SetSpriteScale(GAUGE_SCALE);
+	gaugeTrackRenderer->SetSpriteScale(GAUGE_SCALE);
+	m_attackPowerTextRenderer->SetFontScale(0.35f);
 
 	// 色の設定
 	m_gaugeRenderer->SetColor(GameColor::ATTACKGAUGE);
@@ -81,7 +86,7 @@ void AttackGaugeController::Initilize()
  * 
  * \param gameContext ゲーム用のコンテキスト
  */
-void AttackGaugeController::Update(const GameContext& gameContext)
+void AttackGaugeController::Update()
 {
 	// 切り取り量を求める
 	float fillValue = 
@@ -93,6 +98,17 @@ void AttackGaugeController::Update(const GameContext& gameContext)
 	// 1以下に収める
 	fillValue = std::min(fillValue, 1.0f);
 
+	// 切り取り量を設定
 	m_gaugeRenderer->SetFillAmount(fillValue);
 
+	m_attackPowerTextRenderer->SetText(L"Power:{}", m_playerAttackPower);
+
+	if (m_playerMeshCount < m_playerAttackCost)
+	{
+		m_attackPowerTextRenderer->SetColor(GameColor::ATTACKGAUGE_TRACK);
+	}
+	else
+	{
+		m_attackPowerTextRenderer->SetColor(GameColor::ATTACKGAUGE);
+	}
 }

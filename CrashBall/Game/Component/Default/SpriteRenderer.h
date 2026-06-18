@@ -175,9 +175,17 @@ public:
 		m_fillOrigin = fillOrigin;
 	}
 
+	// 画像の反転の設定
 	void SetSpriteEffects(DirectX::SpriteEffects spriteEffects)
 	{
 		m_spriteEffects = spriteEffects;
+	}
+
+	// 透明度の設定
+	void SetAlpha(float alpha)
+	{
+		alpha = std::clamp(alpha, 0.0f, 1.0f);
+		m_color.f[3] = alpha;
 	}
 
 	// 内部実装

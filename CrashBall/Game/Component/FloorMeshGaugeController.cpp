@@ -110,7 +110,7 @@ void FloorMeshGaugeController::Initialize()
  * 
  * \param gameContext ゲーム用のコンテキスト
  */
-void FloorMeshGaugeController::Update(const GameContext& gameContext)
+void FloorMeshGaugeController::Update()
 {
 	// 全体の面に対する塗った面の割合
 	float playerFillAmount = static_cast<float>(m_playerMeshCount) / static_cast<float>(m_totalMeshCount);
@@ -131,17 +131,6 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 	// テキストの設定
 	m_playerTextRenderer->SetText(L"Player:{}面", m_playerMeshCount);
 	m_enemyTextRenderer->SetText(L"Enemy:{}面", m_enemyMeshCount);
-}
-
-/**
- * \brief 描画処理
- * 
- * \param renderContext 描画用のコンテキスト
- */
-void FloorMeshGaugeController::Render(const RenderContext& renderContext)
-{
-	ISpriteRendererManager* sprite = renderContext.spriteRendererManager;
-	ITextRendererManager* text = renderContext.textRendererManager;
 }
 
 /**

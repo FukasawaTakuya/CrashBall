@@ -21,7 +21,8 @@ private:
 
 	static constexpr float ATTACK_PER_FACE = 1.0f;		// “h‚Á‚½–Ê‚P–‡“–‚½‚è‚Ìã¸UŒ‚—Í
 
-	static constexpr float MAX_ATTACK_POWER = 80.0f;	// Å‘åUŒ‚—Í
+public:
+	static constexpr float MIN_ATTACK_POWER = 10.0f;	// Å’áUŒ‚—Í
 
 public:
 

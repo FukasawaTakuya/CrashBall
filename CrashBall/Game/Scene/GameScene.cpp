@@ -35,15 +35,6 @@ GameScene::GameScene(ISceneController* pSceneManager)
     // 敵の初期設定
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
-    m_gamePanel->SetUIContext(
-        {
-            pSceneManager,
-            m_stage->GetComponent<StageController>(),
-            m_player->GetComponent<PlayerStatusController>(),
-            m_enemy->GetComponent<EnemyController>()
-        }
-    );
-
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
@@ -52,6 +43,7 @@ GameScene::GameScene(ISceneController* pSceneManager)
     // 読み取り専用のキャッシュ
     m_enemyController = m_enemy->GetComponent<EnemyController>();
     m_stageController = m_stage->GetComponent<StageController>();
+    m_playerStatusController = m_player->GetComponent<PlayerStatusController>();
 }
 
 /**
@@ -127,7 +119,9 @@ void GameScene::Update(const GameContext& gameContext)
         m_stageController->GetEnemyMeshCount(),
         m_stageController->GetTotalMeshCount(),
         PlayerStatusController::ATTACK_COST,
-        m_enemyController->GetHp()
+        m_playerStatusController->GetAttackPower(),
+        m_enemyController->GetHp(),
+        EnemyController::MAX_HP
     );
 
     m_gamePanel->Update(gameContext);

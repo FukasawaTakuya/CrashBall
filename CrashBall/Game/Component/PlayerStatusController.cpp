@@ -59,5 +59,5 @@ void PlayerStatusController::CalcAttackPower()
 		= (playerMeshCount - enemyMeshCount) * ATTACK_PER_FACE;
 
 	// 攻撃力を範囲内に収める
-	m_attackPower = std::clamp(m_attackPower, 0.0f, MAX_ATTACK_POWER);
+	m_attackPower = std::max(m_attackPower, MIN_ATTACK_POWER);
 }

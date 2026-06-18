@@ -12,6 +12,7 @@
 #include "Game/GameObject/IGameObject.h"
 #include "Game/Context/GameContext.h"
 #include "Default/SpriteRenderer.h"
+#include "Default/TextRenderer.h"
 #include "Game/Common/Screen.h"
 
 
@@ -27,17 +28,27 @@ private:
 	static constexpr DirectX::SimpleMath::Vector2
 		GAUGE_POSITION = DirectX::SimpleMath::Vector2(Screen::CENTER_X, Screen::CENTER_Y + 150.f);
 
+	// 攻撃力表示テキストの描画位置
+	static constexpr DirectX::SimpleMath::Vector2
+		TEXT_POSITION = DirectX::SimpleMath::Vector2(Screen::CENTER_X, Screen::CENTER_Y + 190.f);
+
+	// ゲージのスケール
+	static constexpr float GAUGE_SCALE = 0.4f;
+
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
 	IGameObject* m_pAttackGaugeTrack  = nullptr;	// 攻撃ゲージの土台
+	IGameObject* m_pAttackPowerText	  = nullptr;	// 攻撃力表示テキスト
 
-	SpriteRenderer* m_gaugeRenderer = nullptr;		// ゲージの描画コンポーネントのキャッシュ
+	SpriteRenderer* m_gaugeRenderer				= nullptr;	// ゲージの描画コンポーネントのキャッシュ
+	TextRenderer*	m_attackPowerTextRenderer	= nullptr;	// 攻撃力表示テキスト描画コンポーネントのキャッシュ
 
-	int m_playerMeshCount = 0;	// プレイヤーの面の数
-	int m_playerAttackCost = 0;	// プレイヤーの攻撃コスト
+	int m_playerMeshCount	= 0;	// プレイヤーの面の数
+	int m_playerAttackCost	= 0;	// プレイヤーの攻撃コスト
+	int m_playerAttackPower = 0;	// プレイヤーの攻撃力
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -47,7 +58,8 @@ public:
 	AttackGaugeController(
 		IGameObject* gameObejct,
 		IGameObject* pAttackGauge,
-		IGameObject* pAttackGaugeTrack
+		IGameObject* pAttackGaugeTrack,
+		IGameObject* pAttackPowerText
 	);
 
 	// デストラクタ
@@ -60,7 +72,7 @@ public:
 	void Initilize();
 
 	// 更新
-	void Update(const GameContext& gameContext);
+	void Update();
 
 	// 取得/設定
 public:
@@ -68,11 +80,12 @@ public:
 	// UI表示に必要な数値の設定
 	void SetUIValue(
 		int playerMeshCount,
-		int playerAttackCost
-	)
+		int playerAttackCost,
+		int playerAttackPower)
 	{
-		m_playerMeshCount = playerMeshCount;
-		m_playerAttackCost = playerAttackCost;
+		m_playerMeshCount	= playerMeshCount;
+		m_playerAttackCost	= playerAttackCost;
+		m_playerAttackPower	= playerAttackPower;
 	}
 
 

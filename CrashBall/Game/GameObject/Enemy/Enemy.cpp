@@ -60,16 +60,6 @@ void Enemy::Update(const GameContext& gameContext)
 void Enemy::Render(const RenderContext& renderContext)
 {
 	Ball::Render(renderContext);
-
-	renderContext.textRendererManager->DebugRender(
-		SimpleMath::Vector2(0.0f, 30.0f),
-		Colors::White,
-		0.0f,
-		1.5f,
-		SimpleMath::Vector2::Zero,
-		1.0f,
-		L"EnemyHp: {}", m_enemyController->GetHp()
-	);
 }
 
 /**

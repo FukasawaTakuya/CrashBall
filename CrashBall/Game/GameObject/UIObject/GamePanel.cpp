@@ -23,8 +23,10 @@ GamePanel::GamePanel()
 	, m_gaugeBackGround		 (std::make_unique<Object2D>())
 	, m_gaugeTrack			 (std::make_unique<Object2D>())
 	, m_attackGauge			 (std::make_unique<Object2D>())
+	, m_attackPowerText		 (std::make_unique<TextObject>())
 	, m_attackGaugeTrack	 (std::make_unique<Object2D>())
 	, m_enemyHpGauge		 (std::make_unique<Object2D>())
+	, m_enemyHpGaugeTrack	 (std::make_unique<Object2D>())
 	, m_enemyHpText			 (std::make_unique<TextObject>())
 {
 
@@ -41,12 +43,14 @@ GamePanel::GamePanel()
 	m_attackGaugeController =
 		AddComponent<AttackGaugeController>(
 			m_attackGauge.get(),
-			m_attackGaugeTrack.get()
+			m_attackGaugeTrack.get(),
+			m_attackPowerText.get()
 		);
 
 	m_enemyHpGaugeController =
 		AddComponent<EnemyHpGaugeController>(
 			m_enemyHpGauge.get(),
+			m_enemyHpGaugeTrack.get(),
 			m_enemyHpText.get()
 		);
 }
@@ -67,6 +71,7 @@ void GamePanel::Initialize()
 {
 	m_floorMeshGaugeController->Initialize();
 	m_attackGaugeController->Initilize();
+	m_enemyHpGaugeController->Initialize();
 }
 
 /**
@@ -83,12 +88,17 @@ void GamePanel::Update(const GameContext& gameContext)
 		m_totalMeshCount);
 	m_attackGaugeController->SetUIValue(
 		m_playerMeshCount,
-		m_playerAttackCost
+		m_playerAttackCost,
+		std::max(m_playerMeshCount - m_enemyMeshCount, (int)PlayerStatusController::MIN_ATTACK_POWER)
+	);
+	m_enemyHpGaugeController->SetUIValue(
+		m_enemyHp,
+		m_enemyMaxHp
 	);
 
-	m_floorMeshGaugeController->Update(gameContext);
-	m_attackGaugeController->Update(gameContext);
-	m_enemyHpGaugeController->Update(gameContext);
+	m_floorMeshGaugeController->Update();
+	m_attackGaugeController->Update();
+	m_enemyHpGaugeController->Update();
 }
 
 /**
@@ -104,9 +114,13 @@ void GamePanel::Render(const RenderContext& renderContext)
 	m_enemyMeshNumText->Render(renderContext);
 	m_gaugeBackGround->Render(renderContext);
 	m_gaugeTrack->Render(renderContext);
+
 	m_attackGauge->Render(renderContext);
 	m_attackGaugeTrack->Render(renderContext);
+	m_attackPowerText->Render(renderContext);
+
 	m_enemyHpGauge->Render(renderContext);
+	m_enemyHpGaugeTrack->Render(renderContext);
 	m_enemyHpText->Render(renderContext);
 }
 
@@ -153,8 +167,12 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
 	m_attackGaugeTrack->
 		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
+	m_attackPowerText
+		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 
 	m_enemyHpGauge
+		->GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	m_enemyHpGaugeTrack
 		->GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
 	m_enemyHpText
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);

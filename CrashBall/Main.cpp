@@ -26,7 +26,6 @@ using namespace DirectX;
                     // クローズボタンをつける
                     // 最小化ボタンをつけるか
 
-// 無名名前空間（このソースファイル内でしか使えない）
 namespace
 {
     std::unique_ptr<Game> g_game;

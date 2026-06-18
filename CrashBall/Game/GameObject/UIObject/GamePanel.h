@@ -31,8 +31,6 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	UIContext m_uiContext;	// UI用のコンテキスト
-
 	// FloorMeshGaugeControllerで操作
 	std::unique_ptr<Object2D>	m_playerMeshGauge;		// プレイヤーが塗った面を表示するゲージ
 	std::unique_ptr<Object2D>	m_enemyMeshGauge;		// 敵が塗った面を表示するゲージ
@@ -44,23 +42,28 @@ private:
 	// AttackGaugeControllerで操作
 	std::unique_ptr<Object2D> m_attackGauge;		// 攻撃ゲージ
 	std::unique_ptr<Object2D> m_attackGaugeTrack;	// 攻撃ゲージの土台
+	std::unique_ptr<TextObject> m_attackPowerText;	// 攻撃力表示テキスト
 
 	// EnemyHpGaugeControllerで操作
-	std::unique_ptr<Object2D> m_enemyHpGauge;
-	std::unique_ptr<TextObject> m_enemyHpText;	// 攻撃コスト表示テキスト
+	std::unique_ptr<Object2D> m_enemyHpGauge;		// 敵のHPゲージ
+	std::unique_ptr<Object2D> m_enemyHpGaugeTrack;	// 敵のHPゲージの土台
+	std::unique_ptr<TextObject> m_enemyHpText;		// 敵のHP表示テキスト
 
 	// 床メッシュゲージ操作コンポーネントのキャッシュ
 	FloorMeshGaugeController* m_floorMeshGaugeController = nullptr;
 	// 攻撃ゲージ操作コンポーネントのキャッシュ
 	AttackGaugeController* m_attackGaugeController = nullptr;
-
+	// 敵HP操作コンポーネントのキャッシュ
 	EnemyHpGaugeController* m_enemyHpGaugeController = nullptr;
 
-	int m_playerMeshCount  = 0;	// プレイヤーの面の数
-	int m_enemyMeshCount   = 0;	// 敵の面の数
-	int m_totalMeshCount   = 0;	// 全体の面の数
-	int m_playerAttackCost = 0;	// プレイヤーの攻撃コスト
-	int m_enemyHp		   = 0;	// 敵のHp
+	// UI表示に必要な数値
+	int m_playerMeshCount	= 0;	// プレイヤーの面の数
+	int m_enemyMeshCount	= 0;	// 敵の面の数
+	int m_totalMeshCount	= 0;	// 全体の面の数
+	int m_playerAttackCost	= 0;	// プレイヤーの攻撃コスト
+	int m_playerAttackPower = 0;	// プレイヤーの攻撃力
+	int m_enemyHp			= 0;	// 敵のHp
+	int m_enemyMaxHp		= 0;	// 敵の最大HP
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -91,26 +94,24 @@ public:
 	// 取得/設定
 public:
 
-	// UI用のコンテキストの設定
-	void SetUIContext(const UIContext& uiContext)
-	{
-		m_uiContext = uiContext;
-	}
-
 	// UI表示に必要な数値を設定
 	void SetUIValue(
 		int playerMeshCount,
 		int enemyMeshCount,
 		int totalMeshCount,
 		int playerAttackCost,
-		int enemyHp
+		int playerAttackPower,
+		int enemyHp,
+		int enemyMaxHp
 	)
 	{
 		m_playerMeshCount	= playerMeshCount;
 		m_enemyMeshCount	= enemyMeshCount;
 		m_totalMeshCount	= totalMeshCount;
-		m_playerAttackCost	= playerAttackCost;
+		m_playerAttackCost  = playerAttackCost;
+		m_playerAttackPower	= playerAttackPower;
 		m_enemyHp			= enemyHp;
+		m_enemyMaxHp		= enemyMaxHp;
 	}
 
 	void SetSprite(const ResourceContext& resourceContext);

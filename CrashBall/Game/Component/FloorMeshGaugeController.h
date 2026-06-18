@@ -88,10 +88,7 @@ public:
 	void Initialize();
 
 	// 更新
-	void Update(const GameContext& gameContext);
-
-	// 描画
-	void Render(const RenderContext& renderContext);
+	void Update();
 
 	// 終了処理
 	void Finalize();

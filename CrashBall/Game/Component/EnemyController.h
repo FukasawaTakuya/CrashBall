@@ -24,6 +24,8 @@ private:
 
 	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
 
+public:
+
 	static constexpr float MAX_HP = 200.0f;				// 最大体力
 
 	// データメンバの宣言 -----------------------------------------------

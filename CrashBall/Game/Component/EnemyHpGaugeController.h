@@ -24,18 +24,19 @@ public:
 
 	// 敵のHPゲージの描画位置
 	static constexpr DirectX::SimpleMath::Vector2 ENEMY_HP_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 100.0f);
+		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 60.0f);
 
 	// 敵のHPの表示テキストの描画位置
 	static constexpr DirectX::SimpleMath::Vector2 ENEMY_HP_TEXT_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 50.0f);
+		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 25.0f);
 
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	IGameObject* m_pEnemyHpGauge	= nullptr;	// 敵のHPゲージ
-	IGameObject* m_pEnemyHpText		= nullptr;	// 敵のHPの表示テキスト
+	IGameObject* m_pEnemyHpGauge		= nullptr;	// 敵のHPゲージ
+	IGameObject* m_pEnemyHpGaugeTrack	= nullptr;	// 敵のHPゲージの土台
+	IGameObject* m_pEnemyHpText			= nullptr;	// 敵のHPの表示テキスト
 
 	SpriteRenderer* m_enemyHpGaugeRenderer	= nullptr;	// ゲージのスプライト描画コンポーネント
 	TextRenderer* m_enemyHpTextRenderer		= nullptr;	// テキストの描画コンポーネント
@@ -51,6 +52,7 @@ public:
 	EnemyHpGaugeController(
 		IGameObject* gameObject,
 		IGameObject* pEnemyHpGauge,
+		IGameObject* pEnemyHpGaugeTrack,
 		IGameObject* pEnemyHpText
 	);
 
@@ -64,7 +66,7 @@ public:
 	void Initialize();
 
 	// 更新
-	void Update(const GameContext& gameConctext);
+	void Update();
 
 	// 終了処理
 	void Finalize();
@@ -72,6 +74,7 @@ public:
 	// 取得/設定
 public:
 
+	// UI表示に必要な数値の設定
 	void SetUIValue(
 		int enemyHp,
 		int enemyMaxHp)

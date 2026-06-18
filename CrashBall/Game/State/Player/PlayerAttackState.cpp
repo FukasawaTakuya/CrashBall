@@ -27,7 +27,8 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 	m_stateContext.playerController->GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
 		{
 			// 敵のコライダーと衝突したとき攻撃ステートなら
-			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy)
+			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy &&
+				m_pStateMachine->GetCurrentStateType() == typeid(PlayerAttackState))
 			{
 				// ダメージ処理
 				other->GetGameObject()->GetComponent<EnemyController>()
