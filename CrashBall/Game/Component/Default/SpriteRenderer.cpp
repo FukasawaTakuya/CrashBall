@@ -54,10 +54,16 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	// RECTに直す
 	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
+	SimpleMath::Vector2 position = m_rectTransform->GetPosition();
+
+	position.x -= offset.x / m_fillAmount * (1.0f - m_fillAmount);
+	position.y -= offset.y / m_fillAmount * (1.0f - m_fillAmount);
+
+
 	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(
 		m_pSprite,
-		m_rectTransform->GetPosition(),
+		position,
 		srcRect,
 		m_color,
 		m_rectTransform->GetRotate(),

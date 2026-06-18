@@ -39,7 +39,12 @@ EnemyController::~EnemyController()
  */
 void EnemyController::Initialize()
 {
+	// HPの初期化
 	m_hp = MAX_HP;
+	// 初期位置に設定
+	m_transform->SetPosition(INIT_POSITION);
+	// 移動速度を0に設定
+	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**

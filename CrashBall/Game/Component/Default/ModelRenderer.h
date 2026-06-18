@@ -54,6 +54,9 @@ public:
 		m_pModel = pModel;
 	}
 
+	// ディフーズカラーの設定
+	void SetDiffuseColor(const DirectX::XMVECTORF32& color);
+
 	// 内部実装
 private:
 

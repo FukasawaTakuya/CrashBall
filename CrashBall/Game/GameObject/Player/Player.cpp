@@ -27,6 +27,7 @@ Player::Player(float radius)
  */
 void Player::Initialize()
 {
+	m_playerController->Initialize();
 }
 
 /**

@@ -25,6 +25,10 @@ class  PlayerController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
+	// 初期位置
+	static constexpr DirectX::SimpleMath::Vector3 INIT_POSITION
+		= DirectX::SimpleMath::Vector3(0.0f, 12.0f, 5.0f);
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -48,6 +52,9 @@ public:
 
 	// 操作
 public:
+
+	// 
+	void Initialize();
 
 	// 更新
 	void Update(const GameContext& gameContext);

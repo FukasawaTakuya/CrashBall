@@ -61,7 +61,7 @@ AttackGaugeController::AttackGaugeController(
 	gaugeTrackRenderer->SetColor(GameColor::ATTACKGAUGE_TRACK);
 
 	// 切り取り原点の設定
-	m_gaugeRenderer->SetFillOrigin(FillOrigin::Top);
+	m_gaugeRenderer->SetFillOrigin(FillOrigin::Bottom);
 }
 
 /**

@@ -61,8 +61,6 @@ public:
 
 	bool GetIsGround() const { return m_ballController->GetIsGround(); }
 
-	void SetPosition(DirectX::SimpleMath::Vector3 position);
-
 	// “à•”ŽÀ‘•
 private:
 

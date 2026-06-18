@@ -49,6 +49,18 @@ PlayerController::~PlayerController()
 }
 
 /**
+ * \brief 初期化
+ * 
+ */
+void PlayerController::Initialize()
+{
+	// 初期位置に設定
+	GetGameObject()->GetComponent<Transform>()->SetPosition(INIT_POSITION);
+	// 速度を0に設定
+	GetGameObject()->GetComponent<RigidBody>()->SetVelocity(SimpleMath::Vector3::Zero);
+}
+
+/**
  * \brief 更新
  * 
  * \param gameContext ゲーム用のコンテキスト

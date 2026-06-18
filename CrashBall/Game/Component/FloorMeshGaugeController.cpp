@@ -63,6 +63,7 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	// 基準位置
 	m_playerGaugeTransform->SetOrigin(Origin::LeftCenter);
 	m_enemyGaugeTransform->SetOrigin(Origin::LeftCenter);
+	m_enemyGaugeTransform->SetOrigin(Origin::RightCenter);
 	// 切り取りの起点
 	m_enemyGaugeRenderer->SetFillOrigin(FillOrigin::Right);
 
@@ -103,6 +104,10 @@ void FloorMeshGaugeController::Initialize()
 		->SetPosition({ m_gaugeTrackTransform->GetLeft(m_gaugeTrackRenderer->GetWidth()), GAUGE_POSITION.y });
 	m_enemyGaugeTransform
 		->SetPosition({ m_playerGaugeTransform->GetRight(m_playerGaugeRenderer->GetWidth()), GAUGE_POSITION.y });
+
+	m_enemyGaugeTransform
+		->SetPosition({ m_gaugeTrackTransform->GetRight(m_gaugeTrackRenderer->GetWidth()), GAUGE_POSITION.y });
+
 }
 
 /**
@@ -125,8 +130,8 @@ void FloorMeshGaugeController::Update()
 	m_enemyGaugeRenderer->SetFillAmount(enemyFillAmount);
 
 	// 敵のバーの位置を設定
-	m_enemyGaugeTransform
-		->SetPosition({ m_playerGaugeTransform->GetRight(m_playerGaugeRenderer->GetWidth()), GAUGE_POSITION.y });
+	//m_enemyGaugeTransform
+	//	->SetPosition({ m_playerGaugeTransform->GetRight(m_playerGaugeRenderer->GetWidth()), GAUGE_POSITION.y });
 
 	// テキストの設定
 	m_playerTextRenderer->SetText(L"Player:{}面", m_playerMeshCount);

@@ -10,6 +10,7 @@
 #include "GameScene.h"
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
+#include "Game/Color/GameColor.h"
 
 using namespace DirectX;
 
@@ -61,8 +62,8 @@ GameScene::~GameScene()
  */
 void GameScene::Initialize()
 {
-    m_player->SetPosition(SimpleMath::Vector3::Up * 12.0f);
-	m_enemy->SetPosition(SimpleMath::Vector3{ 0.0f, 12.0f, 10.0f });
+    m_player->Initialize();
+    m_enemy->Initialize();
     m_stage->Initialize();
     m_enemy->Initialize();
     m_gamePanel->Initialize();
@@ -164,24 +165,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     auto playerModel = m_player->GetComponent<ModelRenderer>()->GetModel();
     auto enemyModel = m_enemy->GetComponent<ModelRenderer>()->GetModel();
 
-    playerModel->UpdateEffects(
-        [&](IEffect* effect) {
-
-            BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
-            if (basic)
-            {
-                basic->SetDiffuseColor(Colors::LightSkyBlue);
-            }
-        });
-    enemyModel->UpdateEffects(
-        [&](IEffect* effect) {
-
-            BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
-            if (basic)
-            {
-                basic->SetDiffuseColor(Colors::LightPink);
-            }
-        });
+    m_player->GetComponent<ModelRenderer>()->SetDiffuseColor(GameColor::PLAYER);
+    m_enemy->GetComponent<ModelRenderer>()->SetDiffuseColor(GameColor::ENEMY);
 
     m_gamePanel->SetSprite(resourceContext);
 }

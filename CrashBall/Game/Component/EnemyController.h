@@ -24,6 +24,10 @@ private:
 
 	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// •Ç‰ñ”ğ‚Ì‹——£
 
+	// ‰ŠúˆÊ’u
+	static constexpr DirectX::SimpleMath::Vector3 INIT_POSITION
+		= DirectX::SimpleMath::Vector3(0.0f, 12.0f, -5.0f);
+
 public:
 
 	static constexpr float MAX_HP = 200.0f;				// Å‘å‘Ì—Í

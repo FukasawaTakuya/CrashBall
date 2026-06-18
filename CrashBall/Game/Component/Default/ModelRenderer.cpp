@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "ModelRenderer.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ.
  * 
@@ -42,5 +44,23 @@ void ModelRenderer::Render(
 	// 描画命令の登録
 	if(m_pModel != nullptr)
 		rendererManager->RegisterRenderCommand(m_pModel, world);
+}
+
+/**
+ * \brief ディフーズカラーの設定
+ * 
+ * \param color 色
+ */
+void ModelRenderer::SetDiffuseColor(const DirectX::XMVECTORF32& color)
+{
+	m_pModel->UpdateEffects(
+		[&](IEffect* effect) {
+
+			BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
+			if (basic)
+			{
+				basic->SetDiffuseColor(color);
+			}
+		});
 }
 

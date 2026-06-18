@@ -57,9 +57,3 @@ void Ball::Finalize()
 {
 	m_ballController->Finalize();
 }
-
-void Ball::SetPosition(DirectX::SimpleMath::Vector3 position)
-{
-	GetComponent<Transform>()->SetPosition(position);
-	GetComponent<RigidBody>()->SetVelocity(SimpleMath::Vector3::Zero);
-}
