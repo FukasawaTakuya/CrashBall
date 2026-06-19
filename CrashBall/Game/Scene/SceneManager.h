@@ -49,7 +49,7 @@ public:
 	void RequestChangeScene(SceneID nextSceneID) override;
 
 	// ƒJƒƒ‰‚ÌŽæ“¾
-	Camera* GetCamera() const
+	CameraObject* GetCamera() const
 	{
 		return m_pCurrentScene->GetCamera();
 	}

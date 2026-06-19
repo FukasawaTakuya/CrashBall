@@ -80,7 +80,7 @@ void PrimitiveRendererManager::ClearRenderCommand()
 void PrimitiveRendererManager::Render(
     ID3D11DeviceContext1* context,
     DirectX::CommonStates* state,
-    Camera* camera)
+    CameraObject* camera)
 {
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);

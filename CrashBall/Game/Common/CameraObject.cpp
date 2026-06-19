@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "Camera.h"
+#include "CameraObject.h"
 
 using namespace DirectX;
 
@@ -15,7 +15,7 @@ using namespace DirectX;
  * \brief コンストラクタ
  * 
  */
-Camera::Camera()
+CameraObject::CameraObject()
 	: m_eye{}
 	, m_target{}
 	, m_up{ SimpleMath::Vector3::Up }
@@ -29,18 +29,18 @@ Camera::Camera()
 
 /**
  * デストラクタ
- * 
+ *
  */
-Camera::~Camera()
+CameraObject::~CameraObject()
 {
 }
 
 /**
  * \brief 初期化
- * 
+ *
  * \param projMat 射影行列
  */
-void Camera::Initialize(const DirectX::SimpleMath::Matrix& projMat)
+void CameraObject::Initialize(const DirectX::SimpleMath::Matrix& projMat)
 {
 	m_projMat = projMat;
 	m_offset = OFFSET;
@@ -49,10 +49,10 @@ void Camera::Initialize(const DirectX::SimpleMath::Matrix& projMat)
 
 /**
  * \brief X方向の回転.
- * 
+ *
  * \param angle
  */
-void Camera::RotateX(float angle)
+void CameraObject::RotateX(float angle)
 {
 	if (m_offset == SimpleMath::Vector3::Zero) return;
 
@@ -71,7 +71,7 @@ void Camera::RotateX(float angle)
  *
  * \param angle
  */
-void Camera::RotateY(float angle)
+void CameraObject::RotateY(float angle)
 {
 	if (m_offset == SimpleMath::Vector3::Zero) return;
 
@@ -101,20 +101,20 @@ void Camera::RotateY(float angle)
 
 /**
  * \brief ズーム.
- * 
+ *
  * \param value
  */
-void Camera::Zoom(float value)
+void CameraObject::Zoom(float value)
 {
 	m_zoomRate += value;
 }
 
 /**
  * \brief カメラの追従.
- * 
+ *
  * \param pos
  */
-void Camera::FollowCamera(DirectX::SimpleMath::Vector3 pos)
+void CameraObject::FollowCamera(DirectX::SimpleMath::Vector3 pos)
 {
 	SetEye(pos + m_offset * m_zoomRate);
 	SetTarget(pos);
@@ -126,29 +126,29 @@ void Camera::FollowCamera(DirectX::SimpleMath::Vector3 pos)
  * 
  * \return 視点
  */
-DirectX::SimpleMath::Vector3 Camera::GetEye() const
+DirectX::SimpleMath::Vector3 CameraObject::GetEye() const
 {
 	return m_eye;
 }
 
 /**
  * \brief 注視点の取得.
- * 
+ *
  * \return 注視点
  */
-DirectX::SimpleMath::Vector3 Camera::GetTarget() const
+DirectX::SimpleMath::Vector3 CameraObject::GetTarget() const
 {
 	return m_target;
 }
 
 /**
  * \brief Rayの取得
- * 
+ *
  * \param x	マウスのx座標
  * \param y	マウスのy座標
- * \return 
+ * \return
  */
-DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y) const
+DirectX::SimpleMath::Vector3 CameraObject::GetRay(float x, float y) const
 {
 	SimpleMath::Vector3 nearPos
 		= XMVector3Unproject(
@@ -165,7 +165,7 @@ DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y) const
 			WIDTH, HEIGHT,
 			0.0f, 1.0f,
 			m_projMat, GetViewMat(), SimpleMath::Matrix::Identity);
-	
+
 	SimpleMath::Vector3 dire = farPos - nearPos;
 	dire.Normalize();
 
@@ -174,10 +174,10 @@ DirectX::SimpleMath::Vector3 Camera::GetRay(float x, float y) const
 
 /**
  * \brief ビュー行列の取得
- * 
+ *
  * \return ビュー行列
  */
-DirectX::SimpleMath::Matrix Camera::GetViewMat() const
+DirectX::SimpleMath::Matrix CameraObject::GetViewMat() const
 {
 	return m_viewMat;
 }
@@ -187,12 +187,12 @@ DirectX::SimpleMath::Matrix Camera::GetViewMat() const
  *
  * \return 射影行列
  */
-DirectX::SimpleMath::Matrix Camera::GetProjMat() const
+DirectX::SimpleMath::Matrix CameraObject::GetProjMat() const
 {
 	return m_projMat;
 }
 
-DirectX::SimpleMath::Vector3 Camera::GetForward() const
+DirectX::SimpleMath::Vector3 CameraObject::GetForward() const
 {
 	// 水平方向の前方ベクトル
 	SimpleMath::Vector3 forward{ m_forward.x, 0.0f, m_forward.z };
@@ -201,7 +201,7 @@ DirectX::SimpleMath::Vector3 Camera::GetForward() const
 	return forward;
 }
 
-DirectX::SimpleMath::Vector3 Camera::GetRight() const
+DirectX::SimpleMath::Vector3 CameraObject::GetRight() const
 {
 	// 水平方向の右ベクトル
 	SimpleMath::Vector3 right{ m_right.x, 0.0f, m_right.z };
@@ -212,10 +212,10 @@ DirectX::SimpleMath::Vector3 Camera::GetRight() const
 
 /**
  * \brief 注視点のセット.
- * 
+ *
  * \param target
  */
-void Camera::SetTarget(DirectX::SimpleMath::Vector3 target)
+void CameraObject::SetTarget(DirectX::SimpleMath::Vector3 target)
 {
 	m_target = target;
 	m_forward = XMVector3Normalize(m_target - m_eye);
@@ -223,21 +223,21 @@ void Camera::SetTarget(DirectX::SimpleMath::Vector3 target)
 
 /**
  * \brief 視点のセット.
- * 
+ *
  * \param eye
  */
-void Camera::SetEye(DirectX::SimpleMath::Vector3 eye)
+void CameraObject::SetEye(DirectX::SimpleMath::Vector3 eye)
 {
 	m_eye = eye;
 }
 
 /**
  * \brief カメラのセット.
- * 
+ *
  * \param eye
  * \param target
  */
-void Camera::SetCamera(
+void CameraObject::SetCamera(
 	const DirectX::SimpleMath::Vector3& eye, 
 	const DirectX::SimpleMath::Vector3& target)
 {
@@ -251,7 +251,7 @@ void Camera::SetCamera(
  * ビュー行列の更新.
  * 
  */
-void Camera::UpdataView()
+void CameraObject::UpdataView()
 {
 	// ターゲットを求める
 	m_target = m_eye + m_forward;

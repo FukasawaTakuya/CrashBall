@@ -17,6 +17,7 @@ enum class FillOrigin
 {
 	CenterHorizon = 0,
 	CenterVertical,
+	Center,
 	Left,
 	Top,
 	Right,
@@ -30,6 +31,7 @@ const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin
 {
 	DirectX::SimpleMath::Vector4(-0.5f,  0.0f, 0.5f, 0.0f),	// CenterHorizon
 	DirectX::SimpleMath::Vector4( 0.0f, -0.5f, 0.0f, 0.5f),	// CenterVartical
+	DirectX::SimpleMath::Vector4(-0.5f, -0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 1.0f, 0.0f),	// Left
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 0.0f, 1.0f),	// Top
 	DirectX::SimpleMath::Vector4(-1.0f,  0.0f, 0.0f, 0.0f),	// Right
@@ -41,6 +43,7 @@ const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::O
 {
 	DirectX::SimpleMath::Vector4(0.5f, 0.0f, 0.5f, 1.0f),	// CenterHorizon
 	DirectX::SimpleMath::Vector4(0.0f, 0.5f, 1.0f, 0.5f),	// CenterVartical
+	DirectX::SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),	// Left
 	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 1.0f, 0.0f),	// Top
 	DirectX::SimpleMath::Vector4(1.0f, 0.0f, 1.0f, 1.0f),	// Right

@@ -45,6 +45,7 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 
 	SimpleMath::Vector4 Size(m_width, m_height, m_width, m_height);
 
+	// サイズを掛けて実際のオフセット、描画領域に直す
 	offset *= Size;
 	baseRect *= Size;
 
@@ -54,8 +55,10 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	// RECTに直す
 	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
+	// 描画位置
 	SimpleMath::Vector2 position = m_rectTransform->GetPosition();
 
+	// 描画位置をオフセット分ずらす
 	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetScale();
 	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetScale();
 

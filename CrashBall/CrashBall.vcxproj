@@ -196,7 +196,7 @@
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Color\GameColor.h" />
-    <ClInclude Include="Game\Common\Camera.h" />
+    <ClInclude Include="Game\Common\CameraObject.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
@@ -212,6 +212,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\BallController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Camera.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -440,7 +444,7 @@
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
-    <ClCompile Include="Game\Common\Camera.cpp" />
+    <ClCompile Include="Game\Common\CameraObject.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\AttackGaugeController.cpp" />

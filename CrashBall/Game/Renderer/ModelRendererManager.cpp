@@ -44,7 +44,7 @@ void ModelRendererManager::ClearRenderCommand()
 void ModelRendererManager::Render(
 	ID3D11DeviceContext1* context,
 	DirectX::CommonStates* state,
-	Camera* camera)
+	CameraObject* camera)
 {
 	SimpleMath::Matrix view = camera->GetViewMat();
 	SimpleMath::Matrix proj = camera->GetProjMat();

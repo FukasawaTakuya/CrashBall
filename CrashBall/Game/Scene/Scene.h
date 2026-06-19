@@ -5,7 +5,7 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
-#include "Game/Common/Camera.h"
+#include "Game/Common/CameraObject.h"
 
 class Scene {
 
@@ -13,7 +13,7 @@ protected:
 
 	ISceneController* m_pSceneController;
 
-	std::unique_ptr<Camera> m_camera;	// カメラ
+	std::unique_ptr<CameraObject> m_camera;	// カメラ
 
 
 public:
@@ -36,7 +36,7 @@ public:
 
 	virtual void SetModel() = 0;
 
-	Camera* GetCamera() { return m_camera.get(); }
+	CameraObject* GetCamera() { return m_camera.get(); }
 
 
 protected:

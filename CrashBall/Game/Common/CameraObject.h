@@ -12,7 +12,7 @@
  /**
  * \brief カメラクラス
  */
-class  Camera {
+class  CameraObject {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -36,6 +36,7 @@ protected:
 	DirectX::SimpleMath::Vector3 m_forward;			// 右方向
 	DirectX::SimpleMath::Matrix  m_projMat;			// 射影行列
 	DirectX::SimpleMath::Matrix  m_viewMat;			// ビュー行列
+
 	DirectX::SimpleMath::Vector3 m_offset;			// オフセット
 	
 	float m_zoomRate = 1.0f;						// 拡大倍率
@@ -45,10 +46,10 @@ protected:
 public:
 
 	// コンストラクタ
-	Camera();
+	CameraObject();
 
 	// デストラクタ
-	~Camera();
+	~CameraObject();
 
 	// 操作
 public:

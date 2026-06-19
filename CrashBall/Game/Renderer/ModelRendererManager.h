@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Game/Common/Camera.h"
+#include "Game/Common/CameraObject.h"
 #include "Game/Interface/IModelRendererManager.h"
 
 /**
@@ -51,7 +51,7 @@ public:
 	void Render(
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
-		Camera* pCamera);
+		CameraObject* pCamera);
 
 
 	// æ“¾/İ’è

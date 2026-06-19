@@ -9,11 +9,11 @@
 #pragma once
 
 #include "Game/Interface/IPrimitiveRendererManager.h"
-#include "Game/Common/Camera.h"
+#include "Game/Common/CameraObject.h"
 
-/**
- * @brief プリミティブ描画管理クラス
- */
+ /**
+  * @brief プリミティブ描画管理クラス
+  */
 class  PrimitiveRendererManager : public IPrimitiveRendererManager {
 
 	// クラス定数の宣言 -------------------------------------------------
@@ -63,8 +63,8 @@ public:
 	// 描画
 	void Render(
 		ID3D11DeviceContext1* context,
-		DirectX::CommonStates* state, 
-		Camera* camera);
+		DirectX::CommonStates* state,
+		CameraObject* camera);
 
 
 	// 取得/設定

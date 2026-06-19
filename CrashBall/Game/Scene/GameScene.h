@@ -16,7 +16,7 @@
 #include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/GameObject/UIObject/GamePanel.h"
 
-#include "Game/Common/Camera.h"
+#include "Game/Common/CameraObject.h"
 
 #include "Game/CollisionManager/CollisionManager.h"
 

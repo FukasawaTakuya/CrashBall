@@ -114,7 +114,7 @@
     <ClInclude Include="Game\GameObject\Ball.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Common\Camera.h">
+    <ClInclude Include="Game\Common\CameraObject.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Stage.h">
@@ -360,6 +360,9 @@
     <ClInclude Include="Game\Component\EnemyHpGaugeController.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Camera.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -392,7 +395,7 @@
     <ClCompile Include="Game\GameObject\Ball.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Common\Camera.cpp">
+    <ClCompile Include="Game\Common\CameraObject.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage.cpp">
