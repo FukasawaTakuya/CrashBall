@@ -59,8 +59,6 @@ public:
 	// Žæ“¾/Ý’è
 public:
 
-	bool GetIsGround() const { return m_ballController->GetIsGround(); }
-
 	// “à•”ŽÀ‘•
 private:
 

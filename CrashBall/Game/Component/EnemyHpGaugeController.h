@@ -12,7 +12,6 @@
 #include "Default/TextRenderer.h"
 #include "Default/SpriteRenderer.h"
 #include "Game/Common/Screen.h"
-#include "Game/Context/GameContext.h"
 
 /**
  * @brief 敵HPゲージ操作コンポーネント
@@ -30,6 +29,10 @@ public:
 	static constexpr DirectX::SimpleMath::Vector2 ENEMY_HP_TEXT_POSITION
 		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 25.0f);
 
+	static constexpr float TEXT_FONT_SCALE		= 0.5f;		// テキストのフォントスケール
+	static constexpr float GAUGE_SPRITE_SCALE	= 0.8f;		// ゲージのスプライトスケール
+	static constexpr float GAUGE_SLIDE_SPEED	= 5.0f;		// ゲージのスライド速度
+	static constexpr float GAUGE_LAYER_DEPTH	= 0.1f;		// ゲージの描画順
 
 	// データメンバの宣言 -----------------------------------------------
 private:

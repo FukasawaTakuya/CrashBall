@@ -21,6 +21,7 @@ enum class FillOrigin
 	Top,
 	Right,
 	Bottom,
+
 	OriginNum,
 };
 
@@ -142,7 +143,7 @@ public:
 	// 描画順の設定
 	void SetLayerDepth(float layerDepth)
 	{
-		m_layerDepth = layerDepth;
+		m_layerDepth = std::clamp(layerDepth, 0.0f, 1.0f);;
 	}
 
 	// 色の設定
@@ -166,7 +167,7 @@ public:
 	// 切り取り量を設定
 	void SetFillAmount(float fillAmount)
 	{
-		m_fillAmount = fillAmount;
+		m_fillAmount = std::clamp(fillAmount, 0.0f, 1.0f);
 	}
 
 	// 切り取りする際の起点を設定
@@ -184,8 +185,7 @@ public:
 	// 透明度の設定
 	void SetAlpha(float alpha)
 	{
-		alpha = std::clamp(alpha, 0.0f, 1.0f);
-		m_color.f[3] = alpha;
+		m_color.f[3] = std::clamp(alpha, 0.0f, 1.0f);;
 	}
 
 	// 内部実装

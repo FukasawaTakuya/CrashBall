@@ -1,6 +1,6 @@
 ﻿/*****************************************************************//**
  * \file   FloorMeshGaugeController.h
- * \brief  
+ * \brief  床メッシュゲージ操作コンポーネント
  * 
  * \author 深沢拓矢
  * \date   June 2026
@@ -14,25 +14,36 @@
 #include "Default/RectTransform.h"
 #include "Default/TextRenderer.h"
 
-#include "Game/Context/GameContext.h"
-#include "Game/Context/RenderContext.h"
-
 #include "Game/Common/Screen.h"
 
 /**
- * @brief 床メッシュゲージ
+ * @brief 床メッシュゲージ操作コンポーネント
  */
 class  FloorMeshGaugeController : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
+	// ゲージの描画位置
 	static constexpr DirectX::SimpleMath::Vector2 GAUGE_POSITION 
-		= { Screen::CENTER_X, Screen::HEIGHT - 50.0f };	// 描画位置
+		= { Screen::CENTER_X, Screen::HEIGHT - 50.0f };	
 
-	//static constexpr DirectX::SimpleMath::Vector2 
+	// ゲージの土台のスケール
+	static constexpr DirectX::SimpleMath::Vector2 BACKGROUND_SCALE
+		= DirectX::SimpleMath::Vector2(1.1f, 3.5f);
 
+	// プレイヤーのメッシュ数表示テキストの描画位置
+	static constexpr DirectX::SimpleMath::Vector2 PLAYER_MESHTEXT_POSITION
+		= DirectX::SimpleMath::Vector2(Screen::CENTER_X - 250.0f, Screen::HEIGHT - 95.0f);
+
+	// 敵のメッシュ数表示テキストの描画位置
+	static constexpr DirectX::SimpleMath::Vector2 ENEMY_MESHTEXT_POSITION
+		= DirectX::SimpleMath::Vector2(Screen::CENTER_X + 250.0f, Screen::HEIGHT - 95.0f);
+
+	float TEXT_FONTSCALE = 0.75f;		// テキストのフォントスケール
 	float GAUGE_LAYER_DEPTH = 0.2f;		// ゲージの描画順
+	float TRACK_LAYER_DEPTH = 0.1f;		// ゲージの土台の描画順
+	float GAUGE_SLIDE_SPEED = 5.0f;		// ゲージがスライドする速さ
 
 	// データメンバの宣言 -----------------------------------------------
 private:

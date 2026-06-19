@@ -8,10 +8,8 @@
 
 #include "pch.h"
 #include "AttackGaugeController.h"
-#include "PlayerStatusController.h"
 #include "Game/Color/GameColor.h"
 #include "Game/Engine/Time.h"
-#include "Default/TextRenderer.h"
 
 using namespace DirectX;
 
@@ -33,6 +31,11 @@ AttackGaugeController::AttackGaugeController(
 	, m_pAttackGaugeTrack(pAttackGaugeTrack)
 	, m_pAttackPowerText(pAttackPowerText)
 {
+	// キャッシュの取得
+	m_gaugeRenderer = m_pAttackGauge->GetComponent<SpriteRenderer>();
+	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
+	SpriteRenderer* gaugeTrackRenderer = m_pAttackGaugeTrack->GetComponent<SpriteRenderer>();
+
 	// 描画位置の設定
 	m_pAttackGauge->GetComponent<RectTransform>()
 		->SetPosition(GAUGE_POSITION);
@@ -41,20 +44,14 @@ AttackGaugeController::AttackGaugeController(
 	m_pAttackPowerText->GetComponent<RectTransform>()
 		->SetPosition(TEXT_POSITION);
 
-	// キャッシュの取得
-	m_gaugeRenderer = m_pAttackGauge->GetComponent<SpriteRenderer>();
-	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
-
-	SpriteRenderer* gaugeTrackRenderer = m_pAttackGaugeTrack->GetComponent<SpriteRenderer>();
-
 	// 描画順の設定
-	m_gaugeRenderer->SetLayerDepth(0.1f);
-	m_attackPowerTextRenderer->SetLayerDepth(0.2f);
+	m_gaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
+	m_attackPowerTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
 
 	// スケールの設定
 	m_gaugeRenderer->SetSpriteScale(GAUGE_SCALE);
 	gaugeTrackRenderer->SetSpriteScale(GAUGE_SCALE);
-	m_attackPowerTextRenderer->SetFontScale(0.35f);
+	m_attackPowerTextRenderer->SetFontScale(TEXT_FONTSCALE);
 
 	// 色の設定
 	m_gaugeRenderer->SetColor(GameColor::ATTACKGAUGE);
@@ -93,7 +90,7 @@ void AttackGaugeController::Update()
 		static_cast<float>(m_playerMeshCount) / static_cast<float>(m_playerAttackCost);
 
 	// ゲージをスライドさせる
-	fillValue = std::lerp(m_gaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * 5.0f);
+	fillValue = std::lerp(m_gaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED);
 
 	// 1以下に収める
 	fillValue = std::min(fillValue, 1.0f);
@@ -101,8 +98,10 @@ void AttackGaugeController::Update()
 	// 切り取り量を設定
 	m_gaugeRenderer->SetFillAmount(fillValue);
 
+	// テキストを設定
 	m_attackPowerTextRenderer->SetText(L"Power:{}", m_playerAttackPower);
 
+	// 攻撃可能かどうかに応じて色を変える
 	if (m_playerMeshCount < m_playerAttackCost)
 	{
 		m_attackPowerTextRenderer->SetColor(GameColor::ATTACKGAUGE_TRACK);

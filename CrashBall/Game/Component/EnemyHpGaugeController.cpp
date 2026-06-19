@@ -9,8 +9,8 @@ using namespace DirectX;
  * \brief コンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param pEnemyHpGauge 敵のHPゲージ
- * \param pEnemyHpText 敵のHP表示テキスト
+ * \param pEnemyHpGauge 敵のHPゲージのポインタ
+ * \param pEnemyHpText 敵のHP表示テキストのポインタ
  */
 EnemyHpGaugeController::EnemyHpGaugeController(
 	IGameObject* gameObject,
@@ -43,12 +43,12 @@ EnemyHpGaugeController::EnemyHpGaugeController(
 	enemyHpGaugeTrackRenderer->SetColor(Colors::Black);
 
 	// スケール
-	m_enemyHpTextRenderer->SetFontScale(0.5f);
-	m_enemyHpGaugeRenderer->SetSpriteScale(0.8f);
-	enemyHpGaugeTrackRenderer->SetSpriteScale(0.8f);
+	m_enemyHpTextRenderer->SetFontScale(TEXT_FONT_SCALE);
+	m_enemyHpGaugeRenderer->SetSpriteScale(GAUGE_SPRITE_SCALE);
+	enemyHpGaugeTrackRenderer->SetSpriteScale(GAUGE_SPRITE_SCALE);
 
 	// 描画順
-	m_enemyHpGaugeRenderer->SetLayerDepth(0.1f);
+	m_enemyHpGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
 }
 
 /**
@@ -80,7 +80,7 @@ void EnemyHpGaugeController::Update()
 
 	// HPゲージをスライドさせる
 	m_enemyHpGaugeRenderer->SetFillAmount(
-		std::lerp(m_enemyHpGaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * 5.0f));
+		std::lerp(m_enemyHpGaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED));
 
 	// 敵HPテキストの設定
 	m_enemyHpTextRenderer->SetText(L"EnemyHP {} / {}", m_enemyHp, m_enemyMaxHp);

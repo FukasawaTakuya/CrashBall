@@ -20,13 +20,13 @@ class  EnemyController : public Component{
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ACCELERATINON = 37.0f;		// 加速度
-
-	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
-
 	// 初期位置
 	static constexpr DirectX::SimpleMath::Vector3 INIT_POSITION
 		= DirectX::SimpleMath::Vector3(0.0f, 12.0f, -5.0f);
+
+	static constexpr float ACCELERATINON = 37.0f;		// 加速度
+
+	static constexpr float AVOID_WALL_DISTANCE = 5.0f;	// 壁回避の距離
 
 public:
 
@@ -37,14 +37,14 @@ private:
 
 	std::unique_ptr<StateMachine<EnemyController>> m_stateMachine;	// ステートマシン
 
-	Transform* m_transform = nullptr;				// トランスフォームコンポーネントのキャッシュ
-	RigidBody* m_rigidbody = nullptr;				// 物理演算コンポーネントのキャッシュ
-	ModelRenderer* m_modelRenderer = nullptr;		// モデル描画コンポーネントのキャッシュ
+	Transform* m_transform			 = nullptr;		// トランスフォームコンポーネントのキャッシュ
+	RigidBody* m_rigidbody			 = nullptr;		// 物理演算コンポーネントのキャッシュ
+	ModelRenderer* m_modelRenderer	 = nullptr;		// モデル描画コンポーネントのキャッシュ
 	BallController* m_ballController = nullptr;		// ボール操作コンポーネントのキャッシュ
 
 	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
 
-	const IWallMeshGetter* m_wallMeshGetter = nullptr;		// 壁メッシュの取得クラス
+	const IWallMeshGetter* m_wallMeshGetter = nullptr;	// 壁メッシュの取得クラス
 
 	float m_hp = MAX_HP;	// 体力
 

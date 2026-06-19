@@ -38,7 +38,7 @@ SpriteRenderer::~SpriteRenderer()
 void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 {
 	// オフセット
-	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)] * m_fillAmount;
+	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)];
 
 	// もとの描画領域
 	SimpleMath::Vector4 baseRect = SourceBaseRECT[static_cast<int>(m_fillOrigin)];
@@ -49,16 +49,15 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	baseRect *= Size;
 
 	// 描画領域
-	SimpleMath::Vector4 rect = baseRect + offset;
+	SimpleMath::Vector4 rect = baseRect + offset * m_fillAmount;
 
 	// RECTに直す
 	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
 	SimpleMath::Vector2 position = m_rectTransform->GetPosition();
 
-	position.x -= offset.x / m_fillAmount * (1.0f - m_fillAmount);
-	position.y -= offset.y / m_fillAmount * (1.0f - m_fillAmount);
-
+	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetScale();
+	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetScale();
 
 	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(

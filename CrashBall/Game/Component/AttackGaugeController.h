@@ -9,8 +9,6 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Game/GameObject/IGameObject.h"
-#include "Game/Context/GameContext.h"
 #include "Default/SpriteRenderer.h"
 #include "Default/TextRenderer.h"
 #include "Game/Common/Screen.h"
@@ -31,10 +29,12 @@ private:
 	// 攻撃力表示テキストの描画位置
 	static constexpr DirectX::SimpleMath::Vector2
 		TEXT_POSITION = DirectX::SimpleMath::Vector2(Screen::CENTER_X, Screen::CENTER_Y + 190.f);
-
-	// ゲージのスケール
-	static constexpr float GAUGE_SCALE = 0.4f;
-
+	
+	static constexpr float GAUGE_SCALE			= 0.4f;		// ゲージのスケール
+	static constexpr float GAUGE_SLIDE_SPEED	= 5.0f;		// ゲージのスライド速度
+	static constexpr float GAUGE_LAYER_DEPTH	= 0.1f;		// ゲージの描画順
+	static constexpr float TEXT_LAYER_DEPTH		= 0.2f;		// テキストの描画順
+	static constexpr float TEXT_FONTSCALE		= 0.35f;	// テキストのフォントスケール
 
 	// データメンバの宣言 -----------------------------------------------
 private:
