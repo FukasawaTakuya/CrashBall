@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "GamePanel.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 

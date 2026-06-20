@@ -321,48 +321,6 @@
     <ClInclude Include="Game\Color\GameColor.h">
       <Filter>Game\Color</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\AttackGaugeController.h">
-      <Filter>Game\Component\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\EnemyHpGaugeController.h">
-      <Filter>Game\Component\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
-      <Filter>Game\Component\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\IFloorMeshGetter.h">
-      <Filter>Game\Component\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\IPaintConsumer.h">
-      <Filter>Game\Component\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\IWallMeshGetter.h">
-      <Filter>Game\Component\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\StageController.h">
-      <Filter>Game\Component\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\ICamera.h">
-      <Filter>Game\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\TargetCamera.h">
-      <Filter>Game\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\PlayerController.h">
-      <Filter>Game\Component\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\PlayerStatusController.h">
-      <Filter>Game\Component\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\BallController.h">
-      <Filter>Game\Component\Ball</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\EnemyController.h">
-      <Filter>Game\Component\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\GameCameraController.h">
-      <Filter>Game\Component\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
@@ -389,6 +347,48 @@
     </ClInclude>
     <ClInclude Include="Game\Geometory\Triangle.h">
       <Filter>Game\Geometory</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Player\PlayerController.h">
+      <Filter>Game\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Player\PlayerStatusController.h">
+      <Filter>Game\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Stage\IFloorMeshGetter.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Stage\IPaintConsumer.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Stage\IWallMeshGetter.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Stage\StageController.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Ball\BallController.h">
+      <Filter>Game\Component\Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Enemy\EnemyController.h">
+      <Filter>Game\Component\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\UI\AttackGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\UI\EnemyHpGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\UI\FloorMeshGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Camera\GameCameraController.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Camera\ICamera.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Camera\TargetCamera.h">
+      <Filter>Game\Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -509,34 +509,6 @@
     <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\AttackGaugeController.cpp">
-      <Filter>Game\Component\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp">
-      <Filter>Game\Component\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp">
-      <Filter>Game\Component\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\StageController.cpp">
-      <Filter>Game\Component\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\TargetCamera.cpp">
-      <Filter>Game\Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\PlayerController.cpp">
-      <Filter>Game\Component\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\PlayerStatusController.cpp">
-      <Filter>Game\Component\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\BallController.cpp">
-      <Filter>Game\Component\Ball</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\EnemyController.cpp">
-      <Filter>Game\Component\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\GameCameraController.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClCompile>
@@ -563,6 +535,36 @@
     </ClCompile>
     <ClCompile Include="Game\Geometory\Triangle.cpp">
       <Filter>Game\Geometory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Player\PlayerController.cpp">
+      <Filter>Game\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp">
+      <Filter>Game\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Stage\StageController.cpp">
+      <Filter>Game\Component\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Ball\BallController.cpp">
+      <Filter>Game\Component\Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Enemy\EnemyController.cpp">
+      <Filter>Game\Component\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Camera\TargetCamera.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Camera\GameCameraController.cpp">
+      <Filter>Game\Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

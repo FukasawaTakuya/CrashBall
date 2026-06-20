@@ -10,7 +10,7 @@
 
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
-#include "Game/Component/EnemyController.h"
+#include "Game/Component/Enemy/EnemyController.h"
 
 class Stage;
 

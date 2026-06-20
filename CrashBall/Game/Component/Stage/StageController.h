@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Default/Component.h"
+#include "../Default/Component.h"
 #include "IWallMeshGetter.h"
 #include "IFloorMeshGetter.h"
 #include "IPaintConsumer.h"

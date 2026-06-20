@@ -9,8 +9,8 @@
 #pragma once
 
 #include "ICamera.h"
-#include "Default/Component.h"
-#include "Default/Physics/Transform.h"
+#include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/Physics/Transform.h"
 
 /**
  * @brief ターゲットカメラコンポーネント

@@ -10,7 +10,7 @@
 #include "PlayerAttackState.h"
 #include "PlayerMoveState.h"
 #include "Game/GameObject/Player/Player.h"
-#include "Game/Component/EnemyController.h"
+#include "Game/Component/Enemy/EnemyController.h"
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;

@@ -8,7 +8,8 @@
 
 #pragma once
 
-#include "Default/Component.h"
+#include "Game/Component/Default/Component.h"
+
 #include "TargetCamera.h"
 
 /**
@@ -48,6 +49,8 @@ public:
 
 	// æ“¾/İ’è
 public:
+
+	void Test();
 
 	// “à•”À‘•
 private:

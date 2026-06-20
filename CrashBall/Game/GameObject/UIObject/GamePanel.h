@@ -16,9 +16,9 @@
 #include "Object2D.h"
 #include "TextObject.h"
 
-#include "Game/Component/FloorMeshGaugeController.h"
-#include "Game/Component/AttackGaugeController.h"
-#include "Game/Component/EnemyHpGaugeController.h"
+#include "Game/Component/UI/FloorMeshGaugeController.h"
+#include "Game/Component/UI/AttackGaugeController.h"
+#include "Game/Component/UI/EnemyHpGaugeController.h"
 
  /**
   * @brief ゲーム用のパネル

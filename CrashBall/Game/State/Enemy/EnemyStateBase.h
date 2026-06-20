@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Game/State/StateBase.h"
-#include "Game/Component/EnemyController.h"
+#include "Game/Component/Enemy/EnemyController.h"
 #include "EnemyStateContext.h"
 
 /**

@@ -8,14 +8,13 @@
 
 #pragma once
 
-#include "Default/Component.h"
+#include "Game/Component/Default/Component.h"
 
-#include "Game/State/StateMachine.h"
-#include "Game/Component/TargetCamera.h"
 #include "PlayerStatusController.h"
-#include "IPaintConsumer.h"
-#include "StageController.h"
-
+#include "Game/State/StateMachine.h"
+#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Stage/IPaintConsumer.h"
+#include "Game/Component/Stage/StageController.h"
 
 /**
  * \brief プレイヤー操作コンポーネント

@@ -12,7 +12,7 @@
 #include "Game/Engine/Time.h"
 
 #include "Game/Component/Default/Physics/Transform.h"
-#include "Game/Component/TargetCamera.h"
+#include "Game/Component/Camera/TargetCamera.h"
 
 
 

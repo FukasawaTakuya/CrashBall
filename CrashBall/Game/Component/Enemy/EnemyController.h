@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Default/Component.h"
+#include "Game/Component/Default/Component.h"
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
 

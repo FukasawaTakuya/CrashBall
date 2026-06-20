@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Default/Component.h"
+#include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Collider/Sphere.h"
 #include "Game/Component/Default/Physics/RigidBody.h"
 #include "Game/Component/Default/Physics/Transform.h"

@@ -11,7 +11,6 @@
 
 #include "Game/State/Player/PlayerMoveState.h"
 #include "Game/State/Player/PlayerAttackState.h"
-#include "EnemyController.h"
 
 /**
  * \brief コンストラクタ

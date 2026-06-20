@@ -13,7 +13,7 @@
 #include "Game/Component/Default/Physics/RigidBody.h"
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
-#include "Game/Component/BallController.h"
+#include "Game/Component/Ball/BallController.h"
 
  /**
  * \brief ボールクラス

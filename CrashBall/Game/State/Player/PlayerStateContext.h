@@ -2,8 +2,8 @@
 
 #include "Game/Component/Default/Physics/RigidBody.h"
 #include "Game/Component/Default/Physics/Transform.h"
-#include "Game/Component/PlayerStatusController.h"
-#include "Game/Component/PlayerController.h"
+#include "Game/Component/Player/PlayerStatusController.h"
+#include "Game/Component/Player/PlayerController.h"
 
 struct PlayerStateContext
 {

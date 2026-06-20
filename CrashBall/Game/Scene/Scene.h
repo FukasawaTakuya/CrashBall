@@ -5,7 +5,7 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
-#include "Game/Component/ICamera.h"
+#include "Game/Component/Camera/ICamera.h"
 
 class Scene {
 

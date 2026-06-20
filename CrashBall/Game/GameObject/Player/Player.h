@@ -10,8 +10,8 @@
 
 #include "Game/GameObject/Ball.h"
 #include "Game/State/StateMachine.h"
-#include "Game/Component/PlayerController.h"
-#include "Game/Component/PlayerStatusController.h"
+#include "Game/Component/Player/PlayerController.h"
+#include "Game/Component/Player/PlayerStatusController.h"
 
 /**
  * \brief プレイヤークラス

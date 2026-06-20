@@ -10,7 +10,7 @@
 
 #include "Game/GameObject/GameObject.h"
 
-#include "Game/Component/GameCameraController.h"
+#include "Game/Component/Camera/GameCameraController.h"
 
  /**
  * \brief ゲームカメラ
