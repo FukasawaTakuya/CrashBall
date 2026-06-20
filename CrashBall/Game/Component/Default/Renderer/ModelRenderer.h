@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Component.h"
+#include "..\Component.h"
 #include "Game/Interface/IModelRendererManager.h"
 
  /**

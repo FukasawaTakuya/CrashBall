@@ -218,18 +218,12 @@
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
     <ClInclude Include="Game\Component\Default\Collider\Triangle.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
-    <ClInclude Include="Game\Component\Default\ModelRenderer.h" />
-    <ClInclude Include="Game\Component\Default\RectTransform.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\RigidBody.h" />
-    <ClInclude Include="Game\Component\Default\SpriteRenderer.h" />
-    <ClInclude Include="Game\Component\Default\TextRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\Transform.h" />
+    <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
+    <ClInclude Include="Game\Component\Default\Physics\RigidBody.h" />
+    <ClInclude Include="Game\Component\Default\Physics\Transform.h" />
+    <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h" />
+    <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h" />
     <ClInclude Include="Game\Component\EnemyController.h">
       <SubType>
       </SubType>
@@ -459,12 +453,12 @@
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp" />
     <ClCompile Include="Game\Component\Default\Component.cpp" />
-    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp" />
-    <ClCompile Include="Game\Component\Default\RectTransform.cpp" />
-    <ClCompile Include="Game\Component\Default\RigidBody.cpp" />
-    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp" />
-    <ClCompile Include="Game\Component\Default\TextRenderer.cpp" />
-    <ClCompile Include="Game\Component\Default\Transform.cpp" />
+    <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp" />
+    <ClCompile Include="Game\Component\Default\Physics\RigidBody.cpp" />
+    <ClCompile Include="Game\Component\Default\Physics\Transform.cpp" />
+    <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Game\Component\EnemyController.cpp" />
     <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp" />

@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/Physics/Transform.h"
 #include "Game/CollisionManager/CollisionLayerMask.h"
 
 // コライダータイプ

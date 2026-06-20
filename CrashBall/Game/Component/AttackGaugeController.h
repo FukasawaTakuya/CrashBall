@@ -9,8 +9,8 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Default/SpriteRenderer.h"
-#include "Default/TextRenderer.h"
+#include "Default/Renderer/SpriteRenderer.h"
+#include "Default/Renderer/TextRenderer.h"
 #include "Game/Common/Screen.h"
 
 

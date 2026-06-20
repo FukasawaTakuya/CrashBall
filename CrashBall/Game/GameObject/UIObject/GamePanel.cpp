@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "GamePanel.h"
-#include "Game/Component/Default/SpriteRenderer.h"
 
 /**
  * \brief コンストラクタ

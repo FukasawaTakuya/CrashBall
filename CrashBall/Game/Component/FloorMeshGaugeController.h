@@ -10,9 +10,9 @@
 
 #include "Game/Component/Default/Component.h"
 
-#include "Default/SpriteRenderer.h"
-#include "Default/RectTransform.h"
-#include "Default/TextRenderer.h"
+#include "Default/Renderer/SpriteRenderer.h"
+#include "Default/Physics/RectTransform.h"
+#include "Default/Renderer/TextRenderer.h"
 
 #include "Game/Common/Screen.h"
 

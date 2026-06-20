@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "Object2D.h"
-#include "Game/Component/Default/RectTransform.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 
 /**
  * \brief コンストラクタ

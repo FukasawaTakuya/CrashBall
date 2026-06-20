@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
-#include "Game/Component/Default/SpriteRenderer.h"
+#include "Game/Component/Default/Renderer/SpriteRenderer.h"
 
 /**
  * @brief 2Dオブジェクト

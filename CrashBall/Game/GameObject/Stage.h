@@ -2,8 +2,8 @@
 
 #include "GameObject.h"
 #include "Game/Component/Default/Collider/Mesh.h"
-#include "Game/Component/Default/ModelRenderer.h"
-#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/Renderer/ModelRenderer.h"
+#include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/StageController.h"
 
 

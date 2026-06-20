@@ -372,23 +372,23 @@
     <ClInclude Include="Game\Component\GameCameraController.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\ModelRenderer.h">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\SpriteRenderer.h">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\TextRenderer.h">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\RectTransform.h">
+    <ClInclude Include="Game\Component\Default\Physics\RectTransform.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\RigidBody.h">
+    <ClInclude Include="Game\Component\Default\Physics\RigidBody.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\Transform.h">
+    <ClInclude Include="Game\Component\Default\Physics\Transform.h">
       <Filter>Game\Component\Default\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -546,23 +546,23 @@
       <Filter>Game\Component\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\GameCameraController.cpp" />
-    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
-      <Filter>Game\Component\Default\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\RectTransform.cpp">
+    <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\RigidBody.cpp">
+    <ClCompile Include="Game\Component\Default\Physics\RigidBody.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\Transform.cpp">
+    <ClCompile Include="Game\Component\Default\Physics\Transform.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

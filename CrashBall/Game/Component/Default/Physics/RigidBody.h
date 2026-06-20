@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Component.h"
+#include "..\Component.h"
 
 /**
  * \brief 物理演算コンポーネント

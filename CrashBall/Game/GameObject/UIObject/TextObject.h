@@ -9,7 +9,7 @@
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
-#include "Game/Component/Default/TextRenderer.h"
+#include "Game/Component/Default/Renderer/TextRenderer.h"
 
 /**
  * @brief テキスト描画オブジェクト

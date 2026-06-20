@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Game/Component/Default/Collider/Collider.h"
-#include "Game/Component/Default/Transform.h"
-#include "Game/Component/Default/RigidBody.h"
+#include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Component/Default/Physics/RigidBody.h"
 
 #include "Game/Component/Default/Collider/Sphere.h"
 #include "Game/Component/Default/Collider/Plane.h"

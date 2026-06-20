@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "Component.h"
+#include "..\Component.h"
 #include "Game/Context/RenderContext.h"
-#include "RectTransform.h"
+#include "..\Physics\RectTransform.h"
 
 /**
  * @brief テキスト描画コンポーネント

@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "Component.h"
-#include "RectTransform.h"
+#include "../Component.h"
+#include "../Physics/RectTransform.h"
 #include "Game/Interface/ISpriteRendererManager.h"
 
  // 切り取りの基準位置

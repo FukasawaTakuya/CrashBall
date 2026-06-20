@@ -11,7 +11,7 @@
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 
-#include "Game/Component/Default/Transform.h"
+#include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/TargetCamera.h"
 
 

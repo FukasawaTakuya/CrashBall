@@ -10,7 +10,7 @@
 
 #include "ICamera.h"
 #include "Default/Component.h"
-#include "Default/Transform.h"
+#include "Default/Physics/Transform.h"
 
 /**
  * @brief ターゲットカメラコンポーネント
