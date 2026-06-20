@@ -27,8 +27,8 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	PlayerController* m_playerController;	// プレイヤー操作
-
+	// コンポーネントのキャッシュ
+	PlayerController*		m_playerController;			// プレイヤー操作
 	PlayerStatusController* m_playerStatusController;	// プレイヤーステータス操作
 
 	// メンバ関数の宣言 -------------------------------------------------

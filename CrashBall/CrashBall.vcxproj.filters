@@ -98,6 +98,12 @@
     <Filter Include="Game\Component\Enemy">
       <UniqueIdentifier>{06240ab4-b3ff-4a22-94ec-32839e71df1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Default\Renderer">
+      <UniqueIdentifier>{fb05517a-0303-443c-8df1-11fa32a460cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Default\Physics">
+      <UniqueIdentifier>{fea7df6d-27c9-47e2-9050-f1dbd2e9f887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -297,23 +303,8 @@
     <ClInclude Include="Game\Component\Default\Component.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\ModelRenderer.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\RigidBody.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\SpriteRenderer.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\Transform.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\Panel.h">
       <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\RectTransform.h">
-      <Filter>Game\Component\Default</Filter>
     </ClInclude>
     <ClInclude Include="Game\Context\UIContext.h">
       <Filter>Game\Context</Filter>
@@ -323,9 +314,6 @@
     </ClInclude>
     <ClInclude Include="Game\Common\Screen.h">
       <Filter>Game\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\TextRenderer.h">
-      <Filter>Game\Component\Default</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\TextManager.h">
       <Filter>Game\ResourceManager</Filter>
@@ -383,6 +371,24 @@
     </ClInclude>
     <ClInclude Include="Game\Component\GameCameraController.h">
       <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\ModelRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\SpriteRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\TextRenderer.h">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\RectTransform.h">
+      <Filter>Game\Component\Default\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\RigidBody.h">
+      <Filter>Game\Component\Default\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\Transform.h">
+      <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -491,32 +497,14 @@
     <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\RigidBody.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\Transform.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\RectTransform.cpp">
-      <Filter>Game\Component\Default</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Default\Component.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
     <ClCompile Include="Game\ResourceManager\TextManager.cpp">
       <Filter>Game\ResourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
-      <Filter>Game\Component\Default</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
@@ -558,6 +546,24 @@
       <Filter>Game\Component\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\GameCameraController.cpp" />
+    <ClCompile Include="Game\Component\Default\ModelRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\SpriteRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\TextRenderer.cpp">
+      <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\RectTransform.cpp">
+      <Filter>Game\Component\Default\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\RigidBody.cpp">
+      <Filter>Game\Component\Default\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\Transform.cpp">
+      <Filter>Game\Component\Default\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

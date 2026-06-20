@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "Default/Component.h"
 #include "ICamera.h"
+#include "Default/Component.h"
 #include "Default/Transform.h"
 
 /**
@@ -99,7 +99,7 @@ public:
 	}
 
 	// 前方向(XZ平面)ベクトルの取得
-	DirectX::SimpleMath::Vector3 GetForward() const
+	DirectX::SimpleMath::Vector3 GetForward() const override
 	{
 		DirectX::SimpleMath::Vector3 forward = m_forward;
 		forward.y = 0.0f;
@@ -108,7 +108,7 @@ public:
 	}
 
 	// 右方向(XZ平面)ベクトルの取得
-	DirectX::SimpleMath::Vector3 GetRight() const
+	DirectX::SimpleMath::Vector3 GetRight() const override
 	{
 		DirectX::SimpleMath::Vector3 right = m_right;
 		right.y = 0.0f;

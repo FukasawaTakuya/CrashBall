@@ -17,9 +17,11 @@
 Player::Player()
 	: Ball(RADIUS, ObjectTag::Player)
 {
+	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
 
+	// スケールの設定
 	GetComponent<Transform>()->SetScale(SCALE);
 }
 

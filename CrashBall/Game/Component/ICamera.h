@@ -41,6 +41,13 @@ public:
 	// ビュー行列の取得
 	virtual DirectX::SimpleMath::Matrix GetView() const = 0;
 
+	// 前方向(XZ平面)の取得
+	virtual DirectX::SimpleMath::Vector3 GetForward() const = 0;
+
+	// 右方向(XZ平面)の取得
+	virtual DirectX::SimpleMath::Vector3 GetRight() const = 0;
+
+
 	// 内部実装
 private:
 

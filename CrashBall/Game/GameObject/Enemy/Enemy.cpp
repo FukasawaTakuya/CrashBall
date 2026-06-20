@@ -20,8 +20,10 @@ using namespace DirectX;
 Enemy::Enemy()
 	: Ball(RADIUS, ObjectTag::Enemy)
 {
+	// コンポーネントの追加
 	m_enemyController = AddComponent<EnemyController>();
 
+	// スケールの設定
 	GetComponent<Transform>()->SetScale(SCALE);
 }
 
@@ -51,7 +53,6 @@ void Enemy::Update(const GameContext& gameContext)
 {
 	m_enemyController->Update(gameContext);
 
-	// 移動と回転
 	Ball::Update(gameContext);
 }
 

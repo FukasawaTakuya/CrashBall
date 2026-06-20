@@ -1,5 +1,5 @@
 ﻿/*****************************************************************//**
- * \file   Camera.h
+ * \file   GameCamera.h
  * \brief  ゲームカメラ
  * 
  * \author 深沢拓矢
@@ -7,11 +7,9 @@
  *********************************************************************/
 
 #pragma once
-#include "Game/Component/Default/Transform.h"
 
 #include "Game/GameObject/GameObject.h"
 
-#include "Game/Component/TargetCamera.h"
 #include "Game/Component/GameCameraController.h"
 
  /**
@@ -44,10 +42,13 @@ public:
 	// 初期化
 	void Initialize() override;
 
+	// 更新
 	void Update(const GameContext& gameContext) override;
 
+	// 描画
 	void Render(const RenderContext& renderContext) override;
 
+	// 終了処理
 	void Finalize() override;
 
 	// 取得 / 設定

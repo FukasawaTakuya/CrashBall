@@ -1,15 +1,20 @@
 ﻿/*****************************************************************//**
- * \file   Camera.cpp
- * \brief  カメラクラス
+ * \file   GameCamera.cpp
+ * \brief  ゲームカメラ
  * 
  * \author 深沢拓矢
- * \date   April 2026
+ * \date   June 2026
  *********************************************************************/
 
 #include "pch.h"
 #include "GameCamera.h"
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
+
+#include "Game/Component/Default/Transform.h"
+#include "Game/Component/TargetCamera.h"
+
+
 
 using namespace DirectX;
 

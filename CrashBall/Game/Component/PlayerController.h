@@ -34,7 +34,7 @@ private:
 
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
-	const TargetCamera* m_pCamera = nullptr;				// カメラのポインタ
+	const ICamera* m_pCamera = nullptr;				// カメラのポインタ
 
 	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
 
@@ -63,7 +63,7 @@ public:
 public:
 
 	// カメラのポインタの取得
-	const TargetCamera* GetCamera() { return m_pCamera; }
+	const ICamera* GetCamera() { return m_pCamera; }
 
 	// 敵のトランスフォームの取得
 	const Transform* GetEnemyTransform() { return m_enemyTransform; }

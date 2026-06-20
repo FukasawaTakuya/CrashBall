@@ -49,6 +49,8 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
+    m_sceneManager              = std::make_unique<SceneManager>();
+
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -75,6 +77,7 @@ void Game::Initialize(HWND window, int width, int height)
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("enemy", L"Resources/Models/ball.sdkmesh");
+    m_modelManager->RegisterFile("stage", L"Resources/Models/stage.sdkmesh");
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
     m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
@@ -84,7 +87,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
     // シーンの登録
-    m_sceneManager = std::make_unique<SceneManager>();
     m_sceneManager->CreateScene<GameScene>(SceneID::Game);
 
     // デバイス依存のリソースの作成
@@ -125,6 +127,7 @@ void Game::Update(DX::StepTimer const& timer)
 
     // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
+
     m_inputSystem->Update();
     m_soundPlayer->Update();
 
@@ -148,11 +151,6 @@ void Game::Render()
 
     Clear();
 
-    // 描画命令のクリア
-    m_modelRendererManager->ClearRenderCommand();
-    m_primitiveRendererManager->ClearRenderCommand();
-    m_spriteRendererManager->ClearRenderCommand();
-    m_textRendererManager->ClearnRenderCommand();
 
     // FPSの描画
     m_textRendererManager->DebugRender(
@@ -218,6 +216,12 @@ void Game::Clear()
     context->RSSetViewports(1, &viewport);
 
     m_deviceResources->PIXEndEvent();
+
+    // 描画命令のクリア
+    m_modelRendererManager->ClearRenderCommand();
+    m_primitiveRendererManager->ClearRenderCommand();
+    m_spriteRendererManager->ClearRenderCommand();
+    m_textRendererManager->ClearnRenderCommand();
 }
 #pragma endregion
 
