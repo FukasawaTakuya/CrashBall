@@ -213,10 +213,7 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Collider.h" />
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
-    <ClInclude Include="Game\Component\Default\Collider\Plane.h" />
-    <ClInclude Include="Game\Component\Default\Collider\Segment.h" />
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
-    <ClInclude Include="Game\Component\Default\Collider\Triangle.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
     <ClInclude Include="Game\Component\Default\Physics\RigidBody.h" />
@@ -309,6 +306,9 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Geometory\Plane.h" />
+    <ClInclude Include="Game\Geometory\Segment.h" />
+    <ClInclude Include="Game\Geometory\Triangle.h" />
     <ClInclude Include="Game\Interface\IModelManager.h">
       <SubType>
       </SubType>
@@ -448,10 +448,7 @@
     <ClCompile Include="Game\Component\BallController.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
-    <ClCompile Include="Game\Component\Default\Collider\Plane.cpp" />
-    <ClCompile Include="Game\Component\Default\Collider\Segment.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
-    <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp" />
     <ClCompile Include="Game\Component\Default\Component.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\RigidBody.cpp" />
@@ -476,6 +473,9 @@
     <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
+    <ClCompile Include="Game\Geometory\Plane.cpp" />
+    <ClCompile Include="Game\Geometory\Segment.cpp" />
+    <ClCompile Include="Game\Geometory\Triangle.cpp" />
     <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp" />

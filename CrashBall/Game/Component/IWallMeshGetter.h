@@ -8,7 +8,7 @@
 
 #pragma once
 #include <vector>
-#include "Default/Collider/Triangle.h"
+#include "Game/Geometory/Triangle.h"
 
 /**
  * @brief 壁メッシュ取得クラスのインターフェース

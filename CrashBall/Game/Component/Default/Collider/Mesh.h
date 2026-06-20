@@ -2,9 +2,8 @@
 #pragma once
 
 #include "Game/Component/Default/Collider/Collider.h"
-#include "Triangle.h"
-#include "Sphere.h"
-
+#include "Game/Geometory/Triangle.h"
+#include "Game/Geometory/Segment.h"
 /**
  * \brief 基底オブジェクト
  */

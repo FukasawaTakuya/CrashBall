@@ -288,16 +288,7 @@
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\Collider\Plane.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\Collider\Segment.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\Collider\Triangle.h">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Component.h">
@@ -389,6 +380,15 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h">
       <Filter>Game\Component\Default\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Geometory\Plane.h">
+      <Filter>Game\Geometory</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Geometory\Segment.h">
+      <Filter>Game\Geometory</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Geometory\Triangle.h">
+      <Filter>Game\Geometory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -485,16 +485,7 @@
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\Collider\Plane.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\Collider\Segment.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp">
-      <Filter>Game\Component\Default\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\Collider\Triangle.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp">
@@ -563,6 +554,15 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp">
       <Filter>Game\Component\Default\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Geometory\Plane.cpp">
+      <Filter>Game\Geometory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Geometory\Segment.cpp">
+      <Filter>Game\Geometory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Geometory\Triangle.cpp">
+      <Filter>Game\Geometory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

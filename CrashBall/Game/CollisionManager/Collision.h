@@ -5,10 +5,11 @@
 #include "Game/Component/Default/Physics/RigidBody.h"
 
 #include "Game/Component/Default/Collider/Sphere.h"
-#include "Game/Component/Default/Collider/Plane.h"
-#include "Game/Component/Default/Collider/Triangle.h"
-#include "Game/Component/Default/Collider/Segment.h"
 #include "Game/Component/Default/Collider/Mesh.h"
+
+#include "Game/Geometory/Plane.h"
+#include "Game/Geometory/Triangle.h"
+#include "Game/Geometory/Segment.h"
 
 #include "Game/GameObject/GameObject.h"
 
