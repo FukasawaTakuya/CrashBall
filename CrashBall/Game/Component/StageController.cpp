@@ -7,8 +7,9 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "Game/Common/Screen.h"
 #include "StageController.h"
+
+#include "Game/Color/GameColor.h"
 
 /**
  * \brief コンストラクタ
@@ -39,7 +40,7 @@ StageController::StageController(IGameObject* gameObject)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, PLAYER_COLOR);
+					PaintFace(hitface, GameColor::PLAYER);
 				}
 			}
 			// 衝突オブジェクトが敵の時の処理
@@ -47,7 +48,7 @@ StageController::StageController(IGameObject* gameObject)
 			{
 				for (auto& hitface : m_meshCollider->GetCollideFace())
 				{
-					PaintFace(hitface, ENEMY_COLOR);
+					PaintFace(hitface, GameColor::ENEMY);
 				}
 			}
 		});
@@ -60,7 +61,7 @@ StageController::StageController(IGameObject* gameObject)
 			face->GetCenter().y <= 20.0f)
 		{
 			m_floorMesh.push_back(face.get());
-			m_floorMeshColor.emplace(face.get(), DEFAULT_COLOR);
+			m_floorMeshColor.emplace(face.get(), GameColor::DEFAULT_FACE);
 		}
 		// 壁メッシュ
 		else {
@@ -103,7 +104,7 @@ void StageController::Update(const GameContext& gameContext)
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
 			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
+				return XMVector4Equal(floorMeshColor.second, GameColor::PLAYER);
 			});
 
 	// 敵が塗った面を数える
@@ -111,7 +112,7 @@ void StageController::Update(const GameContext& gameContext)
 		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
 			[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 			{
-				return XMVector4Equal(floorMeshColor.second, ENEMY_COLOR);
+				return XMVector4Equal(floorMeshColor.second, GameColor::ENEMY);
 			});
 }
 
@@ -174,7 +175,7 @@ void StageController::ConsumePaint(int consumePaintNum)
 	// プレイヤーの面を取り出す
 	std::copy_if(m_floorMeshColor.begin(), m_floorMeshColor.end(), std::back_inserter(playerFaceColor),
 		[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor) {
-			return XMVector4Equal(floorMeshColor.second, PLAYER_COLOR);
+			return XMVector4Equal(floorMeshColor.second, GameColor::PLAYER);
 		});
 
 	// プレイヤーの面の数が消費するプレイヤーの面の数より少なければreturn
@@ -183,11 +184,11 @@ void StageController::ConsumePaint(int consumePaintNum)
 		return;
 	}
 
-	// プレイヤーの面をデフォルトの色に戻す
+	// プレイヤーの面を定数枚デフォルトの色に戻す
 	std::for_each_n(playerFaceColor.begin(), consumePaintNum,
 		[&](const std::pair<Triangle*, XMVECTORF32>& floorMeshColor)
 		{
-			PaintFace(floorMeshColor.first, DEFAULT_COLOR);
+			PaintFace(floorMeshColor.first, GameColor::DEFAULT_FACE);
 		});
 }
 

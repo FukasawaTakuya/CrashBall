@@ -16,9 +16,10 @@
 #include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/GameObject/UIObject/GamePanel.h"
 
-#include "Game/Common/CameraObject.h"
+#include "Game/Common/GameCamera.h"
 
 #include "Game/CollisionManager/CollisionManager.h"
+
 
 /**
  * \brief 基底オブジェクト
@@ -31,18 +32,19 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<Stage> m_stage;		// ステージ
-	std::unique_ptr<Player> m_player;	// プレイヤー
-	std::unique_ptr<Enemy> m_enemy;		// 敵
-	std::unique_ptr<GamePanel> m_gamePanel;	// パネル
+	std::unique_ptr<Stage>		m_stage;		// ステージ
+	std::unique_ptr<Player>		m_player;		// プレイヤー
+	std::unique_ptr<Enemy>		m_enemy;		// 敵
+	std::unique_ptr<GamePanel>	m_gamePanel;	// パネル
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
-	// 読み取り専用のコンポーネントのキャッシュ
-	const EnemyController* m_enemyController = nullptr;
-	const PlayerStatusController* m_playerStatusController = nullptr;
-	const StageController* m_stageController = nullptr;
+	std::unique_ptr<GameCamera> m_camera;	// カメラ
 
+	// 読み取り専用のコンポーネントのキャッシュ
+	const EnemyController*			m_enemyController		 = nullptr;
+	const PlayerStatusController*	m_playerStatusController = nullptr;
+	const StageController*			m_stageController		 = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -75,12 +77,15 @@ public:
 	// リソース作成
 	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
-	// モデルの設定
-	void SetModel() override;
-
-
 	// 取得/設定
 public:
+
+	// カメラの取得
+	ICamera* GetCamera() const override
+	{
+		return m_camera->GetComponent<TargetCamera>();
+	}
+
 
 	// 内部実装
 private:

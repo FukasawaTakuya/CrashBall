@@ -80,13 +80,13 @@ void PrimitiveRendererManager::ClearRenderCommand()
 void PrimitiveRendererManager::Render(
     ID3D11DeviceContext1* context,
     DirectX::CommonStates* state,
-    CameraObject* camera)
+    const DirectX::SimpleMath::Matrix& view)
 {
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
 
     // ビュー行列のセット
-    m_basicEffect->SetView(camera->GetViewMat());
+    m_basicEffect->SetView(view);
     // ワールド行列のセット
     m_basicEffect->SetWorld(SimpleMath::Matrix::Identity);
 

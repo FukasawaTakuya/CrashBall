@@ -183,10 +183,6 @@
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Game\Camera\FollowCamera.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\CollisionManager\Collision.h" />
     <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h" />
     <ClInclude Include="Game\CollisionManager\CollisionManager.h">
@@ -196,7 +192,7 @@
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Color\GameColor.h" />
-    <ClInclude Include="Game\Common\CameraObject.h" />
+    <ClInclude Include="Game\Common\GameCamera.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
@@ -212,10 +208,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\BallController.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Camera.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -247,6 +239,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Component\GameCameraController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ICamera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\IFloorMeshGetter.h">
       <SubType>
       </SubType>
@@ -265,6 +265,10 @@
     </ClInclude>
     <ClInclude Include="Game\Component\PlayerStatusController.h" />
     <ClInclude Include="Game\Component\StageController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\TargetCamera.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -439,12 +443,11 @@
   <ItemGroup>
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Game\Camera\FollowCamera.cpp" />
     <ClCompile Include="Game\CollisionManager\Collision.cpp" />
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
-    <ClCompile Include="Game\Common\CameraObject.cpp" />
+    <ClCompile Include="Game\Common\GameCamera.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\AttackGaugeController.cpp" />
@@ -465,9 +468,11 @@
     <ClCompile Include="Game\Component\EnemyController.cpp" />
     <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp" />
+    <ClCompile Include="Game\Component\GameCameraController.cpp" />
     <ClCompile Include="Game\Component\PlayerController.cpp" />
     <ClCompile Include="Game\Component\PlayerStatusController.cpp" />
     <ClCompile Include="Game\Component\StageController.cpp" />
+    <ClCompile Include="Game\Component\TargetCamera.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Stage.cpp" />

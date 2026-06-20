@@ -5,16 +5,13 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
-#include "Game/Common/CameraObject.h"
+#include "Game/Component/ICamera.h"
 
 class Scene {
 
 protected:
 
 	ISceneController* m_pSceneController;
-
-	std::unique_ptr<CameraObject> m_camera;	// カメラ
-
 
 public:
 
@@ -34,9 +31,7 @@ public:
 
 	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) = 0;
 
-	virtual void SetModel() = 0;
-
-	CameraObject* GetCamera() { return m_camera.get(); }
+	virtual ICamera* GetCamera() const = 0;
 
 
 protected:

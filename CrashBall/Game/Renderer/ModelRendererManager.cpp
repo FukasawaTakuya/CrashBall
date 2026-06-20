@@ -44,11 +44,10 @@ void ModelRendererManager::ClearRenderCommand()
 void ModelRendererManager::Render(
 	ID3D11DeviceContext1* context,
 	DirectX::CommonStates* state,
-	CameraObject* camera)
+	const DirectX::SimpleMath::Matrix& view,
+	const DirectX::SimpleMath::Matrix& proj
+)
 {
-	SimpleMath::Matrix view = camera->GetViewMat();
-	SimpleMath::Matrix proj = camera->GetProjMat();
-
 	for (auto& renderCommand : m_renderCommand)
 	{
 		if (renderCommand.pModel == nullptr) return;

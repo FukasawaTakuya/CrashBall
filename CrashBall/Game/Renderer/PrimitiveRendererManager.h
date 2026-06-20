@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Game/Interface/IPrimitiveRendererManager.h"
-#include "Game/Common/CameraObject.h"
 
  /**
   * @brief プリミティブ描画管理クラス
@@ -64,7 +63,7 @@ public:
 	void Render(
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
-		CameraObject* camera);
+		const DirectX::SimpleMath::Matrix& view);
 
 
 	// 取得/設定

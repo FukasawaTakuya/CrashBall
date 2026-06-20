@@ -14,11 +14,13 @@
  * 
  * \param radius 半径
  */
-Player::Player(float radius)
-	: Ball(radius, ObjectTag::Player)
+Player::Player()
+	: Ball(RADIUS, ObjectTag::Player)
 {
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
+
+	GetComponent<Transform>()->SetScale(SCALE);
 }
 
 /**

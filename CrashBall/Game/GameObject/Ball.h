@@ -23,8 +23,8 @@ class Ball : public GameObject {
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	static constexpr float GRAVITY = 25.8f;			// 重力
-	static constexpr float FRICTION = 0.992f;		// 摩擦係数
+	static constexpr float GRAVITY = 25.8f;		// 重力
+	static constexpr float FRICTION = 1.0f;		// 摩擦係数(1.0fで１秒経ったら止まる)
 
 	// データメンバの宣言 -----------------------------------------------
 protected:

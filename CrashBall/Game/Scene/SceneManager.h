@@ -25,7 +25,16 @@ public:
 	~SceneManager();
 
 	// シーンの登録
-	void RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene);
+	template<typename SceneType>
+	requires std::derived_from<SceneType, Scene>
+	void CreateScene(SceneID sceneID)
+	{
+		// シーンの作成
+		std::unique_ptr<SceneType> scene
+			= std::make_unique<SceneType>(this);
+		// コンテナに追加
+		m_scenes.emplace(sceneID, std::move(scene));
+	}
 
 	// 最初のシーンのセット
 	void SetStartScene();
@@ -49,7 +58,7 @@ public:
 	void RequestChangeScene(SceneID nextSceneID) override;
 
 	// カメラの取得
-	CameraObject* GetCamera() const
+	ICamera* GetCamera() const
 	{
 		return m_pCurrentScene->GetCamera();
 	}

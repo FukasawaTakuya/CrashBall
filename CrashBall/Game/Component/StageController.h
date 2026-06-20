@@ -34,10 +34,6 @@ private:
 
 	static constexpr float SCALE = 15.0f;	// スケール
 
-	const DirectX::XMVECTORF32 PLAYER_COLOR = DirectX::Colors::LightSkyBlue;	// プレイヤーの面の色
-	const DirectX::XMVECTORF32 ENEMY_COLOR = DirectX::Colors::LightPink;		// 敵の面の色
-	const DirectX::XMVECTORF32 DEFAULT_COLOR = DirectX::Colors::White;		// デフォルトの面の色
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

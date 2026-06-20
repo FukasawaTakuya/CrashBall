@@ -12,12 +12,6 @@ SceneManager::~SceneManager()
 {
 }
 
-// シーンの登録
-void SceneManager::RegisterScene(SceneID sceneID, std::unique_ptr<Scene> scene)
-{
-	m_scenes.emplace(sceneID, std::move(scene));
-}
-
 /**
  * \brief 最初のシーンのセット
  * 
@@ -44,10 +38,12 @@ void SceneManager::Initialize()
  */
 void SceneManager::Update(const GameContext& gameContext)
 {
+	// 変更リクエストがnullじゃないなら変更
 	if (m_pRequestScene) {
 		ChangeScene();
 	}
 
+	// 更新
 	if (m_pCurrentScene && !m_pRequestScene) {
 		m_pCurrentScene->Update(gameContext);
 	}
@@ -87,7 +83,6 @@ void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
 	{
 		scene.second->CreateWindowSizeResources(proj);
 	}
-
 }
 
 /**
@@ -99,14 +94,17 @@ void SceneManager::RequestChangeScene(SceneID nextSceneID)
 {
 	auto it = m_scenes.find(nextSceneID);
 	// シーンが未登録
-	if (it == m_scenes.end())
+	if (it != m_scenes.end())
 	{
-		OutputDebugString(L"登録されていません。");
-		return;
+		// 登録されたリクエストシーンを取得
+		m_pRequestScene = it->second.get();
 	}
-
-	// 登録されたリクエストシーンを取得
-	m_pRequestScene = it->second.get();
+	else {
+		//OutputDebugStringA(std::format(
+		//	"ID:{} のシーンは登録されていません\n",
+		//	nextSceneID
+		//).c_str());
+	}
 }
 
 /**
@@ -115,11 +113,15 @@ void SceneManager::RequestChangeScene(SceneID nextSceneID)
  */
 void SceneManager::ChangeScene()
 {
+	// 現シーンの終了処理
 	m_pCurrentScene->Finalize();
 
+	// シーン切り替え
 	m_pCurrentScene = m_pRequestScene;
 
+	// 新シーンの初期化
 	m_pCurrentScene->Initialize();
 
+	// リクエストを削除
 	m_pRequestScene = nullptr;
 }

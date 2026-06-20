@@ -72,6 +72,5 @@ void RigidBody::ApplyGravity()
  */
 void RigidBody::ApplyFriction()
 {
-	//m_velocity *= m_friction;
-	m_velocity *= exp(-1.25f * Time::GetElapsedTime());
+	m_velocity -= m_velocity * m_friction * Time::GetElapsedTime();
 }

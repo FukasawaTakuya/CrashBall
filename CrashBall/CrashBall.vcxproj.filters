@@ -80,6 +80,24 @@
     <Filter Include="Game\Color">
       <UniqueIdentifier>{e5508e09-70cd-4bc8-a112-2ef8117b9aa3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\UI">
+      <UniqueIdentifier>{19e466e7-e005-4464-93f8-19524655f69c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Stage">
+      <UniqueIdentifier>{5d7073dc-90d4-4d69-ac03-34c8192a56f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Camera">
+      <UniqueIdentifier>{b3fe8481-4a34-4e3b-8eb8-894d0f356c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Player">
+      <UniqueIdentifier>{f8f01280-9b7f-402d-b440-36d05e45f4a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Ball">
+      <UniqueIdentifier>{05b61d77-2d90-44ca-9df6-079fc0b861a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Enemy">
+      <UniqueIdentifier>{06240ab4-b3ff-4a22-94ec-32839e71df1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -114,7 +132,7 @@
     <ClInclude Include="Game\GameObject\Ball.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Common\CameraObject.h">
+    <ClInclude Include="Game\Common\GameCamera.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Stage.h">
@@ -243,12 +261,6 @@
     <ClInclude Include="Game\Interface\ISoundManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\BallController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\PlayerController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Game\State\StateContext.h">
       <Filter>Game\State</Filter>
     </ClInclude>
@@ -258,23 +270,11 @@
     <ClInclude Include="Game\State\Player\PlayerStateBase.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\EnemyController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyStateBase.h">
       <Filter>Game\State\EnemyState</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyStateContext.h">
       <Filter>Game\State\EnemyState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera\FollowCamera.h">
-      <Filter>Game\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\StageController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\IWallMeshGetter.h">
-      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Collider.h">
       <Filter>Game\Component\Default\Collider</Filter>
@@ -309,15 +309,6 @@
     <ClInclude Include="Game\Component\Default\Transform.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\IFloorMeshGetter.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\IPaintConsumer.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\PlayerStatusController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\Panel.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
@@ -329,9 +320,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
       <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
-      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\Screen.h">
       <Filter>Game\Common</Filter>
@@ -351,17 +339,50 @@
     <ClInclude Include="Game\GameObject\UIObject\Object2D.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\AttackGaugeController.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Color\GameColor.h">
       <Filter>Game\Color</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\EnemyHpGaugeController.h">
-      <Filter>Game\Component</Filter>
+    <ClInclude Include="Game\Component\AttackGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Camera.h">
-      <Filter>Game\Component</Filter>
+    <ClInclude Include="Game\Component\EnemyHpGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\FloorMeshGaugeController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\IFloorMeshGetter.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\IPaintConsumer.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\IWallMeshGetter.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\StageController.h">
+      <Filter>Game\Component\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ICamera.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\TargetCamera.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\PlayerController.h">
+      <Filter>Game\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\PlayerStatusController.h">
+      <Filter>Game\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\BallController.h">
+      <Filter>Game\Component\Ball</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\EnemyController.h">
+      <Filter>Game\Component\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\GameCameraController.h">
+      <Filter>Game\Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -395,7 +416,7 @@
     <ClCompile Include="Game\GameObject\Ball.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Common\CameraObject.cpp">
+    <ClCompile Include="Game\Common\GameCamera.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage.cpp">
@@ -452,18 +473,6 @@
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp">
       <Filter>Game\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\BallController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\PlayerController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\EnemyController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Camera\FollowCamera.cpp">
-      <Filter>Game\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClCompile>
@@ -494,12 +503,6 @@
     <ClCompile Include="Game\Component\Default\Transform.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\StageController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\PlayerStatusController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
@@ -509,10 +512,6 @@
     <ClCompile Include="Game\Component\Default\Component.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp">
       <Filter>Game\ResourceManager</Filter>
     </ClCompile>
@@ -522,10 +521,43 @@
     <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
-    <ClCompile Include="Game\Component\AttackGaugeController.cpp" />
-    <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp" />
+    <ClCompile Include="Game\Common\Screen.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\AttackGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\EnemyHpGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\FloorMeshGaugeController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\StageController.cpp">
+      <Filter>Game\Component\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\TargetCamera.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\PlayerController.cpp">
+      <Filter>Game\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\PlayerStatusController.cpp">
+      <Filter>Game\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\BallController.cpp">
+      <Filter>Game\Component\Ball</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\EnemyController.cpp">
+      <Filter>Game\Component\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\GameCameraController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

@@ -8,7 +8,6 @@
 
 #pragma once
 
-#include "Game/Common/CameraObject.h"
 #include "Game/Interface/IModelRendererManager.h"
 
 /**
@@ -51,7 +50,9 @@ public:
 	void Render(
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
-		CameraObject* pCamera);
+		const DirectX::SimpleMath::Matrix& view,
+		const DirectX::SimpleMath::Matrix& proj
+		);
 
 
 	// éÊìæ/ê›íË

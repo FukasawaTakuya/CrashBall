@@ -85,8 +85,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     // シーンの登録
     m_sceneManager = std::make_unique<SceneManager>();
-    m_sceneManager->RegisterScene(SceneID::Game,
-        std::make_unique<GameScene>(m_sceneManager.get()));
+    m_sceneManager->CreateScene<GameScene>(SceneID::Game);
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
@@ -173,13 +172,15 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
+    SimpleMath::Matrix view = m_sceneManager->GetCamera()->GetView();
+
     // シーン内での描画命令登録
     m_sceneManager->Render(m_renderContext);
 
     // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+    m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
     // プリミティブの描画
-    m_primitiveRendererManager->Render(context, m_state.get(), m_sceneManager->GetCamera());
+    m_primitiveRendererManager->Render(context, m_state.get(), view);
 
     // スプライト関連描画開始
     m_spriteBatch->Begin(SpriteSortMode_FrontToBack);

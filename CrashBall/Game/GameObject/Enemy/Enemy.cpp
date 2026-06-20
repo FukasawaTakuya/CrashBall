@@ -17,10 +17,12 @@ using namespace DirectX;
  * 
  * \param radius 半径
  */
-Enemy::Enemy(float radius)
-	: Ball(radius, ObjectTag::Enemy)
+Enemy::Enemy()
+	: Ball(RADIUS, ObjectTag::Enemy)
 {
 	m_enemyController = AddComponent<EnemyController>();
+
+	GetComponent<Transform>()->SetScale(SCALE);
 }
 
 /**

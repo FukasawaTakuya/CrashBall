@@ -19,8 +19,11 @@
 class  Player : public Ball {
 
 	// クラス定数の宣言 -------------------------------------------------
-public:
+private:
 
+	static constexpr float RADIUS = 20.0f;	// 半径
+	static constexpr float SCALE = 0.025;	// スケール
+	
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -33,7 +36,7 @@ private:
 public:
 
 	// コンストラクタ
-	Player(float radius);
+	Player();
 
 	// デストラクタ
 	~Player() = default;

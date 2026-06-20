@@ -27,9 +27,6 @@ BallController::BallController(IGameObject* gameObject)
 	// レイヤーマスクの設定
 	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 
-	// スケールの設定
-	m_transform->SetScale(SCALE);
-
 	// 衝突時の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 		{

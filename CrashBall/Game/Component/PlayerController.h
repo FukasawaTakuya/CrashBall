@@ -11,7 +11,7 @@
 #include "Default/Component.h"
 
 #include "Game/State/StateMachine.h"
-#include "Game/Common/CameraObject.h"
+#include "Game/Component/TargetCamera.h"
 #include "PlayerStatusController.h"
 #include "IPaintConsumer.h"
 #include "StageController.h"
@@ -34,7 +34,7 @@ private:
 
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
-	const CameraObject* m_pCamera = nullptr;				// カメラのポインタ
+	const TargetCamera* m_pCamera = nullptr;				// カメラのポインタ
 
 	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
 
@@ -63,7 +63,7 @@ public:
 public:
 
 	// カメラのポインタの取得
-	const CameraObject* GetCamera() { return m_pCamera; }
+	const TargetCamera* GetCamera() { return m_pCamera; }
 
 	// 敵のトランスフォームの取得
 	const Transform* GetEnemyTransform() { return m_enemyTransform; }
@@ -75,7 +75,7 @@ public:
 	}
 
 	// カメラのポインタのセット
-	void SetCamera(CameraObject* pCamera) { m_pCamera = pCamera; }
+	void SetCamera(const TargetCamera* pCamera) { m_pCamera = pCamera; }
 
 	// 敵のトランスフォームの設定
 	void SetEnemyTransform(Transform* enemyTransform)
