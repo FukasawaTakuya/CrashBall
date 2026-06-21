@@ -39,9 +39,9 @@ void Transform::Translate(const DirectX::SimpleMath::Vector3& trans)
 /**
  * \brief 回転
  * 
- * \param quaternion クオータニオン
+ * \param rotate クオータニオン
  */
-void Transform::Rotate(const DirectX::SimpleMath::Quaternion& quaternion)
+void Transform::Rotate(const DirectX::SimpleMath::Quaternion& rotate)
 {
-	m_quaternion *= quaternion;
+	m_rotate *= rotate;
 }

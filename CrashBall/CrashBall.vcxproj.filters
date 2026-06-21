@@ -44,9 +44,6 @@
     <Filter Include="Game\State\EnemyState">
       <UniqueIdentifier>{76140965-af0e-4dd0-9e16-e87cdba8bdd8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Interface">
-      <UniqueIdentifier>{4443c768-e6c9-42e0-aeb3-5cdec1233a59}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\ServiceLocator">
       <UniqueIdentifier>{12c09a80-0442-45f7-b6be-55ca9c8513f0}</UniqueIdentifier>
     </Filter>
@@ -106,6 +103,12 @@
     </Filter>
     <Filter Include="Game\Scene\SceneChangeScreen">
       <UniqueIdentifier>{af8eb5e6-9bf1-48ac-b1f9-2924b494329e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RendererManager\Interface">
+      <UniqueIdentifier>{d861b575-717c-45f2-bf98-197e732f2abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ResourceManager\Interface">
+      <UniqueIdentifier>{206385be-3e8a-4aab-b853-f57422c6219e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -195,15 +198,6 @@
     <ClInclude Include="Game\Scene\ISceneController.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\IModelManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\IModelRendererManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
       <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
@@ -225,12 +219,6 @@
     <ClInclude Include="Game\ResourceManager\SpriteManager.h">
       <Filter>Game\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Context\RenderContext.h">
       <Filter>Game\Context</Filter>
     </ClInclude>
@@ -240,26 +228,14 @@
     <ClInclude Include="Game\Context\GameContext.h">
       <Filter>Game\Context</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ITextRendererManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ResourceManager\SoundManager.h">
       <Filter>Game\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\IGameObject.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundPlayer.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\SoundPlayer\SoundPlayer.h">
       <Filter>Game\SoundPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundManager.h">
-      <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\State\StateContext.h">
-      <Filter>Game\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerStateContext.h">
       <Filter>Game\State\PlayerState</Filter>
@@ -288,9 +264,6 @@
     <ClInclude Include="Game\GameObject\UIObject\Panel.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Context\UIContext.h">
-      <Filter>Game\Context</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
@@ -299,9 +272,6 @@
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\TextManager.h">
       <Filter>Game\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ITextManager.h">
-      <Filter>Game\Interface</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\TextObject.h">
       <Filter>Game\GameObject\UIObject</Filter>
@@ -407,6 +377,36 @@
     </ClInclude>
     <ClInclude Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.h">
       <Filter>Game\Scene\SceneChangeScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\State\IStateMachine.h">
+      <Filter>Game\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelRendererManager.h">
+      <Filter>Game\RendererManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
+      <Filter>Game\RendererManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
+      <Filter>Game\RendererManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITextRendererManager.h">
+      <Filter>Game\RendererManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\IModelManager.h">
+      <Filter>Game\ResourceManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISpriteManager.h">
+      <Filter>Game\ResourceManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ITextManager.h">
+      <Filter>Game\ResourceManager\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundManager.h">
+      <Filter>Game\SoundPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Interface\ISoundPlayer.h">
+      <Filter>Game\SoundPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -584,12 +584,20 @@
     <ClCompile Include="Game\RendererManager\TextRendererManager.cpp">
       <Filter>Game\RendererManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\TitleScene.cpp" />
-    <ClCompile Include="Game\GameObject\Object3D.cpp" />
-    <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
-    <ClCompile Include="Game\Camera\TitleCamera.cpp" />
     <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp">
       <Filter>Game\Scene\SceneChangeScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Object3D.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\TitleCamera.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\TitleScene.cpp">
+      <Filter>Game\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

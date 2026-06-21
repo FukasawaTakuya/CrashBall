@@ -26,11 +26,9 @@ private:
 
 	DirectX::SimpleMath::Vector3 m_position;		// 位置
 
-	DirectX::SimpleMath::Quaternion m_quaternion;	// 回転
+	DirectX::SimpleMath::Quaternion m_rotate;		// 回転
 
 	float m_scale = 1.0f;							// スケール
-
-	Transform* m_parentTransform = nullptr;			// 親のトランスフォーム
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -50,7 +48,7 @@ public:
 	void Translate(const DirectX::SimpleMath::Vector3& trans);
 
 	// 回転
-	void Rotate(const DirectX::SimpleMath::Quaternion& quaternion);
+	void Rotate(const DirectX::SimpleMath::Quaternion& rotate);
 
 	// 取得/設定
 public:
@@ -58,31 +56,19 @@ public:
 	// ポジションの取得
 	DirectX::SimpleMath::Vector3 GetPosition() const
 	{
-		if (m_parentTransform != nullptr)
-		{
-			return m_parentTransform->GetPosition() + m_position;
-		}
-		else return m_position;
+		return m_position;
 	}
 
 	// 回転の取得
-	DirectX::SimpleMath::Quaternion GetQuaternion() const
+	DirectX::SimpleMath::Quaternion GetRotate() const
 	{
-		if (m_parentTransform != nullptr)
-		{
-			return m_parentTransform->GetQuaternion() * m_quaternion;
-		}
-		else return m_quaternion;
+		return m_rotate;
 	}
 
 	// スケールの取得
 	float GetScale() const
 	{
-		if (m_parentTransform != nullptr)
-		{
-			return m_parentTransform->GetScale() * m_scale;
-		}
-		else return m_scale;
+		return m_scale;
 	}
 
 	// ワールド行列の取得
@@ -93,7 +79,7 @@ public:
 			= SimpleMath::Matrix::CreateScale(GetScale());
 		// 回転行列
 		SimpleMath::Matrix rotate
-			= SimpleMath::Matrix::CreateFromQuaternion(GetQuaternion());
+			= SimpleMath::Matrix::CreateFromQuaternion(GetRotate());
 		// 移動行列
 		SimpleMath::Matrix trans
 			= SimpleMath::Matrix::CreateTranslation(GetPosition());
@@ -101,11 +87,7 @@ public:
 		// ワールド行列
 		SimpleMath::Matrix world = scale * rotate * trans;
 
-		if (m_parentTransform != nullptr)
-		{
-			return m_parentTransform->GetWorld() * world;
-		}
-		else return world;
+		return world;
 	}
 
 	// ポジションの設定
@@ -117,21 +99,13 @@ public:
 	// 回転の設定
 	void SetQuaternion(DirectX::SimpleMath::Quaternion quaternion)
 	{
-		m_quaternion = quaternion;
+		m_rotate = quaternion;
 	}
 
 	// スケールの設定
 	void SetScale(float scale)
 	{
 		m_scale = scale;
-	}
-
-	// 親トランスフォームの設定
-	void SetParent(Transform* parent)
-	{
-		m_parentTransform = parent;
-		// ローカル座標にする
-		m_position -= m_parentTransform->GetPosition();
 	}
 
 	// 内部実装

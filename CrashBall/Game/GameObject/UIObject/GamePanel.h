@@ -10,7 +10,6 @@
 
 #include "Panel.h"
 
-#include "Game/Context/UIContext.h"
 #include "Game/Context/ResourceContext.h"
 
 #include "Object2D.h"

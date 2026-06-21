@@ -58,8 +58,6 @@ private:
 
 	Origin m_origin = Origin::Center;	// 基準位置
 
-	RectTransform* m_parentTransfrom = nullptr;	// 親のトランスフォーム
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -85,31 +83,19 @@ public:
 	// ポジションの取得
 	DirectX::SimpleMath::Vector2 GetPosition() const
 	{
-		if (m_parentTransfrom != nullptr)
-		{
-			return m_parentTransfrom->GetPosition() + m_position;
-		}
-		else return m_position;
+		return m_position;
 	}
 
 	// 回転の取得
 	float GetRotate() const
 	{
-		if (m_parentTransfrom != nullptr)
-		{
-			return m_parentTransfrom->GetRotate() + m_rotate;
-		}
-		else return m_rotate;
+		return m_rotate;
 	}
 
 	// スケールの取得
 	float GetScale() const
 	{
-		if (m_parentTransfrom != nullptr)
-		{
-			return m_parentTransfrom->GetScale() * m_scale;
-		}
-		else return m_scale;
+		return m_scale;
 	}
 
 	// 基準位置の取得
@@ -145,11 +131,6 @@ public:
 	void SetPosition(const DirectX::SimpleMath::Vector2& position)
 	{
 		m_position = position;
-		// 親がいるならローカル座標にする
-		if (m_parentTransfrom != nullptr)
-		{
-			m_position -= m_parentTransfrom->GetPosition();
-		}
 	}
 
 	// 回転の設定
@@ -168,14 +149,6 @@ public:
 	void SetOrigin(Origin origin)
 	{
 		m_origin = origin;
-	}
-
-	// 親のトランスフォームの設定
-	void SetParent(RectTransform* parent)
-	{
-		m_parentTransfrom = parent;
-		// ローカル座標にする
-		m_position -= m_parentTransfrom->GetPosition();
 	}
 
 	// 内部実装

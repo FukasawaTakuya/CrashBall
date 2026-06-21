@@ -109,7 +109,8 @@ void GameScene::Update(const GameContext& gameContext)
 
     m_gamePanel->Update(gameContext);
 
-    if (m_enemyController->GetHp() <= 0.0f)
+    if (m_enemyController->GetHp() <= 0.0f || 
+        Input::GetKeyDown(Keyboard::Escape))
     {
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }

@@ -91,6 +91,9 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	// 描画位置
 	playerTextTransform->SetPosition(PLAYER_MESHTEXT_POSITION);
 	enemyTextTransform->SetPosition(ENEMY_MESHTEXT_POSITION);
+	// 描画順
+	m_playerTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
+	m_enemyTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
 	// テキストの色
 	m_playerTextRenderer->SetColor(GameColor::PLAYER);
 	m_enemyTextRenderer->SetColor(GameColor::ENEMY);

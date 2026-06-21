@@ -67,7 +67,6 @@ public:
 
 	// コンポーネントの追加
 	template<typename CompType, typename... Args>
-	requires std::derived_from<CompType, Component>
 	CompType* AddComponent(Args&&... args)
 	{
 		// コンポーネントの生成

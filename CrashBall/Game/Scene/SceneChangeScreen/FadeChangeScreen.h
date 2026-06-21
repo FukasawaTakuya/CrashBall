@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   FadeChangeScreen.h
+ * \brief  フェードシーン遷移演出
+ * 
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
@@ -5,7 +13,7 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief フェードシーン遷移演出
  */
 class  FadeChangeScreen : public GameObject {
 
@@ -15,16 +23,17 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// コンポーネントのキャッシュ
 	RectTransform* m_rectTransform = nullptr;
 	SpriteRenderer* m_spriteRenderer = nullptr;
 
-	bool m_isFadeOut = false;
-	bool m_isFadeIn = false;
+	bool m_isFadeOut = false;	// フェードインフラグ
+	bool m_isFadeIn  = false;	// フェードアウトフラグ
 
-	bool m_isEndFadeIn = false;
-	bool m_isEndFadeOut = false;
+	bool m_isEndFadeIn  = false;	// フェードイン終了フラグ
+	bool m_isEndFadeOut = false;	// フェードアウト終了フラグ
 
-	float m_alpha = 1.0f;
+	float m_alpha = 1.0f;	// 透明度
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -51,6 +60,7 @@ public:
 	// 終了処理
 	void Finalize() override;
 
+	// フェードインの開始
 	void StartFadeIn()
 	{
 		m_isFadeIn = true;
@@ -59,6 +69,7 @@ public:
 		m_alpha = 1.0f;
 	}
 
+	// フェードアウトの開始
 	void StartFadeOut()
 	{
 		m_isFadeOut = true;
@@ -70,11 +81,13 @@ public:
 	// 取得/設定
 public:
 
+	// フェードイン終了フラグの取得
 	bool GetIsEndFadeInEnd() const
 	{
 		return m_isEndFadeIn;
 	}
 
+	// フェードアウト終了フラグの取得
 	bool GetIsEndFadeOut() const
 	{
 		return m_isEndFadeOut;

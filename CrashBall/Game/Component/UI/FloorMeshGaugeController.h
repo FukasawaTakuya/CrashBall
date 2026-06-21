@@ -43,6 +43,7 @@ private:
 	float TEXT_FONTSCALE = 0.75f;		// テキストのフォントスケール
 	float GAUGE_LAYER_DEPTH = 0.2f;		// ゲージの描画順
 	float TRACK_LAYER_DEPTH = 0.1f;		// ゲージの土台の描画順
+	float TEXT_LAYER_DEPTH = 0.1f;		// テキストの描画順
 	float GAUGE_SLIDE_SPEED = 5.0f;		// ゲージがスライドする速さ
 
 	// データメンバの宣言 -----------------------------------------------

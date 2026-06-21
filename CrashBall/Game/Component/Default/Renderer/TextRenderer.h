@@ -29,7 +29,7 @@ private:
 	float m_fontScale = 1.0f;								// フォントのスケール
 	float m_width = 0.0f;									// 横幅
 	float m_height = 0.0f;									// 縦幅
-	float m_layerDepth = 1.0f;								// 描画順
+	float m_layerDepth = 0.0f;								// 描画順
 	RectTransform* m_rectTransform = nullptr;				// トランスフォームのキャッシュ
 		
 	// メンバ関数の宣言 -------------------------------------------------

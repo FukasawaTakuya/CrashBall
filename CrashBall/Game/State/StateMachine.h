@@ -8,14 +8,16 @@
 
 #pragma once
 
-#include "StateBase.h"
 #include "pch.h"
+
+#include "IStateMachine.h"
+#include "StateBase.h"
 
 /**
  * \brief ステートマシン
  */
 template <typename Owner>
-class  StateMachine {
+class  StateMachine : public IStateMachine {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -87,42 +89,9 @@ public:
 			m_currentState->CallUpdate();
 	}
 
-	/**
-	 * \brief ステートの変更.
-	 * 
-	 */
-	template<typename State>
-	requires std::derived_from<State, StateBase<Owner>>
-	void ChangeState()
-	{
-		// オーナーがいないならリターン
-		if (m_owner == nullptr) return;
+	// ステートの変更
+	using IStateMachine::ChangeState;
 
-		// イテレータの取得
-		auto it = m_states.find(typeid(State));
-
-		// イテレータが終端ならリターン
-		if (it == m_states.end()) return;
-
-		// 変更先のステートを取得
-		StateBase<Owner>* state = it->second.get();
-
-		// ステート変更命令
-		m_changeStateCmd = [this, state]()
-			{
-				if (m_currentState != nullptr)
-				{
-					// 現ステートの終了処理
-					m_currentState->CallOnExit();
-				}
-
-				// 新ステートをセット
-				m_currentState = state;
-
-				// 新ステートの開始処理
-				m_currentState->CallOnEnter();
-			};
-	}
 
 	// ステートの生成
 	template<typename State, typename... Args>
@@ -158,4 +127,35 @@ public:
 	// 内部実装
 private:
 
+	// 関数テンプレート無しでステートを変更
+	void ChangeState(std::type_index StateType)
+	{
+		// オーナーがいないならリターン
+		if (m_owner == nullptr) return;
+
+		// イテレータの取得
+		auto it = m_states.find(StateType);
+
+		// イテレータが終端ならリターン
+		if (it == m_states.end()) return;
+
+		// 変更先のステートを取得
+		StateBase<Owner>* state = it->second.get();
+
+		// ステート変更命令
+		m_changeStateCmd = [this, state]()
+			{
+				if (m_currentState != nullptr)
+				{
+					// 現ステートの終了処理
+					m_currentState->CallOnExit();
+				}
+
+				// 新ステートをセット
+				m_currentState = state;
+
+				// 新ステートの開始処理
+				m_currentState->CallOnEnter();
+			};
+	}
 };

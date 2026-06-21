@@ -78,12 +78,12 @@ void TargetCamera::RotateX(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetQuaternion());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetRotate());
 
 	// 各ベクトルを回転
-	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetQuaternion());
-	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetQuaternion());
-	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetQuaternion());
+	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetRotate());
+	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetRotate());
+	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetRotate());
 
 	m_isDirty = true;
 }
@@ -99,12 +99,12 @@ void TargetCamera::RotateY(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(m_right, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetQuaternion());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetRotate());
 
 	// 各ベクトルを回転
-	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetQuaternion());
-	m_right = XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetQuaternion());
-	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetQuaternion());
+	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetRotate());
+	m_right = XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetRotate());
+	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetRotate());
 
 	m_isDirty = true;
 }
