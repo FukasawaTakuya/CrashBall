@@ -50,8 +50,6 @@ public:
 	// æ“¾/İ’è
 public:
 
-	void Test();
-
 	// “à•”À‘•
 private:
 

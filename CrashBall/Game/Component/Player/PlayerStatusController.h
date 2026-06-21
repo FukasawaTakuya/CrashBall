@@ -19,7 +19,7 @@ class  PlayerStatusController: public Component {
 	// ƒNƒ‰ƒX’è”‚ÌéŒ¾ -------------------------------------------------
 private:
 
-	static constexpr float ATTACK_PER_FACE = 1.0f;		// “h‚Á‚½–Ê‚P–‡“–‚½‚è‚Ìã¸UŒ‚—Í
+	static constexpr float ATTACK_PER_FACE = 2.0f;		// “h‚Á‚½–Ê‚P–‡“–‚½‚è‚Ìã¸UŒ‚—Í
 
 public:
 	static constexpr float MIN_ATTACK_POWER = 10.0f;	// Å’áUŒ‚—Í

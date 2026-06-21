@@ -12,10 +12,10 @@
 #include "Game/Common/InputSystem.h"
 #include "Game/Common/TimeManager.h"
 
-#include "Game/Renderer/PrimitiveRendererManager.h"
-#include "Game/Renderer/ModelRendererManager.h"
-#include "Game/Renderer/SpriteRendererManager.h"
-#include "Game/Renderer/TextRendererManager.h"
+#include "Game/RendererManager/PrimitiveRendererManager.h"
+#include "Game/RendererManager/ModelRendererManager.h"
+#include "Game/RendererManager/SpriteRendererManager.h"
+#include "Game/RendererManager/TextRendererManager.h"
 
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/ResourceManager/SpriteManager.h"

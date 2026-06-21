@@ -20,8 +20,12 @@ class  GameCamera : public GameObject {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
+	// オフセット
+	static constexpr DirectX::SimpleMath::Vector3 OFFSET
+		= DirectX::SimpleMath::Vector3(0.0f, 4.0f, 12.0f);
+
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
 	// コントローラーコンポーネントのキャッシュ
 	GameCameraController* m_cameraController = nullptr;

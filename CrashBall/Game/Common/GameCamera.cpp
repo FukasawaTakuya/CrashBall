@@ -27,7 +27,7 @@ GameCamera::GameCamera()
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	AddComponent<TargetCamera>();
+	AddComponent<TargetCamera>(OFFSET);
 	m_cameraController = AddComponent<GameCameraController>();
 }
 

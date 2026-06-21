@@ -5,6 +5,8 @@
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
 
+#include "Game/Scene/SceneChangeScreen/FadeChangeScreen.h"
+
 #include "Scene.h"
 
 class Camera;
@@ -17,6 +19,8 @@ private:
 	Scene* m_pCurrentScene;
 
 	Scene* m_pRequestScene;
+
+	std::unique_ptr<FadeChangeScreen> m_changeScreen;
 
 public:
 

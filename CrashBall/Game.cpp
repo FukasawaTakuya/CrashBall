@@ -10,6 +10,7 @@
 #include "Game/ServiceLocator/ServiceLocator.h"
 #include "Game/ServiceLocator/ITimeService.h"
 #include "Game/ServiceLocator/IInputService.h"
+#include "Game/Scene/TitleScene.h"
 
 extern void ExitGame() noexcept;
 
@@ -80,6 +81,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_modelManager->RegisterFile("stage", L"Resources/Models/stage.sdkmesh");
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
     m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
+    m_spriteManager->RegisterFile("Title", L"Resources/Sprite/Title.dds");
+    m_spriteManager->RegisterFile("Screen", L"Resources/Sprite/Screen.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
@@ -88,6 +91,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     // シーンの登録
     m_sceneManager->CreateScene<GameScene>(SceneID::Game);
+    m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
@@ -150,19 +154,6 @@ void Game::Render()
     }
 
     Clear();
-
-
-    // FPSの描画
-    m_textRendererManager->DebugRender(
-        SimpleMath::Vector2::Zero,
-        Colors::White,
-        0.0f,
-        1.5f,
-        SimpleMath::Vector2::Zero,
-        0.0f,
-        L"FPS:{}",
-        m_timer.GetFramesPerSecond()
-    );
 
     m_deviceResources->PIXBeginEvent(L"Render");
     auto context = m_deviceResources->GetD3DDeviceContext();

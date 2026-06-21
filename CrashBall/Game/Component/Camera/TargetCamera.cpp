@@ -16,10 +16,22 @@
  * 
  * \param gameObject
  */
-TargetCamera::TargetCamera(IGameObject* gameObject)
+TargetCamera::TargetCamera(
+	IGameObject* gameObject,
+	const DirectX::SimpleMath::Vector3& offset)
 	: Component(gameObject)
 {
+	// キャッシュの取得
 	m_transform = GetGameObject()->GetComponent<Transform>();
+
+	// オフセットからターゲット方向のベクトル
+	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-offset);
+
+	// 初期回転
+	m_initRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
+
+	// オフセットをForward方向に直す
+	m_forwardOffset = XMVector3Rotate(offset, XMQuaternionInverse(m_initRotate));
 }
 
 /**
@@ -37,14 +49,14 @@ TargetCamera::~TargetCamera()
 void TargetCamera::Initialize()
 {
 	m_zoomRate = 1.0f;
-	m_offset = XMVector3Rotate(OFFSET, InitRotate);
+	m_offset = XMVector3Rotate(m_forwardOffset, m_initRotate);
 
-	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward , InitRotate);
-	m_right = XMVector3Rotate(SimpleMath::Vector3::Right, InitRotate);
-	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, InitRotate);
+	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward , m_initRotate);
+	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_initRotate);
+	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_initRotate);
 
 	//
-	m_transform->SetQuaternion(InitRotate);
+	m_transform->SetQuaternion(m_initRotate);
 }
 
 /**
@@ -53,24 +65,6 @@ void TargetCamera::Initialize()
  */
 void TargetCamera::Update()
 {
-	float elapsedTime = Time::GetElapsedTime();
-
-	// 入力に応じて回転
-	if (Input::GetKeyDown(Keyboard::Up)) {
-		RotateY(XM_PIDIV4 * elapsedTime);
-	}
-	else if (Input::GetKeyDown(Keyboard::Down)) {
-		RotateY(-XM_PIDIV4 * elapsedTime);
-	}
-	if (Input::GetKeyDown(Keyboard::Right)) {
-		RotateX(XM_PIDIV4 * elapsedTime);
-		
-	}
-	else if (Input::GetKeyDown(Keyboard::Left)) {
-		RotateX(-XM_PIDIV4 * elapsedTime);
-	}
-
-	TargetingTransform();
 }
 
 /**
@@ -84,7 +78,7 @@ void TargetCamera::RotateX(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(OFFSET, m_transform->GetQuaternion());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetQuaternion());
 
 	// 各ベクトルを回転
 	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetQuaternion());
@@ -105,7 +99,7 @@ void TargetCamera::RotateY(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(m_right, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(OFFSET, m_transform->GetQuaternion());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetQuaternion());
 
 	// 各ベクトルを回転
 	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetQuaternion());

@@ -108,6 +108,11 @@ void GameScene::Update(const GameContext& gameContext)
     );
 
     m_gamePanel->Update(gameContext);
+
+    if (m_enemyController->GetHp() <= 0.0f)
+    {
+        m_pSceneController->RequestChangeScene(SceneID::Title);
+    }
 }
 
 

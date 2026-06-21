@@ -5,6 +5,7 @@
 SceneManager::SceneManager()
 	: m_pCurrentScene{ nullptr }
 	, m_pRequestScene{ nullptr }
+	, m_changeScreen(std::make_unique<FadeChangeScreen>())
 {
 }
 
@@ -18,8 +19,9 @@ SceneManager::~SceneManager()
  */
 void SceneManager::SetStartScene()
 {
-	m_pCurrentScene = m_scenes[SceneID::Game].get();
-	m_pCurrentScene->Initialize();
+	m_pCurrentScene = m_scenes[SceneID::Title].get();
+	Initialize();
+	m_changeScreen->StartFadeIn();
 }
 
 /**
@@ -39,12 +41,19 @@ void SceneManager::Initialize()
 void SceneManager::Update(const GameContext& gameContext)
 {
 	// 変更リクエストがnullじゃないなら変更
-	if (m_pRequestScene) {
-		ChangeScene();
+	if (m_pRequestScene) 
+	{
+		if (m_changeScreen->GetIsEndFadeOut())
+		{
+			ChangeScene();
+			m_changeScreen->StartFadeIn();
+		}
 	}
 
+	m_changeScreen->Update(gameContext);
+
 	// 更新
-	if (m_pCurrentScene && !m_pRequestScene) {
+	if (m_pCurrentScene) {
 		m_pCurrentScene->Update(gameContext);
 	}
 }
@@ -57,6 +66,8 @@ void SceneManager::Update(const GameContext& gameContext)
 void SceneManager::Render(const RenderContext& renderCotext)
 {
 	if (m_pCurrentScene) m_pCurrentScene->Draw(renderCotext);
+
+	m_changeScreen->Render(renderCotext);
 }
 
 /**
@@ -70,6 +81,10 @@ void SceneManager::CreateDeviceResources(const ResourceContext& resourceCotext)
 	{
 		scene.second->CreateDeviceResources(resourceCotext);
 	}
+
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(
+		resourceCotext.spriteManager->GetSprite("Screen")
+	);
 }
 
 /**
@@ -92,18 +107,16 @@ void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
  */
 void SceneManager::RequestChangeScene(SceneID nextSceneID)
 {
+	if (m_pRequestScene != nullptr) return;
+
 	auto it = m_scenes.find(nextSceneID);
 	// シーンが未登録
 	if (it != m_scenes.end())
 	{
 		// 登録されたリクエストシーンを取得
 		m_pRequestScene = it->second.get();
-	}
-	else {
-		//OutputDebugStringA(std::format(
-		//	"ID:{} のシーンは登録されていません\n",
-		//	nextSceneID
-		//).c_str());
+
+		m_changeScreen->StartFadeOut();
 	}
 }
 

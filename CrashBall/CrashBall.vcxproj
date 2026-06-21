@@ -183,6 +183,10 @@
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Game\Camera\TitleCamera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\CollisionManager\Collision.h" />
     <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h" />
     <ClInclude Include="Game\CollisionManager\CollisionManager.h">
@@ -207,6 +211,10 @@
     <ClInclude Include="Game\Component\Camera\GameCameraController.h" />
     <ClInclude Include="Game\Component\Camera\ICamera.h" />
     <ClInclude Include="Game\Component\Camera\TargetCamera.h" />
+    <ClInclude Include="Game\Component\Camera\TitleCameraController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Collider.h" />
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
@@ -245,6 +253,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\GameObject\IGameObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Object3D.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -309,19 +321,10 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\ModelRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Renderer\PrimitiveRendererManager.h" />
-    <ClInclude Include="Game\Renderer\SpriteRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Renderer\TextRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="Game\RendererManager\ModelRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\PrimitiveRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\SpriteRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\TextRendererManager.h" />
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Game\ResourceManager\SoundManager.h">
@@ -342,7 +345,15 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\Scene.h" />
+    <ClInclude Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Scene\SceneManager.h" />
+    <ClInclude Include="Game\Scene\TitleScene.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\IInputService.h" />
     <ClInclude Include="Game\ServiceLocator\ITimeService.h" />
     <ClInclude Include="Game\ServiceLocator\Service.h">
@@ -401,6 +412,7 @@
   <ItemGroup>
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game\Camera\TitleCamera.cpp" />
     <ClCompile Include="Game\CollisionManager\Collision.cpp" />
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
@@ -411,6 +423,7 @@
     <ClCompile Include="Game\Component\Ball\BallController.cpp" />
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TargetCamera.cpp" />
+    <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
@@ -430,6 +443,7 @@
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
+    <ClCompile Include="Game\GameObject\Object3D.cpp" />
     <ClCompile Include="Game\GameObject\Stage.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
@@ -440,10 +454,10 @@
     <ClCompile Include="Game\Geometory\Plane.cpp" />
     <ClCompile Include="Game\Geometory\Segment.cpp" />
     <ClCompile Include="Game\Geometory\Triangle.cpp" />
-    <ClCompile Include="Game\Renderer\ModelRendererManager.cpp" />
-    <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp" />
-    <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp" />
-    <ClCompile Include="Game\Renderer\TextRendererManager.cpp" />
+    <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp" />
+    <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
+    <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp" />
+    <ClCompile Include="Game\RendererManager\TextRendererManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
@@ -451,7 +465,9 @@
     <ClCompile Include="Game\ResourceManager\TextManager.cpp" />
     <ClCompile Include="Game\Scene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
+    <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />

@@ -29,9 +29,6 @@
     <Filter Include="Game\Common">
       <UniqueIdentifier>{b24820ea-9bdf-4bb6-bb58-a43386d3e661}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Renderer">
-      <UniqueIdentifier>{adad8435-81bf-4d1a-96fd-3dd0b57eedf7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\GameObject\Player">
       <UniqueIdentifier>{354947cc-107b-46c0-a892-008eaa1ac21c}</UniqueIdentifier>
     </Filter>
@@ -104,6 +101,12 @@
     <Filter Include="Game\Component\Default\Physics">
       <UniqueIdentifier>{fea7df6d-27c9-47e2-9050-f1dbd2e9f887}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\RendererManager">
+      <UniqueIdentifier>{adad8435-81bf-4d1a-96fd-3dd0b57eedf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\SceneChangeScreen">
+      <UniqueIdentifier>{af8eb5e6-9bf1-48ac-b1f9-2924b494329e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -147,14 +150,8 @@
     <ClInclude Include="Game\Common\InputSystem.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\PrimitiveRendererManager.h">
-      <Filter>Game\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\TimeManager.h">
       <Filter>Game\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Renderer\ModelRendererManager.h">
-      <Filter>Game\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\StateBase.h">
       <Filter>Game\State</Filter>
@@ -228,9 +225,6 @@
     <ClInclude Include="Game\ResourceManager\SpriteManager.h">
       <Filter>Game\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Renderer\SpriteRendererManager.h">
-      <Filter>Game\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Interface\ISpriteManager.h">
       <Filter>Game\Interface</Filter>
     </ClInclude>
@@ -248,9 +242,6 @@
     </ClInclude>
     <ClInclude Include="Game\Interface\ITextRendererManager.h">
       <Filter>Game\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Renderer\TextRendererManager.h">
-      <Filter>Game\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\SoundManager.h">
       <Filter>Game\ResourceManager</Filter>
@@ -390,6 +381,33 @@
     <ClInclude Include="Game\Component\Camera\TargetCamera.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Game\RendererManager\ModelRendererManager.h">
+      <Filter>Game\RendererManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RendererManager\PrimitiveRendererManager.h">
+      <Filter>Game\RendererManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RendererManager\SpriteRendererManager.h">
+      <Filter>Game\RendererManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RendererManager\TextRendererManager.h">
+      <Filter>Game\RendererManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\TitleScene.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Object3D.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\TitleCamera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Camera\TitleCameraController.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.h">
+      <Filter>Game\Scene\SceneChangeScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -431,12 +449,6 @@
     <ClCompile Include="Game\Common\InputSystem.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Renderer\PrimitiveRendererManager.cpp">
-      <Filter>Game\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Renderer\ModelRendererManager.cpp">
-      <Filter>Game\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\Player\Player.cpp">
       <Filter>Game\GameObject\Player</Filter>
     </ClCompile>
@@ -466,12 +478,6 @@
     </ClCompile>
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp">
       <Filter>Game\ResourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Renderer\SpriteRendererManager.cpp">
-      <Filter>Game\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Renderer\TextRendererManager.cpp">
-      <Filter>Game\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp">
       <Filter>Game\SoundPlayer</Filter>
@@ -565,6 +571,25 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp">
+      <Filter>Game\RendererManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp">
+      <Filter>Game\RendererManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp">
+      <Filter>Game\RendererManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RendererManager\TextRendererManager.cpp">
+      <Filter>Game\RendererManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Game\GameObject\Object3D.cpp" />
+    <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
+    <ClCompile Include="Game\Camera\TitleCamera.cpp" />
+    <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp">
+      <Filter>Game\Scene\SceneChangeScreen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

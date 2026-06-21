@@ -23,17 +23,6 @@ class  TargetCamera :
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	// オフセット
-	static constexpr DirectX::SimpleMath::Vector3 OFFSET 
-		= DirectX::SimpleMath::Vector3(0.0f, 0.0f, 12.0f);
-
-	// 初期化用の回転
-	const DirectX::SimpleMath::Quaternion InitRotate
-		= DirectX::SimpleMath::Quaternion(
-			std::sin(-XMConvertToRadians(15.0f) / 2.0f), 
-			0.0f, 0.0f, 
-			std::cos(-XMConvertToRadians(15.0f) / 2.0f));
-
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -43,6 +32,10 @@ private:
 	DirectX::SimpleMath::Vector3 m_forward;			// 右方向
 
 	mutable DirectX::SimpleMath::Matrix  m_view;	// ビュー行列
+
+	DirectX::SimpleMath::Vector3 m_forwardOffset;	// 前方向に直したオフセット
+	DirectX::SimpleMath::Quaternion m_initRotate;	// 初期化用の回転
+
 
 	DirectX::SimpleMath::Vector3 m_offset;	// オフセット
 	float m_zoomRate = 1.0f;				// オフセットの拡大倍率
@@ -59,7 +52,9 @@ private:
 public:
 
 	// コンストラクタ
-	TargetCamera(IGameObject* gameObject);
+	TargetCamera(
+		IGameObject* gameObject,
+		const DirectX::SimpleMath::Vector3& offest);
 
 	// デストラクタ
 	~TargetCamera();
