@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #pragma once
-#include "Game/Interface/ITextManager.h"
+#include "Game/ResourceManager/Interface/ITextManager.h"
 
 /**
  * @brief テキスト管理クラス

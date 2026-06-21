@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "Game/Interface/IModelManager.h"
-#include "Game/Interface/ISpriteManager.h"
-#include "Game/Interface/ITextManager.h"
+#include "Game/ResourceManager/Interface/IModelManager.h"
+#include "Game/ResourceManager/Interface/ISpriteManager.h"
+#include "Game/ResourceManager/Interface/ITextManager.h"
 
 /**
  * \brief リソース用のコンテキスト

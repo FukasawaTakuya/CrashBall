@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   Segment.h
- * \brief  線分クラス 
+ * \brief  線分 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -10,10 +10,12 @@
 #include "Game/Component/Default/Collider/Collider.h"
 
 /**
- * @brief 線分クラス
+ * @brief 線分
  */
 class Segment
 {
+
+	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// 始点
@@ -22,11 +24,14 @@ private:
 	// 終点までのベクトル
 	DirectX::SimpleMath::Vector3 m_vec;
 
+	// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
 	Segment() = default;
 
+	// 取得/設定
 public:
 
 	// 始点の取得

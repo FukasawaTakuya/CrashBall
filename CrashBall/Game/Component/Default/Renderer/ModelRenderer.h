@@ -8,8 +8,10 @@
 
 #pragma once
 
-#include "..\Component.h"
-#include "Game/Interface/IModelRendererManager.h"
+#include "Game/Component/Default/Component.h"
+#include "Game/RendererManager/Interface/IModelRendererManager.h"
+
+#include "Game/Component/Default/Physics/Transform.h"
 
  /**
  * @brief 基底オブジェクト
@@ -23,6 +25,8 @@ public:
 private:
 
 	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
+
+	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 	
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -38,7 +42,7 @@ public:
 public:
 
 	// 描画
-	void Render(IModelRendererManager* rendererManager, const DirectX::SimpleMath::Matrix& world);
+	void Render(IModelRendererManager* rendererManager);
 
 	// 取得/設定
 public:

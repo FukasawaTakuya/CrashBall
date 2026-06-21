@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Object3D.h
+ * \brief  3Dオブジェクト
+ *
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "GameObject.h"
@@ -6,7 +14,7 @@
 #include "Game/Component/Default/Physics/Transform.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief 3Dオブジェクト
  */
 class  Object3D : public GameObject {
 

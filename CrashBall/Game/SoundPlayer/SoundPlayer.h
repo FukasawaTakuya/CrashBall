@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include "Game/Interface/ISoundPlayer.h"
-#include "Game/Interface/ISoundManager.h"
+#include "Game/SoundPlayer/ISoundPlayer.h"
+#include "Game/SoundPlayer/ISoundManager.h"
 
 /**
  * @brief サウンド再生クラス

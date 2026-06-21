@@ -6,7 +6,7 @@
  * \date   May 2026
  *********************************************************************/
 
-#include "Game/Interface/ISpriteManager.h"
+#include "Game/ResourceManager/Interface/ISpriteManager.h"
 
 #pragma once
 

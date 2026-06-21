@@ -183,6 +183,7 @@
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="Game\Camera\TitleCamera.h">
       <SubType>
       </SubType>
@@ -196,7 +197,6 @@
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Color\GameColor.h" />
-    <ClInclude Include="Game\Common\GameCamera.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
@@ -284,46 +284,17 @@
     <ClInclude Include="Game\Geometory\Plane.h" />
     <ClInclude Include="Game\Geometory\Segment.h" />
     <ClInclude Include="Game\Geometory\Triangle.h" />
-    <ClInclude Include="Game\Interface\IModelManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\IModelRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundPlayer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ITextManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Interface\ITextRendererManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="Game\RendererManager\Interface\IModelRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\Interface\IPrimitiveRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\Interface\ISpriteRendererManager.h" />
+    <ClInclude Include="Game\RendererManager\Interface\ITextRendererManager.h" />
     <ClInclude Include="Game\RendererManager\ModelRendererManager.h" />
     <ClInclude Include="Game\RendererManager\PrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\SpriteRendererManager.h" />
     <ClInclude Include="Game\RendererManager\TextRendererManager.h" />
+    <ClInclude Include="Game\ResourceManager\Interface\IModelManager.h" />
+    <ClInclude Include="Game\ResourceManager\Interface\ISpriteManager.h" />
+    <ClInclude Include="Game\ResourceManager\Interface\ITextManager.h" />
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
     <ClInclude Include="Game\ResourceManager\SoundManager.h">
@@ -363,6 +334,8 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\SoundPlayer\ISoundManager.h" />
+    <ClInclude Include="Game\SoundPlayer\ISoundPlayer.h" />
     <ClInclude Include="Game\SoundPlayer\SoundPlayer.h">
       <SubType>
       </SubType>
@@ -411,12 +384,12 @@
   <ItemGroup>
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Game\Camera\TitleCamera.cpp" />
     <ClCompile Include="Game\CollisionManager\Collision.cpp" />
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
-    <ClCompile Include="Game\Common\GameCamera.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\Ball\BallController.cpp" />

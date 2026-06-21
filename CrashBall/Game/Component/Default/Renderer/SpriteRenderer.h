@@ -8,9 +8,9 @@
 
 #pragma once
 
-#include "../Component.h"
-#include "../Physics/RectTransform.h"
-#include "Game/Interface/ISpriteRendererManager.h"
+#include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
+#include "Game/RendererManager/Interface/ISpriteRendererManager.h"
 
  // 切り取りの基準位置
 enum class FillOrigin

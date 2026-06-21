@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Mesh.cpp
+ * \brief  メッシュコライダー
+ *
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "Mesh.h"
 
@@ -9,8 +17,8 @@ using namespace nlohmann;
  * \brief コンストラクタ
  * 
  */
-Mesh::Mesh(IGameObject* owner)
-	: Collider(owner, ColliderType::Mesh)
+Mesh::Mesh(IGameObject* gameObject)
+	: Collider(gameObject, ColliderType::Mesh)
 {
 }
 

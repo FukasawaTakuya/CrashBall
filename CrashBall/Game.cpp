@@ -55,7 +55,7 @@ void Game::Initialize(HWND window, int width, int height)
     // 各コンテキストの初期化
     m_gameContext =
     {
-
+        m_soundPlayer.get()
     };
     m_renderContext =
     {

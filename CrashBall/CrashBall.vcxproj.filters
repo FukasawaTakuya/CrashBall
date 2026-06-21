@@ -144,9 +144,6 @@
     <ClInclude Include="Game\GameObject\Ball.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Common\GameCamera.h">
-      <Filter>Game\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\Stage.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -381,32 +378,35 @@
     <ClInclude Include="Game\State\IStateMachine.h">
       <Filter>Game\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\IModelRendererManager.h">
+    <ClInclude Include="Game\RendererManager\Interface\IModelRendererManager.h">
       <Filter>Game\RendererManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\IPrimitiveRendererManager.h">
+    <ClInclude Include="Game\RendererManager\Interface\IPrimitiveRendererManager.h">
       <Filter>Game\RendererManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteRendererManager.h">
+    <ClInclude Include="Game\RendererManager\Interface\ISpriteRendererManager.h">
       <Filter>Game\RendererManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ITextRendererManager.h">
+    <ClInclude Include="Game\RendererManager\Interface\ITextRendererManager.h">
       <Filter>Game\RendererManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\IModelManager.h">
+    <ClInclude Include="Game\ResourceManager\Interface\IModelManager.h">
       <Filter>Game\ResourceManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISpriteManager.h">
+    <ClInclude Include="Game\ResourceManager\Interface\ISpriteManager.h">
       <Filter>Game\ResourceManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ITextManager.h">
+    <ClInclude Include="Game\ResourceManager\Interface\ITextManager.h">
       <Filter>Game\ResourceManager\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundManager.h">
+    <ClInclude Include="Game\SoundPlayer\ISoundManager.h">
       <Filter>Game\SoundPlayer</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Interface\ISoundPlayer.h">
+    <ClInclude Include="Game\SoundPlayer\ISoundPlayer.h">
       <Filter>Game\SoundPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\GameCamera.h">
+      <Filter>Game\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -439,9 +439,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Ball.cpp">
       <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Common\GameCamera.cpp">
-      <Filter>Game\Common</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage.cpp">
       <Filter>Game\GameObject</Filter>
@@ -590,14 +587,17 @@
     <ClCompile Include="Game\GameObject\Object3D.cpp">
       <Filter>Game\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Camera\TitleCamera.cpp">
-      <Filter>Game\Component\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Scene\TitleScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\TitleCamera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\GameCamera.cpp">
+      <Filter>Game\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

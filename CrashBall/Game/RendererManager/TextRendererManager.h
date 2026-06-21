@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Game/Interface/ITextRendererManager.h"
+#include "Game/RendererManager/Interface/ITextRendererManager.h"
 
 /**
  * @brief テキスト描画管理クラス

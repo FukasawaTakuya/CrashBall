@@ -1,9 +1,17 @@
+/*****************************************************************//**
+ * \file   Sphere.h
+ * \brief  球コライダー
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/Component/Default/Collider/Collider.h"
 
 /**
- * \brief 基底オブジェクト
+ * \brief 球コライダー
  */
 class Sphere
 	: public Collider
@@ -15,15 +23,11 @@ private:
 public:
 
 	// コンストラクタ
-	Sphere(
-		IGameObject* owner, 
-		float radius)
-		: Collider(owner, ColliderType::Sphere)
-		, m_radius{ radius }
-	{}
+	Sphere(IGameObject* gameObject, float radius);
+
 
 	// デストラクタ
-	~Sphere() = default;
+	~Sphere();
 
 public:
 

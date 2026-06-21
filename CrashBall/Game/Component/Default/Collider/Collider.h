@@ -51,7 +51,7 @@ protected:
 public:
 
 	// コンストラクタ
-	Collider(IGameObject* owner, ColliderType type);
+	Collider(IGameObject* gameObject, ColliderType type);
 
 	// デストラクタ
 	virtual ~Collider() = default;

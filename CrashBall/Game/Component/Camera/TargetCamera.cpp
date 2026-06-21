@@ -49,13 +49,16 @@ TargetCamera::~TargetCamera()
 void TargetCamera::Initialize()
 {
 	m_zoomRate = 1.0f;
+
+	// オフセットを回転
 	m_offset = XMVector3Rotate(m_forwardOffset, m_initRotate);
 
+	// 各ベクトルを回転
 	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward , m_initRotate);
 	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_initRotate);
 	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_initRotate);
 
-	//
+	// 回転の設定
 	m_transform->SetQuaternion(m_initRotate);
 }
 

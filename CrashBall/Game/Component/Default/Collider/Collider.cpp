@@ -1,4 +1,13 @@
-#include <pch.h>
+/*****************************************************************//**
+ * \file   Collider.cpp
+ * \brief  基底コライダー
+ *
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+
+#include "pch.h"
 #include "Collider.h"
 #include "Game/GameObject/GameObject.h"
 
@@ -7,13 +16,13 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
- * \param owner
- * \param type
+ * \param gameObject
+ * \param type コライダーのタイプ
  */
 Collider::Collider(
-	IGameObject* owner,
+	IGameObject* gameObject,
 	ColliderType type)
-	: Component(owner)
+	: Component(gameObject)
 	, m_type{ type }
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();
@@ -82,7 +91,7 @@ void Collider::EraseCollideObject(Collider* collider)
  * \brief 衝突中のオブジェクトか調べる
  * 
  * \param collider コライダー
- * \return 
+ * \return true 
  */
 bool Collider::IsCollideObject(Collider* collider) const
 {

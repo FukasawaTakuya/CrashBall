@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Game/Interface/IPrimitiveRendererManager.h"
+#include "Game/RendererManager/Interface/IPrimitiveRendererManager.h"
 
  /**
   * @brief プリミティブ描画管理クラス

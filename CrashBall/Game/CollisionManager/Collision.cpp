@@ -1,4 +1,13 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   Collision.h
+ * \brief  衝突用の関数一覧
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+
+#include "pch.h"
 #include "Collision.h"
 
 using namespace DirectX;
@@ -19,10 +28,6 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 	bool r = (distance <= sphere->GetRadius());
 
 	return r;
-}
-bool Collision::IsCollision(Plane* plane, Sphere* sphere)
-{
-	return IsCollision(sphere, plane);
 }
 
 /**
@@ -217,10 +222,6 @@ bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	}
 	// 衝突している面があるならtrue
 	return !mesh->GetCollideFace().empty();
-}
-bool Collision::IsCollision(Mesh* mesh, Sphere* sphere)
-{
-	return IsCollision(sphere, mesh);
 }
 
 

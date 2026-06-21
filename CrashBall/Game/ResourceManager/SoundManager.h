@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #pragma once
-#include "Game/Interface/ISoundManager.h"
+#include "Game/SoundPlayer/ISoundManager.h"
 
 /**
  * @brief サウンド管理クラス

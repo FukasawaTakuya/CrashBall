@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "../Component.h"
+#include "Game/Component/Default/Component.h"
 
 using namespace DirectX;
 

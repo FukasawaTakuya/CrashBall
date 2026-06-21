@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Collision.h
+ * \brief  衝突用の関数一覧
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/Component/Default/Collider/Collider.h"
@@ -17,6 +25,8 @@ namespace Collision {
 
 	// 線分と直線の衝突判定
 	bool IsCollision(Segment* segment, Plane* plane);
+
+	// 線分と平面の衝突判定(交点から求める)
 	bool IsCollision(Segment* segment, DirectX::SimpleMath::Vector3 intersection);
 
 	// 線分と三角形の衝突判定
@@ -30,14 +40,12 @@ namespace Collision {
 
 	// 球と平面の衝突判定
 	bool IsCollision(Sphere* sphere, Plane* plane);
-	bool IsCollision(Plane* plane, Sphere* sphere);
 
 	// 球と三角形の衝突判定
 	bool IsCollision(Sphere* sphere, Triangle* triangle);
 
 	// 球とメッシュの衝突判定
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
-	bool IsCollision(Mesh* mesh, Sphere* sphere);
 
 
 

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Game/Interface/ISpriteRendererManager.h"
+#include "Game/RendererManager/Interface/ISpriteRendererManager.h"
 
 /**
  * @brief スプライト描画管理クラス

@@ -2,7 +2,7 @@
  * \file   ResolveCollisionTable.cpp
  * \brief  衝突解決関数テーブル 
  * 
- * \author it252184
+ * \author 深沢拓矢
  * \date   May 2026
  *********************************************************************/
 

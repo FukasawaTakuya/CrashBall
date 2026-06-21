@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   TitleCameraController.h
+ * \brief  タイトルカメラ操作コンポーネント
+ * 
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/Component/Default/Component.h"
@@ -5,7 +13,7 @@
 #include "TargetCamera.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief 基底タイトルカメラ操作コンポーネント
  */
 class  TitleCameraController : public Component
 {
@@ -33,8 +41,10 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	void Initialize();
 
+	// 更新
 	void Update();
 
 	// 取得/設定

@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Game/Interface/IModelManager.h"
+#include "Game/ResourceManager/Interface/IModelManager.h"
 
 /**
  * @brief ƒ‚ƒfƒ‹ŠÇ—ƒNƒ‰ƒX

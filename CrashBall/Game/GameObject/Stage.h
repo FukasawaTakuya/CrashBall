@@ -1,4 +1,12 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   Stage.h
+ * \brief  ステージオブジェクト
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "GameObject.h"
 #include "Game/Component/Default/Collider/Mesh.h"

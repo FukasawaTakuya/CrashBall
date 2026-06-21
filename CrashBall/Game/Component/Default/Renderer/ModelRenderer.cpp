@@ -19,6 +19,7 @@ using namespace DirectX;
 ModelRenderer::ModelRenderer(IGameObject* gameObject)
 	: Component(gameObject)
 {
+	m_transform = GetGameObject()->GetComponent<Transform>();
 }
 
 /**
@@ -35,15 +36,13 @@ ModelRenderer::~ModelRenderer()
  * \param 描画管理
  * \param ワールド行列
  */
-void ModelRenderer::Render(
-	IModelRendererManager* rendererManager, 
-	const DirectX::SimpleMath::Matrix& world)
+void ModelRenderer::Render(IModelRendererManager* rendererManager)
 {
 	if (m_pModel == nullptr) return;
 
 	// 描画命令の登録
 	if(m_pModel != nullptr)
-		rendererManager->RegisterRenderCommand(m_pModel, world);
+		rendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 }
 
 /**

@@ -1,3 +1,12 @@
+/*****************************************************************//**
+ * \file   EnemyHpGaugeController.cpp
+ * \brief  敵HPゲージ操作コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
+
 #include "pch.h"
 #include "EnemyHpGaugeController.h"
 #include "Game/Engine/Time.h"

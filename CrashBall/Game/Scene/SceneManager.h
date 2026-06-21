@@ -11,21 +11,29 @@
 
 class Camera;
 
-class SceneManager : public ISceneController{
+class SceneManager : public ISceneController
+{
+
 private:
 
+	// シーンのキャッシュ
 	std::unordered_map<SceneID, std::unique_ptr<Scene>> m_scenes;
 
+	// 現在のシーン
 	Scene* m_pCurrentScene;
 
+	// シーン変更リクエスト
 	Scene* m_pRequestScene;
 
+	// シーン遷移スクリーン
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
 
 public:
 
+	// コンストラクタ
 	SceneManager();
 
+	// デストラクタ
 	~SceneManager();
 
 	// シーンの登録

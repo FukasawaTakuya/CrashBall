@@ -8,36 +8,11 @@
 
 #pragma once
 
-#include "Game/ServiceLocator/IInputService.h"
+#include "Game/SoundPlayer/ISoundPlayer.h"
 
 /**
  * @brief ゲームプレイ用のコンテキスト
  */
-class  GameContext {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	// メンバ関数の宣言 -------------------------------------------------
-	// コンストラクタ/デストラクタ
-public:
-
-	// コンストラクタ
-	GameContext() = default;
-
-	// デストラクタ
-	~GameContext() = default;
-
-	// 操作
-public:
-
-	// 取得/設定
-public:
-
-	// 内部実装
-private:
-
+struct  GameContext {
+	ISoundPlayer* soundManager = nullptr;	// サウンド再生
 };

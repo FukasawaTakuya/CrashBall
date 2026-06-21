@@ -1,11 +1,20 @@
+/*****************************************************************//**
+ * \file   Mesh.h
+ * \brief  メッシュコライダー
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 
 #pragma once
 
 #include "Game/Component/Default/Collider/Collider.h"
 #include "Game/Geometory/Triangle.h"
 #include "Game/Geometory/Segment.h"
+
 /**
- * \brief 基底オブジェクト
+ * \brief メッシュコライダー
  */
 class Mesh
 	: public Collider
@@ -27,7 +36,7 @@ private:
 public:
 
 	// コンストラクタ
-	Mesh(IGameObject* owner);
+	Mesh(IGameObject* gameObject);
 
 	// 操作
 public:

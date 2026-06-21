@@ -1,4 +1,13 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   EnemyController.cpp
+ * \brief  敵操作コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
+
+#include "pch.h"
 #include "EnemyController.h"
 #include "Game/State/Enemy/EnemyWanderState.h"
 

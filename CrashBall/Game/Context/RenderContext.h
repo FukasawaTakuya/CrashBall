@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include "Game/Interface/IModelRendererManager.h"
-#include "Game/Interface/IPrimitiveRendererManager.h"
-#include "Game/Interface/ISpriteRendererManager.h"
-#include "Game/Interface/ITextRendererManager.h"
+#include "Game/RendererManager/Interface/IModelRendererManager.h"
+#include "Game/RendererManager/Interface/IPrimitiveRendererManager.h"
+#include "Game/RendererManager/Interface/ISpriteRendererManager.h"
+#include "Game/RendererManager/Interface/ITextRendererManager.h"
 
 /**
  * @brief 描画用のコンテキスト
