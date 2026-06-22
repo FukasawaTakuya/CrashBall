@@ -58,12 +58,7 @@ public:
 	// デバッグ描画
 	void DebugRender(
 		const DirectX::SimpleMath::Vector2& position,
-		const DirectX::XMVECTORF32& color,
-		float rotate,
-		float scale,
-		const DirectX::SimpleMath::Vector2& origin,
-		float layerDepth,
-		const std::wstring& text);
+		const std::wstring& text) override;
 
 	using ITextRendererManager::DebugRender;
 

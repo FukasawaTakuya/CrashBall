@@ -43,9 +43,12 @@ void SceneManager::Update(const GameContext& gameContext)
 	// 変更リクエストがnullじゃないなら変更
 	if (m_pRequestScene) 
 	{
-		if (m_changeScreen->GetIsEndFadeOut())
+		// フェードアウトが完了したら
+		if (!m_changeScreen->GetIsFadeOut())
 		{
+			// シーン遷移
 			ChangeScene();
+			// フェードイン開始
 			m_changeScreen->StartFadeIn();
 		}
 	}
@@ -65,7 +68,7 @@ void SceneManager::Update(const GameContext& gameContext)
  */
 void SceneManager::Render(const RenderContext& renderCotext)
 {
-	if (m_pCurrentScene) m_pCurrentScene->Draw(renderCotext);
+	if (m_pCurrentScene) m_pCurrentScene->Render(renderCotext);
 
 	m_changeScreen->Render(renderCotext);
 }
@@ -107,6 +110,9 @@ void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
  */
 void SceneManager::RequestChangeScene(SceneID nextSceneID)
 {
+	// フェードインが終わっていなければリターン
+	if (m_changeScreen->GetIsFadeIn()) return;
+
 	if (m_pRequestScene != nullptr) return;
 
 	auto it = m_scenes.find(nextSceneID);

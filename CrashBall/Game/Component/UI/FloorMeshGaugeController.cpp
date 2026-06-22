@@ -78,10 +78,9 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	// ゲージの色
 	m_playerGaugeRenderer->SetColor(GameColor::PLAYER);
 	m_enemyGaugeRenderer->SetColor(GameColor::ENEMY);
-	// 基準位置
-	m_playerGaugeTransform->SetOrigin(Origin::LeftCenter);
-	m_enemyGaugeTransform->SetOrigin(Origin::LeftCenter);
-	m_enemyGaugeTransform->SetOrigin(Origin::RightCenter);
+	// 描画位置
+	m_playerGaugeTransform->SetPosition(GAUGE_POSITION);
+	m_enemyGaugeTransform->SetPosition(GAUGE_POSITION);
 	// 切り取りの起点
 	m_enemyGaugeRenderer->SetFillOrigin(FillOrigin::Right);
 
@@ -119,12 +118,6 @@ void FloorMeshGaugeController::Initialize()
 	// 切り取り量の設定
 	m_playerGaugeRenderer->SetFillAmount(0.0f);
 	m_enemyGaugeRenderer->SetFillAmount(0.0f);
-
-	// 描画位置の設定
-	m_playerGaugeTransform
-		->SetPosition({ m_gaugeTrackTransform->GetLeft(m_gaugeTrackRenderer->GetWidth()), GAUGE_POSITION.y });
-	m_enemyGaugeTransform
-		->SetPosition({ m_gaugeTrackTransform->GetRight(m_gaugeTrackRenderer->GetWidth()), GAUGE_POSITION.y });
 }
 
 /**

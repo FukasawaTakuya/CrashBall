@@ -121,7 +121,7 @@ void GameScene::Update(const GameContext& gameContext)
  * \brief 描画.
  * 
  */
-void GameScene::Draw(const RenderContext& renderContext)
+void GameScene::Render(const RenderContext& renderContext)
 {
     m_stage->Render(renderContext);
     m_player->Render(renderContext);

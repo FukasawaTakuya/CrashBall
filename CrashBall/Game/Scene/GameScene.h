@@ -66,7 +66,7 @@ public:
 	void Update(const GameContext& gameContext) override;
 
 	// ï`âÊ
-	void Draw(const RenderContext& renderContext) override;
+	void Render(const RenderContext& renderContext) override;
 
 	// èIóπ
 	void Finalize() override;

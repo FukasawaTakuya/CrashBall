@@ -60,7 +60,6 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
 		{
 			m_alpha = 0.0f;
 			m_isFadeIn = false;
-			m_isFadeIn = true;
 		}
 
 		m_spriteRenderer->SetAlpha(m_alpha);
@@ -75,7 +74,6 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
 		{
 			m_alpha = 1.0f;
 			m_isFadeOut = false;
-			m_isEndFadeOut = true;
 		}
 
 		m_spriteRenderer->SetAlpha(m_alpha);

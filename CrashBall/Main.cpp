@@ -188,7 +188,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOVE:
         if (game)
         {
-            game->OnWindowMoved();
+            //game->OnWindowMoved();
         }
         break;
 
@@ -224,10 +224,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         s_in_sizemove = false;
         if (game)
         {
-            RECT rc;
-            GetClientRect(hWnd, &rc);
+            int width = 800;
+            int height = 600;
+            if (game)
+                game->GetDefaultSize(width, height);
 
-            AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
+            RECT rc =
+            {
+                0, 0, width, height
+            };
+
+            //AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
 
             game->OnWindowSizeChanged(rc.right - rc.left, rc.bottom - rc.top);
         }

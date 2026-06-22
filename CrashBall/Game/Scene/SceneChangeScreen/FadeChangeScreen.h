@@ -65,7 +65,6 @@ public:
 	{
 		m_isFadeIn = true;
 		m_isFadeOut = false;
-		m_isEndFadeIn = false;
 		m_alpha = 1.0f;
 	}
 
@@ -74,7 +73,6 @@ public:
 	{
 		m_isFadeOut = true;
 		m_isFadeIn = false;
-		m_isEndFadeOut = false;
 		m_alpha = 0.0f;
 	}
 
@@ -82,15 +80,15 @@ public:
 public:
 
 	// フェードイン終了フラグの取得
-	bool GetIsEndFadeInEnd() const
+	bool GetIsFadeIn() const
 	{
-		return m_isEndFadeIn;
+		return m_isFadeIn;
 	}
 
 	// フェードアウト終了フラグの取得
-	bool GetIsEndFadeOut() const
+	bool GetIsFadeOut() const
 	{
-		return m_isEndFadeOut;
+		return m_isFadeOut;
 	}
 
 	// 内部実装

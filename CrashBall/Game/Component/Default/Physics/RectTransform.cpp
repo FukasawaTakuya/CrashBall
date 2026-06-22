@@ -22,6 +22,23 @@ RectTransform::RectTransform(IGameObject* gameObject)
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param rectTransform レクトトランスフォーム
+ */
+RectTransform::RectTransform(
+	IGameObject* gameObject,
+	const RectTransform& rectTransform)
+	: Component(gameObject)
+	, m_position(rectTransform.m_position)
+	, m_rotate	(rectTransform.m_rotate)
+	, m_scale	(rectTransform.m_scale)
+	, m_origin	(rectTransform.m_origin)
+{
+}
+
+/**
  * \brief デストラクタ
  * 
  */

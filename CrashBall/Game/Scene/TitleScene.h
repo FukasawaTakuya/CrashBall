@@ -1,20 +1,30 @@
+/*****************************************************************//**
+ * \file   TitleScene.h
+ * \brief  タイトルシーン
+ * 
+ * \author 深沢拓矢
+ * \date   June 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Scene.h"
 #include "Game/Camera/TitleCamera.h"
-#include "Game/Component/Camera/TargetCamera.h"
 #include "Game/GameObject/Object3D.h"
 #include "Game/GameObject/Stage.h"
 #include "Game/GameObject/Player/Player.h"
 #include "Game/GameObject/UIObject/Object2D.h"
+#include "Game/GameObject/UIObject/Button.h"
+
 /**
- * @brief 基底オブジェクト
+ * @brief タイトルシーン
  */
 class  TitleScene : public Scene {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
+	// タイトルロゴの初期位置
 	static constexpr DirectX::SimpleMath::Vector2 TITLE_INIT_POS
 		= DirectX::SimpleMath::Vector2(320.0f, 220.0f);
 
@@ -26,6 +36,7 @@ private:
 	std::unique_ptr<Player> m_player;
 	std::unique_ptr<Stage> m_stage;
 	std::unique_ptr<Object2D> m_titleSprite;
+	std::unique_ptr<Button> m_startButton;
 
 	RectTransform* m_titleSpriteTransform = nullptr;
 
@@ -44,19 +55,26 @@ public:
 	// 操作
 public:
 
-	void Initialize();
+	// 初期化
+	void Initialize() override;
 
-	void Update(const GameContext& gameContext);
+	// 更新
+	void Update(const GameContext& gameContext) override;
 
-	void Draw(const RenderContext& renderContext);
+	// 描画
+	void Render(const RenderContext& renderContext) override;
 
-	void Finalize();
+	// 終了処理
+	void Finalize() override;
 
-	void CreateDeviceResources(const ResourceContext& resourceContext);
+	// デバイス依存のリソース作成
+	void CreateDeviceResources(const ResourceContext& resourceContext) override;
 
-	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj);
+	// ウインドウサイズ依存のリソース作成
+	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
-	ICamera* GetCamera() const
+	// カメラの取得
+	ICamera* GetCamera() const override
 	{
 		return m_camera->GetComponent<TargetCamera>();
 	}

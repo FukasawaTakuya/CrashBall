@@ -104,20 +104,16 @@ void TextRendererManager::RegisterRenderCommand(
 
 void TextRendererManager::DebugRender(
 	const DirectX::SimpleMath::Vector2& position, 
-	const DirectX::XMVECTORF32& color, 
-	float rotate, float scale, 
-	const DirectX::SimpleMath::Vector2& origin, 
-	float layerDepth, 
 	const std::wstring& text)
 {
 	m_debugRenderCommad.emplace_back(
 		m_debugFont.get(),
 		position,
-		color,
-		rotate,
-		scale,
-		origin,
-		layerDepth,
+		DirectX::Colors::White,
+		0.0f,
+		1.0f,
+		DirectX::SimpleMath::Vector2::Zero,
+		1.0f,
 		text
 	);
 }

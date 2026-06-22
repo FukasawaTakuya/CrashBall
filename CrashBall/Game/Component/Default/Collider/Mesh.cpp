@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "Mesh.h"
+#include "Game/Json/JsonDeserializers.h"
 
 #include <fstream>
 

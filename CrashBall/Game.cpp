@@ -84,6 +84,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("Title", L"Resources/Sprite/Title.dds");
     m_spriteManager->RegisterFile("Screen", L"Resources/Sprite/Screen.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
+    m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
     // サウンドの作成
@@ -166,6 +167,17 @@ void Game::Render()
     // シーン内での描画命令登録
     m_sceneManager->Render(m_renderContext);
 
+
+#ifndef NDEBUG
+
+    // FPS表示
+    m_textRendererManager->DebugRender(
+        SimpleMath::Vector2::Zero,
+        L"FPS: {}", m_timer.GetFramesPerSecond()
+    );
+#endif // !NDEBUG
+
+
     // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
     // プリミティブの描画
@@ -178,6 +190,7 @@ void Game::Render()
     m_spriteRendererManager->Render(m_spriteBatch.get());
     // テキストの描画
     m_textRendererManager->Render(m_spriteBatch.get());
+
 
     // スプライト関連描画終了
     m_spriteBatch->End();
@@ -268,6 +281,7 @@ void Game::GetDefaultSize(int& width, int& height) const noexcept
     width = Screen::WIDTH;
     height = Screen::HEIGHT;
 }
+
 #pragma endregion
 
 #pragma region Direct3D Resources

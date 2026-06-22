@@ -10,6 +10,10 @@
 
 #include "Game/Component/Default/Component.h"
 
+#include "nlohmann/json.hpp"
+
+using namespace nlohmann;
+
 // 基準位置
 enum class Origin
 {
@@ -64,6 +68,11 @@ public:
 
 	// コンストラクタ
 	RectTransform(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	RectTransform(
+		IGameObject* gameObject, 
+		const RectTransform& rectTransform);
 
 	// デストラクタ
 	~RectTransform();
@@ -126,6 +135,25 @@ public:
 		return rightPos;
 	}
 
+	// 上端のY座標の取得
+	float GetTop(float height) const
+	{
+		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
+
+		float toptPos = m_position.y - height * offset.y;
+
+		return toptPos;
+	}
+
+	// 下端のY座標の取得
+	float GetBottom(float height) const
+	{
+		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
+
+		float bottomtPos = m_position.y + height * (1.0f - offset.y);
+
+		return bottomtPos;
+	}
 
 	// ポジションの設定
 	void SetPosition(const DirectX::SimpleMath::Vector2& position)
@@ -154,4 +182,6 @@ public:
 	// 内部実装
 private:
 
+public:
+	friend void to_json(json& j, const RectTransform& rectTransfrom);
 };

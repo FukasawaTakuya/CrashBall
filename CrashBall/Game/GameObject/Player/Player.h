@@ -22,7 +22,7 @@ class  Player : public Ball {
 private:
 
 	static constexpr float RADIUS = 20.0f;	// 半径
-	static constexpr float SCALE = 0.025;	// スケール
+	static constexpr float SCALE = 0.025f;	// スケール
 	
 	// データメンバの宣言 -----------------------------------------------
 private:

@@ -110,6 +110,9 @@
     <Filter Include="Game\ResourceManager\Interface">
       <UniqueIdentifier>{206385be-3e8a-4aab-b853-f57422c6219e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Json">
+      <UniqueIdentifier>{b7d91fb6-6dcf-43c6-a517-717a49bdaad5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -408,6 +411,18 @@
     <ClInclude Include="Game\Camera\GameCamera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\UI\ButtonController.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Button.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\JsonSerializers.h">
+      <Filter>Game\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\JsonDeserializers.h">
+      <Filter>Game\Json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -599,6 +614,16 @@
     <ClCompile Include="Game\Camera\GameCamera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Button.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\ButtonController.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\JsonSerializers.cpp">
+      <Filter>Game\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\JsonDeserializers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

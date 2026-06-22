@@ -50,12 +50,6 @@ void GameCameraController::Update()
 	float elapsedTime = Time::GetElapsedTime();
 
 	// 入力に応じて回転
-	if (Input::GetKeyDown(Keyboard::Up)) {
-		m_targetCamera->RotateY( ROTATE_ANGELRAD * elapsedTime);
-	}
-	else if (Input::GetKeyDown(Keyboard::Down)) {
-		m_targetCamera->RotateY(-ROTATE_ANGELRAD * elapsedTime);
-	}
 	if (Input::GetKeyDown(Keyboard::Right)) {
 		m_targetCamera->RotateX( ROTATE_ANGELRAD * elapsedTime);
 

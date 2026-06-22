@@ -40,7 +40,7 @@ public:
 
 	virtual void Update(const GameContext& gameContext) = 0;
 
-	virtual void Draw(const RenderContext& renderContext) = 0;
+	virtual void Render(const RenderContext& renderContext) = 0;
 
 	virtual void Finalize() = 0;
 

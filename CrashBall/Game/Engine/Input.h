@@ -13,12 +13,7 @@
 
 namespace Input
 {
-	/**
-	 * \brief キーコンディションの取得 
-	 * 
-	 * \param key キー
-	 * \return true キーが押されている
-	 */
+	// キーの状態を取得
 	inline bool GetKeyDown(DirectX::Keyboard::Keys key)
 	{
 		// 入力システム
@@ -32,13 +27,7 @@ namespace Input
 		else return false;
 	}
 
-	
-	/**
-	 * \brief キートリガーの取得
-	 * 
-	 * \param key キー
-	 * \return true キーが押された
-	 */
+	// キートリガーの取得
 	inline bool GetKeyTrigger(DirectX::Keyboard::Keys key)
 	{
 		// 入力システム
@@ -52,13 +41,7 @@ namespace Input
 		else return false;
 	}
 
-	
-	/**
-	 * \brief キーリリースの取得 
-	 * 
-	 * \param key　キー
-	 * \return true キーが離された
-	 */
+	// キーリリースの取得 
 	inline bool GetKeyRelease(DirectX::Keyboard::Keys key)
 	{
 		// 入力システム
@@ -73,11 +56,50 @@ namespace Input
 
 	}
 
-	/**
-	 * \brief マウス座標の取得
-	 * 
-	 * \return マウス座標
-	 */
+	// マウスボタンの状態を取得
+	inline bool GetMouseDown(MouseButton mouseButton)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば結果を返す
+		if (input != nullptr)
+		{
+			return input->GetMouseDown(mouseButton);
+		}
+		// なければfalse
+		else return false;
+	}
+
+	// マウスボタンのトリガーを取得
+	inline bool GetMouseTrigger(MouseButton mouseButton)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば結果を返す
+		if (input != nullptr)
+		{
+			return input->GetMouseTrigger(mouseButton);
+		}
+		// なければfalse
+		else return false;
+
+	}
+
+	// マウスボタンのリリースを取得
+	inline bool GetMouseRelease(MouseButton mouseButton)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば結果を返す
+		if (input != nullptr)
+		{
+			return input->GetMouseRelease(mouseButton);
+		}
+		// なければfalse
+		else return false;
+	}
+
+	// マウス座標の取得
 	inline DirectX::SimpleMath::Vector2 GetMousePos()
 	{
 		// 入力システム

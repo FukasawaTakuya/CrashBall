@@ -12,6 +12,13 @@
 
 #include "Game/ServiceLocator/Service.h"
 
+enum class MouseButton
+{
+	Right,
+	Middle,
+	Left,
+};
+
 /**
  * @brief 入力システムクラスのインターフェース
  */
@@ -45,6 +52,12 @@ public:
 	virtual bool GetKeyTrigger(DirectX::Keyboard::Keys key) = 0;
 	// キーリリースの取得
 	virtual bool GetKeyRelease(DirectX::Keyboard::Keys key) = 0;
+
+	virtual bool GetMouseDown(MouseButton mouseButton) = 0;
+	// マウスボタンのトリガーを取得
+	virtual bool GetMouseTrigger(MouseButton mouseButton) = 0;
+	// マウスボタンのリリースを取得
+	virtual bool GetMouseRelease(MouseButton mouseButton) = 0;
 
 	// マウス座標の取得
 	virtual DirectX::SimpleMath::Vector2 GetMousePos() = 0;
