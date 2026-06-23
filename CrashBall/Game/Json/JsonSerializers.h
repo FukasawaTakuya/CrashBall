@@ -5,6 +5,8 @@
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/Default/Physics/RigidBody.h"
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
+#include "Game/Component/Default/Renderer/ModelRenderer.h"
+#include "Game/Component/Default/Renderer/TextRenderer.h"
 
 using namespace nlohmann;
 
@@ -66,3 +68,11 @@ void to_json(json& j, const Rigidbody& transfrom);
 
 // SpriteRendererから変換
 void to_json(json& j, const SpriteRenderer& spriteRenderer);
+
+// ModelRendererから変換
+void to_json(json& j, const ModelRenderer& modelRenderer);
+
+// TextRendererから変換
+void to_json(json& j, const TextRenderer& textRenderer);
+
+

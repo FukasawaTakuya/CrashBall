@@ -72,4 +72,8 @@ public:
 	// “à•”ŽÀ‘•
 private:
 
+	// JsonConvert
+private:
+	friend void from_json(const json& j, ModelRenderer& modelRenderer);
+	friend void to_json(json& j, const ModelRenderer& modelRenderer);
 };

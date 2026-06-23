@@ -148,6 +148,7 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	// FloorMeshGauge ==================================================
 	m_gaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
+	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 
 	spriteManager->SetUpSpriteRenderer(
@@ -155,6 +156,9 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	);
 	spriteManager->SetUpSpriteRenderer(
 		m_enemyMeshGauge->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_playerMeshGauge->GetComponent<SpriteRenderer>()
 	);
 	spriteManager->SetUpSpriteRenderer(
 		m_gaugeBackGround->GetComponent<SpriteRenderer>()

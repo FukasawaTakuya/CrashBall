@@ -23,21 +23,29 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SpriteFont* m_pSpriteFont = nullptr;			// スプライトフォント
-	std::wstring m_text;									// テキスト
-	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;	// 色
-	float m_fontScale = 1.0f;								// フォントのスケール
-	float m_width = 0.0f;									// 横幅
-	float m_height = 0.0f;									// 縦幅
-	float m_layerDepth = 0.0f;								// 描画順
-	RectTransform* m_rectTransform = nullptr;				// トランスフォームのキャッシュ
+	DirectX::SpriteFont* m_pSpriteFont = nullptr;					// スプライトフォント
+	std::wstring m_text;											// テキスト
+	DirectX::SimpleMath::Color m_color = {1.0f, 1.0f, 1.0f, 1.0f };	// 色
+	float m_fontScale = 1.0f;										// フォントのスケール
+	float m_width = 0.0f;											// 横幅
+	float m_height = 0.0f;											// 縦幅
+	float m_layerDepth = 0.0f;										// 描画順
+
+	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 		
+	std::string m_fontKey;	// スプライトフォントのキー
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
 	TextRenderer(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	TextRenderer(
+		IGameObject* gameObject,
+		const TextRenderer& textRenderer);
 
 	// デストラクタ
 	~TextRenderer();
@@ -50,10 +58,19 @@ public:
 	// 取得/設定
 public:
 
+	// スプライトフォントのキーの取得 
+	std::string GetFontKey() const
+	{
+		return m_fontKey;
+	}
+
 	// スプライトフォントの設定
 	void SetSpriteFont(DirectX::SpriteFont* pSpriteFont)
 	{
 		m_pSpriteFont = pSpriteFont;
+
+		// 
+		CalcTextSize();
 	}
 
 	// 描画順の設定
@@ -77,14 +94,11 @@ public:
 	// テキストの設定
 	void SetText(const std::wstring& text)
 	{
-		if (m_pSpriteFont == nullptr) return;
-
 		m_text = text;
 
-		// サイズを求める
-		DirectX::SimpleMath::Vector2 textSize = m_pSpriteFont->MeasureString(m_text.c_str());
-		m_width = textSize.x;
-		m_height = textSize.y;
+		if (m_pSpriteFont == nullptr) return;
+
+		CalcTextSize();
 	}
 
 	// 書式付のテキストの設定
@@ -96,7 +110,26 @@ public:
 		SetText(std::format(format, std::forward<Args>(args)...));
 	}
 
+	// スプライトフォントのキーの設定
+	void SetFontKey(const std::string& fontKey)
+	{
+		m_fontKey = fontKey;
+	}
+
 	// 内部実装
 private:
+
+	// テキストのサイズを求める
+	void CalcTextSize()
+	{
+		DirectX::SimpleMath::Vector2 textSize = m_pSpriteFont->MeasureString(m_text.c_str());
+		m_width = textSize.x;
+		m_height = textSize.y;
+	}
+
+	// JsonConvert
+private:
+	friend void from_json(const json& j, TextRenderer& textRenderer);
+	friend void to_json(json& j, const TextRenderer& textRenderer);
 
 };

@@ -71,11 +71,24 @@ void from_json(const json& j, Rigidbody& rigidbody)
 void from_json(const json& j, SpriteRenderer& spriteRenderer)
 {
 	j.at("color").get_to(spriteRenderer.m_color);
-	j.at("width").get_to(spriteRenderer.m_width);
-	j.at("height").get_to(spriteRenderer.m_height);
 	j.at("spriteScale").get_to(spriteRenderer.m_spriteScale);
 	j.at("layerDepth").get_to(spriteRenderer.m_layerDepth);
 	j.at("fillOrigin").get_to(spriteRenderer.m_fillOrigin);
 	j.at("spriteEffects").get_to(spriteRenderer.m_spriteEffects);
 	j.at("spriteKey").get_to(spriteRenderer.m_spriteKey);
+}
+
+// ModelRendererへ変換
+void from_json(const json& j, ModelRenderer& modelRenderer)
+{
+	j.at("modelKey").get_to(modelRenderer.m_modelKey);
+}
+
+// TextRendererへ変換
+void from_json(const json& j, TextRenderer& textRenderer)
+{
+	j.at("text").get_to(textRenderer.m_text);
+	j.at("color").get_to(textRenderer.m_color);
+	j.at("fontScale").get_to(textRenderer.m_fontScale);
+	j.at("layerDepth").get_to(textRenderer.m_layerDepth);
 }

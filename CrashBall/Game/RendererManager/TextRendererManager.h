@@ -48,7 +48,7 @@ public:
 	void RegisterRenderCommand(
 		DirectX::SpriteFont* pSpriteFont,
 		const DirectX::SimpleMath::Vector2& position,
-		const DirectX::XMVECTORF32& color,
+		const DirectX::SimpleMath::Color& color,
 		float rotate,
 		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,

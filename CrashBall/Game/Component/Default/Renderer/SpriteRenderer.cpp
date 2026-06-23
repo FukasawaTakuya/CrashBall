@@ -33,8 +33,6 @@ SpriteRenderer::SpriteRenderer(
 	SpriteRenderer* spriteRenderer)
 	: Component(gamebject)
 	, m_color(spriteRenderer->m_color)
-	, m_width(spriteRenderer->m_width)
-	, m_height(spriteRenderer->m_height)
 	, m_spriteScale(spriteRenderer->m_spriteScale)
 	, m_layerDepth(spriteRenderer->m_layerDepth)
 	, m_fillOrigin(spriteRenderer->m_fillOrigin)

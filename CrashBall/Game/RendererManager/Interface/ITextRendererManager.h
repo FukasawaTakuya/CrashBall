@@ -7,7 +7,7 @@ struct TextRenderCommand
 {
 	DirectX::SpriteFont* pSpriteFont;		// スプライトフォント
 	DirectX::SimpleMath::Vector2 position;	// 描画位置
-	DirectX::XMVECTORF32 color;				// 色
+	DirectX::SimpleMath::Color color;		// 色
 	float rotate;							// 回転
 	DirectX::SimpleMath::Vector2 scale;		// スケール
 	DirectX::SimpleMath::Vector2 origin;	// 基準位置
@@ -49,7 +49,7 @@ public:
 	virtual void RegisterRenderCommand(
 		DirectX::SpriteFont* pSpriteFont,
 		const DirectX::SimpleMath::Vector2& position,
-		const DirectX::XMVECTORF32& color,
+		const DirectX::SimpleMath::Color& color,
 		float rotate,
 		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,

@@ -6,12 +6,31 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
- * \param コンポーネントを取得するゲームオブジェクト
+ * \param gameObject コンポーネントを取得するゲームオブジェクト
  */
 TextRenderer::TextRenderer(IGameObject* gameObject)
 	: Component(gameObject)
 {
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを取得するゲームオブジェクト
+ * \param textRenderer テキスト描画コンポーネント
+ */
+TextRenderer::TextRenderer(
+	IGameObject* gameObject, 
+	const TextRenderer& textRenderer)
+	: Component(gameObject)
+	, m_text(textRenderer.m_text)
+	, m_color(textRenderer.m_color)
+	, m_fontScale(textRenderer.m_fontScale)
+	, m_layerDepth(textRenderer.m_layerDepth)
+{
+	// テキストのサイズを求める
+	CalcTextSize();
 }
 
 /**

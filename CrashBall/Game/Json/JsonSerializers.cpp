@@ -76,12 +76,29 @@ void to_json(json& j, const SpriteRenderer& spriteRenderer)
 {
 	j = json{
 		{ "color",			spriteRenderer.m_color			},
-		{ "width",			spriteRenderer.m_width			},
-		{ "height",			spriteRenderer.m_height			},
 		{ "spriteScale",	spriteRenderer.m_spriteScale	},
 		{ "layerDepth",		spriteRenderer.m_layerDepth		},
 		{ "fillOrigin",		spriteRenderer.m_fillOrigin		},
 		{ "spriteEffects",	spriteRenderer.m_spriteEffects	},
 		{ "spriteKey",		spriteRenderer.m_spriteKey		}
+	};
+}
+
+// ModelRendererから変換
+void to_json(json& j, const ModelRenderer& modelRenderer)
+{
+	j = json{
+		{ "modelKey", modelRenderer.m_modelKey }
+	};
+}
+
+// TextRendererから変換
+void to_json(json& j, const TextRenderer& textRenderer)
+{
+	j = json{
+		{ "text",		textRenderer.m_text		  },
+		{ "color",		textRenderer.m_color	  },
+		{ "fontScale",	textRenderer.m_fontScale  },
+		{ "layerDepth", textRenderer.m_layerDepth }
 	};
 }

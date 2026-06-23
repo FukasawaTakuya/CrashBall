@@ -85,7 +85,7 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 void TextRendererManager::RegisterRenderCommand(
 	DirectX::SpriteFont* pSpriteFont,
 	const DirectX::SimpleMath::Vector2& position,
-	const DirectX::XMVECTORF32& color,
+	const DirectX::SimpleMath::Color& color,
 	float rotate,
 	const DirectX::SimpleMath::Vector2& scale,
 	const DirectX::SimpleMath::Vector2& origin,
@@ -111,7 +111,7 @@ void TextRendererManager::DebugRender(
 	m_debugRenderCommad.emplace_back(
 		m_debugFont.get(),
 		position,
-		DirectX::Colors::White,
+		DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
 		0.0f,
 		SimpleMath::Vector2::One,
 		DirectX::SimpleMath::Vector2::Zero,
