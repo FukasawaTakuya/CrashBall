@@ -25,9 +25,12 @@ private:
 		= std::unordered_map<std::string, std::wstring>;
 	using SpriteCollection
 		= std::unordered_map<std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>;
+	using SpriteSizeCollection = std::unordered_map<std::string, DirectX::SimpleMath::Vector2>;
 
 	FileCollection		m_files;	// ファイル名
 	SpriteCollection	m_sprites;	// スプライトのキャッシュ
+	
+	SpriteSizeCollection m_spriteSizes;	// スプライトのサイズ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -49,11 +52,14 @@ public:
 	// モデルの作成
 	void CreateSprite(ID3D11Device1* device);
 
+	// スプライト描画コンポーネントのセットアップ
+	void SetUpSpriteRenderer(SpriteRenderer* spriteRenderer) override;
+
 	// 取得/設定
 public:
 
 	// モデルの取得
-	ID3D11ShaderResourceView* GetSprite(const std::string& key) override ;
+	ID3D11ShaderResourceView* GetSprite(const std::string& key) override;
 
 	// 内部実装
 private:

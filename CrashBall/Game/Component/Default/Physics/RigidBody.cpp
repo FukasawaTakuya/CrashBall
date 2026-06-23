@@ -1,5 +1,5 @@
 ﻿/*****************************************************************//**
- * \file   RigidBody.cpp
+ * \file   Rigidbody.cpp
  * \brief  物理演算コンポーネントクラス
  * 
  * \author 深沢拓矢
@@ -19,7 +19,7 @@ using namespace DirectX;
  * \param gravityAcceleration 重力加速度
  * \param friction 摩擦係数
  */
-RigidBody::RigidBody(
+Rigidbody::Rigidbody(
 	IGameObject* gameObject,
 	float gravityAcceleration, 
 	float friction)
@@ -30,10 +30,27 @@ RigidBody::RigidBody(
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param rigidbody 物理演算コンポーネント
+ */
+Rigidbody::Rigidbody(
+	IGameObject* gameObject, 
+	Rigidbody* rigidbody)
+	: Component(gameObject)
+	, m_gravityAcceleration(rigidbody->m_gravityAcceleration)
+	, m_friction(rigidbody->m_friction)
+	, m_mass(rigidbody->m_mass)
+	, m_isDynamic(rigidbody->m_isDynamic)
+{
+}
+
+/**
  * \brief デストラクタ.
  * 
  */
-RigidBody::~RigidBody()
+Rigidbody::~Rigidbody()
 {
 }
 
@@ -42,7 +59,7 @@ RigidBody::~RigidBody()
  * 
  * \param accel 加速度
  */
-void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
+void Rigidbody::Accel(DirectX::SimpleMath::Vector3 accel)
 {
 	m_accel += accel;
 }
@@ -51,7 +68,7 @@ void RigidBody::Accel(DirectX::SimpleMath::Vector3 accel)
  * \brief 加速度の適用
  * 
  */
-void RigidBody::ApplyAccel()
+void Rigidbody::ApplyAccel()
 {
 	m_velocity += m_accel * Time::GetElapsedTime();
 }
@@ -60,7 +77,7 @@ void RigidBody::ApplyAccel()
  * \brief 重力の適用
  * 
  */
-void RigidBody::ApplyGravity()
+void Rigidbody::ApplyGravity()
 {
 	m_velocity += m_gravityAcceleration * 
 		SimpleMath::Vector3::Down * Time::GetElapsedTime();
@@ -70,7 +87,7 @@ void RigidBody::ApplyGravity()
  * \brief 摩擦の適用
  * 
  */
-void RigidBody::ApplyFriction()
+void Rigidbody::ApplyFriction()
 {
 	m_velocity -= m_velocity * m_friction * Time::GetElapsedTime();
 }

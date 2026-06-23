@@ -39,6 +39,8 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 	// テキスト描画
 	for (auto& renderCommand : m_renderCommad)
 	{
+		if (renderCommand.pSpriteFont == nullptr) continue;
+
 		renderCommand.pSpriteFont->DrawString(
 			spriteBatch,
 			renderCommand.text.c_str(),
@@ -85,7 +87,7 @@ void TextRendererManager::RegisterRenderCommand(
 	const DirectX::SimpleMath::Vector2& position,
 	const DirectX::XMVECTORF32& color,
 	float rotate,
-	float scale,
+	const DirectX::SimpleMath::Vector2& scale,
 	const DirectX::SimpleMath::Vector2& origin,
 	float layerDepth,
 	const std::wstring& text)
@@ -111,7 +113,7 @@ void TextRendererManager::DebugRender(
 		position,
 		DirectX::Colors::White,
 		0.0f,
-		1.0f,
+		SimpleMath::Vector2::One,
 		DirectX::SimpleMath::Vector2::Zero,
 		1.0f,
 		text

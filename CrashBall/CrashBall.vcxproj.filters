@@ -285,7 +285,7 @@
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\Physics\RigidBody.h">
+    <ClInclude Include="Game\Component\Default\Physics\Rigidbody.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\Transform.h">
@@ -423,6 +423,9 @@
     <ClInclude Include="Game\Json\JsonDeserializers.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Color\MyColor.h">
+      <Filter>Game\Color</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -530,7 +533,7 @@
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\Physics\RigidBody.cpp">
+    <ClCompile Include="Game\Component\Default\Physics\Rigidbody.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Default\Physics\Transform.cpp">
@@ -623,7 +626,9 @@
     <ClCompile Include="Game\Json\JsonSerializers.cpp">
       <Filter>Game\Json</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\JsonDeserializers.cpp" />
+    <ClCompile Include="Game\Json\JsonDeserializers.cpp">
+      <Filter>Game\Json</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

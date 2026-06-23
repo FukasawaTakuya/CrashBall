@@ -20,7 +20,7 @@ BallController::BallController(IGameObject* gameObject)
 {
 	// コンポーネントのキャッシュ
 	m_transform			= GetGameObject()->GetComponent<Transform>();
-	m_rigidbody			= GetGameObject()->GetComponent<RigidBody>();
+	m_rigidbody			= GetGameObject()->GetComponent<Rigidbody>();
 	m_sphereCollider	= GetGameObject()->GetComponent<Sphere>();
 	m_renderer			= GetGameObject()->GetComponent<ModelRenderer>();
 

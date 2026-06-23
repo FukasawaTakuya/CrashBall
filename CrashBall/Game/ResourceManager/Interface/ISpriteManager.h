@@ -10,6 +10,8 @@
 #include <d3d11.h>
 #include <string>
 
+class SpriteRenderer;
+
 /**
  * @brief スプライト管理クラスのインターフェース
  */
@@ -34,11 +36,14 @@ public:
 	// 操作
 public:
 
-	// スプライトの取得
-	virtual ID3D11ShaderResourceView* GetSprite(const std::string& key) = 0;
+	// スプライト描画コンポーネントのセットアップ
+	virtual void SetUpSpriteRenderer(SpriteRenderer* spriteRenderer) = 0;
 
 	// 取得/設定
 public:
+
+	// スプライトの取得
+	virtual ID3D11ShaderResourceView* GetSprite(const std::string& key) = 0;
 
 	// 内部実装
 private:

@@ -9,7 +9,7 @@ struct TextRenderCommand
 	DirectX::SimpleMath::Vector2 position;	// 描画位置
 	DirectX::XMVECTORF32 color;				// 色
 	float rotate;							// 回転
-	float scale;							// スケール
+	DirectX::SimpleMath::Vector2 scale;		// スケール
 	DirectX::SimpleMath::Vector2 origin;	// 基準位置
 	float layerDepth;						// 描画順
 	std::wstring text;						// テキスト
@@ -51,7 +51,7 @@ public:
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::XMVECTORF32& color,
 		float rotate,
-		float scale,
+		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,
 		float layerDepth,
 		const std::wstring& text) = 0;

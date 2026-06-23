@@ -73,7 +73,7 @@ void PlayerAttackState::OnEnter()
 void PlayerAttackState::Update()
 {
 	// 物理演算
-	RigidBody* rigidbody = m_stateContext.rigitbody;
+	Rigidbody* rigidbody = m_stateContext.rigitbody;
 	// トランスフォーム
 	Transform* transform = m_stateContext.transform;
 	// プレイヤー操作

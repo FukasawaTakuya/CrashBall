@@ -15,9 +15,9 @@
  // 切り取りの基準位置
 enum class FillOrigin
 {
-	CenterHorizon = 0,
+	Center = 0,
+	CenterHorizon,
 	CenterVertical,
-	Center,
 	Left,
 	Top,
 	Right,
@@ -29,9 +29,9 @@ enum class FillOrigin
 // 切り取りの基準位置を決めるためのオフセット
 const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin::OriginNum)]
 {
+	DirectX::SimpleMath::Vector4(-0.5f, -0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4(-0.5f,  0.0f, 0.5f, 0.0f),	// CenterHorizon
 	DirectX::SimpleMath::Vector4( 0.0f, -0.5f, 0.0f, 0.5f),	// CenterVartical
-	DirectX::SimpleMath::Vector4(-0.5f, -0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 1.0f, 0.0f),	// Left
 	DirectX::SimpleMath::Vector4( 0.0f,  0.0f, 0.0f, 1.0f),	// Top
 	DirectX::SimpleMath::Vector4(-1.0f,  0.0f, 0.0f, 0.0f),	// Right
@@ -41,9 +41,9 @@ const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin
 // 切り取りの基準位置を決めるためのもとになる切り取り領域
 const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::OriginNum)]
 {
+	DirectX::SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4(0.5f, 0.0f, 0.5f, 1.0f),	// CenterHorizon
 	DirectX::SimpleMath::Vector4(0.0f, 0.5f, 1.0f, 0.5f),	// CenterVartical
-	DirectX::SimpleMath::Vector4(0.5f, 0.5f, 0.5f, 0.5f),	// Center
 	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 0.0f, 1.0f),	// Left
 	DirectX::SimpleMath::Vector4(0.0f, 0.0f, 1.0f, 0.0f),	// Top
 	DirectX::SimpleMath::Vector4(1.0f, 0.0f, 1.0f, 1.0f),	// Right
@@ -61,17 +61,19 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	ID3D11ShaderResourceView* m_pSprite = nullptr;					// スプライトのポインタ
-	DirectX::XMVECTORF32 m_color = DirectX::Colors::White;			// 色
-	float m_width = 0.0f;											// 横幅
-	float m_height = 0.0f;											// 縦幅
-	DirectX::SimpleMath::Vector2 m_spriteScale = { 1.0f, 1.0f };	// スプライトのスケール
-	float m_layerDepth = 0.0f;										// 描画順
-	RectTransform* m_rectTransform = nullptr;						// トランスフォームのキャッシュ
-	FillOrigin m_fillOrigin = FillOrigin::Left;						// 切り取りの起点
-	float m_fillAmount = 1.0f;										// 切り取り量
-
+	ID3D11ShaderResourceView* m_pSprite		   = nullptr;							// スプライトのポインタ
+	DirectX::SimpleMath::Color m_color		   = { 1.0f, 1.0f, 1.0f, 1.0f };		// 色
+	float m_width							   = 0.0f;								// 横幅
+	float m_height							   = 0.0f;								// 縦幅
+	DirectX::SimpleMath::Vector2 m_spriteScale = DirectX::SimpleMath::Vector2::One;	// スプライトのスケール
+	float m_layerDepth						   = 0.0f;								// 描画順
+	FillOrigin m_fillOrigin					   = FillOrigin::Left;					// 切り取りの起点
+	float m_fillAmount						   = 1.0f;								// 切り取り量
 	DirectX::SpriteEffects m_spriteEffects = DirectX::SpriteEffects::SpriteEffects_None;// 反転するか
+
+	std::string m_spriteKey;	// スプライトのキー
+
+	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -79,6 +81,12 @@ public:
 
 	// コンストラクタ
 	SpriteRenderer(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	SpriteRenderer(
+		IGameObject* gamebject,
+		SpriteRenderer* spriteRenderer
+	);
 
 	// デストラクタ
 	~SpriteRenderer();
@@ -96,13 +104,13 @@ public:
 	float GetWidth() const
 	{
 		// 切り取りが横方向の場合
-		if (static_cast<int>(m_fillOrigin) % 2 == 0)
+		if (static_cast<int>(m_fillOrigin) % 2 == 1)
 		{
-			return m_width * m_spriteScale.x * m_rectTransform->GetScale() * m_fillAmount;
+			return m_width * m_spriteScale.x * m_rectTransform->GetScale().x * m_fillAmount;
 		}
 		else
 		{
-			return m_width * m_spriteScale.x * m_rectTransform->GetScale();
+			return m_width * m_spriteScale.x * m_rectTransform->GetScale().x;
 		}
 	}
 
@@ -110,13 +118,13 @@ public:
 	float GetHeight() const
 	{
 		// 切り取りが縦方向の場合
-		if (static_cast<int>(m_fillOrigin) % 2 == 1)
+		if (static_cast<int>(m_fillOrigin) % 2 == 0)
 		{
-			return m_height * m_spriteScale.y * m_rectTransform->GetScale() * m_fillAmount;
+			return m_height * m_spriteScale.y * m_rectTransform->GetScale().y * m_fillAmount;
 		}
 		else
 		{
-			return m_height * m_spriteScale.y * m_rectTransform->GetScale();
+			return m_height * m_spriteScale.y * m_rectTransform->GetScale().y;
 		}
 
 	}
@@ -127,26 +135,38 @@ public:
 		return m_fillAmount;
 	}
 
+	std::string GetSpriteKey() const
+	{
+		return m_spriteKey;
+	}
+
 	// スプライトの設定
-	void SetSprite(ID3D11ShaderResourceView* pSprite)
+	void SetSprite(
+		ID3D11ShaderResourceView* pSprite,
+		const DirectX::SimpleMath::Vector2& size)
 	{
 		// スプライトの設定
 		m_pSprite = pSprite;
 
 		// スプライトのサイズを求める
-		ID3D11Resource* resource;
-		m_pSprite->GetResource(&resource);
-		ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
-		D3D11_TEXTURE2D_DESC desc;
-		texture->GetDesc(&desc);
-		m_width = desc.Width;
-		m_height = desc.Height;
+		//ID3D11Resource* resource;
+		//m_pSprite->GetResource(&resource);
+		//ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
+		//D3D11_TEXTURE2D_DESC desc;
+		//texture->GetDesc(&desc);
+		//m_width = desc.Width;
+		//m_height = desc.Height;
+
+		m_width = size.x;
+		m_height = size.y;
+
+		//texture->Release();
 	}
 
 	// 描画順の設定
 	void SetLayerDepth(float layerDepth)
 	{
-		m_layerDepth = std::clamp(layerDepth, 0.0f, 1.0f);;
+		m_layerDepth = std::clamp(layerDepth, 0.0f, 1.0f);
 	}
 
 	// 色の設定
@@ -156,15 +176,22 @@ public:
 	}
 
 	// スプライトのスケールの設定
-	void SetSpriteScale(float spriteScale)
-	{
-		SetSpriteScale(DirectX::SimpleMath::Vector2::One * spriteScale);
-	}
-
-	// スプライトのスケールの設定
 	void SetSpriteScale(const DirectX::SimpleMath::Vector2& spriteScale)
 	{
 		m_spriteScale = spriteScale;
+	}
+
+	// スプライトのスケールの設定
+	void SetSpriteScale(float x, float y)
+	{
+		m_spriteScale.x = x;
+		m_spriteScale.y = y;
+	}
+
+	// スプライトのスケールの設定
+	void SetSpriteScale(float spriteScale)
+	{
+		m_spriteScale = DirectX::SimpleMath::Vector2::One * spriteScale;
 	}
 
 	// 切り取り量を設定
@@ -188,10 +215,20 @@ public:
 	// 透明度の設定
 	void SetAlpha(float alpha)
 	{
-		m_color.f[3] = std::clamp(alpha, 0.0f, 1.0f);;
+		m_color.w = std::clamp(alpha, 0.0f, 1.0f);;
+	}
+
+	void SetSpriteKey(const std::string& spriteKey)
+	{
+		m_spriteKey = spriteKey;
 	}
 
 	// 内部実装
 private:
 
+	// JsonConvert
+private:
+
+	friend void from_json(const json& j, SpriteRenderer& spriteRenderer);
+	friend void to_json(json& j, const SpriteRenderer& spriteRenderer);
 };

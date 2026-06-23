@@ -28,15 +28,20 @@ private:
 
 	DirectX::SimpleMath::Quaternion m_rotate;		// 回転
 
-	float m_scale = 1.0f;							// スケール
-
+	DirectX::SimpleMath::Vector3 m_scale 
+		= DirectX::SimpleMath::Vector3::One;		// スケール
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Transform(IGameObject* owner);
+	Transform(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	Transform(
+		IGameObject* gameObject,
+		Transform* transform);
 
 	// デストラクタ
 	~Transform();
@@ -66,9 +71,15 @@ public:
 	}
 
 	// スケールの取得
-	float GetScale() const
+	DirectX::SimpleMath::Vector3 GetScale() const
 	{
 		return m_scale;
+	}
+
+	// 最大のスケールを取得
+	float GetMaxScale() const
+	{
+		return std::max(std::max(m_scale.x, m_scale.y), m_scale.z);
 	}
 
 	// ワールド行列の取得
@@ -103,12 +114,30 @@ public:
 	}
 
 	// スケールの設定
-	void SetScale(float scale)
+	void SetScale(const DirectX::SimpleMath::Vector3& scale)
 	{
 		m_scale = scale;
+	}
+
+	// スケールの設定
+	void SetScale(float x, float y, float z)
+	{
+		m_scale.x = x;
+		m_scale.y = y;
+		m_scale.z = z;
+	}
+
+	// スケールの設定
+	void SetScale(float scale)
+	{
+		m_scale = DirectX::SimpleMath::Vector3::One * scale;
 	}
 
 	// 内部実装
 private:
 
+	// JsonConvert
+private:
+	friend void from_json(const json& j, Transform& transform);
+	friend void to_json(json& j, const Transform& transfrom);
 };

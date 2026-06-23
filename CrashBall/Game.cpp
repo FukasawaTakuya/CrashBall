@@ -136,7 +136,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_inputSystem->Update();
     m_soundPlayer->Update();
 
-    m_sceneManager->Update(m_gameContext);
+   m_sceneManager->Update(m_gameContext);
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());

@@ -7,5 +7,5 @@
 struct EnemyStateContext
 {
 	Transform* trasnform;
-	RigidBody* rigidbody;
+	Rigidbody* rigidbody;
 };

@@ -24,7 +24,7 @@ PlayerController::PlayerController(IGameObject* gameObject)
 	// プレイヤーステート用のコンテキスト
 	PlayerStateContext stateContext
 	{
-		GetGameObject()->GetComponent<RigidBody>(),
+		GetGameObject()->GetComponent<Rigidbody>(),
 		GetGameObject()->GetComponent<Transform>(),
 		GetGameObject()->GetComponent<BallController>(),
 		GetGameObject()->GetComponent<PlayerStatusController>(),
@@ -56,7 +56,7 @@ void PlayerController::Initialize()
 	// 初期位置に設定
 	GetGameObject()->GetComponent<Transform>()->SetPosition(INIT_POSITION);
 	// 速度を0に設定
-	GetGameObject()->GetComponent<RigidBody>()->SetVelocity(SimpleMath::Vector3::Zero);
+	GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**

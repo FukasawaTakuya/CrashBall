@@ -197,6 +197,7 @@
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Color\GameColor.h" />
+    <ClInclude Include="Game\Color\MyColor.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
@@ -220,7 +221,7 @@
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
-    <ClInclude Include="Game\Component\Default\Physics\RigidBody.h" />
+    <ClInclude Include="Game\Component\Default\Physics\Rigidbody.h" />
     <ClInclude Include="Game\Component\Default\Physics\Transform.h" />
     <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h" />
@@ -411,7 +412,7 @@
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Default\Component.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp" />
-    <ClCompile Include="Game\Component\Default\Physics\RigidBody.cpp" />
+    <ClCompile Include="Game\Component\Default\Physics\Rigidbody.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\Transform.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp" />

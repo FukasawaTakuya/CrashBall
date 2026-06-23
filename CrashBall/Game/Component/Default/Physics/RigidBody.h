@@ -13,7 +13,7 @@
 /**
  * \brief 物理演算コンポーネント
  */
-class  RigidBody : public Component {
+class  Rigidbody : public Component {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -38,13 +38,19 @@ private:
 public:
 
 	// コンストラクタ
-	RigidBody(
+	Rigidbody(
 		IGameObject* gameObject, 
 		float gravityAcceleration, 
 		float friction);
 
+	// コピーコンストラクタ
+	Rigidbody(
+		IGameObject* gameObject,
+		Rigidbody* rigidbody
+	);
+
 	// デストラクタ
-	~RigidBody();
+	~Rigidbody();
 
 	// 操作
 public:
@@ -79,4 +85,8 @@ public:
 	// 内部実装
 private:
 
+	// JsonConvert
+private:
+	friend void to_json(json& j, const Rigidbody& transfrom);
+	friend void from_json(const json& j, Rigidbody& rigidbody);
 };

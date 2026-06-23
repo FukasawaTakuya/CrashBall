@@ -51,7 +51,7 @@ RectTransform::~RectTransform()
  * 
  * \param trans 移動ベクトル
  */
-void RectTransform::Translate(DirectX::SimpleMath::Vector2 trans)
+void RectTransform::Translate(const DirectX::SimpleMath::Vector2& trans)
 {
 	m_position += trans;
 }

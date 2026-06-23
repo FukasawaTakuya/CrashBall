@@ -32,7 +32,7 @@ void Mesh::LoadJson(const wchar_t* fileName)
 {
 	std::ifstream ifs(fileName);
 
-	float scale = m_transform->GetScale();
+	float scale = m_transform->GetMaxScale();
 
 	if (!ifs.is_open()) {
 		return;

@@ -38,7 +38,7 @@ public:
 	DirectX::SimpleMath::Vector3 GetPosition() const { return m_transform->GetPosition(); }
 
 	// ”¼Œa‚Ìæ“¾
-	float GetRadius() const { return m_radius * m_transform->GetScale(); }
+	float GetRadius() const { return m_radius * m_transform->GetMaxScale(); }
 
 	// ”¼Œa‚Ìİ’è
 	void SetRadius(float radius) { m_radius = radius; }

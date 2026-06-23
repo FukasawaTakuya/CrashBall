@@ -94,7 +94,7 @@ public:
 	void SetLayerDepth(float layerDepth)
 	{
 		m_spriteRenderer->SetLayerDepth(layerDepth);
-		GetGameObject()->GetComponent<TextRenderer>()->SetLayerDepth(layerDepth + 0.1f);
+		GetGameObject()->GetComponent<TextRenderer>()->SetLayerDepth(layerDepth + 0.001f);
 	}
 
 	// 内部実装

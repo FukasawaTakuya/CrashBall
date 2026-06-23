@@ -25,7 +25,7 @@ enum class Origin
 	LeftBottom,
 	RightTop,
 	RightCenter,
-	RigitBottom,
+	RightBottom,
 	OriginNum,
 };
 
@@ -56,11 +56,12 @@ private:
 
 	DirectX::SimpleMath::Vector2 m_position;	// 位置
 
-	float m_rotate = 0.0f;		// 回転
+	float m_rotate = 0.0f;						// 回転
 
-	float m_scale = 1.0f;		// スケール
+	DirectX::SimpleMath::Vector2 m_scale
+		= DirectX::SimpleMath::Vector2::One;	// スケール
 
-	Origin m_origin = Origin::Center;	// 基準位置
+	Origin m_origin = Origin::Center;			// 基準位置
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -81,7 +82,7 @@ public:
 public:
 
 	// 移動
-	void Translate(DirectX::SimpleMath::Vector2 trans);
+	void Translate(const DirectX::SimpleMath::Vector2& trans);
 
 	// 回転
 	void Rotate(float rotate);
@@ -102,7 +103,7 @@ public:
 	}
 
 	// スケールの取得
-	float GetScale() const
+	DirectX::SimpleMath::Vector2 GetScale() const
 	{
 		return m_scale;
 	}
@@ -168,9 +169,22 @@ public:
 	}
 
 	// スケールの設定
-	void SetScale(float scale)
+	void SetScale(const DirectX::SimpleMath::Vector2& scale)
 	{
 		m_scale = scale;
+	}
+
+	// スケールの設定
+	void SetScale(float x, float y)
+	{
+		m_scale.x = x;
+		m_scale.y = y;
+	}
+
+	// スケールの設定
+	void SetScale(float scale)
+	{
+		m_scale = DirectX::SimpleMath::Vector2::One * scale;
 	}
 
 	// 基準位置の設定
@@ -182,6 +196,8 @@ public:
 	// 内部実装
 private:
 
-public:
+	// JsonConvert
+private:
 	friend void to_json(json& j, const RectTransform& rectTransfrom);
+	friend void from_json(const json& j, RectTransform& triangle);
 };

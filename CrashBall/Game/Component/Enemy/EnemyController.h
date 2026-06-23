@@ -38,7 +38,7 @@ private:
 	std::unique_ptr<StateMachine<EnemyController>> m_stateMachine;	// ステートマシン
 
 	Transform* m_transform			 = nullptr;		// トランスフォームコンポーネントのキャッシュ
-	RigidBody* m_rigidbody			 = nullptr;		// 物理演算コンポーネントのキャッシュ
+	Rigidbody* m_rigidbody			 = nullptr;		// 物理演算コンポーネントのキャッシュ
 	ModelRenderer* m_modelRenderer	 = nullptr;		// モデル描画コンポーネントのキャッシュ
 	BallController* m_ballController = nullptr;		// ボール操作コンポーネントのキャッシュ
 

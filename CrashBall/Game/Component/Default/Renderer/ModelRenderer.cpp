@@ -23,6 +23,20 @@ ModelRenderer::ModelRenderer(IGameObject* gameObject)
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObjectコンポーネントを所有するゲームオブジェクト
+ * \param modelKey モデルのキー
+ */
+ModelRenderer::ModelRenderer(
+	IGameObject* gameObject, 
+	const std::string& modelKey)
+	: Component(gameObject)
+	, m_modelKey(modelKey)
+{
+}
+
+/**
  * \brief デストラクタ.
  * 
  */

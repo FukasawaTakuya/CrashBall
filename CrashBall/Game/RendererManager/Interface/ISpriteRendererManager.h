@@ -19,11 +19,11 @@ struct SpriteRenderCommand
 	ID3D11ShaderResourceView* pSprite;		// スプライト
 	DirectX::SimpleMath::Vector2 position;	// 描画位置
 	RECT srcRect;							// 切り取り領域
-	DirectX::XMVECTORF32 color;				// 色
+	DirectX::SimpleMath::Color color;		// 色
 	float rotate;							// 回転
 	DirectX::SimpleMath::Vector2 scale;		// スケール
 	DirectX::SimpleMath::Vector2 origin;	// 基準位置
-	DirectX::SpriteEffects spriteEffects;			// 反転
+	DirectX::SpriteEffects spriteEffects;	// 反転
 	float layerDepth;						// 描画順
 };
 
@@ -59,7 +59,7 @@ public:
 		ID3D11ShaderResourceView* pSprite,
 		const DirectX::SimpleMath::Vector2& position,
 		const RECT& srcRect,
-		const DirectX::XMVECTORF32& color,
+		const DirectX::SimpleMath::Color& color,
 		float rotate,
 		float scale,
 		const DirectX::SimpleMath::Vector2& origin,
@@ -70,7 +70,7 @@ public:
 		ID3D11ShaderResourceView* pSprite,
 		const DirectX::SimpleMath::Vector2& position,
 		const RECT& srcRect,
-		const DirectX::XMVECTORF32& color,
+		const DirectX::SimpleMath::Color& color,
 		float rotate,
 		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,

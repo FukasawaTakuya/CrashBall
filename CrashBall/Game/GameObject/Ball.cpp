@@ -17,7 +17,7 @@ Ball::Ball(float radius, ObjectTag tag)
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	AddComponent<RigidBody>(GRAVITY, FRICTION);
+	AddComponent<Rigidbody>(GRAVITY, FRICTION);
 	AddComponent<Sphere>(radius);
 	AddComponent<ModelRenderer>();
 

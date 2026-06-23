@@ -133,22 +133,23 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 	playerRenderer->SetModel(resourceContext.modelManager->GetModel("player"));
 	playerRenderer->SetDiffuseColor(GameColor::PLAYER);
 
-	auto& spriteManager = resourceContext.spriteManager;
+	ISpriteManager* spriteManager = resourceContext.spriteManager;
 
-	m_titleSprite->GetComponent<SpriteRenderer>()->SetSprite(
-		spriteManager->GetSprite("Title")
+	m_titleSprite->GetComponent<SpriteRenderer>()->SetSpriteKey("Title");
+	m_startButton->GetComponent<SpriteRenderer>()->SetSpriteKey("Button");
+
+	spriteManager->SetUpSpriteRenderer(
+		m_titleSprite->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_startButton->GetComponent<SpriteRenderer>()
 	);
 
-	m_startButton->GetComponent<SpriteRenderer>()->SetSprite(
-		spriteManager->GetSprite("Button")
-	);
 	m_startButton->GetComponent<TextRenderer>()->SetSpriteFont(
 		resourceContext.textManager->GetSpriteFont("default")
 	);
 
 	m_startButton->GetComponent<TextRenderer>()->SetText(L"START");
-
-
 }
 
 /**

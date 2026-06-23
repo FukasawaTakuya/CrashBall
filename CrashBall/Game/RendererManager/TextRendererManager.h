@@ -50,7 +50,7 @@ public:
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::XMVECTORF32& color,
 		float rotate,
-		float scale,
+		const DirectX::SimpleMath::Vector2& scale,
 		const DirectX::SimpleMath::Vector2& origin,
 		float layerDepth,
 		const std::wstring& text) override;

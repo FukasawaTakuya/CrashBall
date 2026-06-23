@@ -54,7 +54,7 @@ void PlayerMoveState::OnEnter()
 void PlayerMoveState::Update()
 {
     // 物理演算コンポーネント
-    RigidBody* rigidbody = m_stateContext.rigitbody;
+    Rigidbody* rigidbody = m_stateContext.rigitbody;
     // プレイヤー操作コンポーネント
     PlayerController* playerController = m_stateContext.playerController;
     // プレイヤーステータス操作コンポーネント

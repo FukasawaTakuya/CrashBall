@@ -55,7 +55,7 @@ void EnemyWanderState::OnEnter()
 void EnemyWanderState::Update()
 {
 	Transform* transform = m_stateContext.trasnform;
-	RigidBody* rigidbody = m_stateContext.rigidbody;
+	Rigidbody* rigidbody = m_stateContext.rigidbody;
 
 	m_timer += Time::GetElapsedTime();
 

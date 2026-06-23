@@ -34,7 +34,7 @@ private:
 	bool m_isGround = false;							// 地上フラグ
 
 	Transform*		m_transform			= nullptr;		// トランスフォームのコンポーネント
-	RigidBody*		m_rigidbody			= nullptr;		// 物理演算のコンポーネント
+	Rigidbody*		m_rigidbody			= nullptr;		// 物理演算のコンポーネント
 	Sphere*			m_sphereCollider	= nullptr;		// 球のコライダーのコンポーネント
 	ModelRenderer*	m_renderer			= nullptr;		// モデル描画のコンポーネント
 

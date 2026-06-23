@@ -143,38 +143,54 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
-	ID3D11ShaderResourceView* gaugeSprite =
-		spriteManager->GetSprite("Gauge");
-	ID3D11ShaderResourceView* attakcIconSprite =
-		spriteManager->GetSprite("AttackIcon");
 	SpriteFont* defaultFont = textManager->GetSpriteFont("default");
 
+	// FloorMeshGauge ==================================================
+	m_gaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
+	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
+	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 
-	m_gaugeTrack->
-		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
-	m_playerMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
-	m_enemyMeshGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
-	m_gaugeBackGround->
-		GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	spriteManager->SetUpSpriteRenderer(
+		m_gaugeTrack->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_enemyMeshGauge->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_gaugeBackGround->GetComponent<SpriteRenderer>()
+	);
 
 	m_playerMeshNumText
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 	m_enemyMeshNumText
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 
-	m_attackGauge->
-		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
-	m_attackGaugeTrack->
-		GetComponent<SpriteRenderer>()->SetSprite(attakcIconSprite);
+	// AttackGauge ==================================================
+
+	m_attackGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("AttackIcon");
+	m_attackGaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("AttackIcon");
+
+	spriteManager->SetUpSpriteRenderer(
+		m_attackGauge->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_attackGaugeTrack->GetComponent<SpriteRenderer>()
+	);
+
 	m_attackPowerText
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 
-	m_enemyHpGauge
-		->GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
-	m_enemyHpGaugeTrack
-		->GetComponent<SpriteRenderer>()->SetSprite(gaugeSprite);
+	// EnemyHpGauge ==================================================
+	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
+	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
+
+	spriteManager->SetUpSpriteRenderer(
+		m_enemyHpGauge->GetComponent<SpriteRenderer>()
+	);
+	spriteManager->SetUpSpriteRenderer(
+		m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()
+	);
+
 	m_enemyHpText
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 }

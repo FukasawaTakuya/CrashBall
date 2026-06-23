@@ -145,7 +145,7 @@ void GameScene::Finalize()
  */
 void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
-    auto modelManager = resourceContext.modelManager;
+    auto& modelManager = resourceContext.modelManager;
 
     // モデルの設定
     m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("player"));

@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   TargetCamera.cpp
  * \brief  ターゲットカメラコンポーネント
  *
@@ -82,6 +82,10 @@ void TargetCamera::RotateX(float angleRad)
 
 	// オフセットを回転
 	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetRotate());
+
+
+	auto rotate = m_transform->GetRotate();
+	rotate.z = 0.0f;
 
 	// 各ベクトルを回転
 	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetRotate());

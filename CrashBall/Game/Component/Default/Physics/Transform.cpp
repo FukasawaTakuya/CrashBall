@@ -12,9 +12,24 @@
 /**
  * \brief コンストラクタ
  * 
+ * \param コンポーネントを所有するゲームオブジェクト
  */
-Transform::Transform(IGameObject* owner)
-	: Component(owner)
+Transform::Transform(IGameObject* gameObejct)
+	: Component(gameObejct)
+{
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param transform トランスフォームコンポーネント
+ */
+Transform::Transform(IGameObject* gameObject, Transform* transform)
+	: Component(gameObject)
+	, m_position(transform->m_position)
+	, m_rotate(transform->m_rotate)
+	, m_scale(transform->m_scale)
 {
 }
 

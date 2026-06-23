@@ -6,7 +6,6 @@
  * \date   April 2026
  *********************************************************************/
 
-
 #include "pch.h"
 #include "Collision.h"
 
@@ -234,7 +233,7 @@ bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
 {
 	Transform* transform = sphere->GetGameObject()->GetComponent<Transform>();
-	RigidBody* rigidbody = sphere->GetGameObject()->GetComponent<RigidBody>();
+	Rigidbody* rigidbody = sphere->GetGameObject()->GetComponent<Rigidbody>();
 
 	// 球と平面の距離を求める
 	float distance = plane->CalcLength(transform->GetPosition());
@@ -280,8 +279,8 @@ void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 	// 各コンポーネントの取得
 	Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
 	Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
-	RigidBody* rigidbody1 = sphere1->GetGameObject()->GetComponent<RigidBody>();
-	RigidBody* rigidbody2 = sphere2->GetGameObject()->GetComponent<RigidBody>();
+	Rigidbody* rigidbody1 = sphere1->GetGameObject()->GetComponent<Rigidbody>();
+	Rigidbody* rigidbody2 = sphere2->GetGameObject()->GetComponent<Rigidbody>();
 
 	// 座標の差
 	SimpleMath::Vector3 delta = sphere1->GetPosition() - sphere2->GetPosition();

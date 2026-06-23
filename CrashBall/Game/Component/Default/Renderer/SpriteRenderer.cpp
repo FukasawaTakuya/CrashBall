@@ -23,6 +23,27 @@ SpriteRenderer::SpriteRenderer(IGameObject* gameObject)
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gamebject コンポーネントを所有しているオブジェクト
+ * \param spriteRenderer スプライト描画コンテキスト
+ */
+SpriteRenderer::SpriteRenderer(
+	IGameObject* gamebject, 
+	SpriteRenderer* spriteRenderer)
+	: Component(gamebject)
+	, m_color(spriteRenderer->m_color)
+	, m_width(spriteRenderer->m_width)
+	, m_height(spriteRenderer->m_height)
+	, m_spriteScale(spriteRenderer->m_spriteScale)
+	, m_layerDepth(spriteRenderer->m_layerDepth)
+	, m_fillOrigin(spriteRenderer->m_fillOrigin)
+	, m_spriteEffects(spriteRenderer->m_spriteEffects)
+	, m_spriteKey(spriteRenderer->m_spriteKey)
+{
+}
+
+/**
  * \brief デストラクタ
  * 
  */
@@ -59,8 +80,8 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	SimpleMath::Vector2 position = m_rectTransform->GetPosition();
 
 	// 描画位置をオフセット分ずらす
-	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetScale();
-	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetScale();
+	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetScale().x;
+	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetScale().y;
 
 	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(

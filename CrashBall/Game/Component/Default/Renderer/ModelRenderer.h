@@ -27,6 +27,8 @@ private:
 	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
+
+	std::string m_modelKey;	// モデルのキー
 	
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -34,6 +36,12 @@ public:
 
 	// コンストラクタ
 	ModelRenderer(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	ModelRenderer(
+		IGameObject* gameObject,
+		const std::string& modelKey);
+
 
 	// デストラクタ
 	~ModelRenderer();
