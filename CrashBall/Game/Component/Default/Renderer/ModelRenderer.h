@@ -34,13 +34,16 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	ModelRenderer() = default;
+
 	// コンストラクタ
 	ModelRenderer(IGameObject* gameObject);
 
 	// コピーコンストラクタ
 	ModelRenderer(
 		IGameObject* gameObject,
-		const std::string& modelKey);
+		const ModelRenderer& modelRenderer);
 
 
 	// デストラクタ

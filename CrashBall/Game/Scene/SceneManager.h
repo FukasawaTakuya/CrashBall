@@ -39,11 +39,11 @@ public:
 	// シーンの登録
 	template<typename SceneType>
 	requires std::derived_from<SceneType, Scene>
-	void CreateScene(SceneID sceneID)
+	void CreateScene(SceneID sceneID, IJsonDataManager* jsonDataManager)
 	{
 		// シーンの作成
 		std::unique_ptr<SceneType> scene
-			= std::make_unique<SceneType>(this);
+			= std::make_unique<SceneType>(this, jsonDataManager);
 		// コンテナに追加
 		m_scenes.emplace(sceneID, std::move(scene));
 	}

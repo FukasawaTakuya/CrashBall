@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "Scene.h"
 
-Scene::Scene(ISceneController* pSceneManager)
+Scene::Scene(
+	ISceneController* pSceneManager,
+	IJsonDataManager* jsonDataManager)
 	: m_pSceneController{ pSceneManager }
 {
 }

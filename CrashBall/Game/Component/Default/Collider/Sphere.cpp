@@ -11,6 +11,15 @@
 #include "Sphere.h"
 
 /**
+ * \brief デフォルトコンストラクタ
+ * 
+ */
+Sphere::Sphere()
+	: Collider(nullptr, ColliderType::Sphere)
+{
+}
+
+/**
  * \brief コンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト

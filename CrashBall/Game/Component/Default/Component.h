@@ -27,6 +27,9 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	Component() = default;
+
 	// コンストラクタ
 	Component(IGameObject* gameObject);
 

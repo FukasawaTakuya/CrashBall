@@ -28,6 +28,25 @@ Ball::Ball(float radius, ObjectTag tag)
 Ball::Ball(json* data, ObjectTag tag)
 	: GameObject(tag)
 {
+	m_data = data;
+
+	if (!m_data->empty())
+	{
+		AddComponent<Transform>((*m_data)["transform"]);
+		AddComponent<Rigidbody>((*m_data)["rigidbody"]);
+		AddComponent<Sphere>(20.0f);
+		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
+	}
+	else
+	{
+		AddComponent<Transform>();
+		AddComponent<Rigidbody>(GRAVITY, FRICTION);
+		AddComponent<Sphere>(20.0f);
+		AddComponent<ModelRenderer>();
+	}
+
+	// ボール操作コンポーネントのキャッシュ
+	m_ballController = AddComponent<BallController>();
 }
 
 /**
@@ -53,7 +72,6 @@ void Ball::Render(const RenderContext& renderContext)
 	m_ballController->Render(renderContext);
 }
 
-
 /**
  * \brief 終了処理
  * 
@@ -61,4 +79,19 @@ void Ball::Render(const RenderContext& renderContext)
 void Ball::Finalize()
 {
 	m_ballController->Finalize();
+}
+
+void Ball::SaveJson()
+{
+	(*m_data)["transform"] = *GetComponent<Transform>();
+	(*m_data)["rigidbody"] = *GetComponent<Rigidbody>();
+	(*m_data)["sphere"] = *GetComponent<Sphere>();
+	(*m_data)["modelRenderer"] = *GetComponent<ModelRenderer>();
+}
+
+void Ball::ReloadJson()
+{
+	GetComponent<Transform>()->SetScale(
+		(*m_data)["transform"]["scale"]["x"]
+	);
 }

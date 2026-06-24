@@ -25,6 +25,17 @@ Player::Player()
 	GetComponent<Transform>()->SetScale(SCALE);
 }
 
+Player::Player(json* data)
+	: Ball(data, ObjectTag::Player)
+{
+	// コンポーネントの追加
+	m_playerStatusController = AddComponent<PlayerStatusController>();
+	m_playerController = AddComponent<PlayerController>();
+
+	// スケールの設定
+	GetComponent<Transform>()->SetScale(SCALE);
+}
+
 /**
  * \brief 初期化
  * 

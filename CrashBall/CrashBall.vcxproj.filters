@@ -429,6 +429,9 @@
     <ClInclude Include="Game\Json\JsonDataManager.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Json\IJsonDataManager.h">
+      <Filter>Game\Json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

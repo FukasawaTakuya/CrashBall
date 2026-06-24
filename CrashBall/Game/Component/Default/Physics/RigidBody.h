@@ -25,9 +25,9 @@ private:
 
 	DirectX::SimpleMath::Vector3 m_accel;		// 加速度
 
-	float m_gravityAcceleration;				// 重力加速度
+	float m_gravityAcceleration = 0.0f;			// 重力加速度
 
-	float m_friction;							// 摩擦係数
+	float m_friction = 0.0f;					// 摩擦係数
 
 	float m_mass = 1.0f;						// 質量
 
@@ -36,6 +36,9 @@ private:
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	// デフォルトコンストラクタ
+	Rigidbody() = default;
 
 	// コンストラクタ
 	Rigidbody(
@@ -46,7 +49,7 @@ public:
 	// コピーコンストラクタ
 	Rigidbody(
 		IGameObject* gameObject,
-		Rigidbody* rigidbody
+		const Rigidbody& rigidbody
 	);
 
 	// デストラクタ

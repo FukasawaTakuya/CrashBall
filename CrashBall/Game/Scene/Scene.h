@@ -9,7 +9,9 @@
 #pragma once
 #include <string>
 
+
 #include "ISceneController.h"
+#include "Game/Json/IJsonDataManager.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
@@ -29,7 +31,9 @@ protected:
 	// コンストラクタ/デストラクタ
 public:
 
-	Scene(ISceneController* pSceneManager);
+	Scene(
+		ISceneController* pSceneManager,
+		IJsonDataManager* jsonDataManager);
 
 	virtual ~Scene() = default;
 

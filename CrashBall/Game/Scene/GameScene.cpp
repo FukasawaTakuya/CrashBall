@@ -20,10 +20,12 @@ using namespace DirectX;
  * 
  * \param pSceneManager シーンマネージャー
  */
-GameScene::GameScene(ISceneController* pSceneManager)
-	: Scene(pSceneManager)
+GameScene::GameScene(
+    ISceneController* pSceneManager,
+    IJsonDataManager* jsonDataManager)
+	: Scene(pSceneManager, jsonDataManager)
     , m_stage           (std::make_unique<Stage>())
-    , m_player          (std::make_unique<Player>())
+    , m_player          (std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_enemy           (std::make_unique<Enemy>())
     , m_gamePanel       (std::make_unique<GamePanel>())
     , m_collisionManager(std::make_unique<CollisionManager>())
@@ -112,6 +114,16 @@ void GameScene::Update(const GameContext& gameContext)
         Input::GetKeyDown(Keyboard::Escape))
     {
         m_pSceneController->RequestChangeScene(SceneID::Title);
+    }
+
+    if (Input::GetKeyTrigger(Keyboard::Enter))
+    {
+        m_player->SaveJson();
+    }
+
+    if (Input::GetKeyTrigger(Keyboard::I))
+    {
+        m_player->ReloadJson();
     }
 }
 

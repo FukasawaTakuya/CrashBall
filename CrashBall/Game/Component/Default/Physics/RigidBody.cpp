@@ -37,12 +37,12 @@ Rigidbody::Rigidbody(
  */
 Rigidbody::Rigidbody(
 	IGameObject* gameObject, 
-	Rigidbody* rigidbody)
+	const Rigidbody& rigidbody)
 	: Component(gameObject)
-	, m_gravityAcceleration(rigidbody->m_gravityAcceleration)
-	, m_friction(rigidbody->m_friction)
-	, m_mass(rigidbody->m_mass)
-	, m_isDynamic(rigidbody->m_isDynamic)
+	, m_gravityAcceleration(rigidbody.m_gravityAcceleration)
+	, m_friction(rigidbody.m_friction)
+	, m_mass(rigidbody.m_mass)
+	, m_isDynamic(rigidbody.m_isDynamic)
 {
 }
 

@@ -51,7 +51,9 @@ private:
 public:
 
 	// コンストラクタ
-	GameScene(ISceneController* pSceneManager);
+	GameScene(
+		ISceneController* pSceneManager, 
+		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ
 	~GameScene();

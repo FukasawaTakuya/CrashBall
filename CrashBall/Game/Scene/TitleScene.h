@@ -47,7 +47,9 @@ private:
 public:
 
 	// コンストラクタ
-	TitleScene(ISceneController* pSceneController);
+	TitleScene(
+		ISceneController* pSceneController,
+		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ
 	~TitleScene();

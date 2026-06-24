@@ -7,10 +7,12 @@
  *********************************************************************/
 #pragma once
 
+#include "Game/Json/IJsonDataManager.h"
+
 /**
  * \brief Json管理クラス
  */
-class  JsonDataManager {
+class  JsonDataManager : public IJsonDataManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -47,7 +49,7 @@ public:
 public:
 
 	// Jsonデータの取得
-	json* GetJson(const std::string& key);
+	json* GetJsonData(const std::string& key) override ;
 
 	// 内部実装
 private:

@@ -29,7 +29,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	BallController* m_ballController;	// ボール操作コンポーネントのキャッシュ
+	BallController* m_ballController = nullptr;	// ボール操作コンポーネントのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -57,6 +57,10 @@ public:
 
 	// 終了処理
 	void Finalize() override;
+
+	void SaveJson();
+
+	void ReloadJson();
 
 	// 取得/設定
 public:

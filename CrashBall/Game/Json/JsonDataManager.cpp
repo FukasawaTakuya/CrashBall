@@ -84,7 +84,7 @@ void JsonDataManager::SaveFile()
  * \param key キー
  * \return Jsonデータ
  */
-json* JsonDataManager::GetJson(const std::string& key)
+json* JsonDataManager::GetJsonData(const std::string& key)
 {
 	auto it = m_jsonData.find(key);
 
@@ -95,7 +95,7 @@ json* JsonDataManager::GetJson(const std::string& key)
 	// 見つからなければ新たにデータを作る
 	else
 	{
-		m_jsonData.emplace(key, json());
+		m_jsonData.emplace(key, json::object());
 		return &m_jsonData[key];
 	}
 }

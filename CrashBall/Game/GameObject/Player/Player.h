@@ -39,7 +39,7 @@ public:
 	Player();
 
 	//
-	//Player(json data);
+	Player(json* data);
 
 	// デストラクタ
 	~Player() = default;

@@ -22,8 +22,10 @@ using namespace DirectX;
  * 
  * \param pSceneController シーン変更インターフェース
  */
-TitleScene::TitleScene(ISceneController* pSceneController)
-	: Scene(pSceneController)
+TitleScene::TitleScene(
+	ISceneController* pSceneController,
+	IJsonDataManager* jsonDataManager)
+	: Scene(pSceneController, jsonDataManager)
 	, m_camera(std::make_unique<TitleCamera>())
 	, m_player(std::make_unique<Player>())
 	, m_stage(std::make_unique<Stage>())

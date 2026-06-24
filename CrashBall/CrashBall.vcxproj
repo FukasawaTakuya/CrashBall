@@ -293,6 +293,10 @@
     <ClInclude Include="Game\Geometory\Plane.h" />
     <ClInclude Include="Game\Geometory\Segment.h" />
     <ClInclude Include="Game\Geometory\Triangle.h" />
+    <ClInclude Include="Game\Json\IJsonDataManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Json\JsonDataManager.h">
       <SubType>
       </SubType>

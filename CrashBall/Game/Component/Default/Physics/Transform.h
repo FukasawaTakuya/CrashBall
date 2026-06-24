@@ -35,13 +35,16 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	Transform() = default;
+
 	// コンストラクタ
 	Transform(IGameObject* gameObject);
 
 	// コピーコンストラクタ
 	Transform(
 		IGameObject* gameObject,
-		Transform* transform);
+		const Transform& transform);
 
 	// デストラクタ
 	~Transform();

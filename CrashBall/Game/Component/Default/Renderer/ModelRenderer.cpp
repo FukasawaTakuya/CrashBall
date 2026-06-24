@@ -30,10 +30,11 @@ ModelRenderer::ModelRenderer(IGameObject* gameObject)
  */
 ModelRenderer::ModelRenderer(
 	IGameObject* gameObject, 
-	const std::string& modelKey)
+	const ModelRenderer& modelRenderer)
 	: Component(gameObject)
-	, m_modelKey(modelKey)
+	, m_modelKey(modelRenderer.m_modelKey)
 {
+	m_transform = GetGameObject()->GetComponent<Transform>();
 }
 
 /**

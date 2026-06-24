@@ -76,6 +76,8 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
+    m_jsonDataManager->LoadFile("player", L"Resources/Data/player.json");
+
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("enemy", L"Resources/Models/ball.sdkmesh");
@@ -92,8 +94,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
     // シーンの登録
-    m_sceneManager->CreateScene<GameScene>(SceneID::Game);
-    m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
+    m_sceneManager->CreateScene<GameScene>(SceneID::Game, m_jsonDataManager.get());
+    m_sceneManager->CreateScene<TitleScene>(SceneID::Title, m_jsonDataManager.get());
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
@@ -141,6 +143,15 @@ void Game::Update(DX::StepTimer const& timer)
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
+
+    if(m_inputSystem->GetKeyTrigger(Keyboard::P))
+    {
+        m_jsonDataManager->SaveFile();
+    }
+    if(m_inputSystem->GetKeyTrigger(Keyboard::O))
+    {
+        m_jsonDataManager->ReloadFile();
+    }
 
 }
 #pragma endregion

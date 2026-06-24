@@ -25,11 +25,11 @@ Transform::Transform(IGameObject* gameObejct)
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  * \param transform トランスフォームコンポーネント
  */
-Transform::Transform(IGameObject* gameObject, Transform* transform)
+Transform::Transform(IGameObject* gameObject, const Transform& transform)
 	: Component(gameObject)
-	, m_position(transform->m_position)
-	, m_rotate(transform->m_rotate)
-	, m_scale(transform->m_scale)
+	, m_position(transform.m_position)
+	, m_rotate(transform.m_rotate)
+	, m_scale(transform.m_scale)
 {
 }
 

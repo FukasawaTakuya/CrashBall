@@ -35,6 +35,7 @@ private:
 	// ƒ^ƒO
 	ObjectTag m_tag;
 
+protected:
 	json* m_data = nullptr;
 
 	// ƒƒ“ƒoŠÖ”‚ÌéŒ¾ -------------------------------------------------
