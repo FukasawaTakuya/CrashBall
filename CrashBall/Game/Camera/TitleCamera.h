@@ -43,6 +43,16 @@ public:
 	// 終了処理
 	void Finalize() override;
 
+	// パラメータの書き込み
+	void SaveParam() override;
+
+	// 初期化用のパラメータの書き込み
+	void SaveInitParam() override;
+
+	// データの再読み込み
+	void ReloadJson() override;
+
+
 	// 取得 / 設定
 public:
 	// 内部実装

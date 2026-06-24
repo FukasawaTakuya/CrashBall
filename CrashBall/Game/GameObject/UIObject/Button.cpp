@@ -65,3 +65,15 @@ void Button::Render(const RenderContext& renderContext)
 void Button::Finalize()
 {
 }
+
+void Button::SaveParam()
+{
+}
+
+void Button::SaveInitParam()
+{
+}
+
+void Button::ReloadJson()
+{
+}

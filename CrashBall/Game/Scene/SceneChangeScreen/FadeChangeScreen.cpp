@@ -98,3 +98,15 @@ void FadeChangeScreen::Render(const RenderContext& renderContext)
 void FadeChangeScreen::Finalize()
 {
 }
+
+void FadeChangeScreen::SaveParam()
+{
+}
+
+void FadeChangeScreen::SaveInitParam()
+{
+}
+
+void FadeChangeScreen::ReloadJson()
+{
+}

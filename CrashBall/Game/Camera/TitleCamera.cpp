@@ -66,3 +66,15 @@ void TitleCamera::Render(const RenderContext& renderContext)
 void TitleCamera::Finalize()
 {
 }
+
+void TitleCamera::SaveParam()
+{
+}
+
+void TitleCamera::SaveInitParam()
+{
+}
+
+void TitleCamera::ReloadJson()
+{
+}

@@ -62,3 +62,15 @@ void TextObject::Render(const RenderContext& renderContext)
 void TextObject::Finalize()
 {
 }
+
+void TextObject::SaveParam()
+{
+}
+
+void TextObject::SaveInitParam()
+{
+}
+
+void TextObject::ReloadJson()
+{
+}

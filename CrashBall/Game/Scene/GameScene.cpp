@@ -26,7 +26,7 @@ GameScene::GameScene(
 	: Scene(pSceneManager, jsonDataManager)
     , m_stage           (std::make_unique<Stage>())
     , m_player          (std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
-	, m_enemy           (std::make_unique<Enemy>())
+	, m_enemy           (std::make_unique<Enemy>(jsonDataManager->GetJsonData("enemy")))
     , m_gamePanel       (std::make_unique<GamePanel>())
     , m_collisionManager(std::make_unique<CollisionManager>())
     , m_camera          (std::make_unique<GameCamera>())
@@ -116,14 +116,18 @@ void GameScene::Update(const GameContext& gameContext)
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
 
-    if (Input::GetKeyTrigger(Keyboard::Enter))
+    if (Input::GetKeyTrigger(Keyboard::G))
     {
-        m_player->SaveJson();
+        // 書き込む
+        m_player->SaveParam();
+        m_enemy->SaveParam();
     }
 
-    if (Input::GetKeyTrigger(Keyboard::I))
+    if (Input::GetKeyTrigger(Keyboard::F))
     {
+        // 再読み込み
         m_player->ReloadJson();
+        m_enemy->ReloadJson();
     }
 }
 

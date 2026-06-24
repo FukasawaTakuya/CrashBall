@@ -133,6 +133,19 @@ void GamePanel::Finalize()
 {
 }
 
+void GamePanel::SaveParam()
+{
+}
+
+void GamePanel::SaveInitParam()
+{
+}
+
+void GamePanel::ReloadJson()
+{
+}
+
+
 /**
  * \brief スプライトの設定
  *

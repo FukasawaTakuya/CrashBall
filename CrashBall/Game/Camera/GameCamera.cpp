@@ -75,3 +75,15 @@ void GameCamera::Finalize()
 {
 }
 
+void GameCamera::SaveParam()
+{
+}
+
+void GameCamera::SaveInitParam()
+{
+}
+
+void GameCamera::ReloadJson()
+{
+}
+

@@ -37,6 +37,9 @@ public:
 	// コンストラクタ
 	Enemy();
 
+	// 
+	Enemy(json* data);
+
 	// デストラクタ
 	~Enemy();
 

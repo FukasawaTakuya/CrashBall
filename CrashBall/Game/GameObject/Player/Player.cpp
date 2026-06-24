@@ -9,6 +9,9 @@
 #include "pch.h"
 #include "Player.h"
 
+#include "Game/Json/JsonDeserializers.h"
+#include "Game/Json/JsonSerializers.h"
+
  /**
  * \brief コンストラクタ
  * 
@@ -26,19 +29,16 @@ Player::Player()
 }
 
 Player::Player(json* data)
-	: Ball(data, ObjectTag::Player)
+	: Ball(data)
 {
 	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
 
 	// スケールの設定
-	GetComponent<Transform>()->SetScale(SCALE);
+	//GetComponent<Transform>()->SetScale(SCALE);
 }
-
-#include "Game/Json/JsonDeserializers.h"
-#include "Game/Json/JsonSerializers.h"
-
+\
 /**
  * \brief 初期化
  * 

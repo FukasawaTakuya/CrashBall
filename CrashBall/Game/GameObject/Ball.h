@@ -58,9 +58,14 @@ public:
 	// 終了処理
 	void Finalize() override;
 
-	void SaveJson();
+	// パラメータの書き込み
+	void SaveParam() override;
 
-	void ReloadJson();
+	// 初期化用のパラメータの書き込み
+	void SaveInitParam() override;
+
+	// データの再読み込み
+	void ReloadJson() override;
 
 	// 取得/設定
 public:

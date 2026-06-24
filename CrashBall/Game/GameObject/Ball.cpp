@@ -29,7 +29,7 @@ Ball::Ball(float radius, ObjectTag tag)
 }
 
 Ball::Ball(json* data, ObjectTag tag)
-	: GameObject(tag)
+	: GameObject()
 {
 	m_data = data;
 
@@ -39,6 +39,8 @@ Ball::Ball(json* data, ObjectTag tag)
 		AddComponent<Rigidbody>((*m_data)["rigidbody"]);
 		AddComponent<Sphere>((*m_data)["sphere"].get<Sphere>());
 		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
+
+		SetTag((*m_data)["ObjectTag"]);
 	}
 	else
 	{
@@ -84,7 +86,27 @@ void Ball::Finalize()
 	m_ballController->Finalize();
 }
 
-void Ball::SaveJson()
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
+void Ball::SaveParam()
+{
+	(*m_data)["ObjectTag"]		=  GetTag();
+	(*m_data)["rigidbody"]		= *GetComponent<Rigidbody>();
+	(*m_data)["sphere"]			= *GetComponent<Sphere>();
+	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
+
+	Transform* transform = GetComponent<Transform>();
+	(*m_data)["transform"]["rotate"] = transform->GetRotate();
+	(*m_data)["transform"]["scale"] = transform->GetScale();
+}
+
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
+void Ball::SaveInitParam()
 {
 	(*m_data)["transform"] = *GetComponent<Transform>();
 	(*m_data)["rigidbody"] = *GetComponent<Rigidbody>();

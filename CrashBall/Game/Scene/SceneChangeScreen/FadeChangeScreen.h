@@ -57,6 +57,16 @@ public:
 	// 終了処理
 	void Finalize() override;
 
+	// パラメータの書き込み
+	void SaveParam() override;
+
+	// 初期化用のパラメータの書き込み
+	void SaveInitParam() override;
+
+	// データの再読み込み
+	void ReloadJson() override;
+
+
 	// フェードインの開始
 	void StartFadeIn()
 	{

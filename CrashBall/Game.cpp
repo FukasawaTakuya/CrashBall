@@ -77,6 +77,7 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
     m_jsonDataManager->LoadFile("player", L"Resources/Data/player.json");
+    m_jsonDataManager->LoadFile("enemy", L"Resources/Data/enemy.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
@@ -144,11 +145,13 @@ void Game::Update(DX::StepTimer const& timer)
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
 
-    if(m_inputSystem->GetKeyTrigger(Keyboard::P))
+    // ファイルにセーブ
+    if(m_inputSystem->GetKeyTrigger(Keyboard::T))
     {
         m_jsonDataManager->SaveFile();
     }
-    if(m_inputSystem->GetKeyTrigger(Keyboard::O))
+    // 再読み込み
+    if(m_inputSystem->GetKeyTrigger(Keyboard::R))
     {
         m_jsonDataManager->ReloadFile();
     }

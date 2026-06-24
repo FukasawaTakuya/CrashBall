@@ -70,3 +70,15 @@ void Stage::Render(const RenderContext& renderContext)
 void Stage::Finalize()
 {
 }
+
+void Stage::SaveParam()
+{
+}
+
+void Stage::SaveInitParam()
+{
+}
+
+void Stage::ReloadJson()
+{
+}

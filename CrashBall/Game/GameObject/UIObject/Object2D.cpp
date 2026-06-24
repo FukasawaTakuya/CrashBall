@@ -62,3 +62,15 @@ void Object2D::Render(const RenderContext& renderContext)
 void Object2D::Finalize()
 {
 }
+
+void Object2D::SaveParam()
+{
+}
+
+void Object2D::SaveInitParam()
+{
+}
+
+void Object2D::ReloadJson()
+{
+}

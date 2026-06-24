@@ -8,7 +8,9 @@
 
 #include "pch.h"
 #include "Enemy.h"
-#include <Game/Common/Screen.h>
+
+#include "Game/Json/JsonDeserializers.h"
+#include "Game/Json/JsonSerializers.h"
 
 using namespace DirectX;
 
@@ -19,6 +21,16 @@ using namespace DirectX;
  */
 Enemy::Enemy()
 	: Ball(RADIUS, ObjectTag::Enemy)
+{
+	// コンポーネントの追加
+	m_enemyController = AddComponent<EnemyController>();
+
+	// スケールの設定
+	GetComponent<Transform>()->SetScale(SCALE);
+}
+
+Enemy::Enemy(json* data)
+	:Ball(data)
 {
 	// コンポーネントの追加
 	m_enemyController = AddComponent<EnemyController>();
