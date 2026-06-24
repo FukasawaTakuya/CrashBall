@@ -23,7 +23,7 @@ private:
 public:
 
 	// デフォルトコンストラクタ
-	Sphere();
+	Sphere() = default;
 
 	// コンストラクタ
 	Sphere(IGameObject* gameObject, float radius);

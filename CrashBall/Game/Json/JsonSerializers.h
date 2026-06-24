@@ -14,6 +14,14 @@
 
 using namespace nlohmann;
 
+NLOHMANN_JSON_SERIALIZE_ENUM(ObjectTag, {
+	{ ObjectTag::Defaut,	"Defaut"	},
+	{ ObjectTag::Player,	"Player"	},
+	{ ObjectTag::Enemy,		"Enmy"		},
+	{ ObjectTag::Stage,		"Stage"		}
+	}
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Origin, {
 	{ Origin::CenterTop,	"CenterTop"		},
 	{ Origin::Center,		"Center"		},

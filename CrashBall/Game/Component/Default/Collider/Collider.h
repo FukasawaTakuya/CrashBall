@@ -34,7 +34,6 @@ class Collider : public Component
 
 protected:
 
-
 	ColliderType m_type = ColliderType::None;			// コライダーのタイプ
 
 	CollisionLayerMask m_layerMask = LayerMask::Default;// レイヤーマスク
@@ -49,6 +48,9 @@ protected:
 
 	// コンストラクタ/デストラクタ
 public:
+
+	// デフォルトコンストラクタ
+	Collider() = default;
 
 	// コンストラクタ
 	Collider(IGameObject* gameObject, ColliderType type);

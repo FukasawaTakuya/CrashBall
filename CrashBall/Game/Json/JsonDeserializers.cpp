@@ -102,6 +102,7 @@ void from_json(const json& j, Mesh& mesh)
 // Sphereへ変換
 void from_json(const json& j, Sphere& sphere)
 {
+	j.at("type").get_to(sphere.m_type);
 	j.at("radius").get_to(sphere.m_radius);
 }
 

@@ -36,13 +36,22 @@ Player::Player(json* data)
 	GetComponent<Transform>()->SetScale(SCALE);
 }
 
+#include "Game/Json/JsonDeserializers.h"
+#include "Game/Json/JsonSerializers.h"
+
 /**
  * \brief 初期化
  * 
  */
 void Player::Initialize()
 {
-	m_playerController->Initialize();
+	//m_playerController->Initialize();
+
+	GetComponent<Transform>()->SetPosition(
+		(*m_data)["transform"]["position"]
+	);
+
+	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**

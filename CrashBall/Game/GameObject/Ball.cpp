@@ -10,6 +10,9 @@
 #include "Ball.h"
 #include "Game/Engine/Time.h"
 
+#include "Game/Json/JsonDeserializers.h"
+#include "Game/Json/JsonSerializers.h"
+
 using namespace DirectX;
 
 Ball::Ball(float radius, ObjectTag tag)
@@ -34,7 +37,7 @@ Ball::Ball(json* data, ObjectTag tag)
 	{
 		AddComponent<Transform>((*m_data)["transform"]);
 		AddComponent<Rigidbody>((*m_data)["rigidbody"]);
-		AddComponent<Sphere>(20.0f);
+		AddComponent<Sphere>((*m_data)["sphere"].get<Sphere>());
 		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
 	}
 	else
@@ -91,7 +94,9 @@ void Ball::SaveJson()
 
 void Ball::ReloadJson()
 {
+	SimpleMath::Vector3 vec3 = (*m_data)["transform"]["scale"];
+
 	GetComponent<Transform>()->SetScale(
-		(*m_data)["transform"]["scale"]["x"]
-	);
+		vec3
+		);
 }

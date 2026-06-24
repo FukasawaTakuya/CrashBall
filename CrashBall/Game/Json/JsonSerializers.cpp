@@ -115,6 +115,7 @@ void to_json(json& j, const Mesh& mesh)
 void to_json(json& j, const Sphere& sphere)
 {
 	j = json{
+		{ "type",	sphere.m_type	},
 		{ "radius", sphere.m_radius }
 	};
 }
