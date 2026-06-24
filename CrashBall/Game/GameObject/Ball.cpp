@@ -25,6 +25,11 @@ Ball::Ball(float radius, ObjectTag tag)
 	m_ballController = AddComponent<BallController>();
 }
 
+Ball::Ball(json* data, ObjectTag tag)
+	: GameObject(tag)
+{
+}
+
 /**
  * \brief 初期化
  * 

@@ -104,3 +104,16 @@ void from_json(const json& j, Sphere& sphere)
 {
 	j.at("radius").get_to(sphere.m_radius);
 }
+
+// TargetCameraへ変換
+void from_json(const json& j, TargetCamera& targetCamera)
+{
+	j.at("offset").get_to(targetCamera.m_offset);
+}
+
+// PlayerStatusControllerへ変換
+void from_json(const json& j, PlayerStatusController& playerStatusController)
+{
+	j.at("attackCost").get_to(playerStatusController.m_ATTACK_COST);
+	j.at("minAttackPower").get_to(playerStatusController.m_MIN_ATTACK_POWER);
+}

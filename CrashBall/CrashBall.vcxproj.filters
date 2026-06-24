@@ -426,6 +426,9 @@
     <ClInclude Include="Game\Color\MyColor.h">
       <Filter>Game\Color</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Json\JsonDataManager.h">
+      <Filter>Game\Json</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -627,6 +630,9 @@
       <Filter>Game\Json</Filter>
     </ClCompile>
     <ClCompile Include="Game\Json\JsonDeserializers.cpp">
+      <Filter>Game\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\JsonDataManager.cpp">
       <Filter>Game\Json</Filter>
     </ClCompile>
   </ItemGroup>

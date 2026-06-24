@@ -56,6 +56,12 @@ public:
 		IGameObject* gameObject,
 		const DirectX::SimpleMath::Vector3& offest);
 
+	// コピーコンストラクタ
+	TargetCamera(
+		IGameObject* gameObejct,
+		const TargetCamera& targetCamera
+	);
+
 	// デストラクタ
 	~TargetCamera();
 
@@ -122,4 +128,9 @@ private:
 
 	// ビュー行列の更新(GetViewで呼ぶためconst)
 	void UpdateView() const;
+
+	// JsonConvert
+private:
+	friend void from_json(const json& j, TargetCamera& targetCamera);
+	friend void to_json(json& j, const TargetCamera& targetCamera);
 };

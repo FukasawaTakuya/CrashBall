@@ -7,6 +7,7 @@
 #include "DeviceResources.h"
 #include "StepTimer.h"
 
+#include "Game/Json/JsonDataManager.h"
 #include "Game/Scene/SceneManager.h"
 
 #include "Game/Common/InputSystem.h"
@@ -47,8 +48,9 @@ private:
     DirectX::SimpleMath::Matrix m_proj; // 射影行列
 
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;  // スプライトバッチ
-    
-    std::unique_ptr<SceneManager>   m_sceneManager; // シーン管理
+
+    std::unique_ptr<JsonDataManager> m_jsonDataManager; // Jsonデータ管理
+    std::unique_ptr<SceneManager>   m_sceneManager;     // シーン管理
 
     std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム
     std::unique_ptr<TimeManager>                m_timeManager;                  // 時間管理

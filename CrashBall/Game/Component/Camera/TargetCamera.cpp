@@ -14,7 +14,7 @@
 /**
  * \brief コンストラクタ
  * 
- * \param gameObject
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 TargetCamera::TargetCamera(
 	IGameObject* gameObject,
@@ -32,6 +32,19 @@ TargetCamera::TargetCamera(
 
 	// オフセットをForward方向に直す
 	m_forwardOffset = XMVector3Rotate(offset, XMQuaternionInverse(m_initRotate));
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObejct コンポーネントを所有するゲームオブジェクト
+ * \param targetCamera ターゲットカメラコンポーネント
+ */
+TargetCamera::TargetCamera(
+	IGameObject* gameObejct, 
+	const TargetCamera& targetCamera)
+	: TargetCamera(gameObejct, targetCamera.m_offset)
+{
 }
 
 /**

@@ -38,6 +38,8 @@ public:
 	// コンストラクタ
 	Ball(float radius, ObjectTag tag = ObjectTag::Defaut);
 
+	Ball(json* data, ObjectTag tag = ObjectTag::Defaut);
+
 	// デストラクタ
 	~Ball() = default;
 

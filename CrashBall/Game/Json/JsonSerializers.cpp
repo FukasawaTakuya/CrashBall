@@ -118,3 +118,20 @@ void to_json(json& j, const Sphere& sphere)
 		{ "radius", sphere.m_radius }
 	};
 }
+
+// TargetCameraから変換
+void to_json(json& j, const TargetCamera& targetCamera)
+{
+	j = json{
+		{ "offset", targetCamera.m_offset }
+	};
+}
+
+// PlayerStatusControllerから変換
+void to_json(json& j, const PlayerStatusController& playerStatusController)
+{
+	j = json{
+		{ "attackCost", playerStatusController.m_ATTACK_COST },
+		{ "minAttackPower", playerStatusController.m_MIN_ATTACK_POWER }
+	};
+}

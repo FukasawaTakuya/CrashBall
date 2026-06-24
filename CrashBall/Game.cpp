@@ -35,6 +35,9 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateDeviceResources();
     m_deviceResources->CreateWindowSizeDependentResources();
 
+    m_jsonDataManager   = std::make_unique<JsonDataManager>();
+    m_sceneManager      = std::make_unique<SceneManager>();
+
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
 
@@ -49,8 +52,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_textRendererManager       = std::make_unique<TextRendererManager>();
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
-
-    m_sceneManager              = std::make_unique<SceneManager>();
 
     // 各コンテキストの初期化
     m_gameContext =

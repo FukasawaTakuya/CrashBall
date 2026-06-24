@@ -38,6 +38,9 @@ public:
 	// コンストラクタ
 	Player();
 
+	//
+	//Player(json data);
+
 	// デストラクタ
 	~Player() = default;
 

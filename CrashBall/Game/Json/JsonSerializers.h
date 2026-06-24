@@ -9,6 +9,8 @@
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/Collider/Sphere.h"
+#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Player/PlayerStatusController.h"
 
 using namespace nlohmann;
 
@@ -83,3 +85,8 @@ void to_json(json& j, const Mesh& mesh);
 // Sphereから変換
 void to_json(json& j, const Sphere& sphere);
 
+// TargetCameraから変換
+void to_json(json& j, const TargetCamera& targetCamera);
+
+// PlayerStatusControllerから変換
+void to_json(json& j, const PlayerStatusController& playerStatusController);

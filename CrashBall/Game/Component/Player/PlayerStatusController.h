@@ -19,13 +19,14 @@ class  PlayerStatusController: public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ATTACK_PER_FACE = 1.0f;		// 塗った面１枚当たりの上昇攻撃力
-
 	static constexpr float MIN_ATTACK_POWER = 10.0f;	// 最低攻撃力
 
 public:
 
 	static constexpr int ATTACK_COST = 20;	// 攻撃コスト
+
+	int m_ATTACK_COST = 10.f;
+	float m_MIN_ATTACK_POWER = 20;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -45,6 +46,12 @@ public:
 
 	// コンストラクタ
 	PlayerStatusController(IGameObject* gameObject);
+
+	// コピーコンストラクタ
+	PlayerStatusController(
+		IGameObject* gameObject,
+		const PlayerStatusController& playerStatusController
+	);
 
 	// デストラクタ
 	~PlayerStatusController();
