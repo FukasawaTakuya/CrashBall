@@ -102,3 +102,19 @@ void to_json(json& j, const TextRenderer& textRenderer)
 		{ "layerDepth", textRenderer.m_layerDepth }
 	};
 }
+
+// Meshから変換
+void to_json(json& j, const Mesh& mesh)
+{
+	j = json{
+		{ "meshData", mesh.m_meshData }
+	};
+}
+
+// Sphereから変換
+void to_json(json& j, const Sphere& sphere)
+{
+	j = json{
+		{ "radius", sphere.m_radius }
+	};
+}

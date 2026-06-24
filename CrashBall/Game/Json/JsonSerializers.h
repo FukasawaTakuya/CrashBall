@@ -7,6 +7,8 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Renderer/TextRenderer.h"
+#include "Game/Component/Default/Collider/Mesh.h"
+#include "Game/Component/Default/Collider/Sphere.h"
 
 using namespace nlohmann;
 
@@ -75,4 +77,9 @@ void to_json(json& j, const ModelRenderer& modelRenderer);
 // TextRendererから変換
 void to_json(json& j, const TextRenderer& textRenderer);
 
+// Meshから変換
+void to_json(json& j, const Mesh& mesh);
+
+// Sphereから変換
+void to_json(json& j, const Sphere& sphere);
 

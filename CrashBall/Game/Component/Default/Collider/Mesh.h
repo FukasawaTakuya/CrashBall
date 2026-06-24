@@ -25,11 +25,9 @@ private:
 
 	std::vector<std::unique_ptr<Triangle>> m_faces;	// 面のコンテナ
 
-	DirectX::SimpleMath::Vector3 m_position;		// 座標
+	std::vector<Triangle*> m_collideFace;	// 衝突した面
 
-	float m_scale = 1.0f;							// スケール
-
-	std::vector<Triangle*> m_collideFace;			// 衝突した面
+	std::wstring m_meshData;	// データのファイルパス
 
 	// メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ
@@ -37,6 +35,14 @@ public:
 
 	// コンストラクタ
 	Mesh(IGameObject* gameObject);
+
+	// コンストラクタ
+	Mesh(
+		IGameObject* gameObject,
+		const Mesh& mesh);
+
+	// デストラクタ
+	~Mesh();
 
 	// 操作
 public:
@@ -46,6 +52,12 @@ public:
 
 	// データの読み込み
 	void LoadJson(const wchar_t* fileName);
+
+	// 回転
+	void Rotate();
+
+	// 衝突した面のクリア
+	void ClearCollideFace() { m_collideFace.clear(); }
 
 	// 取得/設定
 public:
@@ -62,12 +74,13 @@ public:
 		return m_collideFace;
 	}
 
-	// スケールの設定
-	void SetScale(float scale) { m_scale = scale; }
-
 	// 衝突した面の設定
 	void SetCollideFace(Triangle* face) { m_collideFace.emplace_back(face); }
 
-	// 衝突した面のクリア
-	void ClearCollideFace(){ m_collideFace.clear(); }
+
+	// JsonConvert
+private:
+	friend void from_json(const json& j, Mesh& mesh);
+	friend void to_json(json& j, const Mesh& mesh);
+
 };

@@ -92,3 +92,15 @@ void from_json(const json& j, TextRenderer& textRenderer)
 	j.at("fontScale").get_to(textRenderer.m_fontScale);
 	j.at("layerDepth").get_to(textRenderer.m_layerDepth);
 }
+
+// Meshへ変換
+void from_json(const json& j, Mesh& mesh)
+{
+	j.at("meshData").get_to(mesh.m_meshData);
+}
+
+// Sphereへ変換
+void from_json(const json& j, Sphere& sphere)
+{
+	j.at("radius").get_to(sphere.m_radius);
+}

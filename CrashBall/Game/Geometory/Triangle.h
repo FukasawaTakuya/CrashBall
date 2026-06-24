@@ -17,6 +17,8 @@ private:
 
 	std::unique_ptr<Plane> m_plane;				// 平面情報
 
+	DirectX::SimpleMath::Vector3 m_initPoint[3];// 初期頂点
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -25,7 +27,21 @@ public:
 	Triangle();
 
 	// Jsonから読み込んだ時用のコンストラクタ
-	Triangle(const Triangle& triangle, float scale = 1.0f);
+	Triangle(
+		const Triangle& triangle, 
+		const DirectX::SimpleMath::Vector3& scale);
+
+	// 操作
+public:
+
+	// 回転
+	void Rotate(
+		const DirectX::SimpleMath::Quaternion& rotate,
+		const DirectX::SimpleMath::Vector3& basePosition
+	);
+
+	// スケーリング
+	void Scale(DirectX::SimpleMath::Vector3& scale);
 
 	// 取得/設定
 public:

@@ -57,8 +57,8 @@ StageController::StageController(IGameObject* gameObject)
 	for (auto& face : m_meshCollider->GetFace())
 	{
 		// 床メッシュ
-		if (face->GetPlane()->GetNormal().y >= 0.3f &&
-			face->GetCenter().y <= 20.0f)
+		if (face->GetPlane()->GetNormal().y >= FLOOR_NORMAL &&
+			face->GetCenter().y <= FLOOP_CENTERPOS)
 		{
 			m_floorMesh.push_back(face.get());
 			m_floorMeshColor.emplace(face.get(), GameColor::DEFAULT_FACE);
@@ -68,7 +68,6 @@ StageController::StageController(IGameObject* gameObject)
 			m_wallMesh.push_back(face.get());
 		}
 	}
-
 }
 
 /**

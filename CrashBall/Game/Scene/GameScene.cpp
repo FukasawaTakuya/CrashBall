@@ -41,7 +41,6 @@ GameScene::GameScene(ISceneController* pSceneManager)
     // ターゲットのトランスフォームの設定
     m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_player->GetComponent<Transform>());
 
-
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
     m_collisionManager->RegistCollider(m_stage->GetComponent<Mesh>());
@@ -101,7 +100,7 @@ void GameScene::Update(const GameContext& gameContext)
         m_stageController->GetPlayerMeshCount(),
         m_stageController->GetEnemyMeshCount(),
         m_stageController->GetTotalMeshCount(),
-        PlayerStatusController::ATTACK_COST,
+        m_playerStatusController->GetAttacckCost(),
         m_playerStatusController->GetAttackPower(),
         m_enemyController->GetHp(),
         EnemyController::MAX_HP

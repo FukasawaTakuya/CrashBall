@@ -18,12 +18,15 @@ class Sphere
 {
 private:
 
-	float m_radius;			// 半径
+	float m_radius;	// 半径
 
 public:
 
 	// コンストラクタ
 	Sphere(IGameObject* gameObject, float radius);
+
+	// コピーコンストラクタ
+	Sphere(IGameObject* gameObject, const Sphere& sphere);
 
 
 	// デストラクタ
@@ -42,5 +45,11 @@ public:
 
 	// 半径の設定
 	void SetRadius(float radius) { m_radius = radius; }
+
+	// JsonConvert
+private:
+	friend void from_json(const json& j, Sphere& sphere);
+	friend void to_json(json& j, const Sphere& sphere);
+
 };
 

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "nlohmann/json.hpp"
 #include "Game/Geometory/Triangle.h"
@@ -8,6 +8,8 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Renderer/TextRenderer.h"
+#include "Game/Component/Default/Collider/Mesh.h"
+#include "Game/Component/Default/Collider/Sphere.h"
 
 using namespace nlohmann;
 
@@ -46,3 +48,9 @@ void from_json(const json& j, ModelRenderer& modelRenderer);
 
 // TextRendererへ変換
 void from_json(const json& j, TextRenderer& textRenderer);
+
+// Meshへ変換
+void from_json(const json& j, Mesh& mesh);
+
+// Sphereへ変換
+void from_json(const json& j, Sphere& sphere);

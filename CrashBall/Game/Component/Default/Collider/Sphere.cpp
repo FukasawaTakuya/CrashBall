@@ -23,6 +23,20 @@ Sphere::Sphere(IGameObject* gameObject, float radius)
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param sphere 球コライダー
+ */
+Sphere::Sphere(
+	IGameObject* gameObject, 
+	const Sphere& sphere)
+	: Collider(gameObject, ColliderType::Sphere)
+	, m_radius(sphere.m_radius)
+{
+}
+
+/**
  * \brief デストラクタ
  * 
  */

@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "SpriteManager.h"
 #include <DDSTextureLoader.h>
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
