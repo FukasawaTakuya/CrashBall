@@ -90,7 +90,7 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
  * \param key キー
  * \return スプライト情報
  */
-SpriteInfo* SpriteManager::GetSpriteInfo(const std::string& key)
+const SpriteInfo* SpriteManager::GetSpriteInfo(const std::string& key)
 {
 	auto it = m_spriteInfo.find(key);
 

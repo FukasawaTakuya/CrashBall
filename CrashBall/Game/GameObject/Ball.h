@@ -56,13 +56,13 @@ public:
 	void Finalize() override;
 
 	// パラメータの書き込み
-	void SaveParam() override;
+	virtual void SaveParam() override;
 
 	// 初期化用のパラメータの書き込み
-	void SaveInitParam() override;
+	virtual void SaveInitParam() override;
 
 	// データの再読み込み
-	void ReloadJson() override;
+	virtual void ReloadJson() override;
 
 	// 取得/設定
 public:

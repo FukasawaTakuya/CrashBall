@@ -3,6 +3,10 @@
   "modelRenderer": {
     "modelKey": "player"
   },
+  "playerStatusController": {
+    "attackCost": 20,
+    "minAttackPower": 10.0
+  },
   "rigidbody": {
     "friction": 1.2000000476837158,
     "gravityAccelaration": 25.799999237060547,
@@ -20,9 +24,9 @@
       "z": 5.0
     },
     "rotate": {
-      "x": -0.8755850195884705,
-      "y": -2.275221109390259,
-      "z": -0.17442375421524048
+      "x": 0.8927816152572632,
+      "y": 1.5267301797866821,
+      "z": 0.027272257953882217
     },
     "scale": {
       "x": 0.02500000037252903,

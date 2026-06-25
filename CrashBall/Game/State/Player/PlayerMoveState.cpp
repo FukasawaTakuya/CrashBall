@@ -85,7 +85,7 @@ void PlayerMoveState::Update()
         // ステートの遷移
 		m_pStateMachine->ChangeState<PlayerAttackState>();
         // 面消費
-        playerController->GetPaintConsumer()->ConsumePaint(playerStatusController->ATTACK_COST);
+        playerController->GetPaintConsumer()->ConsumePaint(playerStatusController->GetAttacckCost());
         // 攻撃フラグを設定
         playerStatusController->SetIsAttack(true);
     }

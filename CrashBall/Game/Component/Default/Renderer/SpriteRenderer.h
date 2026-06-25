@@ -145,7 +145,7 @@ public:
 	// スプライトの設定
 	void SetSprite(ISpriteManager* spriteManager)
 	{
-		SpriteInfo* spriteInfo = spriteManager->GetSpriteInfo(m_spriteKey);
+		const SpriteInfo* spriteInfo = spriteManager->GetSpriteInfo(m_spriteKey);
 
 		if (spriteInfo != nullptr)
 		{

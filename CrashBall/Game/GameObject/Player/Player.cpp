@@ -9,9 +9,6 @@
 #include "pch.h"
 #include "Player.h"
 
-#include "Game/Json/JsonDeserializers.h"
-#include "Game/Json/JsonSerializers.h"
-
  /**
  * \brief コンストラクタ
  * 
@@ -24,7 +21,7 @@ Player::Player()
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
 
-	// スケールの設定
+	// スケールの設定(title)
 	GetComponent<Transform>()->SetScale(0.025);
 }
 
@@ -37,7 +34,7 @@ Player::Player(json* data)
 	: Ball(data)
 {
 	// コンポーネントの追加
-	m_playerStatusController = AddComponent<PlayerStatusController>();
+	m_playerStatusController = AddComponent<PlayerStatusController>((*data)["playerStatusController"]);
 	m_playerController = AddComponent<PlayerController>();}
 \
 /**
@@ -78,4 +75,37 @@ void Player::Render(const RenderContext& renderContext)
  */
 void Player::Finalize()
 {
+}
+
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
+void Player::SaveParam()
+{
+	(*m_data)["playerStatusController"] = *m_playerStatusController;
+
+	Ball::SaveParam();
+}
+
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
+void Player::SaveInitParam()
+{
+	(*m_data)["playerStatusController"] = *m_playerStatusController;
+
+	Ball::SaveInitParam();
+}
+
+/**
+ * \brief データの再読み込み
+ * 
+ */
+void Player::ReloadJson()
+{
+	*m_playerStatusController = (*m_data)["playerStatusController"];
+	
+	Ball::ReloadJson();
 }

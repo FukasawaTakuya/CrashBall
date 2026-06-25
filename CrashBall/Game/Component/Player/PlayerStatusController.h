@@ -16,17 +16,11 @@
  */
 class  PlayerStatusController: public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
+	// パラメータの宣言 -------------------------------------------------
 private:
 
-	static constexpr float MIN_ATTACK_POWER = 10.0f;	// 最低攻撃力
-
-public:
-
-	static constexpr int ATTACK_COST = 20;	// 攻撃コスト
-
-	int m_ATTACK_COST = 10.f;
-	float m_MIN_ATTACK_POWER = 20;
+	int m_ATTACK_COST = 0;
+	float m_MIN_ATTACK_POWER = 0.0f;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -43,6 +37,8 @@ private:
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	PlayerStatusController() = default;
 
 	// コンストラクタ
 	PlayerStatusController(IGameObject* gameObject);
@@ -72,7 +68,7 @@ public:
 	bool GetCanAttack() const { return m_canAttack; }
 
 	// 攻撃コストを取得
-	int GetAttacckCost() const { return ATTACK_COST; }
+	int GetAttacckCost() const { return m_ATTACK_COST; }
 
 	// 床メッシュ取得コンポーネントを設定 
 	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
@@ -88,4 +84,17 @@ public:
 	// 内部実装
 private:
 
+	// JsonConverter
+private:
+
+	friend void from_json(const json& j, PlayerStatusController& playerStatusController);
+	friend void to_json(json& j, const PlayerStatusController& playerStatusController);
+
+public:
+	// 演算子オーバーロード
+	void operator=(const PlayerStatusController& statusController)
+	{
+		m_ATTACK_COST = statusController.m_ATTACK_COST;
+		m_MIN_ATTACK_POWER = statusController.m_MIN_ATTACK_POWER;
+	}
 };
