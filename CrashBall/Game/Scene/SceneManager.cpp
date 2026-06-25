@@ -88,9 +88,7 @@ void SceneManager::CreateDeviceResources(const ResourceContext& resourceCotext)
 
 	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
 
-	resourceCotext.spriteManager->SetUpSpriteRenderer(
-		m_changeScreen->GetComponent<SpriteRenderer>()
-	);
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(resourceCotext.spriteManager);
 }
 
 /**

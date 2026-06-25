@@ -10,7 +10,7 @@
 
 #include "Game/Component/Default/Collider/Collider.h"
 
-/**
+ /**
  * \brief 球コライダー
  */
 class Sphere
@@ -34,6 +34,12 @@ public:
 
 	// デストラクタ
 	~Sphere();
+
+	void operator=(Sphere s)
+	{
+		m_layerMask = s.m_layerMask;
+		m_radius = s.m_radius;
+	}
 
 public:
 

@@ -18,26 +18,27 @@
  * \param radius 半径
  */
 Player::Player()
-	: Ball(RADIUS, ObjectTag::Player)
+	: Ball(0.0f, ObjectTag::Player)
 {
 	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
 
 	// スケールの設定
-	GetComponent<Transform>()->SetScale(SCALE);
+	GetComponent<Transform>()->SetScale(0.025);
 }
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param data Jsonデータ
+ */
 Player::Player(json* data)
 	: Ball(data)
 {
 	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>();
-	m_playerController = AddComponent<PlayerController>();
-
-	// スケールの設定
-	//GetComponent<Transform>()->SetScale(SCALE);
-}
+	m_playerController = AddComponent<PlayerController>();}
 \
 /**
  * \brief 初期化
@@ -45,11 +46,7 @@ Player::Player(json* data)
  */
 void Player::Initialize()
 {
-	//m_playerController->Initialize();
-
-	GetComponent<Transform>()->SetPosition(
-		(*m_data)["transform"]["position"]
-	);
+	GetComponent<Transform>()->SetPosition((*m_data)["transform"]["position"]);
 
 	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }

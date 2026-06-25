@@ -1,43 +1,6 @@
 #include "pch.h"
 #include "JsonSerializers.h"
 
-// Vector2から変換
-void DirectX::SimpleMath::to_json(json& j, const Vector2& vec2)
-{
-	j = json{
-		{ "x", vec2.x },
-		{ "y", vec2.y }
-	};
-}
-
-// Vector3から変換
-void DirectX::SimpleMath::to_json(json& j, const Vector3& vec3)
-{
-	j = json{
-		{ "x", vec3.x },
-		{ "y", vec3.y },
-		{ "z", vec3.z }
-	};
-}
-
-// Quaternionから変換
-void DirectX::SimpleMath::to_json(json& j, const Quaternion& q)
-{
-	Vector3 euler = q.ToEuler();
-
-	j = euler;
-}
-
-// Colorから変換
-void DirectX::SimpleMath::to_json(json& j, const Color& color)
-{
-	j = json{
-		{ "r", color.R() },
-		{ "g", color.G() },
-		{ "b", color.B() },
-		{ "a", color.A() }
-	};
-}
 
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom)

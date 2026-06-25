@@ -10,7 +10,9 @@
 
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Physics/RectTransform.h"
+
 #include "Game/RendererManager/Interface/ISpriteRendererManager.h"
+#include "Game/ResourceManager/Interface/ISpriteManager.h"
 
  // 切り取りの基準位置
 enum class FillOrigin
@@ -141,26 +143,16 @@ public:
 	}
 
 	// スプライトの設定
-	void SetSprite(
-		ID3D11ShaderResourceView* pSprite,
-		const DirectX::SimpleMath::Vector2& size)
+	void SetSprite(ISpriteManager* spriteManager)
 	{
-		// スプライトの設定
-		m_pSprite = pSprite;
+		SpriteInfo* spriteInfo = spriteManager->GetSpriteInfo(m_spriteKey);
 
-		// スプライトのサイズを求める
-		//ID3D11Resource* resource;
-		//m_pSprite->GetResource(&resource);
-		//ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
-		//D3D11_TEXTURE2D_DESC desc;
-		//texture->GetDesc(&desc);
-		//m_width = desc.Width;
-		//m_height = desc.Height;
-
-		m_width = size.x;
-		m_height = size.y;
-
-		//texture->Release();
+		if (spriteInfo != nullptr)
+		{
+			m_pSprite = spriteInfo->sprite.Get();
+			m_width = spriteInfo->width;
+			m_height = spriteInfo->height;
+		}
 	}
 
 	// 描画順の設定

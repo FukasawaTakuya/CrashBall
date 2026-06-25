@@ -116,14 +116,14 @@ void GameScene::Update(const GameContext& gameContext)
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
 
-    if (Input::GetKeyTrigger(Keyboard::G))
+    if (Input::GetKeyTrigger(Keyboard::L))
     {
         // 書き込む
         m_player->SaveParam();
         m_enemy->SaveParam();
     }
 
-    if (Input::GetKeyTrigger(Keyboard::F))
+    if (Input::GetKeyTrigger(Keyboard::K))
     {
         // 再読み込み
         m_player->ReloadJson();

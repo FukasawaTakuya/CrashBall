@@ -15,28 +15,15 @@
 using namespace DirectX;
 
 /**
- * \brief コンストラクタ.
+ * \brief コンストラクタ
  * 
- * \param radius 半径
+ * \param data Jsonデータ
  */
-Enemy::Enemy()
-	: Ball(RADIUS, ObjectTag::Enemy)
-{
-	// コンポーネントの追加
-	m_enemyController = AddComponent<EnemyController>();
-
-	// スケールの設定
-	GetComponent<Transform>()->SetScale(SCALE);
-}
-
 Enemy::Enemy(json* data)
 	:Ball(data)
 {
 	// コンポーネントの追加
 	m_enemyController = AddComponent<EnemyController>();
-
-	// スケールの設定
-	GetComponent<Transform>()->SetScale(SCALE);
 }
 
 /**

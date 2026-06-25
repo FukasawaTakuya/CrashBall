@@ -20,7 +20,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unordered_map<std::string, std::wstring> m_files;	// ファイル名
+	std::unordered_map<std::string, std::string> m_files;	// ファイル名
 	std::unordered_map<std::string, json> m_jsonData;		// Jsonデータ
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -37,7 +37,7 @@ public:
 public:
 
 	// データの読み込み
-	void LoadFile(const std::string& key, const wchar_t* fileNmae);
+	void LoadFile(const std::string& key, const char* fileNmae);
 
 	// データの再読み込み
 	void ReloadFile();

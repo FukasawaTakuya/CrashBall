@@ -10,8 +10,7 @@
 #include "Ball.h"
 #include "Game/Engine/Time.h"
 
-#include "Game/Json/JsonDeserializers.h"
-#include "Game/Json/JsonSerializers.h"
+#include "Game/Json/JsonEnumSerializers.h"
 
 using namespace DirectX;
 
@@ -20,7 +19,7 @@ Ball::Ball(float radius, ObjectTag tag)
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	AddComponent<Rigidbody>(GRAVITY, FRICTION);
+	AddComponent<Rigidbody>(0.0f, 0.0f);
 	AddComponent<Sphere>(radius);
 	AddComponent<ModelRenderer>();
 
@@ -41,13 +40,6 @@ Ball::Ball(json* data, ObjectTag tag)
 		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
 
 		SetTag((*m_data)["ObjectTag"]);
-	}
-	else
-	{
-		AddComponent<Transform>();
-		AddComponent<Rigidbody>(GRAVITY, FRICTION);
-		AddComponent<Sphere>(20.0f);
-		AddComponent<ModelRenderer>();
 	}
 
 	// ボール操作コンポーネントのキャッシュ
@@ -108,17 +100,20 @@ void Ball::SaveParam()
  */
 void Ball::SaveInitParam()
 {
-	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["rigidbody"] = *GetComponent<Rigidbody>();
-	(*m_data)["sphere"] = *GetComponent<Sphere>();
-	(*m_data)["modelRenderer"] = *GetComponent<ModelRenderer>();
+	(*m_data)["transform"]		= *GetComponent<Transform>();
+	(*m_data)["rigidbody"]		= *GetComponent<Rigidbody>();
+	(*m_data)["sphere"]			= *GetComponent<Sphere>();
+	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
 }
 
+/**
+ * \brief Jsonの再読み込み
+ * 
+ */
 void Ball::ReloadJson()
 {
-	SimpleMath::Vector3 vec3 = (*m_data)["transform"]["scale"];
-
-	GetComponent<Transform>()->SetScale(
-		vec3
-		);
+	*GetComponent<Transform>() = (*m_data)["transform"];
+	*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
+	*GetComponent<Sphere>()		= (*m_data)["sphere"];
+	*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
 }

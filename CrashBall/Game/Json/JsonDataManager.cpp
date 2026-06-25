@@ -35,7 +35,7 @@ JsonDataManager::~JsonDataManager()
  */
 void JsonDataManager::LoadFile(
 	const std::string& key,
-	const wchar_t* fileName)
+	const char* fileName)
 {
 	std::ifstream ifs(fileName);
 
@@ -96,6 +96,11 @@ json* JsonDataManager::GetJsonData(const std::string& key)
 	else
 	{
 		m_jsonData.emplace(key, json::object());
+		m_files.emplace(key, "Resources/Data/" + key + ".json");
+
+		std::ofstream ofs("Resources/Data/" + key + ".json");
+		ofs << m_jsonData[key].dump(2);
+
 		return &m_jsonData[key];
 	}
 }

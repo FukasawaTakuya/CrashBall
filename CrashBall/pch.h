@@ -105,3 +105,6 @@ namespace DX
 #include "Model.h"
 #include "DDSTextureLoader.h"
 #include "Audio.h"
+
+
+#include "Game/Json/JsonSimpleMathConverter.h"

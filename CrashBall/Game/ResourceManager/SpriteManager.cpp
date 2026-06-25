@@ -1,7 +1,14 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   SpriteManager.cpp
+ * \brief  スプライト管理クラス
+ *
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
+#include "pch.h"
 #include "SpriteManager.h"
 #include <DDSTextureLoader.h>
-#include "Game/Component/Default/Renderer/SpriteRenderer.h"
 
 using namespace DirectX;
 
@@ -37,11 +44,11 @@ void SpriteManager::RegisterFile(
 /**
  * \brief スプライトの生成
  * 
- * \param device
+ * \param device デバイス
  */
 void SpriteManager::CreateSprite(ID3D11Device1* device)
 {
-	m_sprites.clear();
+	m_spriteInfo.clear();
 
 	for (auto& file : m_files)
 	{
@@ -58,57 +65,38 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 		);
 
 		// スプライトのサイズを求める
-		SimpleMath::Vector2 size;
+		float width;
+		float height;
+
 		ID3D11Resource* resource;
 		sprite->GetResource(&resource);
 		ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
 		D3D11_TEXTURE2D_DESC desc;
 		texture->GetDesc(&desc);
 
-		size.x = desc.Width;
-		size.y = desc.Height;
+		width = desc.Width;
+		height = desc.Height;
 
 		texture->Release();
 
 		// コンテナに追加
-		m_sprites.emplace(file.first, std::move(sprite));
-		m_spriteSizes.emplace(file.first, size);
+		m_spriteInfo.emplace(file.first, SpriteInfo(std::move(sprite), width, height));
 	}
 }
 
 /**
- * \brief スプライト描画コンポーネントのセットアップ
- * 
- * \param spriteRenderer スプライト描画コンポーネント
- */
-void SpriteManager::SetUpSpriteRenderer(SpriteRenderer* spriteRenderer)
-{
-	const std::string& key = spriteRenderer->GetSpriteKey();
-
-	auto it = m_sprites.find(key);
-
-	if (it != m_sprites.end())
-	{
-		spriteRenderer->SetSprite(
-			m_sprites[key].Get(),
-			m_spriteSizes[key]
-		);
-	}
-}
-
-/**
- * \brief スプライトの取得
+ * \brief スプライト情報の取得
  * 
  * \param key キー
- * \return スプライト
+ * \return スプライト情報
  */
-ID3D11ShaderResourceView* SpriteManager::GetSprite(const std::string& key)
+SpriteInfo* SpriteManager::GetSpriteInfo(const std::string& key)
 {
-	auto it = m_sprites.find(key);
+	auto it = m_spriteInfo.find(key);
 
-	if (it != m_sprites.end())
+	if (it != m_spriteInfo.end())
 	{
-		return it->second.Get();
+		return &it->second;
 	}
 	else return nullptr;
 }

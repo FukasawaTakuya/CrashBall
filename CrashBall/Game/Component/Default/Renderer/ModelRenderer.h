@@ -77,6 +77,16 @@ private:
 
 	// JsonConvert
 private:
+
 	friend void from_json(const json& j, ModelRenderer& modelRenderer);
 	friend void to_json(json& j, const ModelRenderer& modelRenderer);
+
+public:
+
+	// 演算子オーバーロード
+	void operator=(ModelRenderer renderer)
+	{
+		m_modelKey = renderer.m_modelKey;
+	}
+
 };

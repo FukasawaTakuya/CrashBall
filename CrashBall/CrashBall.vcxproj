@@ -302,7 +302,9 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Json\JsonDeserializers.h" />
+    <ClInclude Include="Game\Json\JsonEnumSerializers.h" />
     <ClInclude Include="Game\Json\JsonSerializers.h" />
+    <ClInclude Include="Game\Json\JsonSimpleMathConverter.h" />
     <ClInclude Include="Game\RendererManager\Interface\IModelRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\IPrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\ISpriteRendererManager.h" />
@@ -450,6 +452,7 @@
     <ClCompile Include="Game\Json\JsonDataManager.cpp" />
     <ClCompile Include="Game\Json\JsonDeserializers.cpp" />
     <ClCompile Include="Game\Json\JsonSerializers.cpp" />
+    <ClCompile Include="Game\Json\JsonSimpleMathConverter.cpp" />
     <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp" />

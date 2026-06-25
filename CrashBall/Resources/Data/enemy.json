@@ -1,17 +1,17 @@
 {
-  "ObjectTag": "Defaut",
+  "ObjectTag": "Enemy",
   "modelRenderer": {
     "modelKey": ""
   },
   "rigidbody": {
-    "friction": 1.0,
+    "friction": 1.2,
     "gravityAccelaration": 25.799999237060547,
     "isDynamic": 1.0,
     "mass": 1.0
   },
   "sphere": {
     "radius": 20.0,
-    "type": 0
+    "type": "Sphere"
   },
   "transform": {
     "position": {
@@ -20,9 +20,9 @@
       "z": -5.0
     },
     "rotate": {
-      "x": -0.4207296669483185,
-      "y": -1.3765755891799927,
-      "z": -1.5417364835739136
+      "x": 1.190738558769226,
+      "y": -1.674605131149292,
+      "z": -0.7355701327323914
     },
     "scale": {
       "x": 0.02500000037252903,

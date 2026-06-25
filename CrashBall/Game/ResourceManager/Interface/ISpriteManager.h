@@ -12,6 +12,14 @@
 
 class SpriteRenderer;
 
+struct SpriteInfo
+{
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> sprite;
+	float width = 0.0f;
+	float height = 0.0f;
+};
+
+
 /**
  * @brief スプライト管理クラスのインターフェース
  */
@@ -36,14 +44,11 @@ public:
 	// 操作
 public:
 
-	// スプライト描画コンポーネントのセットアップ
-	virtual void SetUpSpriteRenderer(SpriteRenderer* spriteRenderer) = 0;
-
 	// 取得/設定
 public:
 
-	// スプライトの取得
-	virtual ID3D11ShaderResourceView* GetSprite(const std::string& key) = 0;
+	// スプライト情報の取得
+	virtual SpriteInfo* GetSpriteInfo(const std::string& key) = 0;
 
 	// 内部実装
 private:

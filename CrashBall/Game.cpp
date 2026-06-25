@@ -76,8 +76,8 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
-    m_jsonDataManager->LoadFile("player", L"Resources/Data/player.json");
-    m_jsonDataManager->LoadFile("enemy", L"Resources/Data/enemy.json");
+    m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
+    m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
@@ -146,12 +146,12 @@ void Game::Update(DX::StepTimer const& timer)
     m_soundPlayer->PlaySe(m_soundManager.get());
 
     // ファイルにセーブ
-    if(m_inputSystem->GetKeyTrigger(Keyboard::T))
+    if(m_inputSystem->GetKeyTrigger(Keyboard::O))
     {
         m_jsonDataManager->SaveFile();
     }
     // 再読み込み
-    if(m_inputSystem->GetKeyTrigger(Keyboard::R))
+    if(m_inputSystem->GetKeyTrigger(Keyboard::I))
     {
         m_jsonDataManager->ReloadFile();
     }
@@ -311,10 +311,16 @@ void Game::CreateDeviceDependentResources()
     // スプライトバッチの作成
     m_spriteBatch = std::make_unique<SpriteBatch>(context);
 
-    // モデルの生成
-    m_spriteManager->CreateSprite(device);
-    m_modelManager->CreateModel(device);
-    m_textManager->CreateSpriteFont(device);
+    try {
+        // モデルの生成
+        m_spriteManager->CreateSprite(device);
+        m_modelManager->CreateModel(device);
+        m_textManager->CreateSpriteFont(device);
+    }
+    catch (std::exception& ex)
+    {
+        OutputDebugStringA(ex.what());
+    }
     
     // デバイス依存のリソース作成
     m_sceneManager->CreateDeviceResources(m_resourceContext);

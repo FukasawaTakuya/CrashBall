@@ -20,9 +20,6 @@ class  Player : public Ball {
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
-
-	static constexpr float RADIUS = 20.0f;	// 半径
-	static constexpr float SCALE = 0.025f;	// スケール
 	
 	// データメンバの宣言 -----------------------------------------------
 private:

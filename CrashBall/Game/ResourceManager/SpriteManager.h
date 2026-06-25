@@ -10,6 +10,8 @@
 
 #pragma once
 
+
+
 /**
  * @brief スプライト管理クラス
  */
@@ -23,15 +25,12 @@ private:
 
 	using FileCollection
 		= std::unordered_map<std::string, std::wstring>;
-	using SpriteCollection
-		= std::unordered_map<std::string, Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>>;
-	using SpriteSizeCollection = std::unordered_map<std::string, DirectX::SimpleMath::Vector2>;
+	using SpriteInfoCollection 
+		= std::unordered_map<std::string, SpriteInfo>;
 
-	FileCollection		m_files;	// ファイル名
-	SpriteCollection	m_sprites;	// スプライトのキャッシュ
+	FileCollection		m_files;		// ファイル名
+	SpriteInfoCollection m_spriteInfo;	// スプライト情報
 	
-	SpriteSizeCollection m_spriteSizes;	// スプライトのサイズ
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -49,17 +48,15 @@ public:
 	// ファイル名を登録
 	void RegisterFile(const std::string& key, const std::wstring& fileName);
 
-	// モデルの作成
+	// スプライトの作成
 	void CreateSprite(ID3D11Device1* device);
 
-	// スプライト描画コンポーネントのセットアップ
-	void SetUpSpriteRenderer(SpriteRenderer* spriteRenderer) override;
 
 	// 取得/設定
 public:
 
-	// モデルの取得
-	ID3D11ShaderResourceView* GetSprite(const std::string& key) override;
+	// スプライト情報の取得
+	SpriteInfo* GetSpriteInfo(const std::string& key) override;
 
 	// 内部実装
 private:
