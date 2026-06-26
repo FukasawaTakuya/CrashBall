@@ -65,7 +65,6 @@ public:
 	// ƒf[ƒ^‚ÌÄ“Ç‚İ‚İ
 	void ReloadJson() override;
 
-
 	// æ“¾/İ’è
 public:
 

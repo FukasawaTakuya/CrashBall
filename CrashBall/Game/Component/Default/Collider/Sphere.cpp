@@ -16,9 +16,11 @@
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  * \param radius 半径
  */
-Sphere::Sphere(IGameObject* gameObject, float radius)
+Sphere::Sphere(
+	IGameObject* gameObject, 
+	float radius)
 	: Collider(gameObject, ColliderType::Sphere)
-	, m_radius{ radius }
+	, m_radius(radius)
 {
 }
 
@@ -29,10 +31,10 @@ Sphere::Sphere(IGameObject* gameObject, float radius)
  * \param sphere 球コライダー
  */
 Sphere::Sphere(
-	IGameObject* gameObject, 
+	IGameObject*  gameObject, 
 	const Sphere& sphere)
-	: Collider(gameObject, ColliderType::Sphere)
-	, m_radius(sphere.m_radius)
+	: Collider	(gameObject, ColliderType::Sphere)
+	, m_radius	(sphere.m_radius)
 {
 }
 

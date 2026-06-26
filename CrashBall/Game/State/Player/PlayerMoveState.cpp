@@ -65,16 +65,16 @@ void PlayerMoveState::Update()
     {
         // 入力に応じて加速
         if (Input::GetKeyDown(Keyboard::D)) {
-            rigidbody->Accel( playerController->GetCamera()->GetRight()   * ACCELERATION);
+            rigidbody->Accel( playerController->GetCamera()->GetRight()   * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::A)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetRight()   * ACCELERATION);
+            rigidbody->Accel(-playerController->GetCamera()->GetRight()   * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::W)) {
-            rigidbody->Accel( playerController->GetCamera()->GetForward() * ACCELERATION);
+            rigidbody->Accel( playerController->GetCamera()->GetForward() * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::S)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetForward() * ACCELERATION);
+            rigidbody->Accel(-playerController->GetCamera()->GetForward() * playerController->GetAcceleration());
         }
     }
 
@@ -91,8 +91,8 @@ void PlayerMoveState::Update()
     }
 
     // 速度制限
-	if (rigidbody->GetVelocity().Length() > MAX_SPEED)
-		rigidbody->SetVelocity(XMVector3Normalize(rigidbody->GetVelocity()) * MAX_SPEED);
+	if (rigidbody->GetVelocity().Length() > playerController->GetMaxSpeed())
+		rigidbody->SetVelocity(XMVector3Normalize(rigidbody->GetVelocity()) * playerController->GetMaxSpeed());
 }
 
 /**

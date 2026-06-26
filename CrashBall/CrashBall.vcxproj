@@ -293,6 +293,9 @@
     <ClInclude Include="Game\Geometory\Plane.h" />
     <ClInclude Include="Game\Geometory\Segment.h" />
     <ClInclude Include="Game\Geometory\Triangle.h" />
+    <ClInclude Include="Game\Json\Component\JsonComponentDeserializers.h" />
+    <ClInclude Include="Game\Json\Component\JsonComponentSerializers.h" />
+    <ClInclude Include="Game\Json\Enum\JsonEnumSerializers.h" />
     <ClInclude Include="Game\Json\IJsonDataManager.h">
       <SubType>
       </SubType>
@@ -301,10 +304,8 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Json\JsonDeserializers.h" />
-    <ClInclude Include="Game\Json\JsonEnumSerializers.h" />
-    <ClInclude Include="Game\Json\JsonSerializers.h" />
-    <ClInclude Include="Game\Json\JsonSimpleMathConverter.h" />
+    <ClInclude Include="Game\Json\SimpleMath\JsonSimpleMathConverter.h" />
+    <ClInclude Include="Game\Json\State\JsonStateSerializers.h" />
     <ClInclude Include="Game\RendererManager\Interface\IModelRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\IPrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\ISpriteRendererManager.h" />
@@ -449,10 +450,11 @@
     <ClCompile Include="Game\Geometory\Plane.cpp" />
     <ClCompile Include="Game\Geometory\Segment.cpp" />
     <ClCompile Include="Game\Geometory\Triangle.cpp" />
+    <ClCompile Include="Game\Json\Component\JsonComponentDeserializers.cpp" />
+    <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp" />
     <ClCompile Include="Game\Json\JsonDataManager.cpp" />
-    <ClCompile Include="Game\Json\JsonDeserializers.cpp" />
-    <ClCompile Include="Game\Json\JsonSerializers.cpp" />
-    <ClCompile Include="Game\Json\JsonSimpleMathConverter.cpp" />
+    <ClCompile Include="Game\Json\SimpleMath\JsonSimpleMathConverter.cpp" />
+    <ClCompile Include="Game\Json\State\JsonStateSerializers.cpp" />
     <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp" />

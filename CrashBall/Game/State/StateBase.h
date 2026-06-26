@@ -9,9 +9,7 @@
 #pragma once
 
 #include <Game/GameObject/Ball.h>
-
-template <typename Owner>
-class StateMachine;
+#include "IStateMachine.h"
 
 /**
  * \brief 基底ステート
@@ -27,7 +25,7 @@ protected:
 
 	Owner* m_owner = nullptr;						// オーナー
 
-	StateMachine<Owner>* m_pStateMachine = nullptr;	// ステートマシンのポインタ
+	IStateMachine* m_pStateMachine = nullptr;	// ステートマシンのポインタ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -91,7 +89,7 @@ public:
 	void SetOwner(Owner* owner) { m_owner = owner; }
 
 	// ステートマシンのセット
-	void SetStateMachine(StateMachine<Owner>* pStateMachine) { m_pStateMachine = pStateMachine; }
+	void SetStateMachine(IStateMachine* pStateMachine) { m_pStateMachine = pStateMachine; }
 
 	// 内部実装
 private:

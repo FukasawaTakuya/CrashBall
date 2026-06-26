@@ -26,11 +26,11 @@ PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
  * \param playerStatusController プレイヤーステータス管理コンポーネント
  */
 PlayerStatusController::PlayerStatusController(
-	IGameObject* gameObject, 
-	const PlayerStatusController& playerStatusController)
-	: Component(gameObject)
-	, m_ATTACK_COST(playerStatusController.m_ATTACK_COST)
-	, m_MIN_ATTACK_POWER(playerStatusController.m_MIN_ATTACK_POWER)
+	IGameObject*					gameObject, 
+	const PlayerStatusController&   playerStatusController)
+	: Component			(gameObject)
+	, m_attackCost		(playerStatusController.m_attackCost)
+	, m_minAttackPower	(playerStatusController.m_minAttackPower)
 {
 }
 
@@ -51,7 +51,7 @@ void PlayerStatusController::Update()
 	if (m_floorMeshGetter == nullptr) return;
 
 	// プレイヤーの面の数が攻撃コストより多ければフラグをオン
-	if (m_floorMeshGetter->GetPlayerMeshCount() >= m_ATTACK_COST)
+	if (m_floorMeshGetter->GetPlayerMeshCount() >= m_attackCost)
 	{
 		m_canAttack = true;
 	}
@@ -68,6 +68,6 @@ void PlayerStatusController::Update()
 		m_attackPower = playerMeshCount - enemyMeshCount;
 
 		// 攻撃力を範囲内に収める
-		m_attackPower = std::max(m_attackPower, m_MIN_ATTACK_POWER);
+		m_attackPower = std::max(m_attackPower, m_minAttackPower);
 	}
 }

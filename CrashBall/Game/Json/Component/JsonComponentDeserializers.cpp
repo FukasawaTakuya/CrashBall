@@ -1,5 +1,5 @@
-#include "pch.h"
-#include "JsonDeserializers.h"
+﻿#include "pch.h"
+#include "JsonComponentDeserializers.h"
 
 // Traingleへ変換
 void from_json(const json& j, Triangle& triangle)
@@ -80,9 +80,18 @@ void from_json(const json& j, TargetCamera& targetCamera)
 	j.at("offset").get_to(targetCamera.m_offset);
 }
 
+// PlayerControllerへ変換
+void from_json(const json& j, PlayerController& playerController)
+{
+	j.at("attackSpeed").get_to(playerController.m_attackSpeed);
+	j.at("attackDuration").get_to(playerController.m_attackDuration);
+	j.at("acceleration").get_to(playerController.m_acceleration);
+	j.at("maxSpeed").get_to(playerController.m_maxSpeed);
+}
+
 // PlayerStatusControllerへ変換
 void from_json(const json& j, PlayerStatusController& playerStatusController)
 {
-	j.at("attackCost").get_to(playerStatusController.m_ATTACK_COST);
-	j.at("minAttackPower").get_to(playerStatusController.m_MIN_ATTACK_POWER);
+	j.at("attackCost").get_to(playerStatusController.m_attackCost);
+	j.at("minAttackPower").get_to(playerStatusController.m_minAttackPower);
 }

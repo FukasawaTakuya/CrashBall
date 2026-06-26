@@ -21,11 +21,11 @@ using namespace DirectX;
  */
 Rigidbody::Rigidbody(
 	IGameObject* gameObject,
-	float gravityAcceleration, 
-	float friction)
-	: Component(gameObject)
-	, m_gravityAcceleration{ gravityAcceleration }
-	, m_friction{ friction }
+	float		 gravityAcceleration, 
+	float		 friction)
+	: Component				(gameObject)
+	, m_gravityAcceleration	(gravityAcceleration)
+	, m_friction			(friction)
 {
 }
 
@@ -36,13 +36,13 @@ Rigidbody::Rigidbody(
  * \param rigidbody 物理演算コンポーネント
  */
 Rigidbody::Rigidbody(
-	IGameObject* gameObject, 
+	IGameObject*	 gameObject, 
 	const Rigidbody& rigidbody)
-	: Component(gameObject)
-	, m_gravityAcceleration(rigidbody.m_gravityAcceleration)
-	, m_friction(rigidbody.m_friction)
-	, m_mass(rigidbody.m_mass)
-	, m_isDynamic(rigidbody.m_isDynamic)
+	: Component				(gameObject)
+	, m_gravityAcceleration	(rigidbody.m_gravityAcceleration)
+	, m_friction			(rigidbody.m_friction)
+	, m_mass				(rigidbody.m_mass)
+	, m_isDynamic			(rigidbody.m_isDynamic)
 {
 }
 

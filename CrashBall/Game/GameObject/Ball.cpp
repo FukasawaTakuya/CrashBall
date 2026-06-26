@@ -10,7 +10,7 @@
 #include "Ball.h"
 #include "Game/Engine/Time.h"
 
-#include "Game/Json/JsonEnumSerializers.h"
+#include "Game/Json/Enum/JsonEnumSerializers.h"
 
 using namespace DirectX;
 

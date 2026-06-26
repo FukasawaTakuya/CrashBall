@@ -113,6 +113,18 @@
     <Filter Include="Game\Json">
       <UniqueIdentifier>{b7d91fb6-6dcf-43c6-a517-717a49bdaad5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Json\Component">
+      <UniqueIdentifier>{898c2dfe-9660-4e6b-b37d-5c0ee3b0d676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Json\State">
+      <UniqueIdentifier>{9a6ef7c4-9f42-49d3-bc05-3d865ceb7688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Json\Enum">
+      <UniqueIdentifier>{29c4a1e0-9059-4b04-99ce-a25734d9cb9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Json\SimpleMath">
+      <UniqueIdentifier>{0f59cf85-56de-47d0-b2d5-0c5c2cf50f81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -417,12 +429,6 @@
     <ClInclude Include="Game\GameObject\UIObject\Button.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\JsonSerializers.h">
-      <Filter>Game\Json</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Json\JsonDeserializers.h">
-      <Filter>Game\Json</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Color\MyColor.h">
       <Filter>Game\Color</Filter>
     </ClInclude>
@@ -432,11 +438,20 @@
     <ClInclude Include="Game\Json\IJsonDataManager.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\JsonEnumSerializers.h">
-      <Filter>Game\Json</Filter>
+    <ClInclude Include="Game\Json\Enum\JsonEnumSerializers.h">
+      <Filter>Game\Json\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\JsonSimpleMathConverter.h">
-      <Filter>Game\Json</Filter>
+    <ClInclude Include="Game\Json\SimpleMath\JsonSimpleMathConverter.h">
+      <Filter>Game\Json\SimpleMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Component\JsonComponentDeserializers.h">
+      <Filter>Game\Json\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Component\JsonComponentSerializers.h">
+      <Filter>Game\Json\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\State\JsonStateSerializers.h">
+      <Filter>Game\Json\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -635,16 +650,21 @@
     <ClCompile Include="Game\Component\UI\ButtonController.cpp">
       <Filter>Game\Component\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\JsonSerializers.cpp">
-      <Filter>Game\Json</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Json\JsonDeserializers.cpp">
-      <Filter>Game\Json</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Json\JsonDataManager.cpp">
       <Filter>Game\Json</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\JsonSimpleMathConverter.cpp" />
+    <ClCompile Include="Game\Json\SimpleMath\JsonSimpleMathConverter.cpp">
+      <Filter>Game\Json\SimpleMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Component\JsonComponentDeserializers.cpp">
+      <Filter>Game\Json\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp">
+      <Filter>Game\Json\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\State\JsonStateSerializers.cpp">
+      <Filter>Game\Json\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

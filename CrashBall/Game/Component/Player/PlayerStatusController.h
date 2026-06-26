@@ -19,8 +19,8 @@ class  PlayerStatusController: public Component {
 	// パラメータの宣言 -------------------------------------------------
 private:
 
-	int m_ATTACK_COST = 0;
-	float m_MIN_ATTACK_POWER = 0.0f;
+	int m_attackCost		 = 0;		// 攻撃コスト
+	float m_minAttackPower	= 0.0f;		// 最低攻撃力
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -68,7 +68,7 @@ public:
 	bool GetCanAttack() const { return m_canAttack; }
 
 	// 攻撃コストを取得
-	int GetAttacckCost() const { return m_ATTACK_COST; }
+	int GetAttacckCost() const { return m_attackCost; }
 
 	// 床メッシュ取得コンポーネントを設定 
 	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
@@ -94,7 +94,7 @@ public:
 	// 演算子オーバーロード
 	void operator=(const PlayerStatusController& statusController)
 	{
-		m_ATTACK_COST = statusController.m_ATTACK_COST;
-		m_MIN_ATTACK_POWER = statusController.m_MIN_ATTACK_POWER;
+		m_attackCost = statusController.m_attackCost;
+		m_minAttackPower = statusController.m_minAttackPower;
 	}
 };

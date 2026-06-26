@@ -19,7 +19,41 @@
  */
 PlayerController::PlayerController(IGameObject* gameObject)
 	: Component(gameObject)
-	, m_stateMachine{ std::make_unique<StateMachine<PlayerController>>(this) }
+	, m_stateMachine(std::make_unique<StateMachine<PlayerController>>(this))
+{
+	// プレイヤーステート用のコンテキスト
+	PlayerStateContext stateContext
+	{
+		GetGameObject()->GetComponent<Rigidbody>(),
+		GetGameObject()->GetComponent<Transform>(),
+		GetGameObject()->GetComponent<BallController>(),
+		GetGameObject()->GetComponent<PlayerStatusController>(),
+		this
+	};
+
+	// ステートの生成
+	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
+	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
+
+	// 初期のステートのセット
+	m_stateMachine->ChangeState<PlayerMoveState>();
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param playerController プレイヤー操作コンポーネント
+ */
+PlayerController::PlayerController(
+	IGameObject* gameObject,
+	const PlayerController& playerController)
+	: Component(gameObject)
+	, m_stateMachine	(std::make_unique<StateMachine<PlayerController>>(this))
+	, m_attackSpeed		(playerController.m_attackSpeed)
+	, m_attackDuration	(playerController.m_attackDuration)
+	, m_acceleration	(playerController.m_acceleration)
+	, m_maxSpeed		(playerController.m_maxSpeed)
 {
 	// プレイヤーステート用のコンテキスト
 	PlayerStateContext stateContext
@@ -53,10 +87,6 @@ PlayerController::~PlayerController()
  */
 void PlayerController::Initialize()
 {
-	// 初期位置に設定
-	GetGameObject()->GetComponent<Transform>()->SetPosition(INIT_POSITION);
-	// 速度を0に設定
-	GetGameObject()->GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**

@@ -18,10 +18,6 @@ class  PlayerAttackState : public PlayerStateBase{
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ATTACK_SPEED = 40.0f;	// 攻撃速度
-
-	static constexpr float ATTACK_DURATION = 0.5f;	// 攻撃の持続時間
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

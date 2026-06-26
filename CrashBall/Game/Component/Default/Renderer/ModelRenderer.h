@@ -45,7 +45,6 @@ public:
 		IGameObject* gameObject,
 		const ModelRenderer& modelRenderer);
 
-
 	// デストラクタ
 	~ModelRenderer();
 
@@ -88,5 +87,4 @@ public:
 	{
 		m_modelKey = renderer.m_modelKey;
 	}
-
 };

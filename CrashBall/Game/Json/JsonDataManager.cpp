@@ -74,7 +74,7 @@ void JsonDataManager::SaveFile()
 	for (auto& j : m_jsonData)
 	{
 		std::ofstream ofs("Resources/Data/" + j.first + ".json");
-		ofs << j.second.dump(2);
+		ofs << j.second.dump(3);
 	}
 }
 

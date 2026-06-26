@@ -22,6 +22,9 @@ protected:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	PlayerStateBase() = default;
+
 	// コンストラクタ
 	PlayerStateBase(const PlayerStateContext& stateContext)
 		: m_stateContext(stateContext)

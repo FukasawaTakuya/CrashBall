@@ -155,7 +155,6 @@ void Game::Update(DX::StepTimer const& timer)
     {
         m_jsonDataManager->ReloadFile();
     }
-
 }
 #pragma endregion
 

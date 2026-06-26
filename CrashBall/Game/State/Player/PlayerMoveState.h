@@ -20,11 +20,6 @@ class  PlayerMoveState : public PlayerStateBase {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ACCELERATION = 35.0f;	// 加速度 
-
-	static constexpr float MAX_SPEED = 40.0f;		// 最大速度
-
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

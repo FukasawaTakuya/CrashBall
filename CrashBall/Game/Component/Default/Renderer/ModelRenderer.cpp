@@ -29,9 +29,9 @@ ModelRenderer::ModelRenderer(IGameObject* gameObject)
  * \param modelKey モデルのキー
  */
 ModelRenderer::ModelRenderer(
-	IGameObject* gameObject, 
+	IGameObject*		 gameObject, 
 	const ModelRenderer& modelRenderer)
-	: Component(gameObject)
+	: Component	(gameObject)
 	, m_modelKey(modelRenderer.m_modelKey)
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();

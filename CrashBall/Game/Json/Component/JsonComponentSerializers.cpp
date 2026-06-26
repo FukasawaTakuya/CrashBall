@@ -1,5 +1,6 @@
 #include "pch.h"
-#include "JsonSerializers.h"
+#include "JsonComponentSerializers.h"
+#include "Game/State/Player/PlayerAttackState.h"
 
 
 // RectTransformから変換
@@ -91,11 +92,23 @@ void to_json(json& j, const TargetCamera& targetCamera)
 	};
 }
 
+// PlayerControllerから変換
+void to_json(json& j, const PlayerController& playerController)
+{
+	j = json
+	{
+		{ "attackSpeed",	playerController.m_attackSpeed		},
+		{ "attackDuration", playerController.m_attackDuration	},
+		{ "acceleration",	playerController.m_acceleration		},
+		{ "maxSpeed",		playerController.m_maxSpeed			}
+	};
+}
+
 // PlayerStatusControllerから変換
 void to_json(json& j, const PlayerStatusController& playerStatusController)
 {
 	j = json{
-		{ "attackCost", playerStatusController.m_ATTACK_COST },
-		{ "minAttackPower", playerStatusController.m_MIN_ATTACK_POWER }
+		{ "attackCost",		playerStatusController.m_attackCost		},
+		{ "minAttackPower", playerStatusController.m_minAttackPower }
 	};
 }

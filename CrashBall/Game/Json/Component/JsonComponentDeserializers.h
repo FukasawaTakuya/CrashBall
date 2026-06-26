@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Game/Json/JsonEnumSerializers.h"
+#include "Game/Json/Enum/JsonEnumSerializers.h"
 
 #include "Game/Geometory/Triangle.h"
 #include "Game/Component/Default/Physics/RectTransform.h"
@@ -13,6 +13,7 @@
 #include "Game/Component/Default/Collider/Sphere.h"
 #include "Game/Component/Camera/TargetCamera.h"
 #include "Game/Component/Player/PlayerStatusController.h"
+#include "Game/Component/Player/PlayerController.h"
 
 using namespace nlohmann;
 
@@ -45,6 +46,9 @@ void from_json(const json& j, Sphere& sphere);
 
 // TargetCameraへ変換
 void from_json(const json& j, TargetCamera& targetCamera);
+
+// PlayerControllerへ変換
+void from_json(const json& j, PlayerController& playerController);
 
 // PlayerStatusControllerへ変換
 void from_json(const json& j, PlayerStatusController& playerStatusController);

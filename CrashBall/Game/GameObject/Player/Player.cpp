@@ -20,9 +20,6 @@ Player::Player()
 	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>();
 	m_playerController = AddComponent<PlayerController>();
-
-	// スケールの設定(title)
-	GetComponent<Transform>()->SetScale(0.025);
 }
 
 /**
@@ -35,8 +32,9 @@ Player::Player(json* data)
 {
 	// コンポーネントの追加
 	m_playerStatusController = AddComponent<PlayerStatusController>((*data)["playerStatusController"]);
-	m_playerController = AddComponent<PlayerController>();}
-\
+	m_playerController = AddComponent<PlayerController>((*m_data)["playerController"]);
+}
+
 /**
  * \brief 初期化
  * 
@@ -84,6 +82,7 @@ void Player::Finalize()
 void Player::SaveParam()
 {
 	(*m_data)["playerStatusController"] = *m_playerStatusController;
+	(*m_data)["playerController"] = *m_playerController;
 
 	Ball::SaveParam();
 }
@@ -106,6 +105,7 @@ void Player::SaveInitParam()
 void Player::ReloadJson()
 {
 	*m_playerStatusController = (*m_data)["playerStatusController"];
+	*m_playerController = (*m_data)["playerController"];
 	
 	Ball::ReloadJson();
 }

@@ -33,10 +33,11 @@ public:
 		ChangeState(typeid(State));
 	}
 
-
-
 	// 取得/設定
 public:
+
+	// 現在のステートを取得
+	virtual std::type_index GetCurrentStateType() = 0;
 
 	// 内部実装
 protected:

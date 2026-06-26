@@ -31,15 +31,8 @@ public:
 	// コピーコンストラクタ
 	Sphere(IGameObject* gameObject, const Sphere& sphere);
 
-
 	// デストラクタ
 	~Sphere();
-
-	void operator=(Sphere s)
-	{
-		m_layerMask = s.m_layerMask;
-		m_radius = s.m_radius;
-	}
 
 public:
 
@@ -59,6 +52,15 @@ public:
 private:
 	friend void from_json(const json& j, Sphere& sphere);
 	friend void to_json(json& j, const Sphere& sphere);
+
+public:
+	
+	// 演算子オーバーロード
+	void operator=(Sphere s)
+	{
+		m_layerMask = s.m_layerMask;
+		m_radius = s.m_radius;
+	}
 
 };
 

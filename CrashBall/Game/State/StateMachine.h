@@ -92,7 +92,6 @@ public:
 	// ステートの変更
 	using IStateMachine::ChangeState;
 
-
 	// ステートの生成
 	template<typename State, typename... Args>
 	requires std::derived_from<State, StateBase<Owner>>
@@ -119,10 +118,24 @@ public:
 public:
 
 	// 現在のステートの型情報を取得
-	std::type_index GetCurrentStateType()
+	std::type_index GetCurrentStateType() override
 	{
 		return typeid(*m_currentState);
 	}
+
+	// ステートの取得
+	template<typename State>
+	State* GetState()
+	{
+		auto it = m_states.find(typeid(State));
+
+		if (it != m_states.end())
+		{
+			return it.second.get();
+		}
+	}
+
+
 
 	// 内部実装
 private:
@@ -158,4 +171,6 @@ private:
 				m_currentState->CallOnEnter();
 			};
 	}
+
+
 };

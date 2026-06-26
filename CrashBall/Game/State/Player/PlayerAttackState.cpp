@@ -85,13 +85,13 @@ void PlayerAttackState::Update()
 	attackDirection.Normalize();
 
 	// 速度の設定
-	rigidbody->SetVelocity(attackDirection * ATTACK_SPEED);
+	rigidbody->SetVelocity(attackDirection * playerController->GetAttackSpeed());
 
 	// タイマーの更新
 	m_timer += Time::GetElapsedTime();
 
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
-	if (m_timer >= ATTACK_DURATION) {
+	if (m_timer >= playerController->GetAttackDuration()) {
 		// ステート遷移
 		m_pStateMachine->ChangeState<PlayerMoveState>();
 		// 移動速度を0にする

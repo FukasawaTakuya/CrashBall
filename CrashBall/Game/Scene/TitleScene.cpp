@@ -27,7 +27,7 @@ TitleScene::TitleScene(
 	IJsonDataManager* jsonDataManager)
 	: Scene(pSceneController, jsonDataManager)
 	, m_camera(std::make_unique<TitleCamera>())
-	, m_player(std::make_unique<Player>())
+	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_stage(std::make_unique<Stage>())
 	, m_titleSprite(std::make_unique<Object2D>())
 	, m_startButton(std::make_unique<Button>())
