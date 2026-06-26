@@ -55,7 +55,7 @@ public:
 	// コピーコンストラクタ
 	PlayerController(
 		IGameObject* gameObject,
-		const PlayerController& playerController);
+		const PlayerController& other);
 
 	// ムーブコンストラクタ
 	PlayerController(PlayerController&&) = default;

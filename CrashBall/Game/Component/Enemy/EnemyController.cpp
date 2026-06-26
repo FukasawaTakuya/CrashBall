@@ -49,9 +49,7 @@ EnemyController::~EnemyController()
 void EnemyController::Initialize()
 {
 	// HPの初期化
-	m_hp = MAX_HP;
-	// 初期位置に設定
-	m_transform->SetPosition(INIT_POSITION);
+	m_hp = m_maxHp;
 	// 移動速度を0に設定
 	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 }
@@ -73,7 +71,7 @@ void EnemyController::Update(const GameContext& gameContext)
 		// 壁回避
 		AvoidWall();
 		// 加速
-		m_rigidbody->Accel(m_accelDirection * ACCELERATINON);
+		m_rigidbody->Accel(m_accelDirection * m_acceleration);
 	}
 }
 
@@ -84,7 +82,7 @@ void EnemyController::Update(const GameContext& gameContext)
  */
 void EnemyController::Damage(float damage)
 {
-	m_hp = std::clamp(m_hp - damage, 0.0f, MAX_HP);
+	m_hp = std::clamp(m_hp - damage, 0.0f, m_maxHp);
 }
 
 /**
@@ -99,7 +97,7 @@ void EnemyController::AvoidWall()
 	for (auto& wallFace : wallMesh)
 	{
 		// 壁との距離が一定以下のとき
-		if ((wallFace->GetPlane()->CalcLength(m_transform->GetPosition()) <= AVOID_WALL_DISTANCE))
+		if ((wallFace->GetPlane()->CalcLength(m_transform->GetPosition()) <= m_avoidWallDistance))
 		{
 			// 壁の法線ベクトルを水平方向に正規化して取得
 			SimpleMath::Vector3 faceNormal = wallFace->GetPlane()->GetNormal();
@@ -124,12 +122,12 @@ void EnemyController::AvoidWall()
 			// 進行方向と壁の方向が同じなら強い力で速度を補正
 			if (direction.Dot(-faceNormal) > 0.0f)
 			{
-				m_rigidbody->Accel(faceNormal * 3.0f);
+				m_rigidbody->Accel(faceNormal * m_avoidWallStrongkForce);
 			}
 			// 弱い力で速度を補正
 			else
 			{
-				m_rigidbody->Accel(faceNormal * 0.7f);
+				m_rigidbody->Accel(faceNormal * m_avoidWallWeakForce);
 			}
 		}
 	}

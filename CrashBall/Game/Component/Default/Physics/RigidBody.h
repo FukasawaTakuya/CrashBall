@@ -49,7 +49,7 @@ public:
 	// コピーコンストラクタ
 	Rigidbody(
 		IGameObject* gameObject,
-		const Rigidbody& rigidbody
+		const Rigidbody& other
 	);
 
 	// デストラクタ

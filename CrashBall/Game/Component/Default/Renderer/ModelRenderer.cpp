@@ -26,13 +26,13 @@ ModelRenderer::ModelRenderer(IGameObject* gameObject)
  * \brief コピーコンストラクタ
  * 
  * \param gameObjectコンポーネントを所有するゲームオブジェクト
- * \param modelKey モデルのキー
+ * \param other コピー元
  */
 ModelRenderer::ModelRenderer(
 	IGameObject*		 gameObject, 
-	const ModelRenderer& modelRenderer)
+	const ModelRenderer& other)
 	: Component	(gameObject)
-	, m_modelKey(modelRenderer.m_modelKey)
+	, m_modelKey(other.m_modelKey)
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();
 }

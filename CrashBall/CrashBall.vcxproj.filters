@@ -180,9 +180,6 @@
     <ClInclude Include="Game\State\Player\PlayerMoveState.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\State\Player\PlayerJumpState.h">
-      <Filter>Game\State\PlayerState</Filter>
-    </ClInclude>
     <ClInclude Include="Game\CollisionManager\CollisionLayerMask.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
@@ -493,9 +490,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Player\Player.cpp">
       <Filter>Game\GameObject\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp">
-      <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp">
       <Filter>Game\State\PlayerState</Filter>

@@ -9,19 +9,6 @@
 #include "pch.h"
 #include "Player.h"
 
- /**
- * \brief コンストラクタ
- * 
- * \param radius 半径
- */
-Player::Player()
-	: Ball(0.0f, ObjectTag::Player)
-{
-	// コンポーネントの追加
-	m_playerStatusController = AddComponent<PlayerStatusController>();
-	m_playerController = AddComponent<PlayerController>();
-}
-
 /**
  * \brief コンストラクタ
  * 
@@ -41,8 +28,10 @@ Player::Player(json* data)
  */
 void Player::Initialize()
 {
+	// 初期位置に設定
 	GetComponent<Transform>()->SetPosition((*m_data)["transform"]["position"]);
 
+	// 移動速度を0にする
 	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
 

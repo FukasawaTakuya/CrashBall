@@ -29,7 +29,7 @@ public:
 	Sphere(IGameObject* gameObject, float radius);
 
 	// コピーコンストラクタ
-	Sphere(IGameObject* gameObject, const Sphere& sphere);
+	Sphere(IGameObject* gameObject, const Sphere& other);
 
 	// デストラクタ
 	~Sphere();

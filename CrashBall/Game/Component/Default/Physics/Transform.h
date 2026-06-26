@@ -44,7 +44,7 @@ public:
 	// コピーコンストラクタ
 	Transform(
 		IGameObject* gameObject,
-		const Transform& transform);
+		const Transform& other);
 
 	// デストラクタ
 	~Transform();

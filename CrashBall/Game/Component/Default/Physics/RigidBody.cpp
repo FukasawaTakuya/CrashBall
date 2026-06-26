@@ -33,16 +33,16 @@ Rigidbody::Rigidbody(
  * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param rigidbody 物理演算コンポーネント
+ * \param other コピー元
  */
 Rigidbody::Rigidbody(
 	IGameObject*	 gameObject, 
-	const Rigidbody& rigidbody)
+	const Rigidbody& other)
 	: Component				(gameObject)
-	, m_gravityAcceleration	(rigidbody.m_gravityAcceleration)
-	, m_friction			(rigidbody.m_friction)
-	, m_mass				(rigidbody.m_mass)
-	, m_isDynamic			(rigidbody.m_isDynamic)
+	, m_gravityAcceleration	(other.m_gravityAcceleration)
+	, m_friction			(other.m_friction)
+	, m_mass				(other.m_mass)
+	, m_isDynamic			(other.m_isDynamic)
 {
 }
 

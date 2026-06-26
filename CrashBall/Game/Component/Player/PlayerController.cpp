@@ -43,17 +43,17 @@ PlayerController::PlayerController(IGameObject* gameObject)
  * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param playerController プレイヤー操作コンポーネント
+ * \param other コピー元
  */
 PlayerController::PlayerController(
 	IGameObject* gameObject,
-	const PlayerController& playerController)
+	const PlayerController& other)
 	: Component(gameObject)
 	, m_stateMachine	(std::make_unique<StateMachine<PlayerController>>(this))
-	, m_attackSpeed		(playerController.m_attackSpeed)
-	, m_attackDuration	(playerController.m_attackDuration)
-	, m_acceleration	(playerController.m_acceleration)
-	, m_maxSpeed		(playerController.m_maxSpeed)
+	, m_attackSpeed		(other.m_attackSpeed)
+	, m_attackDuration	(other.m_attackDuration)
+	, m_acceleration	(other.m_acceleration)
+	, m_maxSpeed		(other.m_maxSpeed)
 {
 	// プレイヤーステート用のコンテキスト
 	PlayerStateContext stateContext

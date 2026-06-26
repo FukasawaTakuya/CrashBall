@@ -32,10 +32,10 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// コンストラクタ
-	Player();
+	// デフォルトコンストラクタ
+	Player() = default;
 
-	//
+	// コンストラクタ
 	Player(json* data);
 
 	// デストラクタ

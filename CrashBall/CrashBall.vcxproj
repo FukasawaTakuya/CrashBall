@@ -379,10 +379,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\State\Player\PlayerJumpState.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerMoveState.h">
       <SubType>
       </SubType>
@@ -472,7 +468,6 @@
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />
-    <ClCompile Include="Game\State\Player\PlayerJumpState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">

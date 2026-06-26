@@ -105,7 +105,7 @@ void GameScene::Update(const GameContext& gameContext)
         m_playerStatusController->GetAttacckCost(),
         m_playerStatusController->GetAttackPower(),
         m_enemyController->GetHp(),
-        EnemyController::MAX_HP
+        m_enemyController->GetMaxHP()
     );
 
     m_gamePanel->Update(gameContext);

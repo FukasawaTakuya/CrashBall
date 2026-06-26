@@ -28,13 +28,13 @@ Sphere::Sphere(
  * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param sphere 球コライダー
+ * \param other コピー元
  */
 Sphere::Sphere(
 	IGameObject*  gameObject, 
-	const Sphere& sphere)
+	const Sphere& other)
 	: Collider	(gameObject, ColliderType::Sphere)
-	, m_radius	(sphere.m_radius)
+	, m_radius	(other.m_radius)
 {
 }
 

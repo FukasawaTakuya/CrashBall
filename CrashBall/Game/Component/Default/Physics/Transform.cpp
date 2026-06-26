@@ -23,15 +23,15 @@ Transform::Transform(IGameObject* gameObejct)
  * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param transform トランスフォームコンポーネント
+ * \param other コピー元
  */
 Transform::Transform(
 	IGameObject*	 gameObject, 
-	const Transform& transform)
+	const Transform& other)
 	: Component	(gameObject)
-	, m_position(transform.m_position)
-	, m_rotate	(transform.m_rotate)
-	, m_scale	(transform.m_scale)
+	, m_position(other.m_position)
+	, m_rotate	(other.m_rotate)
+	, m_scale	(other.m_scale)
 {
 }
 

@@ -43,7 +43,7 @@ public:
 	// コピーコンストラクタ
 	ModelRenderer(
 		IGameObject* gameObject,
-		const ModelRenderer& modelRenderer);
+		const ModelRenderer& other);
 
 	// デストラクタ
 	~ModelRenderer();

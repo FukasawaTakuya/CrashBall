@@ -38,6 +38,9 @@ Enemy::~Enemy()
  */
 void Enemy::Initialize()
 {
+	GetComponent<Transform>()->SetPosition((*m_data)["transform"]["position"]);
+	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
+
 	m_enemyController->Initialize();
 }
 
