@@ -11,6 +11,11 @@
 #include "EnemyController.h"
 #include "Game/State/Enemy/EnemyWanderState.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
 EnemyController::EnemyController(IGameObject* gameObject)
 	: Component(gameObject)
 	, m_stateMachine{ std::make_unique<StateMachine<EnemyController>>(this) }
@@ -18,7 +23,48 @@ EnemyController::EnemyController(IGameObject* gameObject)
 	// 敵ステート用のコンテキスト
 	EnemyStateContext stateContext{
 			GetGameObject()->GetComponent<Transform>(),
-			GetGameObject()->GetComponent<Rigidbody>()
+			GetGameObject()->GetComponent<Rigidbody>(),
+			this
+	};
+
+	// ステートの生成
+	m_stateMachine->CreateState<EnemyWanderState>(stateContext);
+
+	// 初期ステートの設定
+	m_stateMachine->ChangeState<EnemyWanderState>();
+
+	// コンポーネントのキャッシュ
+	m_transform = GetGameObject()->GetComponent<Transform>();
+	m_rigidbody = GetGameObject()->GetComponent<Rigidbody>();
+	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
+	m_ballController = GetGameObject()->GetComponent<BallController>();
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param other コピー元
+ */
+EnemyController::EnemyController(
+	IGameObject* gameObject, 
+	const EnemyController& other)
+	: Component(gameObject)
+	, m_stateMachine(std::make_unique<StateMachine<EnemyController>>(this))
+	, m_acceleration			(other.m_acceleration)
+	, m_avoidWallDistance		(other.m_avoidWallDistance)
+	, m_avoidWallWeakForce		(other.m_avoidWallWeakForce)
+	, m_avoidWallStrongForce	(other.m_avoidWallStrongForce)
+	, m_maxHp					(other.m_maxHp)
+	, m_directionCircleDistance	(other.m_directionCircleDistance)
+	, m_directionCircleRadius	(other.m_directionCircleRadius)
+	, m_directionChageInterval	(other.m_directionChageInterval)
+{
+	// 敵ステート用のコンテキスト
+	EnemyStateContext stateContext{
+			GetGameObject()->GetComponent<Transform>(),
+			GetGameObject()->GetComponent<Rigidbody>(),
+			this
 	};
 
 	// ステートの生成
@@ -50,8 +96,8 @@ void EnemyController::Initialize()
 {
 	// HPの初期化
 	m_hp = m_maxHp;
-	// 移動速度を0に設定
-	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+	//// 移動速度を0に設定
+	//m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**
@@ -122,7 +168,7 @@ void EnemyController::AvoidWall()
 			// 進行方向と壁の方向が同じなら強い力で速度を補正
 			if (direction.Dot(-faceNormal) > 0.0f)
 			{
-				m_rigidbody->Accel(faceNormal * m_avoidWallStrongkForce);
+				m_rigidbody->Accel(faceNormal * m_avoidWallStrongForce);
 			}
 			// 弱い力で速度を補正
 			else

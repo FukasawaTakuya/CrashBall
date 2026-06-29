@@ -95,3 +95,16 @@ void from_json(const json& j, PlayerStatusController& playerStatusController)
 	j.at("attackCost").get_to(playerStatusController.m_attackCost);
 	j.at("minAttackPower").get_to(playerStatusController.m_minAttackPower);
 }
+
+// EnemyControllerへ変換
+void from_json(const json& j, EnemyController& enemyController)
+{
+	j.at("acceleration").get_to(enemyController.m_acceleration);
+	j.at("avoidWallDistance").get_to(enemyController.m_avoidWallDistance);
+	j.at("avoidWallWeakForce").get_to(enemyController.m_avoidWallWeakForce);
+	j.at("avoidWallStrongForce").get_to(enemyController.m_avoidWallStrongForce);
+	j.at("maxHp").get_to(enemyController.m_maxHp);
+	j.at("directionCircleDistance").get_to(enemyController.m_directionCircleDistance);
+	j.at("directionCircleRadius").get_to(enemyController.m_directionCircleRadius);
+	j.at("directionChageInterval").get_to(enemyController.m_directionChageInterval);
+}

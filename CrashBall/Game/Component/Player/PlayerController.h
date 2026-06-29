@@ -26,8 +26,10 @@ class  PlayerController : public Component {
 	// パラメータの宣言 -------------------------------------------------
 private:
 
+	// AttackState
 	float m_attackSpeed = 0.0f;		// 攻撃速度
 	float m_attackDuration = 0.0f;	// 攻撃の持続時間
+	// MoveState
 	float m_acceleration = 0.0f;	// 加速度 
 	float m_maxSpeed = 0.0f;		// 最大速度
 
@@ -138,11 +140,12 @@ private:
 
 public:
 
-	void operator=(const PlayerController& playerController)
+	// 演算子オーバーロード
+	void operator=(const PlayerController& other)
 	{
-		m_attackSpeed = playerController.m_attackSpeed;
-		m_attackDuration = playerController.m_attackDuration;
-		m_acceleration = playerController.m_acceleration;
-		m_maxSpeed = playerController.m_maxSpeed;
+		m_attackSpeed		= other.m_attackSpeed;
+		m_attackDuration	= other.m_attackDuration;
+		m_acceleration		= other.m_acceleration;
+		m_maxSpeed			= other.m_maxSpeed;
 	}
 };

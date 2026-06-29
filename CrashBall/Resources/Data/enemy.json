@@ -1,5 +1,15 @@
 {
    "ObjectTag": "Enemy",
+   "enemyController": {
+      "acceleration": 37.0,
+      "avoidWallDistance": 5.0,
+      "avoidWallStrongForce": 3.0,
+      "avoidWallWeakForce": 0.7,
+      "directionChageInterval": 1.5,
+      "directionCircleDistance": 4.5,
+      "directionCircleRadius": 10.0,
+      "maxHp": 200.0
+   },
    "modelRenderer": {
       "modelKey": ""
    },
@@ -20,9 +30,9 @@
          "z": -5.0
       },
       "rotate": {
-         "x": 0.07892291247844696,
-         "y": 0.9143500924110413,
-         "z": -2.450087308883667
+         "x": -0.8743401169776917,
+         "y": -0.8051660060882568,
+         "z": -1.04220449924469
       },
       "scale": {
          "x": 0.02500000037252903,

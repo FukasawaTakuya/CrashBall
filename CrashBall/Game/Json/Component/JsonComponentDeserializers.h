@@ -14,6 +14,7 @@
 #include "Game/Component/Camera/TargetCamera.h"
 #include "Game/Component/Player/PlayerStatusController.h"
 #include "Game/Component/Player/PlayerController.h"
+#include "Game/Component/Enemy/EnemyController.h"
 
 using namespace nlohmann;
 
@@ -52,3 +53,6 @@ void from_json(const json& j, PlayerController& playerController);
 
 // PlayerStatusControllerへ変換
 void from_json(const json& j, PlayerStatusController& playerStatusController);
+
+// EnemyControllerへ変換
+void from_json(const json& j, EnemyController& enemyController);

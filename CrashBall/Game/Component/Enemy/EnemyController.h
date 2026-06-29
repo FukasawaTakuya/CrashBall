@@ -23,8 +23,13 @@ private:
 	float m_acceleration = 37.0f;			// 加速度
 	float m_avoidWallDistance = 5.0f;		// 壁を検知する距離
 	float m_avoidWallWeakForce = 0.7f;		// 壁回避力(弱)
-	float m_avoidWallStrongkForce = 0.7f;	// 壁回避力(強)
+	float m_avoidWallStrongForce = 3.0f;	// 壁回避力(強)
 	float m_maxHp = 200.0f;					// 最大体力
+
+	// WarnderState
+	float m_directionCircleDistance = 4.5f;	// 加速方向を決めるための円との距離
+	float m_directionCircleRadius = 10.0f;		// 加速方向を決めるための円の半径
+	float m_directionChageInterval = 1.5f;		// 加速方向を変える間隔
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -53,9 +58,9 @@ public:
 	EnemyController(IGameObject* gameObject);
 
 	// コピーコンストラクタ
-	//EnemyController(
-	//	IGameObject* gameObject,
-	//	const EnemyController& other);
+	EnemyController(
+		IGameObject* gameObject,
+		const EnemyController& other);
 
 	// ムーブコンストラクタ
 	EnemyController(EnemyController&&) = default;
@@ -86,6 +91,13 @@ public:
 	// 最大体力の取得
 	float GetMaxHP() const { return m_maxHp; }
 
+	// 加速方向を決めるための円との距離の取得
+	float GetDirectionCircleDistance()	const { return m_directionCircleDistance; }
+	// 加速方向を決めるための円の半径の取得
+	float GetDirectionCircleRadius()	const { return m_directionCircleRadius; }
+	// 加速方向を変える間隔の取得
+	float GetDirectionChangeInterval()	const { return m_directionChageInterval; }
+
 	// 加速方向の設定
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }
 
@@ -97,4 +109,26 @@ private:
 
 	// 壁回避
 	void AvoidWall();
+
+	// JsonConverter
+private:
+
+	friend void to_json(json& j, const EnemyController& enemyController);
+	friend void from_json(const json& j, EnemyController& enemyController);
+
+public:
+
+	// 演算子オーバーロード
+	void operator=(const EnemyController& other)
+	{
+		m_acceleration				= other.m_acceleration;
+		m_avoidWallDistance			= other.m_avoidWallDistance;
+		m_avoidWallWeakForce		= other.m_avoidWallWeakForce;
+		m_avoidWallStrongForce		= other.m_avoidWallStrongForce;
+		m_maxHp						= other.m_maxHp;
+		m_directionCircleDistance	= other.m_directionCircleDistance;
+		m_directionCircleRadius		= other.m_directionCircleRadius;
+		m_directionChageInterval	= other.m_directionChageInterval;
+	}
+
 };

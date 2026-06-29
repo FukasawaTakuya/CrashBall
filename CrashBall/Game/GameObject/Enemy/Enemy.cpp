@@ -20,7 +20,7 @@ Enemy::Enemy(json* data)
 	:Ball(data)
 {
 	// コンポーネントの追加
-	m_enemyController = AddComponent<EnemyController>();
+	m_enemyController = AddComponent<EnemyController>((*data)["enemyController"]);
 }
 
 /**
@@ -70,4 +70,35 @@ void Enemy::Render(const RenderContext& renderContext)
  */
 void Enemy::Finalize()
 {
+}
+
+/**
+ * \brief パラメータ書き込み
+ * 
+ */
+void Enemy::SaveParam()
+{
+	(*m_data)["enemyController"] = *m_enemyController;
+
+	Ball::SaveParam();
+}
+
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
+void Enemy::SaveInitParam()
+{
+	Ball::SaveInitParam();
+}
+
+/**
+ * \brief データの再読み込み
+ * 
+ */
+void Enemy::ReloadJson()
+{
+	*m_enemyController = (*m_data)["enemyController"];
+
+	Ball::ReloadJson();
 }

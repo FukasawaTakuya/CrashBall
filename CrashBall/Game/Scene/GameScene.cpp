@@ -41,7 +41,7 @@ GameScene::GameScene(
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     // ターゲットのトランスフォームの設定
-    m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_player->GetComponent<Transform>());
+    m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_enemy->GetComponent<Transform>());
 
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());

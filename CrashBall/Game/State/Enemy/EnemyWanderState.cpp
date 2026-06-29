@@ -45,7 +45,7 @@ void EnemyWanderState::Initialize()
  */
 void EnemyWanderState::OnEnter()
 {
-	m_timer = DIRECTION_CHANGE_INTERVAL;
+	m_timer = m_stateContext.enemyController->GetDirectionChangeInterval();
 }
 
 /**
@@ -56,6 +56,7 @@ void EnemyWanderState::Update()
 {
 	Transform* transform = m_stateContext.trasnform;
 	Rigidbody* rigidbody = m_stateContext.rigidbody;
+	const EnemyController* enemyController = m_stateContext.enemyController;
 
 	m_timer += Time::GetElapsedTime();
 
@@ -70,18 +71,18 @@ void EnemyWanderState::Update()
 	// 加速度方向を取得
 	SimpleMath::Vector3 accelDirection = m_owner->GetAccelDirection();
 
-	if (m_timer >= DIRECTION_CHANGE_INTERVAL)
+	if (m_timer >= enemyController->GetDirectionChangeInterval())
 	{
 		// 円の中心
 		SimpleMath::Vector3 circleCenter =
-			transform->GetPosition() + direction * DIRECTION_CIRCLE_DISTANCE;
+			transform->GetPosition() + direction * enemyController->GetDirectionCircleDistance();
 
 		// 円の角度を更新
 		float circleRadian = Random::Range(0.0f, XM_2PI);
 
 		// 円周上の点
 		SimpleMath::Vector3 circlePoint = circleCenter +
-			SimpleMath::Vector3(std::cos(circleRadian), 0.0f, std::sin(circleRadian)) * DIRECTION_CIRCLE_RADIUS;
+			SimpleMath::Vector3(std::cos(circleRadian), 0.0f, std::sin(circleRadian)) * enemyController->GetDirectionCircleRadius();
 
 		// 進行方向を更新
 		accelDirection = XMVector3Normalize(circlePoint - transform->GetPosition());
