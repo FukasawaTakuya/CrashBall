@@ -7,10 +7,10 @@
 void to_json(json& j, const RectTransform& rectTransfrom)
 {
 	j = json{
-		{ "position", rectTransfrom.m_position	},
-		{ "rotate",	  rectTransfrom.m_rotate	},
-		{ "scale",	  rectTransfrom.m_scale		},
-		{ "origin",   rectTransfrom.m_origin	}
+		{ "position", rectTransfrom.m_localPosition	},
+		{ "rotate",	  rectTransfrom.m_localRotate	},
+		{ "scale",	  rectTransfrom.m_localScale	},
+		{ "origin",   rectTransfrom.m_origin		}
 	};
 }
 
@@ -18,9 +18,9 @@ void to_json(json& j, const RectTransform& rectTransfrom)
 void to_json(json& j, const Transform& transfrom)
 {
 	j = json{
-		{ "position",	transfrom.m_position },
-		{ "rotate",		transfrom.m_rotate	 },
-		{ "scale",		transfrom.m_scale	 }
+		{ "position",	transfrom.m_localPosition },
+		{ "rotate",		transfrom.m_localRotate	 },
+		{ "scale",		transfrom.m_localScale	 }
 	};
 }
 
@@ -71,7 +71,9 @@ void to_json(json& j, const TextRenderer& textRenderer)
 void to_json(json& j, const Mesh& mesh)
 {
 	j = json{
-		{ "meshData", mesh.m_meshData }
+		{ "type",	  mesh.m_type				},
+		{ "layerMaskType", mesh.m_layerMaskType },
+		{ "meshData", mesh.m_meshData.c_str()	}
 	};
 }
 
@@ -79,8 +81,9 @@ void to_json(json& j, const Mesh& mesh)
 void to_json(json& j, const Sphere& sphere)
 {
 	j = json{
-		{ "type",	sphere.m_type	},
-		{ "radius", sphere.m_radius }
+		{ "type",	sphere.m_type				  },
+		{ "layerMaskType", sphere.m_layerMaskType },
+		{ "radius", sphere.m_radius				  }
 	};
 }
 
@@ -95,8 +98,7 @@ void to_json(json& j, const TargetCamera& targetCamera)
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController)
 {
-	j = json
-	{
+	j = json{
 		{ "attackSpeed",	playerController.m_attackSpeed		},
 		{ "attackDuration", playerController.m_attackDuration	},
 		{ "acceleration",	playerController.m_acceleration		},
@@ -125,5 +127,14 @@ void to_json(json& j, const EnemyController& enemyController)
 		{ "directionCircleDistance", enemyController.m_directionCircleDistance },
 		{ "directionCircleRadius",	 enemyController.m_directionCircleRadius },
 		{ "directionChageInterval",  enemyController.m_directionChageInterval }
+	};
+}
+
+// StageControllerから変換
+void to_json(json& j, const StageController& stageController)
+{
+	j = json{
+		{ "floorNormalY", stageController.m_floorNormalY },
+		{ "floorCenterPosY", stageController.m_floorCenterPosY }
 	};
 }

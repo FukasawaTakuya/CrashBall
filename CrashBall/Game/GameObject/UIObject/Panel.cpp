@@ -10,6 +10,8 @@
 #include "pch.h"
 #include "Panel.h"
 
+#include "Game/Json/Enum/JsonEnumSerializers.h"
+
 /**
  * \brief コンストラクタ
  * 
@@ -17,6 +19,13 @@
 Panel::Panel()
 {
 	AddComponent<RectTransform>();
+}
+
+Panel::Panel(json* data)
+	: GameObject(data)
+{
+
+	AddComponent<RectTransform>((*m_data)["rectTransform"]);
 }
 
 /**

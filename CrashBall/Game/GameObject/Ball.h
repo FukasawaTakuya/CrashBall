@@ -33,9 +33,7 @@ protected:
 public:
 
 	// コンストラクタ
-	Ball(float radius, ObjectTag tag = ObjectTag::Defaut);
-
-	Ball(json* data, ObjectTag tag = ObjectTag::Defaut);
+	Ball(json* data);
 
 	// デストラクタ
 	~Ball() = default;

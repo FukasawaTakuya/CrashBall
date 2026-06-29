@@ -78,6 +78,8 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
     m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
+    m_jsonDataManager->LoadFile("stage", "Resources/Data/stage.json");
+    m_jsonDataManager->LoadFile("gamePanel", "Resources/Data/gamePanel.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
@@ -310,16 +312,10 @@ void Game::CreateDeviceDependentResources()
     // スプライトバッチの作成
     m_spriteBatch = std::make_unique<SpriteBatch>(context);
 
-    try {
-        // モデルの生成
-        m_spriteManager->CreateSprite(device);
-        m_modelManager->CreateModel(device);
-        m_textManager->CreateSpriteFont(device);
-    }
-    catch (std::exception& ex)
-    {
-        OutputDebugStringA(ex.what());
-    }
+    // モデルの生成
+    m_spriteManager->CreateSprite(device);
+    m_modelManager->CreateModel(device);
+    m_textManager->CreateSpriteFont(device);
     
     // デバイス依存のリソース作成
     m_sceneManager->CreateDeviceResources(m_resourceContext);

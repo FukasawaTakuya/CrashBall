@@ -15,21 +15,22 @@
 /**
  * \brief 敵操作コンポーネント
  */
-class  EnemyController : public Component{
+class  EnemyController : public Component
+{
 
 	// パラメータの宣言 -------------------------------------------------
 private:
 
-	float m_acceleration = 37.0f;			// 加速度
-	float m_avoidWallDistance = 5.0f;		// 壁を検知する距離
-	float m_avoidWallWeakForce = 0.7f;		// 壁回避力(弱)
-	float m_avoidWallStrongForce = 3.0f;	// 壁回避力(強)
-	float m_maxHp = 200.0f;					// 最大体力
+	float m_acceleration;			// 加速度
+	float m_avoidWallDistance;		// 壁を検知する距離
+	float m_avoidWallWeakForce;		// 壁回避力(弱)
+	float m_avoidWallStrongForce;	// 壁回避力(強)
+	float m_maxHp;					// 最大体力
 
 	// WarnderState
-	float m_directionCircleDistance = 4.5f;	// 加速方向を決めるための円との距離
-	float m_directionCircleRadius = 10.0f;		// 加速方向を決めるための円の半径
-	float m_directionChageInterval = 1.5f;		// 加速方向を変える間隔
+	float m_directionCircleDistance;	// 加速方向を決めるための円との距離
+	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
+	float m_directionChageInterval;		// 加速方向を変える間隔
 
 	// データメンバの宣言 -----------------------------------------------
 private:

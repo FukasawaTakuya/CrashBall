@@ -38,11 +38,11 @@ AttackGaugeController::AttackGaugeController(
 
 	// 描画位置の設定
 	m_pAttackGauge->GetComponent<RectTransform>()
-		->SetPosition(GAUGE_POSITION);
+		->SetLocalPosition(GAUGE_POSITION);
 	m_pAttackGaugeTrack->GetComponent<RectTransform>()
-		->SetPosition(GAUGE_POSITION);
+		->SetLocalPosition(GAUGE_POSITION);
 	m_pAttackPowerText->GetComponent<RectTransform>()
-		->SetPosition(TEXT_POSITION);
+		->SetLocalPosition(TEXT_POSITION);
 
 	// 描画順の設定
 	m_gaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);

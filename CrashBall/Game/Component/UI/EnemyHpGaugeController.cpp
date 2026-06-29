@@ -41,11 +41,11 @@ EnemyHpGaugeController::EnemyHpGaugeController(
 
 	// 描画位置の設定
 	m_pEnemyHpGauge->GetComponent<RectTransform>()
-		->SetPosition(ENEMY_HP_POSITION);
+		->SetLocalPosition(ENEMY_HP_POSITION);
 	m_pEnemyHpGaugeTrack->GetComponent<RectTransform>()
-		->SetPosition(ENEMY_HP_POSITION);
+		->SetLocalPosition(ENEMY_HP_POSITION);
 	m_pEnemyHpText->GetComponent<RectTransform>()
-		->SetPosition(ENEMY_HP_TEXT_POSITION);
+		->SetLocalPosition(ENEMY_HP_TEXT_POSITION);
 
 	// 色の設定
 	m_enemyHpGaugeRenderer->SetColor(GameColor::ENEMY);

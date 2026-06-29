@@ -15,8 +15,8 @@ using namespace DirectX;
  * \brief コンストラクタ
  * 
  */
-GamePanel::GamePanel()
-	: Panel()
+GamePanel::GamePanel(json* data)
+	: Panel(data)
 	, m_playerMeshGauge		 (std::make_unique<Object2D>())
 	, m_enemyMeshGauge		 (std::make_unique<Object2D>())
 	, m_playerMeshNumText	 (std::make_unique<TextObject>())
@@ -54,6 +54,20 @@ GamePanel::GamePanel()
 			m_enemyHpGaugeTrack.get(),
 			m_enemyHpText.get()
 		);
+
+	RectTransform* rectTransform = GetComponent<RectTransform>();
+	m_playerMeshGauge	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_enemyMeshGauge	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_playerMeshNumText	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_enemyMeshNumText	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_gaugeBackGround	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_gaugeTrack		->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_attackGauge		->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_attackPowerText	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_attackGaugeTrack	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_enemyHpGauge		->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_enemyHpGaugeTrack	->GetComponent<RectTransform>()->SetParent(rectTransform);
+	m_enemyHpText		->GetComponent<RectTransform>()->SetParent(rectTransform);
 }
 
 /**
@@ -135,6 +149,9 @@ void GamePanel::Finalize()
 
 void GamePanel::SaveParam()
 {
+	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
+
+	(*m_data)["ObjectTag"] = GetTag();
 }
 
 void GamePanel::SaveInitParam()

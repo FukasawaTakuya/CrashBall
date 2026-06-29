@@ -12,6 +12,7 @@
 #include <fstream>
 
 using namespace nlohmann;
+using namespace DirectX;
 
 /**
  * \brief コンストラクタ
@@ -35,7 +36,7 @@ Mesh::Mesh(
 	: Collider(gameObject, ColliderType::Mesh)
 	, m_meshData(mesh.m_meshData)
 {
-	LoadJson(m_meshData.c_str());
+	LoadJson(m_meshData);
 }
 
 /**
@@ -51,7 +52,7 @@ Mesh::~Mesh()
  *
  * \param filename データのファイル名
  */
-void Mesh::LoadJson(const wchar_t* fileName)
+void Mesh::LoadJson(const std::string& fileName)
 {
 	std::ifstream ifs(fileName);
 
@@ -61,7 +62,7 @@ void Mesh::LoadJson(const wchar_t* fileName)
 
 	m_meshData = fileName;
 
-	SimpleMath::Vector3 scale = m_transform->GetScale();
+	SimpleMath::Vector3 scale = m_transform->GetWorldScale();
 
 	json data;
 
@@ -85,6 +86,6 @@ void Mesh::Rotate()
 {
 	for (auto& face : m_faces)
 	{
-		face->Rotate(m_transform->GetRotate(), m_transform->GetPosition());
+		face->Rotate(m_transform->GetWorldRotate(), m_transform->GetWorldPosition());
 	}
 }

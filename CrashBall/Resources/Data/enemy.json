@@ -4,7 +4,7 @@
       "acceleration": 37.0,
       "avoidWallDistance": 5.0,
       "avoidWallStrongForce": 3.0,
-      "avoidWallWeakForce": 0.7,
+      "avoidWallWeakForce": 0.699999988079071,
       "directionChageInterval": 1.5,
       "directionCircleDistance": 4.5,
       "directionCircleRadius": 10.0,
@@ -20,6 +20,7 @@
       "mass": 1.0
    },
    "sphere": {
+      "layerMaskType": "Default",
       "radius": 20.0,
       "type": "Sphere"
    },
@@ -30,9 +31,9 @@
          "z": -5.0
       },
       "rotate": {
-         "x": -0.8743401169776917,
-         "y": -0.8051660060882568,
-         "z": -1.04220449924469
+         "x": -0.4775888919830322,
+         "y": -2.6035592555999756,
+         "z": -2.323385238647461
       },
       "scale": {
          "x": 0.02500000037252903,

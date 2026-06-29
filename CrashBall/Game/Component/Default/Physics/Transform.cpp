@@ -29,9 +29,9 @@ Transform::Transform(
 	IGameObject*	 gameObject, 
 	const Transform& other)
 	: Component	(gameObject)
-	, m_position(other.m_position)
-	, m_rotate	(other.m_rotate)
-	, m_scale	(other.m_scale)
+	, m_localPosition(other.m_localPosition)
+	, m_localRotate	(other.m_localRotate)
+	, m_localScale	(other.m_localScale)
 {
 }
 
@@ -50,7 +50,8 @@ Transform::~Transform()
  */
 void Transform::Translate(const DirectX::SimpleMath::Vector3& trans)
 {
-	m_position += trans;
+	m_localPosition += trans;
+	m_isDirty = true;
 }
 
 /**
@@ -60,5 +61,6 @@ void Transform::Translate(const DirectX::SimpleMath::Vector3& trans)
  */
 void Transform::Rotate(const DirectX::SimpleMath::Quaternion& rotate)
 {
-	m_rotate *= rotate;
+	m_localRotate *= rotate;
+	m_isDirty = true;
 }

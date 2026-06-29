@@ -14,32 +14,21 @@
 
 using namespace DirectX;
 
-Ball::Ball(float radius, ObjectTag tag)
-	: GameObject(tag)
+
+/**
+ * \brief コンストラクタ
+ * 
+ * \param data
+ */
+Ball::Ball(json* data)
+	: GameObject(data)
 {
-	// コンポーネントの追加
-	AddComponent<Transform>();
-	AddComponent<Rigidbody>(0.0f, 0.0f);
-	AddComponent<Sphere>(radius);
-	AddComponent<ModelRenderer>();
-
-	// ボール操作コンポーネントのキャッシュ
-	m_ballController = AddComponent<BallController>();
-}
-
-Ball::Ball(json* data, ObjectTag tag)
-	: GameObject()
-{
-	m_data = data;
-
 	if (!m_data->empty())
 	{
 		AddComponent<Transform>((*m_data)["transform"]);
 		AddComponent<Rigidbody>((*m_data)["rigidbody"]);
 		AddComponent<Sphere>((*m_data)["sphere"].get<Sphere>());
 		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
-
-		SetTag((*m_data)["ObjectTag"]);
 	}
 
 	// ボール操作コンポーネントのキャッシュ
@@ -55,6 +44,11 @@ void Ball::Initialize()
 	m_ballController->Initialize();
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
 void Ball::Update(const GameContext& gameContext)
 {
 	m_ballController->Update(gameContext);
@@ -63,6 +57,7 @@ void Ball::Update(const GameContext& gameContext)
 /**
  * \brief 描画
  * 
+ * \brief renderContext 描画用のコンテキスト
  */
 void Ball::Render(const RenderContext& renderContext)
 {
@@ -90,8 +85,8 @@ void Ball::SaveParam()
 	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
 
 	Transform* transform = GetComponent<Transform>();
-	(*m_data)["transform"]["rotate"] = transform->GetRotate();
-	(*m_data)["transform"]["scale"] = transform->GetScale();
+	(*m_data)["transform"]["rotate"] = transform->GetLocalRotate();
+	(*m_data)["transform"]["scale"] = transform->GetLocalScale();
 }
 
 /**
@@ -116,4 +111,6 @@ void Ball::ReloadJson()
 	*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
 	*GetComponent<Sphere>()		= (*m_data)["sphere"];
 	*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
+	
+	SetTag((*m_data)["ObjectTag"]);
 }

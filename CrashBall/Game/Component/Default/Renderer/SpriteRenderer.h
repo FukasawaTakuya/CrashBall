@@ -108,11 +108,11 @@ public:
 		// 切り取りが横方向の場合
 		if (static_cast<int>(m_fillOrigin) % 2 == 1)
 		{
-			return m_width * m_spriteScale.x * m_rectTransform->GetScale().x * m_fillAmount;
+			return m_width * m_spriteScale.x * m_rectTransform->GetWorldScale().x * m_fillAmount;
 		}
 		else
 		{
-			return m_width * m_spriteScale.x * m_rectTransform->GetScale().x;
+			return m_width * m_spriteScale.x * m_rectTransform->GetWorldScale().x;
 		}
 	}
 
@@ -122,11 +122,11 @@ public:
 		// 切り取りが縦方向の場合
 		if (static_cast<int>(m_fillOrigin) % 2 == 0)
 		{
-			return m_height * m_spriteScale.y * m_rectTransform->GetScale().y * m_fillAmount;
+			return m_height * m_spriteScale.y * m_rectTransform->GetWorldScale().y * m_fillAmount;
 		}
 		else
 		{
-			return m_height * m_spriteScale.y * m_rectTransform->GetScale().y;
+			return m_height * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 		}
 
 	}

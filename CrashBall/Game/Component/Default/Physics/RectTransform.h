@@ -54,18 +54,23 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Vector2 m_position;	// 位置
+	DirectX::SimpleMath::Vector2 m_localPosition;	// 位置
 
-	float m_rotate = 0.0f;						// 回転
+	float m_localRotate = 0.0f;						// 回転
 
-	DirectX::SimpleMath::Vector2 m_scale
+	DirectX::SimpleMath::Vector2 m_localScale
 		= DirectX::SimpleMath::Vector2::One;	// スケール
 
 	Origin m_origin = Origin::Center;			// 基準位置
 
+	RectTransform* m_parent = nullptr;	// 親のトランスフォーム
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	// デフォルトコンストラクタ
+	RectTransform() = default;
 
 	// コンストラクタ
 	RectTransform(IGameObject* gameObject);
@@ -90,22 +95,61 @@ public:
 	// 取得/設定
 public:
 
-	// ポジションの取得
-	DirectX::SimpleMath::Vector2 GetPosition() const
+	// ワールド座標の取得
+	DirectX::SimpleMath::Vector2 GetWorldPosition() const
 	{
-		return m_position;
+		if (m_parent != nullptr)
+		{
+			return m_localPosition + m_parent->GetWorldPosition();
+		}
+		else
+		{
+			return m_localPosition;
+		}
 	}
 
-	// 回転の取得
-	float GetRotate() const
+	// ワールド回転の取得
+	float GetWorldRotate() const
 	{
-		return m_rotate;
+		if (m_parent != nullptr)
+		{
+			return m_localRotate + m_parent->GetWorldRotate();
+		}
+		else
+		{
+			return m_localRotate;
+		}
 	}
 
-	// スケールの取得
-	DirectX::SimpleMath::Vector2 GetScale() const
+	// ワールドスケールの取得
+	DirectX::SimpleMath::Vector2 GetWorldScale() const
 	{
-		return m_scale;
+		if (m_parent != nullptr)
+		{
+			return m_localScale * m_parent->GetWorldScale();
+		}
+		else
+		{
+			return m_localScale;
+		}
+	}
+
+	// ローカル座標の取得
+	DirectX::SimpleMath::Vector2 GetLocalPosition() const
+	{
+		return m_localPosition;
+	}
+
+	// ローカル回転の取得
+	float GetLocalRotate() const
+	{
+		return m_localRotate;
+	}
+
+	// ローカルスケールの取得
+	DirectX::SimpleMath::Vector2 GetLocalScale() const
+	{
+		return m_localScale;
 	}
 
 	// 基準位置の取得
@@ -116,81 +160,94 @@ public:
 		return DirectX::SimpleMath::Vector2(offset.x * width, offset.y * height);
 	}
 
-	// 左端のX座標の取得
+	// 左端のX座標の取得(World)
 	float GetLeft(float width) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float leftPos = m_position.x - width * offset.x;
+		float leftPos = m_localPosition.x - width * offset.x;
 
 		return leftPos;
 	}
 
-	// 右端のX座標の取得
+	// 右端のX座標の取得(World)
 	float GetRight(float width) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float rightPos = m_position.x + width * (1.0f - offset.x);
+		float rightPos = m_localPosition.x + width * (1.0f - offset.x);
 
 		return rightPos;
 	}
 
-	// 上端のY座標の取得
+	// 上端のY座標の取得(World)
 	float GetTop(float height) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float toptPos = m_position.y - height * offset.y;
+		float toptPos = m_localPosition.y - height * offset.y;
 
 		return toptPos;
 	}
 
-	// 下端のY座標の取得
+	// 下端のY座標の取得(World)
 	float GetBottom(float height) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float bottomtPos = m_position.y + height * (1.0f - offset.y);
+		float bottomtPos = m_localPosition.y + height * (1.0f - offset.y);
 
 		return bottomtPos;
 	}
 
-	// ポジションの設定
-	void SetPosition(const DirectX::SimpleMath::Vector2& position)
+
+	// ワールド座標の設定
+	void SetWorldPosition(const DirectX::SimpleMath::Vector2& position)
 	{
-		m_position = position;
+		m_localPosition = position;
 	}
 
-	// 回転の設定
-	void SetRotate(float rotate)
+	// ローカル座標の設定
+	void SetLocalPosition(const DirectX::SimpleMath::Vector2& position)
 	{
-		m_rotate = rotate;
+		m_localPosition = position;
 	}
 
-	// スケールの設定
-	void SetScale(const DirectX::SimpleMath::Vector2& scale)
+	// ローカル回転の設定
+	void SetLocalRotate(float rotate)
 	{
-		m_scale = scale;
+		m_localRotate = rotate;
 	}
 
-	// スケールの設定
-	void SetScale(float x, float y)
+	// ローカルスケールの設定
+	void SetLocalScale(const DirectX::SimpleMath::Vector2& scale)
 	{
-		m_scale.x = x;
-		m_scale.y = y;
+		m_localScale = scale;
 	}
 
-	// スケールの設定
-	void SetScale(float scale)
+	// ローカルスケールの設定
+	void SetLocalScale(float x, float y)
 	{
-		m_scale = DirectX::SimpleMath::Vector2::One * scale;
+		m_localScale.x = x;
+		m_localScale.y = y;
+	}
+
+	// ローカルスケールの設定
+	void SetLocalScale(float scale)
+	{
+		m_localScale = DirectX::SimpleMath::Vector2::One * scale;
 	}
 
 	// 基準位置の設定
 	void SetOrigin(Origin origin)
 	{
 		m_origin = origin;
+	}
+
+	// 親の設定
+	void SetParent(RectTransform* parent)
+	{
+		m_parent = parent;
 	}
 
 	// 内部実装

@@ -71,6 +71,8 @@ public:
 	// コンストラクタ
 	GamePanel();
 
+	GamePanel(json* data);
+
 	// デストラクタ
 	~GamePanel();
 

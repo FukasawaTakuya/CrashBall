@@ -75,11 +75,11 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	RECT srcRect = RECT(rect.x, rect.y, rect.z, rect.w);
 
 	// 描画位置
-	SimpleMath::Vector2 position = m_rectTransform->GetPosition();
+	SimpleMath::Vector2 position = m_rectTransform->GetWorldPosition();
 
 	// 描画位置をオフセット分ずらす
-	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetScale().x;
-	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetScale().y;
+	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetWorldScale().x;
+	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 
 	// 描画命令の登録
 	rendererManager->RegisterRenderCommand(
@@ -87,8 +87,8 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 		position,
 		srcRect,
 		m_color,
-		m_rectTransform->GetRotate(),
-		m_spriteScale * m_rectTransform->GetScale(),
+		m_rectTransform->GetWorldRotate(),
+		m_spriteScale * m_rectTransform->GetWorldScale(),
 		m_rectTransform->GetOrigin(m_width, m_height),
 		m_spriteEffects,
 		m_layerDepth

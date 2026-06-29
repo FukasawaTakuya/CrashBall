@@ -54,7 +54,7 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 
 	// -------------- ゲージの土台 -------------- //
 	// 描画位置
-	m_gaugeTrackTransform->SetPosition(GAUGE_POSITION);
+	m_gaugeTrackTransform->SetLocalPosition(GAUGE_POSITION);
 	// 基準位置
 	m_gaugeTrackTransform->SetOrigin(Origin::Center);
 	// 描画順
@@ -69,7 +69,7 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	// 色
 	backGroundRenderer->SetColor(GameColor::MESH_GAUGE_BACKGROUND);
 	// 描画位置
-	m_pGaugeBackGround->GetComponent<RectTransform>()->SetPosition(GAUGE_POSITION);
+	m_pGaugeBackGround->GetComponent<RectTransform>()->SetLocalPosition(GAUGE_POSITION);
 
 	// -------------- ゲージ -------------- //
 	// 描画順
@@ -79,8 +79,8 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	m_playerGaugeRenderer->SetColor(GameColor::PLAYER);
 	m_enemyGaugeRenderer->SetColor(GameColor::ENEMY);
 	// 描画位置
-	m_playerGaugeTransform->SetPosition(GAUGE_POSITION);
-	m_enemyGaugeTransform->SetPosition(GAUGE_POSITION);
+	m_playerGaugeTransform->SetLocalPosition(GAUGE_POSITION);
+	m_enemyGaugeTransform->SetLocalPosition(GAUGE_POSITION);
 	// 切り取りの起点
 	m_enemyGaugeRenderer->SetFillOrigin(FillOrigin::Right);
 
@@ -88,8 +88,8 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	RectTransform* playerTextTransform = m_pPlayerMeshNumText->GetComponent<RectTransform>();
 	RectTransform* enemyTextTransform  = m_pEnemyMeshNumText->GetComponent<RectTransform>();
 	// 描画位置
-	playerTextTransform->SetPosition(PLAYER_MESHTEXT_POSITION);
-	enemyTextTransform->SetPosition(ENEMY_MESHTEXT_POSITION);
+	playerTextTransform->SetLocalPosition(PLAYER_MESHTEXT_POSITION);
+	enemyTextTransform->SetLocalPosition(ENEMY_MESHTEXT_POSITION);
 	// 描画順
 	m_playerTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
 	m_enemyTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);

@@ -28,7 +28,7 @@ TitleScene::TitleScene(
 	: Scene(pSceneController, jsonDataManager)
 	, m_camera(std::make_unique<TitleCamera>())
 	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
-	, m_stage(std::make_unique<Stage>())
+	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
 	, m_titleSprite(std::make_unique<Object2D>())
 	, m_startButton(std::make_unique<Button>())
 {
@@ -38,17 +38,17 @@ TitleScene::TitleScene(
 
 	m_player->GetComponent<Transform>()->SetPosition({ 0.0f, 10.25f, 0.0f });
 
-	m_titleSprite->GetComponent<RectTransform>()->SetPosition(
+	m_titleSprite->GetComponent<RectTransform>()->SetLocalPosition(
 		TITLE_INIT_POS
 	);
 
 	m_titleSpriteTransform = m_titleSprite->GetComponent<RectTransform>();
-	m_titleSpriteTransform->SetScale(1.3f);
+	m_titleSpriteTransform->SetLocalScale(1.3f);
 
 
 
 	m_startButton->GetComponent<RectTransform>()
-		->SetPosition({ 800.0f, 500.0f });
+		->SetLocalPosition({ 800.0f, 500.0f });
 
 	m_startButton->GetComponent<ButtonController>()
 		->SetOnDrugCommand([&]()
@@ -87,14 +87,14 @@ void TitleScene::Update(const GameContext& gameContext)
 		m_pSceneController->RequestChangeScene(SceneID::Game);
 	}
 
-	if (m_radian >= 360.0f)
+	if (m_radian >= XM_2PI)
 	{
 		m_radian = 0.0f;
 	}
 
 	m_radian += Time::GetElapsedTime();
 
-	m_titleSpriteTransform->SetPosition(
+	m_titleSpriteTransform->SetLocalPosition(
 		TITLE_INIT_POS + SimpleMath::Vector2(0.0f, std::sin(m_radian) * 20.0f)
 	);
 

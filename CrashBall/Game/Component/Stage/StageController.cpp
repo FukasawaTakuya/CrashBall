@@ -11,26 +11,24 @@
 
 #include "Game/Color/GameColor.h"
 
+using namespace DirectX;
+
 /**
- * \brief コンストラクタ
+ * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param other コピー元
  */
-StageController::StageController(IGameObject* gameObject)
+StageController::StageController(
+	IGameObject* gameObject, 
+	const StageController& other)
 	: Component(gameObject)
+	, m_floorNormalY(other.m_floorNormalY)
+	, m_floorCenterPosY(other.m_floorCenterPosY)
 {
 	// キャッシュの取得
 	Transform* transform = GetGameObject()->GetComponent<Transform>();
 	m_meshCollider = GetGameObject()->GetComponent<Mesh>();
-
-	// スケールの設定
-	transform->SetScale(SCALE);
-
-	// コライダーデータの読み込み
-	m_meshCollider->LoadJson(L"Resources/Models/Stage.json");
-
-	// レイヤーマスクの設定
-	m_meshCollider->SetLayerMask(LayerMask::Ground);
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
@@ -57,8 +55,8 @@ StageController::StageController(IGameObject* gameObject)
 	for (auto& face : m_meshCollider->GetFace())
 	{
 		// 床メッシュ
-		if (face->GetPlane()->GetNormal().y >= FLOOR_NORMAL &&
-			face->GetCenter().y <= FLOOP_CENTERPOS)
+		if (face->GetPlane()->GetNormal().y >= m_floorNormalY &&
+			face->GetCenter().y <= m_floorCenterPosY)
 		{
 			m_floorMesh.push_back(face.get());
 			m_floorMeshColor.emplace(face.get(), GameColor::DEFAULT_FACE);

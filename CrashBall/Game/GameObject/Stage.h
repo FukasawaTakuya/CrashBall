@@ -33,7 +33,7 @@ private:
 public:
 
 	// コンストラクタ
-	Stage();
+	Stage(json* data);
 
 	// デストラクタ
 	~Stage();
@@ -68,5 +68,11 @@ public:
 
 	// 内部実装
 private:
+
+	// JsonConverter
+private:
+
+	friend void to_json(json& j, const Mesh& mesh);
+	friend void from_json(const json& j, Mesh& mesh);
 
 };

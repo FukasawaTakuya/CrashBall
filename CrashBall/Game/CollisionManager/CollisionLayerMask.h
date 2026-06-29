@@ -31,6 +31,16 @@ enum class ColliderMask : uint32_t
 	Ground	= static_cast<uint32_t>(ColliderLayer::Ball),
 };
 
+enum class LayerMaskType
+{
+	None = 0,
+	Default,
+	Ball,
+	Ground,
+
+	LayerMaksNum,
+};
+
 // レイヤーマスク
 struct CollisionLayerMask
 {
@@ -38,14 +48,13 @@ struct CollisionLayerMask
 	ColliderMask mask;
 };
 
-
-// レイヤーマスク
-namespace LayerMask {
-	constexpr CollisionLayerMask None	 { ColliderLayer::None,		ColliderMask::None		};
-	constexpr CollisionLayerMask Default { ColliderLayer::Default,	ColliderMask::Default	};
-	constexpr CollisionLayerMask Ball	 { ColliderLayer::Ball,		ColliderMask::Ball		};
-	constexpr CollisionLayerMask Ground  { ColliderLayer::Ground,	ColliderMask::Ground	};
-}
+const CollisionLayerMask collisionLayerMask[static_cast<int>(LayerMaskType::LayerMaksNum)]
+{
+	CollisionLayerMask { ColliderLayer::None,		ColliderMask::None		},
+	CollisionLayerMask { ColliderLayer::Default,	ColliderMask::Default	},
+	CollisionLayerMask { ColliderLayer::Ball,		ColliderMask::Ball		},
+	CollisionLayerMask { ColliderLayer::Ground,	ColliderMask::Ground	}
+};
 
 // OR演算子のオーバーロード
 inline uint32_t operator|(ColliderLayer layer, ColliderMask mask)

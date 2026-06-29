@@ -10,6 +10,8 @@
 #include "BallController.h"
 #include "Game/Engine/Time.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -23,9 +25,6 @@ BallController::BallController(IGameObject* gameObject)
 	m_rigidbody			= GetGameObject()->GetComponent<Rigidbody>();
 	m_sphereCollider	= GetGameObject()->GetComponent<Sphere>();
 	m_renderer			= GetGameObject()->GetComponent<ModelRenderer>();
-
-	// レイヤーマスクの設定
-	m_sphereCollider->SetLayerMask(LayerMask::Ball);
 
 	// 衝突時の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)

@@ -75,7 +75,7 @@ void EnemyWanderState::Update()
 	{
 		// 円の中心
 		SimpleMath::Vector3 circleCenter =
-			transform->GetPosition() + direction * enemyController->GetDirectionCircleDistance();
+			transform->GetWorldPosition() + direction * enemyController->GetDirectionCircleDistance();
 
 		// 円の角度を更新
 		float circleRadian = Random::Range(0.0f, XM_2PI);
@@ -85,7 +85,7 @@ void EnemyWanderState::Update()
 			SimpleMath::Vector3(std::cos(circleRadian), 0.0f, std::sin(circleRadian)) * enemyController->GetDirectionCircleRadius();
 
 		// 進行方向を更新
-		accelDirection = XMVector3Normalize(circlePoint - transform->GetPosition());
+		accelDirection = XMVector3Normalize(circlePoint - transform->GetWorldPosition());
 
 		// 進行方向を水平移動のみにする
 		accelDirection.y = 0.0f;

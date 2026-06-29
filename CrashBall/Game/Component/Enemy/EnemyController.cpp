@@ -11,6 +11,8 @@
 #include "EnemyController.h"
 #include "Game/State/Enemy/EnemyWanderState.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -74,9 +76,9 @@ EnemyController::EnemyController(
 	m_stateMachine->ChangeState<EnemyWanderState>();
 
 	// コンポーネントのキャッシュ
-	m_transform = GetGameObject()->GetComponent<Transform>();
-	m_rigidbody = GetGameObject()->GetComponent<Rigidbody>();
-	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
+	m_transform		 = GetGameObject()->GetComponent<Transform>();
+	m_rigidbody		 = GetGameObject()->GetComponent<Rigidbody>();
+	m_modelRenderer  = GetGameObject()->GetComponent<ModelRenderer>();
 	m_ballController = GetGameObject()->GetComponent<BallController>();
 }
 
@@ -143,7 +145,7 @@ void EnemyController::AvoidWall()
 	for (auto& wallFace : wallMesh)
 	{
 		// 壁との距離が一定以下のとき
-		if ((wallFace->GetPlane()->CalcLength(m_transform->GetPosition()) <= m_avoidWallDistance))
+		if ((wallFace->GetPlane()->CalcLength(m_transform->GetWorldPosition()) <= m_avoidWallDistance))
 		{
 			// 壁の法線ベクトルを水平方向に正規化して取得
 			SimpleMath::Vector3 faceNormal = wallFace->GetPlane()->GetNormal();

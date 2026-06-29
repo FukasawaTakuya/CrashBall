@@ -32,6 +32,9 @@ public:
 	Panel();
 
 	// デストラクタ
+	Panel(json* data);
+
+	// デストラクタ
 	virtual ~Panel();
 
 	// 操作

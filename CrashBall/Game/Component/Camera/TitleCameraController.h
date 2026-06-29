@@ -12,6 +12,8 @@
 #include "Game/Component/Camera/ICamera.h"
 #include "TargetCamera.h"
 
+using namespace DirectX;
+
 /**
  * @brief 基底タイトルカメラ操作コンポーネント
  */
@@ -21,7 +23,7 @@ class  TitleCameraController : public Component
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	static constexpr float ROTATE_ANGLERAD = XM_PIDIV4 / 3.0f;
+	static constexpr float ROTATE_ANGLERAD = DirectX::XM_PIDIV4 / 3.0f;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

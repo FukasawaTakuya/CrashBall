@@ -47,6 +47,11 @@ public:
 		: m_tag(tag)
 	{};
 
+	GameObject(json* data)
+		: m_data(data)
+		, m_tag((*data)["ObjectTag"])
+	{};
+
 	// デストラクタ
 	~GameObject() = default;
 

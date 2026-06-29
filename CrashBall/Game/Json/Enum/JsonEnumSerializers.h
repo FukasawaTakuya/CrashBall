@@ -20,6 +20,14 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ColliderType, {
 	}
 );
 
+NLOHMANN_JSON_SERIALIZE_ENUM(LayerMaskType, {
+	{ LayerMaskType::None,		"None"		},
+	{ LayerMaskType::Default,	"Default"	},
+	{ LayerMaskType::Ball,		"Ball"		},
+	{ LayerMaskType::Ground,	"Ground"	}
+	}
+);
+
 NLOHMANN_JSON_SERIALIZE_ENUM(Origin, {
 	{ Origin::CenterTop,	"CenterTop"		},
 	{ Origin::Center,		"Center"		},

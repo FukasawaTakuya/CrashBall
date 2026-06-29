@@ -10,8 +10,6 @@
 
 #include "Game/Component/Default/Component.h"
 
-using namespace DirectX;
-
 /**
  * @brief トランスフォーム
  */
@@ -24,12 +22,18 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Vector3 m_position;		// 位置
+	DirectX::SimpleMath::Vector3 m_localPosition;		// 位置
 
-	DirectX::SimpleMath::Quaternion m_rotate;		// 回転
+	DirectX::SimpleMath::Quaternion m_localRotate;		// 回転
 
-	DirectX::SimpleMath::Vector3 m_scale 
+	DirectX::SimpleMath::Vector3 m_localScale 
 		= DirectX::SimpleMath::Vector3::One;		// スケール
+
+	Transform* m_parent = nullptr;	// 親のトランスフォーム
+
+	mutable bool m_isDirty = true;
+
+	mutable DirectX::SimpleMath::Matrix m_world;// ワールド行列
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -61,79 +65,119 @@ public:
 	// 取得/設定
 public:
 
-	// ポジションの取得
-	DirectX::SimpleMath::Vector3 GetPosition() const
+	// ワールド座標の取得
+	DirectX::SimpleMath::Vector3 GetWorldPosition() const
 	{
-		return m_position;
+		if (m_parent != nullptr)
+		{
+			return m_localPosition + m_parent->GetWorldPosition();
+		}
+		return m_localPosition;
 	}
 
-	// 回転の取得
-	DirectX::SimpleMath::Quaternion GetRotate() const
+	// ワールド回転の取得
+	DirectX::SimpleMath::Quaternion GetWorldRotate() const
 	{
-		return m_rotate;
+		if (m_parent != nullptr)
+		{
+			return m_parent->GetWorldRotate() * m_localRotate;
+		}
+		return m_localRotate;
 	}
 
-	// スケールの取得
-	DirectX::SimpleMath::Vector3 GetScale() const
+	// ワールドスケールの取得
+	DirectX::SimpleMath::Vector3 GetWorldScale() const
 	{
-		return m_scale;
+		if (m_parent != nullptr)
+		{
+			return m_localScale + m_parent->GetWorldScale();
+		}
+		return m_localScale;
+	}
+
+	// ローカル座標の取得
+	DirectX::SimpleMath::Vector3 GetLocalPosition() const
+	{
+		return m_localPosition;
+	}
+
+	// ローカル回転の取得
+	DirectX::SimpleMath::Quaternion GetLocalRotate() const
+	{
+		return m_localRotate;
+	}
+
+	// ローカルスケールの取得
+	DirectX::SimpleMath::Vector3 GetLocalScale() const
+	{
+		return m_localScale;
 	}
 
 	// 最大のスケールを取得
 	float GetMaxScale() const
 	{
-		return std::max(std::max(m_scale.x, m_scale.y), m_scale.z);
+		return std::max(std::max(m_localScale.x, m_localScale.y), m_localScale.z);
 	}
 
 	// ワールド行列の取得
 	DirectX::SimpleMath::Matrix GetWorld() const
 	{
-		// 拡大行列
-		SimpleMath::Matrix scale
-			= SimpleMath::Matrix::CreateScale(GetScale());
-		// 回転行列
-		SimpleMath::Matrix rotate
-			= SimpleMath::Matrix::CreateFromQuaternion(GetRotate());
-		// 移動行列
-		SimpleMath::Matrix trans
-			= SimpleMath::Matrix::CreateTranslation(GetPosition());
+		if (m_isDirty)
+		{
+			// 拡大行列
+			DirectX::SimpleMath::Matrix scale
+				= DirectX::SimpleMath::Matrix::CreateScale(GetWorldScale());
+			// 回転行列
+			DirectX::SimpleMath::Matrix rotate
+				= DirectX::SimpleMath::Matrix::CreateFromQuaternion(GetWorldRotate());
+			// 移動行列
+			DirectX::SimpleMath::Matrix trans
+				= DirectX::SimpleMath::Matrix::CreateTranslation(GetWorldPosition());
 
-		// ワールド行列
-		SimpleMath::Matrix world = scale * rotate * trans;
+			// ワールド行列
+			m_world = (scale * rotate * trans);
 
-		return world;
+			m_isDirty = false;
+		}
+
+		return m_world;
 	}
 
 	// ポジションの設定
 	void SetPosition(const DirectX::SimpleMath::Vector3& position)
 	{
-		m_position = position;
+		m_localPosition = position;
+		m_isDirty = true;
 	}
 
 	// 回転の設定
 	void SetQuaternion(DirectX::SimpleMath::Quaternion quaternion)
 	{
-		m_rotate = quaternion;
+		m_localRotate = quaternion;
+		m_isDirty = true;
 	}
 
 	// スケールの設定
 	void SetScale(const DirectX::SimpleMath::Vector3& scale)
 	{
-		m_scale = scale;
+		m_localScale = scale;
+		m_isDirty = true;
 	}
 
 	// スケールの設定
 	void SetScale(float x, float y, float z)
 	{
-		m_scale.x = x;
-		m_scale.y = y;
-		m_scale.z = z;
+		m_localScale.x = x;
+		m_localScale.y = y;
+		m_localScale.z = z;
+		m_isDirty = true;
 	}
 
 	// スケールの設定
 	void SetScale(float scale)
 	{
-		m_scale = DirectX::SimpleMath::Vector3::One * scale;
+		m_localScale = DirectX::SimpleMath::Vector3::One * scale;
+		m_isDirty = true;
 	}
 
 	// 内部実装

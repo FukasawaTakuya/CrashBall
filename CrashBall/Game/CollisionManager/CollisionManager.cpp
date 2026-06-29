@@ -36,23 +36,23 @@ void CollisionManager::Update()
 {
 	for (size_t i = 0; i < m_colliders.size() - 1; i++)
 	{
-		// レイヤーの取得
-		auto layer = m_colliders[i]->GetLayerMask().layer;
-
 		Collider* col1 = m_colliders[i];
+
+		// レイヤーの取得
+		auto layer = collisionLayerMask[static_cast<int>(col1->GetLayerMaskType())].layer;
 
 		for (size_t j = i + 1; j < m_colliders.size(); j++)
 		{
 			Collider* col2 = m_colliders[j];
 
 			// マスクの取得
-			auto mask = col2->GetLayerMask().mask;
+			auto mask = collisionLayerMask[static_cast<int>(col2->GetLayerMaskType())].mask;
 
 			if (layer & mask)
 			{
 				if (m_isCollsionTable->IsCollision(col1, col2))
 				{
-					// 衝突状態でなければEnter処理
+					// 対象と衝突状態でなければEnter処理
 					if (!col1->IsCollideObject(col2))
 					{
 						// Enter時処理
@@ -72,7 +72,7 @@ void CollisionManager::Update()
 				}
 				else 
 				{
-					// 衝突状態ならExit処理
+					// 対象と衝突状態ならExit処理
 					if (col1->IsCollideObject(col2))
 					{
 						// Exit時処理

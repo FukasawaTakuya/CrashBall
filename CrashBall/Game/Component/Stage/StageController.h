@@ -29,13 +29,11 @@ class  StageController :
 	public IPaintConsumer		// ペイント消費
 {
 
-	// クラス定数の宣言 -------------------------------------------------
+	// パラメータの宣言 -------------------------------------------------
 private:
 
-	static constexpr float SCALE = 15.0f;	// スケール
-
-	static constexpr float FLOOR_NORMAL		= 0.3f;	// 床判定基準になる法線のY成分
-	static constexpr float FLOOP_CENTERPOS	= 15.0f;// 床判定基準になる面の中心のY座標
+	float m_floorNormalY;	// 床判定基準になる法線のY成分
+	float m_floorCenterPosY;// 床判定基準になる面の中心のY座標
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -58,8 +56,13 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// コンストラクタ
-	StageController(IGameObject* gameObject);
+	// デフォルトコンストラクタ
+	StageController() = default;
+
+	// コピーコンストラクタ
+	StageController(
+		IGameObject* gameObject,
+		const StageController& other);
 
 	// デストラクタ
 	~StageController();
@@ -79,7 +82,7 @@ public:
 	// 終了処理
 	void Finalize();
 
-	// 面の消費
+	// ペイント消費
 	void ConsumePaint(int consumePaintNum) override;
 
 
@@ -122,4 +125,9 @@ private:
 
 	// 面に色を塗る
 	void PaintFace(Triangle* face, const DirectX::XMVECTORF32& color);
+
+	// JsonConverter
+private:
+	friend void from_json(const json& j, StageController& stageController);
+	friend void to_json(json& j, const StageController& stageController);
 };

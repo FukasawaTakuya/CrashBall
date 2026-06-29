@@ -31,9 +31,9 @@ RectTransform::RectTransform(
 	IGameObject* gameObject,
 	const RectTransform& rectTransform)
 	: Component(gameObject)
-	, m_position(rectTransform.m_position)
-	, m_rotate	(rectTransform.m_rotate)
-	, m_scale	(rectTransform.m_scale)
+	, m_localPosition(rectTransform.m_localPosition)
+	, m_localRotate	(rectTransform.m_localRotate)
+	, m_localScale	(rectTransform.m_localScale)
 	, m_origin	(rectTransform.m_origin)
 {
 }
@@ -53,7 +53,7 @@ RectTransform::~RectTransform()
  */
 void RectTransform::Translate(const DirectX::SimpleMath::Vector2& trans)
 {
-	m_position += trans;
+	m_localPosition += trans;
 }
 
 /**
@@ -63,5 +63,5 @@ void RectTransform::Translate(const DirectX::SimpleMath::Vector2& trans)
  */
 void RectTransform::Rotate(float rotate)
 {
-	m_rotate += rotate;
+	m_localRotate += rotate;
 }

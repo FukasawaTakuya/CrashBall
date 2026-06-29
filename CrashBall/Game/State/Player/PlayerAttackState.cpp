@@ -81,7 +81,7 @@ void PlayerAttackState::Update()
 
 	// 攻撃方向
 	SimpleMath::Vector3 attackDirection 
-		= playerController->GetEnemyTransform()->GetPosition() - transform->GetPosition();
+		= playerController->GetEnemyTransform()->GetWorldPosition() - transform->GetWorldPosition();
 	attackDirection.Normalize();
 
 	// 速度の設定

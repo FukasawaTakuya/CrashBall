@@ -15,16 +15,16 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
+ * \param data jsonデータ
  */
-Stage::Stage()
-	: GameObject(ObjectTag::Stage)
+Stage::Stage(json* data)
+	: GameObject(data)
 {
 	// コンポーネントの追加
-	AddComponent<Transform>();
-	AddComponent<Mesh>();
-	AddComponent<ModelRenderer>();
+	AddComponent<Transform>((*data)["transform"]);
+	AddComponent<Mesh>((*data)["mesh"]);
 
-	m_stageController = AddComponent<StageController>();
+	m_stageController = AddComponent<StageController>((*data)["stageController"]);
 }
 
 /**
@@ -71,14 +71,33 @@ void Stage::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void Stage::SaveParam()
 {
+	(*m_data)["transform"] = *GetComponent<Transform>();
+	(*m_data)["mesh"] = *GetComponent<Mesh>();
+	(*m_data)["stageController"] = *m_stageController;
+	(*m_data)["ObjectTag"] = GetTag();
 }
 
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
 void Stage::SaveInitParam()
 {
 }
 
+/**
+ * \brief データの再読み込み
+ * 
+ */
 void Stage::ReloadJson()
 {
+	*GetComponent<Transform>() = (*m_data)["transform"];
+	*GetComponent<Mesh>() = (*m_data)["mesh"];
+	*GetComponent<StageController>() = (*m_data)["stageController"];
 }

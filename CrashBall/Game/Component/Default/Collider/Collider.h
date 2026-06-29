@@ -36,7 +36,7 @@ protected:
 
 	ColliderType m_type = ColliderType::None;			// コライダーのタイプ
 
-	CollisionLayerMask m_layerMask = LayerMask::Default;// レイヤーマスク
+	LayerMaskType m_layerMaskType = LayerMaskType::Default;			// レイヤーマスク
 
 	std::vector<CollisionCmd> m_onCollisionEnterCmd = { [](Collider*) {} };	// 衝突開始命令
 	std::vector<CollisionCmd> m_onCollisionStayCmd  = { [](Collider*) {} };	// 衝突継続命令
@@ -86,7 +86,7 @@ public:
 public:
 
 	// レイヤーマスクの取得
-	CollisionLayerMask GetLayerMask() const { return m_layerMask; }
+	LayerMaskType GetLayerMaskType() const { return m_layerMaskType; }
 
 	ColliderType GetType() const { return m_type; }
 
@@ -97,7 +97,7 @@ public:
 	void SetTransform(Transform* transfrom) { m_transform = transfrom; }
 
 	// レイヤーマスクの取得
-	void SetLayerMask(CollisionLayerMask layerMask){ m_layerMask = layerMask; }
+	void SetLayerMaskType(LayerMaskType layerMask){ m_layerMaskType = layerMask; }
 
 	// 衝突時の処理の設定
 	void SetOnCollisionEnterCmd(CollisionCmd cmd) { m_onCollisionEnterCmd.push_back(cmd); }

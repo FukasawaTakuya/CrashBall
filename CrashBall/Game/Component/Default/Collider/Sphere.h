@@ -39,9 +39,6 @@ public:
 	// コライダーの描画
 	void DrawCollider() override {};
 
-	// 座標の取得
-	DirectX::SimpleMath::Vector3 GetPosition() const { return m_transform->GetPosition(); }
-
 	// 半径の取得
 	float GetRadius() const { return m_radius * m_transform->GetMaxScale(); }
 
@@ -58,7 +55,7 @@ public:
 	// 演算子オーバーロード
 	void operator=(Sphere s)
 	{
-		m_layerMask = s.m_layerMask;
+		m_layerMaskType = s.m_layerMaskType;
 		m_radius = s.m_radius;
 	}
 

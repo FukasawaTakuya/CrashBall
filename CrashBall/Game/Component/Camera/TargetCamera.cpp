@@ -11,6 +11,8 @@
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -94,16 +96,16 @@ void TargetCamera::RotateX(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetRotate());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetWorldRotate());
 
 
-	auto rotate = m_transform->GetRotate();
+	auto rotate = m_transform->GetWorldRotate();
 	rotate.z = 0.0f;
 
 	// 各ベクトルを回転
-	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetRotate());
-	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetRotate());
-	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetRotate());
+	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
+	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetWorldRotate());
+	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetWorldRotate());
 
 	m_isDirty = true;
 }
@@ -119,12 +121,12 @@ void TargetCamera::RotateY(float angleRad)
 		SimpleMath::Quaternion::CreateFromAxisAngle(m_right, angleRad));
 
 	// オフセットを回転
-	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetRotate());
+	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetWorldRotate());
 
 	// 各ベクトルを回転
-	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetRotate());
-	m_right = XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetRotate());
-	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetRotate());
+	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
+	m_right = XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetWorldRotate());
+	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetWorldRotate());
 
 	m_isDirty = true;
 }
@@ -135,7 +137,7 @@ void TargetCamera::RotateY(float angleRad)
  */
 void TargetCamera::TargetingTransform()
 {
-	m_transform->SetPosition(m_targetTransform->GetPosition() + m_offset * m_zoomRate);
+	m_transform->SetPosition(m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate);
 
 	m_isDirty = true;
 }
@@ -148,5 +150,5 @@ void TargetCamera::TargetingTransform()
 void TargetCamera::UpdateView() const
 {
 	m_view =
-		SimpleMath::Matrix::CreateLookAt(m_transform->GetPosition(), m_transform->GetPosition() + m_forward, m_up);
+		SimpleMath::Matrix::CreateLookAt(m_transform->GetWorldPosition(), m_transform->GetWorldPosition() + m_forward, m_up);
 }

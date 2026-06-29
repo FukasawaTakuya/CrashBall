@@ -24,10 +24,10 @@ GameScene::GameScene(
     ISceneController* pSceneManager,
     IJsonDataManager* jsonDataManager)
 	: Scene(pSceneManager, jsonDataManager)
-    , m_stage           (std::make_unique<Stage>())
+    , m_stage           (std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
     , m_player          (std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_enemy           (std::make_unique<Enemy>(jsonDataManager->GetJsonData("enemy")))
-    , m_gamePanel       (std::make_unique<GamePanel>())
+    , m_gamePanel       (std::make_unique<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
     , m_collisionManager(std::make_unique<CollisionManager>())
     , m_camera          (std::make_unique<GameCamera>())
 {
@@ -41,7 +41,7 @@ GameScene::GameScene(
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     // ターゲットのトランスフォームの設定
-    m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_enemy->GetComponent<Transform>());
+    m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_player->GetComponent<Transform>());
 
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
@@ -121,6 +121,8 @@ void GameScene::Update(const GameContext& gameContext)
         // 書き込む
         m_player->SaveParam();
         m_enemy->SaveParam();
+        m_stage->SaveParam();
+        m_gamePanel->SaveParam();
     }
 
     if (Input::GetKeyTrigger(Keyboard::K))
@@ -128,6 +130,7 @@ void GameScene::Update(const GameContext& gameContext)
         // 再読み込み
         m_player->ReloadJson();
         m_enemy->ReloadJson();
+        m_stage->ReloadJson();
     }
 }
 

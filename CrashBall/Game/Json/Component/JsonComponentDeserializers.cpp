@@ -12,18 +12,18 @@ void from_json(const json& j, Triangle& triangle)
 // RectTransformへ変換
 void from_json(const json& j, RectTransform& rectTransform)
 {
-	j.at("position").get_to(rectTransform.m_position);
-	j.at("rotate").get_to(rectTransform.m_rotate);
-	j.at("scele").get_to(rectTransform.m_rotate);
+	j.at("position").get_to(rectTransform.m_localPosition);
+	j.at("rotate").get_to(rectTransform.m_localRotate);
+	j.at("scale").get_to(rectTransform.m_localScale);
 	j.at("origin").get_to(rectTransform.m_origin);
 }
 
 // Transformへ変換
 void from_json(const json& j, Transform& transform)
 {
-	j.at("position").get_to(transform.m_position);
-	j.at("rotate").get_to(transform.m_rotate);
-	j.at("scale").get_to(transform.m_scale);
+	j.at("position").get_to(transform.m_localPosition);
+	j.at("rotate").get_to(transform.m_localRotate);
+	j.at("scale").get_to(transform.m_localScale);
 }
 
 // Rigidbodyへ変換
@@ -64,6 +64,8 @@ void from_json(const json& j, TextRenderer& textRenderer)
 // Meshへ変換
 void from_json(const json& j, Mesh& mesh)
 {
+	j.at("type").get_to(mesh.m_type);
+	j.at("layerMaskType").get_to(mesh.m_layerMaskType);
 	j.at("meshData").get_to(mesh.m_meshData);
 }
 
@@ -71,6 +73,7 @@ void from_json(const json& j, Mesh& mesh)
 void from_json(const json& j, Sphere& sphere)
 {
 	j.at("type").get_to(sphere.m_type);
+	j.at("layerMaskType").get_to(sphere.m_layerMaskType);
 	j.at("radius").get_to(sphere.m_radius);
 }
 
@@ -107,4 +110,11 @@ void from_json(const json& j, EnemyController& enemyController)
 	j.at("directionCircleDistance").get_to(enemyController.m_directionCircleDistance);
 	j.at("directionCircleRadius").get_to(enemyController.m_directionCircleRadius);
 	j.at("directionChageInterval").get_to(enemyController.m_directionChageInterval);
+}
+
+// StageControllerへ変換
+void from_json(const json& j, StageController& stageController)
+{
+	j.at("floorNormalY").get_to(stageController.m_floorNormalY);
+	j.at("floorCenterPosY").get_to(stageController.m_floorCenterPosY);
 }

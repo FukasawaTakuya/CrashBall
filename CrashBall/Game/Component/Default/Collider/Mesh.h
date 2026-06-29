@@ -27,11 +27,14 @@ private:
 
 	std::vector<Triangle*> m_collideFace;	// 衝突した面
 
-	std::wstring m_meshData;	// データのファイルパス
+	std::string m_meshData;	// データのファイルパス
 
 	// メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ
 public:
+
+	// デフォルトコンストラクタ
+	Mesh() = default;
 
 	// コンストラクタ
 	Mesh(IGameObject* gameObject);
@@ -40,6 +43,9 @@ public:
 	Mesh(
 		IGameObject* gameObject,
 		const Mesh& mesh);
+
+	// ムーブコンストラクタ
+	Mesh(Mesh&&) = default;
 
 	// デストラクタ
 	~Mesh();
@@ -51,7 +57,7 @@ public:
 	void DrawCollider() override {}
 
 	// データの読み込み
-	void LoadJson(const wchar_t* fileName);
+	void LoadJson(const std::string& fileName);
 
 	// 回転
 	void Rotate();
@@ -82,5 +88,13 @@ public:
 private:
 	friend void from_json(const json& j, Mesh& mesh);
 	friend void to_json(json& j, const Mesh& mesh);
+
+	// 演算子オーバーロード
+public:
+	
+	void operator=(const Mesh& other)
+	{
+		m_meshData = other.m_meshData;
+	}
 
 };

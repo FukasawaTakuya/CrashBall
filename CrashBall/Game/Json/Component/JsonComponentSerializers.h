@@ -53,3 +53,6 @@ void to_json(json& j, const PlayerStatusController& playerStatusController);
 
 // EnemyControllerから変換
 void to_json(json& j, const EnemyController& enemyController);
+
+// StageControllerから変換
+void to_json(json& j, const StageController& stageController);

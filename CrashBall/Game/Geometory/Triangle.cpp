@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "Triangle.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 

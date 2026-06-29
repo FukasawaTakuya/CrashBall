@@ -12,6 +12,8 @@
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 

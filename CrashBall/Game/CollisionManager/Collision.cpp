@@ -20,8 +20,12 @@ using namespace DirectX;
  */
 bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 {
+	// 球の座標
+	SimpleMath::Vector3 spherePos =
+		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+
 	// 球と平面の距離を求める
-	float distance = plane->CalcLength(sphere->GetPosition());
+	float distance = plane->CalcLength(spherePos);
 
 	// 距離が球の半径より小さければture
 	bool r = (distance <= sphere->GetRadius());
@@ -96,10 +100,13 @@ bool Collision::IsCollision(Segment* segment, Triangle* triangle)
  */
 bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 {
+	SimpleMath::Vector3 spherePos =
+		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+
 	// 線分の始点と球の中心の距離
-	float xa = segment->GetPos().x - sphere->GetPosition().x;
-	float ya = segment->GetPos().y - sphere->GetPosition().y;
-	float za = segment->GetPos().z - sphere->GetPosition().z;
+	float xa = segment->GetPos().x - spherePos.x;
+	float ya = segment->GetPos().y - spherePos.y;
+	float za = segment->GetPos().z - spherePos.z;
 
 	// 二次方程式の係数
 	float a
@@ -148,7 +155,7 @@ bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 
 	// 座標の差
 	SimpleMath::Vector3 delta =
-		(transform1->GetPosition() - transform2->GetPosition());
+		(transform1->GetWorldPosition() - transform2->GetWorldPosition());
 
 	// 半径の和
 	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
@@ -191,10 +198,14 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	//	}
 	//}
 
+	// 球の座標
+	SimpleMath::Vector3 spherePos =
+		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+
 	// 平面から球に垂直に伸びる線分
 	Segment segment;
 	// 線分の設定
-	segment.SetSegment(sphere->GetPosition(),
+	segment.SetSegment(spherePos,
 		-triangle->GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
 
 	// 線分と三角形の衝突判定
@@ -236,7 +247,7 @@ void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
 	Rigidbody* rigidbody = sphere->GetGameObject()->GetComponent<Rigidbody>();
 
 	// 球と平面の距離を求める
-	float distance = plane->CalcLength(transform->GetPosition());
+	float distance = plane->CalcLength(transform->GetWorldPosition());
 
 	// 補正距離を求める
 	float overlap = sphere->GetRadius() - distance;
@@ -283,7 +294,7 @@ void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 	Rigidbody* rigidbody2 = sphere2->GetGameObject()->GetComponent<Rigidbody>();
 
 	// 座標の差
-	SimpleMath::Vector3 delta = sphere1->GetPosition() - sphere2->GetPosition();
+	SimpleMath::Vector3 delta = transform1->GetWorldPosition() - transform2->GetWorldPosition();
 	// 球から球への方向
 	SimpleMath::Vector3 direction = XMVector3Normalize(delta);
 
