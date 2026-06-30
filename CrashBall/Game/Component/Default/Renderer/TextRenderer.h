@@ -39,13 +39,16 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	TextRenderer() = default;
+
 	// コンストラクタ
 	TextRenderer(IGameObject* gameObject);
 
 	// コピーコンストラクタ
 	TextRenderer(
 		IGameObject* gameObject,
-		const TextRenderer& textRenderer);
+		const TextRenderer& other);
 
 	// デストラクタ
 	~TextRenderer();
@@ -132,4 +135,14 @@ private:
 	friend void from_json(const json& j, TextRenderer& textRenderer);
 	friend void to_json(json& j, const TextRenderer& textRenderer);
 
+	// 演算子オーバーロード
+public:
+
+	void operator=(const TextRenderer& other)
+	{
+		m_text	= other.m_text;
+		m_color = other.m_color;
+		m_fontScale = other.m_fontScale;
+		m_layerDepth = other.m_layerDepth;
+	}
 };

@@ -24,26 +24,6 @@ class  FloorMeshGaugeController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	// ゲージの描画位置
-	static constexpr DirectX::SimpleMath::Vector2 GAUGE_POSITION 
-		= { Screen::CENTER_X, Screen::HEIGHT - 50.0f };	
-
-	// ゲージの土台のスケール
-	static constexpr DirectX::SimpleMath::Vector2 BACKGROUND_SCALE
-		= DirectX::SimpleMath::Vector2(1.1f, 3.5f);
-
-	// プレイヤーのメッシュ数表示テキストの描画位置
-	static constexpr DirectX::SimpleMath::Vector2 PLAYER_MESHTEXT_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X - 250.0f, Screen::HEIGHT - 95.0f);
-
-	// 敵のメッシュ数表示テキストの描画位置
-	static constexpr DirectX::SimpleMath::Vector2 ENEMY_MESHTEXT_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X + 250.0f, Screen::HEIGHT - 95.0f);
-
-	float TEXT_FONTSCALE = 0.75f;		// テキストのフォントスケール
-	float GAUGE_LAYER_DEPTH = 0.2f;		// ゲージの描画順
-	float TRACK_LAYER_DEPTH = 0.1f;		// ゲージの土台の描画順
-	float TEXT_LAYER_DEPTH = 0.1f;		// テキストの描画順
 	float GAUGE_SLIDE_SPEED = 5.0f;		// ゲージがスライドする速さ
 
 	// データメンバの宣言 -----------------------------------------------
@@ -62,10 +42,6 @@ private:
 	SpriteRenderer* m_enemyGaugeRenderer	= nullptr;
 	RectTransform* m_playerGaugeTransform	= nullptr;
 	RectTransform* m_enemyGaugeTransform	= nullptr;
-
-	// 土台のコンポーネントのキャッシュ
-	SpriteRenderer* m_gaugeTrackRenderer = nullptr;
-	RectTransform* m_gaugeTrackTransform = nullptr;
 
 	// テキストのコンポーネントのキャッシュ
 	TextRenderer* m_playerTextRenderer = nullptr;

@@ -32,6 +32,9 @@ public:
 	// コンストラクタ
 	Object2D();
 
+
+	Object2D(json* data);
+
 	// デストラクタ
 	~Object2D();
 

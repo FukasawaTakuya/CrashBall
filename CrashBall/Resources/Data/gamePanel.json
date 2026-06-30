@@ -1,15 +1,413 @@
 {
-   "ObjectTag": "Defaut",
-   "rectTransform": {
-      "origin": "Center",
-      "position": {
-         "x": 0.0,
-         "y": 0.0
-      },
-      "rotate": 0.0,
-      "scale": {
-         "x": 1.0,
-         "y": 1.0
-      }
-   }
+    "ObjectTag": "Defaut",
+    "attackGauge": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 510.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.0,
+                "g": 1.0,
+                "r": 1.0
+            },
+            "fillOrigin": "Bottom",
+            "layerDepth": 0.10000000149011612,
+            "spriteEffects": "None",
+            "spriteKey": "AttackIcon",
+            "spriteScale": {
+                "x": 0.4000000059604645,
+                "y": 0.4000000059604645
+            }
+        }
+    },
+    "attackGaugeTrack": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 510.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.501960813999176,
+                "g": 0.501960813999176,
+                "r": 0.501960813999176
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.0,
+            "spriteEffects": "None",
+            "spriteKey": "AttackIcon",
+            "spriteScale": {
+                "x": 0.4000000059604645,
+                "y": 0.4000000059604645
+            }
+        }
+    },
+    "attackPowerText": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 550.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "textRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.501960813999176,
+                "g": 0.501960813999176,
+                "r": 0.501960813999176
+            },
+            "fontScale": 0.3499999940395355,
+            "layerDepth": 0.20000000298023224,
+            "text": [
+                80,
+                111,
+                119,
+                101,
+                114,
+                58,
+                49,
+                48
+            ]
+        }
+    },
+    "enemyHpGauge": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 60.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.7568628191947937,
+                "g": 0.7137255072593689,
+                "r": 1.0
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.10000000149011612,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 0.800000011920929,
+                "y": 0.800000011920929
+            }
+        }
+    },
+    "enemyHpGaugeTrack": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 60.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.0,
+                "g": 0.0,
+                "r": 0.0
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.0,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 0.800000011920929,
+                "y": 0.800000011920929
+            }
+        }
+    },
+    "enemyHpText": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 25.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "textRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 1.0,
+                "g": 1.0,
+                "r": 1.0
+            },
+            "fontScale": 0.5,
+            "layerDepth": 0.0,
+            "text": [
+                69,
+                110,
+                101,
+                109,
+                121,
+                72,
+                80,
+                32,
+                50,
+                48,
+                48,
+                32,
+                47,
+                32,
+                50,
+                48,
+                48
+            ]
+        }
+    },
+    "enemyMeshGauge": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 670.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.7568628191947937,
+                "g": 0.7137255072593689,
+                "r": 1.0
+            },
+            "fillOrigin": "Right",
+            "layerDepth": 0.20000000298023224,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    },
+    "enemyMeshNumText": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 890.0,
+                "y": 625.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "textRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.7568628191947937,
+                "g": 0.7137255072593689,
+                "r": 1.0
+            },
+            "fontScale": 0.75,
+            "layerDepth": 0.10000000149011612,
+            "text": [
+                69,
+                110,
+                101,
+                109,
+                121,
+                58,
+                50,
+                38754
+            ]
+        }
+    },
+    "gaugeBackGround": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 670.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 0.4000000059604645,
+                "b": 0.0,
+                "g": 0.0,
+                "r": 0.0
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.0,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 1.100000023841858,
+                "y": 3.5
+            }
+        }
+    },
+    "gaugeTrack": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 670.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 1.0,
+                "g": 1.0,
+                "r": 1.0
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.10000000149011612,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    },
+    "playerMeshGauge": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 670.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.9803922176361084,
+                "g": 0.8078432083129883,
+                "r": 0.529411792755127
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.20000000298023224,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
+    },
+    "playerMeshNumText": {
+        "ObjectTag": "Defaut",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 390.0,
+                "y": 625.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "textRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 0.9803922176361084,
+                "g": 0.8078432083129883,
+                "r": 0.529411792755127
+            },
+            "fontScale": 0.75,
+            "layerDepth": 0.10000000149011612,
+            "text": [
+                80,
+                108,
+                97,
+                121,
+                101,
+                114,
+                58,
+                50,
+                38754
+            ]
+        }
+    },
+    "rectTransform": {
+        "origin": "Center",
+        "position": {
+            "x": 0.0,
+            "y": 0.0
+        },
+        "rotate": 0.0,
+        "scale": {
+            "x": 1.0,
+            "y": 1.0
+        }
+    }
 }

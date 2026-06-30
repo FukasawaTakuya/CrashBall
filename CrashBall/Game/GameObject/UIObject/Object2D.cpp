@@ -20,6 +20,13 @@ Object2D::Object2D()
 	m_spriteRenderer = AddComponent<SpriteRenderer>();
 }
 
+Object2D::Object2D(json* data)
+	: GameObject(data)
+{
+	AddComponent<RectTransform>((*data)["rectTransform"]);
+	m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
+}
+
 /**
  * \brief デストラクタ
  * 
@@ -63,14 +70,32 @@ void Object2D::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void Object2D::SaveParam()
 {
+	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
+	(*m_data)["spriteRenderer"] = *GetComponent<SpriteRenderer>();
+	(*m_data)["ObjectTag"] = GetTag();
 }
 
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
 void Object2D::SaveInitParam()
 {
 }
 
+/**
+ * \brief データの再読み込み
+ * 
+ */
 void Object2D::ReloadJson()
 {
+	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+	*GetComponent<SpriteRenderer>() = (*m_data)["spriteRenderer"];
+	SetTag((*m_data)["ObjectTag"]);
 }

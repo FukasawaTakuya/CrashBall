@@ -21,18 +21,7 @@ class  EnemyHpGaugeController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	// 敵のHPゲージの描画位置
-	static constexpr DirectX::SimpleMath::Vector2 ENEMY_HP_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 60.0f);
-
-	// 敵のHPの表示テキストの描画位置
-	static constexpr DirectX::SimpleMath::Vector2 ENEMY_HP_TEXT_POSITION
-		= DirectX::SimpleMath::Vector2(Screen::CENTER_X, 25.0f);
-
-	static constexpr float TEXT_FONT_SCALE		= 0.5f;		// テキストのフォントスケール
-	static constexpr float GAUGE_SPRITE_SCALE	= 0.8f;		// ゲージのスプライトスケール
 	static constexpr float GAUGE_SLIDE_SPEED	= 5.0f;		// ゲージのスライド速度
-	static constexpr float GAUGE_LAYER_DEPTH	= 0.1f;		// ゲージの描画順
 
 	// データメンバの宣言 -----------------------------------------------
 private:

@@ -1,44 +1,44 @@
 {
-   "ObjectTag": "Enemy",
-   "enemyController": {
-      "acceleration": 37.0,
-      "avoidWallDistance": 5.0,
-      "avoidWallStrongForce": 3.0,
-      "avoidWallWeakForce": 0.699999988079071,
-      "directionChageInterval": 1.5,
-      "directionCircleDistance": 4.5,
-      "directionCircleRadius": 10.0,
-      "maxHp": 200.0
-   },
-   "modelRenderer": {
-      "modelKey": ""
-   },
-   "rigidbody": {
-      "friction": 1.2000000476837158,
-      "gravityAccelaration": 25.799999237060547,
-      "isDynamic": 1.0,
-      "mass": 1.0
-   },
-   "sphere": {
-      "layerMaskType": "Default",
-      "radius": 20.0,
-      "type": "Sphere"
-   },
-   "transform": {
-      "position": {
-         "x": 0.0,
-         "y": 12.0,
-         "z": -5.0
-      },
-      "rotate": {
-         "x": -0.4775888919830322,
-         "y": -2.6035592555999756,
-         "z": -2.323385238647461
-      },
-      "scale": {
-         "x": 0.02500000037252903,
-         "y": 0.02500000037252903,
-         "z": 0.02500000037252903
-      }
-   }
+    "ObjectTag": "Enemy",
+    "enemyController": {
+        "acceleration": 37.0,
+        "avoidWallDistance": 5.0,
+        "avoidWallStrongForce": 3.0,
+        "avoidWallWeakForce": 0.699999988079071,
+        "directionChageInterval": 1.5,
+        "directionCircleDistance": 4.5,
+        "directionCircleRadius": 10.0,
+        "maxHp": 200.0
+    },
+    "modelRenderer": {
+        "modelKey": ""
+    },
+    "rigidbody": {
+        "friction": 1.2000000476837158,
+        "gravityAccelaration": 25.799999237060547,
+        "isDynamic": 1.0,
+        "mass": 1.0
+    },
+    "sphere": {
+        "layerMaskType": "Default",
+        "radius": 20.0,
+        "type": "Sphere"
+    },
+    "transform": {
+        "position": {
+            "x": 0.0,
+            "y": 12.0,
+            "z": -5.0
+        },
+        "rotate": {
+            "x": 0.4322410821914673,
+            "y": -1.4340639114379883,
+            "z": 0.7898412346839905
+        },
+        "scale": {
+            "x": 0.02500000037252903,
+            "y": 0.02500000037252903,
+            "z": 0.02500000037252903
+        }
+    }
 }

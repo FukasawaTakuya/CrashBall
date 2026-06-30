@@ -18,7 +18,16 @@ TextObject::TextObject()
 {
 	AddComponent<RectTransform>();
 	m_textRenderer = AddComponent<TextRenderer>();
-} 
+}
+
+
+TextObject::TextObject(json* data)
+	: GameObject(data)
+{
+	AddComponent<RectTransform>((*data)["rectTransform"]);
+	m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
+}
+
 
 /**
  * \brief デストラクタ
@@ -63,8 +72,16 @@ void TextObject::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void TextObject::SaveParam()
 {
+	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
+	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
+
+	(*m_data)["ObjectTag"] = GetTag();
 }
 
 void TextObject::SaveInitParam()
@@ -73,4 +90,8 @@ void TextObject::SaveInitParam()
 
 void TextObject::ReloadJson()
 {
+	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+	*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];
+	
+	SetTag((*m_data)["ObjectTag"]);
 }

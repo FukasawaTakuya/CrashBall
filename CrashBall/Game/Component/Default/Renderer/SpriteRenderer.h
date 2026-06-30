@@ -81,13 +81,16 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	SpriteRenderer() = default;
+
 	// コンストラクタ
 	SpriteRenderer(IGameObject* gameObject);
 
 	// コピーコンストラクタ
 	SpriteRenderer(
 		IGameObject* gamebject,
-		SpriteRenderer* spriteRenderer
+		const SpriteRenderer& other
 	);
 
 	// デストラクタ
@@ -223,4 +226,17 @@ private:
 
 	friend void from_json(const json& j, SpriteRenderer& spriteRenderer);
 	friend void to_json(json& j, const SpriteRenderer& spriteRenderer);
+
+	// 演算子オーバーロード
+public:
+
+	void operator=(const SpriteRenderer& other)
+	{
+		m_color = other.m_color;
+		m_spriteScale = other.m_spriteScale;
+		m_layerDepth = other.m_layerDepth;
+		m_fillOrigin = other.m_fillOrigin;
+		m_spriteEffects = other.m_spriteEffects;
+		m_spriteKey = other.m_spriteKey;
+	}
 };

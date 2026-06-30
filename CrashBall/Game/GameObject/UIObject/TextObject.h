@@ -32,6 +32,9 @@ public:
 	// コンストラクタ
 	TextObject();
 
+
+	TextObject(json* data);
+
 	// デストラクタ
 	~TextObject();
 

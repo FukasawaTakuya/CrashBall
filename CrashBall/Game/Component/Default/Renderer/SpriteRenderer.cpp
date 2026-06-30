@@ -26,19 +26,20 @@ SpriteRenderer::SpriteRenderer(IGameObject* gameObject)
  * \brief コピーコンストラクタ
  * 
  * \param gamebject コンポーネントを所有しているオブジェクト
- * \param spriteRenderer スプライト描画コンテキスト
+ * \param other コピー元
  */
 SpriteRenderer::SpriteRenderer(
 	IGameObject* gamebject, 
-	SpriteRenderer* spriteRenderer)
+	const SpriteRenderer& other)
 	: Component(gamebject)
-	, m_color(spriteRenderer->m_color)
-	, m_spriteScale(spriteRenderer->m_spriteScale)
-	, m_layerDepth(spriteRenderer->m_layerDepth)
-	, m_fillOrigin(spriteRenderer->m_fillOrigin)
-	, m_spriteEffects(spriteRenderer->m_spriteEffects)
-	, m_spriteKey(spriteRenderer->m_spriteKey)
+	, m_color			(other.m_color)
+	, m_spriteScale		(other.m_spriteScale)
+	, m_layerDepth		(other.m_layerDepth)
+	, m_fillOrigin		(other.m_fillOrigin)
+	, m_spriteEffects	(other.m_spriteEffects)
+	, m_spriteKey		(other.m_spriteKey)
 {
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 }
 
 /**

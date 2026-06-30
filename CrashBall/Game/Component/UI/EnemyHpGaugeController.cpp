@@ -36,28 +36,6 @@ EnemyHpGaugeController::EnemyHpGaugeController(
 		m_pEnemyHpGauge->GetComponent<SpriteRenderer>();
 	m_enemyHpTextRenderer =
 		m_pEnemyHpText->GetComponent<TextRenderer>();
-	SpriteRenderer* enemyHpGaugeTrackRenderer =
-		m_pEnemyHpGaugeTrack->GetComponent<SpriteRenderer>();
-
-	// 描画位置の設定
-	m_pEnemyHpGauge->GetComponent<RectTransform>()
-		->SetLocalPosition(ENEMY_HP_POSITION);
-	m_pEnemyHpGaugeTrack->GetComponent<RectTransform>()
-		->SetLocalPosition(ENEMY_HP_POSITION);
-	m_pEnemyHpText->GetComponent<RectTransform>()
-		->SetLocalPosition(ENEMY_HP_TEXT_POSITION);
-
-	// 色の設定
-	m_enemyHpGaugeRenderer->SetColor(GameColor::ENEMY);
-	enemyHpGaugeTrackRenderer->SetColor(Colors::Black);
-
-	// スケール
-	m_enemyHpTextRenderer->SetFontScale(TEXT_FONT_SCALE);
-	m_enemyHpGaugeRenderer->SetSpriteScale(GAUGE_SPRITE_SCALE);
-	enemyHpGaugeTrackRenderer->SetSpriteScale(GAUGE_SPRITE_SCALE);
-
-	// 描画順
-	m_enemyHpGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
 }
 
 /**

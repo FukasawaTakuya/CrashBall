@@ -48,57 +48,6 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	// テキストのコンポーネントのキャッシュの取得
 	m_playerTextRenderer	= pPlayerMeshNumText->GetComponent<TextRenderer>();
 	m_enemyTextRenderer		= pEnemyMeshNumText->GetComponent<TextRenderer>();
-	// ゲージの土台のコンポーネントのキャッシュ
-	m_gaugeTrackRenderer	= m_pGaugeTrack->GetComponent<SpriteRenderer>();
-	m_gaugeTrackTransform	= m_pGaugeTrack->GetComponent<RectTransform>();
-
-	// -------------- ゲージの土台 -------------- //
-	// 描画位置
-	m_gaugeTrackTransform->SetLocalPosition(GAUGE_POSITION);
-	// 基準位置
-	m_gaugeTrackTransform->SetOrigin(Origin::Center);
-	// 描画順
-	m_gaugeTrackRenderer->SetLayerDepth(TRACK_LAYER_DEPTH);
-
-	// -------------- 背景 -------------- //
-	// 描画コンポーネント
-	SpriteRenderer* backGroundRenderer
-		= m_pGaugeBackGround->GetComponent<SpriteRenderer>();
-	// スケール
-	backGroundRenderer->SetSpriteScale(BACKGROUND_SCALE);
-	// 色
-	backGroundRenderer->SetColor(GameColor::MESH_GAUGE_BACKGROUND);
-	// 描画位置
-	m_pGaugeBackGround->GetComponent<RectTransform>()->SetLocalPosition(GAUGE_POSITION);
-
-	// -------------- ゲージ -------------- //
-	// 描画順
-	m_playerGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
-	m_enemyGaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
-	// ゲージの色
-	m_playerGaugeRenderer->SetColor(GameColor::PLAYER);
-	m_enemyGaugeRenderer->SetColor(GameColor::ENEMY);
-	// 描画位置
-	m_playerGaugeTransform->SetLocalPosition(GAUGE_POSITION);
-	m_enemyGaugeTransform->SetLocalPosition(GAUGE_POSITION);
-	// 切り取りの起点
-	m_enemyGaugeRenderer->SetFillOrigin(FillOrigin::Right);
-
-	// -------------- テキスト -------------- //
-	RectTransform* playerTextTransform = m_pPlayerMeshNumText->GetComponent<RectTransform>();
-	RectTransform* enemyTextTransform  = m_pEnemyMeshNumText->GetComponent<RectTransform>();
-	// 描画位置
-	playerTextTransform->SetLocalPosition(PLAYER_MESHTEXT_POSITION);
-	enemyTextTransform->SetLocalPosition(ENEMY_MESHTEXT_POSITION);
-	// 描画順
-	m_playerTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
-	m_enemyTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
-	// テキストの色
-	m_playerTextRenderer->SetColor(GameColor::PLAYER);
-	m_enemyTextRenderer->SetColor(GameColor::ENEMY);
-	// フォントのスケール
-	m_playerTextRenderer->SetFontScale(TEXT_FONTSCALE);
-	m_enemyTextRenderer->SetFontScale(TEXT_FONTSCALE);
 }
 
 /**

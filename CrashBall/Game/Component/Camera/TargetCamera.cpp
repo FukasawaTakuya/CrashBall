@@ -98,10 +98,6 @@ void TargetCamera::RotateX(float angleRad)
 	// オフセットを回転
 	m_offset = XMVector3Rotate(m_forwardOffset, m_transform->GetWorldRotate());
 
-
-	auto rotate = m_transform->GetWorldRotate();
-	rotate.z = 0.0f;
-
 	// 各ベクトルを回転
 	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
 	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetWorldRotate());

@@ -34,31 +34,6 @@ AttackGaugeController::AttackGaugeController(
 	// キャッシュの取得
 	m_gaugeRenderer = m_pAttackGauge->GetComponent<SpriteRenderer>();
 	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
-	SpriteRenderer* gaugeTrackRenderer = m_pAttackGaugeTrack->GetComponent<SpriteRenderer>();
-
-	// 描画位置の設定
-	m_pAttackGauge->GetComponent<RectTransform>()
-		->SetLocalPosition(GAUGE_POSITION);
-	m_pAttackGaugeTrack->GetComponent<RectTransform>()
-		->SetLocalPosition(GAUGE_POSITION);
-	m_pAttackPowerText->GetComponent<RectTransform>()
-		->SetLocalPosition(TEXT_POSITION);
-
-	// 描画順の設定
-	m_gaugeRenderer->SetLayerDepth(GAUGE_LAYER_DEPTH);
-	m_attackPowerTextRenderer->SetLayerDepth(TEXT_LAYER_DEPTH);
-
-	// スケールの設定
-	m_gaugeRenderer->SetSpriteScale(GAUGE_SCALE);
-	gaugeTrackRenderer->SetSpriteScale(GAUGE_SCALE);
-	m_attackPowerTextRenderer->SetFontScale(TEXT_FONTSCALE);
-
-	// 色の設定
-	m_gaugeRenderer->SetColor(GameColor::ATTACKGAUGE);
-	gaugeTrackRenderer->SetColor(GameColor::ATTACKGAUGE_TRACK);
-
-	// 切り取り原点の設定
-	m_gaugeRenderer->SetFillOrigin(FillOrigin::Bottom);
 }
 
 /**

@@ -18,19 +18,18 @@ TextRenderer::TextRenderer(IGameObject* gameObject)
  * \brief コピーコンストラクタ
  * 
  * \param gameObject コンポーネントを取得するゲームオブジェクト
- * \param textRenderer テキスト描画コンポーネント
+ * \param other コピー元
  */
 TextRenderer::TextRenderer(
 	IGameObject* gameObject, 
-	const TextRenderer& textRenderer)
+	const TextRenderer& other)
 	: Component(gameObject)
-	, m_text(textRenderer.m_text)
-	, m_color(textRenderer.m_color)
-	, m_fontScale(textRenderer.m_fontScale)
-	, m_layerDepth(textRenderer.m_layerDepth)
+	, m_text		(other.m_text)
+	, m_color		(other.m_color)
+	, m_fontScale	(other.m_fontScale)
+	, m_layerDepth	(other.m_layerDepth)
 {
-	// テキストのサイズを求める
-	CalcTextSize();
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 }
 
 /**

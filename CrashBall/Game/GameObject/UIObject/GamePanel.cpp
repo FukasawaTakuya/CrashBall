@@ -17,18 +17,18 @@ using namespace DirectX;
  */
 GamePanel::GamePanel(json* data)
 	: Panel(data)
-	, m_playerMeshGauge		 (std::make_unique<Object2D>())
-	, m_enemyMeshGauge		 (std::make_unique<Object2D>())
-	, m_playerMeshNumText	 (std::make_unique<TextObject>())
-	, m_enemyMeshNumText	 (std::make_unique<TextObject>())
-	, m_gaugeBackGround		 (std::make_unique<Object2D>())
-	, m_gaugeTrack			 (std::make_unique<Object2D>())
-	, m_attackGauge			 (std::make_unique<Object2D>())
-	, m_attackPowerText		 (std::make_unique<TextObject>())
-	, m_attackGaugeTrack	 (std::make_unique<Object2D>())
-	, m_enemyHpGauge		 (std::make_unique<Object2D>())
-	, m_enemyHpGaugeTrack	 (std::make_unique<Object2D>())
-	, m_enemyHpText			 (std::make_unique<TextObject>())
+	, m_playerMeshGauge		 (std::make_unique<Object2D>(&(*data)["playerMeshGauge"]))
+	, m_enemyMeshGauge		 (std::make_unique<Object2D>(&(*data)["enemyMeshGauge"]))
+	, m_playerMeshNumText	 (std::make_unique<TextObject>(&(*data)["playerMeshNumText"]))
+	, m_enemyMeshNumText	 (std::make_unique<TextObject>(&(*data)["enemyMeshNumText"]))
+	, m_gaugeBackGround		 (std::make_unique<Object2D>(&(*data)["gaugeBackGround"]))
+	, m_gaugeTrack			 (std::make_unique<Object2D>(&(*data)["gaugeTrack"]))
+	, m_attackGauge			 (std::make_unique<Object2D>(&(*data)["attackGauge"]))
+	, m_attackPowerText		 (std::make_unique<TextObject>(&(*data)["attackPowerText"]))
+	, m_attackGaugeTrack	 (std::make_unique<Object2D>(&(*data)["attackGaugeTrack"]))
+	, m_enemyHpGauge		 (std::make_unique<Object2D>(&(*data)["enemyHpGauge"]))
+	, m_enemyHpGaugeTrack	 (std::make_unique<Object2D>(&(*data)["enemyHpGaugeTrack"]))
+	, m_enemyHpText			 (std::make_unique<TextObject>(&(*data)["enemyHpText"]))
 {
 
 	m_floorMeshGaugeController =
@@ -152,6 +152,19 @@ void GamePanel::SaveParam()
 	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
 
 	(*m_data)["ObjectTag"] = GetTag();
+
+	m_playerMeshGauge	->SaveParam();
+	m_enemyMeshGauge	->SaveParam();
+	m_playerMeshNumText	->SaveParam();
+	m_enemyMeshNumText	->SaveParam();
+	m_gaugeBackGround	->SaveParam();
+	m_gaugeTrack		->SaveParam();
+	m_attackGauge		->SaveParam();
+	m_attackPowerText	->SaveParam();
+	m_attackGaugeTrack	->SaveParam();
+	m_enemyHpGauge		->SaveParam();
+	m_enemyHpGaugeTrack	->SaveParam();
+	m_enemyHpText		->SaveParam();
 }
 
 void GamePanel::SaveInitParam()

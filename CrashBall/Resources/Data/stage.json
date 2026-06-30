@@ -1,29 +1,29 @@
 {
-   "ObjectTag": "Stage",
-   "mesh": {
-      "layerMaskType": "Default",
-      "meshData": "Resources/Models/Stage.json",
-      "type": "Mesh"
-   },
-   "stageController": {
-      "floorCenterPosY": 15.0,
-      "floorNormalY": 0.30000001192092896
-   },
-   "transform": {
-      "position": {
-         "x": 0.0,
-         "y": 0.0,
-         "z": 0.0
-      },
-      "rotate": {
-         "x": -0.0,
-         "y": 0.0,
-         "z": 0.0
-      },
-      "scale": {
-         "x": 15.0,
-         "y": 15.0,
-         "z": 15.0
-      }
-   }
+    "ObjectTag": "Stage",
+    "mesh": {
+        "layerMaskType": "Default",
+        "meshData": "Resources/Models/Stage.json",
+        "type": "Mesh"
+    },
+    "stageController": {
+        "floorCenterPosY": 15.0,
+        "floorNormalY": 0.30000001192092896
+    },
+    "transform": {
+        "position": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "rotate": {
+            "x": -0.0,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "scale": {
+            "x": 15.0,
+            "y": 15.0,
+            "z": 15.0
+        }
+    }
 }

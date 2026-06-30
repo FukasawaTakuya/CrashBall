@@ -1,44 +1,44 @@
 {
-   "ObjectTag": "Player",
-   "modelRenderer": {
-      "modelKey": "player"
-   },
-   "playerController": {
-      "acceleration": 35.0,
-      "attackDuration": 0.5,
-      "attackSpeed": 40.0,
-      "maxSpeed": 40.0
-   },
-   "playerStatusController": {
-      "attackCost": 20,
-      "minAttackPower": 10.0
-   },
-   "rigidbody": {
-      "friction": 1.2000000476837158,
-      "gravityAccelaration": 25.799999237060547,
-      "isDynamic": 1.0,
-      "mass": 1.0
-   },
-   "sphere": {
-      "layerMaskType": "Default",
-      "radius": 20.0,
-      "type": "Sphere"
-   },
-   "transform": {
-      "position": {
-         "x": 0.0,
-         "y": 12.0,
-         "z": 5.0
-      },
-      "rotate": {
-         "x": -0.5740281939506531,
-         "y": 2.927633762359619,
-         "z": 1.1608545780181885
-      },
-      "scale": {
-         "x": 0.02500000037252903,
-         "y": 0.02500000037252903,
-         "z": 0.02500000037252903
-      }
-   }
+    "ObjectTag": "Player",
+    "modelRenderer": {
+        "modelKey": "player"
+    },
+    "playerController": {
+        "acceleration": 35.0,
+        "attackDuration": 0.5,
+        "attackSpeed": 40.0,
+        "maxSpeed": 40.0
+    },
+    "playerStatusController": {
+        "attackCost": 20,
+        "minAttackPower": 10.0
+    },
+    "rigidbody": {
+        "friction": 1.2000000476837158,
+        "gravityAccelaration": 25.799999237060547,
+        "isDynamic": 1.0,
+        "mass": 1.0
+    },
+    "sphere": {
+        "layerMaskType": "Default",
+        "radius": 20.0,
+        "type": "Sphere"
+    },
+    "transform": {
+        "position": {
+            "x": 0.0,
+            "y": 12.0,
+            "z": 5.0
+        },
+        "rotate": {
+            "x": -0.2212899625301361,
+            "y": 2.808161735534668,
+            "z": 1.3128108978271484
+        },
+        "scale": {
+            "x": 0.02500000037252903,
+            "y": 0.02500000037252903,
+            "z": 0.02500000037252903
+        }
+    }
 }
