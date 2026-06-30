@@ -11,7 +11,7 @@
         "maxHp": 200.0
     },
     "modelRenderer": {
-        "modelKey": ""
+        "modelKey": "enemy"
     },
     "rigidbody": {
         "friction": 1.2000000476837158,

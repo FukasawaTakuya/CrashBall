@@ -110,6 +110,12 @@ public:
 		m_tag = tag;
 	}
 
+	// データの設定
+	void SetData(json* data)
+	{
+		m_data = data;
+	}
+
 	// 内部実装
 private:
 

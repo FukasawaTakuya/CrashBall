@@ -131,6 +131,7 @@ void GameScene::Update(const GameContext& gameContext)
         m_player->ReloadJson();
         m_enemy->ReloadJson();
         m_stage->ReloadJson();
+        m_gamePanel->ReloadJson();
     }
 }
 
@@ -165,13 +166,16 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
     auto& modelManager = resourceContext.modelManager;
 
+    ModelRenderer* playerRenderer = m_player->GetComponent<ModelRenderer>();
+    ModelRenderer* enemyRenderer = m_player->GetComponent<ModelRenderer>();
+
     // モデルの設定
-    m_player->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("player"));
-	m_enemy->GetComponent<ModelRenderer>()->SetModel(modelManager->GetModel("enemy"));
+    playerRenderer->SetModel(modelManager->GetModel(playerRenderer->GetModelKey()));
+    enemyRenderer->SetModel(modelManager->GetModel(enemyRenderer->GetModelKey()));
 
     // ディフーズカラーの設定
-    m_player->GetComponent<ModelRenderer>()->SetDiffuseColor(GameColor::PLAYER);
-    m_enemy->GetComponent<ModelRenderer>()->SetDiffuseColor(GameColor::ENEMY);
+    playerRenderer->SetDiffuseColor(GameColor::PLAYER);
+    enemyRenderer->SetDiffuseColor(GameColor::ENEMY);
 
     // UIのスプライトの設定
     m_gamePanel->SetSprite(resourceContext);

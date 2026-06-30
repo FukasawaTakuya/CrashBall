@@ -56,7 +56,7 @@ public:
 public:
 
 	// スプライト情報の取得
-	const SpriteInfo* GetSpriteInfo(const std::string& key) override;
+	const SpriteInfo* GetSpriteInfo(const std::string& key) const override;
 
 	// 内部実装
 private:

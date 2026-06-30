@@ -353,7 +353,7 @@
         }
     },
     "rectTransform": {
-        "origin": "Center",
+        "origin": "LeftTop",
         "position": {
             "x": 0.0,
             "y": 0.0

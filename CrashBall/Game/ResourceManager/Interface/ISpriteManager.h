@@ -48,7 +48,7 @@ public:
 public:
 
 	// スプライト情報の取得
-	virtual const SpriteInfo* GetSpriteInfo(const std::string& key) = 0;
+	virtual const SpriteInfo* GetSpriteInfo(const std::string& key) const = 0;
 
 	// 内部実装
 private:

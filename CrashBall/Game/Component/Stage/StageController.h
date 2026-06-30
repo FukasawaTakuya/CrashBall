@@ -130,4 +130,13 @@ private:
 private:
 	friend void from_json(const json& j, StageController& stageController);
 	friend void to_json(json& j, const StageController& stageController);
+
+	// 
+public:
+
+	void operator=(const StageController& other)
+	{
+		float m_floorNormalY = other.m_floorNormalY;
+		float m_floorCenterPosY = other.m_floorCenterPosY;
+	}
 };

@@ -29,12 +29,12 @@ RectTransform::RectTransform(IGameObject* gameObject)
  */
 RectTransform::RectTransform(
 	IGameObject* gameObject,
-	const RectTransform& rectTransform)
+	const RectTransform& other)
 	: Component(gameObject)
-	, m_localPosition(rectTransform.m_localPosition)
-	, m_localRotate	(rectTransform.m_localRotate)
-	, m_localScale	(rectTransform.m_localScale)
-	, m_origin	(rectTransform.m_origin)
+	, m_localPosition(other.m_localPosition)
+	, m_localRotate	(other.m_localRotate)
+	, m_localScale	(other.m_localScale)
+	, m_origin	(other.m_origin)
 {
 }
 

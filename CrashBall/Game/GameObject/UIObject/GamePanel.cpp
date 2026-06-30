@@ -170,6 +170,35 @@ void GamePanel::SaveInitParam()
 
 void GamePanel::ReloadJson()
 {
+	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+
+	SetTag((*m_data)["ObjectTag"]);
+
+	m_playerMeshGauge->SetData(&(*m_data)["playerMeshGauge"]);
+	m_enemyMeshGauge->SetData(&(*m_data)["enemyMeshGauge"]);
+	m_playerMeshNumText	->SetData(&(*m_data)["playerMeshNumText"]);
+	m_enemyMeshNumText	->SetData(&(*m_data)["enemyMeshNumText"]);
+	m_gaugeBackGround	->SetData(&(*m_data)["gaugeBackGround"]);
+	m_gaugeTrack		->SetData(&(*m_data)["gaugeTrack"]);
+	m_attackGauge		->SetData(&(*m_data)["attackGauge"]);
+	m_attackPowerText	->SetData(&(*m_data)["attackPowerText"]);
+	m_attackGaugeTrack	->SetData(&(*m_data)["attackGaugeTrack"]);
+	m_enemyHpGauge		->SetData(&(*m_data)["enemyHpGauge"]);
+	m_enemyHpGaugeTrack	->SetData(&(*m_data)["enemyHpGaugeTrack"]);
+	m_enemyHpText		->SetData(&(*m_data)["enemyHpText"]);
+
+	m_playerMeshGauge->ReloadJson();
+	m_enemyMeshGauge->ReloadJson();
+	m_playerMeshNumText->ReloadJson();
+	m_enemyMeshNumText->ReloadJson();
+	m_gaugeBackGround->ReloadJson();
+	m_gaugeTrack->ReloadJson();
+	m_attackGauge->ReloadJson();
+	m_attackPowerText->ReloadJson();
+	m_attackGaugeTrack->ReloadJson();
+	m_enemyHpGauge->ReloadJson();
+	m_enemyHpGaugeTrack->ReloadJson();
+	m_enemyHpText->ReloadJson();
 }
 
 

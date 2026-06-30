@@ -57,11 +57,18 @@ public:
 	// 取得/設定
 public:
 
-	DirectX::Model* GetModel()
+	// モデルの取得 
+	DirectX::Model* GetModel() const
 	{
 		return m_pModel;
 	}
 	
+	// モデルのキーの取得
+	std::string GetModelKey() const
+	{
+		return m_modelKey;
+	}
+
 	// モデルの設定
 	void SetModel(DirectX::Model* pModel)
 	{
