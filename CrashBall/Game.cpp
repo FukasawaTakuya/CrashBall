@@ -207,7 +207,6 @@ void Game::Render()
     // テキストの描画
     m_textRendererManager->Render(m_spriteBatch.get());
 
-
     // スプライト関連描画終了
     m_spriteBatch->End();
 

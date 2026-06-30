@@ -28,15 +28,11 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	IGameObject* gameObject, 
 	IGameObject* pPalyerMeshGauge, 
 	IGameObject* pEnemyMeshGauge, 
-	IGameObject* pGaugeTrack,
-	IGameObject* pGaugeBackGround, 
 	IGameObject* pPlayerMeshNumText, 
 	IGameObject* pEnemyMeshNumText)
 	: Component(gameObject)
 	, m_pPalyerMeshGauge(pPalyerMeshGauge)
 	, m_pEnemyMeshGauge(pEnemyMeshGauge)
-	, m_pGaugeTrack(pGaugeTrack)
-	, m_pGaugeBackGround(pGaugeBackGround)
 	, m_pPlayerMeshNumText(pPlayerMeshNumText)
 	, m_pEnemyMeshNumText(pEnemyMeshNumText)
 {

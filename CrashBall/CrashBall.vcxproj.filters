@@ -450,6 +450,9 @@
     <ClInclude Include="Game\Json\State\JsonStateSerializers.h">
       <Filter>Game\Json\State</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Common\Utility.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -28,7 +28,6 @@ private:
 private:
 
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
-	IGameObject* m_pAttackGaugeTrack  = nullptr;	// 攻撃ゲージの土台
 	IGameObject* m_pAttackPowerText	  = nullptr;	// 攻撃力表示テキスト
 
 	SpriteRenderer* m_gaugeRenderer				= nullptr;	// ゲージの描画コンポーネントのキャッシュ
@@ -46,7 +45,6 @@ public:
 	AttackGaugeController(
 		IGameObject* gameObejct,
 		IGameObject* pAttackGauge,
-		IGameObject* pAttackGaugeTrack,
 		IGameObject* pAttackPowerText
 	);
 

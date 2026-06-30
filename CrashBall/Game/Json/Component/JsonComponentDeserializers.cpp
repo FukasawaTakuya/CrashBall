@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "JsonComponentDeserializers.h"
+#include "Game/Common/Utility.h"
 
 // Traingleへ変換
 void from_json(const json& j, Triangle& triangle)
@@ -55,10 +56,11 @@ void from_json(const json& j, ModelRenderer& modelRenderer)
 // TextRendererへ変換
 void from_json(const json& j, TextRenderer& textRenderer)
 {
-	j.at("text").get_to(textRenderer.m_text);
 	j.at("color").get_to(textRenderer.m_color);
 	j.at("fontScale").get_to(textRenderer.m_fontScale);
 	j.at("layerDepth").get_to(textRenderer.m_layerDepth);
+
+	textRenderer.m_text = Utility::ConvertToWideChar(j["text"]);
 }
 
 // Meshへ変換

@@ -32,8 +32,6 @@ private:
 	// 管理ゲームオブジェクト
 	IGameObject* m_pPalyerMeshGauge		= nullptr;	// プレイヤーが塗った面のゲージ
 	IGameObject* m_pEnemyMeshGauge		= nullptr;	// 敵が塗った面のゲージ
-	IGameObject* m_pGaugeTrack			= nullptr;	// ゲージの土台
-	IGameObject* m_pGaugeBackGround		= nullptr;	// ゲージの背景
 	IGameObject* m_pPlayerMeshNumText	= nullptr;	// プレイヤーのメッシュ数表示
 	IGameObject* m_pEnemyMeshNumText	= nullptr;	// 敵のメッシュ数表示
 
@@ -60,8 +58,6 @@ public:
 		IGameObject* gameObject,		
 		IGameObject* pPalyerMeshGauge,
 		IGameObject* pEnemyMeshGauge,
-		IGameObject* pGaugeTrack,	
-		IGameObject* pGaugeBackGround,
 		IGameObject* pPlayerMeshNumText,
 		IGameObject* pEnemyMeshNumText
 		);

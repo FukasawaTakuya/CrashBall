@@ -24,11 +24,9 @@ using namespace DirectX;
 AttackGaugeController::AttackGaugeController(
 	IGameObject* gameObejct, 
 	IGameObject* pAttackGauge, 
-	IGameObject* pAttackGaugeTrack,
 	IGameObject* pAttackPowerText)
 	: Component(gameObejct)
 	, m_pAttackGauge(pAttackGauge)
-	, m_pAttackGaugeTrack(pAttackGaugeTrack)
 	, m_pAttackPowerText(pAttackPowerText)
 {
 	// キャッシュの取得

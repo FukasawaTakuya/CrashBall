@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "JsonComponentSerializers.h"
 #include "Game/State/Player/PlayerAttackState.h"
+#include "Game/Common/Utility.h"
 
 
 // RectTransformから変換
@@ -60,10 +61,10 @@ void to_json(json& j, const ModelRenderer& modelRenderer)
 void to_json(json& j, const TextRenderer& textRenderer)
 {
 	j = json{
-		{ "text",		textRenderer.m_text		  },
-		{ "color",		textRenderer.m_color	  },
-		{ "fontScale",	textRenderer.m_fontScale  },
-		{ "layerDepth", textRenderer.m_layerDepth }
+		{ "text",		Utility::ConvertToMultiByteChar(textRenderer.m_text)	},
+		{ "color",		textRenderer.m_color									},
+		{ "fontScale",	textRenderer.m_fontScale								},
+		{ "layerDepth", textRenderer.m_layerDepth								}
 	};
 }
 

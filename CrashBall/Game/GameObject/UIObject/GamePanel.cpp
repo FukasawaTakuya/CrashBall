@@ -35,8 +35,6 @@ GamePanel::GamePanel(json* data)
 		AddComponent<FloorMeshGaugeController>(
 			m_playerMeshGauge.get(),
 			m_enemyMeshGauge.get(),
-			m_gaugeTrack.get(),
-			m_gaugeBackGround.get(),
 			m_playerMeshNumText.get(),
 			m_enemyMeshNumText.get()
 		);
@@ -44,7 +42,6 @@ GamePanel::GamePanel(json* data)
 	m_attackGaugeController =
 		AddComponent<AttackGaugeController>(
 			m_attackGauge.get(),
-			m_attackGaugeTrack.get(),
 			m_attackPowerText.get()
 		);
 
@@ -189,10 +186,6 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	SpriteFont* defaultFont = textManager->GetSpriteFont("default");
 
 	// FloorMeshGauge ==================================================
-	m_gaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
-	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
-	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
-	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 
 	m_gaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
@@ -206,9 +199,6 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 
 	// AttackGauge ==================================================
 
-	m_attackGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("AttackIcon");
-	m_attackGaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("AttackIcon");
-
 	m_attackGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_attackGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
@@ -216,8 +206,6 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
 
 	// EnemyHpGauge ==================================================
-	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
-	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSpriteKey("Gauge");
 
 	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);

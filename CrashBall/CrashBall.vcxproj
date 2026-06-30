@@ -208,6 +208,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Common\Utility.h" />
     <ClInclude Include="Game\Component\Ball\BallController.h" />
     <ClInclude Include="Game\Component\Camera\GameCameraController.h" />
     <ClInclude Include="Game\Component\Camera\ICamera.h" />
