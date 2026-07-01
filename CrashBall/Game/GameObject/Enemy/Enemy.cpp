@@ -96,9 +96,9 @@ void Enemy::SaveInitParam()
  * \brief データの再読み込み
  * 
  */
-void Enemy::ReloadJson()
+void Enemy::ReloadParam()
 {
 	*m_enemyController = (*m_data)["enemyController"];
 
-	Ball::ReloadJson();
+	Ball::ReloadParam();
 }

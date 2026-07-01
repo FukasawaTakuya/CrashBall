@@ -1,7 +1,7 @@
 {
-    "ObjectTag": "Defaut",
+    "ObjectTag": "Default",
     "attackGauge": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -32,7 +32,7 @@
         }
     },
     "attackGaugeTrack": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -63,7 +63,7 @@
         }
     },
     "attackPowerText": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -83,13 +83,14 @@
                 "g": 0.501960813999176,
                 "r": 0.501960813999176
             },
+            "fontKey": "default",
             "fontScale": 0.3499999940395355,
             "layerDepth": 0.20000000298023224,
             "text": "Power:10\u0000"
         }
     },
     "enemyHpGauge": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -120,7 +121,7 @@
         }
     },
     "enemyHpGaugeTrack": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -151,7 +152,7 @@
         }
     },
     "enemyHpText": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -171,13 +172,14 @@
                 "g": 1.0,
                 "r": 1.0
             },
+            "fontKey": "default",
             "fontScale": 0.5,
             "layerDepth": 0.0,
             "text": "EnemyHP 200 / 200\u0000"
         }
     },
     "enemyMeshGauge": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -208,7 +210,7 @@
         }
     },
     "enemyMeshNumText": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -228,13 +230,14 @@
                 "g": 0.7137255072593689,
                 "r": 1.0
             },
+            "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
             "text": "Enemy:2面\u0000"
         }
     },
     "gaugeBackGround": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -265,7 +268,7 @@
         }
     },
     "gaugeTrack": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -296,7 +299,7 @@
         }
     },
     "playerMeshGauge": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -327,7 +330,7 @@
         }
     },
     "playerMeshNumText": {
-        "ObjectTag": "Defaut",
+        "ObjectTag": "Default",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -347,6 +350,7 @@
                 "g": 0.8078432083129883,
                 "r": 0.529411792755127
             },
+            "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
             "text": "Player:2面\u0000"

@@ -105,7 +105,7 @@ void Ball::SaveInitParam()
  * \brief Jsonの再読み込み
  * 
  */
-void Ball::ReloadJson()
+void Ball::ReloadParam()
 {
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];

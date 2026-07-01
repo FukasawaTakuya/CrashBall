@@ -1,0 +1,43 @@
+{
+    "ObjectTag": "Default",
+    "spriteRenderer": {
+        "color": {
+            "a": 1.0,
+            "b": 1.0,
+            "g": 1.0,
+            "r": 1.0
+        },
+        "fillOrigin": "Left",
+        "layerDepth": 0.0,
+        "spriteEffects": "None",
+        "spriteKey": "Button",
+        "spriteScale": {
+            "x": 1.0,
+            "y": 1.0
+        }
+    },
+    "textRenderer": {
+        "color": {
+            "a": 1.0,
+            "b": 0.0,
+            "g": 0.0,
+            "r": 0.0
+        },
+        "fontKey": "",
+        "fontScale": 1.0,
+        "layerDepth": 0.0010000000474974513,
+        "text": "ゲームスタート"
+    },
+    "rectTransform": {
+        "origin": "Center",
+        "position": {
+            "x": 800.0,
+            "y": 500.0
+        },
+        "rotate": 0.0,
+        "scale": {
+            "x": 1.0,
+            "y": 1.0
+        }
+    }
+}

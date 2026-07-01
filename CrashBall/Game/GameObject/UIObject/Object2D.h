@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 
 /**
@@ -60,7 +61,7 @@ public:
 	void SaveInitParam() override;
 
 	// ƒf[ƒ^‚ÌÄ“Ç‚İ‚İ
-	void ReloadJson() override;
+	void ReloadParam() override;
 
 
 	// æ“¾/İ’è

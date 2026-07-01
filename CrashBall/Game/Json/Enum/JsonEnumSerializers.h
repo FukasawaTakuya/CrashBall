@@ -6,7 +6,7 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ObjectTag, {
-	{ ObjectTag::Defaut,	"Defaut"	},
+	{ ObjectTag::Defaut,	"Default"	},
 	{ ObjectTag::Player,	"Player"	},
 	{ ObjectTag::Enemy,		"Enemy"		},
 	{ ObjectTag::Stage,		"Stage"		}

@@ -69,6 +69,13 @@ public:
 	// シーン変更のリクエスト
 	void RequestChangeScene(SceneID nextSceneID) override;
 
+	// パラメータの書き込み
+	void SaveParam();
+
+	// パラメータの再読み込み
+	void ReloadParam();
+
+
 	// カメラの取得
 	ICamera* GetCamera() const
 	{

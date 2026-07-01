@@ -83,7 +83,7 @@ void GameCamera::SaveInitParam()
 {
 }
 
-void GameCamera::ReloadJson()
+void GameCamera::ReloadParam()
 {
 }
 

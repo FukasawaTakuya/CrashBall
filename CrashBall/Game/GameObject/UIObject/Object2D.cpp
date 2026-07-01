@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "Object2D.h"
-#include "Game/Component/Default/Physics/RectTransform.h"
 
 /**
  * \brief コンストラクタ
@@ -93,7 +92,7 @@ void Object2D::SaveInitParam()
  * \brief データの再読み込み
  * 
  */
-void Object2D::ReloadJson()
+void Object2D::ReloadParam()
 {
 	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 	*GetComponent<SpriteRenderer>() = (*m_data)["spriteRenderer"];

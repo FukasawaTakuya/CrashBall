@@ -64,7 +64,8 @@ void to_json(json& j, const TextRenderer& textRenderer)
 		{ "text",		Utility::ConvertToMultiByteChar(textRenderer.m_text)	},
 		{ "color",		textRenderer.m_color									},
 		{ "fontScale",	textRenderer.m_fontScale								},
-		{ "layerDepth", textRenderer.m_layerDepth								}
+		{ "layerDepth", textRenderer.m_layerDepth								},
+		{ "fontKey",	textRenderer.m_fontKey									}
 	};
 }
 

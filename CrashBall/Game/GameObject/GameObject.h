@@ -77,7 +77,7 @@ public:
 	virtual void SaveInitParam() = 0;
 
 	// データの再読み込み
-	virtual void ReloadJson() = 0;
+	virtual void ReloadParam() = 0;
 
 	// 取得/設定
 public:

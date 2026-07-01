@@ -60,7 +60,7 @@ public:
 	void SaveInitParam() override;
 
 	// ƒf[ƒ^‚ÌÄ“Ç‚İ‚İ
-	void ReloadJson() override;
+	void ReloadParam() override;
 
 
 	// æ“¾/İ’è

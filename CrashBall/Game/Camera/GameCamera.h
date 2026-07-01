@@ -62,7 +62,7 @@ public:
 	void SaveInitParam() override;
 
 	// データの再読み込み
-	void ReloadJson() override;
+	void ReloadParam() override;
 
 
 	// 取得 / 設定

@@ -64,7 +64,7 @@ public:
 	void SaveInitParam() override;
 
 	// データの再読み込み
-	void ReloadJson() override;
+	void ReloadParam() override;
 
 
 	// フェードインの開始

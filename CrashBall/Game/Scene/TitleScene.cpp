@@ -29,8 +29,8 @@ TitleScene::TitleScene(
 	, m_camera(std::make_unique<TitleCamera>())
 	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
-	, m_titleSprite(std::make_unique<Object2D>())
-	, m_startButton(std::make_unique<Button>())
+	, m_titleSprite(std::make_unique<Object2D>(jsonDataManager->GetJsonData("titleLogo")))
+	, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
 {
 	m_camera->GetComponent<TargetCamera>()->SetTargetTransform(
 		m_player->GetComponent<Transform>()
@@ -38,17 +38,7 @@ TitleScene::TitleScene(
 
 	m_player->GetComponent<Transform>()->SetPosition({ 0.0f, 10.25f, 0.0f });
 
-	m_titleSprite->GetComponent<RectTransform>()->SetLocalPosition(
-		TITLE_INIT_POS
-	);
-
 	m_titleSpriteTransform = m_titleSprite->GetComponent<RectTransform>();
-	m_titleSpriteTransform->SetLocalScale(1.3f);
-
-
-
-	m_startButton->GetComponent<RectTransform>()
-		->SetLocalPosition({ 800.0f, 500.0f });
 
 	m_startButton->GetComponent<ButtonController>()
 		->SetOnDrugCommand([&]()
@@ -137,17 +127,12 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 
-	m_titleSprite->GetComponent<SpriteRenderer>()->SetSpriteKey("Title");
-	m_startButton->GetComponent<SpriteRenderer>()->SetSpriteKey("Button");
-
 	m_titleSprite->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_startButton->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	m_startButton->GetComponent<TextRenderer>()->SetSpriteFont(
 		resourceContext.textManager->GetSpriteFont("default")
 	);
-
-	m_startButton->GetComponent<TextRenderer>()->SetText(L"START");
 }
 
 /**
@@ -157,4 +142,24 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
  */
 void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
 {
+}
+
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
+void TitleScene::SaveParam()
+{
+	m_titleSprite->SaveParam();
+	m_startButton->SaveParam();
+}
+
+/**
+ * \brief パラメータの再読み込み
+ * 
+ */
+void TitleScene::ReloadParam()
+{
+	m_titleSprite->ReloadParam();
+	m_startButton->ReloadParam();
 }

@@ -18,12 +18,21 @@ Button::Button()
 	m_rectTransform  = AddComponent<RectTransform>();
 	m_spriteRenderer = AddComponent<SpriteRenderer>();
 	m_textRenderer	 = AddComponent<TextRenderer>();
-	m_controller	 = AddComponent<ButtonController>();
+	m_buttonController = AddComponent<ButtonController>();
+}
+
+Button::Button(json* data)
+	: GameObject(data)
+{
+	m_rectTransform = AddComponent<RectTransform>((*data)["rectTransform"]);
+	m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
+	m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
+	m_buttonController = AddComponent<ButtonController>();
 }
 
 /**
  * \brief デストラクタ
- * 
+ *
  */
 Button::~Button()
 {
@@ -31,7 +40,7 @@ Button::~Button()
 
 /**
  * \brief 初期化
- * 
+ *
  */
 void Button::Initialize()
 {
@@ -39,12 +48,12 @@ void Button::Initialize()
 
 /**
  * \brief 更新
- * 
+ *
  * \param gameContext ゲーム用のコンテキスト
  */
 void Button::Update(const GameContext& gameContext)
 {
-	m_controller->Update();
+	m_buttonController->Update();
 }
 
 /**
@@ -66,14 +75,32 @@ void Button::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void Button::SaveParam()
 {
+	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
+	(*m_data)["spriteRenderer"] = *GetComponent<SpriteRenderer>();
+	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
 }
 
+/**
+ * \brief 初期化時のパラメータの書き込み
+ *
+ */
 void Button::SaveInitParam()
 {
 }
 
-void Button::ReloadJson()
+/**
+ * \brief パラメータの再読み込み
+ *
+ */
+void Button::ReloadParam()
 {
+	*GetComponent<RectTransform>()	= (*m_data)["rectTransform"];
+	*GetComponent<SpriteRenderer>()	= (*m_data)["spriteRenderer"];
+	*GetComponent<TextRenderer>()	= (*m_data)["textRenderer"];
 }

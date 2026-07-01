@@ -59,6 +59,7 @@ void from_json(const json& j, TextRenderer& textRenderer)
 	j.at("color").get_to(textRenderer.m_color);
 	j.at("fontScale").get_to(textRenderer.m_fontScale);
 	j.at("layerDepth").get_to(textRenderer.m_layerDepth);
+	j.at("fontKey").get_to(textRenderer.m_fontKey);
 
 	textRenderer.m_text = Utility::ConvertToWideChar(j["text"]);
 }

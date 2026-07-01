@@ -40,17 +40,29 @@ public:
 	// 操作
 public:
 
+	// 初期化
 	virtual void Initialize() = 0;
 
+	// 更新
 	virtual void Update(const GameContext& gameContext) = 0;
-
+	
+	// 描画
 	virtual void Render(const RenderContext& renderContext) = 0;
 
+	// 終了処理
 	virtual void Finalize() = 0;
 
+	// デバイス依存のリソース作成
 	virtual void CreateDeviceResources(const ResourceContext& resourceContext) = 0;
 
+	// ウインドウサイズ依存のリソース作成
 	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) = 0;
+
+	// パラメータの書き込み
+	virtual void SaveParam() = 0;
+
+	// パラメータの再読み込み
+	virtual void ReloadParam() = 0;
 
 	// 取得/設定
 public:

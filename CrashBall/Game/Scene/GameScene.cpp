@@ -115,24 +115,6 @@ void GameScene::Update(const GameContext& gameContext)
     {
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
-
-    if (Input::GetKeyTrigger(Keyboard::L))
-    {
-        // 書き込む
-        m_player->SaveParam();
-        m_enemy->SaveParam();
-        m_stage->SaveParam();
-        m_gamePanel->SaveParam();
-    }
-
-    if (Input::GetKeyTrigger(Keyboard::K))
-    {
-        // 再読み込み
-        m_player->ReloadJson();
-        m_enemy->ReloadJson();
-        m_stage->ReloadJson();
-        m_gamePanel->ReloadJson();
-    }
 }
 
 
@@ -158,16 +140,16 @@ void GameScene::Finalize()
 }
 
 /**
- * \brief リソースの作成.
+ * \brief デバイス依存のリソース作成
  * 
- * \param projMat 射影行列
+ * \param resourceContext リソース用のコンテキスト
  */
 void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
     auto& modelManager = resourceContext.modelManager;
 
     ModelRenderer* playerRenderer = m_player->GetComponent<ModelRenderer>();
-    ModelRenderer* enemyRenderer = m_player->GetComponent<ModelRenderer>();
+    ModelRenderer* enemyRenderer = m_enemy->GetComponent<ModelRenderer>();
 
     // モデルの設定
     playerRenderer->SetModel(modelManager->GetModel(playerRenderer->GetModelKey()));
@@ -181,6 +163,35 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     m_gamePanel->SetSprite(resourceContext);
 }
 
+/**
+ * \brief ウインドウサイズ依存のリソース作成
+ * 
+ * \param proj 射影行列
+ */
 void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
 {
+}
+
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
+void GameScene::SaveParam()
+{
+    m_player->SaveParam();
+    m_enemy->SaveParam();
+    m_stage->SaveParam();
+    m_gamePanel->SaveParam();
+}
+
+/**
+ * \brief パラメータの再読み込み
+ * 
+ */
+void GameScene::ReloadParam()
+{
+    m_player->ReloadParam();
+    m_enemy->ReloadParam();
+    m_stage->ReloadParam();
+    m_gamePanel->ReloadParam();
 }

@@ -88,7 +88,7 @@ void TextObject::SaveInitParam()
 {
 }
 
-void TextObject::ReloadJson()
+void TextObject::ReloadParam()
 {
 	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 	*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];

@@ -93,10 +93,10 @@ void Player::SaveInitParam()
  * \brief データの再読み込み
  * 
  */
-void Player::ReloadJson()
+void Player::ReloadParam()
 {
 	*m_playerStatusController = (*m_data)["playerStatusController"];
 	*m_playerController = (*m_data)["playerController"];
 	
-	Ball::ReloadJson();
+	Ball::ReloadParam();
 }

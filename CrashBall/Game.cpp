@@ -80,6 +80,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
     m_jsonDataManager->LoadFile("stage", "Resources/Data/stage.json");
     m_jsonDataManager->LoadFile("gamePanel", "Resources/Data/gamePanel.json");
+    m_jsonDataManager->LoadFile("titleLogo", "Resources/Data/titleLogo.json");
+    m_jsonDataManager->LoadFile("startButton", "Resources/Data/startButton.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
@@ -150,12 +152,14 @@ void Game::Update(DX::StepTimer const& timer)
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))
     {
+        m_sceneManager->SaveParam();
         m_jsonDataManager->SaveFile();
     }
     // 再読み込み
     if(m_inputSystem->GetKeyTrigger(Keyboard::I))
     {
         m_jsonDataManager->ReloadFile();
+        m_sceneManager->ReloadParam();
     }
 }
 #pragma endregion

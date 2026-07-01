@@ -28,6 +28,7 @@ TextRenderer::TextRenderer(
 	, m_color		(other.m_color)
 	, m_fontScale	(other.m_fontScale)
 	, m_layerDepth	(other.m_layerDepth)
+	, m_fontKey		(other.m_fontKey)
 {
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 }

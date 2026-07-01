@@ -60,7 +60,7 @@ public:
 	virtual void SaveInitParam() override;
 
 	// データの再読み込み
-	virtual void ReloadJson() override;
+	virtual void ReloadParam() override;
 
 	// 取得/設定
 public:

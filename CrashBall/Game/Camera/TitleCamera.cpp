@@ -75,6 +75,6 @@ void TitleCamera::SaveInitParam()
 {
 }
 
-void TitleCamera::ReloadJson()
+void TitleCamera::ReloadParam()
 {
 }

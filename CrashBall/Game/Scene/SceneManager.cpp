@@ -128,6 +128,24 @@ void SceneManager::RequestChangeScene(SceneID nextSceneID)
 }
 
 /**
+ * \brief パラメータの書き込み
+ * 
+ */
+void SceneManager::SaveParam()
+{
+	m_pCurrentScene->SaveParam();
+}
+
+/**
+ * \brief パラメータの再読み込み
+ * 
+ */
+void SceneManager::ReloadParam()
+{
+	m_pCurrentScene->ReloadParam();
+}
+
+/**
  * \brief シーン変更
  * 
  */

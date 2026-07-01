@@ -95,7 +95,7 @@ void Stage::SaveInitParam()
  * \brief データの再読み込み
  * 
  */
-void Stage::ReloadJson()
+void Stage::ReloadParam()
 {
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<Mesh>() = (*m_data)["mesh"];

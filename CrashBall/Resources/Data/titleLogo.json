@@ -1,0 +1,31 @@
+{
+    "ObjectTag": "Default",
+    "rectTransform": {
+        "origin": "Center",
+        "position": {
+            "x": 320.0,
+            "y": 205.575439453125
+        },
+        "rotate": 0.0,
+        "scale": {
+            "x": 1.2999999523162842,
+            "y": 1.2999999523162842
+        }
+    },
+    "spriteRenderer": {
+        "color": {
+            "a": 1.0,
+            "b": 1.0,
+            "g": 1.0,
+            "r": 1.0
+        },
+        "fillOrigin": "Left",
+        "layerDepth": 0.0,
+        "spriteEffects": "None",
+        "spriteKey": "Title",
+        "spriteScale": {
+            "x": 1.0,
+            "y": 1.0
+        }
+    }
+}

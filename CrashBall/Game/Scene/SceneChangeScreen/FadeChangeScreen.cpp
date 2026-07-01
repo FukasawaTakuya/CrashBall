@@ -107,6 +107,6 @@ void FadeChangeScreen::SaveInitParam()
 {
 }
 
-void FadeChangeScreen::ReloadJson()
+void FadeChangeScreen::ReloadParam()
 {
 }

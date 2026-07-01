@@ -72,6 +72,6 @@ void Object3D::SaveInitParam()
 {
 }
 
-void Object3D::ReloadJson()
+void Object3D::ReloadParam()
 {
 }

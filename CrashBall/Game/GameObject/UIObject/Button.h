@@ -24,10 +24,10 @@ public:
 protected:
 
 	// コンポーネントのキャッシュ
-	RectTransform*		m_rectTransform  = nullptr;
-	SpriteRenderer*		m_spriteRenderer = nullptr;
-	TextRenderer*		m_textRenderer	 = nullptr;
-	ButtonController*	m_controller	 = nullptr;
+	RectTransform*		m_rectTransform		 = nullptr;
+	SpriteRenderer*		m_spriteRenderer	 = nullptr;
+	TextRenderer*		m_textRenderer		 = nullptr;
+	ButtonController*	m_buttonController	 = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -35,6 +35,9 @@ public:
 
 	// コンストラクタ
 	Button();
+
+	// 
+	Button(json* data);
 
 	// デストラクタ
 	~Button();
@@ -61,7 +64,7 @@ public:
 	void SaveInitParam() override;
 
 	// データの再読み込み
-	void ReloadJson() override;
+	void ReloadParam() override;
 
 	// 取得/設定
 public:
