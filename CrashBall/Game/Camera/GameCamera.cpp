@@ -32,6 +32,20 @@ GameCamera::GameCamera()
 }
 
 /**
+ * \brief コンストラクタ
+ * 
+ * \param data データ
+ */
+GameCamera::GameCamera(json* data)
+	: GameObject(data)
+{
+	// コンポーネントの追加
+	AddComponent<Transform>((*m_data)["transform"]);
+	AddComponent<TargetCamera>((*m_data)["targetCamera"].get<TargetCamera>());
+	m_cameraController = AddComponent<GameCameraController>((*m_data)["gameCameraController"]);
+}
+
+/**
  * デストラクタ
  *
  */
@@ -75,15 +89,34 @@ void GameCamera::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void GameCamera::SaveParam()
 {
+	(*m_data)["transform"] = *GetComponent<Transform>();
+	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
+	(*m_data)["gameCameraController"] = *GetComponent<GameCameraController>();
 }
 
+/**
+ * \brief 初期化時のパラメータの書き込み
+ *
+ */
 void GameCamera::SaveInitParam()
 {
 }
 
+/**
+ * \brief パラメータの再読み込み
+ *
+ */
 void GameCamera::ReloadParam()
 {
+	*GetComponent<Transform>() = (*m_data)["transform"];
+	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
+	*GetComponent<GameCameraController>() = (*m_data)["gameCameraController"];
+
 }
 

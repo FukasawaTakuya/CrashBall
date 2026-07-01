@@ -27,6 +27,22 @@ GameCameraController::GameCameraController(IGameObject* gameObejct)
 }
 
 /**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param other コピー元
+ */
+GameCameraController::GameCameraController(
+	IGameObject* gameObject, 
+	const GameCameraController& other)
+	: Component(gameObject)
+	, m_rotateAngleRad(other.m_rotateAngleRad)
+{
+	// キャッシュの取得
+	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+}
+
+/**
  * \brief デストラクタ
  * 
  */
@@ -53,11 +69,11 @@ void GameCameraController::Update()
 
 	// 入力に応じて回転
 	if (Input::GetKeyDown(Keyboard::Right)) {
-		m_targetCamera->RotateX( ROTATE_ANGELRAD * elapsedTime);
+		m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
 
 	}
 	else if (Input::GetKeyDown(Keyboard::Left)) {
-		m_targetCamera->RotateX(-ROTATE_ANGELRAD * elapsedTime);
+		m_targetCamera->RotateX(-XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
 	}
 
 	// ターゲットを追尾

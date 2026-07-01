@@ -141,3 +141,10 @@ void from_json(const json& j, TitleCameraController& titleCameraController)
 {
 	j.at("rotateAngleRad").get_to(titleCameraController.m_rotateAngeleRad);
 }
+
+// GameCameraControllerへ変換
+void from_json(const json& j, GameCameraController& gameCameraController)
+{
+	j.at("rotateAngleRad").get_to(gameCameraController.m_rotateAngleRad);
+
+}

@@ -166,3 +166,11 @@ void to_json(json& j, const TitleCameraController& titleCameraController)
 		{ "rotateAngleRad", titleCameraController.m_rotateAngeleRad }
 	};
 }
+
+// GameCameraControllerから変換
+void to_json(json& j, const GameCameraController& gameCameraController)
+{
+	j = json{
+		{ "rotateAngleRad", gameCameraController.m_rotateAngleRad }
+	};
+}

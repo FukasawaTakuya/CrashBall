@@ -17,10 +17,10 @@
  */
 class  GameCameraController : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
+	//パラメータの宣言 -------------------------------------------------
 private:
 
-	static constexpr float ROTATE_ANGELRAD = DirectX::XM_PIDIV4;	// 回転角度
+	float m_rotateAngleRad;	// 回転角度
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -32,8 +32,17 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	GameCameraController() = default;
+
 	// コンストラクタ
 	GameCameraController(IGameObject* gameObejct);
+
+	// コピーコンストラクタ
+	GameCameraController(
+		IGameObject* gameObject,
+		const GameCameraController& other
+	);
 
 	// デストラクタ
 	~GameCameraController();
@@ -53,4 +62,17 @@ public:
 	// 内部実装
 private:
 
+	// JsonConverter
+private:
+
+	friend void to_json(json& j, const GameCameraController& gameCameraController);
+	friend void from_json(const json& j, GameCameraController& gameCameraController);
+
+	// 演算子オーバーロード
+public:
+
+	void operator=(const GameCameraController& other)
+	{
+		m_rotateAngleRad = other.m_rotateAngleRad;
+	}
 };

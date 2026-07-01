@@ -18,6 +18,7 @@
 #include "Game/Component/Default/UI/SliderController.h"
 #include "Game/Component/Default/UI/SpriteBobbing.h"
 #include "Game/Component/Camera/TitleCameraController.h"
+#include "Game/Component/Camera/GameCameraController.h"
 
 using namespace nlohmann;
 
@@ -71,3 +72,6 @@ void from_json(const json& j, StageController& stageController);
 
 // TitleCameraControllerへ変換
 void from_json(const json& j, TitleCameraController& titleCameraController);
+
+// GameCameraControllerへ変換
+void from_json(const json& j, GameCameraController& gameCameraController);

@@ -1,0 +1,30 @@
+{
+    "ObjectTag": "Default",
+    "gameCameraController": {
+        "rotateAngleRad": 45.0
+    },
+    "targetCamera": {
+        "offset": {
+            "x": 0.0,
+            "y": 4.0,
+            "z": 12.0
+        }
+    },
+    "transform": {
+        "position": {
+            "x": 0.6309808492660522,
+            "y": 14.424837112426758,
+            "z": 16.726318359375
+        },
+        "rotate": {
+            "x": -0.32175058126449585,
+            "y": 0.0,
+            "z": 0.0
+        },
+        "scale": {
+            "x": 1.0,
+            "y": 1.0,
+            "z": 1.0
+        }
+    }
+}

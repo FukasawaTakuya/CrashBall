@@ -29,7 +29,7 @@ GameScene::GameScene(
 	, m_enemy           (std::make_unique<Enemy>(jsonDataManager->GetJsonData("enemy")))
     , m_gamePanel       (std::make_unique<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
     , m_collisionManager(std::make_unique<CollisionManager>())
-    , m_camera          (std::make_unique<GameCamera>())
+    , m_camera          (std::make_unique<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
 {
     // プレイヤーの初期設定
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
@@ -182,6 +182,7 @@ void GameScene::SaveParam()
     m_enemy->SaveParam();
     m_stage->SaveParam();
     m_gamePanel->SaveParam();
+    m_camera->SaveParam();
 }
 
 /**
@@ -194,4 +195,5 @@ void GameScene::ReloadParam()
     m_enemy->ReloadParam();
     m_stage->ReloadParam();
     m_gamePanel->ReloadParam();
+    m_camera->ReloadParam();
 }
