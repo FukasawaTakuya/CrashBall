@@ -19,13 +19,13 @@ class  SpriteBobbing : public Component {
 	// パラメータの宣言 -------------------------------------------------
 private:
 
-	float m_amplitude;	// 揺れの大きさ
-	float m_frequency;	// 揺れの速さ(元の位置に戻るまでの秒数)
+	float						 m_amplitude;	// 揺れの大きさ
+	float						 m_frequency;	// 揺れの速さ(元の位置に戻るまでの秒数)
+	DirectX::SimpleMath::Vector2 m_initPos;		// 初期位置
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	DirectX::SimpleMath::Vector2 m_initPos;					// 初期位置
 	float						 m_radian;					// sin波に使う角度
 	RectTransform*				 m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
@@ -71,6 +71,7 @@ public:
 	{
 		m_amplitude = other.m_amplitude;
 		m_frequency = other.m_frequency;
+		m_initPos = other.m_initPos;
 	}
 
 };

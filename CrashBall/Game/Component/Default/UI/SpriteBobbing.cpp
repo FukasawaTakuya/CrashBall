@@ -40,6 +40,7 @@ SpriteBobbing::SpriteBobbing(
 	: Component(gameObject)
 	, m_amplitude(other.m_amplitude)
 	, m_frequency(other.m_frequency)
+	, m_initPos(other.m_initPos)
 	, m_radian()
 {
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();

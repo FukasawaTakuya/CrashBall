@@ -82,6 +82,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_jsonDataManager->LoadFile("gamePanel", "Resources/Data/gamePanel.json");
     m_jsonDataManager->LoadFile("titleLogo", "Resources/Data/titleLogo.json");
     m_jsonDataManager->LoadFile("startButton", "Resources/Data/startButton.json");
+    m_jsonDataManager->LoadFile("titleCamera", "Resources/Data/titleCamera.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");

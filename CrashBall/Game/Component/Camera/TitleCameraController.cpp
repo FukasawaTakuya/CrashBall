@@ -25,6 +25,21 @@ TitleCameraController::TitleCameraController(IGameObject* gameObject)
 }
 
 /**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param other コピー元
+ */
+TitleCameraController::TitleCameraController(
+	IGameObject* gameObject, 
+	const TitleCameraController& other)
+	: Component(gameObject)
+	, m_rotateAngeleRad(other.m_rotateAngeleRad)
+{
+	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+}
+
+/**
  * \brief デストラクタ
  * 
  */
@@ -47,7 +62,8 @@ void TitleCameraController::Initialize()
  */
 void TitleCameraController::Update()
 {
-	m_targetCamera->RotateX(ROTATE_ANGLERAD * Time::GetElapsedTime());
+	// 回転
+	m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
 
 	// ターゲットを追尾
 	m_targetCamera->TargetingTransform();

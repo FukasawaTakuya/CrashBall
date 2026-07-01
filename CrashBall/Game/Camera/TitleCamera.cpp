@@ -24,6 +24,21 @@ TitleCamera::TitleCamera()
 }
 
 /**
+ * \brief
+ * 
+ * \param data データ
+ */
+TitleCamera::TitleCamera(json* data)
+	: GameObject(data)
+{
+	AddComponent<Transform>((*data)["transform"]);
+	AddComponent<TargetCamera>((*data)["targetCamera"].get<TargetCamera>());
+	m_cameraController
+		= AddComponent<TitleCameraController>((*m_data)["titleCameraController"]);
+
+}
+
+/**
  * \brief デストラクタ
  * 
  */
@@ -67,14 +82,33 @@ void TitleCamera::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void TitleCamera::SaveParam()
 {
+	(*m_data)["transform"] = *GetComponent<Transform>();
+	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
+	(*m_data)["titleCameraController"] = *GetComponent<TitleCameraController>();
 }
 
+/**
+ * \brief 初期化用のパラメータの書き込み
+ * 
+ */
 void TitleCamera::SaveInitParam()
 {
 }
 
+/**
+ * \brief パラメータの再読み込み
+ * 
+ */
 void TitleCamera::ReloadParam()
 {
+	*GetComponent<Transform>() = (*m_data)["transform"];
+	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
+	*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
+
 }

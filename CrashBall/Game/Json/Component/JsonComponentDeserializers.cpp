@@ -83,7 +83,7 @@ void from_json(const json& j, Sphere& sphere)
 // TargetCameraへ変換
 void from_json(const json& j, TargetCamera& targetCamera)
 {
-	j.at("offset").get_to(targetCamera.m_offset);
+	j.at("offset").get_to(targetCamera.m_baseOffset);
 }
 
 // SliderControllerへ変換
@@ -97,6 +97,7 @@ void from_json(const json& j, SpriteBobbing& spriteBobbing)
 {
 	j.at("amplitude").get_to(spriteBobbing.m_amplitude);
 	j.at("frequency").get_to(spriteBobbing.m_frequency);
+	j.at("initPos").get_to(spriteBobbing.m_initPos);
 }
 
 // PlayerControllerへ変換
@@ -133,4 +134,10 @@ void from_json(const json& j, StageController& stageController)
 {
 	j.at("floorNormalY").get_to(stageController.m_floorNormalY);
 	j.at("floorCenterPosY").get_to(stageController.m_floorCenterPosY);
+}
+
+// TitleCameraControllerへ変換
+void from_json(const json& j, TitleCameraController& titleCameraController)
+{
+	j.at("rotateAngleRad").get_to(titleCameraController.m_rotateAngeleRad);
 }

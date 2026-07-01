@@ -122,6 +122,7 @@ public:
 	// ワールド行列の取得
 	DirectX::SimpleMath::Matrix GetWorld() const
 	{
+		// 変更があればワールド行列を更新
 		if (m_isDirty)
 		{
 			// 拡大行列

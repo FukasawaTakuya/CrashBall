@@ -18,6 +18,8 @@
 
 #include "Game/Component/Default/Component.h"
 
+#include "Game/Json/Enum/JsonEnumSerializers.h"
+
 /**
  * \brief 基底オブジェクト
  */

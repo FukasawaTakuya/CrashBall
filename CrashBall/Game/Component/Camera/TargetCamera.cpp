@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "TargetCamera.h"
-#include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;
@@ -23,11 +22,13 @@ TargetCamera::TargetCamera(
 	const DirectX::SimpleMath::Vector3& offset)
 	: Component(gameObject)
 {
+	m_baseOffset = offset;
+
 	// キャッシュの取得
 	m_transform = GetGameObject()->GetComponent<Transform>();
 
 	// オフセットからターゲット方向のベクトル
-	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-offset);
+	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
 
 	// 初期回転
 	m_initRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
@@ -40,13 +41,25 @@ TargetCamera::TargetCamera(
  * \brief コピーコンストラクタ
  * 
  * \param gameObejct コンポーネントを所有するゲームオブジェクト
- * \param targetCamera ターゲットカメラコンポーネント
+ * \param other ターゲットカメラコンポーネント
  */
 TargetCamera::TargetCamera(
-	IGameObject* gameObejct, 
-	const TargetCamera& targetCamera)
-	: TargetCamera(gameObejct, targetCamera.m_offset)
+	IGameObject* gameObejct,
+	const TargetCamera& other)
+	: Component(gameObejct)
+	, m_baseOffset(other.m_baseOffset)
 {
+	// キャッシュの取得
+	m_transform = GetGameObject()->GetComponent<Transform>();
+
+	// オフセットからターゲット方向のベクトル
+	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
+
+	// 初期回転
+	m_initRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
+
+	// オフセットをForward方向に直す
+	m_forwardOffset = XMVector3Rotate(m_baseOffset, XMQuaternionInverse(m_initRotate));
 }
 
 /**
@@ -101,7 +114,7 @@ void TargetCamera::RotateX(float angleRad)
 	// 各ベクトルを回転
 	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
 	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right, m_transform->GetWorldRotate());
-	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetWorldRotate());
+	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetWorldRotate());
 
 	m_isDirty = true;
 }

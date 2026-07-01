@@ -20,9 +20,10 @@ class  TargetCamera :
 	public ICamera
 {
 
-	// クラス定数の宣言 -------------------------------------------------
+	// パラメータの宣言 -------------------------------------------------
 private:
 
+	DirectX::SimpleMath::Vector3 m_baseOffset;	// 基準のオフセット
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -36,9 +37,8 @@ private:
 	DirectX::SimpleMath::Vector3 m_forwardOffset;	// 前方向に直したオフセット
 	DirectX::SimpleMath::Quaternion m_initRotate;	// 初期化用の回転
 
-
 	DirectX::SimpleMath::Vector3 m_offset;	// オフセット
-	float m_zoomRate = 1.0f;				// オフセットの拡大倍率
+	float m_zoomRate = 1.0f;	// オフセットの拡大倍率
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
@@ -51,6 +51,9 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	TargetCamera() = default;
+
 	// コンストラクタ
 	TargetCamera(
 		IGameObject* gameObject,
@@ -59,20 +62,20 @@ public:
 	// コピーコンストラクタ
 	TargetCamera(
 		IGameObject* gameObejct,
-		const TargetCamera& targetCamera
+		const TargetCamera& other
 	);
 
 	// デストラクタ
 	~TargetCamera();
+
+	// 操作
+public:
 
 	// 初期化
 	void Initialize();
 
 	// 更新
 	void Update();
-
-	// 操作
-public:
 
 	// X方向の回転
 	void RotateX(float angleRad);
@@ -129,8 +132,27 @@ private:
 	// ビュー行列の更新(GetViewで呼ぶためconst)
 	void UpdateView() const;
 
-	// JsonConvert
+	// JsonConverter
 private:
 	friend void from_json(const json& j, TargetCamera& targetCamera);
 	friend void to_json(json& j, const TargetCamera& targetCamera);
+
+	// 演算子オーバーロード
+public:
+
+	void operator=(const TargetCamera& other)
+	{
+		m_baseOffset = other.m_baseOffset;
+
+		// オフセットからターゲット方向のベクトル
+		DirectX::SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
+		// 初期回転
+		m_initRotate = DirectX::SimpleMath::Quaternion::FromToRotation(
+			DirectX::SimpleMath::Vector3::Forward, offsetDire);
+
+		// オフセットをForward方向に直す
+		m_forwardOffset = XMVector3Rotate(m_baseOffset, XMQuaternionInverse(m_initRotate));
+
+		Initialize();
+	}
 };

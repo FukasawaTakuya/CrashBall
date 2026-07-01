@@ -14,7 +14,6 @@
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/Stage/StageController.h"
 
-
 /**
  * \brief ステージオブジェクト
  */

@@ -93,7 +93,7 @@ void to_json(json& j, const Sphere& sphere)
 void to_json(json& j, const TargetCamera& targetCamera)
 {
 	j = json{
-		{ "offset", targetCamera.m_offset }
+		{ "offset", targetCamera.m_baseOffset }
 	};
 }
 
@@ -110,7 +110,8 @@ void to_json(json& j, const SpriteBobbing& spriteBobbing)
 {
 	j = json{
 		{ "amplitude", spriteBobbing.m_amplitude },
-		{ "frequency", spriteBobbing.m_frequency }
+		{ "frequency", spriteBobbing.m_frequency },
+		{ "initPos"	 , spriteBobbing.m_initPos	 }
 	};
 }
 
@@ -155,5 +156,13 @@ void to_json(json& j, const StageController& stageController)
 	j = json{
 		{ "floorNormalY", stageController.m_floorNormalY },
 		{ "floorCenterPosY", stageController.m_floorCenterPosY }
+	};
+}
+
+// TitleCameraControllerから変換
+void to_json(json& j, const TitleCameraController& titleCameraController)
+{
+	j = json{
+		{ "rotateAngleRad", titleCameraController.m_rotateAngeleRad }
 	};
 }

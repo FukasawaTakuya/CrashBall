@@ -25,6 +25,9 @@ public:
 	// コンストラクタ
 	TitleCamera();
 
+	// コンストラクタ
+	TitleCamera(json* data);
+
 	// デストラクタ
 	~TitleCamera();
 

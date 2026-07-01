@@ -4,7 +4,7 @@
         "origin": "Center",
         "position": {
             "x": 320.0,
-            "y": 203.8356475830078
+            "y": 192.1386260986328
         },
         "rotate": 0.0,
         "scale": {
@@ -14,7 +14,11 @@
     },
     "spriteBobbing": {
         "amplitude": 20.0,
-        "frequency": 4.0
+        "frequency": 4.0,
+        "initPos": {
+            "x": 320.0,
+            "y": 201.31288146972656
+        }
     },
     "spriteRenderer": {
         "color": {

@@ -26,7 +26,7 @@ TitleScene::TitleScene(
 	ISceneController* pSceneController,
 	IJsonDataManager* jsonDataManager)
 	: Scene(pSceneController, jsonDataManager)
-	, m_camera(std::make_unique<TitleCamera>())
+	, m_camera(std::make_unique<TitleCamera>(jsonDataManager->GetJsonData("titleCamera")))
 	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
 	, m_titleLogo(std::make_unique<TitleLogo>(jsonDataManager->GetJsonData("titleLogo")))
@@ -140,6 +140,7 @@ void TitleScene::SaveParam()
 {
 	m_titleLogo->SaveParam();
 	m_startButton->SaveParam();
+	m_camera->SaveParam();
 }
 
 /**
@@ -150,4 +151,5 @@ void TitleScene::ReloadParam()
 {
 	m_titleLogo->ReloadParam();
 	m_startButton->ReloadParam();
+	m_camera->ReloadParam();
 }
