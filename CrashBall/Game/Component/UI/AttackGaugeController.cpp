@@ -29,9 +29,9 @@ AttackGaugeController::AttackGaugeController(
 	, m_pAttackGauge(pAttackGauge)
 	, m_pAttackPowerText(pAttackPowerText)
 {
-	// キャッシュの取得
-	m_gaugeRenderer = m_pAttackGauge->GetComponent<SpriteRenderer>();
+	// コンポーネントのキャッシュの取得
 	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
+	m_attackGaugeController = m_pAttackGauge->GetComponent<SliderController>();
 }
 
 /**
@@ -48,7 +48,7 @@ AttackGaugeController::~AttackGaugeController()
  */
 void AttackGaugeController::Initilize()
 {
-	m_gaugeRenderer->SetFillAmount(0.0f);
+	m_attackGaugeController->SetCurrentAmount(0.0f);
 }
 
 /**
@@ -62,14 +62,10 @@ void AttackGaugeController::Update()
 	float fillValue = 
 		static_cast<float>(m_playerMeshCount) / static_cast<float>(m_playerAttackCost);
 
-	// ゲージをスライドさせる
-	fillValue = std::lerp(m_gaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED);
-
-	// 1以下に収める
-	fillValue = std::min(fillValue, 1.0f);
-
-	// 切り取り量を設定
-	m_gaugeRenderer->SetFillAmount(fillValue);
+	// 目標値の設定
+	m_attackGaugeController->SetTargetAmount(fillValue);
+	// スライド
+	m_attackGaugeController->Slide();
 
 	// テキストを設定
 	m_attackPowerTextRenderer->SetText(L"Power:{}", m_playerAttackPower);

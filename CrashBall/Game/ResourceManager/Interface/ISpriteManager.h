@@ -10,8 +10,6 @@
 #include <d3d11.h>
 #include <string>
 
-class SpriteRenderer;
-
 struct SpriteInfo
 {
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> sprite;

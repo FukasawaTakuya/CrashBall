@@ -14,6 +14,9 @@
                 "y": 1.0
             }
         },
+        "sliderController": {
+            "slideSpeed": 5.0
+        },
         "spriteRenderer": {
             "color": {
                 "a": 1.0,
@@ -86,7 +89,7 @@
             "fontKey": "default",
             "fontScale": 0.3499999940395355,
             "layerDepth": 0.20000000298023224,
-            "text": "Power:10\u0000"
+            "text": "Power:10"
         }
     },
     "enemyHpGauge": {
@@ -102,6 +105,9 @@
                 "x": 1.0,
                 "y": 1.0
             }
+        },
+        "sliderController": {
+            "slideSpeed": 5.0
         },
         "spriteRenderer": {
             "color": {
@@ -175,7 +181,7 @@
             "fontKey": "default",
             "fontScale": 0.5,
             "layerDepth": 0.0,
-            "text": "EnemyHP 200 / 200\u0000"
+            "text": "EnemyHP 200 / 200"
         }
     },
     "enemyMeshGauge": {
@@ -191,6 +197,9 @@
                 "x": 1.0,
                 "y": 1.0
             }
+        },
+        "sliderController": {
+            "slideSpeed": 5.0
         },
         "spriteRenderer": {
             "color": {
@@ -233,7 +242,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Enemy:2面\u0000"
+            "text": "Enemy:6面"
         }
     },
     "gaugeBackGround": {
@@ -312,6 +321,9 @@
                 "y": 1.0
             }
         },
+        "sliderController": {
+            "slideSpeed": 5.0
+        },
         "spriteRenderer": {
             "color": {
                 "a": 1.0,
@@ -353,11 +365,11 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Player:2面\u0000"
+            "text": "Player:10面"
         }
     },
     "rectTransform": {
-        "origin": "LeftTop",
+        "origin": "CenterTop",
         "position": {
             "x": 0.0,
             "y": 0.0

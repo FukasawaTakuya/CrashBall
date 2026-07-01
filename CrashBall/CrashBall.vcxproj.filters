@@ -125,6 +125,9 @@
     <Filter Include="Game\Json\SimpleMath">
       <UniqueIdentifier>{0f59cf85-56de-47d0-b2d5-0c5c2cf50f81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Default\UI">
+      <UniqueIdentifier>{24fd84ea-3f47-496b-bcbb-c1fb102f13f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -453,6 +456,12 @@
     <ClInclude Include="Game\Common\Utility.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Slider.h">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\UI\SliderController.h">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -662,6 +671,8 @@
     <ClCompile Include="Game\Json\State\JsonStateSerializers.cpp">
       <Filter>Game\Json\State</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

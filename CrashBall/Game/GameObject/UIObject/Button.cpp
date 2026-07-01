@@ -81,9 +81,9 @@ void Button::Finalize()
  */
 void Button::SaveParam()
 {
-	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
-	(*m_data)["spriteRenderer"] = *GetComponent<SpriteRenderer>();
-	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
+	(*m_data)["rectTransform"] = *m_rectTransform;
+	(*m_data)["spriteRenderer"] = *m_spriteRenderer;
+	(*m_data)["textRenderer"] = *m_textRenderer;
 }
 
 /**
@@ -100,7 +100,7 @@ void Button::SaveInitParam()
  */
 void Button::ReloadParam()
 {
-	*GetComponent<RectTransform>()	= (*m_data)["rectTransform"];
-	*GetComponent<SpriteRenderer>()	= (*m_data)["spriteRenderer"];
-	*GetComponent<TextRenderer>()	= (*m_data)["textRenderer"];
+	*m_rectTransform = (*m_data)["rectTransform"];
+	*m_spriteRenderer = (*m_data)["spriteRenderer"];
+	*m_textRenderer = (*m_data)["textRenderer"];
 }

@@ -14,6 +14,7 @@
 
 #include "Object2D.h"
 #include "TextObject.h"
+#include "Slider.h"
 
 #include "Game/Component/UI/FloorMeshGaugeController.h"
 #include "Game/Component/UI/AttackGaugeController.h"
@@ -31,20 +32,20 @@ private:
 private:
 
 	// FloorMeshGaugeControllerで操作
-	std::unique_ptr<Object2D>	m_playerMeshGauge;		// プレイヤーが塗った面を表示するゲージ
-	std::unique_ptr<Object2D>	m_enemyMeshGauge;		// 敵が塗った面を表示するゲージ
+	std::unique_ptr<Slider>	m_playerMeshGauge;			// プレイヤーが塗った面を表示するゲージ
+	std::unique_ptr<Slider>	m_enemyMeshGauge;			// 敵が塗った面を表示するゲージ
 	std::unique_ptr<Object2D>	m_gaugeTrack;			// ゲージの土台
 	std::unique_ptr<Object2D>	m_gaugeBackGround;		// ゲージの背景
 	std::unique_ptr<TextObject>	m_playerMeshNumText;	// プレイヤーのメッシュ数表示テキスト
 	std::unique_ptr<TextObject>	m_enemyMeshNumText;		// 敵のメッシュ数表示テキスト
 
 	// AttackGaugeControllerで操作
-	std::unique_ptr<Object2D> m_attackGauge;		// 攻撃ゲージ
+	std::unique_ptr<Slider> m_attackGauge;			// 攻撃ゲージ
 	std::unique_ptr<Object2D> m_attackGaugeTrack;	// 攻撃ゲージの土台
 	std::unique_ptr<TextObject> m_attackPowerText;	// 攻撃力表示テキスト
 
 	// EnemyHpGaugeControllerで操作
-	std::unique_ptr<Object2D> m_enemyHpGauge;		// 敵のHPゲージ
+	std::unique_ptr<Slider> m_enemyHpGauge;			// 敵のHPゲージ
 	std::unique_ptr<Object2D> m_enemyHpGaugeTrack;	// 敵のHPゲージの土台
 	std::unique_ptr<TextObject> m_enemyHpText;		// 敵のHP表示テキスト
 

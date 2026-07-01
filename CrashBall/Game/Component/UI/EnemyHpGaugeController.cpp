@@ -32,8 +32,8 @@ EnemyHpGaugeController::EnemyHpGaugeController(
 	, m_pEnemyHpText		(pEnemyHpText)
 {
 	// コンポーネントのキャッシュの取得
-	m_enemyHpGaugeRenderer =
-		m_pEnemyHpGauge->GetComponent<SpriteRenderer>();
+	m_enemyHpGaugeController =
+		m_pEnemyHpGauge->GetComponent<SliderController>();
 	m_enemyHpTextRenderer =
 		m_pEnemyHpText->GetComponent<TextRenderer>();
 }
@@ -52,7 +52,7 @@ EnemyHpGaugeController::~EnemyHpGaugeController()
  */
 void EnemyHpGaugeController::Initialize()
 {
-	m_enemyHpGaugeRenderer->SetFillAmount(1.0f);
+	m_enemyHpGaugeController->SetCurrentAmount(1.0f);
 }
 
 /**
@@ -65,9 +65,10 @@ void EnemyHpGaugeController::Update()
 	// 切り取り量を求める
 	float fillValue = static_cast<float>(m_enemyHp) / static_cast<float>(m_enemyMaxHp);
 
-	// HPゲージをスライドさせる
-	m_enemyHpGaugeRenderer->SetFillAmount(
-		std::lerp(m_enemyHpGaugeRenderer->GetFillAmount(), fillValue, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED));
+	// 目標値の設定
+	m_enemyHpGaugeController->SetTargetAmount(fillValue);
+	// スライド
+	m_enemyHpGaugeController->Slide();
 
 	// 敵HPテキストの設定
 	m_enemyHpTextRenderer->SetText(L"EnemyHP {} / {}", m_enemyHp, m_enemyMaxHp);

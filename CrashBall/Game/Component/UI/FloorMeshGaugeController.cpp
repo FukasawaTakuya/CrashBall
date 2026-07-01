@@ -37,10 +37,8 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	, m_pEnemyMeshNumText(pEnemyMeshNumText)
 {
 	// ゲージのコンポーネントのキャッシュの取得
-	m_playerGaugeRenderer	= m_pPalyerMeshGauge->GetComponent<SpriteRenderer>();
-	m_playerGaugeTransform	= m_pPalyerMeshGauge->GetComponent<RectTransform>();
-	m_enemyGaugeRenderer	= m_pEnemyMeshGauge->GetComponent<SpriteRenderer>();
-	m_enemyGaugeTransform	= m_pEnemyMeshGauge->GetComponent<RectTransform>();
+	m_playerGaugeController = m_pPalyerMeshGauge->GetComponent<SliderController>();
+	m_enemyGaugeController = m_pEnemyMeshGauge->GetComponent<SliderController>();
 	// テキストのコンポーネントのキャッシュの取得
 	m_playerTextRenderer	= pPlayerMeshNumText->GetComponent<TextRenderer>();
 	m_enemyTextRenderer		= pEnemyMeshNumText->GetComponent<TextRenderer>();
@@ -61,8 +59,8 @@ FloorMeshGaugeController::~FloorMeshGaugeController()
 void FloorMeshGaugeController::Initialize()
 {
 	// 切り取り量の設定
-	m_playerGaugeRenderer->SetFillAmount(0.0f);
-	m_enemyGaugeRenderer->SetFillAmount(0.0f);
+	m_playerGaugeController->SetCurrentAmount(0.0f);
+	m_enemyGaugeController->SetCurrentAmount(0.0f);
 }
 
 /**
@@ -76,13 +74,12 @@ void FloorMeshGaugeController::Update()
 	float playerFillAmount = static_cast<float>(m_playerMeshCount) / static_cast<float>(m_totalMeshCount);
 	float enemyFillAmount = static_cast<float>(m_enemyMeshCount) / static_cast<float>(m_totalMeshCount);
 
-	// ゲージをスライドさせる
-	playerFillAmount = std::lerp(m_playerGaugeRenderer->GetFillAmount(), playerFillAmount, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED);
-	enemyFillAmount = std::lerp(m_enemyGaugeRenderer->GetFillAmount(), enemyFillAmount, Time::GetElapsedTime() * GAUGE_SLIDE_SPEED);
-
-	// 切り取り量の設定
-	m_playerGaugeRenderer->SetFillAmount(playerFillAmount);
-	m_enemyGaugeRenderer->SetFillAmount(enemyFillAmount);
+	// 目標値の設定
+	m_enemyGaugeController->SetTargetAmount(enemyFillAmount);
+	m_playerGaugeController->SetTargetAmount(playerFillAmount);
+	// スライド
+	m_enemyGaugeController->Slide();
+	m_playerGaugeController->Slide();
 
 	// テキストの設定
 	m_playerTextRenderer->SetText(L"Player:{}面", m_playerMeshCount);

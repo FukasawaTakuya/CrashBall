@@ -12,26 +12,22 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 #include "Game/Common/Screen.h"
+#include "Game/Component/Default/UI/SliderController.h"
 
 
 /**
  * @brief 攻撃ゲージ操作コンポーネント
  */
 class  AttackGaugeController : public Component {
-
-	// クラス定数の宣言 -------------------------------------------------
-private:
 	
-	static constexpr float GAUGE_SLIDE_SPEED	= 5.0f;		// ゲージのスライド速度
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
 	IGameObject* m_pAttackPowerText	  = nullptr;	// 攻撃力表示テキスト
 
-	SpriteRenderer* m_gaugeRenderer				= nullptr;	// ゲージの描画コンポーネントのキャッシュ
 	TextRenderer*	m_attackPowerTextRenderer	= nullptr;	// 攻撃力表示テキスト描画コンポーネントのキャッシュ
+	SliderController* m_attackGaugeController	= nullptr;	// 攻撃ゲージの操作コンポーネントのキャッシュ
 
 	int m_playerMeshCount	= 0;	// プレイヤーの面の数
 	int m_playerAttackCost	= 0;	// プレイヤーの攻撃コスト

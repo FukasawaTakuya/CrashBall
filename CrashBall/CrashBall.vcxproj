@@ -227,6 +227,10 @@
     <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h" />
+    <ClInclude Include="Game\Component\Default\UI\SliderController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Enemy\EnemyController.h" />
     <ClInclude Include="Game\Component\Player\PlayerController.h" />
     <ClInclude Include="Game\Component\Player\PlayerStatusController.h" />
@@ -284,6 +288,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\Panel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\Slider.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -425,6 +433,7 @@
     <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
     <ClCompile Include="Game\Component\Enemy\EnemyController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp" />
@@ -443,6 +452,7 @@
     <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
     <ClCompile Include="Game\Geometory\Plane.cpp" />
     <ClCompile Include="Game\Geometory\Segment.cpp" />

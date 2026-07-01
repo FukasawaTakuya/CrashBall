@@ -12,6 +12,7 @@
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Common/Screen.h"
+#include "Game/Component/Default/UI/SliderController.h"
 
 /**
  * @brief 敵HPゲージ操作コンポーネント
@@ -30,8 +31,8 @@ private:
 	IGameObject* m_pEnemyHpGaugeTrack	= nullptr;	// 敵のHPゲージの土台
 	IGameObject* m_pEnemyHpText			= nullptr;	// 敵のHPの表示テキスト
 
-	SpriteRenderer* m_enemyHpGaugeRenderer	= nullptr;	// ゲージのスプライト描画コンポーネント
-	TextRenderer* m_enemyHpTextRenderer		= nullptr;	// テキストの描画コンポーネント
+	SliderController* m_enemyHpGaugeController = nullptr;	// HPゲージの操作コンポーネント
+	TextRenderer* m_enemyHpTextRenderer		   = nullptr;	// テキストの描画コンポーネント
 
 	int m_enemyHp = 0;		// 敵のHP
 	int m_enemyMaxHp = 0;	// 敵の最大HP

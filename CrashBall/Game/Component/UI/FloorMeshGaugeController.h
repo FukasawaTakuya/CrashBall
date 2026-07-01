@@ -15,6 +15,7 @@
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 
 #include "Game/Common/Screen.h"
+#include "Game/Component/Default/UI/SliderController.h"
 
 /**
  * @brief 床メッシュゲージ操作コンポーネント
@@ -36,10 +37,8 @@ private:
 	IGameObject* m_pEnemyMeshNumText	= nullptr;	// 敵のメッシュ数表示
 
 	// ゲージのコンポーネントのキャッシュ
-	SpriteRenderer* m_playerGaugeRenderer	= nullptr;
-	SpriteRenderer* m_enemyGaugeRenderer	= nullptr;
-	RectTransform* m_playerGaugeTransform	= nullptr;
-	RectTransform* m_enemyGaugeTransform	= nullptr;
+	SliderController* m_playerGaugeController	= nullptr;
+	SliderController* m_enemyGaugeController	= nullptr;
 
 	// テキストのコンポーネントのキャッシュ
 	TextRenderer* m_playerTextRenderer = nullptr;

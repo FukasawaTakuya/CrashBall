@@ -15,6 +15,7 @@
 #include "Game/Component/Player/PlayerStatusController.h"
 #include "Game/Component/Player/PlayerController.h"
 #include "Game/Component/Enemy/EnemyController.h"
+#include "Game/Component/Default/UI/SliderController.h"
 
 using namespace nlohmann;
 
@@ -47,6 +48,9 @@ void from_json(const json& j, Sphere& sphere);
 
 // TargetCameraへ変換
 void from_json(const json& j, TargetCamera& targetCamera);
+
+// SliderControllerへ変換
+void from_json(const json& j, SliderController& sliderController);
 
 // PlayerControllerへ変換
 void from_json(const json& j, PlayerController& playerController);

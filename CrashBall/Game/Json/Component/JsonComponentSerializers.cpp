@@ -97,6 +97,14 @@ void to_json(json& j, const TargetCamera& targetCamera)
 	};
 }
 
+// SliderControllerから変換
+void to_json(json& j, const SliderController& sliderController)
+{
+	j = json{
+		{ "slideSpeed", sliderController.m_slideSpeed }
+	};
+}
+
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController)
 {

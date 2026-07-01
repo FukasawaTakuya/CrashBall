@@ -86,6 +86,12 @@ void from_json(const json& j, TargetCamera& targetCamera)
 	j.at("offset").get_to(targetCamera.m_offset);
 }
 
+// SliderControllerへ変換
+void from_json(const json& j, SliderController& sliderController)
+{
+	j.at("slideSpeed").get_to(sliderController.m_slideSpeed);
+}
+
 // PlayerControllerへ変換
 void from_json(const json& j, PlayerController& playerController)
 {
