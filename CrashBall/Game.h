@@ -74,7 +74,7 @@ private:
 public:
 
     Game() noexcept(false);
-    ~Game() = default;
+    ~Game();
 
     Game(Game&&) = default;
     Game& operator= (Game&&) = default;

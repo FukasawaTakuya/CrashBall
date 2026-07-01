@@ -12,6 +12,10 @@
 #include "Game/ServiceLocator/IInputService.h"
 #include "Game/Scene/TitleScene.h"
 
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_win32.h"
+#include "ImGui/imgui_impl_dx11.h"
+
 extern void ExitGame() noexcept;
 
 using namespace DirectX;
@@ -25,6 +29,13 @@ Game::Game() noexcept(false)
     //   Add DX::DeviceResources::c_AllowTearing to opt-in to variable rate displays.
     //   Add DX::DeviceResources::c_EnableHDR for HDR10 display.
     m_deviceResources->RegisterDeviceNotify(this);
+}
+
+Game::~Game()
+{
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
 }
 
 // Initialize the Direct3D resources required to run.
@@ -113,6 +124,25 @@ void Game::Initialize(HWND window, int width, int height)
     // 初期シーンをセット
     m_sceneManager->SetStartScene();
 
+    //  ImGuiの初期化処理
+    {
+        //  バージョンの確認
+        IMGUI_CHECKVERSION();
+
+        //  コンテキストの作成
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO();
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // キーボードによるナビゲーションの有効化
+        io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // コントローラーによるナビゲーションの有効化
+
+        //  Win32用の初期化
+        ImGui_ImplWin32_Init(window);
+        //  DirectX11用の初期化
+        ID3D11Device* device = m_deviceResources->GetD3DDevice();
+        ID3D11DeviceContext* context = m_deviceResources->GetD3DDeviceContext();
+        ImGui_ImplDX11_Init(device, context);
+    }
+
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
     /*
@@ -124,6 +154,14 @@ void Game::Initialize(HWND window, int width, int height)
 // Executes the basic game loop.
 void Game::Tick()
 { 
+    //  新フレームの開始（メインループの一番上に記述）
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+
+    //  デモウィンドウの描画
+    ImGui::ShowDemoWindow();
+
     m_timer.Tick([&]()
         {
             Update(m_timer);
@@ -217,6 +255,10 @@ void Game::Render()
     m_spriteBatch->End();
 
     m_deviceResources->PIXEndEvent();
+
+    //  ImGuiの描画処理
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     // Show the new frame.
     m_deviceResources->Present();

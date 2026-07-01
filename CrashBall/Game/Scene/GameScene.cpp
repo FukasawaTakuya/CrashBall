@@ -28,8 +28,8 @@ GameScene::GameScene(
     , m_player          (std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_enemy           (std::make_unique<Enemy>(jsonDataManager->GetJsonData("enemy")))
     , m_gamePanel       (std::make_unique<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
-    , m_collisionManager(std::make_unique<CollisionManager>())
     , m_camera          (std::make_unique<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
+    , m_collisionManager(std::make_unique<CollisionManager>())
 {
     // プレイヤーの初期設定
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
