@@ -227,7 +227,12 @@
     <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h" />
+    <ClInclude Include="Game\Component\Default\UI\ButtonController.h" />
     <ClInclude Include="Game\Component\Default\UI\SliderController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\UI\SpriteBobbing.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -239,10 +244,6 @@
     <ClInclude Include="Game\Component\Stage\IWallMeshGetter.h" />
     <ClInclude Include="Game\Component\Stage\StageController.h" />
     <ClInclude Include="Game\Component\UI\AttackGaugeController.h" />
-    <ClInclude Include="Game\Component\UI\ButtonController.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Component\UI\EnemyHpGaugeController.h" />
     <ClInclude Include="Game\Component\UI\FloorMeshGaugeController.h" />
     <ClInclude Include="Game\Context\GameContext.h">
@@ -296,6 +297,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\TextObject.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\TitleLogo.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -433,13 +438,14 @@
     <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\ButtonController.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp" />
     <ClCompile Include="Game\Component\Enemy\EnemyController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp" />
     <ClCompile Include="Game\Component\Stage\StageController.cpp" />
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
-    <ClCompile Include="Game\Component\UI\ButtonController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
@@ -454,6 +460,7 @@
     <ClCompile Include="Game\GameObject\UIObject\Panel.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\Slider.cpp" />
     <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
+    <ClCompile Include="Game\GameObject\UIObject\TitleLogo.cpp" />
     <ClCompile Include="Game\Geometory\Plane.cpp" />
     <ClCompile Include="Game\Geometory\Segment.cpp" />
     <ClCompile Include="Game\Geometory\Triangle.cpp" />

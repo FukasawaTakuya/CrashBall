@@ -29,19 +29,17 @@ TitleScene::TitleScene(
 	, m_camera(std::make_unique<TitleCamera>())
 	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
 	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
-	, m_titleSprite(std::make_unique<Object2D>(jsonDataManager->GetJsonData("titleLogo")))
+	, m_titleLogo(std::make_unique<TitleLogo>(jsonDataManager->GetJsonData("titleLogo")))
 	, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
 {
+	// ターゲットのセット
 	m_camera->GetComponent<TargetCamera>()->SetTargetTransform(
 		m_player->GetComponent<Transform>()
 	);
 
-	m_player->GetComponent<Transform>()->SetPosition({ 0.0f, 10.25f, 0.0f });
-
-	m_titleSpriteTransform = m_titleSprite->GetComponent<RectTransform>();
-
+	// 押したときの処理の設定
 	m_startButton->GetComponent<ButtonController>()
-		->SetOnDrugCommand([&]()
+		->SetOnPushCommand([&]()
 			{
 				m_pSceneController->RequestChangeScene(SceneID::Game);
 			});
@@ -49,7 +47,7 @@ TitleScene::TitleScene(
 
 /**
  * \brief デストラクタ
- * 
+ *
  */
 TitleScene::~TitleScene()
 {
@@ -57,7 +55,7 @@ TitleScene::~TitleScene()
 
 /**
  * \brief 初期化
- * 
+ *
  */
 void TitleScene::Initialize()
 {
@@ -67,7 +65,7 @@ void TitleScene::Initialize()
 
 /**
  * \brief 更新
- * 
+ *
  * \param gameContext ゲーム用のコンテキスト
  */
 void TitleScene::Update(const GameContext& gameContext)
@@ -77,37 +75,27 @@ void TitleScene::Update(const GameContext& gameContext)
 		m_pSceneController->RequestChangeScene(SceneID::Game);
 	}
 
-	if (m_radian >= XM_2PI)
-	{
-		m_radian = 0.0f;
-	}
-
-	m_radian += Time::GetElapsedTime();
-
-	m_titleSpriteTransform->SetLocalPosition(
-		TITLE_INIT_POS + SimpleMath::Vector2(0.0f, std::sin(m_radian) * 20.0f)
-	);
-
 	m_camera->Update(gameContext);
 	m_startButton->Update(gameContext);
+	m_titleLogo->Update(gameContext);
 }
 
 /**
  * \brief 描画
- * 
+ *
  * \param renderContext 描画用のコンテキスト
  */
 void TitleScene::Render(const RenderContext& renderContext)
 {
 	m_player->Render(renderContext);
 	m_stage->Render(renderContext);
-	m_titleSprite->Render(renderContext);
+	m_titleLogo->Render(renderContext);
 	m_startButton->Render(renderContext);
 }
 
 /**
  * \brief 終了処理
- * 
+ *
  */
 void TitleScene::Finalize()
 {
@@ -115,7 +103,7 @@ void TitleScene::Finalize()
 
 /**
  * \brief デバイス依存のリソース作成
- * 
+ *
  * \param resourceContext リソース用のコンテキスト
  */
 void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
@@ -127,7 +115,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 
-	m_titleSprite->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
+	m_titleLogo->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_startButton->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	m_startButton->GetComponent<TextRenderer>()->SetSpriteFont(
@@ -137,7 +125,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 
 /**
  * \brief ウインドウサイズ依存のリソース作成
- * 
+ *
  * \param proj 射影行列
  */
 void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
@@ -146,20 +134,20 @@ void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& pr
 
 /**
  * \brief パラメータの書き込み
- * 
+ *
  */
 void TitleScene::SaveParam()
 {
-	m_titleSprite->SaveParam();
+	m_titleLogo->SaveParam();
 	m_startButton->SaveParam();
 }
 
 /**
  * \brief パラメータの再読み込み
- * 
+ *
  */
 void TitleScene::ReloadParam()
 {
-	m_titleSprite->ReloadParam();
+	m_titleLogo->ReloadParam();
 	m_startButton->ReloadParam();
 }

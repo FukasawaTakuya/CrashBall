@@ -105,6 +105,15 @@ void to_json(json& j, const SliderController& sliderController)
 	};
 }
 
+// SpriteBobbingから変換
+void to_json(json& j, const SpriteBobbing& spriteBobbing)
+{
+	j = json{
+		{ "amplitude", spriteBobbing.m_amplitude },
+		{ "frequency", spriteBobbing.m_frequency }
+	};
+}
+
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController)
 {

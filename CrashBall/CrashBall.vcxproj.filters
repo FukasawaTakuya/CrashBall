@@ -423,9 +423,6 @@
     <ClInclude Include="Game\Camera\GameCamera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\UI\ButtonController.h">
-      <Filter>Game\Component\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\UIObject\Button.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
@@ -461,6 +458,15 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\SliderController.h">
       <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\UI\ButtonController.h">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\UI\SpriteBobbing.h">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UIObject\TitleLogo.h">
+      <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -653,9 +659,6 @@
     <ClCompile Include="Game\GameObject\UIObject\Button.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\UI\ButtonController.cpp">
-      <Filter>Game\Component\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Json\JsonDataManager.cpp">
       <Filter>Game\Json</Filter>
     </ClCompile>
@@ -671,8 +674,21 @@
     <ClCompile Include="Game\Json\State\JsonStateSerializers.cpp">
       <Filter>Game\Json\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp" />
-    <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\ButtonController.cpp">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\UI\SliderController.cpp">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UIObject\TitleLogo.cpp">
+      <Filter>Game\GameObject\UIObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

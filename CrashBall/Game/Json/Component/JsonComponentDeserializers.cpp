@@ -92,6 +92,13 @@ void from_json(const json& j, SliderController& sliderController)
 	j.at("slideSpeed").get_to(sliderController.m_slideSpeed);
 }
 
+// SpriteBobbingへ変換
+void from_json(const json& j, SpriteBobbing& spriteBobbing)
+{
+	j.at("amplitude").get_to(spriteBobbing.m_amplitude);
+	j.at("frequency").get_to(spriteBobbing.m_frequency);
+}
+
 // PlayerControllerへ変換
 void from_json(const json& j, PlayerController& playerController)
 {

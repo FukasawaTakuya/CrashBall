@@ -15,32 +15,21 @@
 #include "Game/GameObject/Player/Player.h"
 #include "Game/GameObject/UIObject/Object2D.h"
 #include "Game/GameObject/UIObject/Button.h"
+#include "Game/GameObject/UIObject/TitleLogo.h"
 
 /**
  * @brief タイトルシーン
  */
 class  TitleScene : public Scene {
 
-	// クラス定数の宣言 -------------------------------------------------
-private:
-
-	// タイトルロゴの初期位置
-	static constexpr DirectX::SimpleMath::Vector2 TITLE_INIT_POS
-		= DirectX::SimpleMath::Vector2(320.0f, 220.0f);
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<TitleCamera> m_camera;
-
-	std::unique_ptr<Player> m_player;
-	std::unique_ptr<Stage> m_stage;
-	std::unique_ptr<Object2D> m_titleSprite;
-	std::unique_ptr<Button> m_startButton;
-
-	RectTransform* m_titleSpriteTransform = nullptr;
-
-	float m_radian = 0.0f;
+	std::unique_ptr<TitleCamera> m_camera;		// カメラ
+	std::unique_ptr<Player>		 m_player;		// プレイヤー
+	std::unique_ptr<Stage>		 m_stage;		// ステージ
+	std::unique_ptr<TitleLogo>	 m_titleLogo;	// タイトルロゴ
+	std::unique_ptr<Button>		 m_startButton;	// スタートボタン
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

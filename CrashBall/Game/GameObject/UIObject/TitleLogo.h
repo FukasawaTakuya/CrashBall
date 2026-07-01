@@ -1,46 +1,39 @@
 /*****************************************************************//**
- * \file   Button.h
- * \brief  ボタン
+ * \file   TitleLogo.h
+ * \brief  タイトルロゴ
  * 
  * \author 深沢拓矢
- * \date   June 2026
+ * \date   July 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Game/GameObject/GameObject.h"
-
-#include "Game/Component/Default/UI/ButtonController.h"
+#include "Game/GameObject/UIObject/Object2D.h"
+#include "Game/Component/Default/UI/SpriteBobbing.h"
 
 /**
- * @brief ボタン
+ * @brief 
  */
-class  Button : public GameObject {
+class  TitleLogo : public Object2D {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
 	// データメンバの宣言 -----------------------------------------------
-protected:
+private:
 
 	// コンポーネントのキャッシュ
-	RectTransform*		m_rectTransform		 = nullptr;
-	SpriteRenderer*		m_spriteRenderer	 = nullptr;
-	TextRenderer*		m_textRenderer		 = nullptr;
-	ButtonController*	m_buttonController	 = nullptr;
+	SpriteBobbing* m_spriteBobbing = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Button();
-
-	// 
-	Button(json* data);
+	TitleLogo(json* data);
 
 	// デストラクタ
-	~Button();
+	~TitleLogo();
 
 	// 操作
 public:

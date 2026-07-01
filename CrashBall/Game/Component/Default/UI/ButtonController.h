@@ -91,6 +91,7 @@ public:
 		m_onHoverExitCommand = onHoverExitCommand;
 	}
 
+	// 描画順の設定
 	void SetLayerDepth(float layerDepth)
 	{
 		m_spriteRenderer->SetLayerDepth(layerDepth);

@@ -16,6 +16,7 @@
 #include "Game/Component/Player/PlayerController.h"
 #include "Game/Component/Enemy/EnemyController.h"
 #include "Game/Component/Default/UI/SliderController.h"
+#include "Game/Component/Default/UI/SpriteBobbing.h"
 
 using namespace nlohmann;
 
@@ -48,6 +49,9 @@ void to_json(json& j, const TargetCamera& targetCamera);
 
 // SliderControllerから変換
 void to_json(json& j, const SliderController& sliderController);
+
+// SpriteBobbingから変換
+void to_json(json& j, const SpriteBobbing& spriteBobbing);
 
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController);

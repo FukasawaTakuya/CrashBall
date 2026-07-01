@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   SliderController.cpp
+ * \brief  スライダー操作コンポーネント
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "SliderController.h"
 #include "Game/Engine/Time.h"

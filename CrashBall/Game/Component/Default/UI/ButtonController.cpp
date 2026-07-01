@@ -1,8 +1,4 @@
-﻿#include "pch.h"
-#include "ButtonController.h"
-#include "Game/Common/Screen.h"
-
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   ButtonController.cpp
  * \brief  ボタン操作コンポーネント
  *
@@ -10,6 +6,9 @@
  * \date   June 2026
  *********************************************************************/
 
+#include "pch.h"
+#include "ButtonController.h"
+#include "Game/Common/Screen.h"
 
 #include "Game/Engine/Input.h"
 
@@ -28,7 +27,6 @@ ButtonController::ButtonController(IGameObject* gameObject)
 	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
 
 	GetGameObject()->GetComponent<TextRenderer>()->SetColor(Colors::Black);
-	SetLayerDepth(0.0f);
 }
 
 /**
@@ -71,10 +69,10 @@ void ButtonController::Update()
 		m_isOnClick = true;
 	}
 
-	// ホバー時にキーが離されたか
+	// キーが離されたか
 	if (Input::GetMouseRelease(MouseButton::Left))
 	{
-		// クリックされていたらフラグをオンにする
+		// ホバー時かつクリックされていたらフラグをオンにする
 		if (m_isHover && m_isOnClick)
 		{
 			m_isPush = true;
