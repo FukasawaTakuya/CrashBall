@@ -52,6 +52,12 @@ GameScene::GameScene(
     m_enemyController        = m_enemy->GetComponent<EnemyController>();
     m_stageController        = m_stage->GetComponent<StageController>();
     m_playerStatusController = m_player->GetComponent<PlayerStatusController>();
+
+    m_objects.push_back(m_player.get());
+    m_objects.push_back(m_enemy.get());
+    m_objects.push_back(m_stage.get());
+    m_objects.push_back(m_camera.get());
+    m_objects.push_back(m_gamePanel.get());
 }
 
 /**
@@ -115,6 +121,8 @@ void GameScene::Update(const GameContext& gameContext)
     {
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
+
+    gameContext.objectEditGui->SetObejcts(&m_objects);
 }
 
 

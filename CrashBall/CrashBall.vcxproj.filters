@@ -131,6 +131,9 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{1db7942e-143d-4ebb-8ef3-f83c8caad542}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\EditGui">
+      <UniqueIdentifier>{a07701c5-119d-4e38-b6b8-17c5245123fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -495,6 +498,12 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Game\EditGui\ObjectEditGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\Interface\IObjectEditGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -737,6 +746,7 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Game\EditGui\ObjectEditGui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

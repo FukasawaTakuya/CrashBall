@@ -9,10 +9,14 @@
 #pragma once
 
 #include "Game/SoundPlayer/ISoundPlayer.h"
+#include "Game/EditGui/Interface/IObjectEditGui.h"
+
+class IObjectEditGui;
 
 /**
  * @brief ゲームプレイ用のコンテキスト
  */
 struct  GameContext {
-	ISoundPlayer* soundManager = nullptr;	// サウンド再生
+	ISoundPlayer* soundManager = nullptr;	// サウンド再生 
+	IObjectEditGui* objectEditGui = nullptr;// オブジェクト編集Gui
 };

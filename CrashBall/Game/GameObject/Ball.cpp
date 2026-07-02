@@ -79,7 +79,8 @@ void Ball::Finalize()
  */
 void Ball::SaveParam()
 {
-	(*m_data)["ObjectTag"]		=  GetTag();
+	GameObject::SaveParam();
+
 	(*m_data)["rigidbody"]		= *GetComponent<Rigidbody>();
 	(*m_data)["sphere"]			= *GetComponent<Sphere>();
 	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
@@ -107,6 +108,8 @@ void Ball::SaveInitParam()
  */
 void Ball::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
 	*GetComponent<Sphere>()		= (*m_data)["sphere"];

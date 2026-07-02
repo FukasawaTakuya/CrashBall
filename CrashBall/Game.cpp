@@ -64,10 +64,13 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
+    m_objectEditGui             = std::make_unique<ObjectEditGui>();
+
     // 各コンテキストの初期化
     m_gameContext =
     {
-        m_soundPlayer.get()
+        m_soundPlayer.get(),
+        m_objectEditGui.get()
     };
     m_renderContext =
     {
@@ -154,13 +157,9 @@ void Game::Initialize(HWND window, int width, int height)
 // Executes the basic game loop.
 void Game::Tick()
 { 
-    //  新フレームの開始（メインループの一番上に記述）
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
-
-    //  デモウィンドウの描画
-    ImGui::ShowDemoWindow();
 
     m_timer.Tick([&]()
         {
@@ -184,10 +183,12 @@ void Game::Update(DX::StepTimer const& timer)
     m_inputSystem->Update();
     m_soundPlayer->Update();
 
-   m_sceneManager->Update(m_gameContext);
+    m_sceneManager->Update(m_gameContext);
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
+
+    m_objectEditGui->Update();
 
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))

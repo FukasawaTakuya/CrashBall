@@ -80,6 +80,8 @@ void Slider::Finalize()
  */
 void Slider::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["rectTransform"]		= *GetComponent<RectTransform>();
 	(*m_data)["spriteRenderer"]		= *GetComponent<SpriteRenderer>();
 	(*m_data)["sliderController"]	= *GetComponent<SliderController>();
@@ -99,6 +101,8 @@ void Slider::SaveInitParam()
  */
 void Slider::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<RectTransform>()		= (*m_data)["rectTransform"];
 	*GetComponent<SpriteRenderer>()		= (*m_data)["spriteRenderer"];
 	*GetComponent<SliderController>()	= (*m_data)["sliderController"];

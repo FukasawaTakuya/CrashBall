@@ -72,5 +72,3 @@ void to_json(json& j, const TitleCameraController& titleCameraController);
 
 // GameCameraControllerから変換
 void to_json(json& j, const GameCameraController& gameCameraController);
-
-

@@ -88,6 +88,8 @@ void TitleCamera::Finalize()
  */
 void TitleCamera::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["transform"] = *GetComponent<Transform>();
 	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
 	(*m_data)["titleCameraController"] = *GetComponent<TitleCameraController>();
@@ -107,6 +109,8 @@ void TitleCamera::SaveInitParam()
  */
 void TitleCamera::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
 	*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];

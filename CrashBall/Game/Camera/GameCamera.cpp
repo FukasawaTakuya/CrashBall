@@ -95,6 +95,8 @@ void GameCamera::Finalize()
  */
 void GameCamera::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["transform"] = *GetComponent<Transform>();
 	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
 	(*m_data)["gameCameraController"] = *GetComponent<GameCameraController>();
@@ -114,6 +116,8 @@ void GameCamera::SaveInitParam()
  */
 void GameCamera::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
 	*GetComponent<GameCameraController>() = (*m_data)["gameCameraController"];

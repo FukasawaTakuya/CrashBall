@@ -29,6 +29,8 @@
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
 
+#include "Game/EditGui/ObjectEditGui.h"
+
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -66,6 +68,8 @@ private:
     std::unique_ptr<TextRendererManager>        m_textRendererManager;          // テキスト描画管理
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
+
+    std::unique_ptr<ObjectEditGui> m_objectEditGui;                             // オブジェクト編集Gui
 
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト

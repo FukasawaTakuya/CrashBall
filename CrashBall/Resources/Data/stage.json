@@ -5,6 +5,7 @@
         "meshData": "Resources/Models/Stage.json",
         "type": "Mesh"
     },
+    "name": "Stage",
     "stageController": {
         "floorCenterPosY": 15.0,
         "floorNormalY": 0.30000001192092896

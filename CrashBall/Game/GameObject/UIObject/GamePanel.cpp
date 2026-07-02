@@ -22,7 +22,7 @@ GamePanel::GamePanel(json* data)
 	, m_playerMeshNumText	 (std::make_unique<TextObject>(&(*data)["playerMeshNumText"]))
 	, m_enemyMeshNumText	 (std::make_unique<TextObject>(&(*data)["enemyMeshNumText"]))
 	, m_gaugeBackGround		 (std::make_unique<Object2D>(&(*data)["gaugeBackGround"]))
-	, m_gaugeTrack			 (std::make_unique<Object2D>(&(*data)["gaugeTrack"]))
+	, m_meshGaugeTrack		 (std::make_unique<Object2D>(&(*data)["meshGaugeTrack"]))
 	, m_attackGauge			 (std::make_unique<Slider>(&(*data)["attackGauge"]))
 	, m_attackPowerText		 (std::make_unique<TextObject>(&(*data)["attackPowerText"]))
 	, m_attackGaugeTrack	 (std::make_unique<Object2D>(&(*data)["attackGaugeTrack"]))
@@ -52,19 +52,24 @@ GamePanel::GamePanel(json* data)
 			m_enemyHpText.get()
 		);
 
+	AddChildren(m_playerMeshGauge.get());
+	AddChildren(m_enemyMeshGauge.get());
+	AddChildren(m_playerMeshNumText.get());
+	AddChildren(m_enemyMeshNumText.get());
+	AddChildren(m_gaugeBackGround.get());
+	AddChildren(m_meshGaugeTrack.get());
+	AddChildren(m_attackGauge.get());
+	AddChildren(m_attackPowerText.get());
+	AddChildren(m_attackGaugeTrack.get());
+	AddChildren(m_enemyHpGauge.get());
+	AddChildren(m_enemyHpGaugeTrack.get());
+	AddChildren(m_enemyHpText.get());
+
 	RectTransform* rectTransform = GetComponent<RectTransform>();
-	m_playerMeshGauge	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_enemyMeshGauge	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_playerMeshNumText	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_enemyMeshNumText	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_gaugeBackGround	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_gaugeTrack		->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_attackGauge		->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_attackPowerText	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_attackGaugeTrack	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_enemyHpGauge		->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_enemyHpGaugeTrack	->GetComponent<RectTransform>()->SetParent(rectTransform);
-	m_enemyHpText		->GetComponent<RectTransform>()->SetParent(rectTransform);
+	for (auto& childe : GetChildren())
+	{
+		childe->GetComponent<RectTransform>()->SetParent(rectTransform);
+	}
 }
 
 /**
@@ -111,6 +116,8 @@ void GamePanel::Update(const GameContext& gameContext)
 	m_floorMeshGaugeController->Update();
 	m_attackGaugeController->Update();
 	m_enemyHpGaugeController->Update();
+
+	UpdateChildren(gameContext);
 }
 
 /**
@@ -120,20 +127,7 @@ void GamePanel::Update(const GameContext& gameContext)
  */
 void GamePanel::Render(const RenderContext& renderContext)
 {
-	m_enemyMeshGauge->Render(renderContext);
-	m_playerMeshGauge->Render(renderContext);
-	m_playerMeshNumText->Render(renderContext);
-	m_enemyMeshNumText->Render(renderContext);
-	m_gaugeBackGround->Render(renderContext);
-	m_gaugeTrack->Render(renderContext);
-
-	m_attackGauge->Render(renderContext);
-	m_attackGaugeTrack->Render(renderContext);
-	m_attackPowerText->Render(renderContext);
-
-	m_enemyHpGauge->Render(renderContext);
-	m_enemyHpGaugeTrack->Render(renderContext);
-	m_enemyHpText->Render(renderContext);
+	RenderChildren(renderContext);
 }
 
 /**
@@ -144,18 +138,22 @@ void GamePanel::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void GamePanel::SaveParam()
 {
-	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
+	GameObject::SaveParam();
 
-	(*m_data)["ObjectTag"] = GetTag();
+	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
 
 	m_playerMeshGauge	->SaveParam();
 	m_enemyMeshGauge	->SaveParam();
 	m_playerMeshNumText	->SaveParam();
 	m_enemyMeshNumText	->SaveParam();
 	m_gaugeBackGround	->SaveParam();
-	m_gaugeTrack		->SaveParam();
+	m_meshGaugeTrack	->SaveParam();
 	m_attackGauge		->SaveParam();
 	m_attackPowerText	->SaveParam();
 	m_attackGaugeTrack	->SaveParam();
@@ -164,22 +162,30 @@ void GamePanel::SaveParam()
 	m_enemyHpText		->SaveParam();
 }
 
+/**
+ * \brief 初期化時のパラメータの書き込み
+ * 
+ */
 void GamePanel::SaveInitParam()
 {
 }
 
+/**
+ * \brief パラメータの再読み込み
+ * 
+ */
 void GamePanel::ReloadParam()
 {
-	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+	GameObject::ReloadParam();
 
-	SetTag((*m_data)["ObjectTag"]);
+	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 
 	m_playerMeshGauge->SetData(&(*m_data)["playerMeshGauge"]);
 	m_enemyMeshGauge->SetData(&(*m_data)["enemyMeshGauge"]);
 	m_playerMeshNumText	->SetData(&(*m_data)["playerMeshNumText"]);
 	m_enemyMeshNumText	->SetData(&(*m_data)["enemyMeshNumText"]);
 	m_gaugeBackGround	->SetData(&(*m_data)["gaugeBackGround"]);
-	m_gaugeTrack		->SetData(&(*m_data)["gaugeTrack"]);
+	m_meshGaugeTrack	->SetData(&(*m_data)["meshGaugeTrack"]);
 	m_attackGauge		->SetData(&(*m_data)["attackGauge"]);
 	m_attackPowerText	->SetData(&(*m_data)["attackPowerText"]);
 	m_attackGaugeTrack	->SetData(&(*m_data)["attackGaugeTrack"]);
@@ -192,7 +198,7 @@ void GamePanel::ReloadParam()
 	m_playerMeshNumText->ReloadParam();
 	m_enemyMeshNumText->ReloadParam();
 	m_gaugeBackGround->ReloadParam();
-	m_gaugeTrack->ReloadParam();
+	m_meshGaugeTrack->ReloadParam();
 	m_attackGauge->ReloadParam();
 	m_attackPowerText->ReloadParam();
 	m_attackGaugeTrack->ReloadParam();
@@ -205,7 +211,7 @@ void GamePanel::ReloadParam()
 /**
  * \brief スプライトの設定
  *
- * \param resourceContext
+ * \param resourceContext リソース用のコンテキスト
  */
 void GamePanel::SetSprite(const ResourceContext& resourceContext)
 {
@@ -216,7 +222,7 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 
 	// FloorMeshGauge ==================================================
 
-	m_gaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
+	m_meshGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);

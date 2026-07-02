@@ -2,6 +2,7 @@
     "ObjectTag": "Default",
     "attackGauge": {
         "ObjectTag": "Default",
+        "name": "AttackGauge",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -36,6 +37,7 @@
     },
     "attackGaugeTrack": {
         "ObjectTag": "Default",
+        "name": "AttackGaugeTrack",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -67,6 +69,7 @@
     },
     "attackPowerText": {
         "ObjectTag": "Default",
+        "name": "AttackPowerText",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -94,6 +97,7 @@
     },
     "enemyHpGauge": {
         "ObjectTag": "Default",
+        "name": "EnemyHpGauge",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -128,6 +132,7 @@
     },
     "enemyHpGaugeTrack": {
         "ObjectTag": "Default",
+        "name": "EnemyHpGaugeTrack",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -159,6 +164,7 @@
     },
     "enemyHpText": {
         "ObjectTag": "Default",
+        "name": "EnemyHpText",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -186,6 +192,7 @@
     },
     "enemyMeshGauge": {
         "ObjectTag": "Default",
+        "name": "EnemyMeshGauge",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -220,6 +227,7 @@
     },
     "enemyMeshNumText": {
         "ObjectTag": "Default",
+        "name": "EnemyMeshNumText",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -247,6 +255,7 @@
     },
     "gaugeBackGround": {
         "ObjectTag": "Default",
+        "name": "GaugeBackGround",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -276,39 +285,42 @@
             }
         }
     },
-    "gaugeTrack": {
-        "ObjectTag": "Default",
-        "rectTransform": {
-            "origin": "Center",
-            "position": {
-                "x": 640.0,
-                "y": 670.0
-            },
-            "rotate": 0.0,
-            "scale": {
-                "x": 1.0,
-                "y": 1.0
-            }
-        },
-        "spriteRenderer": {
-            "color": {
-                "a": 1.0,
-                "b": 1.0,
-                "g": 1.0,
-                "r": 1.0
-            },
-            "fillOrigin": "Left",
-            "layerDepth": 0.10000000149011612,
-            "spriteEffects": "None",
-            "spriteKey": "Gauge",
-            "spriteScale": {
-                "x": 1.0,
-                "y": 1.0
-            }
-        }
+  "meshGaugeTrack": {
+    "ObjectTag": "Default",
+    "name": "MeshGaugeTrack",
+    "rectTransform": {
+      "origin": "Center",
+      "position": {
+        "x": 640.0,
+        "y": 670.0
+      },
+      "rotate": 0.0,
+      "scale": {
+        "x": 1.0,
+        "y": 1.0
+      }
     },
+    "spriteRenderer": {
+      "color": {
+        "a": 1.0,
+        "b": 1.0,
+        "g": 1.0,
+        "r": 1.0
+      },
+      "fillOrigin": "Left",
+      "layerDepth": 0.10000000149011612,
+      "spriteEffects": "None",
+      "spriteKey": "Gauge",
+      "spriteScale": {
+        "x": 1.0,
+        "y": 1.0
+      }
+    }
+  },
+    "name": "GamePanel",
     "playerMeshGauge": {
         "ObjectTag": "Default",
+        "name": "PlayerMeshGauge",
         "rectTransform": {
             "origin": "Center",
             "position": {
@@ -343,6 +355,7 @@
     },
     "playerMeshNumText": {
         "ObjectTag": "Default",
+        "name": "PlayerMeshText",
         "rectTransform": {
             "origin": "Center",
             "position": {

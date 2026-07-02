@@ -32,9 +32,9 @@ private:
 private:
 
 	// FloorMeshGaugeControllerで操作
-	std::unique_ptr<Slider>	m_playerMeshGauge;			// プレイヤーが塗った面を表示するゲージ
-	std::unique_ptr<Slider>	m_enemyMeshGauge;			// 敵が塗った面を表示するゲージ
-	std::unique_ptr<Object2D>	m_gaugeTrack;			// ゲージの土台
+	std::unique_ptr<Slider>		m_playerMeshGauge;		// プレイヤーが塗った面を表示するゲージ
+	std::unique_ptr<Slider>		m_enemyMeshGauge;		// 敵が塗った面を表示するゲージ
+	std::unique_ptr<Object2D>	m_meshGaugeTrack;		// ゲージの土台
 	std::unique_ptr<Object2D>	m_gaugeBackGround;		// ゲージの背景
 	std::unique_ptr<TextObject>	m_playerMeshNumText;	// プレイヤーのメッシュ数表示テキスト
 	std::unique_ptr<TextObject>	m_enemyMeshNumText;		// 敵のメッシュ数表示テキスト
@@ -70,8 +70,6 @@ private:
 public:
 
 	// コンストラクタ
-	GamePanel();
-
 	GamePanel(json* data);
 
 	// デストラクタ

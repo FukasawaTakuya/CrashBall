@@ -75,9 +75,10 @@ void Object2D::Finalize()
  */
 void Object2D::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
 	(*m_data)["spriteRenderer"] = *GetComponent<SpriteRenderer>();
-	(*m_data)["ObjectTag"] = GetTag();
 }
 
 /**
@@ -94,6 +95,8 @@ void Object2D::SaveInitParam()
  */
 void Object2D::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 	*GetComponent<SpriteRenderer>() = (*m_data)["spriteRenderer"];
 	SetTag((*m_data)["ObjectTag"]);

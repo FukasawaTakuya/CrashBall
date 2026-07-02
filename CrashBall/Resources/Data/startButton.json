@@ -1,5 +1,6 @@
 {
     "ObjectTag": "Default",
+    "name": "StartButton",
     "rectTransform": {
         "origin": "Center",
         "position": {

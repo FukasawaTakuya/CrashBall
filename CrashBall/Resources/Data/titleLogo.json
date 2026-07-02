@@ -1,10 +1,11 @@
 {
     "ObjectTag": "Default",
+    "name": "TitleLogo",
     "rectTransform": {
         "origin": "Center",
         "position": {
             "x": 320.0,
-            "y": 192.1386260986328
+            "y": 211.5734405517578
         },
         "rotate": 0.0,
         "scale": {
@@ -17,7 +18,7 @@
         "frequency": 4.0,
         "initPos": {
             "x": 320.0,
-            "y": 201.31288146972656
+            "y": 192.1386260986328
         }
     },
     "spriteRenderer": {

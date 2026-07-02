@@ -8,9 +8,6 @@
 
 #pragma once
 
-#include <unordered_map>
-#include <algorithm>
-
 #include "Game/GameObject/IGameObject.h"
 
 #include "Game/Context/GameContext.h"
@@ -37,7 +34,15 @@ private:
 	// タグ
 	ObjectTag m_tag;
 
+	// オブジェクト名
+	std::string m_name = "object";
+
+	// 子オブジェクト
+	std::vector<GameObject*> m_children;
+
 protected:
+
+	// Jsonデータ
 	json* m_data = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -45,14 +50,10 @@ protected:
 public:
 
 	// コンストラクタ
-	GameObject(ObjectTag tag = ObjectTag::Defaut)
-		: m_tag(tag)
-	{};
+	GameObject(ObjectTag tag = ObjectTag::Defaut);
 
-	GameObject(json* data)
-		: m_data(data)
-		, m_tag((*data)["ObjectTag"])
-	{};
+	// コンストラクタ
+	GameObject(json* data);
 
 	// デストラクタ
 	~GameObject() = default;
@@ -73,13 +74,28 @@ public:
 	virtual void Finalize() = 0;
 
 	// パラメータの書き込み
-	virtual void SaveParam() = 0;
+	virtual void SaveParam();
 
 	// 初期化用のパラメータの書き込み
-	virtual void SaveInitParam() = 0;
+	virtual void SaveInitParam();
 
 	// データの再読み込み
-	virtual void ReloadParam() = 0;
+	virtual void ReloadParam();
+
+	// 子オブジェクトの追加
+	void AddChildren(GameObject* child);
+
+	// 子オブジェクトの初期化
+	void InitializeChildren();
+
+	// 子オブジェクトの更新
+	void UpdateChildren(const GameContext& gameContext);
+
+	// 子オブジェクトの描画
+	void RenderChildren(const RenderContext& renderContext);
+
+	// 子オブジェクトの終了処理
+	void FinalizeChildren();
 
 	// 取得/設定
 public:
@@ -105,6 +121,24 @@ public:
 
 	// コンポーネントの取得
 	using IGameObject::GetComponent;
+
+	// 子オブジェクトの取得
+	const std::vector<GameObject*>& GetChildren()
+	{
+		return m_children;
+	}
+
+	// コンポーネントの取得
+	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
+	{
+		return &m_components;
+	}
+
+	// 名前の取得
+	std::string GetName()
+	{
+		return m_name;
+	}
 
 	// タグの設定
 	void SetTag(ObjectTag tag)

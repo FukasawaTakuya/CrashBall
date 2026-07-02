@@ -81,6 +81,8 @@ void Button::Finalize()
  */
 void Button::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["rectTransform"] = *m_rectTransform;
 	(*m_data)["spriteRenderer"] = *m_spriteRenderer;
 	(*m_data)["textRenderer"] = *m_textRenderer;
@@ -100,6 +102,8 @@ void Button::SaveInitParam()
  */
 void Button::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*m_rectTransform = (*m_data)["rectTransform"];
 	*m_spriteRenderer = (*m_data)["spriteRenderer"];
 	*m_textRenderer = (*m_data)["textRenderer"];

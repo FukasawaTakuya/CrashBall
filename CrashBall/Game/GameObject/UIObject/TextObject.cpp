@@ -78,10 +78,10 @@ void TextObject::Finalize()
  */
 void TextObject::SaveParam()
 {
+	GameObject::SaveParam();
+
 	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
 	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
-
-	(*m_data)["ObjectTag"] = GetTag();
 }
 
 void TextObject::SaveInitParam()
@@ -90,8 +90,9 @@ void TextObject::SaveInitParam()
 
 void TextObject::ReloadParam()
 {
+	GameObject::ReloadParam();
+
 	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 	*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];
 	
-	SetTag((*m_data)["ObjectTag"]);
 }
