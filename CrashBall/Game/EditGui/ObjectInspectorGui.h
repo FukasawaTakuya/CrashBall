@@ -38,6 +38,18 @@ public:
 	// 内部実装
 private:
 
+	// 球コライダーの表示
+	static void DrawSphere(Component* comp);
+	// メッシュコライダーの表示
+	static void DrawMesh(Component* comp);
+
+	// モデルレンダラーの表示
+	static void DrawModelRenderer(Component* comp);
+	// スプライトレンダラーの表示
+	static void DrawSpriteRenderer(Component* comp);
+	// テキストレンダラーの表示
+	static void DrawTextRenderer(Component* comp);
+
 	// トランスフォームの表示
 	static void DrawTransform(Component* comp);
 	// トランスフォームの表示

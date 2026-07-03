@@ -42,7 +42,7 @@ void ObjectListGui::Update()
 void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
-    ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+    ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;
 
     // 子がいない場合三角を描画しない
     if (object->GetChildren().empty())

@@ -28,6 +28,18 @@ enum class FillOrigin
 	OriginNum,
 };
 
+// 切り取り基準位置の名前
+static const char* FillOriginName[static_cast<int>(FillOrigin::OriginNum)]
+{
+	"Center",
+	"CenterHorizon",
+	"CenterVertical",
+	"Left",
+	"Top",
+	"Right",
+	"Bottom"
+};
+
 // 切り取りの基準位置を決めるためのオフセット
 const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin::OriginNum)]
 {

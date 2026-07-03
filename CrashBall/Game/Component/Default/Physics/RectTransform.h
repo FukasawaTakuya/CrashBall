@@ -10,8 +10,6 @@
 
 #include "Game/Component/Default/Component.h"
 
-#include "nlohmann/json.hpp"
-
 using namespace nlohmann;
 
 // 基準位置
@@ -30,7 +28,7 @@ enum class Origin
 };
 
 // 基準位置名のリスト
-static const char* originNameList[static_cast<int>(Origin::OriginNum)]
+static const char* OriginNameList[static_cast<int>(Origin::OriginNum)]
 {
 	"CenterTop",
 	"Center",
@@ -44,7 +42,7 @@ static const char* originNameList[static_cast<int>(Origin::OriginNum)]
 };
 
 // 基準位置を決めるためのオフセット
-const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
+static const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
 {
 	DirectX::SimpleMath::Vector2(0.5f, 0.0f),	// CenterTop
 	DirectX::SimpleMath::Vector2(0.5f, 0.5f),	// Center
