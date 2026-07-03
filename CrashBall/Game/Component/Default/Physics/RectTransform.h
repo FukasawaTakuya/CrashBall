@@ -29,6 +29,20 @@ enum class Origin
 	OriginNum,
 };
 
+// 基準位置名のリスト
+static const char* originNameList[static_cast<int>(Origin::OriginNum)]
+{
+	"CenterTop",
+	"Center",
+	"CenterBottom",
+	"LeftTop",
+	"LeftCenter",
+	"LeftBottom",
+	"RightTop",
+	"RightCenter",
+	"RightBottom",
+};
+
 // 基準位置を決めるためのオフセット
 const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
 {
@@ -48,8 +62,8 @@ const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::Origin
  */
 class  RectTransform : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

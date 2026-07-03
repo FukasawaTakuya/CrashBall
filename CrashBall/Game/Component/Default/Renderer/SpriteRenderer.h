@@ -57,8 +57,8 @@ const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::O
  */
 class  SpriteRenderer : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

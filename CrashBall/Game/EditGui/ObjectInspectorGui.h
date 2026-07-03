@@ -40,7 +40,8 @@ private:
 
 	// トランスフォームの表示
 	static void DrawTransform(Component* comp);
-
+	// トランスフォームの表示
+	static void DrawRectTransform(Component* comp);
 	// 物理演算の表示
 	static void DrawRigidbody(Component* comp);
 };

@@ -29,6 +29,9 @@ constexpr int TYPE_COUNT = static_cast<int>(ColliderType::TypeCount);
  */
 class Collider : public Component
 {
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
+
 	// 衝突時処理
 	using CollisionCmd = std::function<void(Collider*)>;
 

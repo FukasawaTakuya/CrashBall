@@ -25,8 +25,6 @@ class  FloorMeshGaugeController : public Component {
 	// クラス定数の宣言 -------------------------------------------------
 private:
 
-	float GAUGE_SLIDE_SPEED = 5.0f;		// ゲージがスライドする速さ
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

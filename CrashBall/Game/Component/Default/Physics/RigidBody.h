@@ -15,8 +15,8 @@
  */
 class  Rigidbody : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-private:
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

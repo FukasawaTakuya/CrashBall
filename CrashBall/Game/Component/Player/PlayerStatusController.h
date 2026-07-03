@@ -16,10 +16,13 @@
  */
 class  PlayerStatusController: public Component {
 
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
+
 	// パラメータの宣言 -------------------------------------------------
 private:
 
-	int m_attackCost		 = 0;		// 攻撃コスト
+	int m_attackCost		= 0;		// 攻撃コスト
 	float m_minAttackPower	= 0.0f;		// 最低攻撃力
 
 	// データメンバの宣言 -----------------------------------------------

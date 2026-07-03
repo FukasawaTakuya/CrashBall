@@ -18,8 +18,8 @@
  */
 class  ButtonController : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

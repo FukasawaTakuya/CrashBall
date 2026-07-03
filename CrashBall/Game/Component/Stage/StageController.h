@@ -29,6 +29,9 @@ class  StageController :
 	public IPaintConsumer		// ペイント消費
 {
 
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
+
 	// パラメータの宣言 -------------------------------------------------
 private:
 

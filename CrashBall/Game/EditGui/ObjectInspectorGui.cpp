@@ -4,6 +4,7 @@
 #include "ImGui/imgui.h"
 
 #include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 #include "Game/Component/Default/Physics/RigidBody.h"
 
 using namespace DirectX;
@@ -15,6 +16,8 @@ using namespace DirectX;
 ObjectInspectorGui::ObjectInspectorGui()
 {
 	m_drawInspecter.emplace(typeid(Transform), DrawTransform);
+	m_drawInspecter.emplace(typeid(RectTransform), DrawRectTransform);
+	m_drawInspecter.emplace(typeid(Rigidbody), DrawRigidbody);
 }
 
 /**
@@ -65,33 +68,89 @@ void ObjectInspectorGui::DrawTransform(Component* comp)
 	// トランスフォームにキャスト
 	Transform* transform = static_cast<Transform*>(comp);
 
-	// 座標
-	SimpleMath::Vector3 position = transform->GetLocalPosition();
-	// 回転
-	SimpleMath::Vector3 rotate = transform->GetLocalRotate().ToEuler();
-	// スケール
-	SimpleMath::Vector3 scale = transform->GetLocalScale();
-
-	if (ImGui::TreeNode(transform, "Transform"))
+	if (ImGui::TreeNodeEx("Transform", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::DragFloat3("position", &position.x);
-		ImGui::DragFloat3("rotate", &rotate.x);
-		ImGui::DragFloat3("scale", &scale.x);
+		// 回転
+		SimpleMath::Vector3 rotate = transform->GetLocalRotate().ToEuler();
 
-		transform->SetLocalPosition(position);
+		rotate.x = XMConvertToDegrees(rotate.x);
+		rotate.y = XMConvertToDegrees(rotate.y);
+		rotate.z = XMConvertToDegrees(rotate.z);
+
+		ImGui::DragFloat3("position", &transform->m_localPosition.x);
+		ImGui::DragFloat3("rotate", &rotate.x);
+		ImGui::DragFloat3("scale", &transform->m_localScale.x);
+
+		rotate.x = XMConvertToRadians(rotate.x);
+		rotate.y = XMConvertToRadians(rotate.y);
+		rotate.z = XMConvertToRadians(rotate.z);
+
 		transform->SetRotate(SimpleMath::Quaternion::CreateFromYawPitchRoll(rotate));
-		transform->SetScale(scale);
 
 		ImGui::TreePop();
 	}
 }
 
+/**
+ * \brief 2Dトランスフォームの表示
+ *
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawRectTransform(Component* comp)
+{
+	// トランスフォームにキャスト
+	RectTransform* rectTransform = static_cast<RectTransform*>(comp);
+
+	if (ImGui::TreeNodeEx("RectTransform", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		float rotate = XMConvertToDegrees(rectTransform->m_localRotate);
+
+		ImGui::DragFloat3("position", &rectTransform->m_localPosition.x);
+		ImGui::DragFloat("rotate", &rotate);
+		ImGui::DragFloat2("scale", &rectTransform->m_localScale.x);
+
+		int currentOrigin = static_cast<int>(rectTransform->m_origin);
+
+		if (ImGui::Combo("Origin", &currentOrigin, originNameList, IM_ARRAYSIZE(originNameList)))
+		{
+			rectTransform->m_origin = static_cast<Origin>(currentOrigin);
+		}
+
+		rectTransform->m_localRotate = XMConvertToRadians(rotate);
+
+		ImGui::TreePop();
+	}
+}
+
+/**
+ * \brief 
+ * 
+ * \param comp
+ */
 void ObjectInspectorGui::DrawRigidbody(Component* comp)
 {
 	Rigidbody* rigidbody = static_cast<Rigidbody*>(comp);
 
-	float gravityAcceleration = 0.0f;	// 重力加速度
-	float friction = 0.0f;				// 摩擦係数
-	float mass = 1.0f;					// 質量
-	float isDynamic = 1.0f;				// 動的か(1 = ture, 0 = false)
+	if (ImGui::TreeNodeEx("Rigidbody", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ImGui::DragFloat("gravityAcceleration", &rigidbody->m_gravityAcceleration,	0.1f, 0.0f, 100.0f);
+		ImGui::DragFloat("friction",			&rigidbody->m_friction,				0.1f, 0.0f, 100.0f);
+		ImGui::DragFloat("mass",				&rigidbody->m_mass,					0.1f, 0.0f, 100.0f);
+		
+		bool togle = rigidbody->m_isDynamic;
+
+		ImGui::Checkbox("isDynamic", &togle);
+		
+		if (togle)
+		{
+			rigidbody->m_isDynamic = 1.0f;
+		}
+		else
+		{
+			rigidbody->m_isDynamic = 0.0f;
+		}
+
+		ImGui::TreePop();
+	}
+
 }

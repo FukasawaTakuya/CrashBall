@@ -17,6 +17,8 @@
  */
 class  EnemyController : public Component
 {
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// パラメータの宣言 -------------------------------------------------
 private:

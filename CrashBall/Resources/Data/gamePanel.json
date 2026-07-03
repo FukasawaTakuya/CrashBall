@@ -250,7 +250,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Enemy:2面"
+            "text": "Enemy:110面"
         }
     },
     "gaugeBackGround": {
@@ -285,38 +285,38 @@
             }
         }
     },
-  "meshGaugeTrack": {
-    "ObjectTag": "Default",
-    "name": "MeshGaugeTrack",
-    "rectTransform": {
-      "origin": "Center",
-      "position": {
-        "x": 640.0,
-        "y": 670.0
-      },
-      "rotate": 0.0,
-      "scale": {
-        "x": 1.0,
-        "y": 1.0
-      }
+    "meshGaugeTrack": {
+        "ObjectTag": "Default",
+        "name": "MeshGaugeTrack",
+        "rectTransform": {
+            "origin": "Center",
+            "position": {
+                "x": 640.0,
+                "y": 670.0
+            },
+            "rotate": 0.0,
+            "scale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        },
+        "spriteRenderer": {
+            "color": {
+                "a": 1.0,
+                "b": 1.0,
+                "g": 1.0,
+                "r": 1.0
+            },
+            "fillOrigin": "Left",
+            "layerDepth": 0.10000000149011612,
+            "spriteEffects": "None",
+            "spriteKey": "Gauge",
+            "spriteScale": {
+                "x": 1.0,
+                "y": 1.0
+            }
+        }
     },
-    "spriteRenderer": {
-      "color": {
-        "a": 1.0,
-        "b": 1.0,
-        "g": 1.0,
-        "r": 1.0
-      },
-      "fillOrigin": "Left",
-      "layerDepth": 0.10000000149011612,
-      "spriteEffects": "None",
-      "spriteKey": "Gauge",
-      "spriteScale": {
-        "x": 1.0,
-        "y": 1.0
-      }
-    }
-  },
     "name": "GamePanel",
     "playerMeshGauge": {
         "ObjectTag": "Default",
@@ -378,7 +378,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Player:2面"
+            "text": "Player:18面"
         }
     },
     "rectTransform": {

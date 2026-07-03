@@ -16,9 +16,10 @@
 /**
  * \brief メッシュコライダー
  */
-class Mesh
-	: public Collider
+class Mesh : public Collider
 {
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

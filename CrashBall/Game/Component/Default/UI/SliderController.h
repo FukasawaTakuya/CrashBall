@@ -14,7 +14,10 @@
 /**
  * @brief スライダー操作コンポーネント
  */
-class  SliderController : public Component {
+class  SliderController : public Component 
+{
+	// インスペクター編集GUIをフレンド化
+	friend class ObjectInspectorGui;
 
 	// パラメータの宣言 -------------------------------------------------
 private:
