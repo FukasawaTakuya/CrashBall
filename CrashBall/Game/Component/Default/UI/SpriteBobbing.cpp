@@ -44,7 +44,6 @@ SpriteBobbing::SpriteBobbing(
 	, m_radian()
 {
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
-	m_initPos = m_rectTransform->GetLocalPosition();
 }
 
 /**

@@ -56,4 +56,11 @@ private:
 	static void DrawRectTransform(Component* comp);
 	// 物理演算の表示
 	static void DrawRigidbody(Component* comp);
+
+	// スライダーの表示
+	static void DrawSliderController(Component* comp);
+	// ボタンの表示
+	static void DrawButtonController(Component* comp);
+	// スライダー浮遊コンポーネントの表示
+	static void DrawSpriteBobbing(Component* comp);
 };

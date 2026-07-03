@@ -13,6 +13,9 @@
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Renderer/TextRenderer.h"
+#include "Game/Component/Default/UI/SliderController.h"
+#include "Game/Component/Default/UI/ButtonController.h"
+#include "Game/Component/Default/UI/SpriteBobbing.h"
 
 using namespace DirectX;
 
@@ -23,13 +26,17 @@ using namespace DirectX;
 ObjectInspectorGui::ObjectInspectorGui()
 {
 	m_drawInspecter.emplace(typeid(Sphere), DrawSphere);
-	m_drawInspecter.emplace(typeid(ModelRenderer), DrawModelRenderer);
-	m_drawInspecter.emplace(typeid(SpriteRenderer), DrawSpriteRenderer);
-	m_drawInspecter.emplace(typeid(TextRenderer), DrawTextRenderer);
 	m_drawInspecter.emplace(typeid(Mesh), DrawMesh);
 	m_drawInspecter.emplace(typeid(Transform), DrawTransform);
 	m_drawInspecter.emplace(typeid(RectTransform), DrawRectTransform);
 	m_drawInspecter.emplace(typeid(Rigidbody), DrawRigidbody);
+	m_drawInspecter.emplace(typeid(ModelRenderer), DrawModelRenderer);
+	m_drawInspecter.emplace(typeid(SpriteRenderer), DrawSpriteRenderer);
+	m_drawInspecter.emplace(typeid(TextRenderer), DrawTextRenderer);
+	m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
+	m_drawInspecter.emplace(typeid(SpriteBobbing), DrawSpriteBobbing);
+	m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
+	m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
 }
 
 /**
@@ -175,6 +182,7 @@ void ObjectInspectorGui::DrawTextRenderer(Component* comp)
 		ImGui::InputText("Text", &text);
 		textRenderer->m_text = Utility::ConvertToWideChar(text);
 
+		ImGui::ColorEdit4("Color", &textRenderer->m_color.x);
 		ImGui::DragFloat("FontScale", &textRenderer->m_fontScale);
 		ImGui::DragFloat("LayerDepth", &textRenderer->m_layerDepth);
 
@@ -282,4 +290,64 @@ void ObjectInspectorGui::DrawRigidbody(Component* comp)
 
 		ImGui::TreePop();
 	}
+}
+
+/**
+ * \brief スライダーの表示
+ * 
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawSliderController(Component* comp)
+{
+	SliderController* sliderController = static_cast<SliderController*>(comp);
+
+	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	if (ImGui::TreeNodeEx("SlideController", flag))
+	{
+		ImGui::SliderFloat("targetAmount", &sliderController->m_targetAmount, 0.0f, 1.0f);
+
+		ImGui::DragFloat("SlideSpeed", &sliderController->m_slideSpeed);
+
+		ImGui::TreePop();
+	}
+}
+
+/**
+ * \brief ボタンの表示
+ * 
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawButtonController(Component* comp)
+{
+	ButtonController* buttonController = static_cast<ButtonController*>(comp);
+
+	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	if (ImGui::TreeNodeEx("ButtonController", flag))
+	{
+		ImGui::TreePop();
+	}
+}
+
+/**
+ * \brief スライダー浮遊コンポーネント
+ * 
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
+{
+	SpriteBobbing* spriteBobbing = static_cast<SpriteBobbing*>(comp);
+
+	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	if (ImGui::TreeNodeEx("SpriteBobbing", flag))
+	{
+		ImGui::DragFloat("Amplitude", &spriteBobbing->m_amplitude);
+		ImGui::DragFloat("Frequency", &spriteBobbing->m_frequency);
+		ImGui::DragFloat2("InitPos", &spriteBobbing->m_initPos.x);
+
+		ImGui::TreePop();
+	}
+
 }

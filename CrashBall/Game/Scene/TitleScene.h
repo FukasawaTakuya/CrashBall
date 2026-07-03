@@ -31,6 +31,8 @@ private:
 	std::unique_ptr<TitleLogo>	 m_titleLogo;	// タイトルロゴ
 	std::unique_ptr<Button>		 m_startButton;	// スタートボタン
 
+	std::vector<GameObject*> m_objects;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

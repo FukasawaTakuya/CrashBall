@@ -145,6 +145,13 @@ void Game::Initialize(HWND window, int width, int height)
         ID3D11Device* device = m_deviceResources->GetD3DDevice();
         ID3D11DeviceContext* context = m_deviceResources->GetD3DDeviceContext();
         ImGui_ImplDX11_Init(device, context);
+
+        io.Fonts->AddFontFromFileTTF(
+            "C:/Windows/Fonts/meiryo.ttc",
+            18.0f,
+            nullptr,
+            io.Fonts->GetGlyphRangesJapanese()
+        );
     }
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
