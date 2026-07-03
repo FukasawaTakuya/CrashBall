@@ -64,13 +64,14 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
-    m_objectEditGui             = std::make_unique<ObjectEditGui>();
+    m_objectListGui             = std::make_unique<ObjectListGui>();
+    m_objectInspectorGui             = std::make_unique<ObjectInspectorGui>();
 
     // 各コンテキストの初期化
     m_gameContext =
     {
         m_soundPlayer.get(),
-        m_objectEditGui.get()
+        m_objectListGui.get()
     };
     m_renderContext =
     {
@@ -188,7 +189,8 @@ void Game::Update(DX::StepTimer const& timer)
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
 
-    m_objectEditGui->Update();
+    m_objectListGui->Update();
+    m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
 
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))

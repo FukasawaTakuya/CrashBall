@@ -1,5 +1,5 @@
 ﻿/*****************************************************************//**
- * \file   ObjectEditGui.h
+ * \file   ObjectListGui.h
  * \brief  オブジェクト編集GUI
  * 
  * \author 深沢拓矢
@@ -9,15 +9,12 @@
 #pragma once
 
 #include "ImGui/imgui.h"
-#include "Interface/IObjectEditGui.h"
+#include "Interface/IObjectListGui.h"
 
 /**
  * \brief オブジェクト編集GUI
  */
-class  ObjectEditGui : public IObjectEditGui {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
+class  ObjectListGui : public IObjectListGui {
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -33,10 +30,10 @@ private:
 public:
 
 	// コンストラクタ
-	ObjectEditGui();
+	ObjectListGui();
 
 	// デストラクタ
-	~ObjectEditGui();
+	~ObjectListGui();
 
 	// 操作
 public:
@@ -46,6 +43,12 @@ public:
 
 	// 取得/設定
 public:
+
+	// 選択中のオブジェクトの取得
+	GameObject* GetSelectedObject()
+	{
+		return m_selectedObject;
+	}
 
 	// オブジェクトリストの設定
 	void SetObejcts(std::vector<GameObject*>* objects) override
@@ -58,5 +61,4 @@ private:
 
 	//
 	void DrawObjectGui(GameObject* object);
-
 };

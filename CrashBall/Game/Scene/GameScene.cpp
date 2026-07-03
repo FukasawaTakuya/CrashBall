@@ -122,7 +122,7 @@ void GameScene::Update(const GameContext& gameContext)
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
 
-    gameContext.objectEditGui->SetObejcts(&m_objects);
+    gameContext.objectListGui->SetObejcts(&m_objects);
 }
 
 

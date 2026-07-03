@@ -498,10 +498,13 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\ObjectEditGui.h">
+    <ClInclude Include="Game\EditGui\ObjectListGui.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\IObjectEditGui.h">
+    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
   </ItemGroup>
@@ -746,7 +749,12 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game\EditGui\ObjectEditGui.cpp" />
+    <ClCompile Include="Game\EditGui\ObjectListGui.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

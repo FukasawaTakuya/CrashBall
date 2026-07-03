@@ -144,15 +144,29 @@ public:
 		return m_world;
 	}
 
-	// ポジションの設定
-	void SetPosition(const DirectX::SimpleMath::Vector3& position)
+	// ワールド座標の設定
+	void SetWorldPosition(const DirectX::SimpleMath::Vector3& position)
+	{
+		if (m_parent != nullptr)
+		{
+			m_localPosition = position - m_parent->GetWorldPosition();
+		}
+		else
+		{
+			m_localPosition = position;
+		}
+		m_isDirty = true;
+	}
+
+	// ローカル座標の設定
+	void SetLocalPosition(const DirectX::SimpleMath::Vector3& position)
 	{
 		m_localPosition = position;
 		m_isDirty = true;
 	}
 
 	// 回転の設定
-	void SetQuaternion(DirectX::SimpleMath::Quaternion quaternion)
+	void SetRotate(DirectX::SimpleMath::Quaternion quaternion)
 	{
 		m_localRotate = quaternion;
 		m_isDirty = true;

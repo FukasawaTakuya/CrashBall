@@ -1,17 +1,17 @@
 #include "pch.h"
-#include "ObjectEditGui.h"
+#include "ObjectListGui.h"
 
 #include "Game/GameObject/GameObject.h"
 
-ObjectEditGui::ObjectEditGui()
+ObjectListGui::ObjectListGui()
 {
 }
 
-ObjectEditGui::~ObjectEditGui()
+ObjectListGui::~ObjectListGui()
 {
 }
 
-void ObjectEditGui::Update()
+void ObjectListGui::Update()
 {
 	static int current = 0;
 
@@ -32,47 +32,6 @@ void ObjectEditGui::Update()
 	ImGui::EndChild();
 
 	ImGui::End();
-
-
-    ImGui::Begin("Inspecter");
-
-    if (m_selectedObject != nullptr)
-    {
-
-        for (auto& comp : *m_selectedObject->GetComponentsList())
-        {
-            ImGui::Text(comp.first.name());
-
-            if (comp.first == typeid(Transform))
-            {
-                Transform* transform = static_cast<Transform*>(comp.second.get());
-
-                DirectX::SimpleMath::Vector3 pos = transform->GetLocalPosition();
-                DirectX::SimpleMath::Vector3 rotate = transform->GetLocalRotate().ToEuler();
-                DirectX::SimpleMath::Vector3 scale = transform->GetLocalScale();
-
-                ImGui::DragFloat3(
-                    "Position",
-                    &pos.x,
-                    0.1f
-                );
-
-                ImGui::DragFloat3(
-                    "Rotate",
-                    &rotate.x,
-                    0.1f
-                );
-
-                ImGui::DragFloat3(
-                    "Scale",
-                    &scale.x,
-                    0.1f
-                );
-            }
-        }
-    }
-
-    ImGui::End();
 }
 
 /**
@@ -80,7 +39,7 @@ void ObjectEditGui::Update()
  * 
  * \param object
  */
-void ObjectEditGui::DrawObjectGui(GameObject* object)
+void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
     ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;

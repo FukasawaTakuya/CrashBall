@@ -1,8 +1,8 @@
-/*****************************************************************//**
+ï»¿/*****************************************************************//**
  * \file   StateMachine.h
- * \brief  ƒXƒe[ƒgƒ}ƒVƒ“ 
+ * \brief  ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³ 
  * 
- * \author [‘ò‘ñ–î
+ * \author æ·±æ²¢æ‹“çŸ¢
  * \date   April 2026
  *********************************************************************/
 
@@ -14,57 +14,57 @@
 #include "StateBase.h"
 
 /**
- * \brief ƒXƒe[ƒgƒ}ƒVƒ“
+ * \brief ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³
  */
 template <typename Owner>
 class  StateMachine : public IStateMachine {
 
-	// ƒNƒ‰ƒX’è”‚ÌéŒ¾ -------------------------------------------------
+	// ã‚¯ãƒ©ã‚¹å®šæ•°ã®å®£è¨€ -------------------------------------------------
 public:
 
-	// ƒf[ƒ^ƒƒ“ƒo‚ÌéŒ¾ -----------------------------------------------
+	// ãƒ‡ãƒ¼ã‚¿ãƒ¡ãƒ³ãƒã®å®£è¨€ -----------------------------------------------
 private:
 
-	// ƒGƒCƒŠƒAƒXéŒ¾
+	// ã‚¨ã‚¤ãƒªã‚¢ã‚¹å®£è¨€
 	using StateCache = std::unordered_map<std::type_index, std::unique_ptr<StateBase<Owner>>>;
 
-	std::function<void()> m_changeStateCmd = []() {};		// ƒXƒe[ƒg•ÏX–½—ß
+	std::function<void()> m_changeStateCmd = []() {};		// ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´å‘½ä»¤
 
-	Owner* m_owner = nullptr;								// ƒI[ƒi[
+	Owner* m_owner = nullptr;								// ã‚ªãƒ¼ãƒŠãƒ¼
 
-	StateBase<Owner>* m_currentState = nullptr;				// ¡‚ÌƒXƒe[ƒg
+	StateBase<Owner>* m_currentState = nullptr;				// ä»Šã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	
-	StateCache m_states;									// ƒXƒe[ƒg‚ÌƒLƒƒƒbƒVƒ…
+	StateCache m_states;									// ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 
 
-	// ƒƒ“ƒoŠÖ”‚ÌéŒ¾ -------------------------------------------------
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^/ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ¡ãƒ³ãƒé–¢æ•°ã®å®£è¨€ -------------------------------------------------
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿/ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 public:
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	StateMachine(Owner* owner)
 		: m_owner(owner) 
 	{}
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~StateMachine() = default;
 
-	// ‘€ì
+	// æ“ä½œ
 public:
 
 	/**
-	 * \brief ‰Šú‰».
+	 * \brief åˆæœŸåŒ–.
 	 * 
-	 * \param owner ƒI[ƒi[
+	 * \param owner ã‚ªãƒ¼ãƒŠãƒ¼
 	 */
 	void Initialeze(Owner* owner)
 	{
-		// ƒI[ƒi[‚ÌƒZƒbƒg
+		// ã‚ªãƒ¼ãƒŠãƒ¼ã®ã‚»ãƒƒãƒˆ
 		m_owner = owner;
-		// ƒXƒe[ƒg•ÏX–½—ß‚ÌƒNƒŠƒA
+		// ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´å‘½ä»¤ã®ã‚¯ãƒªã‚¢
 		m_changeStateCmd = []() {};
 
-		// ŠeƒXƒe[ƒg‚ÌƒI[ƒi[‚ÆƒXƒe[ƒgƒ}ƒVƒ“‚ÌƒZƒbƒg
+		// å„ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚ªãƒ¼ãƒŠãƒ¼ã¨ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³ã®ã‚»ãƒƒãƒˆ
 		for (auto& state : m_states)
 		{
 			state.second->SetOwner(owner);
@@ -74,56 +74,56 @@ public:
 	}
 
 	/**
-	 * \brief XV.
+	 * \brief æ›´æ–°.
 	 * 
 	 */
 	void Update()
 	{
-		// ƒXƒe[ƒg•ÏX–½—ß‚ÌÀs
+		// ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´å‘½ä»¤ã®å®Ÿè¡Œ
 		m_changeStateCmd();
-		// ƒXƒe[ƒg•ÏX–½—ß‚ÌƒNƒŠƒA
+		// ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´å‘½ä»¤ã®ã‚¯ãƒªã‚¢
 		m_changeStateCmd = []() {};
 
-		// ƒXƒe[ƒg‚ÌƒAƒbƒvƒf[ƒg
+		// ã‚¹ãƒ†ãƒ¼ãƒˆã®ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 		if (m_currentState != nullptr)
 			m_currentState->CallUpdate();
 	}
 
-	// ƒXƒe[ƒg‚Ì•ÏX
+	// ã‚¹ãƒ†ãƒ¼ãƒˆã®å¤‰æ›´
 	using IStateMachine::ChangeState;
 
-	// ƒXƒe[ƒg‚Ì¶¬
+	// ã‚¹ãƒ†ãƒ¼ãƒˆã®ç”Ÿæˆ
 	template<typename State, typename... Args>
 	requires std::derived_from<State, StateBase<Owner>>
 	void CreateState(Args&&... args)
 	{
-		// ƒCƒeƒŒ[ƒ^‚Ìæ“¾
+		// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®å–å¾—
 		auto it = m_states.find(typeid(State));
 
-		// Šù‚ÉƒRƒ“ƒeƒi‚ÉƒXƒe[ƒg‚ª‘¶İ‚·‚é‚È‚çƒŠƒ^[ƒ“
+		// æ—¢ã«ã‚³ãƒ³ãƒ†ãƒŠã«ã‚¹ãƒ†ãƒ¼ãƒˆãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ãƒªã‚¿ãƒ¼ãƒ³
 		if (it != m_states.end()) return;
 
-		// ƒXƒe[ƒg‚Ì¶¬
+		// ã‚¹ãƒ†ãƒ¼ãƒˆã®ç”Ÿæˆ
 		std::unique_ptr<StateBase<Owner>> state = std::make_unique<State>(std::forward<Args>(args)...);
 
-		// ƒI[ƒi[‚ğİ’è
+		// ã‚ªãƒ¼ãƒŠãƒ¼ã‚’è¨­å®š
 		state->SetOwner(m_owner);
-		// ƒXƒe[ƒgƒ}ƒVƒ“‚ğİ’è
+		// ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³ã‚’è¨­å®š
 		state->SetStateMachine(this);
 
 		m_states.emplace(typeid(State), std::move(state));
 	}
 
-	// æ“¾/İ’è
+	// å–å¾—/è¨­å®š
 public:
 
-	// Œ»İ‚ÌƒXƒe[ƒg‚ÌŒ^î•ñ‚ğæ“¾
+	// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®å‹æƒ…å ±ã‚’å–å¾—
 	std::type_index GetCurrentStateType() override
 	{
 		return typeid(*m_currentState);
 	}
 
-	// ƒXƒe[ƒg‚Ìæ“¾
+	// ã‚¹ãƒ†ãƒ¼ãƒˆã®å–å¾—
 	template<typename State>
 	State* GetState()
 	{
@@ -137,37 +137,37 @@ public:
 
 
 
-	// “à•”À‘•
+	// å†…éƒ¨å®Ÿè£…
 private:
 
-	// ŠÖ”ƒeƒ“ƒvƒŒ[ƒg–³‚µ‚ÅƒXƒe[ƒg‚ğ•ÏX
+	// é–¢æ•°ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆç„¡ã—ã§ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´
 	void ChangeState(std::type_index StateType)
 	{
-		// ƒI[ƒi[‚ª‚¢‚È‚¢‚È‚çƒŠƒ^[ƒ“
+		// ã‚ªãƒ¼ãƒŠãƒ¼ãŒã„ãªã„ãªã‚‰ãƒªã‚¿ãƒ¼ãƒ³
 		if (m_owner == nullptr) return;
 
-		// ƒCƒeƒŒ[ƒ^‚Ìæ“¾
+		// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®å–å¾—
 		auto it = m_states.find(StateType);
 
-		// ƒCƒeƒŒ[ƒ^‚ªI’[‚È‚çƒŠƒ^[ƒ“
+		// ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ãŒçµ‚ç«¯ãªã‚‰ãƒªã‚¿ãƒ¼ãƒ³
 		if (it == m_states.end()) return;
 
-		// •ÏXæ‚ÌƒXƒe[ƒg‚ğæ“¾
+		// å¤‰æ›´å…ˆã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å–å¾—
 		StateBase<Owner>* state = it->second.get();
 
-		// ƒXƒe[ƒg•ÏX–½—ß
+		// ã‚¹ãƒ†ãƒ¼ãƒˆå¤‰æ›´å‘½ä»¤
 		m_changeStateCmd = [this, state]()
 			{
 				if (m_currentState != nullptr)
 				{
-					// Œ»ƒXƒe[ƒg‚ÌI—¹ˆ—
+					// ç¾ã‚¹ãƒ†ãƒ¼ãƒˆã®çµ‚äº†å‡¦ç†
 					m_currentState->CallOnExit();
 				}
 
-				// VƒXƒe[ƒg‚ğƒZƒbƒg
+				// æ–°ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã‚»ãƒƒãƒˆ
 				m_currentState = state;
 
-				// VƒXƒe[ƒg‚ÌŠJnˆ—
+				// æ–°ã‚¹ãƒ†ãƒ¼ãƒˆã®é–‹å§‹å‡¦ç†
 				m_currentState->CallOnEnter();
 			};
 	}

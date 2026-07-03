@@ -29,7 +29,8 @@
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
 
-#include "Game/EditGui/ObjectEditGui.h"
+#include "Game/EditGui/ObjectListGui.h"
+#include "Game/EditGui/ObjectInspectorGui.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -69,7 +70,8 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<ObjectEditGui> m_objectEditGui;                             // オブジェクト編集Gui
+    std::unique_ptr<ObjectListGui> m_objectListGui;                             // オブジェクト編集Gui
+    std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;
 
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト

@@ -255,8 +255,12 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\IObjectEditGui.h" />
-    <ClInclude Include="Game\EditGui\ObjectEditGui.h">
+    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h" />
+    <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\ObjectListGui.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -461,7 +465,8 @@
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
-    <ClCompile Include="Game\EditGui\ObjectEditGui.cpp" />
+    <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp" />
+    <ClCompile Include="Game\EditGui\ObjectListGui.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Object3D.cpp" />

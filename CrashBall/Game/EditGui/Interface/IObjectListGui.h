@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   IObjectEditGui.h
+ * \file   IObjectListGui.h
  * \brief  オブジェクト編集GUIのインターフェース
  *
  * \author 深沢拓矢
@@ -13,7 +13,7 @@ class GameObject;
  /**
   * \brief オブジェクト編集GUIのインターフェース
   */
-class  IObjectEditGui {
+class  IObjectListGui {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -26,10 +26,10 @@ private:
 public:
 
 	// コンストラクタ
-	IObjectEditGui() = default;
+	IObjectListGui() = default;
 
 	// デストラクタ
-	~IObjectEditGui() = default;
+	~IObjectListGui() = default;
 
 	// 操作
 public:

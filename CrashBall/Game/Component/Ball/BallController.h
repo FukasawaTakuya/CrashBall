@@ -21,11 +21,6 @@
  */
 class  BallController : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-private:
-
-	static constexpr float SCALE = 0.025f;
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

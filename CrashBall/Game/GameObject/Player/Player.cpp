@@ -31,7 +31,7 @@ Player::Player(json* data)
 void Player::Initialize()
 {
 	// 初期位置に設定
-	GetComponent<Transform>()->SetPosition((*m_data)["transform"]["position"]);
+	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
 
 	// 移動速度を0にする
 	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);

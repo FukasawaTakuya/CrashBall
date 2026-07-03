@@ -87,7 +87,7 @@ void TargetCamera::Initialize()
 	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up, m_initRotate);
 
 	// 回転の設定
-	m_transform->SetQuaternion(m_initRotate);
+	m_transform->SetRotate(m_initRotate);
 }
 
 /**
@@ -146,7 +146,7 @@ void TargetCamera::RotateY(float angleRad)
  */
 void TargetCamera::TargetingTransform()
 {
-	m_transform->SetPosition(m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate);
+	m_transform->SetWorldPosition(m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate);
 
 	m_isDirty = true;
 }
