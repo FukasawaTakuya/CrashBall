@@ -19,11 +19,6 @@
  */
 class  EnemyHpGaugeController : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	static constexpr float GAUGE_SLIDE_SPEED	= 5.0f;		// ゲージのスライド速度
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

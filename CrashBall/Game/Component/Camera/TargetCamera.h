@@ -20,6 +20,8 @@ class  TargetCamera :
 	public ICamera
 {
 
+	friend class ObjectInspectorGui;
+
 	// パラメータの宣言 -------------------------------------------------
 private:
 
