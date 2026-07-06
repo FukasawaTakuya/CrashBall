@@ -59,6 +59,6 @@ public:
 	// 内部実装
 private:
 
-	//
+	// オブジェクトの表示
 	void DrawObjectGui(GameObject* object);
 };

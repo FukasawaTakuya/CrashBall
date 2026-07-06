@@ -91,6 +91,7 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
 
+    // Jsonのロード
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
     m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
     m_jsonDataManager->LoadFile("stage", "Resources/Data/stage.json");

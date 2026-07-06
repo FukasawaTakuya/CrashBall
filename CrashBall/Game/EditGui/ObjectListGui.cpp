@@ -13,18 +13,15 @@ ObjectListGui::~ObjectListGui()
 
 void ObjectListGui::Update()
 {
-	static int current = 0;
-
 	ImGui::Begin("ObejctList");
 
 	ImGui::BeginChild("ObjectList", ImVec2(0, 0));
 
+    // オブジェクトリストを表示
 	if (m_objects != nullptr)
 	{
 		for (int i = 0; i < m_objects->size(); i++)
 		{
-			bool is_selected = (current == i);
-
 			DrawObjectGui((*m_objects)[i]);
 		}
 	}
@@ -35,16 +32,16 @@ void ObjectListGui::Update()
 }
 
 /**
- * \brief 
+ * \brief オブジェクトの表示
  * 
- * \param object
+ * \param object ゲームオブジェクト
  */
 void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
     ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;
 
-    // 子がいない場合三角を描画しない
+    // 子がいない場合葉ノード描画
     if (object->GetChildren().empty())
     {
         flags |= ImGuiTreeNodeFlags_Leaf;
@@ -80,5 +77,4 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
 
         ImGui::TreePop();
     }
-
 }

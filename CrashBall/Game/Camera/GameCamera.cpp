@@ -27,7 +27,7 @@ GameCamera::GameCamera()
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	AddComponent<TargetCamera>(OFFSET);
+	//AddComponent<TargetCamera>(OFFSET);
 	m_cameraController = AddComponent<GameCameraController>();
 }
 
@@ -121,6 +121,5 @@ void GameCamera::ReloadParam()
 	*GetComponent<Transform>() = (*m_data)["transform"];
 	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
 	*GetComponent<GameCameraController>() = (*m_data)["gameCameraController"];
-
 }
 

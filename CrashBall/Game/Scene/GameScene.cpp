@@ -122,6 +122,7 @@ void GameScene::Update(const GameContext& gameContext)
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
 
+    // TODO::コンスタント時に移行
     gameContext.objectListGui->SetObejcts(&m_objects);
 }
 

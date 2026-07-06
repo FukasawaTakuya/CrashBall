@@ -36,8 +36,7 @@ private:
 
 	mutable DirectX::SimpleMath::Matrix  m_view;	// ビュー行列
 
-	DirectX::SimpleMath::Vector3 m_forwardOffset;	// 前方向に直したオフセット
-	DirectX::SimpleMath::Quaternion m_initRotate;	// 初期化用の回転
+	DirectX::SimpleMath::Quaternion m_offsetRotate;	// オフセット分の回転
 
 	DirectX::SimpleMath::Vector3 m_offset;	// オフセット
 	float m_zoomRate = 1.0f;	// オフセットの拡大倍率
@@ -149,12 +148,7 @@ public:
 		// オフセットからターゲット方向のベクトル
 		DirectX::SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
 		// 初期回転
-		m_initRotate = DirectX::SimpleMath::Quaternion::FromToRotation(
+		m_offsetRotate = DirectX::SimpleMath::Quaternion::FromToRotation(
 			DirectX::SimpleMath::Vector3::Forward, offsetDire);
-
-		// オフセットをForward方向に直す
-		m_forwardOffset = XMVector3Rotate(m_baseOffset, XMQuaternionInverse(m_initRotate));
-
-		Initialize();
 	}
 };

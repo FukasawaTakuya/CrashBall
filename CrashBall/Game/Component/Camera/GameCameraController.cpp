@@ -75,7 +75,6 @@ void GameCameraController::Update()
 	else if (Input::GetKeyDown(Keyboard::Left)) {
 		m_targetCamera->RotateX(-XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
 	}
-
 	// ターゲットを追尾
 	m_targetCamera->TargetingTransform();
 }

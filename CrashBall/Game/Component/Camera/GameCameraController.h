@@ -17,6 +17,8 @@
  */
 class  GameCameraController : public Component {
 
+	friend class ObjectInspectorGui;
+
 	//ƒpƒ‰ƒ[ƒ^‚ÌéŒ¾ -------------------------------------------------
 private:
 

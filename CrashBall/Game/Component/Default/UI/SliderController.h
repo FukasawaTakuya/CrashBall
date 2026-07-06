@@ -61,7 +61,7 @@ public:
 	// –Ú•W’l‚Ìİ’è
 	void SetTargetAmount(float targetAmount)
 	{
-		m_targetAmount = targetAmount;
+		m_targetAmount = std::clamp(targetAmount, 0.0f, 1.0f);
 	}
 
 	// Œ»İ’l‚Ìİ’è

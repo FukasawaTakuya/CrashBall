@@ -19,8 +19,9 @@ using namespace DirectX;
  */
 class  TitleCameraController : public Component
 {
+	friend class ObjectInspectorGui;
 
-	// クラス定数の宣言 -------------------------------------------------
+	// パラメータの宣言 -------------------------------------------------
 private:
 
 	// 1秒間の回転量

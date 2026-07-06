@@ -64,10 +64,8 @@ private:
 	// スライダー浮遊コンポーネントの表示
 	static void DrawSpriteBobbing(Component* comp);
 
-
 	// ターゲットカメラの表示
 	static void DrawTargetCamera(Component* comp);
-
 
 	// プレイヤー操作コンポーネントの表示
 	static void DrawPlayerController(Component* comp);
@@ -77,5 +75,8 @@ private:
 	static void DrawEnemyController(Component* comp);
 	// ステージ操作コンポーネントの表示
 	static void DrawStageController(Component* comp);
-
+	// タイトルカメラ操作コンポーネントの表示
+	static void DrawTitleCameraController(Component* comp);
+	// ゲームカメラ操作コンポーネントの表示
+	static void DrawGameCameraController(Component* comp);
 };

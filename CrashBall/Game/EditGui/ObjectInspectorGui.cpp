@@ -21,6 +21,8 @@
 #include "Game/Component/Player/PlayerStatusController.h"
 #include "Game/Component/Enemy/EnemyController.h"
 #include "Game/Component/Stage/StageController.h"
+#include "Game/Component/Camera/TitleCameraController.h"
+#include "Game/Component/Camera/GameCameraController.h"
 
 using namespace DirectX;
 
@@ -54,7 +56,8 @@ ObjectInspectorGui::ObjectInspectorGui()
 	m_drawInspecter.emplace(typeid(PlayerStatusController), DrawPlayerStateController);
 	m_drawInspecter.emplace(typeid(EnemyController), DrawEnemyController);
 	m_drawInspecter.emplace(typeid(StageController), DrawStageController);
-
+	m_drawInspecter.emplace(typeid(TitleCameraController), DrawTitleCameraController);
+	m_drawInspecter.emplace(typeid(GameCameraController), DrawGameCameraController);
 }
 
 /**
@@ -176,12 +179,9 @@ void ObjectInspectorGui::DrawSpriteRenderer(Component* comp)
 	if (ImGui::TreeNodeEx("SpriteRenderer", flag))
 	{
 		ImGui::InputText("SpriteKey", &spriteRenderer->m_spriteKey);
-
 		ImGui::ColorEdit4("Color", &spriteRenderer->m_color.x);
-
-		ImGui::DragFloat2("SpriteScale", &spriteRenderer->m_spriteScale.x);
-
-		ImGui::DragFloat("LayerDepth", &spriteRenderer->m_layerDepth);
+		ImGui::DragFloat2("SpriteScale", &spriteRenderer->m_spriteScale.x, 0.1f);
+		ImGui::DragFloat("LayerDepth", &spriteRenderer->m_layerDepth, 0.1f);
 
 		int currentFillOrigin = static_cast<int>(spriteRenderer->m_fillOrigin);
 		ImGui::Combo("FillOrigin", &currentFillOrigin, FillOriginName, IM_ARRAYSIZE(FillOriginName));
@@ -213,8 +213,8 @@ void ObjectInspectorGui::DrawTextRenderer(Component* comp)
 		textRenderer->m_text = Utility::ConvertToWideChar(text);
 
 		ImGui::ColorEdit4("Color", &textRenderer->m_color.x);
-		ImGui::DragFloat("FontScale", &textRenderer->m_fontScale);
-		ImGui::DragFloat("LayerDepth", &textRenderer->m_layerDepth);
+		ImGui::DragFloat("FontScale", &textRenderer->m_fontScale, 0.1f);
+		ImGui::DragFloat("LayerDepth", &textRenderer->m_layerDepth, 0.1f);
 
 		ImGui::TreePop();
 	}
@@ -227,7 +227,6 @@ void ObjectInspectorGui::DrawTextRenderer(Component* comp)
  */
 void ObjectInspectorGui::DrawTransform(Component* comp)
 {
-	// トランスフォームにキャスト
 	Transform* transform = static_cast<Transform*>(comp);
 
 	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
@@ -245,7 +244,7 @@ void ObjectInspectorGui::DrawTransform(Component* comp)
 
 		ImGui::DragFloat3("Pposition", &transform->m_localPosition.x);
 		ImGui::DragFloat3("Rotate", &rotate.x);
-		ImGui::DragFloat3("Scale", &transform->m_localScale.x);
+		ImGui::DragFloat3("Scale", &transform->m_localScale.x, 0.1f);
 
 		rotate.x = XMConvertToRadians(rotate.x);
 		rotate.y = XMConvertToRadians(rotate.y);
@@ -264,7 +263,6 @@ void ObjectInspectorGui::DrawTransform(Component* comp)
  */
 void ObjectInspectorGui::DrawRectTransform(Component* comp)
 {
-	// トランスフォームにキャスト
 	RectTransform* rectTransform = static_cast<RectTransform*>(comp);
 
 	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
@@ -277,7 +275,7 @@ void ObjectInspectorGui::DrawRectTransform(Component* comp)
 
 		ImGui::DragFloat3("Position", &rectTransform->m_localPosition.x);
 		ImGui::DragFloat("Rotate", &rotate);
-		ImGui::DragFloat2("Scale", &rectTransform->m_localScale.x);
+		ImGui::DragFloat2("Scale", &rectTransform->m_localScale.x, 0.1f);
 
 		int currentOrigin = static_cast<int>(rectTransform->m_origin);
 
@@ -391,7 +389,6 @@ void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
 
 		ImGui::TreePop();
 	}
-
 }
 
 /**
@@ -410,9 +407,6 @@ void ObjectInspectorGui::DrawTargetCamera(Component* comp)
 	if (ImGui::TreeNodeEx("TargetCamera", flag))
 	{
 		ImGui::DragFloat3("Offset", &targetCamera->m_baseOffset.x);
-
-		// x成分は0.0に固定
-		targetCamera->m_baseOffset.x = 0.0f;
 
 		ImGui::TreePop();
 	}
@@ -454,7 +448,6 @@ void ObjectInspectorGui::DrawPlayerStateController(Component* comp)
 	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
 	ImGui::Separator();
-
 
 	if (ImGui::TreeNodeEx("PlayerStatusController", flag))
 	{
@@ -517,4 +510,48 @@ void ObjectInspectorGui::DrawStageController(Component* comp)
 		ImGui::TreePop();
 	}
 
+}
+
+/**
+ * \brief タイトルカメラ操作コンポーネントの表示
+ * 
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
+{
+	TitleCameraController* titleCameraController 
+		= static_cast<TitleCameraController*>(comp);
+
+	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	ImGui::Separator();
+
+	if (ImGui::TreeNodeEx("TitleCameraController", flag))
+	{
+		ImGui::DragFloat("rotateAngleRad", &titleCameraController->m_rotateAngeleRad);
+
+		ImGui::TreePop();
+	}
+}
+
+/**
+ * \brief ゲームカメラ操作コンポーネントの表示
+ * 
+ * \param comp 基底コンポーネント
+ */
+void ObjectInspectorGui::DrawGameCameraController(Component* comp)
+{
+	GameCameraController* gameCameraController
+		= static_cast<GameCameraController*>(comp);
+
+	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	ImGui::Separator();
+
+	if (ImGui::TreeNodeEx("TitleCameraController", flag))
+	{
+		ImGui::DragFloat("rotateAngleRad", &gameCameraController->m_rotateAngleRad);
+
+		ImGui::TreePop();
+	}
 }
