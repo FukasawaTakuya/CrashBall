@@ -14,6 +14,7 @@
 #include "Game/Color/GameColor.h"
 
 #include "Game/Component/Camera/TargetCamera.h"
+#include "Game/ScriptableObject/GameColors.h"
 
 using namespace DirectX;
 
@@ -119,7 +120,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 	ModelRenderer* playerRenderer = m_player->GetComponent<ModelRenderer>();
 
 	playerRenderer->SetModel(resourceContext.modelManager->GetModel("player"));
-	playerRenderer->SetDiffuseColor(GameColor::PLAYER);
+	playerRenderer->SetDiffuseColor(GameColors::GetValue<XMVECTORF32>("PlayerColor"));
 
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 

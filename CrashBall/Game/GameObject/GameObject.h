@@ -22,8 +22,7 @@
  */
 class GameObject : public IGameObject {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -128,12 +127,6 @@ public:
 		return m_children;
 	}
 
-	// コンポーネントの取得
-	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
-	{
-		return &m_components;
-	}
-
 	// 名前の取得
 	std::string GetName()
 	{
@@ -165,5 +158,11 @@ private:
 			}
 			// イテレータが終端ならnullptrを返す
 			else return nullptr;
+	}
+
+	// コンポーネントの取得
+	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
+	{
+		return &m_components;
 	}
 };

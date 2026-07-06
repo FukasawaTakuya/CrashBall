@@ -31,6 +31,7 @@
 
 #include "Game/EditGui/ObjectListGui.h"
 #include "Game/EditGui/ObjectInspectorGui.h"
+#include "Game/ScriptableObject/GameColors.h"
 
 
 // A basic game implementation that creates a D3D11 device and

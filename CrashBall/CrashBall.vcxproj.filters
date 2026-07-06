@@ -71,9 +71,6 @@
     <Filter Include="Game\GameObject\UIObject">
       <UniqueIdentifier>{0fe180a6-d2e2-415f-b4a8-433f0fc9aa25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Color">
-      <UniqueIdentifier>{e5508e09-70cd-4bc8-a112-2ef8117b9aa3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Component\UI">
       <UniqueIdentifier>{19e466e7-e005-4464-93f8-19524655f69c}</UniqueIdentifier>
     </Filter>
@@ -133,6 +130,12 @@
     </Filter>
     <Filter Include="Game\EditGui">
       <UniqueIdentifier>{a07701c5-119d-4e38-b6b8-17c5245123fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TypeInfo">
+      <UniqueIdentifier>{2f365be4-efd7-4a12-bf05-03333da8b1da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ScriptableObject">
+      <UniqueIdentifier>{97ab906c-5e6c-4b70-af87-aa9aadd45d80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -297,9 +300,6 @@
     <ClInclude Include="Game\GameObject\UIObject\Object2D.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Color\GameColor.h">
-      <Filter>Game\Color</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h">
       <Filter>Game\Component\Default\Physics</Filter>
     </ClInclude>
@@ -432,9 +432,6 @@
     <ClInclude Include="Game\GameObject\UIObject\Button.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Color\MyColor.h">
-      <Filter>Game\Color</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Json\JsonDataManager.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
@@ -509,6 +506,15 @@
     </ClInclude>
     <ClInclude Include="ImGui\imgui_stdlib.h">
       <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\ScriptableObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\ScriptableComponent.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\GameColors.h">
+      <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -761,6 +767,8 @@
     <ClCompile Include="ImGui\imgui_stdlib.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\ScriptableObject.cpp" />
+    <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

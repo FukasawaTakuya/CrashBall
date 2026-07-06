@@ -11,6 +11,7 @@
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 #include "Game/Color/GameColor.h"
+#include "Game/ScriptableObject/GameColors.h"
 
 
 using namespace DirectX;
@@ -165,8 +166,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     enemyRenderer->SetModel(modelManager->GetModel(enemyRenderer->GetModelKey()));
 
     // ディフーズカラーの設定
-    playerRenderer->SetDiffuseColor(GameColor::PLAYER);
-    enemyRenderer->SetDiffuseColor(GameColor::ENEMY);
+    playerRenderer->SetDiffuseColor(GameColors::GetValue<XMVECTORF32>("PlayerColor"));
+    enemyRenderer->SetDiffuseColor(GameColors::GetValue<XMVECTORF32>("EnemyColor"));
 
     // UIのスプライトの設定
     m_gamePanel->SetSprite(resourceContext);

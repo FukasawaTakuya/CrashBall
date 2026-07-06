@@ -8,8 +8,8 @@
 
 #include "pch.h"
 #include "AttackGaugeController.h"
-#include "Game/Color/GameColor.h"
 #include "Game/Engine/Time.h"
+#include "Game/ScriptableObject/GameColors.h"
 
 using namespace DirectX;
 
@@ -71,12 +71,12 @@ void AttackGaugeController::Update()
 	m_attackPowerTextRenderer->SetText(L"Power:{}", m_playerAttackPower);
 
 	// 攻撃可能かどうかに応じて色を変える
-	if (m_playerMeshCount < m_playerAttackCost)
+	if (m_playerMeshCount >= m_playerAttackCost)
 	{
-		m_attackPowerTextRenderer->SetColor(GameColor::ATTACKGAUGE_TRACK);
+		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<XMVECTORF32>("AttackGaugeColor"));
 	}
 	else
 	{
-		m_attackPowerTextRenderer->SetColor(GameColor::ATTACKGAUGE);
+		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<XMVECTORF32>("AttackGaugeTrackColor"));
 	}
 }
