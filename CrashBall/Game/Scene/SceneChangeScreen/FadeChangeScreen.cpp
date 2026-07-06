@@ -26,6 +26,7 @@ FadeChangeScreen::FadeChangeScreen()
 	m_spriteRenderer->SetLayerDepth(1.0f);
 	// 描画位置の設定
 	m_rectTransform->SetLocalPosition({ Screen::CENTER_X, Screen::CENTER_Y });
+	m_rectTransform->SetLocalScale(2.5f);
 }
 
 /**

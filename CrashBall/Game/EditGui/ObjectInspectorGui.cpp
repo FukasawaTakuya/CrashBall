@@ -79,7 +79,7 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 	if (selectedObject != nullptr)
 	{
-		ImGui::BeginChild(selectedObject->GetName().c_str());
+		ImGui::BeginChild(selectedObject->GetName().c_str(), ImVec2(0, 0));
 
 		ImGui::Text(selectedObject->GetName().c_str());
 

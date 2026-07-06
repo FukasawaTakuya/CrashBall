@@ -6,8 +6,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 510.0
+                "x": 960.0,
+                "y": 765.0
             },
             "rotate": 0.0,
             "scale": {
@@ -30,8 +30,8 @@
             "spriteEffects": "None",
             "spriteKey": "AttackIcon",
             "spriteScale": {
-                "x": 0.4000000059604645,
-                "y": 0.4000000059604645
+                "x": 0.6000000238418579,
+                "y": 0.6000000238418579
             }
         }
     },
@@ -41,8 +41,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 510.0
+                "x": 960.0,
+                "y": 765.0
             },
             "rotate": 0.0,
             "scale": {
@@ -62,8 +62,8 @@
             "spriteEffects": "None",
             "spriteKey": "AttackIcon",
             "spriteScale": {
-                "x": 0.4000000059604645,
-                "y": 0.4000000059604645
+                "x": 0.6000000238418579,
+                "y": 0.6000000238418579
             }
         }
     },
@@ -73,21 +73,21 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 550.0
+                "x": 960.0,
+                "y": 825.0
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         },
         "textRenderer": {
             "color": {
                 "a": 1.0,
-                "b": 0.501960813999176,
-                "g": 0.501960813999176,
-                "r": 0.501960813999176
+                "b": 0.0,
+                "g": 1.0,
+                "r": 1.0
             },
             "fontKey": "default",
             "fontScale": 0.3499999940395355,
@@ -101,8 +101,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 60.0
+                "x": 960.0,
+                "y": 90.0
             },
             "rotate": 0.0,
             "scale": {
@@ -125,8 +125,8 @@
             "spriteEffects": "None",
             "spriteKey": "Gauge",
             "spriteScale": {
-                "x": 0.800000011920929,
-                "y": 0.800000011920929
+                "x": 1.2000000476837158,
+                "y": 1.2000000476837158
             }
         }
     },
@@ -136,8 +136,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 60.0
+                "x": 960.0,
+                "y": 90.0
             },
             "rotate": 0.0,
             "scale": {
@@ -157,8 +157,8 @@
             "spriteEffects": "None",
             "spriteKey": "Gauge",
             "spriteScale": {
-                "x": 0.800000011920929,
-                "y": 0.800000011920929
+                "x": 1.2000000476837158,
+                "y": 1.2000000476837158
             }
         }
     },
@@ -168,13 +168,13 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 25.0
+                "x": 960.0,
+                "y": 37.5
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.2000000476837158,
+                "y": 1.2000000476837158
             }
         },
         "textRenderer": {
@@ -196,13 +196,13 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 670.0
+                "x": 960.0,
+                "y": 1005.0
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         },
         "sliderController": {
@@ -231,13 +231,13 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 890.0,
-                "y": 625.0
+                "x": 1335.0,
+                "y": 937.5
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         },
         "textRenderer": {
@@ -250,7 +250,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Enemy:37面"
+            "text": "Enemy:201面"
         }
     },
     "gaugeBackGround": {
@@ -259,8 +259,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 670.0
+                "x": 960.0,
+                "y": 1005.0
             },
             "rotate": 0.0,
             "scale": {
@@ -280,8 +280,8 @@
             "spriteEffects": "None",
             "spriteKey": "Gauge",
             "spriteScale": {
-                "x": 1.100000023841858,
-                "y": 3.5
+                "x": 1.649999976158142,
+                "y": 5.25
             }
         }
     },
@@ -291,8 +291,8 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 670.0
+                "x": 960.0,
+                "y": 1005.0
             },
             "rotate": 0.0,
             "scale": {
@@ -312,8 +312,8 @@
             "spriteEffects": "None",
             "spriteKey": "Gauge",
             "spriteScale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         }
     },
@@ -324,13 +324,13 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 640.0,
-                "y": 670.0
+                "x": 960.0,
+                "y": 1005.0
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         },
         "sliderController": {
@@ -359,13 +359,13 @@
         "rectTransform": {
             "origin": "Center",
             "position": {
-                "x": 390.0,
-                "y": 625.0
+                "x": 585.0,
+                "y": 937.5
             },
             "rotate": 0.0,
             "scale": {
-                "x": 1.0,
-                "y": 1.0
+                "x": 1.5,
+                "y": 1.5
             }
         },
         "textRenderer": {
@@ -378,7 +378,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Player:6面"
+            "text": "Player:29面"
         }
     },
     "rectTransform": {

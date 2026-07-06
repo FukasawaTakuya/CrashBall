@@ -18,12 +18,11 @@ void Screen::CalcScreenRate(bool isFullScreen)
 {
 	if (isFullScreen)
 	{
-		screenRate = FULL_HEIGHT / HEIGHT;
-		
+		screenRate = 1.0f;
 	}
 	else
 	{
-		screenRate = 1.0f;
+		screenRate = HEIGHT / FULL_HEIGHT;
 	}
 }
 
