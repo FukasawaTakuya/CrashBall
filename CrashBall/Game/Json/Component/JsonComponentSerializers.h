@@ -19,6 +19,7 @@
 #include "Game/Component/Default/UI/SpriteBobbing.h"
 #include "Game/Component/Camera/TitleCameraController.h"
 #include "Game/Component/Camera/GameCameraController.h"
+#include "Game/Component/Default/ScriptableComponent.h"
 
 using namespace nlohmann;
 
@@ -54,6 +55,13 @@ void to_json(json& j, const SliderController& sliderController);
 
 // SpriteBobbingから変換
 void to_json(json& j, const SpriteBobbing& spriteBobbing);
+
+// Valueから変換
+void to_json(json& j, const ScriptableComponent::Value& value);
+// Elementから変換
+void to_json(json& j, const ScriptableComponent::Element& element);
+// ScriptableComponentから変換
+void to_json(json& j, const ScriptableComponent& scritableComponent);
 
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController);

@@ -41,7 +41,7 @@ private:
 
 	std::unique_ptr<GameCamera> m_camera;	// カメラ
 
-	std::vector<GameObject*> m_objects;
+	std::vector<GameObject*> m_gameObjects;
 
 	// 読み取り専用のコンポーネントのキャッシュ
 	const EnemyController*			m_enemyController		 = nullptr;

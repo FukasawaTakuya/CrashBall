@@ -139,7 +139,7 @@ void StageController::Render(const RenderContext& renderContext)
 		// 頂点
 		std::vector<DirectX::VertexPositionNormalColor> pos
 		{
-			VertexPositionNormalColor(face->GetPoint()[0], face->GetPlane()->GetNormal(), faceColor),
+			VertexPositionNormalColor(face->GetPoint()[0], face->GetPlane()->GetNormal(), SimpleMath::Color(1, 1, 1, 1)),
 			VertexPositionNormalColor(face->GetPoint()[1], face->GetPlane()->GetNormal(), faceColor),
 			VertexPositionNormalColor(face->GetPoint()[2], face->GetPlane()->GetNormal(), faceColor)
 		};

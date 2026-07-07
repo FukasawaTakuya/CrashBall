@@ -9,7 +9,7 @@ enum class ValueType
 	Float,
 	Vector2,
 	Vector3,
-	Vector4,
+	Color,
 	String,
 };
 
@@ -32,7 +32,9 @@ private:
 		std::string
 		>;
 
-	std::unordered_map<std::string, std::pair<ValueType, Value>> m_values;
+	using Element = std::pair<ValueType, Value>;
+
+	std::unordered_map<std::string, Element> m_values;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -69,5 +71,16 @@ public:
 
 	// 内部実装
 private:
+
+	const std::unordered_map<std::string, Element>& GetValueList() const
+	{
+		return m_values;
+	}
+
+private:
+
+	friend void to_json(json& j, const ScriptableComponent::Value& Value);
+	friend void to_json(json& j, const ScriptableComponent::Element& element);
+	friend void to_json(json& j, const ScriptableComponent& scritableComponent);
 
 };

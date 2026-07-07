@@ -73,7 +73,7 @@ ObjectInspectorGui::~ObjectInspectorGui()
  * 
  * \param selectedObject 選択中のオブジェクト
  */
-void ObjectInspectorGui::Updata(GameObject* selectedObject)
+void ObjectInspectorGui::Updata(const GameObject* selectedObject)
 {
 	ImGui::Begin("Inspecter");
 

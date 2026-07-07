@@ -113,6 +113,10 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
+    
+    m_scriptableObjects.push_back(&GameColors::GetInstance());
+    m_objectListGui->SetScriptableObjects(&m_scriptableObjects);
+
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
@@ -137,8 +141,8 @@ void Game::Initialize(HWND window, int width, int height)
         //  コンテキストの作成
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // キーボードによるナビゲーションの有効化
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // コントローラーによるナビゲーションの有効化
+        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // キーボードによるナビゲーションの有効化
+        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // コントローラーによるナビゲーションの有効化
 
         //  Win32用の初期化
         ImGui_ImplWin32_Init(window);

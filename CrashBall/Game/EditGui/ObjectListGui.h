@@ -20,7 +20,10 @@ class  ObjectListGui : public IObjectListGui {
 private:
 
 	// 表示するオブジェクトリスト
-	std::vector<GameObject*>* m_objects = nullptr;
+	std::vector<GameObject*>* m_gameObjects = nullptr;
+
+	// 表示するスクリプタブルオブジェクトリスト
+	std::vector<const GameObject*>* m_scriptableObjects = nullptr;
 
 	// 選択中のオブジェクト
 	GameObject* m_selectedObject = nullptr;
@@ -51,9 +54,15 @@ public:
 	}
 
 	// オブジェクトリストの設定
-	void SetObejcts(std::vector<GameObject*>* objects) override
+	void SetGameObejcts(std::vector<GameObject*>* objects) override
 	{
-		m_objects = objects;
+		m_gameObjects = objects;
+	}
+
+	// スクリプタブルオブジェクトリストの設定
+	void SetScriptableObjects(std::vector<const GameObject*>* objects) override
+	{
+		m_scriptableObjects = objects;
 	}
 
 	// 内部実装

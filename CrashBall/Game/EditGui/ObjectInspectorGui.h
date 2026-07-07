@@ -30,7 +30,7 @@ public:
 public:
 
 	// 更新
-	void Updata(GameObject* selectedObject);
+	void Updata(const GameObject* selectedObject);
 
 	// 取得/設定
 public:

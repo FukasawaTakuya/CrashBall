@@ -122,13 +122,13 @@ public:
 	using IGameObject::GetComponent;
 
 	// 子オブジェクトの取得
-	const std::vector<GameObject*>& GetChildren()
+	const std::vector<GameObject*>& GetChildren() const
 	{
 		return m_children;
 	}
 
 	// 名前の取得
-	std::string GetName()
+	std::string GetName() const
 	{
 		return m_name;
 	}

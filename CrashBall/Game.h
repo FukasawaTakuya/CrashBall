@@ -74,6 +74,8 @@ private:
     std::unique_ptr<ObjectListGui> m_objectListGui;                             // オブジェクト編集Gui
     std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;
 
+    std::vector<const GameObject*> m_scriptableObjects;
+
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト
     ResourceContext m_resourceContext;  // リソース用のコンテキスト

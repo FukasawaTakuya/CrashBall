@@ -45,11 +45,11 @@ TitleScene::TitleScene(
 				m_pSceneController->RequestChangeScene(SceneID::Game);
 			});
 
-	m_objects.push_back(m_camera.get());
-	m_objects.push_back(m_player.get());
-	m_objects.push_back(m_stage.get());
-	m_objects.push_back(m_titleLogo.get());
-	m_objects.push_back(m_startButton.get());
+	m_gameObjects.push_back(m_camera.get());
+	m_gameObjects.push_back(m_player.get());
+	m_gameObjects.push_back(m_stage.get());
+	m_gameObjects.push_back(m_titleLogo.get());
+	m_gameObjects.push_back(m_startButton.get());
 }
 
 /**
@@ -86,7 +86,7 @@ void TitleScene::Update(const GameContext& gameContext)
 	m_startButton->Update(gameContext);
 	m_titleLogo->Update(gameContext);
 
-	gameContext.objectListGui->SetObejcts(&m_objects);
+	gameContext.objectListGui->SetGameObejcts(&m_gameObjects);
 }
 
 /**

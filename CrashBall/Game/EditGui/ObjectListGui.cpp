@@ -18,13 +18,21 @@ void ObjectListGui::Update()
 	ImGui::BeginChild("ObjectList", ImVec2(0, 0));
 
     // オブジェクトリストを表示
-	if (m_objects != nullptr)
+	if (m_gameObjects != nullptr)
 	{
-		for (int i = 0; i < m_objects->size(); i++)
+		for (auto& object : *m_gameObjects)
 		{
-			DrawObjectGui((*m_objects)[i]);
+			DrawObjectGui(object);
 		}
 	}
+
+    //if (m_scriptableObjects != nullptr)
+    //{
+    //    for (auto& object : *m_scriptableObjects)
+    //    {
+    //        DrawObjectGui(object);
+    //    }
+    //}
 
 	ImGui::EndChild();
 

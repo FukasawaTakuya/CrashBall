@@ -15,7 +15,7 @@
  * @brief 
  */
 template<typename T>
-class  ScriptableObject : private GameObject {
+class  ScriptableObject : public GameObject {
 
 	// データメンバの宣言 -----------------------------------------------
 protected:
@@ -37,7 +37,7 @@ protected:
 	ScriptableObject& operator=(const ScriptableObject&) = delete;
 
 	// デストラクタ
-	~ScriptableObject() = default;
+	virtual ~ScriptableObject() = default;
 
 public:
 

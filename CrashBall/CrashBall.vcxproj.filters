@@ -767,8 +767,12 @@
     <ClCompile Include="ImGui\imgui_stdlib.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\ScriptableObject.cpp" />
-    <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp" />
+    <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\ScriptableObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

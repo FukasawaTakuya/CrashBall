@@ -100,6 +100,11 @@ void from_json(const json& j, SpriteBobbing& spriteBobbing)
 	j.at("initPos").get_to(spriteBobbing.m_initPos);
 }
 
+// ScriptableComponentへ変換
+void from_json(const json& j, ScriptableComponent& scriptable)
+{
+}
+
 // PlayerControllerへ変換
 void from_json(const json& j, PlayerController& playerController)
 {
@@ -146,5 +151,4 @@ void from_json(const json& j, TitleCameraController& titleCameraController)
 void from_json(const json& j, GameCameraController& gameCameraController)
 {
 	j.at("rotateAngleRad").get_to(gameCameraController.m_rotateAngleRad);
-
 }

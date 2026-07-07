@@ -115,6 +115,32 @@ void to_json(json& j, const SpriteBobbing& spriteBobbing)
 	};
 }
 
+void to_json(json& j, const ScriptableComponent::Value& value)
+{
+}
+
+void to_json(json& j, const ScriptableComponent::Element& element)
+{
+	j["type"] = element.first;
+	switch (element.first)
+	{
+	case ValueType::Float:
+		j["value"] = std::get<float>(element.second);
+		break;
+	default:
+		break;
+	}
+}
+
+// ScriptableComponentから変換
+void to_json(json& j, const ScriptableComponent& scritableComponent)
+{
+	for (auto& value : scritableComponent.GetValueList())
+	{
+		j["value"].push_back(value);
+	}
+}
+
 // PlayerControllerから変換
 void to_json(json& j, const PlayerController& playerController)
 {

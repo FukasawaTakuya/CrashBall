@@ -54,11 +54,11 @@ GameScene::GameScene(
     m_stageController        = m_stage->GetComponent<StageController>();
     m_playerStatusController = m_player->GetComponent<PlayerStatusController>();
 
-    m_objects.push_back(m_player.get());
-    m_objects.push_back(m_enemy.get());
-    m_objects.push_back(m_stage.get());
-    m_objects.push_back(m_camera.get());
-    m_objects.push_back(m_gamePanel.get());
+    m_gameObjects.push_back(m_player.get());
+    m_gameObjects.push_back(m_enemy.get());
+    m_gameObjects.push_back(m_stage.get());
+    m_gameObjects.push_back(m_camera.get());
+    m_gameObjects.push_back(m_gamePanel.get());
 }
 
 /**
@@ -124,7 +124,7 @@ void GameScene::Update(const GameContext& gameContext)
     }
 
     // TODO::コンスタント時に移行
-    gameContext.objectListGui->SetObejcts(&m_objects);
+    gameContext.objectListGui->SetGameObejcts(&m_gameObjects);
 }
 
 
