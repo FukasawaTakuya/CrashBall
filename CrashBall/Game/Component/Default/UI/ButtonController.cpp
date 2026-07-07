@@ -25,8 +25,6 @@ ButtonController::ButtonController(IGameObject* gameObject)
 	// キャッシュの取得
 	m_rectTransform  = GetGameObject()->GetComponent<RectTransform>();
 	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
-
-	GetGameObject()->GetComponent<TextRenderer>()->SetColor(Colors::Black);
 }
 
 /**

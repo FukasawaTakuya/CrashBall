@@ -65,7 +65,7 @@ void ModelRenderer::Render(IModelRendererManager* rendererManager)
  * 
  * \param color 色
  */
-void ModelRenderer::SetDiffuseColor(const DirectX::XMVECTORF32& color)
+void ModelRenderer::SetDiffuseColor(const DirectX::SimpleMath::Color& color)
 {
 	m_pModel->UpdateEffects(
 		[&](IEffect* effect) {

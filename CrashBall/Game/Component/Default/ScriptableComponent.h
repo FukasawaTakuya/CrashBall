@@ -28,7 +28,7 @@ private:
 		float,
 		DirectX::SimpleMath::Vector2,
 		DirectX::SimpleMath::Vector3,
-		DirectX::XMVECTORF32,
+		DirectX::SimpleMath::Color,
 		std::string
 		>;
 

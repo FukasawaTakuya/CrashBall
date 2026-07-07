@@ -47,7 +47,7 @@ private:
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
-	std::unordered_map<Triangle*, DirectX::XMVECTORF32> m_floorMeshColor;	// 床メッシュの色情報
+	std::unordered_map<Triangle*, DirectX::SimpleMath::Color> m_floorMeshColor;	// 床メッシュの色情報
 
 	int m_playerMeshCount = 0;	// プレイヤーが塗った面の数
 
@@ -127,7 +127,7 @@ public:
 private:
 
 	// 面に色を塗る
-	void PaintFace(Triangle* face, const DirectX::XMVECTORF32& color);
+	void PaintFace(Triangle* face, const DirectX::SimpleMath::Color& color);
 
 	// JsonConverter
 private:

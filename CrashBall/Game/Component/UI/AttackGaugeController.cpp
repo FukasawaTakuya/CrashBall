@@ -73,10 +73,10 @@ void AttackGaugeController::Update()
 	// 攻撃可能かどうかに応じて色を変える
 	if (m_playerMeshCount >= m_playerAttackCost)
 	{
-		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<XMVECTORF32>("AttackGaugeColor"));
+		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<SimpleMath::Color>("AttackGaugeColor"));
 	}
 	else
 	{
-		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<XMVECTORF32>("AttackGaugeTrackColor"));
+		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<SimpleMath::Color>("AttackGaugeTrackColor"));
 	}
 }

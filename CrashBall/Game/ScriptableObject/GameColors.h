@@ -21,11 +21,11 @@ public:
 	GameColors()
 		: ScriptableObject()
 	{
-		m_scriptable->AddValue("PlayerColor",			ValueType::Color, DirectX::Colors::LightSkyBlue);
-		m_scriptable->AddValue("EnemyColor",			ValueType::Color, DirectX::Colors::LightPink);
-		m_scriptable->AddValue("DefaultFaceColor",		ValueType::Color, DirectX::Colors::White);
-		m_scriptable->AddValue("AttackGaugeColor",		ValueType::Color, DirectX::Colors::Yellow);
-		m_scriptable->AddValue("AttackGaugeTrackColor", ValueType::Color, DirectX::Colors::Gray);
+		m_scriptable->AddValue("PlayerColor",			ValueType::Color, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::LightSkyBlue));
+		m_scriptable->AddValue("EnemyColor",			ValueType::Color, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::LightPink));
+		m_scriptable->AddValue("DefaultFaceColor",		ValueType::Color, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::White));
+		m_scriptable->AddValue("AttackGaugeColor",		ValueType::Color, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::Yellow));
+		m_scriptable->AddValue("AttackGaugeTrackColor", ValueType::Color, static_cast<DirectX::SimpleMath::Color>(DirectX::Colors::Gray));
 	};
 
 	// デストラクタ

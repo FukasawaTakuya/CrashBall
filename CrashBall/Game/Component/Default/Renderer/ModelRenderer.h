@@ -76,7 +76,7 @@ public:
 	}
 
 	// ディフーズカラーの設定
-	void SetDiffuseColor(const DirectX::XMVECTORF32& color);
+	void SetDiffuseColor(const DirectX::SimpleMath::Color& color);
 
 	// 内部実装
 private:

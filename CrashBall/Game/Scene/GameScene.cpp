@@ -166,8 +166,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     enemyRenderer->SetModel(modelManager->GetModel(enemyRenderer->GetModelKey()));
 
     // ディフーズカラーの設定
-    playerRenderer->SetDiffuseColor(GameColors::GetValue<XMVECTORF32>("PlayerColor"));
-    enemyRenderer->SetDiffuseColor(GameColors::GetValue<XMVECTORF32>("EnemyColor"));
+    playerRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("PlayerColor"));
+    enemyRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("EnemyColor"));
 
     // UIのスプライトの設定
     m_gamePanel->SetSprite(resourceContext);
