@@ -59,6 +59,8 @@ void from_json(const json& j, SliderController& sliderController);
 // SpriteBobbingへ変換
 void from_json(const json& j, SpriteBobbing& spriteBobbing);
 
+// Elementへ変換
+void from_json(const json& j, ScriptableComponent::Element& element);
 // ScriptableComponentへ変換
 void from_json(const json& j, ScriptableComponent& scriptable);
 

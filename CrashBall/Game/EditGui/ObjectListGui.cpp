@@ -26,13 +26,13 @@ void ObjectListGui::Update()
 		}
 	}
 
-    //if (m_scriptableObjects != nullptr)
-    //{
-    //    for (auto& object : *m_scriptableObjects)
-    //    {
-    //        DrawObjectGui(object);
-    //    }
-    //}
+    if (m_scriptableObjects != nullptr)
+    {
+        for (auto& object : *m_scriptableObjects)
+        {
+            DrawObjectGui(object);
+        }
+    }
 
 	ImGui::EndChild();
 
@@ -44,7 +44,7 @@ void ObjectListGui::Update()
  * 
  * \param object ゲームオブジェクト
  */
-void ObjectListGui::DrawObjectGui(GameObject* object)
+void ObjectListGui::DrawObjectGui(const GameObject* object)
 {
     // 表示詳細フラグ
     ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;

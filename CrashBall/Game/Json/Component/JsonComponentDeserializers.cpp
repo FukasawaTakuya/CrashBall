@@ -100,9 +100,45 @@ void from_json(const json& j, SpriteBobbing& spriteBobbing)
 	j.at("initPos").get_to(spriteBobbing.m_initPos);
 }
 
+// Elementへ変換
+void from_json(const json& j, ScriptableComponent::Element& element)
+{
+	element.first = j["type"];
+	switch (element.first)
+	{
+	case ValueType::Float:
+		element.second = j["value"].get<float>();
+		break;
+	case ValueType::Vector2:
+		element.second = j["value"].get<SimpleMath::Vector2>();
+		break;
+	case ValueType::Vector3:
+		element.second = j["value"].get<SimpleMath::Vector3>();
+		break;
+	case ValueType::Color:
+		element.second = j["value"].get<SimpleMath::Color>();
+		break;
+	case ValueType::String:
+		element.second = j["value"].get<std::string>();
+		break;
+	default:
+		break;
+	}
+}
+
 // ScriptableComponentへ変換
 void from_json(const json& j, ScriptableComponent& scriptable)
 {
+	for (auto& element : j["elements"])
+	{
+		std::string key;
+		ScriptableComponent::Element ele;
+
+		element[0].get_to(key);
+		element[1].get_to(ele);
+
+		scriptable.AddValue(key, ele.first, ele.second);
+	}
 }
 
 // PlayerControllerへ変換

@@ -26,7 +26,7 @@ private:
 	std::vector<const GameObject*>* m_scriptableObjects = nullptr;
 
 	// 選択中のオブジェクト
-	GameObject* m_selectedObject = nullptr;
+	const GameObject* m_selectedObject = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -48,7 +48,7 @@ public:
 public:
 
 	// 選択中のオブジェクトの取得
-	GameObject* GetSelectedObject()
+	const GameObject* GetSelectedObject()
 	{
 		return m_selectedObject;
 	}
@@ -69,5 +69,5 @@ public:
 private:
 
 	// オブジェクトの表示
-	void DrawObjectGui(GameObject* object);
+	void DrawObjectGui(const GameObject* object);
 };

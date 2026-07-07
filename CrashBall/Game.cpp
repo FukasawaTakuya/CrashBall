@@ -100,6 +100,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_jsonDataManager->LoadFile("startButton", "Resources/Data/startButton.json");
     m_jsonDataManager->LoadFile("titleCamera", "Resources/Data/titleCamera.json");
     m_jsonDataManager->LoadFile("gameCamera", "Resources/Data/gameCamera.json");
+    m_jsonDataManager->LoadFile("gameColors", "Resources/Data/gameColors.json");
 
     // 作成するリソースのファイル名を登録
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
@@ -113,7 +114,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
-    
+    GameColors::SetData(m_jsonDataManager->GetJsonData("gameColors"));
+
     m_scriptableObjects.push_back(&GameColors::GetInstance());
     m_objectListGui->SetScriptableObjects(&m_scriptableObjects);
 
@@ -207,6 +209,7 @@ void Game::Update(DX::StepTimer const& timer)
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))
     {
+        GameColors::SaveParam();
         m_sceneManager->SaveParam();
         m_jsonDataManager->SaveFile();
     }
@@ -214,6 +217,7 @@ void Game::Update(DX::StepTimer const& timer)
     if(m_inputSystem->GetKeyTrigger(Keyboard::I))
     {
         m_jsonDataManager->ReloadFile();
+        GameColors::ReloadParam();
         m_sceneManager->ReloadParam();
     }
 }

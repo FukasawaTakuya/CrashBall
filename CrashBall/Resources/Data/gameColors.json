@@ -1,0 +1,68 @@
+{
+    "ObjectTag": "Default",
+    "name": "object",
+    "scriptable": {
+        "elements": [
+            [
+                "AttackGaugeColor",
+                {
+                    "type": "Color",
+                    "value": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 1.0,
+                        "r": 1.0
+                    }
+                }
+            ],
+            [
+                "PlayerColor",
+                {
+                    "type": "Color",
+                    "value": {
+                        "a": 1.0,
+                        "b": 0.9803922176361084,
+                        "g": 0.8078432083129883,
+                        "r": 0.529411792755127
+                    }
+                }
+            ],
+            [
+                "EnemyColor",
+                {
+                    "type": "Color",
+                    "value": {
+                        "a": 1.0,
+                        "b": 0.7568628191947937,
+                        "g": 0.7137255072593689,
+                        "r": 1.0
+                    }
+                }
+            ],
+            [
+                "AttackGaugeTrackColor",
+                {
+                    "type": "Color",
+                    "value": {
+                        "a": 1.0,
+                        "b": 0.501960813999176,
+                        "g": 0.501960813999176,
+                        "r": 0.501960813999176
+                    }
+                }
+            ],
+            [
+                "DefaultFaceColor",
+                {
+                    "type": "Color",
+                    "value": {
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
+                    }
+                }
+            ]
+        ]
+    }
+}

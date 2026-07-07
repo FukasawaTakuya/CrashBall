@@ -40,6 +40,9 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	// デフォルトコンストラクタ
+	ScriptableComponent() = default;
+
 	// コンストラクタ
 	ScriptableComponent(IGameObject* gameObject);
 
@@ -66,11 +69,11 @@ public:
 		{
 			return m_values[key].second;
 		}
-		else Value();
+		else Value{};
 	}
 
 	// 内部実装
-private:
+public:
 
 	const std::unordered_map<std::string, Element>& GetValueList() const
 	{
@@ -79,8 +82,18 @@ private:
 
 private:
 
-	friend void to_json(json& j, const ScriptableComponent::Value& Value);
 	friend void to_json(json& j, const ScriptableComponent::Element& element);
 	friend void to_json(json& j, const ScriptableComponent& scritableComponent);
 
+	friend void from_json(const json& j, ScriptableComponent::Element& element);
+	friend void from_json(const json& j, ScriptableComponent& scriptable);
+
+	// 演算子オーバーロード
+public:
+
+	void operator=(const ScriptableComponent& other)
+	{
+		m_values.clear();
+		m_values = other.m_values;
+	}
 };

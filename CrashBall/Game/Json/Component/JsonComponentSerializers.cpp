@@ -115,10 +115,7 @@ void to_json(json& j, const SpriteBobbing& spriteBobbing)
 	};
 }
 
-void to_json(json& j, const ScriptableComponent::Value& value)
-{
-}
-
+// Elementからの変換
 void to_json(json& j, const ScriptableComponent::Element& element)
 {
 	j["type"] = element.first;
@@ -126,6 +123,18 @@ void to_json(json& j, const ScriptableComponent::Element& element)
 	{
 	case ValueType::Float:
 		j["value"] = std::get<float>(element.second);
+		break;
+	case ValueType::Vector2:
+		j["value"] = std::get<SimpleMath::Vector2>(element.second);
+		break;
+	case ValueType::Vector3:
+		j["value"] = std::get<SimpleMath::Vector3>(element.second);
+		break;
+	case ValueType::Color:
+		j["value"] = std::get<SimpleMath::Color>(element.second);
+		break;
+	case ValueType::String:
+		j["value"] = std::get<std::string>(element.second);
 		break;
 	default:
 		break;
@@ -135,9 +144,9 @@ void to_json(json& j, const ScriptableComponent::Element& element)
 // ScriptableComponentから変換
 void to_json(json& j, const ScriptableComponent& scritableComponent)
 {
-	for (auto& value : scritableComponent.GetValueList())
+	for (auto& it : scritableComponent.GetValueList())
 	{
-		j["value"].push_back(value);
+		j["elements"].push_back(it);
 	}
 }
 
