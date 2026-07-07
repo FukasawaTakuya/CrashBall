@@ -114,9 +114,11 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
 
+    // ScriptableObjectにデータを設定
     GameColors::SetData(m_jsonDataManager->GetJsonData("gameColors"));
-
+    // ScriptableObjectリスト
     m_scriptableObjects.push_back(&GameColors::GetInstance());
+    // GUIに渡す
     m_objectListGui->SetScriptableObjects(&m_scriptableObjects);
 
     // サウンドの作成

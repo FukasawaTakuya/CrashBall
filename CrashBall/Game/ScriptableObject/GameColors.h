@@ -42,6 +42,7 @@ public:
 	{
 		auto& instance = CreateInstance();
 		instance.GameObject::SaveInitParam();
+		(*instance.m_data)["scriptable"] = *instance.m_scriptable;
 	}
 
 	// データの再読み込み
@@ -49,7 +50,6 @@ public:
 	{
 		auto& instance = CreateInstance();
 		instance.GameObject::ReloadParam();
-
 		*instance.m_scriptable = (*instance.m_data)["scriptable"];
 	}
 

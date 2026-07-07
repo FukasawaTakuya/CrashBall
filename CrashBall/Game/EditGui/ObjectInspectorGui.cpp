@@ -17,6 +17,8 @@
 #include "Game/Component/Default/UI/ButtonController.h"
 #include "Game/Component/Default/UI/SpriteBobbing.h"
 #include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Default/ScriptableComponent.h"
+
 #include "Game/Component/Player/PlayerController.h"
 #include "Game/Component/Player/PlayerStatusController.h"
 #include "Game/Component/Enemy/EnemyController.h"
@@ -50,6 +52,9 @@ ObjectInspectorGui::ObjectInspectorGui()
 	m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
 	// Camera
 	m_drawInspecter.emplace(typeid(TargetCamera), DrawTargetCamera);
+
+	// Scriptable
+	m_drawInspecter.emplace(typeid(ScriptableComponent), DrawScriptableComponent);
 
 	// Others
 	m_drawInspecter.emplace(typeid(PlayerController), DrawPlayerController);
@@ -410,6 +415,50 @@ void ObjectInspectorGui::DrawTargetCamera(Component* comp)
 
 		ImGui::TreePop();
 	}
+}
+
+/**
+ * \brief 
+ * 
+ * \param comp
+ */
+void ObjectInspectorGui::DrawScriptableComponent(Component* comp)
+{
+	ScriptableComponent* scriptable = static_cast<ScriptableComponent*>(comp);
+
+	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+	ImGui::Separator();
+
+	if (ImGui::TreeNodeEx("Scriptable", flag))
+	{
+		for (auto& value : scriptable->GetValueList())
+		{
+			switch (value.second.first)
+			{
+			case ValueType::Float:
+				ImGui::DragFloat(value.first.c_str(), &std::get<float>(value.second.second));
+				break;
+			case ValueType::Vector2:
+				ImGui::DragFloat2(value.first.c_str(), &std::get<SimpleMath::Vector2>(value.second.second).x);
+				break;
+			case ValueType::Vector3:
+				ImGui::DragFloat3(value.first.c_str(), &std::get<SimpleMath::Vector3>(value.second.second).x);
+				break;
+			case ValueType::Color:
+				ImGui::ColorEdit4(value.first.c_str(), &std::get<SimpleMath::Color>(value.second.second).x);
+				break;
+			case ValueType::String:
+				ImGui::InputText(value.first.c_str(), &std::get<std::string>(value.second.second));
+				break;
+			default:
+				break;
+			}
+		}
+
+		ImGui::TreePop();
+	}
+
 }
 
 /**

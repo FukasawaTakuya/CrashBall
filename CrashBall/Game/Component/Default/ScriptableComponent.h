@@ -18,8 +18,7 @@ enum class ValueType
  */
 class  ScriptableComponent : public Component {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	friend class ObjectInspectorGui;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -73,7 +72,12 @@ public:
 	}
 
 	// 内部実装
-public:
+private:
+
+	std::unordered_map<std::string, Element>& GetValueList()
+	{
+		return m_values;
+	}
 
 	const std::unordered_map<std::string, Element>& GetValueList() const
 	{

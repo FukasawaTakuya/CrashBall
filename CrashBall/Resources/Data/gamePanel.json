@@ -85,9 +85,9 @@
         "textRenderer": {
             "color": {
                 "a": 1.0,
-                "b": 0.0,
-                "g": 1.0,
-                "r": 1.0
+                "b": 0.501960813999176,
+                "g": 0.501960813999176,
+                "r": 0.501960813999176
             },
             "fontKey": "default",
             "fontScale": 0.3499999940395355,
@@ -250,7 +250,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Enemy:201面"
+            "text": "Enemy:9面"
         }
     },
     "gaugeBackGround": {
@@ -378,7 +378,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Player:29面"
+            "text": "Player:7面"
         }
     },
     "rectTransform": {
