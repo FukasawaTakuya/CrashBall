@@ -169,7 +169,7 @@ void Game::Initialize(HWND window, int width, int height)
 
         io.Fonts->AddFontFromFileTTF(
             "C:/Windows/Fonts/meiryo.ttc",
-            18.0f,
+            20.0f,
             nullptr,
             io.Fonts->GetGlyphRangesJapanese()
         );
@@ -210,15 +210,17 @@ void Game::Update(DX::StepTimer const& timer)
     m_timeManager->SetElapsedTime(elapsedTime);
 
     m_inputSystem->Update();
+    if (m_editGuiManager->GetIsEditMode())
+    {
+        m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
+    }
+
     m_soundPlayer->Update();
 
     m_sceneManager->Update();
 
-    m_objectListGui->SetGameObejcts(m_sceneManager->GetGameObjects());
-
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
-
 
     m_editGuiManager->Update(
         m_sceneManager->GetGameObjects(),

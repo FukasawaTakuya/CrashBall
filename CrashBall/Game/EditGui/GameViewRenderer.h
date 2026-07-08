@@ -12,7 +12,8 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-
+	// 描画領域
+	RECT m_gameViewRect;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -31,6 +32,11 @@ public:
 
 	// 取得/設定
 public:
+
+	RECT GetGameViewRect() const
+	{
+		return m_gameViewRect;
+	}
 
 	// 内部実装
 private:

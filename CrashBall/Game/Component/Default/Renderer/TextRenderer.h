@@ -11,6 +11,7 @@
 #include "..\Component.h"
 #include "Game/Context/RenderContext.h"
 #include "..\Physics\RectTransform.h"
+#include "Game/ResourceManager/Interface/ITextManager.h"
 
 /**
  * @brief テキスト描画コンポーネント
@@ -68,11 +69,11 @@ public:
 	}
 
 	// スプライトフォントの設定
-	void SetSpriteFont(DirectX::SpriteFont* pSpriteFont)
+	void SetSpriteFont(const ITextManager* textManager)
 	{
-		m_pSpriteFont = pSpriteFont;
+		m_pSpriteFont = textManager->GetSpriteFont(m_fontKey);
 
-		// 
+		// テキストサイズを求める
 		CalcTextSize();
 	}
 

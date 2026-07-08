@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "EditGuiManager.h"
+#include "ImGui/imgui_internal.h"
+#include "Game/Common/Screen.h"
 
 EditGuiManager::EditGuiManager()
 {
@@ -19,7 +21,56 @@ void EditGuiManager::Update(
 {
     if (!m_isEditMode) return;
 
-    ImGui::DockSpaceOverViewport();
+    ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+    ImGui::DockBuilderAddNode(
+        dockspaceID,
+        ImGuiDockNodeFlags_DockSpace
+    );
+
+    ImGui::DockBuilderSetNodeSize(
+        dockspaceID,
+        viewport->Size
+    );
+
+    ImGuiID rightR = 0;
+    ImGuiID rightL = 0;
+    ImGuiID mainTop = dockspaceID;
+    ImGuiID mainBottom = 0;
+
+    ImGui::DockBuilderSplitNode(
+            dockspaceID,
+            ImGuiDir_Right,
+            0.35f,
+            &rightL,
+            &mainTop
+        );
+
+       ImGui::DockBuilderSplitNode(
+            rightL,
+            ImGuiDir_Right,
+            0.6f,
+            &rightR,
+            &rightL
+        );
+
+    mainTop = 
+        ImGui::DockBuilderSplitNode(
+            mainTop,
+            ImGuiDir_Up,
+            0.7f,
+            &mainBottom,
+            &mainTop
+        );
+
+    ImGui::DockBuilderDockWindow("Inspector", rightR);
+    ImGui::DockBuilderDockWindow("ObjectList", rightL);
+    ImGui::DockBuilderDockWindow("Scene", mainTop);
+
+    ImGui::DockBuilderFinish(dockspaceID);
+
+    ImGui::DockSpaceOverViewport(dockspaceID);
     m_objectListGui->SetGameObejcts(gameObjects);
     m_objectListGui->SetScriptableObjects(scriptableObjects);
 

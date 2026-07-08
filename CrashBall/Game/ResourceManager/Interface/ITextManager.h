@@ -40,7 +40,7 @@ public:
 	// æ“¾/İ’è
 public:
 
-	virtual DirectX::SpriteFont* GetSpriteFont(const std::string& key) = 0;
+	virtual DirectX::SpriteFont* GetSpriteFont(const std::string& key) const = 0;
 
 	// “à•”À‘•
 private:

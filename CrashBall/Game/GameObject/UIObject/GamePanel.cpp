@@ -218,8 +218,6 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
-	SpriteFont* defaultFont = textManager->GetSpriteFont("default");
-
 	// FloorMeshGauge ==================================================
 
 	m_meshGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
@@ -228,9 +226,9 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	m_playerMeshNumText
-		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
+		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 	m_enemyMeshNumText
-		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
+		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 
 	// AttackGauge ==================================================
 
@@ -238,7 +236,7 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_attackGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	m_attackPowerText
-		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
+		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 
 	// EnemyHpGauge ==================================================
 
@@ -246,5 +244,5 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	m_enemyHpText
-		->GetComponent<TextRenderer>()->SetSpriteFont(defaultFont);
+		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 }

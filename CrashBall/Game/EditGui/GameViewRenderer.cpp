@@ -22,5 +22,14 @@ void GameViewRenderer::Update(ID3D11ShaderResourceView* srv)
         size
     );
 
+    ImVec2 leftTop = ImGui::GetItemRectMin();
+    ImVec2 rightBottom = ImGui::GetItemRectMax();
+
+    m_gameViewRect.left = leftTop.x;
+    m_gameViewRect.top = leftTop.y;
+    m_gameViewRect.right = rightBottom.x;
+    m_gameViewRect.bottom = rightBottom.y;
+
     ImGui::End();
+
 }

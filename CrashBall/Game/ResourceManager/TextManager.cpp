@@ -63,7 +63,7 @@ void TextManager::CreateSpriteFont(ID3D11Device1* device)
  * \param key キー
  * \return スプライトフォント
  */
-DirectX::SpriteFont* TextManager::GetSpriteFont(const std::string& key)
+DirectX::SpriteFont* TextManager::GetSpriteFont(const std::string& key) const
 {
 	auto it = m_spriteFonts.find(key);
 

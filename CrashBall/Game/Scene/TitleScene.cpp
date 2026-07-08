@@ -92,8 +92,6 @@ void TitleScene::Update(const GameContext& gameContext)
 {
 	if (Input::GetKeyTrigger(Keyboard::Space))
 	{
-		//gameContext.soundManager->RegisterPlaySeCommand("se");
-		//gameContext.soundManager->RegisterPlayBgmCommand("test");
 		m_pSceneController->RequestChangeScene(SceneID::Game);
 	}
 
@@ -140,9 +138,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 	m_titleLogo->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_startButton->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
-	m_startButton->GetComponent<TextRenderer>()->SetSpriteFont(
-		resourceContext.textManager->GetSpriteFont("default")
-	);
+	m_startButton->GetComponent<TextRenderer>()->SetSpriteFont(resourceContext.textManager);
 }
 
 /**

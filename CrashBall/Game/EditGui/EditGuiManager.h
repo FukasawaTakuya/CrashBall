@@ -56,6 +56,11 @@ public:
 		return m_isEditMode;
 	}
 
+	RECT GetGameViewRect() const
+	{
+		return m_gameViewRenderer->GetGameViewRect();
+	}
+
 	void SetIsEditMode(bool flag)
 	{
 		m_isEditMode = flag;

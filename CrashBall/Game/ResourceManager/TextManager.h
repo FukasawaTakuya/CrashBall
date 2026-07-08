@@ -49,7 +49,7 @@ public:
 public:
 
 	// スプライトフォントの取得
-	DirectX::SpriteFont* GetSpriteFont(const std::string& key);
+	DirectX::SpriteFont* GetSpriteFont(const std::string& key) const ;
 
 	// 内部実装
 private:

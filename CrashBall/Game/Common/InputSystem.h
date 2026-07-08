@@ -18,6 +18,8 @@ private:
 	std::unique_ptr<DirectX::Mouse::ButtonStateTracker>			m_mouseTracker;			// マウスのトラッカー
 	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>	m_keyboardTracker;		// キーボードのトラッカー
 
+	DirectX::SimpleMath::Vector2 m_mousePos;
+
 		// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -35,6 +37,9 @@ public:
 
 	// 更新
 	void Update();
+
+	// エディタ上の座標をスクリーン座標に直す
+	void EditToScreenPosition(const RECT& EditPos);
 
 public:
 
@@ -118,7 +123,6 @@ public:
 	// マウス座標の取得
 	DirectX::SimpleMath::Vector2 GetMousePos() override
 	{
-		auto mouse = DirectX::Mouse::Get().GetState();
-		return DirectX::SimpleMath::Vector2( static_cast<float>(mouse.x), static_cast<float>(mouse.y) );
+		return m_mousePos;
 	}
 };

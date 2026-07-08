@@ -103,6 +103,9 @@ namespace Input
 	// マウス座標の取得
 	inline DirectX::SimpleMath::Vector2 GetMousePos()
 	{
+		ImVec2 imageMin = ImGui::GetItemRectMin();
+		ImVec2 imageMax = ImGui::GetItemRectMax();
+
 		// 入力システム
 		static IInputService* input = ServiceLocator::Get<IInputService>();
 		// 入力システムが存在すれば結果を返す
