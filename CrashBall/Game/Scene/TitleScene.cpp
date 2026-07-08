@@ -61,6 +61,19 @@ TitleScene::~TitleScene()
 }
 
 /**
+ * \brief 遷移時の処理
+ * 
+ * \param resourceContext リソース用のコンテキスト
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void TitleScene::OnEnter(
+	const ResourceContext& resourceContext, 
+	const GameContext& gameContext)
+{
+	CreateDeviceResources(resourceContext);
+}
+
+/**
  * \brief 初期化
  *
  */
@@ -77,16 +90,16 @@ void TitleScene::Initialize()
  */
 void TitleScene::Update(const GameContext& gameContext)
 {
-	if (Input::GetKeyDown(Keyboard::Space))
+	if (Input::GetKeyTrigger(Keyboard::Space))
 	{
+		//gameContext.soundManager->RegisterPlaySeCommand("se");
+		//gameContext.soundManager->RegisterPlayBgmCommand("test");
 		m_pSceneController->RequestChangeScene(SceneID::Game);
 	}
 
 	m_camera->Update(gameContext);
 	m_startButton->Update(gameContext);
 	m_titleLogo->Update(gameContext);
-
-	gameContext.objectListGui->SetGameObejcts(&m_gameObjects);
 }
 
 /**

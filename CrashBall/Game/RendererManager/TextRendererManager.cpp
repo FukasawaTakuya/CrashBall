@@ -113,7 +113,7 @@ void TextRendererManager::DebugRender(
 		position,
 		DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
 		0.0f,
-		SimpleMath::Vector2::One,
+		SimpleMath::Vector2::One * 1.5f,
 		DirectX::SimpleMath::Vector2::Zero,
 		1.0f,
 		text

@@ -195,7 +195,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOVE:
         if (game)
         {
-            //game->OnWindowMoved();
+            game->OnWindowMoved();
         }
         break;
 

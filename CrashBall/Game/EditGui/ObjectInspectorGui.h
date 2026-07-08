@@ -67,7 +67,7 @@ private:
 	// ターゲットカメラの表示
 	static void DrawTargetCamera(Component* comp);
 
-	// ターゲットカメラの表示
+	// ScriptableObjectの表示
 	static void DrawScriptableComponent(Component* comp);
 
 	// プレイヤー操作コンポーネントの表示

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Game/GameObject/ScriptableObject.h"
+#include "ScriptableObject.h"
 
 /**
  * @brief 

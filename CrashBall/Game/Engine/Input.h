@@ -10,6 +10,7 @@
 
 #include "Game/ServiceLocator/ServiceLocator.h"
 #include "Game/ServiceLocator/IInputService.h"
+#include "ImGui/imgui.h"
 
 namespace Input
 {

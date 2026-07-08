@@ -13,7 +13,7 @@ ObjectListGui::~ObjectListGui()
 
 void ObjectListGui::Update()
 {
-	ImGui::Begin("ObejctList");
+	ImGui::Begin("ObjectList");
 
 	ImGui::BeginChild("ObjectList", ImVec2(0, 0));
 

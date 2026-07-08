@@ -47,7 +47,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
 
     m_jsonDataManager   = std::make_unique<JsonDataManager>();
-    m_sceneManager      = std::make_unique<SceneManager>();
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
@@ -64,14 +63,18 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
+    m_renderTexture             = std::make_unique<RenderTexture>();
+
     m_objectListGui             = std::make_unique<ObjectListGui>();
-    m_objectInspectorGui             = std::make_unique<ObjectInspectorGui>();
+    m_objectInspectorGui        = std::make_unique<ObjectInspectorGui>();
+    m_gameViewRenderer          = std::make_unique<GameViewRenderer>();
+
+    m_editGuiManager            = std::make_unique<EditGuiManager>();
 
     // 各コンテキストの初期化
     m_gameContext =
     {
-        m_soundPlayer.get(),
-        m_objectListGui.get()
+        m_soundPlayer.get()
     };
     m_renderContext =
     {
@@ -86,6 +89,14 @@ void Game::Initialize(HWND window, int width, int height)
         m_spriteManager.get(),
         m_textManager.get()
     };
+
+    m_sceneManager = std::make_unique<SceneManager>(
+        &m_gameContext,
+        &m_renderContext,
+        &m_resourceContext,
+        m_jsonDataManager.get()
+    );
+
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
@@ -113,6 +124,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
+    m_soundManager->RegisterBgmFile("test", L"Resources/Sound/ks043.wav");
+    m_soundManager->RegisterSeFile("se", L"Resources/Sound/Accept.wav");
 
     // ScriptableObjectにデータを設定
     GameColors::SetData(m_jsonDataManager->GetJsonData("gameColors"));
@@ -125,17 +138,16 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
     // シーンの登録
-    m_sceneManager->CreateScene<GameScene>(SceneID::Game, m_jsonDataManager.get());
-    m_sceneManager->CreateScene<TitleScene>(SceneID::Title, m_jsonDataManager.get());
+    m_sceneManager->CreateScene<GameScene>(SceneID::Game);
+    m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
+    // 初期シーンをセット
+    m_sceneManager->SetStartScene();
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
-
-    // 初期シーンをセット
-    m_sceneManager->SetStartScene();
 
     //  ImGuiの初期化処理
     {
@@ -145,8 +157,6 @@ void Game::Initialize(HWND window, int width, int height)
         //  コンテキストの作成
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // キーボードによるナビゲーションの有効化
-        //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // コントローラーによるナビゲーションの有効化
 
         //  Win32用の初期化
         ImGui_ImplWin32_Init(window);
@@ -154,6 +164,8 @@ void Game::Initialize(HWND window, int width, int height)
         ID3D11Device* device = m_deviceResources->GetD3DDevice();
         ID3D11DeviceContext* context = m_deviceResources->GetD3DDeviceContext();
         ImGui_ImplDX11_Init(device, context);
+
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
 
         io.Fonts->AddFontFromFileTTF(
             "C:/Windows/Fonts/meiryo.ttc",
@@ -200,13 +212,19 @@ void Game::Update(DX::StepTimer const& timer)
     m_inputSystem->Update();
     m_soundPlayer->Update();
 
-    m_sceneManager->Update(m_gameContext);
+    m_sceneManager->Update();
+
+    m_objectListGui->SetGameObejcts(m_sceneManager->GetGameObjects());
 
     m_soundPlayer->PlayBgm(m_soundManager.get());
     m_soundPlayer->PlaySe(m_soundManager.get());
 
-    m_objectListGui->Update();
-    m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
+
+    m_editGuiManager->Update(
+        m_sceneManager->GetGameObjects(),
+        &m_scriptableObjects,
+        m_renderTexture->GetRenderTexture()
+    );
 
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))
@@ -222,6 +240,16 @@ void Game::Update(DX::StepTimer const& timer)
         GameColors::ReloadParam();
         m_sceneManager->ReloadParam();
     }
+
+#ifndef NDEBUG
+
+    if (m_inputSystem->GetKeyTrigger(Keyboard::E) &&
+        m_inputSystem->GetKeyDown(Keyboard::LeftShift))
+    {
+        m_editGuiManager->SetIsEditMode(!m_editGuiManager->GetIsEditMode());
+    }
+#endif // !NDEBUG
+
 }
 #pragma endregion
 
@@ -246,7 +274,7 @@ void Game::Render()
     SimpleMath::Matrix view = m_sceneManager->GetCamera()->GetView();
 
     // シーン内での描画命令登録
-    m_sceneManager->Render(m_renderContext);
+    m_sceneManager->Render();
 
 
 #ifndef NDEBUG
@@ -258,6 +286,10 @@ void Game::Render()
     );
 #endif // !NDEBUG
 
+    auto rtv = m_deviceResources->GetRenderTargetView();
+
+    if(m_editGuiManager->GetIsEditMode())
+        m_renderTexture->Begin(context, m_deviceResources->GetDepthStencilView());
 
     // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
@@ -275,14 +307,28 @@ void Game::Render()
     // スプライト関連描画終了
     m_spriteBatch->End();
 
-    m_deviceResources->PIXEndEvent();
+    m_renderTexture->End(
+        context,
+        m_deviceResources->GetDepthStencilView(),
+        m_deviceResources->GetRenderTargetView()
+    );
 
+    m_deviceResources->PIXEndEvent();
     //  ImGuiの描画処理
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
     // Show the new frame.
     m_deviceResources->Present();
+
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        // TODO for OpenGL: restore current GL context.
+    }
 }
 
 // Helper method to clear the back buffers.
@@ -386,12 +432,14 @@ void Game::CreateDeviceDependentResources()
     m_textManager->CreateSpriteFont(device);
     
     // デバイス依存のリソース作成
-    m_sceneManager->CreateDeviceResources(m_resourceContext);
+    m_sceneManager->CreateDeviceResources();
 
     // 描画管理オブジェクトの初期化
     m_primitiveRendererManager->Create(device, context, m_state.get());
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
+
+    m_renderTexture->Create(m_deviceResources.get());
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -403,6 +451,7 @@ void Game::CreateWindowSizeDependentResources()
 
     GetDefaultSize(w, h);
 
+    // 
     Screen::CalcScreenRate(m_deviceResources->IsFullscreen());
 
     // 射影行列の定義
@@ -416,6 +465,8 @@ void Game::CreateWindowSizeDependentResources()
 
     // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources(m_proj);
+
+    m_renderTexture->Create(m_deviceResources.get());
 }
 
 void Game::OnDeviceLost()

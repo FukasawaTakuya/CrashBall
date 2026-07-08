@@ -70,6 +70,19 @@ GameScene::~GameScene()
 }
 
 /**
+ * \brief 遷移時の処理
+ *
+ * \param resourceContext リソース用のコンテキスト
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void GameScene::OnEnter(
+    const ResourceContext& resourceContext, 
+    const GameContext& gameContext)
+{
+    CreateDeviceResources(resourceContext);
+}
+
+/**
  * \brief 初期化
  * 
  * \param projMat 射影行列
@@ -122,9 +135,6 @@ void GameScene::Update(const GameContext& gameContext)
     {
         m_pSceneController->RequestChangeScene(SceneID::Title);
     }
-
-    // TODO::コンスタント時に移行
-    gameContext.objectListGui->SetGameObejcts(&m_gameObjects);
 }
 
 

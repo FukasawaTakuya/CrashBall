@@ -257,6 +257,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\EditGui\EditGuiManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\GameViewRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h" />
     <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
       <SubType>
@@ -278,10 +286,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Object3D.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\ScriptableObject.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -343,6 +347,7 @@
     <ClInclude Include="Game\RendererManager\PrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\SpriteRendererManager.h" />
     <ClInclude Include="Game\RendererManager\TextRendererManager.h" />
+    <ClInclude Include="Game\RenderTexture\RenderTexture.h" />
     <ClInclude Include="Game\ResourceManager\Interface\IModelManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\ISpriteManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\ITextManager.h" />
@@ -379,6 +384,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\ScriptableObject.h" />
     <ClInclude Include="Game\ServiceLocator\IInputService.h" />
     <ClInclude Include="Game\ServiceLocator\ITimeService.h" />
     <ClInclude Include="Game\ServiceLocator\Service.h">
@@ -477,12 +483,13 @@
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
+    <ClCompile Include="Game\EditGui\EditGuiManager.cpp" />
+    <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
     <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp" />
     <ClCompile Include="Game\EditGui\ObjectListGui.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Object3D.cpp" />
-    <ClCompile Include="Game\GameObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\GameObject\Stage.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
     <ClCompile Include="Game\GameObject\Player\Player.cpp" />
@@ -505,6 +512,7 @@
     <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\TextRendererManager.cpp" />
+    <ClCompile Include="Game\RenderTexture\RenderTexture.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
@@ -515,33 +523,42 @@
     <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp" />
     <ClCompile Include="ImGui\imgui.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_demo.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_draw.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_impl_win32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_stdlib.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_tables.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="pch.cpp">

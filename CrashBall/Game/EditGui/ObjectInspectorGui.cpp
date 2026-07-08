@@ -80,7 +80,7 @@ ObjectInspectorGui::~ObjectInspectorGui()
  */
 void ObjectInspectorGui::Updata(const GameObject* selectedObject)
 {
-	ImGui::Begin("Inspecter");
+	ImGui::Begin("Inspector");
 
 	if (selectedObject != nullptr)
 	{
@@ -418,9 +418,9 @@ void ObjectInspectorGui::DrawTargetCamera(Component* comp)
 }
 
 /**
- * \brief 
+ * \brief ScriptableObjectの表示
  * 
- * \param comp
+ * \param comp 基底コンポーネント
  */
 void ObjectInspectorGui::DrawScriptableComponent(Component* comp)
 {

@@ -32,6 +32,9 @@
 #include "Game/EditGui/ObjectListGui.h"
 #include "Game/EditGui/ObjectInspectorGui.h"
 #include "Game/ScriptableObject/GameColors.h"
+#include "Game/RenderTexture/RenderTexture.h"
+#include "Game/EditGui/GameViewRenderer.h"
+#include "Game/EditGui/EditGuiManager.h"
 
 
 // A basic game implementation that creates a D3D11 device and
@@ -71,8 +74,13 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<ObjectListGui> m_objectListGui;                             // オブジェクト編集Gui
+    std::unique_ptr<RenderTexture>              m_renderTexture;
+
+    std::unique_ptr<ObjectListGui>      m_objectListGui;                             // オブジェクト編集Gui
     std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;
+    std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;
+
+    std::unique_ptr<EditGuiManager> m_editGuiManager;
 
     std::vector<const GameObject*> m_scriptableObjects;
 

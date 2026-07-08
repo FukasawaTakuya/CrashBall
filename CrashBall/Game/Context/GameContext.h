@@ -18,5 +18,4 @@ class IObjectListGui;
  */
 struct  GameContext {
 	ISoundPlayer* soundManager = nullptr;	// サウンド再生 
-	IObjectListGui* objectListGui = nullptr;// オブジェクト編集Gui
 };

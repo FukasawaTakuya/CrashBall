@@ -27,6 +27,8 @@ protected:
 
 	ISceneController* m_pSceneController;
 
+	std::vector<GameObject*> m_gameObjects;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -39,6 +41,12 @@ public:
 
 	// 操作
 public:
+
+	// 遷移時の処理
+	virtual void OnEnter(
+		const ResourceContext& resourceContext,
+		const GameContext& gameContext
+		) = 0;
 
 	// 初期化
 	virtual void Initialize() = 0;
@@ -67,6 +75,11 @@ public:
 	// 取得/設定
 public:
 	virtual ICamera* GetCamera() const = 0;
+
+	std::vector<GameObject*>* GetGameObjects()
+	{
+		return &m_gameObjects;
+	}
 
 	// 内部実装
 protected:

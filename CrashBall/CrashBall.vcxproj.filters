@@ -131,11 +131,11 @@
     <Filter Include="Game\EditGui">
       <UniqueIdentifier>{a07701c5-119d-4e38-b6b8-17c5245123fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\TypeInfo">
-      <UniqueIdentifier>{2f365be4-efd7-4a12-bf05-03333da8b1da}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\ScriptableObject">
       <UniqueIdentifier>{97ab906c-5e6c-4b70-af87-aa9aadd45d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RenderTexture">
+      <UniqueIdentifier>{03911a21-519b-4792-a9d8-79e763c9ff8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +471,27 @@
     <ClInclude Include="Game\GameObject\UIObject\TitleLogo.h">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\EditGui\ObjectListGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\ScriptableComponent.h">
+      <Filter>Game\Component\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\GameColors.h">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\ScriptableObject.h">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RenderTexture\RenderTexture.h">
+      <Filter>Game\RenderTexture</Filter>
+    </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
@@ -486,6 +507,9 @@
     <ClInclude Include="ImGui\imgui_internal.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="ImGui\imgui_stdlib.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="ImGui\imstb_rectpack.h">
       <Filter>ImGui</Filter>
     </ClInclude>
@@ -495,26 +519,11 @@
     <ClInclude Include="ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\ObjectListGui.h">
+    <ClInclude Include="Game\EditGui\GameViewRenderer.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h">
+    <ClInclude Include="Game\EditGui\EditGuiManager.h">
       <Filter>Game\EditGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
-      <Filter>Game\EditGui</Filter>
-    </ClInclude>
-    <ClInclude Include="ImGui\imgui_stdlib.h">
-      <Filter>ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\ScriptableObject.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\Default\ScriptableComponent.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ScriptableObject\GameColors.h">
-      <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -737,6 +746,21 @@
     <ClCompile Include="Game\GameObject\UIObject\TitleLogo.cpp">
       <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
+    <ClCompile Include="Game\EditGui\ObjectListGui.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp">
+      <Filter>Game\Component\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RenderTexture\RenderTexture.cpp">
+      <Filter>Game\RenderTexture</Filter>
+    </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
@@ -752,27 +776,17 @@
     <ClCompile Include="ImGui\imgui_impl_win32.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="ImGui\imgui_stdlib.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="ImGui\imgui_tables.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game\EditGui\ObjectListGui.cpp">
-      <Filter>Game\EditGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp">
-      <Filter>Game\EditGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_stdlib.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp">
-      <Filter>Game\Component\Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\ScriptableObject.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
+    <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
+    <ClCompile Include="Game\EditGui\EditGuiManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

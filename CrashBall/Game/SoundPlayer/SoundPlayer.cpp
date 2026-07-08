@@ -60,6 +60,9 @@ void SoundPlayer::PlayBgm(ISoundManager* soundManager)
 	m_currentBgm->SetVolume(m_bgmValume);
 	// ループ再生
 	m_currentBgm->Play(true);
+
+	// コマンドのリセット
+	m_playBgmCommand = "";
 }
 
 /**
@@ -75,9 +78,11 @@ void SoundPlayer::PlaySe(ISoundManager* soundManager)
 
 		if (seSound != nullptr)
 		{
-			seSound->Play(m_seValume, 1.0f, 0.0f);
+			seSound->Play(m_seValume, 0.0f, 0.0f);
 		}
 	}
+	// コマンドのリセット
+	m_playSeCommand.clear();
 }
 
 /**

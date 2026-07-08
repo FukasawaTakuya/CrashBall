@@ -2,9 +2,17 @@
 #include "SceneManager.h"
 #include "Scene.h"
 
-SceneManager::SceneManager()
-	: m_pCurrentScene{ nullptr }
-	, m_pRequestScene{ nullptr }
+SceneManager::SceneManager(
+	const GameContext*		gameContext,
+	const RenderContext*	renderContext,
+	const ResourceContext*	resourceContext,
+	IJsonDataManager* jsonDataManager)
+	: m_gameContext(gameContext)
+	, m_renderContext(renderContext)
+	, m_resourceContext(resourceContext)
+	, m_jsonDataManager(jsonDataManager)
+	, m_pCurrentScene(nullptr)
+	, m_pRequestScene(nullptr)
 	, m_changeScreen(std::make_unique<FadeChangeScreen>())
 {
 }
@@ -36,9 +44,8 @@ void SceneManager::Initialize()
 /**
  * \brief 更新
  * 
- * \param gameContext ゲーム用のコンテキスト
  */
-void SceneManager::Update(const GameContext& gameContext)
+void SceneManager::Update()
 {
 	// 変更リクエストがnullじゃないなら変更
 	if (m_pRequestScene) 
@@ -53,42 +60,35 @@ void SceneManager::Update(const GameContext& gameContext)
 		}
 	}
 
-	m_changeScreen->Update(gameContext);
+	m_changeScreen->Update(*m_gameContext);
 
 	// 更新
 	if (m_pCurrentScene) {
-		m_pCurrentScene->Update(gameContext);
+		m_pCurrentScene->Update(*m_gameContext);
 	}
 }
 
 /**
  * \brief描画
  * 
- * \param renderCotext 描画用のコンテキスト
  */
-void SceneManager::Render(const RenderContext& renderCotext)
+void SceneManager::Render()
 {
-	if (m_pCurrentScene) m_pCurrentScene->Render(renderCotext);
+	if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
 
-	m_changeScreen->Render(renderCotext);
+	m_changeScreen->Render(*m_renderContext);
 }
 
 /**
  * \brief デバイス依存のリソース作成
  * 
- * \param resourceCotext リソース用のコンテキスト
  */
-void SceneManager::CreateDeviceResources(const ResourceContext& resourceCotext)
+void SceneManager::CreateDeviceResources()
 {
-	for (auto& scene : m_scenes)
-	{
-		scene.second->CreateDeviceResources(resourceCotext);
-	}
-
+	if(m_pCurrentScene) m_pCurrentScene->CreateDeviceResources(*m_resourceContext);
 
 	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
-
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(resourceCotext.spriteManager);
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
 }
 
 /**
@@ -156,6 +156,12 @@ void SceneManager::ChangeScene()
 
 	// シーン切り替え
 	m_pCurrentScene = m_pRequestScene;
+
+	// 新シーンの遷移時の処理
+	m_pCurrentScene->OnEnter(
+		*m_resourceContext,
+		*m_gameContext
+	);
 
 	// 新シーンの初期化
 	m_pCurrentScene->Initialize();

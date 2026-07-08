@@ -41,8 +41,6 @@ private:
 
 	std::unique_ptr<GameCamera> m_camera;	// カメラ
 
-	std::vector<GameObject*> m_gameObjects;
-
 	// 読み取り専用のコンポーネントのキャッシュ
 	const EnemyController*			m_enemyController		 = nullptr;
 	const PlayerStatusController*	m_playerStatusController = nullptr;
@@ -62,6 +60,13 @@ public:
 
 	// 操作
 public:
+
+	// 遷移時の処理
+	void OnEnter(
+		const ResourceContext& resourceContext,
+		const GameContext& gameContext
+	) override;
+
 
 	// 初期化
 	void Initialize() override;
@@ -86,7 +91,6 @@ public:
 
 	// パラメータの再読み込み
 	void ReloadParam() override;
-
 
 	// 取得/設定
 public:

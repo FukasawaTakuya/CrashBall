@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "ISceneController.h"
 
 #include "Game/Context/GameContext.h"
@@ -16,76 +16,90 @@ class SceneManager : public ISceneController
 
 private:
 
-	// ƒV[ƒ“‚ÌƒLƒƒƒbƒVƒ…
+	// ã‚·ãƒ¼ãƒ³ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 	std::unordered_map<SceneID, std::unique_ptr<Scene>> m_scenes;
 
-	// Œ»İ‚ÌƒV[ƒ“
+	// ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
 	Scene* m_pCurrentScene;
 
-	// ƒV[ƒ“•ÏXƒŠƒNƒGƒXƒg
+	// ã‚·ãƒ¼ãƒ³å¤‰æ›´ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 	Scene* m_pRequestScene;
 
-	// ƒV[ƒ“‘JˆÚƒXƒNƒŠ[ƒ“
+	// ã‚·ãƒ¼ãƒ³é·ç§»ã‚¹ã‚¯ãƒªãƒ¼ãƒ³
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
+
+	const GameContext* m_gameContext;
+	const RenderContext* m_renderContext;
+	const ResourceContext* m_resourceContext;
+
+	IJsonDataManager* m_jsonDataManager;
 
 public:
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-	SceneManager();
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	SceneManager(
+		const GameContext*		gameContext,
+		const RenderContext*	renderContext,
+		const ResourceContext*	resourceContext,
+		IJsonDataManager* jsonDataManager
+	);
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~SceneManager();
 
-	// ƒV[ƒ“‚Ì“o˜^
+	// ã‚·ãƒ¼ãƒ³ã®ç™»éŒ²
 	template<typename SceneType>
 	requires std::derived_from<SceneType, Scene>
-	void CreateScene(SceneID sceneID, IJsonDataManager* jsonDataManager)
+	void CreateScene(SceneID sceneID)
 	{
-		// ƒV[ƒ“‚Ìì¬
+		// ã‚·ãƒ¼ãƒ³ã®ä½œæˆ
 		std::unique_ptr<SceneType> scene
-			= std::make_unique<SceneType>(this, jsonDataManager);
-		// ƒRƒ“ƒeƒi‚É’Ç‰Á
+			= std::make_unique<SceneType>(this, m_jsonDataManager);
+		// ã‚³ãƒ³ãƒ†ãƒŠã«è¿½åŠ 
 		m_scenes.emplace(sceneID, std::move(scene));
 	}
 
-	// Å‰‚ÌƒV[ƒ“‚ÌƒZƒbƒg
+	// æœ€åˆã®ã‚·ãƒ¼ãƒ³ã®ã‚»ãƒƒãƒˆ
 	void SetStartScene();
 
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	void Initialize();
 
-	// XV
-	void Update(const GameContext& gameCotext);
+	// æ›´æ–°
+	void Update();
 
-	// •`‰æ
-	void Render(const RenderContext& renderCotext);
+	// æç”»
+	void Render();
 
-	// ƒfƒoƒCƒXˆË‘¶‚ÌƒŠƒ\[ƒXì¬
-	void CreateDeviceResources(const ResourceContext& resourceCotext);
+	// ãƒ‡ãƒã‚¤ã‚¹ä¾å­˜ã®ãƒªã‚½ãƒ¼ã‚¹ä½œæˆ
+	void CreateDeviceResources();
 
-	// ƒEƒCƒ“ƒhƒEƒTƒCƒYˆË‘¶‚ÌƒŠƒ\[ƒXì¬
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºä¾å­˜ã®ãƒªã‚½ãƒ¼ã‚¹ä½œæˆ
 	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
 
-	// ƒV[ƒ“•ÏX‚ÌƒŠƒNƒGƒXƒg
+	// ã‚·ãƒ¼ãƒ³å¤‰æ›´ã®ãƒªã‚¯ã‚¨ã‚¹ãƒˆ
 	void RequestChangeScene(SceneID nextSceneID) override;
 
-	// ƒpƒ‰ƒ[ƒ^‚Ì‘‚«‚İ
+	// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
 	void SaveParam();
 
-	// ƒpƒ‰ƒ[ƒ^‚ÌÄ“Ç‚İ‚İ
+	// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®å†èª­ã¿è¾¼ã¿
 	void ReloadParam();
 
 
-	// ƒJƒƒ‰‚Ìæ“¾
+	// ã‚«ãƒ¡ãƒ©ã®å–å¾—
 	ICamera* GetCamera() const
 	{
 		return m_pCurrentScene->GetCamera();
 	}
 
-
+	std::vector<GameObject*>* GetGameObjects()
+	{
+		return m_pCurrentScene->GetGameObjects();
+	}
 
 private:
-	// ƒV[ƒ“•ÏX
+	// ã‚·ãƒ¼ãƒ³å¤‰æ›´
 	void ChangeScene();
 
 };

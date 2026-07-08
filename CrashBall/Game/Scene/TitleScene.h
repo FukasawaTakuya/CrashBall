@@ -31,8 +31,6 @@ private:
 	std::unique_ptr<TitleLogo>	 m_titleLogo;	// タイトルロゴ
 	std::unique_ptr<Button>		 m_startButton;	// スタートボタン
 
-	std::vector<GameObject*> m_gameObjects;
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -47,6 +45,12 @@ public:
 
 	// 操作
 public:
+
+	// 遷移時の処理
+	void OnEnter(
+		const ResourceContext& resourceContext,
+		const GameContext& gameContext
+	) override;
 
 	// 初期化
 	void Initialize() override;
