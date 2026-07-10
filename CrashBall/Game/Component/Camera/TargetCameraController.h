@@ -1,5 +1,5 @@
 ﻿/*****************************************************************//**
- * \file   TargetCamera.h
+ * \file   TargetCameraController.h
  * \brief  ターゲットカメラコンポーネント
  * 
  * \author 深沢拓矢
@@ -15,7 +15,7 @@
 /**
  * @brief ターゲットカメラコンポーネント
  */
-class  TargetCamera : 
+class  TargetCameraController : 
 	public Component,
 	public ICamera
 {
@@ -23,12 +23,12 @@ class  TargetCamera :
 	friend class ObjectInspectorGui;
 
 	// パラメータの宣言 -------------------------------------------------
-private:
+protected:
 
 	DirectX::SimpleMath::Vector3 m_baseOffset;	// 基準のオフセット
 
 	// データメンバの宣言 -----------------------------------------------
-private:
+protected:
 
 	DirectX::SimpleMath::Vector3 m_up;				// 上方向
 	DirectX::SimpleMath::Vector3 m_right;			// 前方向
@@ -53,21 +53,21 @@ private:
 public:
 
 	// デフォルトコンストラクタ
-	TargetCamera() = default;
+	TargetCameraController() = default;
 
 	// コンストラクタ
-	TargetCamera(
+	TargetCameraController(
 		IGameObject* gameObject,
-		const DirectX::SimpleMath::Vector3& offest);
+		const DirectX::SimpleMath::Vector3& offest = DirectX::SimpleMath::Vector3::One);
 
 	// コピーコンストラクタ
-	TargetCamera(
+	TargetCameraController(
 		IGameObject* gameObejct,
-		const TargetCamera& other
+		const TargetCameraController& other
 	);
 
 	// デストラクタ
-	~TargetCamera();
+	~TargetCameraController();
 
 	// 操作
 public:
@@ -135,13 +135,13 @@ private:
 
 	// JsonConverter
 private:
-	friend void from_json(const json& j, TargetCamera& targetCamera);
-	friend void to_json(json& j, const TargetCamera& targetCamera);
+	friend void from_json(const json& j, TargetCameraController& targetCamera);
+	friend void to_json(json& j, const TargetCameraController& targetCamera);
 
 	// 演算子オーバーロード
 public:
 
-	void operator=(const TargetCamera& other)
+	void operator=(const TargetCameraController& other)
 	{
 		m_baseOffset = other.m_baseOffset;
 

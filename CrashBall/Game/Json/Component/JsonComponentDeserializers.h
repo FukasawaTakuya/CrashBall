@@ -11,7 +11,7 @@
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/Collider/Sphere.h"
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/Component/Player/PlayerStatusController.h"
 #include "Game/Component/Player/PlayerController.h"
 #include "Game/Component/Enemy/EnemyController.h"
@@ -51,7 +51,7 @@ void from_json(const json& j, Mesh& mesh);
 void from_json(const json& j, Sphere& sphere);
 
 // TargetCameraへ変換
-void from_json(const json& j, TargetCamera& targetCamera);
+void from_json(const json& j, TargetCameraController& targetCamera);
 
 // SliderControllerへ変換
 void from_json(const json& j, SliderController& sliderController);

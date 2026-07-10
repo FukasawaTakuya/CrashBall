@@ -28,11 +28,13 @@ public:
 	// 操作
 public:
 
+	// 更新
 	void Update(ID3D11ShaderResourceView* srv);
 
 	// 取得/設定
 public:
 
+	// 描画領域の取得
 	RECT GetGameViewRect() const
 	{
 		return m_gameViewRect;

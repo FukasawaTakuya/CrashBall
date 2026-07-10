@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "TitleCamera.h"
 #include "Game/Component/Default/Physics/Transform.h"
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 
 /**
  * \brief コンストラクタ
@@ -19,7 +19,6 @@ TitleCamera::TitleCamera()
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	AddComponent<TargetCamera>(SimpleMath::Vector3(0.0f, 4.0f, 12.0f));
 	m_cameraController = AddComponent<TitleCameraController>();
 }
 
@@ -32,7 +31,6 @@ TitleCamera::TitleCamera(json* data)
 	: GameObject(data)
 {
 	AddComponent<Transform>((*data)["transform"]);
-	AddComponent<TargetCamera>((*data)["targetCamera"].get<TargetCamera>());
 	m_cameraController
 		= AddComponent<TitleCameraController>((*m_data)["titleCameraController"]);
 
@@ -91,7 +89,6 @@ void TitleCamera::SaveParam()
 	GameObject::SaveParam();
 
 	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
 	(*m_data)["titleCameraController"] = *GetComponent<TitleCameraController>();
 }
 
@@ -112,7 +109,5 @@ void TitleCamera::ReloadParam()
 	GameObject::ReloadParam();
 
 	*GetComponent<Transform>() = (*m_data)["transform"];
-	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
 	*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
-
 }

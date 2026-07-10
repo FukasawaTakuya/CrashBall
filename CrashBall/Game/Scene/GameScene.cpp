@@ -35,14 +35,14 @@ GameScene::GameScene(
     // プレイヤーの初期設定
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
     playerController->SetEnemyTransform (m_enemy->GetComponent<Transform>());
-    playerController->SetCamera         (m_camera->GetComponent<TargetCamera>());
+    playerController->SetCamera         (m_camera->GetComponent<GameCameraController>());
     playerController->SetStageInterface (m_stage->GetComponent<StageController>());
 
     // 敵の初期設定
     m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     // ターゲットのトランスフォームの設定
-    m_camera->GetComponent<TargetCamera>()->SetTargetTransform(m_player->GetComponent<Transform>());
+    m_camera->GetComponent<GameCameraController>()->SetTargetTransform(m_player->GetComponent<Transform>());
 
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());

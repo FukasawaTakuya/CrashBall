@@ -65,10 +65,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_renderTexture             = std::make_unique<RenderTexture>();
 
-    m_objectListGui             = std::make_unique<ObjectListGui>();
-    m_objectInspectorGui        = std::make_unique<ObjectInspectorGui>();
-    m_gameViewRenderer          = std::make_unique<GameViewRenderer>();
-
     m_editGuiManager            = std::make_unique<EditGuiManager>();
 
     // 各コンテキストの初期化
@@ -124,6 +120,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
+
     m_soundManager->RegisterBgmFile("test", L"Resources/Sound/ks043.wav");
     m_soundManager->RegisterSeFile("se", L"Resources/Sound/Accept.wav");
 
@@ -131,8 +128,6 @@ void Game::Initialize(HWND window, int width, int height)
     GameColors::SetData(m_jsonDataManager->GetJsonData("gameColors"));
     // ScriptableObjectリスト
     m_scriptableObjects.push_back(&GameColors::GetInstance());
-    // GUIに渡す
-    m_objectListGui->SetScriptableObjects(&m_scriptableObjects);
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());

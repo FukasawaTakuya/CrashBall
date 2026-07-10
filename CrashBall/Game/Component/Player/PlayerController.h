@@ -12,7 +12,7 @@
 
 #include "PlayerStatusController.h"
 #include "Game/State/StateMachine.h"
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/Component/Stage/IPaintConsumer.h"
 #include "Game/Component/Stage/StageController.h"
 
@@ -109,7 +109,7 @@ public:
 	float GetMaxSpeed()			const { return m_maxSpeed; }
 
 	// カメラのポインタのセット
-	void SetCamera(const TargetCamera* pCamera) { m_pCamera = pCamera; }
+	void SetCamera(const TargetCameraController* pCamera) { m_pCamera = pCamera; }
 
 	// 敵のトランスフォームの設定
 	void SetEnemyTransform(Transform* enemyTransform)

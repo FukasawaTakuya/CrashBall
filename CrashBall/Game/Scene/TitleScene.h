@@ -79,7 +79,7 @@ public:
 	// ƒJƒƒ‰‚ÌŽæ“¾
 	ICamera* GetCamera() const override
 	{
-		return m_camera->GetComponent<TargetCamera>();
+		return m_camera->GetComponent<TitleCameraController>();
 	}
 
 

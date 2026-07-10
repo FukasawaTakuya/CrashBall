@@ -12,7 +12,7 @@
 #include "Game/Engine/Time.h"
 
 #include "Game/Component/Default/Physics/Transform.h"
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 
 
 
@@ -27,7 +27,6 @@ GameCamera::GameCamera()
 {
 	// コンポーネントの追加
 	AddComponent<Transform>();
-	//AddComponent<TargetCamera>(OFFSET);
 	m_cameraController = AddComponent<GameCameraController>();
 }
 
@@ -41,7 +40,6 @@ GameCamera::GameCamera(json* data)
 {
 	// コンポーネントの追加
 	AddComponent<Transform>((*m_data)["transform"]);
-	AddComponent<TargetCamera>((*m_data)["targetCamera"].get<TargetCamera>());
 	m_cameraController = AddComponent<GameCameraController>((*m_data)["gameCameraController"]);
 }
 
@@ -98,7 +96,6 @@ void GameCamera::SaveParam()
 	GameObject::SaveParam();
 
 	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["targetCamera"] = *GetComponent<TargetCamera>();
 	(*m_data)["gameCameraController"] = *GetComponent<GameCameraController>();
 }
 
@@ -119,7 +116,6 @@ void GameCamera::ReloadParam()
 	GameObject::ReloadParam();
 
 	*GetComponent<Transform>() = (*m_data)["transform"];
-	*GetComponent<TargetCamera>() = (*m_data)["targetCamera"];
 	*GetComponent<GameCameraController>() = (*m_data)["gameCameraController"];
 }
 

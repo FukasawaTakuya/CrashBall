@@ -20,10 +20,10 @@ using namespace DirectX;
  * \param gameObejct コンポーネントを所有するゲームオブジェクト
  */
 GameCameraController::GameCameraController(IGameObject* gameObejct)
-	: Component(gameObejct)
+	: TargetCameraController(gameObejct)
 {
 	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -35,11 +35,11 @@ GameCameraController::GameCameraController(IGameObject* gameObejct)
 GameCameraController::GameCameraController(
 	IGameObject* gameObject, 
 	const GameCameraController& other)
-	: Component(gameObject)
+	: TargetCameraController(gameObject, other.m_baseOffset)
 	, m_rotateAngleRad(other.m_rotateAngleRad)
 {
 	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -56,7 +56,7 @@ GameCameraController::~GameCameraController()
  */
 void GameCameraController::Initialize()
 {
-	m_targetCamera->Initialize();
+	TargetCameraController::Initialize();
 }
 
 /**
@@ -69,12 +69,29 @@ void GameCameraController::Update()
 
 	// 入力に応じて回転
 	if (Input::GetKeyDown(Keyboard::Right)) {
-		m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
+		RotateX(XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
 
 	}
 	else if (Input::GetKeyDown(Keyboard::Left)) {
-		m_targetCamera->RotateX(-XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
+		RotateX(-XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
 	}
 	// ターゲットを追尾
-	m_targetCamera->TargetingTransform();
+	TargetingTransform();
+}
+
+void GameCameraController::TargetingTransform()
+{
+	SimpleMath::Vector3 position = m_transform->GetWorldPosition();
+	SimpleMath::Vector3 destination = m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate;
+
+	// 前方方向のみ補間
+	SimpleMath::Vector3 posForward = m_forward * m_forward.Dot(position);
+	SimpleMath::Vector3 desForward = m_forward * m_forward.Dot(destination);
+	position = destination - desForward;
+	posForward = SimpleMath::Vector3::Lerp(posForward, desForward, Time::GetElapsedTime() * 7.0f);
+
+	m_transform->SetWorldPosition(position + posForward);
+
+	m_isDirty = true;
+
 }

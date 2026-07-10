@@ -210,7 +210,7 @@
     <ClInclude Include="Game\Component\Ball\BallController.h" />
     <ClInclude Include="Game\Component\Camera\GameCameraController.h" />
     <ClInclude Include="Game\Component\Camera\ICamera.h" />
-    <ClInclude Include="Game\Component\Camera\TargetCamera.h" />
+    <ClInclude Include="Game\Component\Camera\TargetCameraController.h" />
     <ClInclude Include="Game\Component\Camera\TitleCameraController.h">
       <SubType>
       </SubType>
@@ -460,7 +460,7 @@
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\Ball\BallController.cpp" />
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp" />
-    <ClCompile Include="Game\Component\Camera\TargetCamera.cpp" />
+    <ClCompile Include="Game\Component\Camera\TargetCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
@@ -578,7 +578,6 @@
     <Manifest Include="settings.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

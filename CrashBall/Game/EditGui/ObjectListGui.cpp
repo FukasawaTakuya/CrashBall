@@ -1,16 +1,36 @@
+/*****************************************************************//**
+ * \file   ObjectListGui.cpp
+ * \brief  オブジェクト編集GUI
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "ObjectListGui.h"
 
 #include "Game/GameObject/GameObject.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 ObjectListGui::ObjectListGui()
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 ObjectListGui::~ObjectListGui()
 {
 }
 
+/**
+ * \brief 更新
+ * 
+ */
 void ObjectListGui::Update()
 {
 	ImGui::Begin("ObjectList");

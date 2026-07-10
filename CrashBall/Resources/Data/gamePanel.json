@@ -250,7 +250,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Enemy:9面"
+            "text": "Enemy:3面"
         }
     },
     "gaugeBackGround": {
@@ -378,7 +378,7 @@
             "fontKey": "default",
             "fontScale": 0.75,
             "layerDepth": 0.10000000149011612,
-            "text": "Player:7面"
+            "text": "Player:3面"
         }
     },
     "rectTransform": {

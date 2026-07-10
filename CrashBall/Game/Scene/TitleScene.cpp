@@ -13,7 +13,7 @@
 #include "Game/Engine/Time.h"
 #include "Game/Color/GameColor.h"
 
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/ScriptableObject/GameColors.h"
 
 using namespace DirectX;
@@ -34,7 +34,7 @@ TitleScene::TitleScene(
 	, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
 {
 	// ターゲットのセット
-	m_camera->GetComponent<TargetCamera>()->SetTargetTransform(
+	m_camera->GetComponent<TitleCameraController>()->SetTargetTransform(
 		m_player->GetComponent<Transform>()
 	);
 

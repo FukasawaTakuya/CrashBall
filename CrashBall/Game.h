@@ -76,10 +76,6 @@ private:
 
     std::unique_ptr<RenderTexture>              m_renderTexture;
 
-    std::unique_ptr<ObjectListGui>      m_objectListGui;                             // オブジェクト編集Gui
-    std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;
-    std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;
-
     std::unique_ptr<EditGuiManager> m_editGuiManager;
 
     std::vector<const GameObject*> m_scriptableObjects;

@@ -1,8 +1,21 @@
+/*****************************************************************//**
+ * \file   EditGuiManager.h
+ * \brief  エディタGUI管理クラス
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
+
 #include "pch.h"
 #include "EditGuiManager.h"
 #include "ImGui/imgui_internal.h"
 #include "Game/Common/Screen.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 EditGuiManager::EditGuiManager()
 {
     m_objectListGui         = std::make_unique<ObjectListGui>();
@@ -10,16 +23,30 @@ EditGuiManager::EditGuiManager()
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 EditGuiManager::~EditGuiManager()
 {
 }
 
+
+/**
+ * \brief 更新
+ * 
+ * \param gameObjects ゲームオブジェクト
+ * \param scriptableObjects スクリプタブルオブジェクト
+ * \param srv レンダーテクスチャ
+ */
 void EditGuiManager::Update(
     std::vector<GameObject*>* gameObjects, 
     std::vector<const GameObject*>* scriptableObjects, 
     ID3D11ShaderResourceView* srv)
 {
     if (!m_isEditMode) return;
+
+    // -------------------- レイアウトの設定 -------------------- //
 
     ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
     ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -66,14 +93,19 @@ void EditGuiManager::Update(
 
     ImGui::DockBuilderDockWindow("Inspector", rightR);
     ImGui::DockBuilderDockWindow("ObjectList", rightL);
-    ImGui::DockBuilderDockWindow("Scene", mainTop);
+    ImGui::DockBuilderDockWindow("Game", mainTop);
 
     ImGui::DockBuilderFinish(dockspaceID);
 
+    // ------------------------------------------------------ //
+
     ImGui::DockSpaceOverViewport(dockspaceID);
+
+    // 表示オブジェクトの設定
     m_objectListGui->SetGameObejcts(gameObjects);
     m_objectListGui->SetScriptableObjects(scriptableObjects);
 
+    // 更新
     m_objectListGui->Update();
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
     m_gameViewRenderer->Update(srv);

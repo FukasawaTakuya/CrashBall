@@ -1,25 +1,23 @@
 {
     "ObjectTag": "Default",
     "name": "TitleCamera",
-    "targetCamera": {
+    "titleCameraController": {
         "offset": {
             "x": 0.0,
             "y": 4.0,
             "z": 12.0
-        }
-    },
-    "titleCameraController": {
+        },
         "rotateAngleRad": 15.0
     },
     "transform": {
         "position": {
-            "x": -6.376898765563965,
-            "y": 14.999985694885254,
-            "z": 15.165338516235352
+            "x": -5.135926246643066,
+            "y": 14.999872207641602,
+            "z": 15.844950675964355
         },
         "rotate": {
             "x": 0.0,
-            "y": -0.5602625012397766,
+            "y": -0.4422871172428131,
             "z": 0.0
         },
         "scale": {

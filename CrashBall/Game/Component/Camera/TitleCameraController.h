@@ -10,14 +10,14 @@
 
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Camera/ICamera.h"
-#include "TargetCamera.h"
+#include "TargetCameraController.h"
 
 using namespace DirectX;
 
 /**
  * @brief 基底タイトルカメラ操作コンポーネント
  */
-class  TitleCameraController : public Component
+class  TitleCameraController : public TargetCameraController
 {
 	friend class ObjectInspectorGui;
 
@@ -25,13 +25,13 @@ class  TitleCameraController : public Component
 private:
 
 	// 1秒間の回転量
-	float m_rotateAngeleRad;
+	float m_rotateAngeleRad = 0.0f;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// コンポーネントのキャッシュ
-	TargetCamera* m_targetCamera = nullptr;
+	TargetCameraController* m_targetCamera = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -80,5 +80,4 @@ public:
 	{
 		m_rotateAngeleRad = other.m_rotateAngeleRad;
 	}
-
 };

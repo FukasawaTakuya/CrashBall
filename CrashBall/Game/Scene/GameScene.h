@@ -22,12 +22,9 @@
 
 
 /**
- * \brief 基底オブジェクト
+ * \brief ゲームシーンクラス
  */
 class  GameScene : public Scene{
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -36,10 +33,10 @@ private:
 	std::unique_ptr<Player>		m_player;		// プレイヤー
 	std::unique_ptr<Enemy>		m_enemy;		// 敵
 	std::unique_ptr<GamePanel>	m_gamePanel;	// パネル
+	std::unique_ptr<GameCamera> m_camera;		// カメラ
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
-	std::unique_ptr<GameCamera> m_camera;	// カメラ
 
 	// 読み取り専用のコンポーネントのキャッシュ
 	const EnemyController*			m_enemyController		 = nullptr;
@@ -98,7 +95,7 @@ public:
 	// カメラの取得
 	ICamera* GetCamera() const override
 	{
-		return m_camera->GetComponent<TargetCamera>();
+		return m_camera->GetComponent<GameCameraController>();
 	}
 
 

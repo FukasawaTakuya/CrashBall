@@ -1,10 +1,18 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   ObjectInspectorGui.h
+ * \brief  オブジェクトのインスペクター表示
+ * 
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 #include "Game/GameObject/GameObject.h"
 
 /**
- * \brief 基底オブジェクト
+ * \brief オブジェクトのインスペクター表示
  */
 class  ObjectInspectorGui {
 

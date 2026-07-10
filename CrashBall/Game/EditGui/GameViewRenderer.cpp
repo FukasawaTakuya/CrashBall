@@ -3,17 +3,30 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_internal.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 GameViewRenderer::GameViewRenderer()
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 GameViewRenderer::~GameViewRenderer()
 {
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param srv
+ */
 void GameViewRenderer::Update(ID3D11ShaderResourceView* srv)
 {
-    ImGui::Begin("Scene");
+    ImGui::Begin("Game");
 
     ImVec2 size = ImGui::GetContentRegionAvail();
 
@@ -22,6 +35,7 @@ void GameViewRenderer::Update(ID3D11ShaderResourceView* srv)
         size
     );
 
+    // 描画領域
     ImVec2 leftTop = ImGui::GetItemRectMin();
     ImVec2 rightBottom = ImGui::GetItemRectMax();
 

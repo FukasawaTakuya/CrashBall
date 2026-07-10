@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ObjectInspectorGui.cpp
+ * \brief  オブジェクトのインスペクター表示
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "ObjectInspectorGui.h"
 
@@ -16,7 +24,7 @@
 #include "Game/Component/Default/UI/SliderController.h"
 #include "Game/Component/Default/UI/ButtonController.h"
 #include "Game/Component/Default/UI/SpriteBobbing.h"
-#include "Game/Component/Camera/TargetCamera.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
 #include "Game/Component/Player/PlayerController.h"
@@ -51,7 +59,7 @@ ObjectInspectorGui::ObjectInspectorGui()
 	m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
 	m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
 	// Camera
-	m_drawInspecter.emplace(typeid(TargetCamera), DrawTargetCamera);
+	m_drawInspecter.emplace(typeid(TargetCameraController), DrawTargetCamera);
 
 	// Scriptable
 	m_drawInspecter.emplace(typeid(ScriptableComponent), DrawScriptableComponent);
@@ -403,7 +411,7 @@ void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
  */
 void ObjectInspectorGui::DrawTargetCamera(Component* comp)
 {
-	TargetCamera* targetCamera = static_cast<TargetCamera*>(comp);
+	TargetCameraController* targetCamera = static_cast<TargetCameraController*>(comp);
 
 	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 	
@@ -573,6 +581,8 @@ void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
 
 	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
+	DrawTargetCamera(comp);
+
 	ImGui::Separator();
 
 	if (ImGui::TreeNodeEx("TitleCameraController", flag))
@@ -595,9 +605,11 @@ void ObjectInspectorGui::DrawGameCameraController(Component* comp)
 
 	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
+	DrawTargetCamera(comp);
+
 	ImGui::Separator();
 
-	if (ImGui::TreeNodeEx("TitleCameraController", flag))
+	if (ImGui::TreeNodeEx("GameCameraController", flag))
 	{
 		ImGui::DragFloat("rotateAngleRad", &gameCameraController->m_rotateAngleRad);
 

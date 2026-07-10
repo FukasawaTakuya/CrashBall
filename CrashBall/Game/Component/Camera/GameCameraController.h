@@ -10,25 +10,25 @@
 
 #include "Game/Component/Default/Component.h"
 
-#include "TargetCamera.h"
+#include "TargetCameraController.h"
 
 /**
  * @brief ゲームカメラ操作コンポーネント
  */
-class  GameCameraController : public Component {
+class  GameCameraController : public TargetCameraController {
 
 	friend class ObjectInspectorGui;
 
 	//パラメータの宣言 -------------------------------------------------
 private:
 
-	float m_rotateAngleRad;	// 回転角度
+	float m_rotateAngleRad = 0.0f;	// 回転角度
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// ターゲットカメラコンポーネントのキャッシュ
-	TargetCamera* m_targetCamera = nullptr;		
+	TargetCameraController* m_targetCamera = nullptr;		
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -57,6 +57,8 @@ public:
 
 	// 更新
 	void Update();
+
+	void TargetingTransform();
 
 	// 取得/設定
 public:

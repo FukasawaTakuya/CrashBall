@@ -1,14 +1,18 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   RenderTexture.h
+ * \brief  レンダーテキスチャ生成クラス
+ * 
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
+#pragma once
 #include "DeviceResources.h"
 
-
 /**
- * \brief 基底オブジェクト
+ * \brief レンダーテキスチャ生成クラス
  */
 class  RenderTexture {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -32,12 +36,15 @@ public:
 	// 操作
 public:
 
+	// 
 	void Create(DX::DeviceResources* deviceResources);
 
+	// 描画開始
 	void Begin(
 		ID3D11DeviceContext1* context,
 		ID3D11DepthStencilView* dsv);
 
+	// 描画終了
 	void End(
 		ID3D11DeviceContext1* context,
 		ID3D11DepthStencilView* dsv,

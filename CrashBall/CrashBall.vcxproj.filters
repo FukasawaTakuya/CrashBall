@@ -366,7 +366,7 @@
     <ClInclude Include="Game\Component\Camera\ICamera.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Camera\TargetCamera.h">
+    <ClInclude Include="Game\Component\Camera\TargetCameraController.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\RendererManager\ModelRendererManager.h">
@@ -677,7 +677,7 @@
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp">
       <Filter>Game\Component\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Camera\TargetCamera.cpp">
+    <ClCompile Include="Game\Component\Camera\TargetCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp">
@@ -785,8 +785,12 @@
     <ClCompile Include="ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
-    <ClCompile Include="Game\EditGui\EditGuiManager.cpp" />
+    <ClCompile Include="Game\EditGui\EditGuiManager.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EditGui\GameViewRenderer.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -803,6 +807,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

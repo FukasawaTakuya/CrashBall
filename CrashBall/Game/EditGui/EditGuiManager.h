@@ -1,6 +1,6 @@
 ﻿/*****************************************************************//**
  * \file   EditGuiManager.h
- * \brief  編集GUI管理クラス
+ * \brief  エディタGUI管理クラス
  * 
  * \author 深沢拓矢
  * \date   July 2026
@@ -13,7 +13,7 @@
 #include "Game/RenderTexture/RenderTexture.h"
 
 /**
- * \brief 編集GUI管理クラス
+ * \brief エディタGUI管理クラス
  */
 class  EditGuiManager {
 
@@ -23,11 +23,11 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::unique_ptr<ObjectListGui>      m_objectListGui;      // オブジェクト編集Gui
-	std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;
-	std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;
+	std::unique_ptr<ObjectListGui>      m_objectListGui;		// オブジェクトリスト
+	std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;	// インスペクター
+	std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;		// ゲームビュー
 
-	bool m_isEditMode = false;
+	bool m_isEditMode = false;	// エディタモードか
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

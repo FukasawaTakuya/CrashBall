@@ -7,7 +7,7 @@
     "playerController": {
         "acceleration": 35.0,
         "attackDuration": 0.5,
-        "attackSpeed": 40.0,
+        "attackSpeed": 60.0,
         "maxSpeed": 40.0
     },
     "playerStatusController": {
@@ -32,9 +32,9 @@
             "z": 5.0
         },
         "rotate": {
-            "x": 0.8594155311584473,
-            "y": 1.0660786628723145,
-            "z": -1.5064114332199097
+            "x": -1.0276240110397339,
+            "y": 1.777350902557373,
+            "z": 0.7693618535995483
         },
         "scale": {
             "x": 0.029999999329447746,

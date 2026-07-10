@@ -1,11 +1,28 @@
+/*****************************************************************//**
+ * \file   RenderTexture.cpp
+ * \brief  レンダーテキスチャ生成クラス
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "RenderTexture.h"
 #include "Game/Common/Screen.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 RenderTexture::RenderTexture()
 {
 }
 
+/**
+ * \brief 
+ * 
+ * \param deviceResources デバイスリソース
+ */
 void RenderTexture::Create(DX::DeviceResources* deviceResources)
 {
     RECT rc;
@@ -44,6 +61,12 @@ void RenderTexture::Create(DX::DeviceResources* deviceResources)
     );
 }
 
+/**
+ * \brief 描画開始
+ * 
+ * \param context コンテキスト
+ * \param dsv 深度ステンシルビュー
+ */
 void RenderTexture::Begin(
     ID3D11DeviceContext1* context,
     ID3D11DepthStencilView* dsv)
@@ -69,6 +92,13 @@ void RenderTexture::Begin(
     );
 }
 
+/**
+ * \brief 描画終了
+ * 
+ * \param context デバイスコンテキスト
+ * \param dsv 深度ステンシルビュー
+ * \param backRtv バックレンダーターゲット
+ */
 void RenderTexture::End(
     ID3D11DeviceContext1* context,
     ID3D11DepthStencilView* dsv,

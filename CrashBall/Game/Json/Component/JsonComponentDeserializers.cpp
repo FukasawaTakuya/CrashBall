@@ -81,7 +81,7 @@ void from_json(const json& j, Sphere& sphere)
 }
 
 // TargetCameraへ変換
-void from_json(const json& j, TargetCamera& targetCamera)
+void from_json(const json& j, TargetCameraController& targetCamera)
 {
 	j.at("offset").get_to(targetCamera.m_baseOffset);
 }
@@ -181,10 +181,12 @@ void from_json(const json& j, StageController& stageController)
 void from_json(const json& j, TitleCameraController& titleCameraController)
 {
 	j.at("rotateAngleRad").get_to(titleCameraController.m_rotateAngeleRad);
+	j.at("offset").get_to(titleCameraController.m_baseOffset);
 }
 
 // GameCameraControllerへ変換
 void from_json(const json& j, GameCameraController& gameCameraController)
 {
 	j.at("rotateAngleRad").get_to(gameCameraController.m_rotateAngleRad);
+	j.at("offset").get_to(gameCameraController.m_baseOffset);
 }

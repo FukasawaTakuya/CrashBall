@@ -7,7 +7,7 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "TargetCamera.h"
+#include "TargetCameraController.h"
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;
@@ -17,7 +17,7 @@ using namespace DirectX;
  * 
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
-TargetCamera::TargetCamera(
+TargetCameraController::TargetCameraController(
 	IGameObject* gameObject,
 	const DirectX::SimpleMath::Vector3& offset)
 	: Component(gameObject)
@@ -39,9 +39,9 @@ TargetCamera::TargetCamera(
  * \param gameObejct コンポーネントを所有するゲームオブジェクト
  * \param other ターゲットカメラコンポーネント
  */
-TargetCamera::TargetCamera(
+TargetCameraController::TargetCameraController(
 	IGameObject* gameObejct,
-	const TargetCamera& other)
+	const TargetCameraController& other)
 	: Component(gameObejct)
 	, m_baseOffset(other.m_baseOffset)
 {
@@ -59,7 +59,7 @@ TargetCamera::TargetCamera(
  * \brief デストラクタ
  * 
  */
-TargetCamera::~TargetCamera()
+TargetCameraController::~TargetCameraController()
 {
 }
 
@@ -67,7 +67,7 @@ TargetCamera::~TargetCamera()
  * \brief 初期化
  * 
  */
-void TargetCamera::Initialize()
+void TargetCameraController::Initialize()
 {
 	m_zoomRate = 1.0f;
 
@@ -87,7 +87,7 @@ void TargetCamera::Initialize()
  * \brief 更新
  * 
  */
-void TargetCamera::Update()
+void TargetCameraController::Update()
 {
 }
 
@@ -96,7 +96,7 @@ void TargetCamera::Update()
  * 
  * \param angleRad 回転角度
  */
-void TargetCamera::RotateX(float angleRad)
+void TargetCameraController::RotateX(float angleRad)
 {
 	m_transform->Rotate(
 		SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angleRad));
@@ -117,7 +117,7 @@ void TargetCamera::RotateX(float angleRad)
  * 
  * \param angleRad 回転角度
  */
-void TargetCamera::RotateY(float angleRad)
+void TargetCameraController::RotateY(float angleRad)
 {
 	m_transform->Rotate(
 		SimpleMath::Quaternion::CreateFromAxisAngle(m_right, angleRad));
@@ -137,9 +137,11 @@ void TargetCamera::RotateY(float angleRad)
  * \brief トランスフォームを追尾
  * 
  */
-void TargetCamera::TargetingTransform()
+void TargetCameraController::TargetingTransform()
 {
-	m_transform->SetWorldPosition(m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate);
+	SimpleMath::Vector3 position = m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate;
+
+	m_transform->SetWorldPosition(position);
 
 	m_isDirty = true;
 }
@@ -149,7 +151,7 @@ void TargetCamera::TargetingTransform()
  * \brief ビュー行列の更新
  * 
  */
-void TargetCamera::UpdateView() const
+void TargetCameraController::UpdateView() const
 {
 	m_view =
 		SimpleMath::Matrix::CreateLookAt(m_transform->GetWorldPosition(), m_transform->GetWorldPosition() + m_forward, m_up);

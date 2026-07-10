@@ -19,9 +19,9 @@
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 TitleCameraController::TitleCameraController(IGameObject* gameObject)
-	: Component(gameObject)
+	: TargetCameraController(gameObject)
 {
-	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -33,10 +33,10 @@ TitleCameraController::TitleCameraController(IGameObject* gameObject)
 TitleCameraController::TitleCameraController(
 	IGameObject* gameObject, 
 	const TitleCameraController& other)
-	: Component(gameObject)
+	: TargetCameraController(gameObject, other.m_baseOffset)
 	, m_rotateAngeleRad(other.m_rotateAngeleRad)
 {
-	m_targetCamera = GetGameObject()->GetComponent<TargetCamera>();
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -53,7 +53,8 @@ TitleCameraController::~TitleCameraController()
  */
 void TitleCameraController::Initialize()
 {
-	m_targetCamera->Initialize();
+	//m_targetCamera->Initialize();
+	TargetCameraController::Initialize();
 }
 
 /**
@@ -63,9 +64,13 @@ void TitleCameraController::Initialize()
 void TitleCameraController::Update()
 {
 	// 回転
-	m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
+	//m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
 
-	// ターゲットを追尾
-	m_targetCamera->TargetingTransform();
+	//// ターゲットを追尾
+	//m_targetCamera->TargetingTransform();
+
+	RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
+
+	TargetingTransform();
 
 }
