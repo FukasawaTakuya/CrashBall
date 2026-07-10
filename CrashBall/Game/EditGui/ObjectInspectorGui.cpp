@@ -92,7 +92,7 @@ void ObjectInspectorGui::Updata(const GameObject* selectedObject)
 
 	if (selectedObject != nullptr)
 	{
-		ImGui::BeginChild(selectedObject->GetName().c_str(), ImVec2(0, 0));
+		ImGui::BeginChild(selectedObject->GetName().c_str());
 
 		ImGui::Text(selectedObject->GetName().c_str());
 
@@ -101,7 +101,7 @@ void ObjectInspectorGui::Updata(const GameObject* selectedObject)
 			// コンポーネント表示関数テーブルに存在すれば表示
 			if (m_drawInspecter.find(comp.first) != m_drawInspecter.end())
 			{
-				m_drawInspecter[comp.first](comp.second.get());
+				m_drawInspecter[comp.first](comp.second);
 			}
 		}
 

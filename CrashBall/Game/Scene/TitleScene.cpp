@@ -130,7 +130,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
 	ModelRenderer* playerRenderer = m_player->GetComponent<ModelRenderer>();
 
-	playerRenderer->SetModel(resourceContext.modelManager->GetModel("player"));
+	playerRenderer->SetModel(resourceContext.modelManager);
 	playerRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("PlayerColor"));
 
 	ISpriteManager* spriteManager = resourceContext.spriteManager;

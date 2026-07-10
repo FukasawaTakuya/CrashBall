@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "PlayerStatusController.h"
+#include "Game/Component/Default/Collider/Sphere.h"
 
 /**
  * \brief コンストラクタ
@@ -67,7 +68,7 @@ void PlayerStatusController::Update()
 
 		m_attackPower = playerMeshCount - enemyMeshCount;
 
-		// 攻撃力を範囲内に収める
+		// 攻撃力を最低攻撃力以上に収める
 		m_attackPower = std::max(m_attackPower, m_minAttackPower);
 	}
 }

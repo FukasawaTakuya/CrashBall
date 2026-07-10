@@ -68,7 +68,7 @@ public:
 		{
 			return m_values[key].second;
 		}
-		else Value{};
+		else Value;
 	}
 
 	// 内部実装

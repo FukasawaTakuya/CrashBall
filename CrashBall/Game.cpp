@@ -5,6 +5,10 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "ImGui/imgui.h"
+#include "ImGui/imgui_impl_win32.h"
+#include "ImGui/imgui_impl_dx11.h"
+
 #include "Game/Common/Screen.h"
 #include "Game/Scene/GameScene.h"
 #include "Game/ServiceLocator/ServiceLocator.h"
@@ -12,9 +16,6 @@
 #include "Game/ServiceLocator/IInputService.h"
 #include "Game/Scene/TitleScene.h"
 
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_win32.h"
-#include "ImGui/imgui_impl_dx11.h"
 
 extern void ExitGame() noexcept;
 
@@ -162,6 +163,7 @@ void Game::Initialize(HWND window, int width, int height)
 
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
 
+        // フォント設定
         io.Fonts->AddFontFromFileTTF(
             "C:/Windows/Fonts/meiryo.ttc",
             20.0f,
@@ -311,6 +313,7 @@ void Game::Render()
     );
 
     m_deviceResources->PIXEndEvent();
+
     //  ImGuiの描画処理
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

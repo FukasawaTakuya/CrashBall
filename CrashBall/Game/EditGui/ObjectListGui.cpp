@@ -35,7 +35,7 @@ void ObjectListGui::Update()
 {
 	ImGui::Begin("ObjectList");
 
-	ImGui::BeginChild("ObjectList", ImVec2(0, 0));
+	ImGui::BeginChild("ObjectList");
 
     // オブジェクトリストを表示
 	if (m_gameObjects != nullptr)

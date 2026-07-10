@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
+#include "Game/ResourceManager/Interface/IModelManager.h"
 #include "Game/RendererManager/Interface/IModelRendererManager.h"
 
 #include "Game/Component/Default/Physics/Transform.h"
@@ -70,9 +71,9 @@ public:
 	}
 
 	// モデルの設定
-	void SetModel(DirectX::Model* pModel)
+	void SetModel(IModelManager* modelManager)
 	{
-		m_pModel = pModel;
+		m_pModel = modelManager->GetModel(m_modelKey);
 	}
 
 	// ディフーズカラーの設定

@@ -137,6 +137,9 @@
     <Filter Include="Game\RenderTexture">
       <UniqueIdentifier>{03911a21-519b-4792-a9d8-79e763c9ff8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Factory">
+      <UniqueIdentifier>{3f636b08-ec38-4005-8ea5-6b4910680e6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -525,6 +528,12 @@
     <ClInclude Include="Game\EditGui\EditGuiManager.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Factory\GameObjectFactory.h">
+      <Filter>Game\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Factory\ComponentFactory.h">
+      <Filter>Game\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -761,12 +770,6 @@
     <ClCompile Include="Game\RenderTexture\RenderTexture.cpp">
       <Filter>Game\RenderTexture</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="ImGui\imgui_demo.cpp">
-      <Filter>ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="ImGui\imgui_draw.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
@@ -790,6 +793,18 @@
     </ClCompile>
     <ClCompile Include="Game\EditGui\GameViewRenderer.cpp">
       <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Factory\ComponentFactory.cpp">
+      <Filter>Game\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Factory\GameObjectFactory.cpp">
+      <Filter>Game\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ImGui\imgui_demo.cpp">
+      <Filter>ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

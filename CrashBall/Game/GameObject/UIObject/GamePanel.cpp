@@ -148,18 +148,18 @@ void GamePanel::SaveParam()
 
 	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
 
-	m_playerMeshGauge->SetData(&(*m_data)["playerMeshGauge"]);
-	m_enemyMeshGauge->SetData(&(*m_data)["enemyMeshGauge"]);
-	m_playerMeshNumText->SetData(&(*m_data)["playerMeshNumText"]);
-	m_enemyMeshNumText->SetData(&(*m_data)["enemyMeshNumText"]);
-	m_gaugeBackGround->SetData(&(*m_data)["gaugeBackGround"]);
-	m_meshGaugeTrack->SetData(&(*m_data)["meshGaugeTrack"]);
-	m_attackGauge->SetData(&(*m_data)["attackGauge"]);
-	m_attackPowerText->SetData(&(*m_data)["attackPowerText"]);
-	m_attackGaugeTrack->SetData(&(*m_data)["attackGaugeTrack"]);
-	m_enemyHpGauge->SetData(&(*m_data)["enemyHpGauge"]);
-	m_enemyHpGaugeTrack->SetData(&(*m_data)["enemyHpGaugeTrack"]);
-	m_enemyHpText->SetData(&(*m_data)["enemyHpText"]);
+	m_playerMeshGauge		->SetData(&(*m_data)["playerMeshGauge"]);
+	m_enemyMeshGauge		->SetData(&(*m_data)["enemyMeshGauge"]);
+	m_playerMeshNumText		->SetData(&(*m_data)["playerMeshNumText"]);
+	m_enemyMeshNumText		->SetData(&(*m_data)["enemyMeshNumText"]);
+	m_gaugeBackGround		->SetData(&(*m_data)["gaugeBackGround"]);
+	m_meshGaugeTrack		->SetData(&(*m_data)["meshGaugeTrack"]);
+	m_attackGauge			->SetData(&(*m_data)["attackGauge"]);
+	m_attackPowerText		->SetData(&(*m_data)["attackPowerText"]);
+	m_attackGaugeTrack		->SetData(&(*m_data)["attackGaugeTrack"]);
+	m_enemyHpGauge			->SetData(&(*m_data)["enemyHpGauge"]);
+	m_enemyHpGaugeTrack		->SetData(&(*m_data)["enemyHpGaugeTrack"]);
+	m_enemyHpText			->SetData(&(*m_data)["enemyHpText"]);
 
 	m_enemyMeshGauge	->SaveParam();
 	m_playerMeshNumText	->SaveParam();
@@ -193,8 +193,8 @@ void GamePanel::ReloadParam()
 
 	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 
-	m_playerMeshGauge->SetData(&(*m_data)["playerMeshGauge"]);
-	m_enemyMeshGauge->SetData(&(*m_data)["enemyMeshGauge"]);
+	m_playerMeshGauge	->SetData(&(*m_data)["playerMeshGauge"]);
+	m_enemyMeshGauge	->SetData(&(*m_data)["enemyMeshGauge"]);
 	m_playerMeshNumText	->SetData(&(*m_data)["playerMeshNumText"]);
 	m_enemyMeshNumText	->SetData(&(*m_data)["enemyMeshNumText"]);
 	m_gaugeBackGround	->SetData(&(*m_data)["gaugeBackGround"]);
@@ -206,18 +206,18 @@ void GamePanel::ReloadParam()
 	m_enemyHpGaugeTrack	->SetData(&(*m_data)["enemyHpGaugeTrack"]);
 	m_enemyHpText		->SetData(&(*m_data)["enemyHpText"]);
 
-	m_playerMeshGauge->ReloadParam();
-	m_enemyMeshGauge->ReloadParam();
-	m_playerMeshNumText->ReloadParam();
-	m_enemyMeshNumText->ReloadParam();
-	m_gaugeBackGround->ReloadParam();
-	m_meshGaugeTrack->ReloadParam();
-	m_attackGauge->ReloadParam();
-	m_attackPowerText->ReloadParam();
-	m_attackGaugeTrack->ReloadParam();
-	m_enemyHpGauge->ReloadParam();
-	m_enemyHpGaugeTrack->ReloadParam();
-	m_enemyHpText->ReloadParam();
+	m_playerMeshGauge	->ReloadParam();
+	m_enemyMeshGauge	->ReloadParam();
+	m_playerMeshNumText	->ReloadParam();
+	m_enemyMeshNumText	->ReloadParam();
+	m_gaugeBackGround	->ReloadParam();
+	m_meshGaugeTrack	->ReloadParam();
+	m_attackGauge		->ReloadParam();
+	m_attackPowerText	->ReloadParam();
+	m_attackGaugeTrack	->ReloadParam();
+	m_enemyHpGauge		->ReloadParam();
+	m_enemyHpGaugeTrack	->ReloadParam();
+	m_enemyHpText		->ReloadParam();
 }
 
 

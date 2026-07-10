@@ -276,6 +276,11 @@
     </ClInclude>
     <ClInclude Include="Game\Engine\Input.h" />
     <ClInclude Include="Game\Engine\Time.h" />
+    <ClInclude Include="Game\Factory\ComponentFactory.h" />
+    <ClInclude Include="Game\Factory\GameObjectFactory.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\GameObject\Ball.h" />
     <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
       <SubType>
@@ -487,6 +492,8 @@
     <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
     <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp" />
     <ClCompile Include="Game\EditGui\ObjectListGui.cpp" />
+    <ClCompile Include="Game\Factory\ComponentFactory.cpp" />
+    <ClCompile Include="Game\Factory\GameObjectFactory.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />
     <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="Game\GameObject\Object3D.cpp" />

@@ -16,13 +16,13 @@
  */
 class  ObjectInspectorGui {
 
-	using drawInspecterFunc = void(*)(Component*);
+	using DrawInspecterFunc = void(*)(Component*);
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// インスペクター表示関数テーブル
-	std::unordered_map<std::type_index, drawInspecterFunc> m_drawInspecter;
+	std::unordered_map<std::type_index, DrawInspecterFunc> m_drawInspecter;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

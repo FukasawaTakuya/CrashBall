@@ -172,8 +172,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     ModelRenderer* enemyRenderer = m_enemy->GetComponent<ModelRenderer>();
 
     // モデルの設定
-    playerRenderer->SetModel(modelManager->GetModel(playerRenderer->GetModelKey()));
-    enemyRenderer->SetModel(modelManager->GetModel(enemyRenderer->GetModelKey()));
+    playerRenderer->SetModel(modelManager);
+    enemyRenderer->SetModel(modelManager);
 
     // ディフーズカラーの設定
     playerRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("PlayerColor"));

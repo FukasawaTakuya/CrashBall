@@ -3,7 +3,6 @@
 #include "Game/State/Player/PlayerAttackState.h"
 #include "Game/Common/Utility.h"
 
-
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom)
 {
