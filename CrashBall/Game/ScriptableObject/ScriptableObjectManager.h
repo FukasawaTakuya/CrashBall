@@ -20,10 +20,6 @@ class  ScriptableObjectManager : public IScriptableObjectManager
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// ScriptableObjectのコンテナのエイリアス宣言
-	using ScriptableObjectContainer 
-		= std::unordered_map<std::string, std::unique_ptr<ScriptableObject>>;
-
 	// ScriptableObjectのコンテナ
 	ScriptableObjectContainer m_scriptableObjectList;
 

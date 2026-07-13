@@ -27,7 +27,7 @@ private:
 	std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;	// インスペクター
 	std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;		// ゲームビュー
 
-	bool m_isEditMode = false;	// エディタモードか
+	bool m_isActive = false;	// 有効フラグ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -51,9 +51,9 @@ public:
 	// 取得/設定
 public:
 
-	bool GetIsEditMode() const
+	bool GetIsActive() const
 	{
-		return m_isEditMode;
+		return m_isActive;
 	}
 
 	RECT GetGameViewRect() const
@@ -61,9 +61,9 @@ public:
 		return m_gameViewRenderer->GetGameViewRect();
 	}
 
-	void SetIsEditMode(bool flag)
+	void SetIsActive(bool flag)
 	{
-		m_isEditMode = flag;
+		m_isActive = flag;
 	}
 
 	// 内部実装

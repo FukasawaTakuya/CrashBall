@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Scene.h"
+#include "Game/Scene/Scene.h"
 #include "Game/Camera/TitleCamera.h"
 #include "Game/GameObject/Object3D.h"
 #include "Game/GameObject/Stage.h"
@@ -41,7 +41,7 @@ public:
 
 	// コンストラクタ
 	TitleScene(
-		ISceneManager* pSceneController,
+		ISceneChanger* pSceneChanger,
 		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ

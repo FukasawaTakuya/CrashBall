@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 Scene::Scene(
-	ISceneManager* pSceneManager,
+	ISceneChanger* pSceneManager,
 	IJsonDataManager* jsonDataManager)
 	: m_pSceneManager{ pSceneManager }
 {

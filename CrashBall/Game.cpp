@@ -10,9 +10,9 @@
 #include "ImGui/imgui_impl_dx11.h"
 
 #include "Game/Common/Screen.h"
-#include "Game/Scene/GameScene.h"
+#include "Game/Scene/GameScene/GameScene.h"
 #include "Game/ServiceLocator/ServiceLocator.h"
-#include "Game/Scene/TitleScene.h"
+#include "Game/Scene/TitleScene/TitleScene.h"
 
 #include "Game/Factory/GameObjectFactory.h"
 
@@ -143,17 +143,18 @@ void Game::Initialize(HWND window, int width, int height)
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
+    // デバイス依存のリソースの作成
+    CreateDeviceDependentResources();
+
+    // ウインドウサイズ依存のリソースの作成
+    CreateWindowSizeDependentResources();
+
     // シーンの登録
     m_sceneManager->CreateScene<GameScene>(SceneID::Game);
     m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
     // 初期シーンをセット
     m_sceneManager->SetStartScene();
 
-    // デバイス依存のリソースの作成
-    CreateDeviceDependentResources();
-
-    // ウインドウサイズ依存のリソースの作成
-    CreateWindowSizeDependentResources();
 
     //  ImGuiの初期化処理
     {
@@ -217,7 +218,7 @@ void Game::Update(DX::StepTimer const& timer)
     m_timeManager->SetElapsedTime(elapsedTime);
 
     m_inputSystem->Update();
-    if (m_editGuiManager->GetIsEditMode())
+    if (m_editGuiManager->GetIsActive())
     {
         m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
     }
@@ -255,7 +256,7 @@ void Game::Update(DX::StepTimer const& timer)
     if (m_inputSystem->GetKeyTrigger(Keyboard::E) &&
         m_inputSystem->GetKeyDown(Keyboard::LeftShift))
     {
-        m_editGuiManager->SetIsEditMode(!m_editGuiManager->GetIsEditMode());
+        m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
     }
 #endif // !NDEBUG
 
@@ -297,7 +298,7 @@ void Game::Render()
 
     auto rtv = m_deviceResources->GetRenderTargetView();
 
-    if(m_editGuiManager->GetIsEditMode())
+    if(m_editGuiManager->GetIsActive())
         m_renderTexture->Begin(context, m_deviceResources->GetDepthStencilView());
 
     // モデルの描画

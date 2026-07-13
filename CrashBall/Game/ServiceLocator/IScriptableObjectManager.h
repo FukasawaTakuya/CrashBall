@@ -21,7 +21,9 @@
  */
 class  IScriptableObjectManager : public Service {
 
-	using ScriptableObjectCollection
+public:
+	// ScriptableObjectのコンテナのエイリアス宣言
+	using ScriptableObjectContainer
 		= std::unordered_map<std::string, std::unique_ptr<ScriptableObject>>;
 
 	// メンバ関数の宣言 -------------------------------------------------

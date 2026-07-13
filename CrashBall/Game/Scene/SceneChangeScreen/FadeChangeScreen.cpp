@@ -79,7 +79,6 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
 
 		m_spriteRenderer->SetAlpha(m_alpha);
 	}
-
 }
 
 /**

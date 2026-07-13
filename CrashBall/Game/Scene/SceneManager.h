@@ -1,5 +1,13 @@
-﻿#pragma once
-#include "ISceneManager.h"
+﻿/*****************************************************************//**
+ * \file   SceneManager.h
+ * \brief  シーン管理
+ * 
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+#pragma once
+#include "Interface/ISceneChanger.h"
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -11,9 +19,13 @@
 
 class Camera;
 
-class SceneManager : public ISceneManager
+/**
+ * \brief シーン管理
+ */
+class SceneManager 
+	: public ISceneChanger
 {
-
+	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// シーンのキャッシュ
@@ -28,12 +40,16 @@ private:
 	// シーン遷移スクリーン
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
 
-	const GameContext* m_gameContext;
-	const RenderContext* m_renderContext;
-	const ResourceContext* m_resourceContext;
+	const GameContext* m_gameContext;			// ゲーム用のコンテキスト
+	const RenderContext* m_renderContext;		// 描画用のコンテキスト
+	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
 
-	IJsonDataManager* m_jsonDataManager;
+	IJsonDataManager* m_jsonDataManager;		// Json管理
 
+	bool m_isEditMode = false;	// 編集モードフラグ
+
+	// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
@@ -86,18 +102,31 @@ public:
 	// パラメータの再読み込み
 	void ReloadParam();
 
-
+	// 取得/設定
+public:
 	// カメラの取得
 	ICamera* GetCamera() const
 	{
 		return m_pCurrentScene->GetCamera();
 	}
 
+	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()
 	{
 		return m_pCurrentScene->GetGameObjects();
 	}
 
+	void SetEditMode(bool flag)
+	{
+		m_isEditMode = flag;
+
+		if (flag)
+		{
+			Initialize();
+		}
+	}
+
+	// 内部実装
 private:
 	// シーン変更
 	void ChangeScene();

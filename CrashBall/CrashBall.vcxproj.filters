@@ -143,6 +143,15 @@
     <Filter Include="Game\Json\Loader">
       <UniqueIdentifier>{5527f766-425a-40da-8f4e-8f9d8e456820}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scene\GameScene">
+      <UniqueIdentifier>{f5b0c816-acc5-4a41-875d-7414fb1ee913}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\TitleScene">
+      <UniqueIdentifier>{8e889efb-8db8-4a5c-b8c3-64ccedc40c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\Interface">
+      <UniqueIdentifier>{917be99d-95a6-4727-9811-67aaf7621b67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -167,9 +176,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\GameObject.h">
       <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\GameScene.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\CollisionManager\Collision.h">
       <Filter>Game\CollsionManager</Filter>
@@ -221,9 +227,6 @@
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerAttackState.h">
       <Filter>Game\State\PlayerState</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\ISceneManager.h">
-      <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
       <Filter>Game\ServiceLocator</Filter>
@@ -387,9 +390,6 @@
     <ClInclude Include="Game\RendererManager\TextRendererManager.h">
       <Filter>Game\RendererManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\TitleScene.h">
-      <Filter>Game\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\Object3D.h">
       <Filter>Game\GameObject</Filter>
     </ClInclude>
@@ -546,6 +546,15 @@
     <ClInclude Include="Game\ScriptableObject\Scriptable.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scene\ISceneChanger.h">
+      <Filter>Game\Scene\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\TitleScene\TitleScene.h">
+      <Filter>Game\Scene\TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\GameScene\GameScene.h">
+      <Filter>Game\Scene\GameScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -568,9 +577,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\GameObject.cpp">
       <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\GameScene.cpp">
-      <Filter>Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Game\CollisionManager\Collision.cpp">
       <Filter>Game\CollsionManager</Filter>
@@ -725,9 +731,6 @@
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Scene\TitleScene.cpp">
-      <Filter>Game\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Camera\TitleCamera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
@@ -823,6 +826,12 @@
     </ClCompile>
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp">
       <Filter>Game\ScriptableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\TitleScene\TitleScene.cpp">
+      <Filter>Game\Scene\TitleScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Scene\GameScene\GameScene.cpp">
+      <Filter>Game\Scene\GameScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

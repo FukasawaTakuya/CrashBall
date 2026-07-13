@@ -23,7 +23,7 @@ using namespace DirectX;
  * \param pSceneManager シーンマネージャー
  */
 GameScene::GameScene(
-    ISceneManager* pSceneManager,
+    ISceneChanger* pSceneManager,
     IJsonDataManager* jsonDataManager)
 	: Scene(pSceneManager, jsonDataManager)
     , m_stage           (GameObjectFactory::Create<Stage>(jsonDataManager->GetJsonData("stage")))

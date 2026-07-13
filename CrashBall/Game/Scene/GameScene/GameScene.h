@@ -8,7 +8,7 @@
 
 #pragma once
 
-#include "Scene.h"
+#include "Game/Scene/Scene.h"
 
 #include "Game/GameObject/Ball.h"
 #include "Game/GameObject/Stage.h"
@@ -25,7 +25,8 @@
 /**
  * \brief ゲームシーンクラス
  */
-class  GameScene : public Scene{
+class  GameScene : public Scene
+{
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -52,7 +53,7 @@ public:
 
 	// コンストラクタ
 	GameScene(
-		ISceneManager* pSceneManager, 
+		ISceneChanger* pSceneManager, 
 		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ

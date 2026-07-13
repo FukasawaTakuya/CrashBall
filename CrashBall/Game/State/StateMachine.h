@@ -19,22 +19,16 @@
 template <typename Owner>
 class  StateMachine : public IStateMachine {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// エイリアス宣言
 	using StateCache = std::unordered_map<std::type_index, std::unique_ptr<StateBase<Owner>>>;
 
-	std::function<void()> m_changeStateCmd = []() {};		// ステート変更命令
-
-	Owner* m_owner = nullptr;								// オーナー
-
-	StateBase<Owner>* m_currentState = nullptr;				// 今のステート
-	
-	StateCache m_states;									// ステートのキャッシュ
+	std::function<void()>	m_changeStateCmd = []() {};		// ステート変更命令
+	Owner*					m_owner = nullptr;				// オーナー
+	StateBase<Owner>*		m_currentState = nullptr;		// 今のステート
+	StateCache				m_states;						// ステートのキャッシュ
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -52,31 +46,7 @@ public:
 	// 操作
 public:
 
-	/**
-	 * \brief 初期化.
-	 * 
-	 * \param owner オーナー
-	 */
-	void Initialeze(Owner* owner)
-	{
-		// オーナーのセット
-		m_owner = owner;
-		// ステート変更命令のクリア
-		m_changeStateCmd = []() {};
-
-		// 各ステートのオーナーとステートマシンのセット
-		for (auto& state : m_states)
-		{
-			state.second->SetOwner(owner);
-			state.second->SetStateMachine(this);
-			//state.second->CallInitialize();
-		}
-	}
-
-	/**
-	 * \brief 更新.
-	 * 
-	 */
+	// 更新
 	void Update()
 	{
 		// ステート変更命令の実行
@@ -134,9 +104,7 @@ public:
 			return it.second.get();
 		}
 	}
-
-
-
+	
 	// 内部実装
 private:
 
@@ -171,6 +139,4 @@ private:
 				m_currentState->CallOnEnter();
 			};
 	}
-
-
 };

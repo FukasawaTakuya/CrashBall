@@ -20,12 +20,12 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
- * \param pSceneController シーン変更インターフェース
+ * \param pSceneChanger シーン変更インターフェース
  */
 TitleScene::TitleScene(
-	ISceneManager* pSceneController,
+	ISceneChanger* pSceneChanger,
 	IJsonDataManager* jsonDataManager)
-	: Scene(pSceneController, jsonDataManager)
+	: Scene(pSceneChanger, jsonDataManager)
 	, m_camera(std::make_unique<TitleCamera>(jsonDataManager->GetJsonData("titleCamera")))
 	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("titlePlayer")))
 	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))

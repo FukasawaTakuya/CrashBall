@@ -1,7 +1,23 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   SceneManager.cpp
+ * \brief  シーン管理
+ *
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
+#include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ * \param renderContext 描画用のコンテキスト
+ * \param resourceContext リソース用のコンテキスト
+ * \param jsonDataManager json管理
+ */
 SceneManager::SceneManager(
 	const GameContext*		gameContext,
 	const RenderContext*	renderContext,
@@ -17,6 +33,10 @@ SceneManager::SceneManager(
 {
 }
 
+/**
+ * \brief デストラクタ
+ * 
+ */
 SceneManager::~SceneManager()
 {
 }
@@ -28,7 +48,11 @@ SceneManager::~SceneManager()
 void SceneManager::SetStartScene()
 {
 	m_pCurrentScene = m_scenes[SceneID::Title].get();
-	Initialize();
+	// 新シーンの遷移時の処理
+	m_pCurrentScene->OnEnter(
+		*m_resourceContext,
+		*m_gameContext
+	);
 	m_changeScreen->StartFadeIn();
 }
 
@@ -47,6 +71,9 @@ void SceneManager::Initialize()
  */
 void SceneManager::Update()
 {
+	// 編集モードならreturn
+	if (m_isEditMode) return;
+
 	// 変更リクエストがnullじゃないなら変更
 	if (m_pRequestScene) 
 	{
@@ -60,6 +87,7 @@ void SceneManager::Update()
 		}
 	}
 
+	// シーン遷移スクリーンの更新
 	m_changeScreen->Update(*m_gameContext);
 
 	// 更新

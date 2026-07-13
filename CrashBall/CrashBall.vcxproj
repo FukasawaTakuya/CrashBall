@@ -374,8 +374,8 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Scene\GameScene.h" />
-    <ClInclude Include="Game\Scene\ISceneManager.h">
+    <ClInclude Include="Game\Scene\GameScene\GameScene.h" />
+    <ClInclude Include="Game\Scene\ISceneChanger.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -385,10 +385,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\SceneManager.h" />
-    <ClInclude Include="Game\Scene\TitleScene.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="Game\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Game\ScriptableObject\Scriptable.h" />
     <ClInclude Include="Game\ScriptableObject\ScriptableObject.h" />
     <ClInclude Include="Game\ScriptableObject\ScriptableObjectManager.h">
@@ -535,11 +532,11 @@
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp" />
-    <ClCompile Include="Game\Scene\GameScene.cpp" />
+    <ClCompile Include="Game\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
-    <ClCompile Include="Game\Scene\TitleScene.cpp" />
+    <ClCompile Include="Game\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />

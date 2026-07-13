@@ -44,7 +44,7 @@ void EditGuiManager::Update(
     std::vector<GameObject*>* scriptableObjects, 
     ID3D11ShaderResourceView* srv)
 {
-    if (!m_isEditMode) return;
+    if (!m_isActive) return;
 
     // -------------------- レイアウトの設定 -------------------- //
 
