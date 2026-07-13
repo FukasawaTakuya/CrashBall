@@ -11,10 +11,9 @@
 #include "TitleScene.h"
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
-#include "Game/Color/GameColor.h"
 
 #include "Game/Component/Camera/TargetCameraController.h"
-#include "Game/ScriptableObject/GameColors.h"
+#include "Game/ScriptableObject/Scriptable.h"
 
 using namespace DirectX;
 
@@ -44,6 +43,8 @@ TitleScene::TitleScene(
 			{
 				m_pSceneManager->RequestChangeScene(SceneID::Game);
 			});
+
+	m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
 	m_gameObjects.push_back(m_camera.get());
 	m_gameObjects.push_back(m_player.get());
@@ -131,7 +132,7 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
 	ModelRenderer* playerRenderer = m_player->GetComponent<ModelRenderer>();
 
 	playerRenderer->SetModel(resourceContext.modelManager);
-	playerRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("PlayerColor"));
+	playerRenderer->SetDiffuseColor(m_gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
 
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 

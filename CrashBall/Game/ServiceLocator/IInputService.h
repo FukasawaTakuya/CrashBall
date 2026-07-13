@@ -53,6 +53,7 @@ public:
 	// キーリリースの取得
 	virtual bool GetKeyRelease(DirectX::Keyboard::Keys key) = 0;
 
+
 	virtual bool GetMouseDown(MouseButton mouseButton) = 0;
 	// マウスボタンのトリガーを取得
 	virtual bool GetMouseTrigger(MouseButton mouseButton) = 0;

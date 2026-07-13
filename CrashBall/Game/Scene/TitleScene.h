@@ -17,6 +17,8 @@
 #include "Game/GameObject/UIObject/Button.h"
 #include "Game/GameObject/UIObject/TitleLogo.h"
 
+#include "Game/ScriptableObject/ScriptableObject.h"
+
 /**
  * @brief タイトルシーン
  */
@@ -30,6 +32,8 @@ private:
 	std::unique_ptr<Stage>		 m_stage;		// ステージ
 	std::unique_ptr<TitleLogo>	 m_titleLogo;	// タイトルロゴ
 	std::unique_ptr<Button>		 m_startButton;	// スタートボタン
+
+	ScriptableObject* m_gameColor = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

@@ -489,9 +489,6 @@
     <ClInclude Include="Game\Component\Default\ScriptableComponent.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
-    <ClInclude Include="Game\ScriptableObject\GameColors.h">
-      <Filter>Game\ScriptableObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ScriptableObject\ScriptableObject.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
@@ -539,6 +536,15 @@
     </ClInclude>
     <ClInclude Include="Game\Json\Loader\ComponentLoarder.h">
       <Filter>Game\Json\Loader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\ScriptableObjectManager.h">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\IScriptableObjectManager.h">
+      <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\Scriptable.h">
+      <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -814,6 +820,9 @@
     </ClCompile>
     <ClCompile Include="Game\Json\Loader\ComponentLoarder.cpp">
       <Filter>Game\Json\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp">
+      <Filter>Game\ScriptableObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

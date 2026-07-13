@@ -36,12 +36,12 @@ EditGuiManager::~EditGuiManager()
  * \brief 更新
  * 
  * \param gameObjects ゲームオブジェクト
- * \param scriptableObjects スクリプタブルオブジェクト
+ * \param scriptableObjects Scriptableオブジェクト
  * \param srv レンダーテクスチャ
  */
 void EditGuiManager::Update(
     std::vector<GameObject*>* gameObjects, 
-    std::vector<const GameObject*>* scriptableObjects, 
+    std::vector<GameObject*>* scriptableObjects, 
     ID3D11ShaderResourceView* srv)
 {
     if (!m_isEditMode) return;

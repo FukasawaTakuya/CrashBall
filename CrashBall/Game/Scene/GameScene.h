@@ -15,6 +15,7 @@
 #include "Game/GameObject/Player/Player.h"
 #include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/GameObject/UIObject/GamePanel.h"
+#include "Game/ScriptableObject/ScriptableObject.h"
 
 #include "Game/Camera/GameCamera.h"
 
@@ -36,6 +37,8 @@ private:
 	std::unique_ptr<GameCamera> m_camera;		// カメラ
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
+
+	const ScriptableObject* m_gameColor = nullptr;
 
 
 	// 読み取り専用のコンポーネントのキャッシュ

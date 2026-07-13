@@ -25,17 +25,17 @@
 
 #include "Game/SoundPlayer/SoundPlayer.h"
 
+#include "Game/ScriptableObject/ScriptableObjectManager.h"
+
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
 
 #include "Game/EditGui/ObjectListGui.h"
 #include "Game/EditGui/ObjectInspectorGui.h"
-#include "Game/ScriptableObject/GameColors.h"
 #include "Game/RenderTexture/RenderTexture.h"
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
-
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -61,6 +61,7 @@ private:
 
     std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム
     std::unique_ptr<TimeManager>                m_timeManager;                  // 時間管理
+    std::unique_ptr<ScriptableObjectManager>    m_sriptableObjectManager;       // ScriptableObject管理
 
     std::unique_ptr<ModelManager>               m_modelManager;                 // モデル管理
     std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理
@@ -78,7 +79,7 @@ private:
 
     std::unique_ptr<EditGuiManager> m_editGuiManager;
 
-    std::vector<const GameObject*> m_scriptableObjects;
+    std::vector<GameObject*> m_scriptableObjects;
 
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト

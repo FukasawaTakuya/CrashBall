@@ -2,7 +2,7 @@
  * \file   ITimeService.h
  * \brief  時間管理クラスのインターフェース
  * 
- * \author it252184
+ * \author 深沢拓矢
  * \date   May 2026
  *********************************************************************/
 
@@ -11,15 +11,9 @@
 #include "Game/ServiceLocator/Service.h"
 
 /**
- * @brief 基底オブジェクト
+ * @brief 時間管理クラスのインターフェース
  */
 class  ITimeService : public Service {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -37,10 +31,13 @@ public:
 	// 取得/設定
 public:
 
+	// 経過時間の取得(スケーリング有り)
 	virtual float GetElapsedTime() const = 0;
 
+	// 経過時間の取得(スケーリング無し)
 	virtual float GetUnscaleElapsedTime() const = 0;
 
+	// タイムスケールの設定
 	virtual void SetTimeScale(float timeScale) = 0;
 
 	// 内部実装

@@ -11,7 +11,7 @@
 #include "Game/Engine/Input.h"
 #include "Game/Engine/Time.h"
 #include "Game/Color/GameColor.h"
-#include "Game/ScriptableObject/GameColors.h"
+#include "Game/ScriptableObject/Scriptable.h"
 #include "Game/Factory/GameObjectFactory.h"
 
 
@@ -54,6 +54,8 @@ GameScene::GameScene(
     m_enemyController        = m_enemy->GetComponent<EnemyController>();
     m_stageController        = m_stage->GetComponent<StageController>();
     m_playerStatusController = m_player->GetComponent<PlayerStatusController>();
+
+    m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
     m_gameObjects.push_back(m_player.get());
     m_gameObjects.push_back(m_enemy.get());
@@ -174,8 +176,8 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
     enemyRenderer->SetModel(modelManager);
 
     // ディフーズカラーの設定
-    playerRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("PlayerColor"));
-    enemyRenderer->SetDiffuseColor(GameColors::GetValue<SimpleMath::Color>("EnemyColor"));
+    playerRenderer->SetDiffuseColor(m_gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
+    enemyRenderer->SetDiffuseColor(m_gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
 
     // UIのスプライトの設定
     m_gamePanel->SetSprite(resourceContext);

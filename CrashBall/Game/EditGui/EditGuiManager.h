@@ -45,7 +45,7 @@ public:
 	// 更新
 	void Update(
 		std::vector<GameObject*>* gameObjects,
-		std::vector<const GameObject*>* scriptableObjects,
+		std::vector<GameObject*>* scriptableObjects,
 		ID3D11ShaderResourceView* srv);
 
 	// 取得/設定

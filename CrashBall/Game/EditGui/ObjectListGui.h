@@ -23,7 +23,7 @@ private:
 	std::vector<GameObject*>* m_gameObjects = nullptr;
 
 	// 表示するスクリプタブルオブジェクトリスト
-	std::vector<const GameObject*>* m_scriptableObjects = nullptr;
+	std::vector<GameObject*>* m_scriptableObjects = nullptr;
 
 	// 選択中のオブジェクト
 	const GameObject* m_selectedObject = nullptr;
@@ -60,7 +60,7 @@ public:
 	}
 
 	// スクリプタブルオブジェクトリストの設定
-	void SetScriptableObjects(std::vector<const GameObject*>* objects) override
+	void SetScriptableObjects(std::vector<GameObject*>* objects) override
 	{
 		m_scriptableObjects = objects;
 	}

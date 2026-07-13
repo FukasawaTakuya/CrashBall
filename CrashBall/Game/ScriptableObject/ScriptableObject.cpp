@@ -8,3 +8,9 @@
 
 #include "pch.h"
 #include "ScriptableObject.h"
+
+ScriptableObject::ScriptableObject(json* data)
+	: GameObject(data)
+{
+	m_scriptable = AddComponent<ScriptableComponent>((*data)["scriptable"]);
+}

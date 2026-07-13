@@ -16,6 +16,8 @@
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Physics/Transform.h"
+#include "Game/ScriptableObject/ScriptableObject.h"
+
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
@@ -41,6 +43,7 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	const ScriptableObject* m_gameColor = nullptr;
 	
 	Mesh* m_meshCollider;	// コンポーネントのキャッシュ
 
@@ -122,7 +125,6 @@ public:
 		return m_floorMeshColor.size();
 	}
 
-
 	// 内部実装
 private:
 
@@ -139,7 +141,7 @@ public:
 
 	void operator=(const StageController& other)
 	{
-		float m_floorNormalY = other.m_floorNormalY;
-		float m_floorCenterPosY = other.m_floorCenterPosY;
+		m_floorNormalY = other.m_floorNormalY;
+		m_floorCenterPosY = other.m_floorCenterPosY;
 	}
 };

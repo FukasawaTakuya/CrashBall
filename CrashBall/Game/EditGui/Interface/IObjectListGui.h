@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   IObjectListGui.h
  * \brief  オブジェクト編集GUIのインターフェース
  *
@@ -41,7 +41,7 @@ public:
 	virtual void SetGameObejcts(std::vector<GameObject*>* objects) = 0;
 
 	// スクリプタブルオブジェクトリストの設定
-	virtual void SetScriptableObjects(std::vector<const GameObject*>* objects) = 0;
+	virtual void SetScriptableObjects(std::vector<GameObject*>* objects) = 0;
 
 	// 内部実装
 private:

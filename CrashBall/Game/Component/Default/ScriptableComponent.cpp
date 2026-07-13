@@ -6,10 +6,24 @@ using namespace DirectX;
 /**
  * \brief コンストラクタ
  * 
- * \param gameObject
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 ScriptableComponent::ScriptableComponent(IGameObject* gameObject)
 {
+}
+
+/**
+ * \brief コピーコンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \param other コピー元
+ */
+ScriptableComponent::ScriptableComponent(
+	IGameObject* gameObject, 
+	const ScriptableComponent& other)
+{
+	m_values.clear();
+	m_values = other.m_values;
 }
 
 /**

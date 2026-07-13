@@ -389,12 +389,17 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\ScriptableObject\GameColors.h">
+    <ClInclude Include="Game\ScriptableObject\Scriptable.h" />
+    <ClInclude Include="Game\ScriptableObject\ScriptableObject.h" />
+    <ClInclude Include="Game\ScriptableObject\ScriptableObjectManager.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\ScriptableObject\ScriptableObject.h" />
     <ClInclude Include="Game\ServiceLocator\IInputService.h" />
+    <ClInclude Include="Game\ServiceLocator\IScriptableObjectManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ITimeService.h" />
     <ClInclude Include="Game\ServiceLocator\Service.h">
       <SubType>
@@ -536,6 +541,7 @@
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Game\Scene\TitleScene.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
+    <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />

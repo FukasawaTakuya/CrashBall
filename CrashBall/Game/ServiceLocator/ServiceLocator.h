@@ -58,6 +58,7 @@ public:
 
 	// サービスの設定
 	template <typename ServiceType>
+	requires std::derived_from<ServiceType, Service>
 	static void Set(ServiceType* service)
 	{
 		// インスタンスの取得

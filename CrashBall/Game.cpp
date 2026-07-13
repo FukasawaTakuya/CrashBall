@@ -12,9 +12,9 @@
 #include "Game/Common/Screen.h"
 #include "Game/Scene/GameScene.h"
 #include "Game/ServiceLocator/ServiceLocator.h"
-#include "Game/ServiceLocator/ITimeService.h"
-#include "Game/ServiceLocator/IInputService.h"
 #include "Game/Scene/TitleScene.h"
+
+#include "Game/Factory/GameObjectFactory.h"
 
 
 extern void ExitGame() noexcept;
@@ -51,6 +51,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
+    m_sriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
 
     m_modelManager              = std::make_unique<ModelManager>();
     m_spriteManager             = std::make_unique<SpriteManager>();
@@ -98,6 +99,7 @@ void Game::Initialize(HWND window, int width, int height)
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
+    ServiceLocator::Set<IScriptableObjectManager>(m_sriptableObjectManager.get());
 
     // Jsonのロード
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
@@ -126,10 +128,17 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->RegisterBgmFile("test", L"Resources/Sound/ks043.wav");
     m_soundManager->RegisterSeFile("se", L"Resources/Sound/Accept.wav");
 
-    // ScriptableObjectにデータを設定
-    GameColors::SetData(m_jsonDataManager->GetJsonData("gameColors"));
-    // ScriptableObjectリスト
-    m_scriptableObjects.push_back(&GameColors::GetInstance());
+    // ScriptableObjectの作成
+    m_sriptableObjectManager->RegisterObject(
+        "gameColor",
+        GameObjectFactory::Create<ScriptableObject>(m_jsonDataManager->GetJsonData("gameColors"))
+    );
+
+    // ScriptableObejctリストに追加
+    for (auto& object : m_sriptableObjectManager->GetScriptableObejctList())
+    {
+        m_scriptableObjects.push_back(object.second.get());
+    }
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
@@ -229,7 +238,7 @@ void Game::Update(DX::StepTimer const& timer)
     // ファイルにセーブ
     if(m_inputSystem->GetKeyTrigger(Keyboard::O))
     {
-        GameColors::SaveParam();
+        m_sriptableObjectManager->SaveParam();
         m_sceneManager->SaveParam();
         m_jsonDataManager->SaveFile();
     }
@@ -237,7 +246,7 @@ void Game::Update(DX::StepTimer const& timer)
     if(m_inputSystem->GetKeyTrigger(Keyboard::I))
     {
         m_jsonDataManager->ReloadFile();
-        GameColors::ReloadParam();
+        m_sriptableObjectManager->ReloadParam();
         m_sceneManager->ReloadParam();
     }
 

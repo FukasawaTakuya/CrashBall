@@ -45,6 +45,11 @@ public:
 	// コンストラクタ
 	ScriptableComponent(IGameObject* gameObject);
 
+	// コピーコンストラクタ
+	ScriptableComponent(
+		IGameObject* gameObject,
+		const ScriptableComponent& other);
+
 	// デストラクタ
 	~ScriptableComponent();
 
@@ -62,13 +67,16 @@ public:
 public:
 
 	// 要素の取得
-	Value GetValue(const std::string& key)
+	template<typename T>
+	T GetValue(const std::string& key) const
 	{
-		if (m_values.find(key) != m_values.end())
+		auto it = m_values.find(key);
+
+		if (it != m_values.end())
 		{
-			return m_values[key].second;
+			return std::get<T>(it->second.second);
 		}
-		else Value;
+		else T;
 	}
 
 	// 内部実装

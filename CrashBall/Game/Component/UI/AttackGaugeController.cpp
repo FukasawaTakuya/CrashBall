@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "AttackGaugeController.h"
 #include "Game/Engine/Time.h"
-#include "Game/ScriptableObject/GameColors.h"
+#include "Game/ScriptableObject/Scriptable.h"
 
 using namespace DirectX;
 
@@ -32,6 +32,8 @@ AttackGaugeController::AttackGaugeController(
 	// コンポーネントのキャッシュの取得
 	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
 	m_attackGaugeController = m_pAttackGauge->GetComponent<SliderController>();
+
+	m_gameColor = Scriptable::GetScriptableObject("gameColor");
 }
 
 /**
@@ -73,10 +75,10 @@ void AttackGaugeController::Update()
 	// 攻撃可能かどうかに応じて色を変える
 	if (m_playerMeshCount >= m_playerAttackCost)
 	{
-		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<SimpleMath::Color>("AttackGaugeColor"));
+		m_attackPowerTextRenderer->SetColor(m_gameColor->GetValue<SimpleMath::Color>("AttackGaugeColor"));
 	}
 	else
 	{
-		m_attackPowerTextRenderer->SetColor(GameColors::GetValue<SimpleMath::Color>("AttackGaugeTrackColor"));
+		m_attackPowerTextRenderer->SetColor(m_gameColor->GetValue<SimpleMath::Color>("AttackGaugeTrackColor"));
 	}
 }

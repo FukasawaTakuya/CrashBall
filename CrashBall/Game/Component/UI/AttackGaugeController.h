@@ -14,6 +14,7 @@
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
 
+#include "Game/ScriptableObject/ScriptableObject.h"
 
 /**
  * @brief 攻撃ゲージ操作コンポーネント
@@ -32,6 +33,8 @@ private:
 	int m_playerMeshCount	= 0;	// プレイヤーの面の数
 	int m_playerAttackCost	= 0;	// プレイヤーの攻撃コスト
 	int m_playerAttackPower = 0;	// プレイヤーの攻撃力
+
+	const ScriptableObject* m_gameColor = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
