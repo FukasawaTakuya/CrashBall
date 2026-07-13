@@ -84,6 +84,7 @@ private:
 		return m_values;
 	}
 
+	// JsonConverter
 private:
 
 	friend void to_json(json& j, const ScriptableComponent::Element& element);

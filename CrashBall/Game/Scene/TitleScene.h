@@ -37,7 +37,7 @@ public:
 
 	// コンストラクタ
 	TitleScene(
-		ISceneController* pSceneController,
+		ISceneManager* pSceneController,
 		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ

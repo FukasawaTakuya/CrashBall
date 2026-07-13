@@ -7,19 +7,16 @@
  */
 class  GameColors : public ScriptableObject<GameColors> {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
 private:
-
-public:
 
 	// コンストラクタ
 	GameColors()
 		: ScriptableObject()
-	{
-	};
+	{};
+
+	// 複数生成の禁止
+	GameColors(GameColors&) = delete;
+	GameColors& operator=(const GameColors&) = delete;
 
 	// デストラクタ
 	~GameColors() = default;

@@ -140,6 +140,9 @@
     <Filter Include="Game\Factory">
       <UniqueIdentifier>{3f636b08-ec38-4005-8ea5-6b4910680e6a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Json\Loader">
+      <UniqueIdentifier>{5527f766-425a-40da-8f4e-8f9d8e456820}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -219,7 +222,7 @@
     <ClInclude Include="Game\State\Player\PlayerAttackState.h">
       <Filter>Game\State\PlayerState</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\ISceneController.h">
+    <ClInclude Include="Game\Scene\ISceneManager.h">
       <Filter>Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
@@ -534,6 +537,9 @@
     <ClInclude Include="Game\Factory\ComponentFactory.h">
       <Filter>Game\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Json\Loader\ComponentLoarder.h">
+      <Filter>Game\Json\Loader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -805,6 +811,9 @@
     </ClCompile>
     <ClCompile Include="ImGui\imgui_demo.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Loader\ComponentLoarder.cpp">
+      <Filter>Game\Json\Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

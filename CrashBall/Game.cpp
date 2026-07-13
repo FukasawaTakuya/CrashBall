@@ -101,6 +101,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     // Jsonのロード
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
+    m_jsonDataManager->LoadFile("titlePlayer", "Resources/Data/titlePlayer.json");
     m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
     m_jsonDataManager->LoadFile("stage", "Resources/Data/stage.json");
     m_jsonDataManager->LoadFile("gamePanel", "Resources/Data/gamePanel.json");
@@ -161,7 +162,7 @@ void Game::Initialize(HWND window, int width, int height)
         ID3D11DeviceContext* context = m_deviceResources->GetD3DDeviceContext();
         ImGui_ImplDX11_Init(device, context);
 
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable | ImGuiConfigFlags_ViewportsEnable;
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
         // フォント設定
         io.Fonts->AddFontFromFileTTF(
@@ -321,14 +322,6 @@ void Game::Render()
     // Show the new frame.
     m_deviceResources->Present();
 
-    ImGuiIO& io = ImGui::GetIO();
-
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-        // TODO for OpenGL: restore current GL context.
-    }
 }
 
 // Helper method to clear the back buffers.

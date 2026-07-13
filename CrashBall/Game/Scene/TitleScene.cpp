@@ -24,11 +24,11 @@ using namespace DirectX;
  * \param pSceneController シーン変更インターフェース
  */
 TitleScene::TitleScene(
-	ISceneController* pSceneController,
+	ISceneManager* pSceneController,
 	IJsonDataManager* jsonDataManager)
 	: Scene(pSceneController, jsonDataManager)
 	, m_camera(std::make_unique<TitleCamera>(jsonDataManager->GetJsonData("titleCamera")))
-	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
+	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("titlePlayer")))
 	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
 	, m_titleLogo(std::make_unique<TitleLogo>(jsonDataManager->GetJsonData("titleLogo")))
 	, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
@@ -42,7 +42,7 @@ TitleScene::TitleScene(
 	m_startButton->GetComponent<ButtonController>()
 		->SetOnPushCommand([&]()
 			{
-				m_pSceneController->RequestChangeScene(SceneID::Game);
+				m_pSceneManager->RequestChangeScene(SceneID::Game);
 			});
 
 	m_gameObjects.push_back(m_camera.get());
@@ -92,7 +92,7 @@ void TitleScene::Update(const GameContext& gameContext)
 {
 	if (Input::GetKeyTrigger(Keyboard::Space))
 	{
-		m_pSceneController->RequestChangeScene(SceneID::Game);
+		m_pSceneManager->RequestChangeScene(SceneID::Game);
 	}
 
 	m_camera->Update(gameContext);
@@ -156,6 +156,7 @@ void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& pr
  */
 void TitleScene::SaveParam()
 {
+	m_player->SaveInitParam();
 	m_titleLogo->SaveParam();
 	m_startButton->SaveParam();
 	m_camera->SaveParam();
@@ -167,6 +168,7 @@ void TitleScene::SaveParam()
  */
 void TitleScene::ReloadParam()
 {
+	m_player->ReloadParam();
 	m_titleLogo->ReloadParam();
 	m_startButton->ReloadParam();
 	m_camera->ReloadParam();

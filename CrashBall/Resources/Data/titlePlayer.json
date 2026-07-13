@@ -1,0 +1,45 @@
+{
+    "ObjectTag": "Player",
+    "modelRenderer": {
+        "modelKey": "player"
+    },
+    "name": "Player",
+    "playerController": {
+        "acceleration": 35.0,
+        "attackDuration": 0.5,
+        "attackSpeed": 60.0,
+        "maxSpeed": 40.0
+    },
+    "playerStatusController": {
+        "attackCost": 20,
+        "minAttackPower": 10.0
+    },
+    "rigidbody": {
+        "friction": 1.2000000476837158,
+        "gravityAccelaration": 25.799999237060547,
+        "isDynamic": 1.0,
+        "mass": 1.0
+    },
+    "sphere": {
+        "layerMaskType": "Default",
+        "radius": 20.0,
+        "type": "Sphere"
+    },
+    "transform": {
+        "position": {
+            "x": 0.0,
+            "y": 10.300000190734863,
+            "z": 0.0
+        },
+        "rotate": {
+            "x": 0.011047035455703735,
+            "y": 1.954553246498108,
+            "z": 0.40055617690086365
+        },
+        "scale": {
+            "x": 0.029999999329447746,
+            "y": 0.029999999329447746,
+            "z": 0.029999999329447746
+        }
+    }
+}

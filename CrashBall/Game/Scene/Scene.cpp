@@ -2,13 +2,13 @@
 #include "Scene.h"
 
 Scene::Scene(
-	ISceneController* pSceneManager,
+	ISceneManager* pSceneManager,
 	IJsonDataManager* jsonDataManager)
-	: m_pSceneController{ pSceneManager }
+	: m_pSceneManager{ pSceneManager }
 {
 }
 
 void Scene::ChangeScene(SceneID nextSceneID)
 {
-	m_pSceneController->RequestChangeScene(nextSceneID);
+	m_pSceneManager->RequestChangeScene(nextSceneID);
 }

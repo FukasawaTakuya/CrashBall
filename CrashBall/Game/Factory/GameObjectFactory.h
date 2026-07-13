@@ -1,50 +1,21 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   GameObjectFactory.h
+ * \brief  ゲームオブジェクトのファクトリー
+ * 
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
+#pragma once
 #include "Game/GameObject/GameObject.h"
 
+namespace  GameObjectFactory {
 
-/**
- * \brief 
- */
-class  GameObjectFactory {
-
-	using CreataFunc = GameObject*(*)(json*);
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
-
-	// メンバ関数の宣言 -------------------------------------------------
-	// コンストラクタ/デストラクタ
-private:
-
-	// コンストラクタ
-	GameObjectFactory();
-
-	// 複数生成の禁止
-	GameObjectFactory(GameObjectFactory&) = delete;
-	GameObjectFactory& operator=(GameObjectFactory&) = delete;
-
-	// デストラクタ
-	~GameObjectFactory() = default;
-
-	// 操作
-public:
-
-	// 取得/設定
-public:
-
-	static GameObject* Create3DObject(json* data);
-
-	// 内部実装
-private:
-
-	// インスタンスの取得
-	static GameObjectFactory& GetInstance()
+	// ゲームオブジェクトの作成
+	template<typename ObjectType, typename... Args>
+	requires std::derived_from<ObjectType, GameObject>
+	static std::unique_ptr<ObjectType> Create(Args&&... args)
 	{
-		auto instance = GameObjectFactory();
-
-		return instance;
+		return std::make_unique<ObjectType>(std::forward<Args>(args)...);
 	}
-
 };

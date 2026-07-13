@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "ISceneController.h"
+#include "ISceneManager.h"
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -11,7 +11,7 @@
 
 class Camera;
 
-class SceneManager : public ISceneController
+class SceneManager : public ISceneManager
 {
 
 private:
@@ -47,7 +47,7 @@ public:
 	// デストラクタ
 	~SceneManager();
 
-	// シーンの登録
+	// シーンの作成
 	template<typename SceneType>
 	requires std::derived_from<SceneType, Scene>
 	void CreateScene(SceneID sceneID)

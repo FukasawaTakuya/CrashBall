@@ -101,7 +101,7 @@ void ObjectInspectorGui::Updata(const GameObject* selectedObject)
 			// コンポーネント表示関数テーブルに存在すれば表示
 			if (m_drawInspecter.find(comp.first) != m_drawInspecter.end())
 			{
-				m_drawInspecter[comp.first](comp.second);
+				m_drawInspecter[comp.first](comp.second.get());
 			}
 		}
 
@@ -566,7 +566,6 @@ void ObjectInspectorGui::DrawStageController(Component* comp)
 
 		ImGui::TreePop();
 	}
-
 }
 
 /**
@@ -581,8 +580,6 @@ void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
 
 	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
-	DrawTargetCamera(comp);
-
 	ImGui::Separator();
 
 	if (ImGui::TreeNodeEx("TitleCameraController", flag))
@@ -591,6 +588,8 @@ void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
 
 		ImGui::TreePop();
 	}
+
+	DrawTargetCamera(comp);
 }
 
 /**
@@ -605,8 +604,6 @@ void ObjectInspectorGui::DrawGameCameraController(Component* comp)
 
 	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
-	DrawTargetCamera(comp);
-
 	ImGui::Separator();
 
 	if (ImGui::TreeNodeEx("GameCameraController", flag))
@@ -615,4 +612,6 @@ void ObjectInspectorGui::DrawGameCameraController(Component* comp)
 
 		ImGui::TreePop();
 	}
+
+	DrawTargetCamera(comp);
 }

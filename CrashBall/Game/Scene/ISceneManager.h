@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   ISceneController.h
+ * \file   ISceneManager.h
  * \brief  シーン変更機能を持ったインターフェース 
  * 
  * \author 深沢拓矢
@@ -15,11 +15,10 @@ enum class SceneID {
 	Result,
 };
 
-
 /**
  * @brief シーン変更機能を持ったインターフェース
  */
-class  ISceneController {
+class  ISceneManager {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -34,10 +33,10 @@ private:
 public:
 
 	// コンストラクタ
-	ISceneController() = default;
+	ISceneManager() = default;
 
 	// デストラクタ
-	virtual ~ISceneController() = default;
+	virtual ~ISceneManager() = default;
 
 	// 操作
 public:

@@ -12,6 +12,7 @@
 #include "Game/Engine/Time.h"
 #include "Game/Color/GameColor.h"
 #include "Game/ScriptableObject/GameColors.h"
+#include "Game/Factory/GameObjectFactory.h"
 
 
 using namespace DirectX;
@@ -22,14 +23,14 @@ using namespace DirectX;
  * \param pSceneManager シーンマネージャー
  */
 GameScene::GameScene(
-    ISceneController* pSceneManager,
+    ISceneManager* pSceneManager,
     IJsonDataManager* jsonDataManager)
 	: Scene(pSceneManager, jsonDataManager)
-    , m_stage           (std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
-    , m_player          (std::make_unique<Player>(jsonDataManager->GetJsonData("player")))
-	, m_enemy           (std::make_unique<Enemy>(jsonDataManager->GetJsonData("enemy")))
-    , m_gamePanel       (std::make_unique<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
-    , m_camera          (std::make_unique<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
+    , m_stage           (GameObjectFactory::Create<Stage>(jsonDataManager->GetJsonData("stage")))
+    , m_player          (GameObjectFactory::Create<Player>(jsonDataManager->GetJsonData("player")))
+	, m_enemy           (GameObjectFactory::Create<Enemy>(jsonDataManager->GetJsonData("enemy")))
+    , m_gamePanel       (GameObjectFactory::Create<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
+    , m_camera          (GameObjectFactory::Create<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
     , m_collisionManager(std::make_unique<CollisionManager>())
 {
     // プレイヤーの初期設定
@@ -106,15 +107,11 @@ void GameScene::Update(const GameContext& gameContext)
 {
     float elapsedTime = Time::GetElapsedTime();
 
-    if (Input::GetKeyTrigger(Keyboard::R)) {
-        Initialize();
-    }
-
+    // 更新
     m_player->Update(gameContext);
 	m_enemy->Update(gameContext);
     m_stage->Update(gameContext);
     m_camera->Update(gameContext);
-
     m_collisionManager->Update();
 
     // UI用の数値の設定
@@ -128,12 +125,13 @@ void GameScene::Update(const GameContext& gameContext)
         m_enemyController->GetMaxHP()
     );
 
+    // UIの更新
     m_gamePanel->Update(gameContext);
 
     if (m_enemyController->GetHp() <= 0.0f || 
         Input::GetKeyDown(Keyboard::Escape))
     {
-        m_pSceneController->RequestChangeScene(SceneID::Title);
+        m_pSceneManager->RequestChangeScene(SceneID::Title);
     }
 }
 

@@ -30,7 +30,7 @@ class GameObject : public IGameObject {
 private:
 
 	// コンポーネントのコンテナ
-	std::unordered_map<std::type_index, Component*> m_components;
+	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_components;
 
 	// タグ
 	ObjectTag m_tag;
@@ -105,10 +105,12 @@ public:
 	template<typename CompType, typename... Args>
 	CompType* AddComponent(Args&&... args)
 	{
+		auto comp = ComponentFactory::Create<CompType>(this, std::forward<Args>(args)...);
+
 		// コンポーネントの生成
-		CompType* pComp = ComponentFactory::Create<CompType>(this, std::forward<Args>(args)...);
+		CompType* pComp = comp.get();
 		// コンテナに格納
-		m_components.emplace(typeid(CompType), pComp);
+		m_components.emplace(typeid(CompType), std::move(comp));
 
 		// コンポーネントのポインタを返す
 		return pComp;
@@ -153,14 +155,14 @@ private:
 		auto it = m_components.find(type);
 			// イテレータが終端でなければコンポーネントを返す
 			if (it != m_components.end()) {
-				return it->second;
+				return it->second.get();
 			}
 			// イテレータが終端ならnullptrを返す
 			else return nullptr;
 	}
 
 	// コンポーネントの取得
-	const std::unordered_map<std::type_index, Component*>* GetComponentsList() const
+	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
 	{
 		return &m_components;
 	}

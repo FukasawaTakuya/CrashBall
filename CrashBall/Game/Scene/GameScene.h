@@ -49,7 +49,7 @@ public:
 
 	// コンストラクタ
 	GameScene(
-		ISceneController* pSceneManager, 
+		ISceneManager* pSceneManager, 
 		IJsonDataManager* jsonDataManager);
 
 	// デストラクタ

@@ -14,21 +14,7 @@
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/Camera/TargetCameraController.h"
 
-
-
 using namespace DirectX;
-
-/**
- * \brief コンストラクタ
- * 
- */
-GameCamera::GameCamera()
-	: GameObject()
-{
-	// コンポーネントの追加
-	AddComponent<Transform>();
-	m_cameraController = AddComponent<GameCameraController>();
-}
 
 /**
  * \brief コンストラクタ

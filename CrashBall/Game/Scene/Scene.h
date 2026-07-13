@@ -9,8 +9,7 @@
 #pragma once
 #include <string>
 
-
-#include "ISceneController.h"
+#include "ISceneManager.h"
 #include "Game/Json/IJsonDataManager.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -25,7 +24,7 @@ class Scene {
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	ISceneController* m_pSceneController;
+	ISceneManager* m_pSceneManager;
 
 	std::vector<GameObject*> m_gameObjects;
 
@@ -33,10 +32,12 @@ protected:
 	// コンストラクタ/デストラクタ
 public:
 
+	// コンストラクタ
 	Scene(
-		ISceneController* pSceneManager,
+		ISceneManager* pSceneManager,
 		IJsonDataManager* jsonDataManager);
 
+	// デストラクタ
 	virtual ~Scene() = default;
 
 	// 操作
@@ -74,8 +75,10 @@ public:
 
 	// 取得/設定
 public:
+	// カメラの取得
 	virtual ICamera* GetCamera() const = 0;
 
+	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()
 	{
 		return &m_gameObjects;

@@ -28,9 +28,6 @@ private:
 public:
 
 	// コンストラクタ
-	GameCamera();
-
-	// コンストラクタ
 	GameCamera(json* data);
 
 	// デストラクタ
