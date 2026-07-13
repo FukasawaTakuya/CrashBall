@@ -56,9 +56,6 @@ public:
 	// パラメータの書き込み
 	virtual void SaveParam() override;
 
-	// 初期化用のパラメータの書き込み
-	virtual void SaveInitParam() override;
-
 	// データの再読み込み
 	virtual void ReloadParam() override;
 

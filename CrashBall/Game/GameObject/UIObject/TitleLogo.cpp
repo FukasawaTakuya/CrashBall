@@ -76,15 +76,6 @@ void TitleLogo::SaveParam()
 }
 
 /**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void TitleLogo::SaveInitParam()
-{
-	Object2D::SaveInitParam();
-}
-
-/**
  * \brief パラメータの再読み込み
  * 
  */

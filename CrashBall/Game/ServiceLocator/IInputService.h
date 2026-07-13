@@ -63,6 +63,12 @@ public:
 	// マウス座標の取得
 	virtual DirectX::SimpleMath::Vector2 GetMousePos() = 0;
 
+	// 前フレームのマウス座標の取得
+	virtual DirectX::SimpleMath::Vector2 GetPrevMousePos() = 0;
+
+	// ホイール値の取得
+	virtual int GetWheelValue() = 0;
+
 
 	// 内部実装
 private:

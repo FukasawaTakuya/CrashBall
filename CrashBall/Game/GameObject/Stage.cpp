@@ -85,14 +85,6 @@ void Stage::SaveParam()
 }
 
 /**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void Stage::SaveInitParam()
-{
-}
-
-/**
  * \brief データの再読み込み
  * 
  */

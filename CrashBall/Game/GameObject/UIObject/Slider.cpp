@@ -88,14 +88,6 @@ void Slider::SaveParam()
 }
 
 /**
- * \brief 初期化時のパラメータの書き込み
- * 
- */
-void Slider::SaveInitParam()
-{
-}
-
-/**
  * \brief パラメータの再読み込み
  * 
  */

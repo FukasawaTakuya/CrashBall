@@ -15,7 +15,8 @@
 /**
  * @brief ゲームカメラ操作コンポーネント
  */
-class  GameCameraController : public TargetCameraController {
+class  GameCameraController : public TargetCameraController 
+{
 
 	friend class ObjectInspectorGui;
 
@@ -58,6 +59,7 @@ public:
 	// 更新
 	void Update();
 
+	// トランスフォームを追尾
 	void TargetingTransform();
 
 	// 取得/設定

@@ -81,25 +81,10 @@ void Ball::SaveParam()
 {
 	GameObject::SaveParam();
 
-	(*m_data)["rigidbody"]		= *GetComponent<Rigidbody>();
-	(*m_data)["sphere"]			= *GetComponent<Sphere>();
-	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
-
-	Transform* transform = GetComponent<Transform>();
-	(*m_data)["transform"]["rotate"] = transform->GetLocalRotate();
-	(*m_data)["transform"]["scale"] = transform->GetLocalScale();
-}
-
-/**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void Ball::SaveInitParam()
-{
-	(*m_data)["transform"]		= *GetComponent<Transform>();
-	(*m_data)["rigidbody"]		= *GetComponent<Rigidbody>();
-	(*m_data)["sphere"]			= *GetComponent<Sphere>();
-	(*m_data)["modelRenderer"]	= *GetComponent<ModelRenderer>();
+	(*m_data)["transform"] = *GetComponent<Transform>();
+	(*m_data)["rigidbody"] = *GetComponent<Rigidbody>();
+	(*m_data)["sphere"] = *GetComponent<Sphere>();
+	(*m_data)["modelRenderer"] = *GetComponent<ModelRenderer>();
 }
 
 /**

@@ -86,14 +86,6 @@ void GameCamera::SaveParam()
 }
 
 /**
- * \brief 初期化時のパラメータの書き込み
- *
- */
-void GameCamera::SaveInitParam()
-{
-}
-
-/**
  * \brief パラメータの再読み込み
  *
  */

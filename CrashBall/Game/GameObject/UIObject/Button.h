@@ -60,9 +60,6 @@ public:
 	// パラメータの書き込み
 	void SaveParam() override;
 
-	// 初期化用のパラメータの書き込み
-	void SaveInitParam() override;
-
 	// データの再読み込み
 	void ReloadParam() override;
 

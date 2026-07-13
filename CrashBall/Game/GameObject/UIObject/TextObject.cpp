@@ -84,10 +84,10 @@ void TextObject::SaveParam()
 	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
 }
 
-void TextObject::SaveInitParam()
-{
-}
-
+/**
+ * \brief データの再読み込み
+ * 
+ */
 void TextObject::ReloadParam()
 {
 	GameObject::ReloadParam();

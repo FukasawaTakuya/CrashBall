@@ -79,17 +79,6 @@ void Player::SaveParam()
 }
 
 /**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void Player::SaveInitParam()
-{
-	(*m_data)["playerStatusController"] = *m_playerStatusController;
-
-	Ball::SaveInitParam();
-}
-
-/**
  * \brief データの再読み込み
  * 
  */

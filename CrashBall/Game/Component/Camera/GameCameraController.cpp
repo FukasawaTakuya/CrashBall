@@ -79,6 +79,10 @@ void GameCameraController::Update()
 	TargetingTransform();
 }
 
+/**
+ * \brief トランスフォームを追尾
+ * 
+ */
 void GameCameraController::TargetingTransform()
 {
 	SimpleMath::Vector3 position = m_transform->GetWorldPosition();

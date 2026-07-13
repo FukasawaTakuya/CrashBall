@@ -11,6 +11,9 @@
 #include "ObjectInspectorGui.h"
 #include "GameViewRenderer.h"
 #include "Game/RenderTexture/RenderTexture.h"
+#include "Interface/EditButton.h"
+
+#include "Game/Scene/Interface/ISceneEditer.h"
 
 /**
  * \brief エディタGUI管理クラス
@@ -26,6 +29,9 @@ private:
 	std::unique_ptr<ObjectListGui>      m_objectListGui;		// オブジェクトリスト
 	std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;	// インスペクター
 	std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;		// ゲームビュー
+	std::unique_ptr<EditButton>			m_editButton;			// 編集ボタン
+
+	ISceneEditer* m_pSceneEditer = nullptr;
 
 	bool m_isActive = false;	// 有効フラグ
 
@@ -34,7 +40,7 @@ private:
 public:
 
 	// コンストラクタ
-	EditGuiManager();
+	EditGuiManager(ISceneEditer* pSceneEditer);
 
 	// デストラクタ
 	~EditGuiManager();
@@ -64,6 +70,9 @@ public:
 	void SetIsActive(bool flag)
 	{
 		m_isActive = flag;
+
+		if (!flag)
+			m_pSceneEditer->SetEditMode(false);
 	}
 
 	// 内部実装

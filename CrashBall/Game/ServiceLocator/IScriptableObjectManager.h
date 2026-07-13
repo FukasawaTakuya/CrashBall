@@ -34,7 +34,7 @@ public:
 	IScriptableObjectManager() = default;
 
 	// デストラクタ
-	~IScriptableObjectManager() = default;
+	virtual ~IScriptableObjectManager() = default;
 
 	// 操作
 public:

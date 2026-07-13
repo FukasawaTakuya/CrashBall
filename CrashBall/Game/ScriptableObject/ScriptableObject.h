@@ -53,13 +53,6 @@ public:
 		(*m_data)["scriptable"] = *m_scriptable;
 	}
 
-	// 初期化用のパラメータの書き込み
-	void SaveInitParam()
-	{
-		GameObject::SaveInitParam();
-		(*m_data)["scriptable"] = *m_scriptable;
-	}
-
 	// データの再読み込み
 	void ReloadParam()
 	{

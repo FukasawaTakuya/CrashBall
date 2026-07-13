@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Interface/ISceneChanger.h"
+#include "Interface/ISceneEditer.h"
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -24,6 +25,7 @@ class Camera;
  */
 class SceneManager 
 	: public ISceneChanger
+	, public ISceneEditer
 {
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -97,10 +99,10 @@ public:
 	void RequestChangeScene(SceneID nextSceneID) override;
 
 	// パラメータの書き込み
-	void SaveParam();
+	void SaveParam() override;
 
 	// パラメータの再読み込み
-	void ReloadParam();
+	void ReloadParam() override;
 
 	// 取得/設定
 public:
@@ -116,7 +118,8 @@ public:
 		return m_pCurrentScene->GetGameObjects();
 	}
 
-	void SetEditMode(bool flag)
+	// 編集フラグの設定
+	void SetEditMode(bool flag) override
 	{
 		m_isEditMode = flag;
 

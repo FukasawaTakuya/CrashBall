@@ -157,7 +157,7 @@ void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& pr
  */
 void TitleScene::SaveParam()
 {
-	m_player->SaveInitParam();
+	m_player->SaveParam();
 	m_titleLogo->SaveParam();
 	m_startButton->SaveParam();
 	m_camera->SaveParam();

@@ -81,6 +81,8 @@ void TargetCameraController::Initialize()
 
 	// 回転の設定
 	m_transform->SetRotate(SimpleMath::Quaternion::Identity);
+
+	TargetingTransform();
 }
 
 /**

@@ -67,8 +67,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_renderTexture             = std::make_unique<RenderTexture>();
 
-    m_editGuiManager            = std::make_unique<EditGuiManager>();
-
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -94,6 +92,8 @@ void Game::Initialize(HWND window, int width, int height)
         &m_resourceContext,
         m_jsonDataManager.get()
     );
+
+    m_editGuiManager = std::make_unique<EditGuiManager>(m_sceneManager.get());
 
     
     // サービスロケーターに設定

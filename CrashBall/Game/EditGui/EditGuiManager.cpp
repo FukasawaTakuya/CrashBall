@@ -15,12 +15,15 @@
 /**
  * \brief コンストラクタ
  * 
+ * \param シーン編集
  */
-EditGuiManager::EditGuiManager()
+EditGuiManager::EditGuiManager(ISceneEditer* pSceneEditer)
+    : m_pSceneEditer(pSceneEditer)
 {
     m_objectListGui         = std::make_unique<ObjectListGui>();
     m_objectInspectorGui    = std::make_unique<ObjectInspectorGui>();
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
+    m_editButton            = std::make_unique<EditButton>();
 }
 
 /**
@@ -82,18 +85,18 @@ void EditGuiManager::Update(
             &rightL
         );
 
-    mainTop = 
         ImGui::DockBuilderSplitNode(
             mainTop,
             ImGuiDir_Up,
             0.7f,
-            &mainBottom,
-            &mainTop
+            &mainTop,
+            &mainBottom
         );
 
     ImGui::DockBuilderDockWindow("Inspector", rightR);
     ImGui::DockBuilderDockWindow("ObjectList", rightL);
     ImGui::DockBuilderDockWindow("Game", mainTop);
+    ImGui::DockBuilderDockWindow("Buttons", mainBottom);
 
     ImGui::DockBuilderFinish(dockspaceID);
 
@@ -109,4 +112,5 @@ void EditGuiManager::Update(
     m_objectListGui->Update();
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
     m_gameViewRenderer->Update(srv);
+    m_editButton->Update(m_pSceneEditer);
 }

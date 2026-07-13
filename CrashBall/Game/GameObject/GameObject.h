@@ -77,9 +77,6 @@ public:
 	// パラメータの書き込み
 	virtual void SaveParam();
 
-	// 初期化用のパラメータの書き込み
-	virtual void SaveInitParam();
-
 	// データの再読み込み
 	virtual void ReloadParam();
 

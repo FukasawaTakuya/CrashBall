@@ -93,14 +93,6 @@ void TitleCamera::SaveParam()
 }
 
 /**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void TitleCamera::SaveInitParam()
-{
-}
-
-/**
  * \brief パラメータの再読み込み
  * 
  */

@@ -99,14 +99,18 @@ void FadeChangeScreen::Finalize()
 {
 }
 
+/**
+ * \brief パラメータの書き込み
+ * 
+ */
 void FadeChangeScreen::SaveParam()
 {
 }
 
-void FadeChangeScreen::SaveInitParam()
-{
-}
-
+/**
+ * \brief データの再読み込み
+ * 
+ */
 void FadeChangeScreen::ReloadParam()
 {
 }

@@ -61,6 +61,10 @@ void FloorMeshGaugeController::Initialize()
 	// 切り取り量の設定
 	m_playerGaugeController->SetCurrentAmount(0.0f);
 	m_enemyGaugeController->SetCurrentAmount(0.0f);
+
+	// テキストの設定
+	m_playerTextRenderer->SetText(L"Player:0面");
+	m_enemyTextRenderer->SetText(L"Enemy:0面");
 }
 
 /**

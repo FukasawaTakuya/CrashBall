@@ -82,14 +82,6 @@ void Object2D::SaveParam()
 }
 
 /**
- * \brief 初期化用のパラメータの書き込み
- * 
- */
-void Object2D::SaveInitParam()
-{
-}
-
-/**
  * \brief データの再読み込み
  * 
  */

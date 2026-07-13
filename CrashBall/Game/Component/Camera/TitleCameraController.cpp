@@ -53,7 +53,6 @@ TitleCameraController::~TitleCameraController()
  */
 void TitleCameraController::Initialize()
 {
-	//m_targetCamera->Initialize();
 	TargetCameraController::Initialize();
 }
 
@@ -63,14 +62,7 @@ void TitleCameraController::Initialize()
  */
 void TitleCameraController::Update()
 {
-	// 回転
-	//m_targetCamera->RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
-
-	//// ターゲットを追尾
-	//m_targetCamera->TargetingTransform();
-
 	RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
 
 	TargetingTransform();
-
 }

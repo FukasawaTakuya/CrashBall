@@ -39,7 +39,7 @@ protected:
 	DirectX::SimpleMath::Quaternion m_offsetRotate;	// オフセット分の回転
 
 	DirectX::SimpleMath::Vector3 m_offset;	// オフセット
-	float m_zoomRate = 1.0f;	// オフセットの拡大倍率
+	float m_zoomRate = 1.0f;				// オフセットの拡大倍率
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 

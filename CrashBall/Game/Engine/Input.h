@@ -103,9 +103,6 @@ namespace Input
 	// マウス座標の取得
 	inline DirectX::SimpleMath::Vector2 GetMousePos()
 	{
-		ImVec2 imageMin = ImGui::GetItemRectMin();
-		ImVec2 imageMax = ImGui::GetItemRectMax();
-
 		// 入力システム
 		static IInputService* input = ServiceLocator::Get<IInputService>();
 		// 入力システムが存在すれば結果を返す
@@ -115,5 +112,33 @@ namespace Input
 		}
 		// なければ(0.0f, 0.0f)
 		else return DirectX::SimpleMath::Vector2::Zero;
+	}
+
+	// 前フレームのマウス座標の取得
+	inline DirectX::SimpleMath::Vector2 GetPrevMousePos()
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば結果を返す
+		if (input != nullptr)
+		{
+			return input->GetPrevMousePos();
+		}
+		// なければ(0.0f, 0.0f)
+		else return DirectX::SimpleMath::Vector2::Zero;
+	}
+
+	// ホイール値の取得
+	inline int GetWheelValue()
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば結果を返す
+		if (input != nullptr)
+		{
+			return input->GetWheelValue();
+		}
+		// なければ0
+		else return 0;
 	}
 }

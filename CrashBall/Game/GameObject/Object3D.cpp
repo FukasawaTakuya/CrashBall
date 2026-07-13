@@ -68,10 +68,6 @@ void Object3D::SaveParam()
 {
 }
 
-void Object3D::SaveInitParam()
-{
-}
-
 void Object3D::ReloadParam()
 {
 }

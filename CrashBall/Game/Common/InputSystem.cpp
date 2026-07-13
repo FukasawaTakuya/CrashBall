@@ -26,7 +26,10 @@ void InputSystem::Update()
 	m_mouseTracker->Update(mouse);
 	m_keyboardTracker->Update(keyboard);
 
+	m_prevMousePos = m_mousePos;
 	m_mousePos = SimpleMath::Vector2(static_cast<float>(mouse.x), static_cast<float>(mouse.y));
+
+	Mouse::Get().ResetScrollWheelValue();
 }
 
 /**

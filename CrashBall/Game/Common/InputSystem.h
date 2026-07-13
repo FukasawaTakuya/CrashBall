@@ -18,7 +18,8 @@ private:
 	std::unique_ptr<DirectX::Mouse::ButtonStateTracker>			m_mouseTracker;			// マウスのトラッカー
 	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>	m_keyboardTracker;		// キーボードのトラッカー
 
-	DirectX::SimpleMath::Vector2 m_mousePos;
+	DirectX::SimpleMath::Vector2 m_mousePos;		// マウス座標
+	DirectX::SimpleMath::Vector2 m_prevMousePos;	// 前フレームのマウス座標
 
 		// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -124,5 +125,17 @@ public:
 	DirectX::SimpleMath::Vector2 GetMousePos() override
 	{
 		return m_mousePos;
+	}
+
+	// 前フレームのマウス座標の取得
+	DirectX::SimpleMath::Vector2 GetPrevMousePos() override
+	{
+		return m_prevMousePos;
+	}
+
+	// ホイール値の取得
+	int GetWheelValue() override
+	{
+		return Mouse::Get().GetState().scrollWheelValue;
 	}
 };
