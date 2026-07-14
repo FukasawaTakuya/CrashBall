@@ -57,6 +57,7 @@ GameCameraController::~GameCameraController()
 void GameCameraController::Initialize()
 {
 	TargetCameraController::Initialize();
+	TargetCameraController::TargetingTransform();
 }
 
 /**

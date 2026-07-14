@@ -1,37 +1,38 @@
 ﻿/*****************************************************************//**
- * \file   GameCamera.h
- * \brief  ゲームカメラ
+ * \file   DebugCamera.h
+ * \brief  デバッグカメラ
  * 
  * \author 深沢拓矢
- * \date   June 2026
+ * \date   July 2026
  *********************************************************************/
 
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
 
-#include "Game/Component/Camera/GameCameraController.h"
+#include "Game/Component/Camera/DebugCameraController.h"
 
- /**
- * \brief ゲームカメラ
+/**
+ * \brief デバッグカメラ
  */
-class  GameCamera : public GameObject {
+class  DebugCamera : public GameObject
+{
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// カメラ操作コンポーネントのキャッシュ
-	GameCameraController* m_cameraController = nullptr;
-	
+	DebugCameraController* m_cameraController = nullptr;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	GameCamera(json* data);
+	DebugCamera();
 
 	// デストラクタ
-	~GameCamera();
+	~DebugCamera();
 
 	// 操作
 public:
@@ -55,8 +56,10 @@ public:
 	void ReloadParam() override;
 
 
-	// 取得 / 設定
+	// 取得/設定
 public:
+
 	// 内部実装
 private:
+
 };

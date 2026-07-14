@@ -177,7 +177,7 @@ public:
 	}
 
 	// 色の設定
-	void SetColor(const DirectX::XMVECTORF32& color)
+	void SetColor(const DirectX::SimpleMath::Color& color)
 	{
 		m_color = color;
 	}

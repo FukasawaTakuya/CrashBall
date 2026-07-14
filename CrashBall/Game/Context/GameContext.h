@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Game/SoundPlayer/ISoundPlayer.h"
-#include "Game/EditGui/Interface/IObjectListGui.h"
 
 class IObjectListGui;
 

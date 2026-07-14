@@ -27,6 +27,9 @@ public:
 	// 操作
 public:
 
+	// 初期化
+	virtual void Initialize() = 0;
+
 	// パラメータの書き込み
 	virtual void SaveParam() = 0;
 
@@ -36,9 +39,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// 編集フラグの設定
-	virtual void SetEditMode(bool flag) = 0;
 
 	// 内部実装
 private:

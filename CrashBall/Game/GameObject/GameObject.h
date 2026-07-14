@@ -38,6 +38,9 @@ private:
 	// オブジェクト名
 	std::string m_name = "object";
 
+	// アクティブフラグ
+	bool m_isActice = true;
+
 	// 子オブジェクト
 	std::vector<GameObject*> m_children;
 

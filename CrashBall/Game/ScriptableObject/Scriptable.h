@@ -14,7 +14,7 @@
 namespace Scriptable
 {
 	// ScriptableObjectの取得 
-	inline ScriptableObject* GetScriptableObject(const std::string& key)
+	inline const ScriptableObject* GetScriptableObject(const std::string& key)
 	{
 		// ScriptableObjectマネージャ 
 		static IScriptableObjectManager* scriptableManager
@@ -23,6 +23,21 @@ namespace Scriptable
 		if (scriptableManager != nullptr)
 		{
 			return scriptableManager->GetScriptableObject(key);
+		}
+		// 存在しなければnullptr 
+		else return nullptr;
+	}
+
+	// ScriptableObjectのコンテナの取得 
+	inline const ScriptableObjectContainer* GetScriptableObejctList()
+	{
+		// ScriptableObjectマネージャ 
+		static IScriptableObjectManager* scriptableManager
+			= ServiceLocator::Get<IScriptableObjectManager>();
+		// マネージャが存在すれば取得する 
+		if (scriptableManager != nullptr)
+		{
+			return scriptableManager->GetScriptableObejctList();
 		}
 		// 存在しなければnullptr 
 		else return nullptr;

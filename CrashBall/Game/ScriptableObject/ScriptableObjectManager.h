@@ -50,13 +50,13 @@ public:
 	// 取得/設定
 public:
 
-	// スクリプタブルオブジェクトの取得
-	ScriptableObject* GetScriptableObject(const std::string& key) override;
+	// ScriptableObjectの取得
+	const ScriptableObject* GetScriptableObject(const std::string& key) override;
 
-	// スクリプタブルオブジェクトの配列の取得
-	const ScriptableObjectContainer& GetScriptableObejctList()
+	// ScriptableObjectのコンテナの取得
+	const ScriptableObjectContainer* GetScriptableObejctList()
 	{
-		return m_scriptableObjectList;
+		return &m_scriptableObjectList;
 	}
 
 	// 内部実装

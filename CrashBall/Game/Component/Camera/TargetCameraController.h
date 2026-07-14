@@ -84,6 +84,9 @@ public:
 	// Y方向の回転
 	void RotateY(float angleRad);
 
+	// オフセットのズーム
+	void Zoom(float value);
+
 	// トランスフォームを追尾
 	void TargetingTransform();
 
@@ -119,6 +122,12 @@ public:
 		right.y = 0.0f;
 		right.Normalize();
 		return right;
+	}
+
+	// 上方向ベクトルの取得
+	DirectX::SimpleMath::Vector3 GetUp() const
+	{
+		return m_up;
 	}
 
 	// ターゲットの設定

@@ -78,13 +78,13 @@ public:
 	// 描画
 	void Render(const RenderContext& renderContext) override;
 
-	// 終了
+	// 終了処理
 	void Finalize() override;
 
-	// リソース作成
+	// デバイス依存のリソース作成
 	void CreateDeviceResources(const ResourceContext& resourceContext) override;
 
-	// リソース作成
+	// ウインドウサイズ依存のリソース作成
 	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
 	// パラメータの書き込み

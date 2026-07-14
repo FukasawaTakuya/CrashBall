@@ -86,12 +86,14 @@ ObjectInspectorGui::~ObjectInspectorGui()
  * 
  * \param selectedObject 選択中のオブジェクト
  */
-void ObjectInspectorGui::Updata(const GameObject* selectedObject)
+void ObjectInspectorGui::Updata(GameObject* selectedObject)
 {
 	ImGui::Begin("Inspector");
 
 	if (selectedObject != nullptr)
 	{
+		ImGui::InputText("Name", &selectedObject->m_name);
+
 		ImGui::BeginChild(selectedObject->GetName().c_str());
 
 		ImGui::Text(selectedObject->GetName().c_str());

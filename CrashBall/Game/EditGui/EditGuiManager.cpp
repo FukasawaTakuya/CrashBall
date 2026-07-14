@@ -1,6 +1,6 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   EditGuiManager.h
- * \brief  エディタGUI管理クラス
+ * \brief  エディタGUI管理
  *
  * \author 深沢拓矢
  * \date   July 2026
@@ -15,15 +15,21 @@
 /**
  * \brief コンストラクタ
  * 
- * \param シーン編集
+ * \param pSceneEditer シーン編集
+ * \param pJsonDataManager Jsonデータ管理
  */
-EditGuiManager::EditGuiManager(ISceneEditer* pSceneEditer)
-    : m_pSceneEditer(pSceneEditer)
+EditGuiManager::EditGuiManager(
+    ISceneEditer* pSceneEditer,
+    IJsonDataManager* pJsonDataManager)
 {
     m_objectListGui         = std::make_unique<ObjectListGui>();
     m_objectInspectorGui    = std::make_unique<ObjectInspectorGui>();
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
-    m_editButton            = std::make_unique<EditButton>();
+    m_editButton            = std::make_unique<EditButton>(
+                                    this,
+                                    pSceneEditer,
+                                    pJsonDataManager
+                                    );
 }
 
 /**
@@ -44,7 +50,6 @@ EditGuiManager::~EditGuiManager()
  */
 void EditGuiManager::Update(
     std::vector<GameObject*>* gameObjects, 
-    std::vector<GameObject*>* scriptableObjects, 
     ID3D11ShaderResourceView* srv)
 {
     if (!m_isActive) return;
@@ -53,6 +58,9 @@ void EditGuiManager::Update(
 
     ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
     ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+    // 描画領域が0以下ならreturn
+    if (viewport->Size.x <= 0.0f || viewport->Size.y <= 0.0f) return;
 
     ImGui::DockBuilderAddNode(
         dockspaceID,
@@ -104,13 +112,9 @@ void EditGuiManager::Update(
 
     ImGui::DockSpaceOverViewport(dockspaceID);
 
-    // 表示オブジェクトの設定
-    m_objectListGui->SetGameObejcts(gameObjects);
-    m_objectListGui->SetScriptableObjects(scriptableObjects);
-
     // 更新
-    m_objectListGui->Update();
+    m_objectListGui->Update(gameObjects);
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
     m_gameViewRenderer->Update(srv);
-    m_editButton->Update(m_pSceneEditer);
+    m_editButton->Update();
 }

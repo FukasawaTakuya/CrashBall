@@ -183,6 +183,10 @@
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Game\Camera\DebugCamera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Camera\GameCamera.h" />
     <ClInclude Include="Game\Camera\TitleCamera.h">
       <SubType>
@@ -261,6 +265,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\EditGui\EditButton.h" />
     <ClInclude Include="Game\EditGui\EditGuiManager.h">
       <SubType>
       </SubType>
@@ -269,11 +274,10 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\EditButton.h">
+    <ClInclude Include="Game\EditGui\Interface\IEditModeChanger.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h" />
     <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
       <SubType>
       </SubType>
@@ -473,6 +477,7 @@
   <ItemGroup>
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Game\Camera\DebugCamera.cpp" />
     <ClCompile Include="Game\Camera\GameCamera.cpp" />
     <ClCompile Include="Game\Camera\TitleCamera.cpp" />
     <ClCompile Include="Game\CollisionManager\Collision.cpp" />
@@ -507,9 +512,9 @@
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
+    <ClCompile Include="Game\EditGui\EditButton.cpp" />
     <ClCompile Include="Game\EditGui\EditGuiManager.cpp" />
     <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
-    <ClCompile Include="Game\EditGui\Interface\EditButton.cpp" />
     <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp" />
     <ClCompile Include="Game\EditGui\ObjectListGui.cpp" />
     <ClCompile Include="Game\Factory\ComponentFactory.cpp" />

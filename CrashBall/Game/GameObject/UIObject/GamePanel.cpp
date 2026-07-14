@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "GamePanel.h"
 
+#include "Game/ScriptableObject/Scriptable.h"
+
 using namespace DirectX;
 
 /**
@@ -223,31 +225,49 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
+	auto gameColor = Scriptable::GetScriptableObject("gameColor");
+
 	// FloorMeshGauge ==================================================
 
+	// スプライトの設定
 	m_meshGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
-	m_playerMeshNumText
-		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
-	m_enemyMeshNumText
-		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
+	//　色の設定
+	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
+	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
+
+	// フォントの設定
+	m_playerMeshNumText->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
+	m_enemyMeshNumText->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
+
+	// 色の設定
+	m_playerMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
+	m_enemyMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
 
 	// AttackGauge ==================================================
 
+	// スプライトの設定
 	m_attackGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_attackGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
+	// フォントの設定
 	m_attackPowerText
 		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 
 	// EnemyHpGauge ==================================================
 
+	// スプライトの設定
 	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
+	// 色の設定
+	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
+
+
+	// フォントの設定
 	m_enemyHpText
 		->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 }

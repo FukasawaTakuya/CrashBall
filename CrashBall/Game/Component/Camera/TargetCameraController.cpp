@@ -31,6 +31,9 @@ TargetCameraController::TargetCameraController(
 
 	// オフセット分の回転
 	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
+
+	// 
+	Initialize();
 }
 
 /**
@@ -53,6 +56,9 @@ TargetCameraController::TargetCameraController(
 
 	// オフセット分の回転
 	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
+
+	// 
+	Initialize();
 }
 
 /**
@@ -81,8 +87,6 @@ void TargetCameraController::Initialize()
 
 	// 回転の設定
 	m_transform->SetRotate(SimpleMath::Quaternion::Identity);
-
-	TargetingTransform();
 }
 
 /**
@@ -133,6 +137,16 @@ void TargetCameraController::RotateY(float angleRad)
 	m_up = XMVector3Rotate(SimpleMath::Vector3::Up, m_offsetRotate * m_transform->GetWorldRotate());
 
 	m_isDirty = true;
+}
+
+/**
+ * \brief オフセットのズーム
+ * 
+ * \param value 
+ */
+void TargetCameraController::Zoom(float value)
+{
+	m_zoomRate += value;
 }
 
 /**

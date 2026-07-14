@@ -77,6 +77,8 @@ private:
 
     std::unique_ptr<RenderTexture>              m_renderTexture;
 
+    std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
+
     std::unique_ptr<EditGuiManager> m_editGuiManager;
 
     std::vector<GameObject*> m_scriptableObjects;

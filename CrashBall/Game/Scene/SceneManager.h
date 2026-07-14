@@ -17,6 +17,7 @@
 #include "Game/Scene/SceneChangeScreen/FadeChangeScreen.h"
 
 #include "Scene.h"
+#include "Game/Camera/DebugCamera.h"
 
 class Camera;
 
@@ -47,8 +48,6 @@ private:
 	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
 
 	IJsonDataManager* m_jsonDataManager;		// Json管理
-
-	bool m_isEditMode = false;	// 編集モードフラグ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -81,7 +80,7 @@ public:
 	void SetStartScene();
 
 	// 初期化
-	void Initialize();
+	void Initialize() override;
 
 	// 更新
 	void Update();
@@ -116,17 +115,6 @@ public:
 	std::vector<GameObject*>* GetGameObjects()
 	{
 		return m_pCurrentScene->GetGameObjects();
-	}
-
-	// 編集フラグの設定
-	void SetEditMode(bool flag) override
-	{
-		m_isEditMode = flag;
-
-		if (flag)
-		{
-			Initialize();
-		}
 	}
 
 	// 内部実装

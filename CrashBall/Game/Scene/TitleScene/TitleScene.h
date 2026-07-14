@@ -33,7 +33,7 @@ private:
 	std::unique_ptr<TitleLogo>	 m_titleLogo;	// タイトルロゴ
 	std::unique_ptr<Button>		 m_startButton;	// スタートボタン
 
-	ScriptableObject* m_gameColor = nullptr;
+	const ScriptableObject* m_gameColor = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

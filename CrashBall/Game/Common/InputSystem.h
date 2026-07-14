@@ -136,6 +136,6 @@ public:
 	// ホイール値の取得
 	int GetWheelValue() override
 	{
-		return Mouse::Get().GetState().scrollWheelValue;
+		return DirectX::Mouse::Get().GetState().scrollWheelValue;
 	}
 };

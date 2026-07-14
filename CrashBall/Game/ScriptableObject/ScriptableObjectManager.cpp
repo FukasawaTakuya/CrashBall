@@ -69,7 +69,7 @@ void ScriptableObjectManager::ReloadParam()
  * \param key キー
  * \return ScriptableObjectのポインタ
  */
-ScriptableObject* ScriptableObjectManager::GetScriptableObject(const std::string& key)
+const ScriptableObject* ScriptableObjectManager::GetScriptableObject(const std::string& key)
 {
 	if (m_scriptableObjectList.find(key) != m_scriptableObjectList.end())
 	{

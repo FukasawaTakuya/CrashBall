@@ -40,16 +40,16 @@ public:
 	void LoadFile(const std::string& key, const char* fileNmae);
 
 	// データの再読み込み
-	void ReloadFile();
+	void ReloadFile() override;
 
 	// データの書き込み
-	void SaveFile();
+	void SaveFile() override;
 
 	// 取得/設定
 public:
 
 	// Jsonデータの取得
-	json* GetJsonData(const std::string& key) override ;
+	json* GetJsonData(const std::string& key) override;
 
 	// 内部実装
 private:

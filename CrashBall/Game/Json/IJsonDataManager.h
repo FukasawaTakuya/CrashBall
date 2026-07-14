@@ -34,6 +34,13 @@ public:
 
 	virtual json* GetJsonData(const std::string& key) = 0;
 
+	// データの再読み込み
+	virtual void ReloadFile() = 0;
+
+	// データの書き込み
+	virtual void SaveFile() = 0;
+
+
 	// 内部実装
 private:
 

@@ -71,9 +71,6 @@ void SceneManager::Initialize()
  */
 void SceneManager::Update()
 {
-	// 編集モードならreturn
-	if (m_isEditMode) return;
-
 	// 変更リクエストがnullじゃないなら変更
 	if (m_pRequestScene) 
 	{

@@ -1,6 +1,6 @@
 ﻿/*****************************************************************//**
  * \file   ObjectListGui.h
- * \brief  オブジェクト編集GUI
+ * \brief  オブジェクトリスト表示
  * 
  * \author 深沢拓矢
  * \date   July 2026
@@ -9,24 +9,19 @@
 #pragma once
 
 #include "ImGui/imgui.h"
-#include "Interface/IObjectListGui.h"
+
+#include "Game/GameObject/GameObject.h"
 
 /**
- * \brief オブジェクト編集GUI
+ * \brief オブジェクトリスト表示
  */
-class  ObjectListGui : public IObjectListGui {
+class  ObjectListGui {
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// 表示するオブジェクトリスト
-	std::vector<GameObject*>* m_gameObjects = nullptr;
-
-	// 表示するスクリプタブルオブジェクトリスト
-	std::vector<GameObject*>* m_scriptableObjects = nullptr;
-
 	// 選択中のオブジェクト
-	const GameObject* m_selectedObject = nullptr;
+	GameObject* m_selectedObject = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -42,32 +37,20 @@ public:
 public:
 
 	// 更新
-	void Update();
+	void Update(std::vector<GameObject*>* gameObjects);
 
 	// 取得/設定
 public:
 
 	// 選択中のオブジェクトの取得
-	const GameObject* GetSelectedObject()
+	GameObject* GetSelectedObject()
 	{
 		return m_selectedObject;
-	}
-
-	// オブジェクトリストの設定
-	void SetGameObejcts(std::vector<GameObject*>* objects) override
-	{
-		m_gameObjects = objects;
-	}
-
-	// スクリプタブルオブジェクトリストの設定
-	void SetScriptableObjects(std::vector<GameObject*>* objects) override
-	{
-		m_scriptableObjects = objects;
 	}
 
 	// 内部実装
 private:
 
 	// オブジェクトの表示
-	void DrawObjectGui(const GameObject* object);
+	void DrawObjectGui(GameObject* object);
 };

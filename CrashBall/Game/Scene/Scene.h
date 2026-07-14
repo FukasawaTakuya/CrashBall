@@ -16,6 +16,8 @@
 #include "Game/Context/ResourceContext.h"
 #include "Game/Component/Camera/ICamera.h"
 
+#include "Game/GameObject/GameObject.h"
+
 /**
  * \brief 基底シーン
  */

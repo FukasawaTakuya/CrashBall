@@ -82,7 +82,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         wcex.hIcon = LoadIconW(hInstance, L"IDI_ICON");
         wcex.hCursor = LoadCursorW(nullptr, IDC_ARROW);
         wcex.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_WINDOW + 1);
-        wcex.lpszClassName = L"_3DPrograming_GFWindowClass";
+        wcex.lpszClassName = L"_Fukasawa_MyClass";
         wcex.hIconSm = LoadIconW(wcex.hInstance, L"IDI_ICON");
         if (!RegisterClassExW(&wcex))
             return 1;
@@ -99,7 +99,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
 
         // ウインドウを操作するのに使うハンドル
-        HWND hwnd = CreateWindowExW(0, L"_3DPrograming_GFWindowClass", g_szAppName, WS_MYWINDOW,
+        HWND hwnd = CreateWindowExW(0, L"_Fukasawa_MyClass", g_szAppName, WS_MYWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top,
             nullptr, nullptr, hInstance,
             g_game.get());

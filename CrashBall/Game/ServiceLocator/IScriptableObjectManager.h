@@ -16,15 +16,14 @@
 
 #include "Game/ScriptableObject/ScriptableObject.h"
 
+ // ScriptableObjectのコンテナのエイリアス宣言
+using ScriptableObjectContainer
+	= std::unordered_map<std::string, std::unique_ptr<ScriptableObject>>;
+
 /**
  * \brief ScriptableObject管理インターフェース
  */
 class  IScriptableObjectManager : public Service {
-
-public:
-	// ScriptableObjectのコンテナのエイリアス宣言
-	using ScriptableObjectContainer
-		= std::unordered_map<std::string, std::unique_ptr<ScriptableObject>>;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -42,8 +41,11 @@ public:
 	// 取得/設定
 public:
 
-	// スクリプタブルオブジェクトの取得
-	virtual ScriptableObject* GetScriptableObject(const std::string& key) = 0;;
+	// ScriptableObjectの取得
+	virtual const ScriptableObject* GetScriptableObject(const std::string& key) = 0;
+
+	// ScriptableObjectのコンテナの取得
+	virtual const ScriptableObjectContainer* GetScriptableObejctList() = 0;
 
 	// 内部実装
 private:

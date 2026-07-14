@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   ObjectListGui.cpp
- * \brief  オブジェクト編集GUI
+ * \brief  オブジェクトリスト表示
  *
  * \author 深沢拓矢
  * \date   July 2026
@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "ObjectListGui.h"
 
-#include "Game/GameObject/GameObject.h"
+#include "Game/ScriptableObject/Scriptable.h"
 
 /**
  * \brief コンストラクタ
@@ -31,27 +31,24 @@ ObjectListGui::~ObjectListGui()
  * \brief 更新
  * 
  */
-void ObjectListGui::Update()
+void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
 {
 	ImGui::Begin("ObjectList");
 
 	ImGui::BeginChild("ObjectList");
 
     // オブジェクトリストを表示
-	if (m_gameObjects != nullptr)
+	if (gameObjects != nullptr)
 	{
-		for (auto& object : *m_gameObjects)
+		for (auto& object : *gameObjects)
 		{
 			DrawObjectGui(object);
 		}
 	}
 
-    if (m_scriptableObjects != nullptr)
+    for (auto& object : *Scriptable::GetScriptableObejctList())
     {
-        for (auto& object : *m_scriptableObjects)
-        {
-            DrawObjectGui(object);
-        }
+        DrawObjectGui(object.second.get());
     }
 
 	ImGui::EndChild();
@@ -64,7 +61,7 @@ void ObjectListGui::Update()
  * 
  * \param object ゲームオブジェクト
  */
-void ObjectListGui::DrawObjectGui(const GameObject* object)
+void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
     ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;

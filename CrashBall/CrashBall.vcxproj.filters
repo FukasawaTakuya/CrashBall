@@ -152,6 +152,9 @@
     <Filter Include="Game\Scene\Interface">
       <UniqueIdentifier>{917be99d-95a6-4727-9811-67aaf7621b67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\EditGui\Interface">
+      <UniqueIdentifier>{df0cefae-f54b-479c-a2b7-d1b596f2defa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -480,9 +483,6 @@
     <ClInclude Include="Game\EditGui\ObjectListGui.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\IObjectListGui.h">
-      <Filter>Game\EditGui</Filter>
-    </ClInclude>
     <ClInclude Include="Game\EditGui\ObjectInspectorGui.h">
       <Filter>Game\EditGui</Filter>
     </ClInclude>
@@ -558,11 +558,17 @@
     <ClInclude Include="Game\Scene\Interface\ISceneEditer.h">
       <Filter>Game\Scene\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\EditGui\Interface\EditButton.h">
-      <Filter>Game\EditGui</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Camera\DebugCameraController.h">
       <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\EditButton.h">
+      <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Camera\DebugCamera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\EditGui\Interface\IEditModeChanger.h">
+      <Filter>Game\EditGui\Interface</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -842,8 +848,15 @@
     <ClCompile Include="Game\Scene\GameScene\GameScene.cpp">
       <Filter>Game\Scene\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="Game\EditGui\Interface\EditButton.cpp" />
-    <ClCompile Include="Game\Component\Camera\DebugCameraController.cpp" />
+    <ClCompile Include="Game\Component\Camera\DebugCameraController.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\EditGui\EditButton.cpp">
+      <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Camera\DebugCamera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

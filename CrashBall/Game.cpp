@@ -67,6 +67,8 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_renderTexture             = std::make_unique<RenderTexture>();
 
+    m_debugCamera = std::make_unique<DebugCamera>();
+
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -93,8 +95,7 @@ void Game::Initialize(HWND window, int width, int height)
         m_jsonDataManager.get()
     );
 
-    m_editGuiManager = std::make_unique<EditGuiManager>(m_sceneManager.get());
-
+    m_editGuiManager = std::make_unique<EditGuiManager>(m_sceneManager.get(), m_jsonDataManager.get());
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
@@ -135,7 +136,7 @@ void Game::Initialize(HWND window, int width, int height)
     );
 
     // ScriptableObejctリストに追加
-    for (auto& object : m_sriptableObjectManager->GetScriptableObejctList())
+    for (auto& object : *m_sriptableObjectManager->GetScriptableObejctList())
     {
         m_scriptableObjects.push_back(object.second.get());
     }
@@ -217,42 +218,42 @@ void Game::Update(DX::StepTimer const& timer)
     // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
 
+    // 入力の更新
     m_inputSystem->Update();
+    // 編集モードならマウス座標を直す
     if (m_editGuiManager->GetIsActive())
     {
         m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
     }
 
+    // サウンドの更新
     m_soundPlayer->Update();
 
-    m_sceneManager->Update();
+    // 編集モードならデバッグカメラ更新
+    if (m_editGuiManager->GetEditMode())
+    {
+        m_debugCamera->Update(m_gameContext);
+    }
+    else
+    {
+        // シーンの更新
+        m_sceneManager->Update();
+    }
 
+    // BGMの再生
     m_soundPlayer->PlayBgm(m_soundManager.get());
+    // SEの再生
     m_soundPlayer->PlaySe(m_soundManager.get());
 
+    // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager->GetGameObjects(),
-        &m_scriptableObjects,
         m_renderTexture->GetRenderTexture()
     );
 
-    // ファイルにセーブ
-    if(m_inputSystem->GetKeyTrigger(Keyboard::O))
-    {
-        m_sriptableObjectManager->SaveParam();
-        m_sceneManager->SaveParam();
-        m_jsonDataManager->SaveFile();
-    }
-    // 再読み込み
-    if(m_inputSystem->GetKeyTrigger(Keyboard::I))
-    {
-        m_jsonDataManager->ReloadFile();
-        m_sriptableObjectManager->ReloadParam();
-        m_sceneManager->ReloadParam();
-    }
-
 #ifndef NDEBUG
 
+    // 編集モードの切り替え
     if (m_inputSystem->GetKeyTrigger(Keyboard::E) &&
         m_inputSystem->GetKeyDown(Keyboard::LeftShift))
     {
@@ -281,7 +282,18 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
-    SimpleMath::Matrix view = m_sceneManager->GetCamera()->GetView();
+    SimpleMath::Matrix view;
+
+    // 編集モードならデバッグカメラからビュー取得
+    if (m_editGuiManager->GetEditMode())
+    {
+        view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
+    }
+    else
+    {
+        // シーンカメラからビュー取得
+        view = m_sceneManager->GetCamera()->GetView();
+    }
 
     // シーン内での描画命令登録
     m_sceneManager->Render();
@@ -298,6 +310,7 @@ void Game::Render()
 
     auto rtv = m_deviceResources->GetRenderTargetView();
 
+    // エディタが有効ならレンダーテクスチャ生成開始
     if(m_editGuiManager->GetIsActive())
         m_renderTexture->Begin(context, m_deviceResources->GetDepthStencilView());
 
@@ -317,6 +330,7 @@ void Game::Render()
     // スプライト関連描画終了
     m_spriteBatch->End();
 
+    // レンダーテクスチャ生成終了
     m_renderTexture->End(
         context,
         m_deviceResources->GetDepthStencilView(),
@@ -443,7 +457,7 @@ void Game::CreateDeviceDependentResources()
     m_textRendererManager->Create(device, context);
 
     m_renderTexture->Create(m_deviceResources.get());
-}
+ }
 
 // Allocate all memory resources that change on a window SizeChanged event.
 void Game::CreateWindowSizeDependentResources()
