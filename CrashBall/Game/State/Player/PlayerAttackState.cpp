@@ -50,14 +50,6 @@ PlayerAttackState::~PlayerAttackState()
 }
 
 /**
- * \brief 初期化処理
- * 
- */
-void PlayerAttackState::Initialize()
-{
-}
-
-/**
  * \brief 開始処理
  * 
  */
@@ -69,8 +61,9 @@ void PlayerAttackState::OnEnter()
 /**
  * \brief 更新処理
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
-void PlayerAttackState::Update()
+void PlayerAttackState::Update(const GameContext& gameContext)
 {
 	// 物理演算
 	Rigidbody* rigidbody = m_stateContext.rigitbody;

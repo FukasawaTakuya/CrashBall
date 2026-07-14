@@ -32,14 +32,6 @@ EnemyWanderState::~EnemyWanderState()
 }
 
 /**
- * \brief 初期化処理
- * 
- */
-void EnemyWanderState::Initialize()
-{
-}
-
-/**
  * \brief 開始処理
  * 
  */
@@ -51,8 +43,9 @@ void EnemyWanderState::OnEnter()
 /**
  * \brief 更新処理
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
-void EnemyWanderState::Update()
+void EnemyWanderState::Update(const GameContext& gameContext)
 {
 	Transform* transform = m_stateContext.trasnform;
 	Rigidbody* rigidbody = m_stateContext.rigidbody;

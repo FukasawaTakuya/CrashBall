@@ -98,5 +98,5 @@ void PlayerController::Update(const GameContext& gameContext)
 {
 	// ステートマシンの更新
 	if (m_stateMachine != nullptr)
-		m_stateMachine->Update();
+		m_stateMachine->Update(gameContext);
 }

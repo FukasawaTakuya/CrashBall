@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   PlayerStateBase.h
+ * \brief  基底プレイヤーステート
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/State/StateBase.h"
@@ -5,18 +13,14 @@
 #include "PlayerStateContext.h"
 
 /**
- * \brief 基底オブジェクト
+ * \brief 基底プレイヤーステート
  */
 class  PlayerStateBase : public StateBase<PlayerController>{
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
 
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
 	PlayerStateContext m_stateContext;	// プレイヤーステート用のコンテキスト
-	
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

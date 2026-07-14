@@ -8,7 +8,8 @@
 
 #pragma once
 
-#include "pch.h"
+#include <memory>
+#include <unordered_map>
 
 #include "IStateMachine.h"
 #include "StateBase.h"
@@ -47,7 +48,7 @@ public:
 public:
 
 	// 更新
-	void Update()
+	void Update(const GameContext& gameContext)
 	{
 		// ステート変更命令の実行
 		m_changeStateCmd();
@@ -56,7 +57,7 @@ public:
 
 		// ステートのアップデート
 		if (m_currentState != nullptr)
-			m_currentState->CallUpdate();
+			m_currentState->Update(gameContext);
 	}
 
 	// ステートの変更
@@ -129,14 +130,14 @@ private:
 				if (m_currentState != nullptr)
 				{
 					// 現ステートの終了処理
-					m_currentState->CallOnExit();
+					m_currentState->OnExit();
 				}
 
 				// 新ステートをセット
 				m_currentState = state;
 
 				// 新ステートの開始処理
-				m_currentState->CallOnEnter();
+				m_currentState->OnEnter();
 			};
 	}
 };

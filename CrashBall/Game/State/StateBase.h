@@ -8,8 +8,8 @@
 
 #pragma once
 
-#include <Game/GameObject/Ball.h>
 #include "IStateMachine.h"
+#include "Game/Context/GameContext.h"
 
 /**
  * \brief 基底ステート
@@ -17,13 +17,10 @@
 template <typename Owner>
 class  StateBase {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	Owner* m_owner = nullptr;						// オーナー
+	Owner* m_owner = nullptr;					// オーナー
 
 	IStateMachine* m_pStateMachine = nullptr;	// ステートマシンのポインタ
 
@@ -38,49 +35,16 @@ public:
 	virtual ~StateBase() = default;
 
 	// 操作
-protected:
-
-	// 初期化処理
-	virtual void Initialize()  = 0;
+public:
 
 	// 開始処理
 	virtual void OnEnter() = 0;
 
 	// 更新処理
-	virtual void Update() = 0;
+	virtual void Update(const GameContext& gameContext) = 0;
 
 	// 終了処理
-	virtual void OnExit() = 0;
-
-public:
-
-	// 初期化処理の呼び出し関数
-	void CallInitialize() {
-		// nullチェック
-		if (m_owner == nullptr) return;
-		Initialize();
-	}
-	
-	// 開始処理の呼び出し関数
-	void CallOnEnter() {
-		// nullチェック
-		if (m_owner == nullptr) return;
-		OnEnter();
-	}
-
-	// 更新処理の呼び出し関数
-	void CallUpdate() {
-		// nullチェック
-		if (m_owner == nullptr) return;
-		Update();
-	}
-
-	// 終了処理の呼び出し関数
-	void CallOnExit() {
-		// nullチェック
-		if (m_owner == nullptr) return;
-		OnExit();
-	}
+	virtual void OnExit() = 0;	
 
 	// 取得/設定
 public:

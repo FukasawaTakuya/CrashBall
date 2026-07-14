@@ -10,6 +10,7 @@
 #include "pch.h"
 #include "EnemyController.h"
 #include "Game/State/Enemy/EnemyWanderState.h"
+#include "Game/Component/Ball/BallController.h"
 
 using namespace DirectX;
 
@@ -111,7 +112,7 @@ void EnemyController::Update(const GameContext& gameContext)
 {
 	// ステートの更新
 	if (m_stateMachine != nullptr)
-		m_stateMachine->Update();
+		m_stateMachine->Update(gameContext);
 
 	// 地上にいるとき
 	if (m_ballController->GetIsGround())

@@ -83,6 +83,7 @@ void GameScene::OnEnter(
     const GameContext& gameContext)
 {
     CreateDeviceResources(resourceContext);
+    gameContext.soundManager->RegisterPlayBgmCommand("game");
 }
 
 /**
@@ -133,7 +134,7 @@ void GameScene::Update(const GameContext& gameContext)
     if (m_enemyController->GetHp() <= 0.0f || 
         Input::GetKeyDown(Keyboard::Escape))
     {
-        m_pSceneManager->RequestChangeScene(SceneID::Title);
+        m_pSceneChanger->RequestChangeScene(SceneID::Title);
     }
 }
 

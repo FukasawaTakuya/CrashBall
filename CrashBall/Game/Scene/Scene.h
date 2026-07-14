@@ -26,7 +26,7 @@ class Scene {
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	ISceneChanger* m_pSceneManager;
+	ISceneChanger* m_pSceneChanger;
 
 	std::vector<GameObject*> m_gameObjects;
 

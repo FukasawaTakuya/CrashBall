@@ -37,15 +37,15 @@ class  StageController :
 	// パラメータの宣言 -------------------------------------------------
 private:
 
-	float m_floorNormalY;	// 床判定基準になる法線のY成分
-	float m_floorCenterPosY;// 床判定基準になる面の中心のY座標
+	float m_floorNormalY	= 0.0f;	// 床判定基準になる法線のY成分
+	float m_floorCenterPosY = 0.0f; // 床判定基準になる面の中心のY座標
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	const ScriptableObject* m_gameColor = nullptr;
 	
-	Mesh* m_meshCollider;	// コンポーネントのキャッシュ
+	Mesh* m_meshCollider = nullptr;	// コンポーネントのキャッシュ
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ

@@ -115,9 +115,11 @@ void Game::Initialize(HWND window, int width, int height)
     m_jsonDataManager->LoadFile("gameColors", "Resources/Data/gameColors.json");
 
     // 作成するリソースのファイル名を登録
+    // モデル
     m_modelManager->RegisterFile("player", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("enemy", L"Resources/Models/ball.sdkmesh");
     m_modelManager->RegisterFile("stage", L"Resources/Models/stage.sdkmesh");
+    // スプライト
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
     m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
     m_spriteManager->RegisterFile("Title", L"Resources/Sprite/Title.dds");
@@ -125,9 +127,11 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
-
-    m_soundManager->RegisterBgmFile("test", L"Resources/Sound/ks043.wav");
-    m_soundManager->RegisterSeFile("se", L"Resources/Sound/Accept.wav");
+    // サウンド
+    m_soundManager->RegisterBgmFile("title", L"Resources/Sound/BGM/Title.wav");
+    m_soundManager->RegisterBgmFile("game", L"Resources/Sound/BGM/Game.wav");
+    m_soundManager->RegisterSeFile("attack", L"Resources/Sound/SE/Attack.wav");
+    m_soundManager->RegisterSeFile("damage", L"Resources/Sound/SE/Attack.wav");
 
     // ScriptableObjectの作成
     m_sriptableObjectManager->RegisterObject(
@@ -226,9 +230,6 @@ void Game::Update(DX::StepTimer const& timer)
         m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
     }
 
-    // サウンドの更新
-    m_soundPlayer->Update();
-
     // 編集モードならデバッグカメラ更新
     if (m_editGuiManager->GetEditMode())
     {
@@ -245,13 +246,15 @@ void Game::Update(DX::StepTimer const& timer)
     // SEの再生
     m_soundPlayer->PlaySe(m_soundManager.get());
 
+    // サウンドの更新
+    m_soundPlayer->Update();
+
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager->GetGameObjects(),
         m_renderTexture->GetRenderTexture()
     );
 
-#ifndef NDEBUG
 
     // 編集モードの切り替え
     if (m_inputSystem->GetKeyTrigger(Keyboard::E) &&
@@ -259,7 +262,6 @@ void Game::Update(DX::StepTimer const& timer)
     {
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
     }
-#endif // !NDEBUG
 
 }
 #pragma endregion

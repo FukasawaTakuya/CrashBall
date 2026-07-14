@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
+#include "Game/Component/Ball/BallController.h"
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
 

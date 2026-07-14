@@ -13,7 +13,8 @@
 /**
  * \brief プレイヤー攻撃ステート
  */
-class  PlayerAttackState : public PlayerStateBase{
+class  PlayerAttackState : public PlayerStateBase
+{
 
 	// クラス定数の宣言 -------------------------------------------------
 private:
@@ -36,21 +37,14 @@ public:
 	// 操作
 private:
 
-	// 初期化処理
-	void Initialize() override;
-
 	// 開始処理
 	void OnEnter() override;
 
 	// 更新処理
-	void Update() override;
+	void Update(const GameContext& gameContext) override;
 
 	// 終了処理
 	void OnExit() override;
-
-
-	// 取得/設定
-public:
 
 	// 内部実装
 private:

@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   EnemyStateBase.h
+ * \brief  基底敵ステート
+ * 
+ * \author 深沢拓矢
+ * \date   May 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/State/StateBase.h"
@@ -5,7 +13,7 @@
 #include "EnemyStateContext.h"
 
 /**
- * \brief 基底オブジェクト
+ * \brief 基底敵ステート
  */
 class  EnemyStateBase : public StateBase<EnemyController>{
 

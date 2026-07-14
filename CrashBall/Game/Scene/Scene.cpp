@@ -10,11 +10,11 @@
 Scene::Scene(
 	ISceneChanger* pSceneManager,
 	IJsonDataManager* jsonDataManager)
-	: m_pSceneManager{ pSceneManager }
+	: m_pSceneChanger{ pSceneManager }
 {
 }
 
 void Scene::ChangeScene(SceneID nextSceneID)
 {
-	m_pSceneManager->RequestChangeScene(nextSceneID);
+	m_pSceneChanger->RequestChangeScene(nextSceneID);
 }

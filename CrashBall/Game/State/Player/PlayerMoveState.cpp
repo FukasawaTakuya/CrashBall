@@ -32,14 +32,6 @@ PlayerMoveState::~PlayerMoveState()
 }
 
 /**
- * \brief 初期化処理.
- * 
- */
-void PlayerMoveState::Initialize()
-{
-}
-
-/**
  * \brief 開始処理.
  * 
  */
@@ -50,8 +42,9 @@ void PlayerMoveState::OnEnter()
 /**
  * \brief 更新処理.
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
-void PlayerMoveState::Update()
+void PlayerMoveState::Update(const GameContext& gameContext)
 {
     // 物理演算コンポーネント
     Rigidbody* rigidbody = m_stateContext.rigitbody;
@@ -88,6 +81,8 @@ void PlayerMoveState::Update()
         playerController->GetPaintConsumer()->ConsumePaint(playerStatusController->GetAttacckCost());
         // 攻撃フラグを設定
         playerStatusController->SetIsAttack(true);
+        // 音の再生
+        gameContext.soundManager->RegisterPlaySeCommand("attack");
     }
 
     // 速度制限

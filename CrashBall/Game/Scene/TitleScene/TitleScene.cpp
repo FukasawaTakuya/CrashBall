@@ -41,7 +41,7 @@ TitleScene::TitleScene(
 	m_startButton->GetComponent<ButtonController>()
 		->SetOnPushCommand([&]()
 			{
-				m_pSceneManager->RequestChangeScene(SceneID::Game);
+				m_pSceneChanger->RequestChangeScene(SceneID::Game);
 			});
 
 	m_gameColor = Scriptable::GetScriptableObject("gameColor");
@@ -72,6 +72,7 @@ void TitleScene::OnEnter(
 	const GameContext& gameContext)
 {
 	CreateDeviceResources(resourceContext);
+	gameContext.soundManager->RegisterPlayBgmCommand("title");
 }
 
 /**
@@ -93,7 +94,7 @@ void TitleScene::Update(const GameContext& gameContext)
 {
 	if (Input::GetKeyTrigger(Keyboard::Space))
 	{
-		m_pSceneManager->RequestChangeScene(SceneID::Game);
+		m_pSceneChanger->RequestChangeScene(SceneID::Game);
 	}
 
 	m_camera->Update(gameContext);
