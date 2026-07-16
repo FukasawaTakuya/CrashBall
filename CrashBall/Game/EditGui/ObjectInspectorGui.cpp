@@ -194,7 +194,9 @@ void ObjectInspectorGui::DrawSpriteRenderer(Component* comp)
 	if (ImGui::TreeNodeEx("SpriteRenderer", flag))
 	{
 		ImGui::InputText("SpriteKey", &spriteRenderer->m_spriteKey);
+
 		ImGui::ColorEdit4("Color", &spriteRenderer->m_color.x);
+
 		ImGui::DragFloat2("SpriteScale", &spriteRenderer->m_spriteScale.x, 0.1f);
 		ImGui::DragFloat("LayerDepth", &spriteRenderer->m_layerDepth, 0.1f);
 

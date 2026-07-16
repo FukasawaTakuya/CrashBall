@@ -476,7 +476,7 @@ void Game::CreateWindowSizeDependentResources()
     // 射影行列の定義
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
         XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
-        0.01f, 150.0f
+        0.01f, 200.0f
     );
 
     // 射影行列の設定

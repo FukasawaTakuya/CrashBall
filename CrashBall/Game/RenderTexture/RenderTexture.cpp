@@ -78,6 +78,7 @@ void RenderTexture::Begin(
         dsv
     );
 
+    // 塗りつぶしの色
     float clearColor[4] =
     {
         0.2f,

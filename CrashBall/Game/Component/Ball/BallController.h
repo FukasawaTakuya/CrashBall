@@ -21,6 +21,10 @@
  */
 class  BallController : public Component {
 
+public:
+	// コンポーネント名
+	static constexpr char const* COMP_NAME = "BallController";
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 

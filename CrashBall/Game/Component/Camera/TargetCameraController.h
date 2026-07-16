@@ -19,8 +19,12 @@ class  TargetCameraController :
 	public Component,
 	public ICamera
 {
-
 	friend class ObjectInspectorGui;
+
+public:
+
+	// コンポーネント名 
+	static constexpr char const* COMP_NAME = "TargetCameraController";
 
 	// パラメータの宣言 -------------------------------------------------
 protected:

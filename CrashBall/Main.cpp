@@ -16,25 +16,16 @@ using namespace DirectX;
 
 #pragma warning(disable : 4061)
 
-// ウインドウスタイル
 #define WS_MYWINDOW (WS_OVERLAPPED  | \
                      WS_CAPTION     | \
                      WS_SYSMENU     | \
                      WS_MINIMIZEBOX)
-
-// ウィンドウ設定
-                    // デフォルト
-                    // タイトルバーをつける
-                    // クローズボタンをつける
-                    // 最小化ボタンをつけるか
 
 namespace
 {
     std::unique_ptr<Game> g_game;
 }
 
-// LPWSTR = 読み取り専用のポインタ型 const wchar_t*と同じ
-// タイトルバーに表示する文字
 LPCWSTR g_szAppName = L"Crash&Paint";
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -60,20 +51,15 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
     if (FAILED(hr))
         return 1;
 
-    // キーボードの作成
     std::unique_ptr<Keyboard> keyboard = std::make_unique<Keyboard>();
 
-    // マウスの作成
     std::unique_ptr<Mouse> mouse = std::make_unique<Mouse>();
 
-    // ゲームクラスの作成
     g_game = std::make_unique<Game>();
 
     // Register class and create window
-    // クラスを登録してウインドウを作成する
     {
         // Register class
-        // クラスの登録
         WNDCLASSEXW wcex = {};
         wcex.cbSize = sizeof(WNDCLASSEXW);
         wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -88,17 +74,13 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
             return 1;
 
         // Create window
-        // ウインドウの作成
         int w, h;
         g_game->GetDefaultSize(w, h);
 
-        // ウインドウサイズ
         RECT rc = { 0, 0, static_cast<LONG>(w), static_cast<LONG>(h) };
 
-        // ウインドウのサイズと自分で設定したウィンドウ設定を渡している
         AdjustWindowRect(&rc, WS_MYWINDOW, FALSE);
 
-        // ウインドウを操作するのに使うハンドル
         HWND hwnd = CreateWindowExW(0, L"_Fukasawa_MyClass", g_szAppName, WS_MYWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top,
             nullptr, nullptr, hInstance,
@@ -109,7 +91,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         if (!hwnd)
             return 1;
 
-        // マウスにウインドウハンドルを渡す
         mouse->SetWindow(hwnd);
 
         ShowWindow(hwnd, nCmdShow);
@@ -118,16 +99,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
         GetClientRect(hwnd, &rc);
 
         g_game->Initialize(hwnd, rc.right - rc.left, rc.bottom - rc.top);
-    }// クラスを登録してウインドウを作成終了
+    }
 
     // Main message loop
-    // メインループ
-    // MSG型 = キーボード入力・マウス操作・ウィンドウ操作などのイベントを入れる
-    // mag.messageでウインドウの作成・破棄・描画などのメッセージを受け取る
     MSG msg = {};
     while (WM_QUIT != msg.message)
     {
-        // PeekMessageメッセージを受け取っているか 引数はこれが基本　何かが発生するとメッセージが届く
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             TranslateMessage(&msg);
