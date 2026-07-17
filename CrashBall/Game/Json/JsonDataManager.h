@@ -10,7 +10,7 @@
 #include "Game/Json/IJsonDataManager.h"
 
 /**
- * \brief Json管理クラス
+ * \brief Json管理クラス 
  */
 class  JsonDataManager : public IJsonDataManager {
 

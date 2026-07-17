@@ -89,8 +89,8 @@ private:
 	// JsonConverter
 private:
 
-	friend void from_json(const json& j, PlayerStatusController& playerStatusController);
-	friend void to_json(json& j, const PlayerStatusController& playerStatusController);
+	friend void from_json(const nlohmann::json& j, PlayerStatusController& playerStatusController);
+	friend void to_json(nlohmann::json& j, const PlayerStatusController& playerStatusController);
 
 public:
 	// 演算子オーバーロード

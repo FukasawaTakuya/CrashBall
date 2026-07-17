@@ -71,8 +71,8 @@ private:
 	// JsonConverter
 private:
 
-	friend void to_json(json& j, const GameCameraController& gameCameraController);
-	friend void from_json(const json& j, GameCameraController& gameCameraController);
+	friend void to_json(nlohmann::json& j, const GameCameraController& gameCameraController);
+	friend void from_json(const nlohmann::json& j, GameCameraController& gameCameraController);
 
 	// 演算子オーバーロード
 public:

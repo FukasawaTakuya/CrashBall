@@ -155,6 +155,9 @@
     <Filter Include="Game\EditGui\Interface">
       <UniqueIdentifier>{df0cefae-f54b-479c-a2b7-d1b596f2defa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Json\Exporter">
+      <UniqueIdentifier>{75b2052b-a79e-413e-aafd-b6224ead08c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -570,6 +573,15 @@
     <ClInclude Include="Game\EditGui\Interface\IEditModeChanger.h">
       <Filter>Game\EditGui\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Json\Exporter\SceneExporter.h">
+      <Filter>Game\Json\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Exporter\GameObjectExporter.h">
+      <Filter>Game\Json\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Exporter\ComponentExporter.h">
+      <Filter>Game\Json\Exporter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -856,6 +868,15 @@
     </ClCompile>
     <ClCompile Include="Game\Camera\DebugCamera.cpp">
       <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Exporter\SceneExporter.cpp">
+      <Filter>Game\Json\Exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Exporter\GameObjectExporter.cpp">
+      <Filter>Game\Json\Exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Json\Exporter\ComponentExporter.cpp">
+      <Filter>Game\Json\Exporter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

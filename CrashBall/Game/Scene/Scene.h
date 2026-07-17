@@ -30,6 +30,8 @@ protected:
 
 	std::vector<GameObject*> m_gameObjects;
 
+	std::string m_sceneName = "scene";
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -84,6 +86,12 @@ public:
 	std::vector<GameObject*>* GetGameObjects()
 	{
 		return &m_gameObjects;
+	}
+
+	// シーン名の取得
+	std::string GetSceneName() const
+	{
+		return m_sceneName;
 	}
 
 	// 内部実装

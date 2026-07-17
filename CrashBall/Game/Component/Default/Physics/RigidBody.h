@@ -90,6 +90,6 @@ private:
 
 	// JsonConvert
 private:
-	friend void to_json(json& j, const Rigidbody& transfrom);
-	friend void from_json(const json& j, Rigidbody& rigidbody);
+	friend void to_json(nlohmann::json& j, const Rigidbody& transfrom);
+	friend void from_json(const nlohmann::json& j, Rigidbody& rigidbody);
 };

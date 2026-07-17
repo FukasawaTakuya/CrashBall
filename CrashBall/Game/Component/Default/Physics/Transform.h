@@ -200,8 +200,8 @@ private:
 
 	// JsonConvert
 private:
-	friend void from_json(const json& j, Transform& transform);
-	friend void to_json(json& j, const Transform& transfrom);
+	friend void from_json(const nlohmann::json& j, Transform& transform);
+	friend void to_json(nlohmann::json& j, const Transform& transfrom);
 
 public:
 

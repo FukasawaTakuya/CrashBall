@@ -48,6 +48,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
 
     m_jsonDataManager   = std::make_unique<JsonDataManager>();
+    m_sceneExporter = std::make_unique<SceneExporter>();
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
@@ -261,6 +262,11 @@ void Game::Update(DX::StepTimer const& timer)
         m_inputSystem->GetKeyDown(Keyboard::LeftShift))
     {
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
+    }
+
+    if (m_inputSystem->GetKeyTrigger(Keyboard::Space))
+    {
+        m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
     }
 
 }

@@ -19,6 +19,7 @@ class  Component {
 private:
 
 	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
+	
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

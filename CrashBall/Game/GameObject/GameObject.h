@@ -25,6 +25,7 @@
 class GameObject : public IGameObject {
 
 	friend class ObjectInspectorGui;
+	friend class GameObjectExporter;
 
 	// データメンバの宣言 -----------------------------------------------
 private:

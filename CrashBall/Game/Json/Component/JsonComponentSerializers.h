@@ -21,7 +21,6 @@
 #include "Game/Component/Camera/GameCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
-using namespace nlohmann;
 
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom);

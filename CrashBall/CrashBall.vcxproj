@@ -346,6 +346,18 @@
     <ClInclude Include="Game\Json\Component\JsonComponentDeserializers.h" />
     <ClInclude Include="Game\Json\Component\JsonComponentSerializers.h" />
     <ClInclude Include="Game\Json\Enum\JsonEnumSerializers.h" />
+    <ClInclude Include="Game\Json\Exporter\ComponentExporter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Exporter\GameObjectExporter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Json\Exporter\SceneExporter.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Json\IJsonDataManager.h">
       <SubType>
       </SubType>
@@ -537,6 +549,9 @@
     <ClCompile Include="Game\Geometory\Triangle.cpp" />
     <ClCompile Include="Game\Json\Component\JsonComponentDeserializers.cpp" />
     <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp" />
+    <ClCompile Include="Game\Json\Exporter\ComponentExporter.cpp" />
+    <ClCompile Include="Game\Json\Exporter\GameObjectExporter.cpp" />
+    <ClCompile Include="Game\Json\Exporter\SceneExporter.cpp" />
     <ClCompile Include="Game\Json\JsonDataManager.cpp" />
     <ClCompile Include="Game\Json\Loader\ComponentLoarder.cpp" />
     <ClCompile Include="Game\Json\SimpleMath\JsonSimpleMathConverter.cpp" />

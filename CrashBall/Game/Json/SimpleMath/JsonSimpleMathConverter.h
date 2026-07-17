@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "SimpleMath.h"
 
+using namespace nlohmann;
+
 namespace DirectX::SimpleMath
 {
 	// Vector2から変換
@@ -18,6 +20,7 @@ namespace DirectX::SimpleMath
 
 namespace DirectX::SimpleMath
 {
+	
 	// Vector2へ変換
 	void from_json(const json& j, Vector2& vec2);
 

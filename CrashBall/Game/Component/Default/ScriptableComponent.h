@@ -95,11 +95,11 @@ private:
 	// JsonConverter
 private:
 
-	friend void to_json(json& j, const ScriptableComponent::Element& element);
-	friend void to_json(json& j, const ScriptableComponent& scritableComponent);
+	friend void to_json(nlohmann::json& j, const ScriptableComponent::Element& element);
+	friend void to_json(nlohmann::json& j, const ScriptableComponent& scritableComponent);
 
-	friend void from_json(const json& j, ScriptableComponent::Element& element);
-	friend void from_json(const json& j, ScriptableComponent& scriptable);
+	friend void from_json(const nlohmann::json& j, ScriptableComponent::Element& element);
+	friend void from_json(const nlohmann::json& j, ScriptableComponent& scriptable);
 
 	// 演算子オーバーロード
 public:

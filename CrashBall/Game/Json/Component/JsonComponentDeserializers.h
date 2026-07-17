@@ -21,8 +21,6 @@
 #include "Game/Component/Camera/GameCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
-using namespace nlohmann;
-
 // Triangleへ変換
 void from_json(const json& j, Triangle& triangle);
 

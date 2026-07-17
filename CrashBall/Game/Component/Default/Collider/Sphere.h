@@ -59,8 +59,8 @@ public:
 
 	// JsonConverter
 private:
-	friend void from_json(const json& j, Sphere& sphere);
-	friend void to_json(json& j, const Sphere& sphere);
+	friend void from_json(const nlohmann::json& j, Sphere& sphere);
+	friend void to_json(nlohmann::json& j, const Sphere& sphere);
 
 public:
 	

@@ -236,8 +236,8 @@ private:
 	// JsonConvert
 private:
 
-	friend void from_json(const json& j, SpriteRenderer& spriteRenderer);
-	friend void to_json(json& j, const SpriteRenderer& spriteRenderer);
+	friend void from_json(const nlohmann::json& j, SpriteRenderer& spriteRenderer);
+	friend void to_json(nlohmann::json& j, const SpriteRenderer& spriteRenderer);
 
 	// 演算子オーバーロード
 public:

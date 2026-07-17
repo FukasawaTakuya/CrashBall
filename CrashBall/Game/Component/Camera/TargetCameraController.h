@@ -148,8 +148,8 @@ private:
 
 	// JsonConverter
 private:
-	friend void from_json(const json& j, TargetCameraController& targetCamera);
-	friend void to_json(json& j, const TargetCameraController& targetCamera);
+	friend void from_json(const nlohmann::json& j, TargetCameraController& targetCamera);
+	friend void to_json(nlohmann::json& j, const TargetCameraController& targetCamera);
 
 	// 演算子オーバーロード
 public:

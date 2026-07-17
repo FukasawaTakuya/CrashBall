@@ -117,6 +117,12 @@ public:
 		return m_pCurrentScene->GetGameObjects();
 	}
 
+	// 現在のシーンの取得
+	Scene* GetCurrentScene() const
+	{
+		return m_pCurrentScene;
+	}
+
 	// 内部実装
 private:
 	// シーン変更

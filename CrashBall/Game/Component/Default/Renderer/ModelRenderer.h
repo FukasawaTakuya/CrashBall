@@ -85,8 +85,8 @@ private:
 	// JsonConvert
 private:
 
-	friend void from_json(const json& j, ModelRenderer& modelRenderer);
-	friend void to_json(json& j, const ModelRenderer& modelRenderer);
+	friend void from_json(const nlohmann::json& j, ModelRenderer& modelRenderer);
+	friend void to_json(nlohmann::json& j, const ModelRenderer& modelRenderer);
 
 public:
 

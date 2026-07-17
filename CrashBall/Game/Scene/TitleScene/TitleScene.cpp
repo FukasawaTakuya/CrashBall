@@ -51,6 +51,8 @@ TitleScene::TitleScene(
 	m_gameObjects.push_back(m_stage.get());
 	m_gameObjects.push_back(m_titleLogo.get());
 	m_gameObjects.push_back(m_startButton.get());
+
+	m_sceneName = "TitleScene";
 }
 
 /**

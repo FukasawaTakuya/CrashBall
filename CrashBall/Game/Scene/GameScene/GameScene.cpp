@@ -62,6 +62,8 @@ GameScene::GameScene(
     m_gameObjects.push_back(m_stage.get());
     m_gameObjects.push_back(m_camera.get());
     m_gameObjects.push_back(m_gamePanel.get());
+
+    m_sceneName = "GameScene";
 }
 
 /**

@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-
 namespace Utility
 {
     // ワイド文字に変換
