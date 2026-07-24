@@ -30,6 +30,15 @@ private:
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
 	std::string m_modelKey;	// モデルのキー
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_modelKey, PropertyType::String)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("ModelRenderer")
+
 	
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -81,6 +90,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConvert
 private:

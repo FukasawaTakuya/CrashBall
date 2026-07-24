@@ -21,14 +21,25 @@ class Mesh : public Collider
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
 
+	// プロパティ
+private:
+
+	std::string m_meshData;	// データのファイルパス
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_meshData, PropertyType::String)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Mesh")
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	std::vector<std::unique_ptr<Triangle>> m_faces;	// 面のコンテナ
 
 	std::vector<Triangle*> m_collideFace;	// 衝突した面
-
-	std::string m_meshData;	// データのファイルパス
 
 	// メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ
@@ -84,6 +95,20 @@ public:
 	// 衝突した面の設定
 	void SetCollideFace(Triangle* face) { m_collideFace.emplace_back(face); }
 
+	// 内部実装
+private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConvert
 private:

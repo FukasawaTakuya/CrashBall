@@ -27,6 +27,15 @@ private:
 	// 1秒間の回転量
 	float m_rotateAngeleRad = 0.0f;
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_rotateAngeleRad, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("TitleCameraController")
+
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -66,6 +75,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

@@ -30,21 +30,32 @@ void GameObjectExporter::ExporterGameObject(
 	GameObject* gameObject,
 	const std::string& exportPath)
 {
+	// 書き込むファイル名
 	std::ofstream ofs(exportPath + gameObject->GetName() + ".json");
 
 	ordered_json jsonData;
 
 	jsonData["name"] = gameObject->GetName();
 	jsonData["tag"] = gameObject->GetTag();
-	//jsonData["isActive"] = gameObject->GetIsActive();
+	jsonData["isActive"] = gameObject->GetIsActive();
 
-	//for (auto& comp : *gameObject->GetComponentsList())
-	//{
-	//	jsonData["components"].push_back(
-	//		""// ComponentExporter(comp)
-	//	);
-	//}
+	// コンポーネントを書き込む
+	for (auto& comp : *gameObject->GetComponentsList())
+	{
+		jsonData["components"].push_back(
+			*static_cast<Component*>(comp.second.get())
+		);
+	}
 
-	//std::string s = TO_STRING_VELUE(int)
-	//OutputDebugStringA(s.c_str());
+	jsonData["children"] = nullptr;
+
+	// 子オブジェクトを書き込む
+	for (auto child : gameObject->GetChildren())
+	{
+		jsonData["children"].push_back(child->GetName());
+		ExporterGameObject(child, exportPath);
+	}
+
+	// ファイルに書き込み
+	ofs << jsonData.dump(3);
 }

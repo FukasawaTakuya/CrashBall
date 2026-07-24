@@ -4,6 +4,60 @@
 #include "Game/Json/SimpleMath/JsonSimpleMathConverter.h"
 #include "Game/Common/Utility.h"
 
+// Componentから変換
+void to_json(ordered_json& j, const Component& component)
+{
+	j["compName"] = component.GetCompName();
+	j["properties"] = nullptr;
+
+	for (auto& prop : component.GetProperties())
+	{
+		ordered_json ele;
+		ele["name"] = prop.name;
+		ele["type"] = prop.propType;
+		switch (prop.propType)
+		{
+		case PropertyType::Bool:
+			ele["data"] = *static_cast<bool*>(prop.data);
+			break;
+		case PropertyType::Int:
+			ele["data"] = *static_cast<int*>(prop.data);
+			break;
+		case PropertyType::Float:
+			ele["data"] = *static_cast<float*>(prop.data);
+			break;
+		case PropertyType::Vector2:
+			ele["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(prop.data);
+			break;
+		case PropertyType::Vector3:
+			ele["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(prop.data);
+			break;
+		case PropertyType::Color:
+			ele["data"] = *static_cast<DirectX::SimpleMath::Color*>(prop.data);
+			break;
+		case PropertyType::String:
+			// wstringの時はマルチバイト文字に変換する
+			if (typeid(std::wstring) == prop.propTypeId)
+			{
+				ele["data"] =
+					Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(prop.data));
+			}
+			else if(typeid(std::string) == prop.propTypeId)
+			{
+				ele["data"] = *static_cast<std::string*>(prop.data);
+			}
+			break;
+		case PropertyType::Enum:
+			ele["data"] = *static_cast<int*>(prop.data);
+			break;
+		default:
+			break;
+		}
+
+		j["properties"].push_back(ele);
+	}
+}
+
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom)
 {

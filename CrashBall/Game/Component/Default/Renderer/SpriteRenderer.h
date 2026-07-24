@@ -89,6 +89,20 @@ private:
 
 	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_color, PropertyType::Color)
+		AddProperty(m_spriteScale, PropertyType::Vector2)
+		AddProperty(m_layerDepth, PropertyType::Float)
+		AddProperty(m_fillOrigin, PropertyType::Enum)
+		AddProperty(m_fillAmount, PropertyType::Float)
+		AddProperty(m_spriteEffects, PropertyType::Enum)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("SpriteRenderer")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -232,6 +246,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConvert
 private:

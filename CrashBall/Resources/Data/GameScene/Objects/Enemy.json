@@ -1,0 +1,134 @@
+{
+   "name": "Enemy",
+   "tag": "Enemy",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "Transform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector3",
+               "data": {
+                  "x": 15.088733673095703,
+                  "y": 8.224227905273438,
+                  "z": -8.149023056030273
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Vector3",
+               "data": {
+                  "x": -0.4529106616973877,
+                  "y": -0.8796662092208862,
+                  "z": -0.11587128043174744
+               }
+            },
+            {
+               "name": "localScale",
+               "type": "Vector3",
+               "data": {
+                  "x": 0.029999999329447746,
+                  "y": 0.029999999329447746,
+                  "z": 0.029999999329447746
+               }
+            }
+         ]
+      },
+      {
+         "compName": "ModelRenderer",
+         "properties": [
+            {
+               "name": "modelKey",
+               "type": "String",
+               "data": "enemy"
+            }
+         ]
+      },
+      {
+         "compName": "Rigidbody",
+         "properties": [
+            {
+               "name": "gravityAcceleration",
+               "type": "Float",
+               "data": 25.799999237060547
+            },
+            {
+               "name": "friction",
+               "type": "Float",
+               "data": 1.2000000476837158
+            },
+            {
+               "name": "mass",
+               "type": "Float",
+               "data": 1.0
+            },
+            {
+               "name": "isDynamic",
+               "type": "Bool",
+               "data": true
+            }
+         ]
+      },
+      {
+         "compName": "Sphere",
+         "properties": [
+            {
+               "name": "radius",
+               "type": "Float",
+               "data": 20.0
+            }
+         ]
+      },
+      {
+         "compName": "BallController",
+         "properties": null
+      },
+      {
+         "compName": "EnemyController",
+         "properties": [
+            {
+               "name": "acceleration",
+               "type": "Float",
+               "data": 37.0
+            },
+            {
+               "name": "avoidWallDistance",
+               "type": "Float",
+               "data": 5.0
+            },
+            {
+               "name": "avoidWallWeakForce",
+               "type": "Float",
+               "data": 0.699999988079071
+            },
+            {
+               "name": "avoidWallStrongForce",
+               "type": "Float",
+               "data": 3.0
+            },
+            {
+               "name": "maxHp",
+               "type": "Float",
+               "data": 200.0
+            },
+            {
+               "name": "directionCircleDistance",
+               "type": "Float",
+               "data": 4.5
+            },
+            {
+               "name": "directionCircleRadius",
+               "type": "Float",
+               "data": 10.0
+            },
+            {
+               "name": "directionChageInterval",
+               "type": "Float",
+               "data": 1.5
+            }
+         ]
+      }
+   ],
+   "children": null
+}

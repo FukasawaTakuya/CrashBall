@@ -36,6 +36,18 @@ private:
 	float m_acceleration = 0.0f;	// 加速度 
 	float m_maxSpeed = 0.0f;		// 最大速度
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_attackSpeed,		PropertyType::Float)
+		AddProperty(m_attackDuration,	PropertyType::Float)
+		AddProperty(m_acceleration,		PropertyType::Float)
+		AddProperty(m_maxSpeed,			PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("PlayerController")
+
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -129,11 +141,16 @@ public:
 	// 内部実装
 private:
 
-	// ステートの取得
-	template<typename State>
-	PlayerStateBase* GetState() const
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
-		return m_stateMachine->GetState<State>();
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
 	}
 
 	// JsonConvert

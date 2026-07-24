@@ -19,11 +19,21 @@ class  PlayerStatusController: public Component {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
 
-	// パラメータの宣言 -------------------------------------------------
+	// プロパティの宣言 -------------------------------------------------
 private:
 
 	int m_attackCost		= 0;		// 攻撃コスト
 	float m_minAttackPower	= 0.0f;		// 最低攻撃力
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_attackCost, PropertyType::Int)
+		AddProperty(m_minAttackPower, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("PlayerStatusController")
+
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -85,6 +95,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

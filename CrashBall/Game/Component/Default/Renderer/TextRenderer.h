@@ -32,9 +32,23 @@ private:
 	float m_height = 0.0f;											// 縦幅
 	float m_layerDepth = 0.0f;										// 描画順
 
+	std::string m_fontKey;	// スプライトフォントのキー
+
 	RectTransform* m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 		
-	std::string m_fontKey;	// スプライトフォントのキー
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_text, PropertyType::String)
+		AddProperty(m_color, PropertyType::Color)
+		AddProperty(m_fontScale, PropertyType::Float)
+		AddProperty(m_layerDepth, PropertyType::Float)
+		AddProperty(m_fontKey, PropertyType::String)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("TextRenderer")
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -130,6 +144,19 @@ private:
 		m_width = textSize.x;
 		m_height = textSize.y;
 	}
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 
 	// JsonConvert
 private:

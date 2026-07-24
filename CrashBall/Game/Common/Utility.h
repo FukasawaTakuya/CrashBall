@@ -37,4 +37,11 @@ namespace Utility
         str.resize(size - 1);
         return str;
     }
+
+    // m_の削除
+    inline std::string RemoveMemberPrefix(const std::string& member)
+    {
+        size_t pos = member.rfind("_");
+        return member.substr(pos + 1);
+    }
 }

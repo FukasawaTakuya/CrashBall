@@ -96,8 +96,6 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 		ImGui::BeginChild(selectedObject->GetName().c_str());
 
-		ImGui::Text(selectedObject->GetName().c_str());
-
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
 			// コンポーネント表示関数テーブルに存在すれば表示
@@ -259,7 +257,7 @@ void ObjectInspectorGui::DrawTransform(Component* comp)
 		rotate.y = XMConvertToDegrees(rotate.y);
 		rotate.z = XMConvertToDegrees(rotate.z);
 
-		ImGui::DragFloat3("Pposition", &transform->m_localPosition.x);
+		ImGui::DragFloat3("Position", &transform->m_localPosition.x);
 		ImGui::DragFloat3("Rotate", &rotate.x);
 		ImGui::DragFloat3("Scale", &transform->m_localScale.x, 0.1f);
 
@@ -290,7 +288,7 @@ void ObjectInspectorGui::DrawRectTransform(Component* comp)
 	{
 		float rotate = XMConvertToDegrees(rectTransform->m_localRotate);
 
-		ImGui::DragFloat3("Position", &rectTransform->m_localPosition.x);
+		ImGui::DragFloat2("Position", &rectTransform->m_localPosition.x);
 		ImGui::DragFloat("Rotate", &rotate);
 		ImGui::DragFloat2("Scale", &rectTransform->m_localScale.x, 0.1f);
 

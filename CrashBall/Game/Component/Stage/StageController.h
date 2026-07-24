@@ -40,6 +40,16 @@ private:
 	float m_floorNormalY	= 0.0f;	// 床判定基準になる法線のY成分
 	float m_floorCenterPosY = 0.0f; // 床判定基準になる面の中心のY座標
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_floorNormalY, PropertyType::Float)
+		AddProperty(m_floorCenterPosY, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("StageController")
+
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -130,6 +140,18 @@ private:
 
 	// 面に色を塗る
 	void PaintFace(Triangle* face, const DirectX::SimpleMath::Color& color);
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

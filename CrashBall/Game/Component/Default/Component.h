@@ -1,8 +1,8 @@
-/*****************************************************************//**
+ï»¿/*****************************************************************//**
  * \file   Component.h
- * \brief  ƒRƒ“ƒ|[ƒlƒ“ƒg 
+ * \brief  ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ 
  * 
- * \author [‘ò‘ñ–î
+ * \author æ·±æ²¢æ‹“çŸ¢
  * \date   April 2026
  *********************************************************************/
 
@@ -10,40 +10,103 @@
 
 #include "Game/GameObject/IGameObject.h"
 
+#include "Game/Context/GameContext.h"
+#include "Game/Context/RenderContext.h"
+
+#include "Game/Common/Utility.h"
+
+// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¿ã‚¤ãƒ—
+enum class PropertyType
+{
+	None,
+	Bool,
+	Int,
+	Float,
+	Vector2,
+	Vector3,
+	Color,
+	String,
+	Enum,
+};
+
+// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£æƒ…å ±
+struct PropertyInfo
+{
+	std::string name;							// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£å
+	PropertyType propType;						// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã‚¿ã‚¤ãƒ—
+	std::type_index propTypeId{typeid(void)};	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®typeid
+	void* data;									// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®ã‚¢ãƒ‰ãƒ¬ã‚¹
+};
+
 /**
- * \brief Šî’êƒRƒ“ƒ|[ƒlƒ“ƒg
+ * \brief åŸºåº•ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
  */
 class  Component {
 
-	// ƒf[ƒ^ƒƒ“ƒo‚ÌéŒ¾ -----------------------------------------------
+	// ãƒ‡ãƒ¼ã‚¿ãƒ¡ãƒ³ãƒã®å®£è¨€ -----------------------------------------------
 private:
 
-	IGameObject* m_gameObject = nullptr;	// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+	IGameObject* m_gameObject = nullptr;	// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¨˜è¿°é–‹å§‹
+#define BeginProperty()\
+private:	\
+	std::vector<PropertyInfo> m_properties = { \
 
-	// ƒƒ“ƒoŠÖ”‚ÌéŒ¾ -------------------------------------------------
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^/ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¿½åŠ 
+#define AddProperty(field, type)\
+	{ PropertyInfo(Utility::RemoveMemberPrefix(#field), type, typeid(field), &field) } ,
+
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¨˜è¿°çµ‚äº†
+#define EndProperty()\
+	};
+
+	// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåã®è¨­å®š
+#define SetCompName(compName)\
+	std::string m_compName = compName;
+
+	// ãƒ¡ãƒ³ãƒé–¢æ•°ã®å®£è¨€ -------------------------------------------------
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿/ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 public:
 
-	// ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Component() = default;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Component(IGameObject* gameObject);
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~Component() = default;
 
-	// ‘€ì
+	// æ“ä½œ
 public:
 
-	// æ“¾/İ’è
+	// æ›´æ–°
+	virtual void Update(const GameContext& gameContext) {};
+
+	// æç”»
+	virtual void Render(const RenderContext& renderContext) {};
+
+	// å–å¾—/è¨­å®š
 public:
 
-	// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
-	IGameObject* GetGameObject() { return m_gameObject; }
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
+	IGameObject* GetGameObject() const 
+	{ 
+		return m_gameObject; 
+	}
 
-	// “à•”À‘•
+	// å†…éƒ¨å®Ÿè£…
 private:
 
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å–å¾—
+	virtual const std::vector<PropertyInfo>& GetProperties() const = 0;
+
+	// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåã®å–å¾—
+	virtual std::string GetCompName() const = 0;
+
+private:
+
+	friend void to_json(ordered_json& j, const Component& component);
+	friend void from_json(const ordered_json& j, Component& component);
 };

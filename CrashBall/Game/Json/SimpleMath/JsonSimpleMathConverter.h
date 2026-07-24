@@ -16,6 +16,19 @@ namespace DirectX::SimpleMath
 
 	// Colorから変換
 	void to_json(json& j, const Color& color);
+
+	// Vector2から変換
+	void to_json(ordered_json& j, const Vector2& vec2);
+
+	// Vector3から変換
+	void to_json(ordered_json& j, const Vector3& vec3);
+
+	// Quaternionから変換
+	void to_json(ordered_json& j, const Quaternion& q);
+
+	// Colorから変換
+	void to_json(ordered_json& j, const Color& color);
+
 }
 
 namespace DirectX::SimpleMath
@@ -32,4 +45,17 @@ namespace DirectX::SimpleMath
 
 	// Colorへ変換
 	void from_json(const json& j, Color& color);
+
+	// Vector2へ変換
+	void from_json(const ordered_json& j, Vector2& vec2);
+
+	// Vector3へ変換
+	void from_json(const ordered_json& j, Vector3& vec3);
+
+	// Quaternionへ変換
+	void from_json(const ordered_json& j, Quaternion& q);
+
+	// Colorへ変換
+	void from_json(const ordered_json& j, Color& color);
+
 }

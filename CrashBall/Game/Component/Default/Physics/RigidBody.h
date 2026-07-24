@@ -31,7 +31,19 @@ private:
 
 	float m_mass = 1.0f;						// 質量
 
-	float m_isDynamic = 1.0f;					// 動的か(1 = ture, 0 = false)
+	bool m_isDynamic = 1.0f;					// 動的か
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_gravityAcceleration, PropertyType::Float)
+		AddProperty(m_friction, PropertyType::Float)
+		AddProperty(m_mass, PropertyType::Float)
+		AddProperty(m_isDynamic, PropertyType::Bool)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Rigidbody")
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -87,6 +99,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConvert
 private:

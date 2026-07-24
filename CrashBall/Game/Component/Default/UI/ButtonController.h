@@ -42,6 +42,14 @@ private:
 	RectTransform*  m_rectTransform  = nullptr;
 	SpriteRenderer* m_spriteRenderer = nullptr;
 
+	// プロパティの設定
+	BeginProperty()
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("ButtonController")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -100,5 +108,17 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 };

@@ -11,7 +11,7 @@
 	 // タグ
 enum class ObjectTag
 {
-	Defaut,
+	Default,
 	Player,
 	Enemy,
 	Stage,

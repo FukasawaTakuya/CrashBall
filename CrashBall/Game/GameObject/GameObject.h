@@ -55,7 +55,7 @@ protected:
 public:
 
 	// コンストラクタ
-	GameObject(ObjectTag tag = ObjectTag::Defaut);
+	GameObject(ObjectTag tag = ObjectTag::Default);
 
 	// コンストラクタ
 	GameObject(json* data);
@@ -135,6 +135,19 @@ public:
 		return m_name;
 	}
 
+	// アクティブフラグの取得
+	bool GetIsActive() const
+	{
+		return m_isActice;
+	}
+
+	// 名前の設定
+	void SetName(std::string name)
+	{
+		m_name = name;
+	}
+
+
 	// タグの設定
 	void SetTag(ObjectTag tag)
 	{
@@ -145,6 +158,12 @@ public:
 	void SetData(json* data)
 	{
 		m_data = data;
+	}
+
+	// アクティブフラグの設定
+	void SetIsActive(bool isActive)
+	{
+		m_isActice = isActive;
 	}
 
 	// 内部実装
@@ -167,4 +186,8 @@ private:
 	{
 		return &m_components;
 	}
+
+private:
+	friend std::unique_ptr<GameObject> CreataFromJson(ordered_json data);
+
 };

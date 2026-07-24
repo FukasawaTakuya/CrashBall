@@ -26,6 +26,17 @@ private:
 	float						 m_frequency;	// 揺れの速さ(元の位置に戻るまでの秒数)
 	DirectX::SimpleMath::Vector2 m_initPos;		// 初期位置
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_amplitude, PropertyType::Float)
+		AddProperty(m_frequency, PropertyType::Float)
+		AddProperty(m_initPos, PropertyType::Vector2)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("SpriteBobbing")
+
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -61,6 +72,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

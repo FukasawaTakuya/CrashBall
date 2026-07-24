@@ -31,6 +31,15 @@ protected:
 
 	DirectX::SimpleMath::Vector3 m_baseOffset;	// 基準のオフセット
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_baseOffset, PropertyType::Vector3)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("TargetCameraController")
+
+
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
@@ -145,6 +154,19 @@ private:
 
 	// ビュー行列の更新(GetViewで呼ぶためconst)
 	void UpdateView() const;
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 
 	// JsonConverter
 private:

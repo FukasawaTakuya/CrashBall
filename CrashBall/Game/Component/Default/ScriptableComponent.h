@@ -35,6 +35,15 @@ private:
 
 	std::unordered_map<std::string, Element> m_values;
 
+
+	// プロパティの設定
+	BeginProperty()
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Scriptable")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -90,6 +99,18 @@ private:
 	const std::unordered_map<std::string, Element>& GetValueList() const
 	{
 		return m_values;
+	}
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
 	}
 
 	// JsonConverter

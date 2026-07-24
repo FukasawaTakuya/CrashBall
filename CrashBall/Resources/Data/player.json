@@ -17,7 +17,7 @@
     "rigidbody": {
         "friction": 1.2000000476837158,
         "gravityAccelaration": 25.799999237060547,
-        "isDynamic": 1.0,
+        "isDynamic": true,
         "mass": 1.0
     },
     "sphere": {

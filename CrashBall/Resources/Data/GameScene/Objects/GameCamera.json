@@ -1,0 +1,50 @@
+{
+   "name": "GameCamera",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "Transform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector3",
+               "data": {
+                  "x": 2.33486008644104,
+                  "y": 14.219904899597168,
+                  "z": 16.23332977294922
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Vector3",
+               "data": {
+                  "x": 0.0,
+                  "y": 0.0,
+                  "z": 0.0
+               }
+            },
+            {
+               "name": "localScale",
+               "type": "Vector3",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+               }
+            }
+         ]
+      },
+      {
+         "compName": "GameCameraController",
+         "properties": [
+            {
+               "name": "rotateAngleRad",
+               "type": "Float",
+               "data": 60.0
+            }
+         ]
+      }
+   ],
+   "children": null
+}

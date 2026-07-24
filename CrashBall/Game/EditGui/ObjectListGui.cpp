@@ -30,12 +30,13 @@ ObjectListGui::~ObjectListGui()
 /**
  * \brief 更新
  * 
+ * \param gameObjects ゲームオブジェクトのコンテナ
  */
 void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
 {
 	ImGui::Begin("ObjectList");
 
-	ImGui::BeginChild("ObjectList");
+    ImGui::BeginChild("ObjectList");
 
     // オブジェクトリストを表示
 	if (gameObjects != nullptr)
@@ -46,12 +47,13 @@ void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
 		}
 	}
 
-    for (auto& object : *Scriptable::GetScriptableObejctList())
+    // ScriptableObjectを表示
+    for (auto& sprictableObject : *Scriptable::GetScriptableObejctList())
     {
-        DrawObjectGui(object.second.get());
+        DrawObjectGui(sprictableObject.second.get());
     }
 
-	ImGui::EndChild();
+    ImGui::EndChild();
 
 	ImGui::End();
 }

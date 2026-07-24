@@ -35,6 +35,21 @@ private:
 	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
 	float m_directionChageInterval;		// 加速方向を変える間隔
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_acceleration,				PropertyType::Float)
+		AddProperty(m_avoidWallDistance,		PropertyType::Float)
+		AddProperty(m_avoidWallWeakForce,		PropertyType::Float)
+		AddProperty(m_avoidWallStrongForce,		PropertyType::Float)
+		AddProperty(m_maxHp,					PropertyType::Float)
+		AddProperty(m_directionCircleDistance,	PropertyType::Float)
+		AddProperty(m_directionCircleRadius,	PropertyType::Float)
+		AddProperty(m_directionChageInterval,	PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("EnemyController")
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -113,6 +128,18 @@ private:
 
 	// 壁回避
 	void AvoidWall();
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

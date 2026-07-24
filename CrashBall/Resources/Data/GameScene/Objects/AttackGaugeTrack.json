@@ -1,5 +1,5 @@
 {
-   "name": "StartButton",
+   "name": "AttackGaugeTrack",
    "tag": "Default",
    "isActive": true,
    "components": [
@@ -11,17 +11,17 @@
                "type": "Color",
                "data": {
                   "a": 1.0,
-                  "b": 1.0,
-                  "g": 1.0,
-                  "r": 1.0
+                  "b": 0.501960813999176,
+                  "g": 0.501960813999176,
+                  "r": 0.501960813999176
                }
             },
             {
                "name": "spriteScale",
                "type": "Vector2",
                "data": {
-                  "x": 1.5,
-                  "y": 1.5
+                  "x": 0.6000000238418579,
+                  "y": 0.6000000238418579
                }
             },
             {
@@ -53,8 +53,8 @@
                "name": "localPosition",
                "type": "Vector2",
                "data": {
-                  "x": 1200.0,
-                  "y": 750.0
+                  "x": 960.0,
+                  "y": 765.0
                }
             },
             {
@@ -76,45 +76,6 @@
                "data": 1
             }
          ]
-      },
-      {
-         "compName": "TextRenderer",
-         "properties": [
-            {
-               "name": "text",
-               "type": "String",
-               "data": "ゲームスタート"
-            },
-            {
-               "name": "color",
-               "type": "Color",
-               "data": {
-                  "a": 1.0,
-                  "b": 0.0,
-                  "g": 0.0,
-                  "r": 0.0
-               }
-            },
-            {
-               "name": "fontScale",
-               "type": "Float",
-               "data": 1.5
-            },
-            {
-               "name": "layerDepth",
-               "type": "Float",
-               "data": 0.0010000000474974513
-            },
-            {
-               "name": "fontKey",
-               "type": "String",
-               "data": "default"
-            }
-         ]
-      },
-      {
-         "compName": "ButtonController",
-         "properties": null
       }
    ],
    "children": null

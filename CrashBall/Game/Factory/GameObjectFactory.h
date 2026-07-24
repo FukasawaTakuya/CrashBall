@@ -18,4 +18,7 @@ namespace  GameObjectFactory {
 	{
 		return std::make_unique<ObjectType>(std::forward<Args>(args)...);
 	}
+
+	// データからのゲームオブジェクトの作成
+	static std::unique_ptr<GameObject> CreataFromJson(ordered_json data);
 };

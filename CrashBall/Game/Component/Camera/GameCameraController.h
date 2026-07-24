@@ -17,13 +17,21 @@
  */
 class  GameCameraController : public TargetCameraController 
 {
-
 	friend class ObjectInspectorGui;
 
 	//パラメータの宣言 -------------------------------------------------
 private:
 
 	float m_rotateAngleRad = 0.0f;	// 回転角度
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_rotateAngleRad, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("GameCameraController")
+
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -68,11 +76,24 @@ public:
 	// 内部実装
 private:
 
+	// プロパティの取得
+	const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
+
 	// JsonConverter
 private:
 
 	friend void to_json(nlohmann::json& j, const GameCameraController& gameCameraController);
-	friend void from_json(const nlohmann::json& j, GameCameraController& gameCameraController);
+	friend void from_json(const json& j, GameCameraController& gameCameraController);
 
 	// 演算子オーバーロード
 public:

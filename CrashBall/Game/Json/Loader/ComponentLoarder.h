@@ -41,6 +41,4 @@ public:
 	// 内部実装
 private:
 
-	Component* CreataTransform(GameObject* gameObject, json data);
-
 };

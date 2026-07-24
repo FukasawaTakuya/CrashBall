@@ -1,18 +1,32 @@
 #pragma once
 
 #include "Game/GameObject/GameObject.h"
+#include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Physics/RectTransform.h"
 #include "Game/Component/Default/Collider/Collider.h"
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ObjectTag, {
-	{ ObjectTag::Defaut,	"Default"	},
+	{ ObjectTag::Default,	"Default"	},
 	{ ObjectTag::Player,	"Player"	},
 	{ ObjectTag::Enemy,		"Enemy"		},
 	{ ObjectTag::Stage,		"Stage"		}
 	}
 );
+
+NLOHMANN_JSON_SERIALIZE_ENUM(PropertyType, {
+	{ PropertyType::Int,	 "Int"		},
+	{ PropertyType::Bool,	 "Bool"		},
+	{ PropertyType::Float,	 "Float"	},
+	{ PropertyType::Vector2, "Vector2"	},
+	{ PropertyType::Vector3, "Vector3"	},
+	{ PropertyType::Color,	 "Color"	},
+	{ PropertyType::String,	 "String"	},
+	{ PropertyType::Enum,	 "Enum"		}
+	}
+);
+
 
 NLOHMANN_JSON_SERIALIZE_ENUM(ColliderType, {
 	{ ColliderType::None,	"None"		},

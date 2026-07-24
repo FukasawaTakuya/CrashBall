@@ -43,6 +43,14 @@ private:
 	int m_enemyMeshCount = 0;	// 敵の面の数
 	int m_totalMeshCount = 0;	// 全体の面の数
 
+	// プロパティの設定
+	BeginProperty()
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("FloorMeshGaugeController")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -88,5 +96,15 @@ public:
 
 	// 内部実装
 private:
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
 
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 };

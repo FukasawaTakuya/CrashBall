@@ -21,6 +21,14 @@ private:
 	// カメラの照準
 	std::unique_ptr<Transform> m_targetTransform;
 
+	// プロパティの設定
+	BeginProperty()
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("DefaultCameraController")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -42,5 +50,17 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 };

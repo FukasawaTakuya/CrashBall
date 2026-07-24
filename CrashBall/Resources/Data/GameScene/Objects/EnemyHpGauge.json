@@ -1,5 +1,5 @@
 {
-   "name": "StartButton",
+   "name": "EnemyHpGauge",
    "tag": "Default",
    "isActive": true,
    "components": [
@@ -11,8 +11,8 @@
                "type": "Color",
                "data": {
                   "a": 1.0,
-                  "b": 1.0,
-                  "g": 1.0,
+                  "b": 0.7568628191947937,
+                  "g": 0.7137255072593689,
                   "r": 1.0
                }
             },
@@ -20,14 +20,14 @@
                "name": "spriteScale",
                "type": "Vector2",
                "data": {
-                  "x": 1.5,
-                  "y": 1.5
+                  "x": 1.2000000476837158,
+                  "y": 1.2000000476837158
                }
             },
             {
                "name": "layerDepth",
                "type": "Float",
-               "data": 0.0
+               "data": 0.10000000149011612
             },
             {
                "name": "fillOrigin",
@@ -53,8 +53,8 @@
                "name": "localPosition",
                "type": "Vector2",
                "data": {
-                  "x": 1200.0,
-                  "y": 750.0
+                  "x": 960.0,
+                  "y": 90.0
                }
             },
             {
@@ -78,43 +78,14 @@
          ]
       },
       {
-         "compName": "TextRenderer",
+         "compName": "SliderController",
          "properties": [
             {
-               "name": "text",
-               "type": "String",
-               "data": "ゲームスタート"
-            },
-            {
-               "name": "color",
-               "type": "Color",
-               "data": {
-                  "a": 1.0,
-                  "b": 0.0,
-                  "g": 0.0,
-                  "r": 0.0
-               }
-            },
-            {
-               "name": "fontScale",
+               "name": "slideSpeed",
                "type": "Float",
-               "data": 1.5
-            },
-            {
-               "name": "layerDepth",
-               "type": "Float",
-               "data": 0.0010000000474974513
-            },
-            {
-               "name": "fontKey",
-               "type": "String",
-               "data": "default"
+               "data": 5.0
             }
          ]
-      },
-      {
-         "compName": "ButtonController",
-         "properties": null
       }
    ],
    "children": null

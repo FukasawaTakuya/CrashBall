@@ -264,7 +264,7 @@ void Game::Update(DX::StepTimer const& timer)
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
     }
 
-    if (m_inputSystem->GetKeyTrigger(Keyboard::Space))
+    if (m_inputSystem->GetKeyTrigger(Keyboard::R))
     {
         m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
     }

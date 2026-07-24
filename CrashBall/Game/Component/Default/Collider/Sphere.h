@@ -25,6 +25,13 @@ private:
 
 	float m_radius;	// 半径
 
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_radius, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Sphere")
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -56,6 +63,22 @@ public:
 
 	// 半径の設定
 	void SetRadius(float radius) { m_radius = radius; }
+
+	// 内部実装
+private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 
 	// JsonConverter
 private:

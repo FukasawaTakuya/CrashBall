@@ -19,10 +19,18 @@ class  SliderController : public Component
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
 
-	// パラメータの宣言 -------------------------------------------------
+	// プロパティの宣言 -------------------------------------------------
 private:
 
 	float m_slideSpeed;	// スライド速度
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_slideSpeed, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("SliderController")
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -73,6 +81,18 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConverter
 private:

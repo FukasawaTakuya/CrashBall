@@ -36,7 +36,7 @@ public:
 	// 操作
 public:
 
-	// 更新
+	// 更新 
 	void Update(std::vector<GameObject*>* gameObjects);
 
 	// 取得/設定

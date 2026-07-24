@@ -37,6 +37,14 @@ private:
 	Sphere*			m_sphereCollider	= nullptr;		// 球のコライダーのコンポーネント
 	ModelRenderer*	m_renderer			= nullptr;		// モデル描画のコンポーネント
 
+	// プロパティの設定
+	BeginProperty()
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("BallController")
+
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -82,4 +90,17 @@ private:
 
 	// 地上フラグの設定
 	void SetIsGround(bool flag) { m_isGround = flag; }
+
+	// プロパティの取得
+	const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 };

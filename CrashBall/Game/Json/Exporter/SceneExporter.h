@@ -32,6 +32,7 @@ public:
 	// 操作
 public:
 
+	// シーンの書き込み
 	void ExportScene(Scene* scene);
 
 	// 取得/設定

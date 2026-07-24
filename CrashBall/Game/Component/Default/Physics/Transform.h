@@ -23,11 +23,20 @@ class  Transform : public Component
 private:
 
 	DirectX::SimpleMath::Vector3 m_localPosition;		// 位置
-
 	DirectX::SimpleMath::Quaternion m_localRotate;		// 回転
-
 	DirectX::SimpleMath::Vector3 m_localScale 
 		= DirectX::SimpleMath::Vector3::One;		// スケール
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_localPosition, PropertyType::Vector3)
+		AddProperty(m_localRotate, PropertyType::Vector3)
+		AddProperty(m_localScale, PropertyType::Vector3)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Transform")
+
 
 	Transform* m_parent = nullptr;	// 親のトランスフォーム
 
@@ -197,6 +206,19 @@ public:
 
 	// 内部実装
 private:
+
+	// プロパティの取得
+	const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 
 	// JsonConvert
 private:

@@ -21,6 +21,8 @@
 #include "Game/Component/Camera/GameCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
+// Componentから変換
+void to_json(ordered_json& j, const Component& component);
 
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom);
