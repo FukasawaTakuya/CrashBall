@@ -118,7 +118,7 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawSphere(Component* comp)
+void ObjectInspectorGui::DrawSphere(IComponent* comp)
 {
 	Sphere* sphere = static_cast<Sphere*>(comp);
 
@@ -139,7 +139,7 @@ void ObjectInspectorGui::DrawSphere(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawMesh(Component* comp)
+void ObjectInspectorGui::DrawMesh(IComponent* comp)
 {
 	Mesh* mesh = static_cast<Mesh*>(comp);
 
@@ -160,7 +160,7 @@ void ObjectInspectorGui::DrawMesh(Component* comp)
  *  
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawModelRenderer(Component* comp)
+void ObjectInspectorGui::DrawModelRenderer(IComponent* comp)
 {
 	ModelRenderer* modelRenderer = static_cast<ModelRenderer*>(comp);
 
@@ -181,7 +181,7 @@ void ObjectInspectorGui::DrawModelRenderer(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawSpriteRenderer(Component* comp)
+void ObjectInspectorGui::DrawSpriteRenderer(IComponent* comp)
 {
 	SpriteRenderer* spriteRenderer = static_cast<SpriteRenderer*>(comp);
 
@@ -211,7 +211,7 @@ void ObjectInspectorGui::DrawSpriteRenderer(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawTextRenderer(Component* comp)
+void ObjectInspectorGui::DrawTextRenderer(IComponent* comp)
 {
 	TextRenderer* textRenderer = static_cast<TextRenderer*>(comp);
 
@@ -240,7 +240,7 @@ void ObjectInspectorGui::DrawTextRenderer(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawTransform(Component* comp)
+void ObjectInspectorGui::DrawTransform(IComponent* comp)
 {
 	Transform* transform = static_cast<Transform*>(comp);
 
@@ -276,7 +276,7 @@ void ObjectInspectorGui::DrawTransform(Component* comp)
  *
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawRectTransform(Component* comp)
+void ObjectInspectorGui::DrawRectTransform(IComponent* comp)
 {
 	RectTransform* rectTransform = static_cast<RectTransform*>(comp);
 
@@ -310,7 +310,7 @@ void ObjectInspectorGui::DrawRectTransform(Component* comp)
  * 
  * \param comp コンポーネント
  */
-void ObjectInspectorGui::DrawRigidbody(Component* comp)
+void ObjectInspectorGui::DrawRigidbody(IComponent* comp)
 {
 	Rigidbody* rigidbody = static_cast<Rigidbody*>(comp);
 
@@ -346,7 +346,7 @@ void ObjectInspectorGui::DrawRigidbody(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawSliderController(Component* comp)
+void ObjectInspectorGui::DrawSliderController(IComponent* comp)
 {
 	SliderController* sliderController = static_cast<SliderController*>(comp);
 
@@ -369,7 +369,7 @@ void ObjectInspectorGui::DrawSliderController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawButtonController(Component* comp)
+void ObjectInspectorGui::DrawButtonController(IComponent* comp)
 {
 	ButtonController* buttonController = static_cast<ButtonController*>(comp);
 
@@ -388,7 +388,7 @@ void ObjectInspectorGui::DrawButtonController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
+void ObjectInspectorGui::DrawSpriteBobbing(IComponent* comp)
 {
 	SpriteBobbing* spriteBobbing = static_cast<SpriteBobbing*>(comp);
 
@@ -411,7 +411,7 @@ void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawTargetCamera(Component* comp)
+void ObjectInspectorGui::DrawTargetCamera(IComponent* comp)
 {
 	TargetCameraController* targetCamera = static_cast<TargetCameraController*>(comp);
 
@@ -432,7 +432,7 @@ void ObjectInspectorGui::DrawTargetCamera(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawScriptableComponent(Component* comp)
+void ObjectInspectorGui::DrawScriptableComponent(IComponent* comp)
 {
 	ScriptableComponent* scriptable = static_cast<ScriptableComponent*>(comp);
 
@@ -476,7 +476,7 @@ void ObjectInspectorGui::DrawScriptableComponent(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawPlayerController(Component* comp)
+void ObjectInspectorGui::DrawPlayerController(IComponent* comp)
 {
 	PlayerController* playerController = static_cast<PlayerController*>(comp);
 
@@ -500,7 +500,7 @@ void ObjectInspectorGui::DrawPlayerController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawPlayerStateController(Component* comp)
+void ObjectInspectorGui::DrawPlayerStateController(IComponent* comp)
 {
 	PlayerStatusController* playerStatusController = static_cast<PlayerStatusController*>(comp);
 
@@ -522,7 +522,7 @@ void ObjectInspectorGui::DrawPlayerStateController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawEnemyController(Component* comp)
+void ObjectInspectorGui::DrawEnemyController(IComponent* comp)
 {
 	EnemyController* enemyController = static_cast<EnemyController*>(comp);
 
@@ -552,7 +552,7 @@ void ObjectInspectorGui::DrawEnemyController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawStageController(Component* comp)
+void ObjectInspectorGui::DrawStageController(IComponent* comp)
 {
 
 	StageController* stageController = static_cast<StageController*>(comp);
@@ -575,7 +575,7 @@ void ObjectInspectorGui::DrawStageController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
+void ObjectInspectorGui::DrawTitleCameraController(IComponent* comp)
 {
 	TitleCameraController* titleCameraController 
 		= static_cast<TitleCameraController*>(comp);
@@ -599,7 +599,7 @@ void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
  * 
  * \param comp 基底コンポーネント
  */
-void ObjectInspectorGui::DrawGameCameraController(Component* comp)
+void ObjectInspectorGui::DrawGameCameraController(IComponent* comp)
 {
 	GameCameraController* gameCameraController
 		= static_cast<GameCameraController*>(comp);

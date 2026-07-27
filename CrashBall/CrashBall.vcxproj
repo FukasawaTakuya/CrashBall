@@ -227,6 +227,10 @@
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
+    <ClInclude Include="Game\Component\Default\IComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
     <ClInclude Include="Game\Component\Default\Physics\Rigidbody.h" />
     <ClInclude Include="Game\Component\Default\Physics\Transform.h" />

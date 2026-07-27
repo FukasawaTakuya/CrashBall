@@ -16,7 +16,7 @@
  */
 class  ObjectInspectorGui {
 
-	using DrawInspecterFunc = void(*)(Component*);
+	using DrawInspecterFunc = void(*)(IComponent*);
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -47,47 +47,47 @@ public:
 private:
 
 	// 球コライダーの表示
-	static void DrawSphere(Component* comp);
+	static void DrawSphere(IComponent* comp);
 	// メッシュコライダーの表示
-	static void DrawMesh(Component* comp);
+	static void DrawMesh(IComponent* comp);
 
 	// モデルレンダラーの表示
-	static void DrawModelRenderer(Component* comp);
+	static void DrawModelRenderer(IComponent* comp);
 	// スプライトレンダラーの表示
-	static void DrawSpriteRenderer(Component* comp);
+	static void DrawSpriteRenderer(IComponent* comp);
 	// テキストレンダラーの表示
-	static void DrawTextRenderer(Component* comp);
+	static void DrawTextRenderer(IComponent* comp);
 
 	// トランスフォームの表示
-	static void DrawTransform(Component* comp);
+	static void DrawTransform(IComponent* comp);
 	// 2Dトランスフォームの表示
-	static void DrawRectTransform(Component* comp);
+	static void DrawRectTransform(IComponent* comp);
 	// 物理演算の表示
-	static void DrawRigidbody(Component* comp);
+	static void DrawRigidbody(IComponent* comp);
 
 	// スライダーの表示
-	static void DrawSliderController(Component* comp);
+	static void DrawSliderController(IComponent* comp);
 	// ボタンの表示
-	static void DrawButtonController(Component* comp);
+	static void DrawButtonController(IComponent* comp);
 	// スライダー浮遊コンポーネントの表示
-	static void DrawSpriteBobbing(Component* comp);
+	static void DrawSpriteBobbing(IComponent* comp);
 
 	// ターゲットカメラの表示
-	static void DrawTargetCamera(Component* comp);
+	static void DrawTargetCamera(IComponent* comp);
 
 	// ScriptableObjectの表示
-	static void DrawScriptableComponent(Component* comp);
+	static void DrawScriptableComponent(IComponent* comp);
 
 	// プレイヤー操作コンポーネントの表示
-	static void DrawPlayerController(Component* comp);
+	static void DrawPlayerController(IComponent* comp);
 	// プレイヤーステータス操作コンポーネントの表示
-	static void DrawPlayerStateController(Component* comp);
+	static void DrawPlayerStateController(IComponent* comp);
 	// 敵操作コンポーネントの表示
-	static void DrawEnemyController(Component* comp);
+	static void DrawEnemyController(IComponent* comp);
 	// ステージ操作コンポーネントの表示
-	static void DrawStageController(Component* comp);
+	static void DrawStageController(IComponent* comp);
 	// タイトルカメラ操作コンポーネントの表示
-	static void DrawTitleCameraController(Component* comp);
+	static void DrawTitleCameraController(IComponent* comp);
 	// ゲームカメラ操作コンポーネントの表示
-	static void DrawGameCameraController(Component* comp);
+	static void DrawGameCameraController(IComponent* comp);
 };

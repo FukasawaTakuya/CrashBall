@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include "IComponent.h"
+
 #include "Game/GameObject/IGameObject.h"
 
 #include "Game/Context/GameContext.h"
@@ -15,34 +17,11 @@
 
 #include "Game/Common/Utility.h"
 
-// プロパティタイプ
-enum class PropertyType
-{
-	None,
-	Bool,
-	Int,
-	Float,
-	Vector2,
-	Vector3,
-	Quaternion,
-	Color,
-	String,
-	Enum,
-};
-
-// プロパティ情報
-struct PropertyInfo
-{
-	std::string name;							// プロパティ名
-	PropertyType propType;						// プロパティタイプ
-	std::type_index propTypeId{typeid(void)};	// プロパティのtypeid
-	void* data;									// プロパティのアドレス
-};
 
 /**
  * \brief 基底コンポーネント
  */
-class  Component {
+class  Component : public IComponent {
 
 // マクロの宣言 ---------------------------------------------------------
 
@@ -97,7 +76,7 @@ public:
 public:
 
 	// ゲームオブジェクトの取得
-	IGameObject* GetGameObject() const 
+	IGameObject* GetGameObject() const override
 	{ 
 		return m_gameObject; 
 	}

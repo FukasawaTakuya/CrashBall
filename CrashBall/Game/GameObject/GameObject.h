@@ -31,7 +31,7 @@ class GameObject : public IGameObject {
 private:
 
 	// コンポーネントのコンテナ
-	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_components;
+	std::unordered_map<std::type_index, std::unique_ptr<IComponent>> m_components;
 
 	// タグ
 	ObjectTag m_tag;
@@ -175,7 +175,7 @@ public:
 private:
 
 	// 関数テンプレート無しでコンポーネントを取得する
-	Component* GetComponent(std::type_index type) override
+	IComponent* GetComponent(std::type_index type) override
 	{
 		auto it = m_components.find(type);
 			// イテレータが終端でなければコンポーネントを返す
@@ -187,7 +187,7 @@ private:
 	}
 
 	// コンポーネントの取得
-	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
+	const std::unordered_map<std::type_index, std::unique_ptr<IComponent>>* GetComponentsList() const
 	{
 		return &m_components;
 	}

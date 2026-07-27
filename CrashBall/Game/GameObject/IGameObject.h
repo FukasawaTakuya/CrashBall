@@ -17,7 +17,7 @@ enum class ObjectTag
 	Stage,
 };
 
-class Component;
+class IComponent;
 
 /**
  * \brief 基底オブジェクトのインターフェース
@@ -50,7 +50,7 @@ public:
 
 	// コンポーネントの取得
 	template<typename CompType>
-	requires std::derived_from<CompType, Component>
+	requires std::derived_from<CompType, IComponent>
 	CompType* GetComponent()
 	{
 		auto comp = GetComponent(typeid(CompType));
@@ -72,6 +72,6 @@ public:
 protected:
 
 	// 関数テンプレート無しでコンポーネントを取得する
-	virtual Component* GetComponent(std::type_index type) = 0;
+	virtual IComponent* GetComponent(std::type_index type) = 0;
 
 };
