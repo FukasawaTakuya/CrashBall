@@ -15,7 +15,9 @@
 /**
  * @brief ゲームカメラ操作コンポーネント
  */
-class  GameCameraController : public TargetCameraController 
+class  GameCameraController : 
+	public TargetCameraController,
+	public Component<GameCameraController>
 {
 	friend class ObjectInspectorGui;
 
@@ -24,14 +26,12 @@ private:
 
 	float m_rotateAngleRad = 0.0f;	// 回転角度
 
+
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngleRad, PropertyType::Float)
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("GameCameraController")
-
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -81,13 +81,6 @@ private:
 	{
 		return m_properties;
 	}
-
-	// コンポーネント名の取得
-	std::string GetCompName() const override
-	{
-		return m_compName;
-	}
-
 
 	// JsonConverter
 private:

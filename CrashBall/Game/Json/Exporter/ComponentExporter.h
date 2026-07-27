@@ -7,7 +7,7 @@
  */
 class  ComponentExorter {
 
-	using CastFunc = void (*)(Component*, ordered_json);
+	using CastFunc = void (*)(IComponent*, ordered_json);
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -28,7 +28,7 @@ public:
 public:
 
 	// コンポーネントのエクスポート
-	ordered_json ExportComponent(Component* comp, const std::string& compName);
+	ordered_json ExportComponent(IComponent* comp, const std::string& compName);
 
 	// 取得/設定
 public:

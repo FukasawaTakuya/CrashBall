@@ -67,7 +67,7 @@ const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::O
 /**
  * @brief スプライト描画コンポーネント
  */
-class  SpriteRenderer : public Component {
+class  SpriteRenderer : public Component<SpriteRenderer> {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -98,9 +98,6 @@ private:
 		AddProperty(m_fillAmount, PropertyType::Float)
 		AddProperty(m_spriteEffects, PropertyType::Enum)
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("SpriteRenderer")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -251,12 +248,6 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
 	}
 
 	// JsonConvert

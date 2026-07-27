@@ -117,10 +117,10 @@ public:
 		return pComp;
 	}
 
-	void AddComponent(std::unique_ptr<Component>&& comp)
-	{
-		m_components.emplace(typeid(*comp.get()), std::move(comp));
-	}
+	//void AddComponent(std::unique_ptr<IComponent>&& comp)
+	//{
+	//	m_components.emplace(typeid(*comp.get()), std::move(comp));
+	//}
 
 	// タグの取得
 	ObjectTag GetTag() const override { return m_tag; }

@@ -20,7 +20,7 @@
 /**
  * @brief 床メッシュゲージ操作コンポーネント
  */
-class  FloorMeshGaugeController : public Component {
+class  FloorMeshGaugeController : public Component<FloorMeshGaugeController> {
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -46,9 +46,6 @@ private:
 	// プロパティの設定
 	BeginProperty()
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("FloorMeshGaugeController")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -100,11 +97,5 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
 	}
 };

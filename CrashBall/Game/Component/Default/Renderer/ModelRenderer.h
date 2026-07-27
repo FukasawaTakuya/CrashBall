@@ -17,7 +17,7 @@
  /**
  * @brief 基底オブジェクト
  */
-class  ModelRenderer : public Component {
+class  ModelRenderer : public Component<ModelRenderer> {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -35,9 +35,6 @@ private:
 	BeginProperty()
 		AddProperty(m_modelKey, PropertyType::String)
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("ModelRenderer")
 
 	
 	// メンバ関数の宣言 -------------------------------------------------
@@ -95,12 +92,6 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
 	}
 
 	// JsonConvert

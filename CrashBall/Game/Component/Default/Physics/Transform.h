@@ -13,7 +13,7 @@
 /**
  * @brief トランスフォーム
  */
-class  Transform : public Component 
+class  Transform : public Component<Transform> 
 {
 
 	// インスペクター編集GUIをフレンド化

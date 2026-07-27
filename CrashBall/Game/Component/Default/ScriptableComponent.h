@@ -16,7 +16,7 @@ enum class ValueType
 /**
  * @brief 
  */
-class  ScriptableComponent : public Component {
+class  ScriptableComponent : public Component<ScriptableComponent> {
 
 	friend class ObjectInspectorGui;
 
@@ -39,9 +39,6 @@ private:
 	// プロパティの設定
 	BeginProperty()
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("Scriptable")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -105,12 +102,6 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
 	}
 
 	// JsonConverter

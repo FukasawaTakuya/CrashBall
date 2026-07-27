@@ -17,7 +17,9 @@ using namespace DirectX;
 /**
  * @brief 基底タイトルカメラ操作コンポーネント
  */
-class  TitleCameraController : public TargetCameraController
+class  TitleCameraController
+	: public TargetCameraController
+	, public Component<TitleCameraController>
 {
 	friend class ObjectInspectorGui;
 
@@ -29,12 +31,9 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngeleRad, PropertyType::Float)
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("TitleCameraController")
-
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -80,12 +79,6 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
 	}
 
 	// JsonConverter

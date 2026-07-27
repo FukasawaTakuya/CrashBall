@@ -22,8 +22,7 @@ using namespace DirectX;
 Collider::Collider(
 	IGameObject* gameObject,
 	ColliderType type)
-	: Component(gameObject)
-	, m_type{ type }
+	: m_type{ type }
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();
 }

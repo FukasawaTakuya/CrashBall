@@ -15,9 +15,7 @@
 /**
  * @brief ターゲットカメラコンポーネント
  */
-class  TargetCameraController : 
-	public Component,
-	public ICamera
+class  TargetCameraController : public ICamera
 {
 	friend class ObjectInspectorGui;
 
@@ -30,15 +28,6 @@ public:
 protected:
 
 	DirectX::SimpleMath::Vector3 m_baseOffset;	// 基準のオフセット
-
-	// プロパティの設定
-	BeginProperty()
-		AddProperty(m_baseOffset, PropertyType::Vector3)
-	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("TargetCameraController")
-
 
 	// データメンバの宣言 -----------------------------------------------
 protected:
@@ -70,12 +59,12 @@ public:
 
 	// コンストラクタ
 	TargetCameraController(
-		IGameObject* gameObject,
+		Transform* transform,
 		const DirectX::SimpleMath::Vector3& offest = DirectX::SimpleMath::Vector3::One);
 
 	// コピーコンストラクタ
 	TargetCameraController(
-		IGameObject* gameObejct,
+		Transform* transform,
 		const TargetCameraController& other
 	);
 
@@ -154,19 +143,6 @@ private:
 
 	// ビュー行列の更新(GetViewで呼ぶためconst)
 	void UpdateView() const;
-
-	// プロパティの取得
-	virtual const std::vector<PropertyInfo>& GetProperties() const override
-	{
-		return m_properties;
-	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
-	}
-
 
 	// JsonConverter
 private:

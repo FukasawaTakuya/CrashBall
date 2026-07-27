@@ -15,6 +15,7 @@
  */
 class Sphere
 	: public Collider
+	, public Component<Sphere>
 {
 
 	// インスペクター編集GUIをフレンド化
@@ -29,9 +30,6 @@ private:
 	BeginProperty()
 		AddProperty(m_radius, PropertyType::Float)
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("Sphere")
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -58,6 +56,12 @@ public:
 	// 取得/設定
 public:
 
+	// ゲームオブジェクトの取得
+	IGameObject* GetGameObject() const
+	{
+		Component::GetGameObject();
+	}
+
 	// 半径の取得
 	float GetRadius() const { return m_radius * m_transform->GetMaxScale(); }
 
@@ -72,13 +76,6 @@ private:
 	{
 		return m_properties;
 	}
-
-	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
-	{
-		return m_compName;
-	}
-
 
 	// JsonConverter
 private:

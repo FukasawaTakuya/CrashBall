@@ -14,7 +14,7 @@
 /**
  * @brief スプライトを浮遊させるコンポーネント
  */
-class  SpriteBobbing : public Component 
+class  SpriteBobbing : public Component<SpriteBobbing>
 {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

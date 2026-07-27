@@ -27,7 +27,7 @@ constexpr int TYPE_COUNT = static_cast<int>(ColliderType::TypeCount);
 /**
  * \brief 基底コライダー
  */
-class Collider : public Component
+class Collider
 {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -87,6 +87,9 @@ public:
 
 	// 取得/設定
 public:
+
+	// ゲームオブジェクトの取得
+	virtual IGameObject* GetGameObject() const = 0;
 
 	// レイヤーマスクの取得
 	LayerMaskType GetLayerMaskType() const { return m_layerMaskType; }

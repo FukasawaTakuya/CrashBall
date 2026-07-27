@@ -20,10 +20,9 @@ using namespace DirectX;
  * \param gameObejct コンポーネントを所有するゲームオブジェクト
  */
 GameCameraController::GameCameraController(IGameObject* gameObejct)
-	: TargetCameraController(gameObejct)
+	: Component(gameObejct)
+	, TargetCameraController(GetGameObject()->GetComponent<Transform>())
 {
-	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -35,11 +34,10 @@ GameCameraController::GameCameraController(IGameObject* gameObejct)
 GameCameraController::GameCameraController(
 	IGameObject* gameObject, 
 	const GameCameraController& other)
-	: TargetCameraController(gameObject, other.m_baseOffset)
+	: Component(gameObject)
+	, TargetCameraController(GetGameObject()->GetComponent<Transform>(), other.m_baseOffset)
 	, m_rotateAngleRad(other.m_rotateAngleRad)
 {
-	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**

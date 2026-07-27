@@ -21,32 +21,16 @@
 /**
  * \brief 基底コンポーネント
  */
+template<typename Comp>
 class  Component : public IComponent {
 
-// マクロの宣言 ---------------------------------------------------------
-
-	// プロパティ記述開始
-#define BeginProperty()\
-private:	\
-	std::vector<PropertyInfo> m_properties = { \
-
-	// プロパティの追加
-#define AddProperty(field, type)\
-	{ PropertyInfo(Utility::RemoveMemberPrefix(#field), type, typeid(field), &field) } ,
-
-	// プロパティ記述終了
-#define EndProperty()\
-	};
-
-	// コンポーネント名の設定
-#define SetCompName(compName)\
-	std::string m_compName = compName;
+	RegsterComponent(Comp)
 
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
-	
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -55,7 +39,9 @@ public:
 	Component() = default;
 
 	// コンストラクタ
-	Component(IGameObject* gameObject);
+	Component(IGameObject* gameObject)
+		: m_gameObject(gameObject)
+	{}
 
 	// デストラクタ
 	virtual ~Component() = default;
@@ -64,13 +50,13 @@ public:
 public:
 
 	// 初期化
-	virtual void Initialize() {};
+	virtual void Initialize() override {} ;
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) {};
+	virtual void Update(const GameContext& gameContext) override {};
 
 	// 描画
-	virtual void Render(const RenderContext& renderContext) {};
+	virtual void Render(const RenderContext& renderContext) override {};
 
 	// 取得/設定
 public:
@@ -88,10 +74,8 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const = 0;
 
 	// コンポーネント名の取得
-	virtual std::string GetCompName() const = 0;
-
-private:
-
-	friend void to_json(ordered_json& j, const Component& component);
-	friend void from_json(const ordered_json& j, Component& component);
+	virtual std::string GetCompName() const
+	{
+		return s_compName;
+	};
 };

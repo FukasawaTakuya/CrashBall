@@ -14,7 +14,8 @@
 /**
  * @brief プレイヤーステータス管理コンポーネント
  */
-class  PlayerStatusController: public Component {
+class  PlayerStatusController: public Component<PlayerStatusController>
+{
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

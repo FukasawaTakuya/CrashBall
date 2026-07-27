@@ -22,7 +22,7 @@
 #include "Game/Component/Default/ScriptableComponent.h"
 
 // Componentへ変換
-void from_json(const ordered_json& j, Component& component);
+void from_json(const ordered_json& j, IComponent& component);
 
 // Triangleへ変換
 void from_json(const json& j, Triangle& triangle);

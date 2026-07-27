@@ -10,7 +10,7 @@ ComponentExorter::~ComponentExorter()
 }
 
 ordered_json ComponentExorter::ExportComponent(
-	Component* comp, 
+	IComponent* comp, 
 	const std::string& compName)
 {
 	//ordered_json jsonData = ;

@@ -19,7 +19,7 @@
 /**
  * \brief ボール操作コンポーネント
  */
-class  BallController : public Component {
+class  BallController : public Component<BallController> {
 
 public:
 	// コンポーネント名
@@ -40,9 +40,6 @@ private:
 	// プロパティの設定
 	BeginProperty()
 	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("BallController")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -96,11 +93,4 @@ private:
 	{
 		return m_properties;
 	}
-
-	// コンポーネント名の取得
-	std::string GetCompName() const override
-	{
-		return m_compName;
-	}
-
 };
