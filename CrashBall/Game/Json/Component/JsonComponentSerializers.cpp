@@ -32,6 +32,9 @@ void to_json(ordered_json& j, const Component& component)
 		case PropertyType::Vector3:
 			ele["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(prop.data);
 			break;
+		case PropertyType::Quaternion:
+			ele["data"] = *static_cast<DirectX::SimpleMath::Quaternion*>(prop.data);
+			break;
 		case PropertyType::Color:
 			ele["data"] = *static_cast<DirectX::SimpleMath::Color*>(prop.data);
 			break;

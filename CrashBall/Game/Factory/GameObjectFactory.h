@@ -20,5 +20,8 @@ namespace  GameObjectFactory {
 	}
 
 	// データからのゲームオブジェクトの作成
-	static std::unique_ptr<GameObject> CreataFromJson(ordered_json data);
+	static std::unique_ptr<GameObject> CreataFromJson(
+		const std::string& objectName,
+		const std::string& loadPath
+	);
 };

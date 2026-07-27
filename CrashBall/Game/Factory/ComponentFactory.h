@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
+#include <concepts>
 
 class GameObject;
 
@@ -21,4 +22,9 @@ namespace ComponentFactory
 	{
 		return std::make_unique<CompType>(gameObject, std::forward<Args>(args)...);
 	}
+
+	using CreataFunc = std::unique_ptr<Component>(*)();
+
+	// コンポーネント生成関数の登録
+	void RegistComponentFunc(const std::string& compName, CreataFunc func);
 };

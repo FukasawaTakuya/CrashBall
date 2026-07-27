@@ -21,6 +21,9 @@
 #include "Game/Component/Camera/GameCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
+// Componentへ変換
+void from_json(const ordered_json& j, Component& component);
+
 // Triangleへ変換
 void from_json(const json& j, Triangle& triangle);
 

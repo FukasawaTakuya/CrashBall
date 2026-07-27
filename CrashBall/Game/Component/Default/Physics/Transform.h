@@ -30,7 +30,7 @@ private:
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_localPosition, PropertyType::Vector3)
-		AddProperty(m_localRotate, PropertyType::Vector3)
+		AddProperty(m_localRotate, PropertyType::Quaternion)
 		AddProperty(m_localScale, PropertyType::Vector3)
 	EndProperty()
 

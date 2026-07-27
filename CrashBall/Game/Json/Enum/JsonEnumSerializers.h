@@ -16,14 +16,15 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ObjectTag, {
 );
 
 NLOHMANN_JSON_SERIALIZE_ENUM(PropertyType, {
-	{ PropertyType::Int,	 "Int"		},
-	{ PropertyType::Bool,	 "Bool"		},
-	{ PropertyType::Float,	 "Float"	},
-	{ PropertyType::Vector2, "Vector2"	},
-	{ PropertyType::Vector3, "Vector3"	},
-	{ PropertyType::Color,	 "Color"	},
-	{ PropertyType::String,	 "String"	},
-	{ PropertyType::Enum,	 "Enum"		}
+	{ PropertyType::Int,		"Int"			},
+	{ PropertyType::Bool,		"Bool"			},
+	{ PropertyType::Float,		"Float"			},
+	{ PropertyType::Vector2,	"Vector2"		},
+	{ PropertyType::Vector3,	"Vector3"		},
+	{ PropertyType::Quaternion, "Quaternion"	},
+	{ PropertyType::Color,		"Color"			},
+	{ PropertyType::String,		"String"		},
+	{ PropertyType::Enum,		"Enum"			}
 	}
 );
 

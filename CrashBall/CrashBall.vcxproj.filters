@@ -582,6 +582,9 @@
     <ClInclude Include="Game\Json\Exporter\ComponentExporter.h">
       <Filter>Game\Json\Exporter</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Factory\ComponentRegister.h">
+      <Filter>Game\Factory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

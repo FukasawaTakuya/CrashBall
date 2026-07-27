@@ -67,16 +67,16 @@ public:
 public:
 
 	// 初期化
-	virtual void Initialize() = 0;
+	virtual void Initialize() {};
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) = 0;
+	virtual void Update(const GameContext& gameContext) {};
 
 	// 描画
-	virtual void Render(const RenderContext& renderContext) = 0;
+	virtual void Render(const RenderContext& renderContext) {};
 
 	// 終了処理
-	virtual void Finalize() = 0;
+	virtual void Finalize() {};
 
 	// パラメータの書き込み
 	virtual void SaveParam();
@@ -115,6 +115,11 @@ public:
 
 		// コンポーネントのポインタを返す
 		return pComp;
+	}
+
+	void AddComponent(std::unique_ptr<Component>&& comp)
+	{
+		m_components.emplace(typeid(*comp.get()), std::move(comp));
 	}
 
 	// タグの取得

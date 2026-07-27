@@ -1,4 +1,5 @@
 #pragma once
+#include <typeindex>
 
 /**
  * @brief ステートマシンのインターフェース

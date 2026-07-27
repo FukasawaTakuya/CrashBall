@@ -24,6 +24,7 @@ enum class PropertyType
 	Float,
 	Vector2,
 	Vector3,
+	Quaternion,
 	Color,
 	String,
 	Enum,
@@ -43,11 +44,8 @@ struct PropertyInfo
  */
 class  Component {
 
-	// データメンバの宣言 -----------------------------------------------
-private:
+// マクロの宣言 ---------------------------------------------------------
 
-	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
-	
 	// プロパティ記述開始
 #define BeginProperty()\
 private:	\
@@ -65,6 +63,11 @@ private:	\
 #define SetCompName(compName)\
 	std::string m_compName = compName;
 
+	// データメンバの宣言 -----------------------------------------------
+private:
+
+	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
+	
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -80,6 +83,9 @@ public:
 
 	// 操作
 public:
+
+	// 初期化
+	virtual void Initialize() {};
 
 	// 更新
 	virtual void Update(const GameContext& gameContext) {};

@@ -1,22 +1,36 @@
 #include "pch.h"
 #include "GameObjectFactory.h"
 
+#include <fstream>
+
 /**
  * \brief データからのゲームオブジェクトの作成
  * 
- * \param data jsonデータ
+ * \param objectName オブジェクト名
+ * \param loadPath ファイルパス
  * \return 
  */
-std::unique_ptr<GameObject> GameObjectFactory::CreataFromJson(ordered_json data)
+std::unique_ptr<GameObject> GameObjectFactory::CreataFromJson(
+	const std::string& objectName,
+	const std::string& loadPath)
 {
-	//std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+	std::ifstream ifs(loadPath + objectName + ".json");
 
-	//obj->SetName(data["name"]);
-	//obj->SetTag(data["tag"]);
-	//obj->SetIsActive(data["isActive"]);
+	ordered_json data;
+
+	ifs >> data;
+
+	std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
+
+	obj->SetName(data["name"]);
+	obj->SetTag(data["tag"]);
+	obj->SetIsActive(data["isActive"]);
+
+	for (auto& comp : data["components"])
+	{
+		//obj->AddComponent()
+	}
 
 
-
-
-	//return std::move(obj);
+	return std::move(obj);
 }

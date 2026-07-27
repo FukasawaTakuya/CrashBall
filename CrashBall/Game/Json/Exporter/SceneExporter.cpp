@@ -52,12 +52,12 @@ void SceneExporter::ExportScene(Scene* scene)
 	// Json
 	json sceneData;
 
-	// オブジェクト名の保存
+	// オブジェクト名の保存とオブジェクトのエクスポート
 	for (auto obj : *scene->GetGameObjects())
 	{
 		sceneData["Obejcts"].push_back(obj->GetName());
 
-		// TODO:オブジェクトのエクスポート
+		// オブジェクトのエクスポート
 		m_gameObjectExporter->ExporterGameObject(obj, objectExportPath);
 	}
 

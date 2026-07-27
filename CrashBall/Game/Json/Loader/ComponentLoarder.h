@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/Physics/Transform.h"
 
 class GameObject;
 
@@ -15,10 +16,13 @@ class GameObject;
  * \brief 
  */
 class  ComponentLoader {
+
+public:
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	using CreataFunc = Component* (*)(json);
+	using CreataFunc = std::unique_ptr<Component> (*)();
 
 	std::unordered_map<std::string, CreataFunc> m_createComp;
 

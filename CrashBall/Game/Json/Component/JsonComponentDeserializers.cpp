@@ -3,6 +3,62 @@
 #include "Game/Json/SimpleMath/JsonSimpleMathConverter.h"
 #include "Game/Common/Utility.h"
 
+// Componentへ変換
+void from_json(const ordered_json& j, Component& component)
+{
+	auto& properties = component.GetProperties();
+
+	for (int i = 0; i < j["properties"].size(); i++)
+	{
+		PropertyType propType = j["properties"].at(i)["type"];
+		json propData = j["properties"].at(i)["data"];
+		
+		auto& prop = properties[i];
+
+		switch (propType)
+		{
+		case PropertyType::Bool:
+			*static_cast<bool*>(prop.data) = propData;
+			break;
+		case PropertyType::Int:
+			*static_cast<int*>(prop.data) = propData;
+			break;
+		case PropertyType::Float:
+			*static_cast<float*>(prop.data) = propData;
+			break;
+		case PropertyType::Vector2:
+			*static_cast<DirectX::SimpleMath::Vector2*>(prop.data) = propData;
+			break;
+		case PropertyType::Vector3:
+			*static_cast<DirectX::SimpleMath::Vector3*>(prop.data) = propData;
+			break;
+		case PropertyType::Quaternion:
+			*static_cast<DirectX::SimpleMath::Quaternion*>(prop.data) = propData;
+			break;
+		case PropertyType::Color:
+			*static_cast<DirectX::SimpleMath::Color*>(prop.data) = propData;
+			break;
+		case PropertyType::String:
+			// wstringの時はマルチバイト文字に変換する]
+			if (typeid(std::string) == prop.propTypeId)
+			{
+				*static_cast<std::wstring*>(prop.data) =
+					Utility::ConvertToWideChar(propData);
+			}
+			else if (typeid(std::string) == prop.propTypeId)
+			{
+				*static_cast<std::string*>(prop.data) = propData;
+			}
+			break;
+		case PropertyType::Enum:
+			*static_cast<int*>(prop.data) = propData;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 // Traingleへ変換
 void from_json(const json& j, Triangle& triangle)
 {
