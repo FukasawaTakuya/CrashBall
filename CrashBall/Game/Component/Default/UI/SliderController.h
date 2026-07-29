@@ -14,7 +14,7 @@
 /**
  * @brief スライダー操作コンポーネント
  */
-class  SliderController : public Component<SliderController>
+class  SliderController : public Component 
 {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

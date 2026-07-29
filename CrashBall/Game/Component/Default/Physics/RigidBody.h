@@ -13,7 +13,7 @@
 /**
  * \brief 物理演算コンポーネント
  */
-class  Rigidbody : public Component<Rigidbody> {
+class  Rigidbody : public Component {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -40,6 +40,10 @@ private:
 		AddProperty(m_mass, PropertyType::Float)
 		AddProperty(m_isDynamic, PropertyType::Bool)
 	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Rigidbody")
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -100,6 +104,12 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
 	}
 
 	// JsonConvert

@@ -16,9 +16,7 @@
 /**
  * \brief メッシュコライダー
  */
-class Mesh : 
-	public Collider,
-	public Component<Mesh>
+class Mesh : public Collider
 {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -32,6 +30,9 @@ private:
 	BeginProperty()
 		AddProperty(m_meshData, PropertyType::String)
 	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("Mesh")
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -79,12 +80,6 @@ public:
 	// 取得/設定
 public:
 
-	// ゲームオブジェクトの取得
-	IGameObject* GetGameObject() const
-	{
-		Component::GetGameObject();
-	}
-
 	// 面の取得
 	const std::vector<std::unique_ptr<Triangle>>& GetFace() const
 	{ 
@@ -109,6 +104,11 @@ private:
 		return m_properties;
 	}
 
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 
 	// JsonConvert
 private:

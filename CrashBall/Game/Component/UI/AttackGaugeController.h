@@ -19,8 +19,7 @@
 /**
  * @brief 攻撃ゲージ操作コンポーネント
  */
-class  AttackGaugeController : public Component<AttackGaugeController>
-{
+class  AttackGaugeController : public Component {
 	
 	// データメンバの宣言 -----------------------------------------------
 private:

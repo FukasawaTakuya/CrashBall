@@ -16,7 +16,7 @@
 /**
  * \brief 敵操作コンポーネント
  */
-class  EnemyController : public Component<EnemyController>
+class  EnemyController : public Component
 {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

@@ -16,7 +16,7 @@
 /**
  * @brief ボタン操作コンポーネント
  */
-class  ButtonController : public Component<ButtonController> {
+class  ButtonController : public Component {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

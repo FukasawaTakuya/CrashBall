@@ -21,8 +21,7 @@ class PlayerStateBase;
 /**
  * \brief プレイヤー操作コンポーネント
  */
-class  PlayerController : public Component<PlayerController>
-{
+class  PlayerController : public Component {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;

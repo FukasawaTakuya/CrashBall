@@ -18,12 +18,13 @@ using namespace DirectX;
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 TargetCameraController::TargetCameraController(
-	Transform* transform,
+	IGameObject* gameObject,
 	const DirectX::SimpleMath::Vector3& offset)
-	: m_baseOffset(offset)
+	: Component(gameObject)
+	, m_baseOffset(offset)
 {
 	// キャッシュの取得
-	m_transform = transform;
+	m_transform = GetGameObject()->GetComponent<Transform>();
 
 	// オフセットからターゲット方向のベクトル
 	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
@@ -42,12 +43,13 @@ TargetCameraController::TargetCameraController(
  * \param other ターゲットカメラコンポーネント
  */
 TargetCameraController::TargetCameraController(
-	Transform* transform,
+	IGameObject* gameObejct,
 	const TargetCameraController& other)
-	: m_baseOffset(other.m_baseOffset)
+	: Component(gameObejct)
+	, m_baseOffset(other.m_baseOffset)
 {
 	// キャッシュの取得
-	m_transform = transform;
+	m_transform = GetGameObject()->GetComponent<Transform>();
 
 	// オフセットからターゲット方向のベクトル
 	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);

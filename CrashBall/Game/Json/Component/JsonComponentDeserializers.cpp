@@ -4,7 +4,7 @@
 #include "Game/Common/Utility.h"
 
 // Componentへ変換
-void from_json(const ordered_json& j, IComponent& component)
+void from_json(const ordered_json& j, Component& component)
 {
 	auto& properties = component.GetProperties();
 

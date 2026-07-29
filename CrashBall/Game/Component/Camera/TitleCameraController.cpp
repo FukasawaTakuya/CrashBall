@@ -19,9 +19,9 @@
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 TitleCameraController::TitleCameraController(IGameObject* gameObject)
-	: Component(gameObject)
-	, TargetCameraController(GetGameObject()->GetComponent<Transform>())
+	: TargetCameraController(gameObject)
 {
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -33,10 +33,10 @@ TitleCameraController::TitleCameraController(IGameObject* gameObject)
 TitleCameraController::TitleCameraController(
 	IGameObject* gameObject, 
 	const TitleCameraController& other)
-	: Component(gameObject)
-	, TargetCameraController(GetGameObject()->GetComponent<Transform>(), other.m_baseOffset)
+	: TargetCameraController(gameObject, other.m_baseOffset)
 	, m_rotateAngeleRad(other.m_rotateAngeleRad)
 {
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**

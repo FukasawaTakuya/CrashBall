@@ -58,7 +58,7 @@ static const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin:
 /**
  * @brief 2Dのトランスフォームコンポーネント
  */
-class  RectTransform : public Component<RectTransform> {
+class  RectTransform : public Component {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -84,6 +84,9 @@ private:
 		AddProperty(m_localScale, PropertyType::Vector2)
 		AddProperty(m_origin, PropertyType::Enum)
 	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("RectTransform")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -278,6 +281,12 @@ private:
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
 	}
 
 	// JsonConvert

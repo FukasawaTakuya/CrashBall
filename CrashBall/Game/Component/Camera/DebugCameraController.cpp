@@ -19,9 +19,8 @@ using namespace DirectX;
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 DebugCameraController::DebugCameraController(IGameObject* gameObject)
-	: Component(gameObject)
-	, TargetCameraController(
-		GetGameObject()->GetComponent<Transform>(),
+	: TargetCameraController(
+		gameObject,
 		SimpleMath::Vector3(0.0f, 20.0f, 20.0f))
 {
 	m_targetTransform = std::make_unique<Transform>();
@@ -34,11 +33,6 @@ DebugCameraController::DebugCameraController(IGameObject* gameObject)
  */
 DebugCameraController::~DebugCameraController()
 {
-}
-
-void DebugCameraController::Initialize()
-{
-	TargetCameraController::Initialize();
 }
 
 /**

@@ -16,7 +16,7 @@
 /**
  * @brief テキスト描画コンポーネント
  */
-class  TextRenderer : public Component<TextRenderer> {
+class  TextRenderer : public Component {
 
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
@@ -45,6 +45,9 @@ private:
 		AddProperty(m_layerDepth, PropertyType::Float)
 		AddProperty(m_fontKey, PropertyType::String)
 	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("TextRenderer")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -147,6 +150,13 @@ private:
 	{
 		return m_properties;
 	}
+
+	// コンポーネント名の取得
+	virtual std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 
 	// JsonConvert
 private:

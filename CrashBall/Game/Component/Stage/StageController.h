@@ -25,10 +25,10 @@
  * \brief ステージ操作コンポーネント
  */
 class  StageController : 
-	public Component<StageController>,	// 基底コンポーネント
-	public IWallMeshGetter,				// 壁メッシュ関連情報取得
-	public IFloorMeshGetter,			// 床メッシュ関連情報取得
-	public IPaintConsumer				// ペイント消費
+	public Component,			// 基底コンポーネント
+	public IWallMeshGetter,		// 壁メッシュ関連情報取得
+	public IFloorMeshGetter,	// 床メッシュ関連情報取得
+	public IPaintConsumer		// ペイント消費
 {
 
 	// インスペクター編集GUIをフレンド化

@@ -11,13 +11,6 @@
 #include <string>
 #include <typeindex>
 
-#include "Game/Context/GameContext.h"
-#include "Game/Context/RenderContext.h"
-
-#include "Game/Factory/ComponentRegister.h"
-
-#include "Game/Common/Utility.h"
-
 class IGameObject;
 
 // プロパティタイプ
@@ -49,43 +42,6 @@ struct PropertyInfo
  * @brief コンポーネントのインターフェース
  */
 class  IComponent {
-
-	// マクロの宣言 ---------------------------------------------------------
-
-	// プロパティ記述開始
-#define BeginProperty()\
-private:	\
-	std::vector<PropertyInfo> m_properties = { \
-
-	// プロパティの追加
-#define AddProperty(field, type)\
-	{ PropertyInfo(Utility::RemoveMemberPrefix(#field), type, typeid(field), &field) } ,
-
-	// プロパティ記述終了
-#define EndProperty()\
-	};
-
-	// コンポーネント名の設定
-#define SetCompName(compName)\
-	std::string m_compName = compName;	
-
-	// コンポーネントの登録
-#define RegsterComponent(Comp)\
-	static constexpr ComponetRegister<Comp> s_compRegisgter(#Comp); \
-	static constexpr std::string s_compName = #Comp;
-
-	// 操作
-public:
-
-	// 初期化
-	virtual void Initialize() = 0;
-
-	// 更新
-	virtual void Update(const GameContext& gameContext) = 0;
-
-	// 描画
-	virtual void Render(const RenderContext& renderContext) = 0;
-
 
 	// 取得/設定
 public:

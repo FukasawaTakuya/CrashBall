@@ -22,7 +22,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	using CreataFunc = std::unique_ptr<IComponent> (*)();
+	using CreataFunc = std::unique_ptr<Component> (*)();
 
 	std::unordered_map<std::string, CreataFunc> m_createComp;
 

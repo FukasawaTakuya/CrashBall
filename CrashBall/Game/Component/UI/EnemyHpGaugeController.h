@@ -17,8 +17,7 @@
 /**
  * @brief 敵HPゲージ操作コンポーネント
  */
-class  EnemyHpGaugeController : public Component<EnemyHpGaugeController>
-{
+class  EnemyHpGaugeController : public Component {
 
 	// データメンバの宣言 -----------------------------------------------
 private:

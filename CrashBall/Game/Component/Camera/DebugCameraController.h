@@ -13,9 +13,7 @@
 /**
  * \brief デバッグ用カメラ操作コンポーネント
  */
-class  DebugCameraController 
-	: public Component<TargetCameraController>
-	, public TargetCameraController
+class  DebugCameraController : public TargetCameraController
 {
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -26,6 +24,9 @@ private:
 	// プロパティの設定
 	BeginProperty()
 	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("DefaultCameraController")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -41,8 +42,6 @@ public:
 	// 操作
 public:
 
-	void Initialize();
-
 	// 更新
 	void Update();
 
@@ -57,4 +56,11 @@ private:
 	{
 		return m_properties;
 	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
+
 };
