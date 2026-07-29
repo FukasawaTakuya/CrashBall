@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "Transform.h"
 
+RegisterComponent(Transform)
+
 /**
  * \brief コンストラクタ
  * 

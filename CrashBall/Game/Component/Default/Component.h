@@ -12,6 +12,7 @@
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
+#include "Game/Factory/ComponentRegister.h"
 
 #include "Game/Common/Utility.h"
 
@@ -38,6 +39,11 @@ struct PropertyInfo
 	std::type_index propTypeId{typeid(void)};	// プロパティのtypeid
 	void* data;									// プロパティのアドレス
 };
+
+#define RegisterComponent(Comp)\
+namespace{\
+	ComponentRegister<Comp> g_##Comp##Register(#Comp);\
+}
 
 /**
  * \brief 基底コンポーネント

@@ -11,6 +11,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(ModelRenderer)
+
+
 /**
  * \brief コンストラクタ.
  * 

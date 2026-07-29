@@ -14,6 +14,7 @@
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
 
+
 /**
  * @brief 敵HPゲージ操作コンポーネント
  */
@@ -43,6 +44,8 @@ private:
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	EnemyHpGaugeController(IGameObject* gameObject);
 
 	// コンストラクタ
 	EnemyHpGaugeController(

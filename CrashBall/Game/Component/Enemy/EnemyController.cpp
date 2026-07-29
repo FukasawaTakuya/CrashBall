@@ -14,6 +14,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(EnemyController)
+
+
 /**
  * \brief コンストラクタ
  * 

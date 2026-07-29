@@ -13,6 +13,7 @@
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;
+RegisterComponent(GameCameraController)
 
 /**
  * \brief コンストラクタ

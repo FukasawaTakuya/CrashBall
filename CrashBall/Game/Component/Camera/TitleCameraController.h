@@ -12,7 +12,6 @@
 #include "Game/Component/Camera/ICamera.h"
 #include "TargetCameraController.h"
 
-using namespace DirectX;
 
 /**
  * @brief 基底タイトルカメラ操作コンポーネント
@@ -91,8 +90,8 @@ private:
 	// JsonConverter
 private:
 
-	friend void from_json(const nlohmann::json& j, TitleCameraController& titleCameraController);
-	friend void to_json(nlohmann::json& j, const TitleCameraController& titleCameraController);
+	friend void from_json(const json& j, TitleCameraController& titleCameraController);
+	friend void to_json(json& j, const TitleCameraController& titleCameraController);
 
 	// 演算子オーバーロード
 public:

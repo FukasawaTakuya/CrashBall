@@ -16,6 +16,7 @@
 
 #include "Game/ScriptableObject/ScriptableObject.h"
 
+
 /**
  * @brief 攻撃ゲージ操作コンポーネント
  */
@@ -47,6 +48,8 @@ private:
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	AttackGaugeController(IGameObject* gameObject);
 
 	// コンストラクタ
 	AttackGaugeController(

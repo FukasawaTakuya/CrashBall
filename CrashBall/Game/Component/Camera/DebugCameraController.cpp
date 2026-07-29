@@ -13,6 +13,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(DebugCameraController)
+
+
 /**
  * \brief コンストラクタ
  * 

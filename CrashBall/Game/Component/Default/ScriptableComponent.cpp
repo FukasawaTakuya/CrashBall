@@ -3,6 +3,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(ScriptableComponent)
+
+
 /**
  * \brief コンストラクタ
  * 

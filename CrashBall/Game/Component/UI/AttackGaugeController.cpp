@@ -12,6 +12,18 @@
 #include "Game/ScriptableObject/Scriptable.h"
 
 using namespace DirectX;
+RegisterComponent(AttackGaugeController)
+
+/**
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+AttackGaugeController::AttackGaugeController(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
+
 
 /**
  * \brief コンストラクタ

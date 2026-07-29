@@ -10,6 +10,8 @@
 #include "SliderController.h"
 #include "Game/Engine/Time.h"
 
+RegisterComponent(SliderController)
+
 /**
  * \brief コンストラクタ
  * 
@@ -47,6 +49,10 @@ SliderController::~SliderController()
 {
 }
 
+/**
+ * \brief スライド
+ * 
+ */
 void SliderController::Slide()
 {
 	float fillAmount =

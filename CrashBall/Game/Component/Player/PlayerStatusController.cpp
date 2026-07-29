@@ -10,6 +10,8 @@
 #include "PlayerStatusController.h"
 #include "Game/Component/Default/Collider/Sphere.h"
 
+RegisterComponent(PlayerStatusController)
+
 /**
  * \brief コンストラクタ
  * 

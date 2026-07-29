@@ -16,6 +16,7 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
+
 /**
  * \brief ボール操作コンポーネント
  */
@@ -102,5 +103,4 @@ private:
 	{
 		return m_compName;
 	}
-
 };

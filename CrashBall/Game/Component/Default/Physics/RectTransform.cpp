@@ -11,6 +11,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(RectTransform)
+
+
 /**
  * \brief コンストラクタ
  * 

@@ -10,6 +10,7 @@
 
 #include "Game/Component/Default/Collider/Collider.h"
 
+
  /**
  * \brief 球コライダー
  */
@@ -39,6 +40,8 @@ public:
 
 	// デフォルトコンストラクタ
 	Sphere() = default;
+
+	Sphere(IGameObject* gameObject);
 
 	// コンストラクタ
 	Sphere(IGameObject* gameObject, float radius);

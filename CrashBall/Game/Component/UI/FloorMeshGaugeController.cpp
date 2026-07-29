@@ -12,6 +12,19 @@
 
 using namespace DirectX;
 
+RegisterComponent(FloorMeshGaugeController)
+
+
+/**
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
+
 
 /**
  * \brief コンストラクタ

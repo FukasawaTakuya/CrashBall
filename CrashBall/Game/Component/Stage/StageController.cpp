@@ -13,6 +13,18 @@
 
 using namespace DirectX;
 
+RegisterComponent(StageController)
+
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+StageController::StageController(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
+
 /**
  * \brief コピーコンストラクタ
  * 

@@ -21,6 +21,7 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 
+
 /**
  * \brief ステージ操作コンポーネント
  */
@@ -74,6 +75,9 @@ public:
 
 	// デフォルトコンストラクタ
 	StageController() = default;
+
+	// コンストラクタ
+	StageController(IGameObject* gameObject);
 
 	// コピーコンストラクタ
 	StageController(

@@ -64,6 +64,7 @@ const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::O
 	DirectX::SimpleMath::Vector4(0.0f, 1.0f, 1.0f, 1.0f),	// Bottom
 };
 
+
 /**
  * @brief スプライト描画コンポーネント
  */

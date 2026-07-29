@@ -11,8 +11,9 @@
 
 #include <fstream>
 
-using namespace nlohmann;
 using namespace DirectX;
+
+RegisterComponent(Mesh)
 
 /**
  * \brief コンストラクタ

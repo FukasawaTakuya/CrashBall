@@ -13,6 +13,18 @@
 #include "Game/Color/GameColor.h"
 
 using namespace DirectX;
+RegisterComponent(EnemyHpGaugeController)
+
+
+/**
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+EnemyHpGaugeController::EnemyHpGaugeController(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
 
 /**
  * \brief コンストラクタ

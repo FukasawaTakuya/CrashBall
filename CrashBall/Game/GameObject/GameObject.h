@@ -117,9 +117,11 @@ public:
 		return pComp;
 	}
 
-	void AddComponent(std::unique_ptr<Component>&& comp)
+	Component* AddComponent(std::unique_ptr<Component>&& comp)
 	{
+		Component* ptr = comp.get();
 		m_components.emplace(typeid(*comp.get()), std::move(comp));
+		return ptr;
 	}
 
 	// タグの取得

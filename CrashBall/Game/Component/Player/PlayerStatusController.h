@@ -11,6 +11,7 @@
 #include "../Default/Component.h"
 #include "../Stage/IFloorMeshGetter.h"
 
+
 /**
  * @brief プレイヤーステータス管理コンポーネント
  */

@@ -12,6 +12,9 @@
 #include "Game/State/Player/PlayerMoveState.h"
 #include "Game/State/Player/PlayerAttackState.h"
 
+
+RegisterComponent(PlayerController)
+
 /**
  * \brief コンストラクタ
  * 

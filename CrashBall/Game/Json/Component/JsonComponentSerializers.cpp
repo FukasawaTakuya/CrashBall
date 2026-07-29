@@ -4,6 +4,8 @@
 #include "Game/Json/SimpleMath/JsonSimpleMathConverter.h"
 #include "Game/Common/Utility.h"
 
+using namespace DirectX;
+
 // Componentから変換
 void to_json(ordered_json& j, const Component& component)
 {

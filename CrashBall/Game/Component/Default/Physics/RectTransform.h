@@ -55,6 +55,7 @@ static const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin:
 	DirectX::SimpleMath::Vector2(1.0f, 1.0f),	// RightBottom
 };
 
+
 /**
  * @brief 2Dのトランスフォームコンポーネント
  */

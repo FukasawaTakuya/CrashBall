@@ -268,7 +268,6 @@ void Game::Update(DX::StepTimer const& timer)
     {
         m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
     }
-
 }
 #pragma endregion
 

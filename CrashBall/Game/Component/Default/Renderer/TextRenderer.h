@@ -13,6 +13,7 @@
 #include "..\Physics\RectTransform.h"
 #include "Game/ResourceManager/Interface/ITextManager.h"
 
+
 /**
  * @brief テキスト描画コンポーネント
  */

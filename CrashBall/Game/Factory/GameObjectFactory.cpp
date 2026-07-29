@@ -28,7 +28,11 @@ std::unique_ptr<GameObject> GameObjectFactory::CreataFromJson(
 
 	for (auto& comp : data["components"])
 	{
-		//obj->AddComponent()
+		auto compPtr = obj->AddComponent(
+			ComponentFactory::CreataFromJson(comp["compName"], obj.get())
+		);
+
+		comp.get_to<Component>(*compPtr);
 	}
 
 

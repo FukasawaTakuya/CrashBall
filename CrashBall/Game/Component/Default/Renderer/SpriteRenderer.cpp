@@ -11,6 +11,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(SpriteRenderer)
+
+
 /**
  * \brief コンストラクタ
  * 

@@ -11,6 +11,7 @@
 #include "Game/Engine/Time.h"
 
 using namespace DirectX;
+RegisterComponent(BallController)
 
 /**
  * \brief コンストラクタ

@@ -1,6 +1,6 @@
 /*****************************************************************//**
  * \file   ModelRenderer.h
- * \brief  モデル描画クラス 
+ * \brief  モデル描画コンポーネント 
  * 
  * \author 深沢拓矢
  * \date   April 2026
@@ -14,8 +14,9 @@
 
 #include "Game/Component/Default/Physics/Transform.h"
 
+
  /**
- * @brief 基底オブジェクト
+ * @brief モデル描画コンポーネント
  */
 class  ModelRenderer : public Component {
 

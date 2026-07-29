@@ -10,6 +10,7 @@
 
 #include "..\Component.h"
 
+
 /**
  * \brief 物理演算コンポーネント
  */
@@ -51,6 +52,8 @@ public:
 
 	// デフォルトコンストラクタ
 	Rigidbody() = default;
+
+	Rigidbody(IGameObject* gameObject);
 
 	// コンストラクタ
 	Rigidbody(

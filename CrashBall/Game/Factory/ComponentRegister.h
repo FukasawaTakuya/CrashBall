@@ -3,19 +3,19 @@
 #include "ComponentFactory.h"
 
 template <typename Comp>
-class ComponetRegister
+class ComponentRegister
 {
 public:
 
 	// コンストラクタ
-	ComponetRegister(const std::string& compName)
+	ComponentRegister(const std::string& compName)
 	{
 		ComponentFactory::RegistComponentFunc(
 			compName,
-			[]()
+			[](IGameObject* gameObject)
 			{
-				return std::make_unique<Comp>();
+				return std::move(std::make_unique<Comp>(gameObject));
 			}
-		)
+		);
 	}
 };

@@ -3,6 +3,9 @@
 
 using namespace DirectX;
 
+RegisterComponent(TextRenderer)
+
+
 /**
  * \brief コンストラクタ
  * 

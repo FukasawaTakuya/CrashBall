@@ -10,6 +10,8 @@
 #include "pch.h"
 #include "Sphere.h"
 
+RegisterComponent(Sphere)
+
 /**
  * \brief コンストラクタ
  * 
@@ -21,6 +23,17 @@ Sphere::Sphere(
 	float radius)
 	: Collider(gameObject, ColliderType::Sphere)
 	, m_radius(radius)
+{
+}
+
+/**
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+Sphere::Sphere(
+	IGameObject* gameObject)
+	: Collider(gameObject, ColliderType::Sphere)
 {
 }
 

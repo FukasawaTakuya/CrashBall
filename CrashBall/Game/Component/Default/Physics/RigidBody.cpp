@@ -12,6 +12,19 @@
 
 using namespace DirectX;
 
+RegisterComponent(Rigidbody)
+
+/**
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+Rigidbody::Rigidbody(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
+
+
 /**
  * \brief コンストラクタ
  * 

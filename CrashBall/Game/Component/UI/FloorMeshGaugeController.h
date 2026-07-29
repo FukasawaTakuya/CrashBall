@@ -17,6 +17,7 @@
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
 
+
 /**
  * @brief 床メッシュゲージ操作コンポーネント
  */
@@ -54,6 +55,8 @@ private:
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
+
+	FloorMeshGaugeController(IGameObject* gameObject);
 
 	// コンストラクタ
 	FloorMeshGaugeController(

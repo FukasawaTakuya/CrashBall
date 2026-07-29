@@ -14,6 +14,8 @@
 
 using namespace DirectX;
 
+RegisterComponent(ButtonController)
+
 /**
  * \brief コンストラクタ
  * 
