@@ -43,7 +43,7 @@ void GameObjectExporter::ExporterGameObject(
 	for (auto& comp : *gameObject->GetComponentsList())
 	{
 		jsonData["components"].push_back(
-			*static_cast<IComponent*>(comp.second.get())
+			*static_cast<Component*>(comp.second.get())
 		);
 	}
 

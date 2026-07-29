@@ -5,7 +5,7 @@
 #include "Game/Common/Utility.h"
 
 // Componentから変換
-void to_json(ordered_json& j, const IComponent& component)
+void to_json(ordered_json& j, const Component& component)
 {
 	j["compName"] = component.GetCompName();
 	j["properties"] = nullptr;

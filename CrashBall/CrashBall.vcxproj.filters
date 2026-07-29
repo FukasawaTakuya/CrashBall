@@ -585,9 +585,6 @@
     <ClInclude Include="Game\Factory\ComponentRegister.h">
       <Filter>Game\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\IComponent.h">
-      <Filter>Game\Component\Default</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
