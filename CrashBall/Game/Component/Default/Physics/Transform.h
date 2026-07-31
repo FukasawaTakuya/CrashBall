@@ -99,7 +99,7 @@ public:
 	{
 		if (m_parent != nullptr)
 		{
-			return m_localScale + m_parent->GetWorldScale();
+			return m_localScale * m_parent->GetWorldScale();
 		}
 		return m_localScale;
 	}
@@ -204,6 +204,26 @@ public:
 		m_isDirty = true;
 	}
 
+	// 実行中の親の設定
+	void SetParentInRuntime(Transform* parent)
+	{
+		m_parent = parent;
+		if (parent != nullptr)
+		{
+			m_localPosition -= parent->GetWorldPosition();
+			DirectX::SimpleMath::Quaternion inverseRotate;
+			parent->GetWorldRotate().Inverse(inverseRotate);
+			m_localRotate *= inverseRotate;
+			m_localScale = m_localScale / parent->GetWorldScale();
+		}
+	}
+
+	// ビルド時の親の設定
+	void SetParentInBuildTime(Transform* parent)
+	{
+		m_parent = parent;
+	}
+
 	// 内部実装
 private:
 
@@ -218,7 +238,6 @@ private:
 	{
 		return m_compName;
 	}
-
 
 	// JsonConvert
 private:

@@ -4,6 +4,37 @@
    "isActive": true,
    "components": [
       {
+         "compName": "RectTransform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector2",
+               "data": {
+                  "x": 1200.0,
+                  "y": 750.0
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "localScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0
+               }
+            },
+            {
+               "name": "origin",
+               "type": "Enum",
+               "data": 1
+            }
+         ]
+      },
+      {
          "compName": "SpriteRenderer",
          "properties": [
             {
@@ -43,37 +74,6 @@
                "name": "spriteEffects",
                "type": "Enum",
                "data": 0
-            }
-         ]
-      },
-      {
-         "compName": "RectTransform",
-         "properties": [
-            {
-               "name": "localPosition",
-               "type": "Vector2",
-               "data": {
-                  "x": 1200.0,
-                  "y": 750.0
-               }
-            },
-            {
-               "name": "localRotate",
-               "type": "Float",
-               "data": 0.0
-            },
-            {
-               "name": "localScale",
-               "type": "Vector2",
-               "data": {
-                  "x": 1.0,
-                  "y": 1.0
-               }
-            },
-            {
-               "name": "origin",
-               "type": "Enum",
-               "data": 1
             }
          ]
       },

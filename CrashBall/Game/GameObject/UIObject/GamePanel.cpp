@@ -70,7 +70,7 @@ GamePanel::GamePanel(json* data)
 	RectTransform* rectTransform = GetComponent<RectTransform>();
 	for (auto& childe : GetChildren())
 	{
-		childe->GetComponent<RectTransform>()->SetParent(rectTransform);
+		childe->GetComponent<RectTransform>()->SetParentInBuildTime(rectTransform);
 	}
 }
 

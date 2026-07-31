@@ -36,41 +36,6 @@
          ]
       },
       {
-         "compName": "ModelRenderer",
-         "properties": [
-            {
-               "name": "modelKey",
-               "type": "String",
-               "data": "player"
-            }
-         ]
-      },
-      {
-         "compName": "Rigidbody",
-         "properties": [
-            {
-               "name": "gravityAcceleration",
-               "type": "Float",
-               "data": 25.799999237060547
-            },
-            {
-               "name": "friction",
-               "type": "Float",
-               "data": 1.2000000476837158
-            },
-            {
-               "name": "mass",
-               "type": "Float",
-               "data": 1.0
-            },
-            {
-               "name": "isDynamic",
-               "type": "Bool",
-               "data": true
-            }
-         ]
-      },
-      {
          "compName": "PlayerController",
          "properties": [
             {
@@ -106,8 +71,39 @@
          ]
       },
       {
-         "compName": "BallController",
-         "properties": null
+         "compName": "Rigidbody",
+         "properties": [
+            {
+               "name": "gravityAcceleration",
+               "type": "Float",
+               "data": 25.799999237060547
+            },
+            {
+               "name": "friction",
+               "type": "Float",
+               "data": 1.2000000476837158
+            },
+            {
+               "name": "mass",
+               "type": "Float",
+               "data": 1.0
+            },
+            {
+               "name": "isDynamic",
+               "type": "Bool",
+               "data": true
+            }
+         ]
+      },
+      {
+         "compName": "ModelRenderer",
+         "properties": [
+            {
+               "name": "modelKey",
+               "type": "String",
+               "data": "player"
+            }
+         ]
       },
       {
          "compName": "PlayerStatusController",
@@ -123,6 +119,10 @@
                "data": 10.0
             }
          ]
+      },
+      {
+         "compName": "BallController",
+         "properties": null
       }
    ],
    "children": null

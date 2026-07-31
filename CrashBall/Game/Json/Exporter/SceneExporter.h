@@ -18,6 +18,7 @@ class  SceneExporter {
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// ゲームオブジェクトエクスポーター
 	std::unique_ptr<GameObjectExporter> m_gameObjectExporter;
 
 	// メンバ関数の宣言 -------------------------------------------------

@@ -42,7 +42,7 @@ void from_json(const ordered_json& j, Component& component)
 			break;
 		case PropertyType::String:
 			// wstringの時はマルチバイト文字に変換する]
-			if (typeid(std::string) == prop.propTypeId)
+			if (typeid(std::wstring) == prop.propTypeId)
 			{
 				*static_cast<std::wstring*>(prop.data) =
 					Utility::ConvertToWideChar(propData);

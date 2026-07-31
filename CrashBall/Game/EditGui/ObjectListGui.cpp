@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   ObjectListGui.cpp
  * \brief  オブジェクトリスト表示
  *
@@ -100,6 +100,33 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
         for (auto& child : object->GetChildren())
         {
             DrawObjectGui(child);
+        }
+
+        // ドラッグされている場合の処理
+        if (ImGui::BeginDragDropSource())
+        {
+            ImGui::Text("%s", object->GetName());
+
+            ImGui::SetDragDropPayload(
+                "GAME_OBJECT",
+                &object,
+                sizeof(object));
+
+            ImGui::EndDragDropSource();
+        }
+
+        if (ImGui::BeginDragDropTarget())
+        {
+            if (const ImGuiPayload* payload =
+                ImGui::AcceptDragDropPayload("GAME_OBJECT"))
+            {
+                GameObject* child =
+                    *(GameObject**)payload->Data;
+
+                object->AddChildren(child);
+            }
+
+            ImGui::EndDragDropTarget();
         }
 
         ImGui::TreePop();

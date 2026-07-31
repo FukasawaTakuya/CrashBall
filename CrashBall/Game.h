@@ -37,6 +37,7 @@
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
 #include "Game/Json/Exporter/SceneExporter.h"
+#include "Game/Json/Loader/SceneLoader.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -59,6 +60,7 @@ private:
 
     std::unique_ptr<JsonDataManager> m_jsonDataManager; // Jsonデータ管理
     std::unique_ptr<SceneExporter>   m_sceneExporter;   // シーンエクスポーター
+    std::unique_ptr<SceneLoader>     m_sceneLoader;     // シーンローダー
 
     std::unique_ptr<SceneManager>   m_sceneManager;     // シーン管理
 

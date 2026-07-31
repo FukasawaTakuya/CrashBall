@@ -110,8 +110,6 @@ void GameScene::Initialize()
  */
 void GameScene::Update(const GameContext& gameContext)
 {
-    float elapsedTime = Time::GetElapsedTime();
-
     // 更新
     m_player->Update(gameContext);
 	m_enemy->Update(gameContext);

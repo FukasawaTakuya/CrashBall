@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   GameObject.cpp
  * \brief  基底オブジェクト 
  * 
@@ -58,6 +58,12 @@ void GameObject::ReloadParam()
 void GameObject::AddChildren(GameObject* child)
 {
 	m_children.push_back(child);
+
+	Transform* transform = child->GetComponent<Transform>();
+	if (transform != nullptr)
+	{
+		transform->SetParentInBuildTime(this->GetComponent<Transform>());
+	}
 }
 
 /**
@@ -70,7 +76,6 @@ void GameObject::InitializeChildren()
 	{
 		childe->Initialize();
 	}
-
 }
 
 /**

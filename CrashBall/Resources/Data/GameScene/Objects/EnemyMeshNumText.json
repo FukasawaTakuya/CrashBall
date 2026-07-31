@@ -40,7 +40,7 @@
             {
                "name": "text",
                "type": "String",
-               "data": "Enemy:2面"
+               "data": "Enemy:0面"
             },
             {
                "name": "color",

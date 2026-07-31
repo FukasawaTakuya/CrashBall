@@ -1,9 +1,3 @@
 {
-   "Obejcts": [
-      "Player",
-      "Enemy",
-      "Stage",
-      "GameCamera",
-      "GamePanel"
-   ]
+   "SceneName": "GameScene"
 }

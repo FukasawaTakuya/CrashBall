@@ -28,6 +28,7 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngeleRad, PropertyType::Float)
 	EndProperty()
 

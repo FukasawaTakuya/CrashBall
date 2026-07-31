@@ -269,8 +269,20 @@ public:
 		m_origin = origin;
 	}
 
-	// 親の設定
-	void SetParent(RectTransform* parent)
+	// 実行中の親の設定
+	void SetParentInRunTime(RectTransform* parent)
+	{
+		if (parent != nullptr)
+		{
+			m_parent = parent;
+			m_localPosition -= parent->GetWorldPosition();
+			m_localRotate -= parent->GetWorldRotate();
+			m_localScale = m_localScale / parent->GetLocalScale();
+		}
+	}
+
+	// ビルド時の親の設定
+	void SetParentInBuildTime(RectTransform* parent)
 	{
 		m_parent = parent;
 	}

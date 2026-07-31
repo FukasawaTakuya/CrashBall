@@ -1,5 +1,6 @@
 {
-   "Obejcts": [
+   "SceneName": "TitleScene",
+   "Objects": [
       "TitleCamera",
       "Player",
       "Stage",

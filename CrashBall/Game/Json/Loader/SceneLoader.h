@@ -1,39 +1,35 @@
 ﻿/*****************************************************************//**
- * \file   GameObjectExporter.h
- * \brief  ゲームオブジェクトエクスポーター
+ * \file   SceneLoader.h
+ * \brief  シーンローダー
  * 
  * \author 深沢拓矢
  * \date   July 2026
  *********************************************************************/
 
 #pragma once
-#include "Game/GameObject/GameObject.h"
 
-#include "Game/Common/Utility.h"
+#include "Game/Factory/GameObjectFactory.h"
+#include "Game/Scene/Scene.h"
 
 /**
- * \brief ゲームオブジェクトエクスポーター
+ * \brief シーンローダー
  */
-class  GameObjectExporter {
+class  SceneLoader {
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	GameObjectExporter();
+	SceneLoader();
 
 	// デストラクタ
-	~GameObjectExporter();
+	~SceneLoader();
 
 	// 操作
 public:
 
-	// エクスポート
-	void ExporterGameObject(GameObject* gameObject, const std::string& exportPath);
-
-	// 取得/設定
-public:
+	void LoadScene(Scene* scene);
 
 	// 内部実装
 private:

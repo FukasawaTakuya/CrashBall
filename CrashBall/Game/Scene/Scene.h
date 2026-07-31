@@ -32,6 +32,9 @@ protected:
 
 	std::string m_sceneName = "scene";
 
+	std::vector<std::unique_ptr<GameObject>> m_objects;
+	std::vector<GameObject*> m_objectsList;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -85,13 +88,24 @@ public:
 	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()
 	{
-		return &m_gameObjects;
+		return &m_objectsList;
 	}
 
 	// シーン名の取得
 	std::string GetSceneName() const
 	{
 		return m_sceneName;
+	}
+
+	std::vector<std::unique_ptr<GameObject>>& GetObjects()
+	{
+		return m_objects;
+	}
+
+	void AddObject(std::unique_ptr<GameObject>&& object)
+	{
+		m_objectsList.push_back(object.get());
+		m_objects.push_back(std::move(object));
 	}
 
 	// 内部実装

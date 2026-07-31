@@ -193,8 +193,4 @@ private:
 	{
 		return &m_components;
 	}
-
-private:
-	friend std::unique_ptr<GameObject> CreataFromJson(ordered_json data);
-
 };

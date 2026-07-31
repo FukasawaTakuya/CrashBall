@@ -29,6 +29,11 @@ SceneExporter::~SceneExporter()
 {
 }
 
+/**
+ * \brief シーンのエクスポート
+ * 
+ * \param scene シーン
+ */
 void SceneExporter::ExportScene(Scene* scene)
 {
 	// 保存フォルダ
@@ -50,12 +55,14 @@ void SceneExporter::ExportScene(Scene* scene)
 	std::ofstream ofs(exportPath + scene->GetSceneName() + ".json");
 
 	// Json
-	json sceneData;
+	ordered_json sceneData;
+
+	sceneData["SceneName"] = scene->GetSceneName();
 
 	// オブジェクト名の保存とオブジェクトのエクスポート
 	for (auto obj : *scene->GetGameObjects())
 	{
-		sceneData["Obejcts"].push_back(obj->GetName());
+		sceneData["Objects"].push_back(obj->GetName());
 
 		// オブジェクトのエクスポート
 		m_gameObjectExporter->ExporterGameObject(obj, objectExportPath);

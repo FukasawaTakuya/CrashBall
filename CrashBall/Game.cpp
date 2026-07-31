@@ -49,6 +49,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_jsonDataManager   = std::make_unique<JsonDataManager>();
     m_sceneExporter = std::make_unique<SceneExporter>();
+    m_sceneLoader = std::make_unique<SceneLoader>();
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
@@ -160,6 +161,8 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
     // 初期シーンをセット
     m_sceneManager->SetStartScene();
+
+    m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
 
 
     //  ImGuiの初期化処理
