@@ -41,7 +41,9 @@ Ball::Ball(json* data)
  */
 void Ball::Initialize()
 {
-	m_ballController->Initialize();
+	// TODO:GameObjectのStartに引数追加
+	GameContext dummy;
+	m_ballController->Start(dummy);
 }
 
 /**
@@ -70,7 +72,6 @@ void Ball::Render(const RenderContext& renderContext)
  */
 void Ball::Finalize()
 {
-	m_ballController->Finalize();
 }
 
 /**
@@ -100,5 +101,4 @@ void Ball::ReloadParam()
 	*GetComponent<Sphere>()		= (*m_data)["sphere"];
 	*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
 	
-	SetTag((*m_data)["ObjectTag"]);
 }

@@ -87,10 +87,10 @@ public:
 public:
 
 	// 初期化
-	void Initialize();
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// X方向の回転
 	void RotateX(float angleRad);

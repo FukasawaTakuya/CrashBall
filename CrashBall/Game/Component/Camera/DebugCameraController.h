@@ -44,7 +44,7 @@ public:
 public:
 
 	// 更新
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// 取得/設定
 public:

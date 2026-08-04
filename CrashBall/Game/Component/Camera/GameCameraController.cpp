@@ -55,9 +55,9 @@ GameCameraController::~GameCameraController()
  * \brief 初期化
  * 
  */
-void GameCameraController::Initialize()
+void GameCameraController::Start(const GameContext& gameContext)
 {
-	TargetCameraController::Initialize();
+	TargetCameraController::Start(gameContext);
 	TargetCameraController::TargetingTransform();
 }
 
@@ -65,7 +65,7 @@ void GameCameraController::Initialize()
  * \brief 更新
  * 
  */
-void GameCameraController::Update()
+void GameCameraController::Update(const GameContext& gameContext)
 {
 	float elapsedTime = Time::GetElapsedTime();
 

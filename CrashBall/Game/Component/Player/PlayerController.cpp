@@ -41,24 +41,6 @@ PlayerController::PlayerController(IGameObject* gameObject)
 
 	// 初期のステートのセット
 	m_stateMachine->ChangeState<PlayerMoveState>();
-
-	GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
-		{
-			// 敵のコライダーと衝突したとき攻撃ステートなら
-			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy &&
-				m_stateMachine->GetCurrentStateType() == typeid(PlayerAttackState))
-			{
-				auto playerStatusController = GetGameObject()->GetComponent<PlayerStatusController>();
-
-				// ダメージ処理
-				other->GetGameObject()->GetComponent<EnemyController>()
-					->Damage(playerStatusController->GetAttackPower());
-				// 移動ステートに遷移
-				m_stateMachine->ChangeState<PlayerMoveState>();
-				// 攻撃フラグを設定
-				playerStatusController->SetIsAttack(false);
-			}
-		});
 }
 
 /**
@@ -107,7 +89,7 @@ PlayerController::~PlayerController()
  * \brief 初期化
  * 
  */
-void PlayerController::Initialize()
+void PlayerController::Start()
 {
 }
 

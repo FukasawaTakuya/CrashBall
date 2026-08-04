@@ -53,16 +53,16 @@ TitleCameraController::~TitleCameraController()
  * \brief 初期化
  * 
  */
-void TitleCameraController::Initialize()
+void TitleCameraController::Start(const GameContext& gameContext)
 {
-	TargetCameraController::Initialize();
+	TargetCameraController::Start(gameContext);
 }
 
 /**
  * \brief 更新
  * 
  */
-void TitleCameraController::Update()
+void TitleCameraController::Update(const GameContext& gameContext)
 {
 	RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
 

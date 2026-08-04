@@ -88,9 +88,9 @@ GamePanel::~GamePanel()
  */
 void GamePanel::Initialize()
 {
-	m_floorMeshGaugeController->Initialize();
+	m_floorMeshGaugeController->Start();
 	m_attackGaugeController->Initilize();
-	m_enemyHpGaugeController->Initialize();
+	m_enemyHpGaugeController->Start();
 }
 
 /**

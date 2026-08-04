@@ -46,6 +46,13 @@ public:
 	// –@ü‚Ìæ“¾
 	DirectX::SimpleMath::Vector3 GetNormal() const { return m_normal; }
 
+	// •½–Êã‚Ì“_‚Ìæ“¾
+	DirectX::SimpleMath::Vector3 GetPoint() const
+	{
+		return { m_vec4.x, m_vec4.y, m_vec4.z };
+	}
+
+
 	// •½–Ê‚Ìİ’è
 	void SetPlane(
 		DirectX::SimpleMath::Vector3 normal,

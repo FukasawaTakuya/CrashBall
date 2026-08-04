@@ -98,7 +98,7 @@ EnemyController::~EnemyController()
  * \brief 初期化
  * 
  */
-void EnemyController::Initialize()
+void EnemyController::Start()
 {
 	// HPの初期化
 	m_hp = m_maxHp;

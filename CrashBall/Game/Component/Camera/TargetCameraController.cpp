@@ -32,9 +32,6 @@ TargetCameraController::TargetCameraController(
 
 	// オフセット分の回転
 	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
-
-	// 
-	Initialize();
 }
 
 /**
@@ -57,9 +54,6 @@ TargetCameraController::TargetCameraController(
 
 	// オフセット分の回転
 	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
-
-	// 
-	Initialize();
 }
 
 /**
@@ -74,7 +68,7 @@ TargetCameraController::~TargetCameraController()
  * \brief 初期化
  * 
  */
-void TargetCameraController::Initialize()
+void TargetCameraController::Start(const GameContext& gameContext)
 {
 	m_zoomRate = 1.0f;
 
@@ -94,7 +88,7 @@ void TargetCameraController::Initialize()
  * \brief 更新
  * 
  */
-void TargetCameraController::Update()
+void TargetCameraController::Update(const GameContext& gameContext)
 {
 }
 

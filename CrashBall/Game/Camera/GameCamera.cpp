@@ -43,7 +43,9 @@ GameCamera::~GameCamera()
  */
 void GameCamera::Initialize()
 {
-	m_cameraController->Initialize();
+	// TODO:GameObjectのStartに引数追加
+	GameContext dummy;
+	m_cameraController->Start(dummy);
 }
 
 /**
@@ -53,7 +55,7 @@ void GameCamera::Initialize()
  */
 void GameCamera::Update(const GameContext& gameContext)
 {
-	m_cameraController->Update();
+	m_cameraController->Update(gameContext);
 }
 
 /**

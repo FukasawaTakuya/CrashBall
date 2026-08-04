@@ -41,7 +41,7 @@ void Enemy::Initialize()
 	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
 	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 
-	m_enemyController->Initialize();
+	m_enemyController->Start();
 }
 
 /**

@@ -17,13 +17,13 @@ void Plane::SetPlane(
 	DirectX::SimpleMath::Vector3 normal,
 	DirectX::SimpleMath::Vector3 point)
 {
-	m_vec4.x = normal.x;
-	m_vec4.y = normal.y;
-	m_vec4.z = normal.z;
+	m_vec4.x = point.x;
+	m_vec4.y = point.y;
+	m_vec4.z = point.z;
 
 	m_normal = normal;
 
-	m_vec4.w = -(m_vec4.x * point.x + m_vec4.y * point.y + m_vec4.z * point.z);
+	m_vec4.w = -(normal.x * point.x + normal.y * point.y + normal.z * point.z);
 }
 
 /**
@@ -67,5 +67,5 @@ void Plane::Rotate(DirectX::SimpleMath::Matrix rotate)
  */
 float Plane::CalcLength(DirectX::SimpleMath::Vector3 point) const
 {
-	return std::abs(m_vec4.x * point.x + m_vec4.y * point.y + m_vec4.z * point.z + m_vec4.w);
+	return std::abs(m_normal.x * point.x + m_normal.y * point.y + m_normal.z * point.z + m_vec4.w);
 }

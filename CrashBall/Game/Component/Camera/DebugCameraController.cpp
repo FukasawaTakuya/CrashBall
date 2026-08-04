@@ -42,7 +42,7 @@ DebugCameraController::~DebugCameraController()
  * \brief 更新
  * 
  */
-void DebugCameraController::Update()
+void DebugCameraController::Update(const GameContext& gameContext)
 {
 	// 前フレームのマウス座標との差
 	SimpleMath::Vector2 deltaMousePos

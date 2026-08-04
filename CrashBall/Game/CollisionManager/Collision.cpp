@@ -1,7 +1,7 @@
 ﻿/*****************************************************************//**
  * \file   Collision.h
  * \brief  衝突用の関数一覧
- * 
+ *
  * \author 深沢拓矢
  * \date   April 2026
  *********************************************************************/
@@ -35,38 +35,23 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
 
 /**
  * \brief 線分と平面の衝突判定
- * 
+ *
  * \param segment 線分
  * \param plane 平面
- * \return ture 衝突 
+ * \return ture 衝突
  */
 bool Collision::IsCollision(Segment* segment, Plane* plane)
 {
-	// 直線と平面の交点
-	SimpleMath::Vector3 point =
-		CalcIntersection(segment, plane);
+	SimpleMath::Vector3 point = plane->GetPoint();
+	SimpleMath::Vector3 normal = plane->GetNormal();
 
-	// 交点から平面との衝突判定を行う
-	return IsCollision(segment, point);
-}
+	// 線分と平面が平行ならfalse
+	if (segment->GetVec().Dot(normal) == 0.0f)
+		return false;
 
-/**
- * \brief 線分と平面の衝突判定(交点から求める)
- *
- * \param segment 線分
- * \param intersection 平面との交点
- * \return ture 衝突
- */
-bool Collision::IsCollision(
-	Segment* segment,
-	DirectX::SimpleMath::Vector3 intersection)
-{
-	// 交点と線分の両端の距離が線分の長さ以下ならtrue
-	if ((intersection - segment->GetPos()).Length() <= segment->GetLength() &&
-		(intersection - (segment->GetPos() + segment->GetVec())).Length() <= segment->GetLength()) {
-		return true;
-	}
-	else return false;
+	SimpleMath::Vector3 v1 = segment->GetPos() - point;
+	SimpleMath::Vector3 v2 = (segment->GetPos() + segment->GetVec()) - point;
+	return v1.Dot(normal) * v2.Dot(normal) < 0.0f;
 }
 
 /**
@@ -78,17 +63,33 @@ bool Collision::IsCollision(
  */
 bool Collision::IsCollision(Segment* segment, Triangle* triangle)
 {
+	// 線分と平面が衝突してないならfalse
+	if (!IsCollision(segment, triangle->GetPlane()))
+	{
+		return false;
+	}
+
 	// 線分と平面の交点
 	SimpleMath::Vector3 point
 		= CalcIntersection(segment, triangle->GetPlane());
 
-	// 線分と平面が衝突してないならfalse
-	if (!IsCollision(segment, point)) {
-		return false;
-	}
-
 	// 交点が三角形内にあるならtrue
 	return IsPointInTriangle(point, triangle);
+}
+
+bool Collision::IsCollision(Segment* segment, Mesh* mesh)
+{
+	// 衝突している面をクリア
+	mesh->ClearCollideFace();
+
+	// メッシュの各面と線分の衝突判定
+	for (auto& face : mesh->GetFace()) {
+		if (Collision::IsCollision(segment, face.get())) {
+			mesh->SetCollideFace(face.get());
+		}
+	}
+	// 衝突している面があるならtrue
+	return !mesh->GetCollideFace().size();
 }
 
 /**
@@ -375,8 +376,14 @@ DirectX::SimpleMath::Vector3 CalcIntersection(
 
 	float dot = direction.Dot(-plane->GetNormal());
 
+	// ベクトルが垂直だった時
+	if (dot == 0.0f)
+	{
+		return SimpleMath::Vector3(1e10f, 1e10f, 1e10f);
+	}
+
 	// 直線と平面の交点の距離
-	float length = distance / dot;
+	float length = distance / std::abs(dot);
 
 	// 交点を求める
 	SimpleMath::Vector3 intersection

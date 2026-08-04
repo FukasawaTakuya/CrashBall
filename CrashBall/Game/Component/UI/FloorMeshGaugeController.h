@@ -74,7 +74,7 @@ public:
 public:
 
 	// 初期化
-	void Initialize();
+	void Start();
 
 	// 更新
 	void Update();

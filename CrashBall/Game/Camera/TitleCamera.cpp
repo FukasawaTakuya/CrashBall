@@ -50,7 +50,9 @@ TitleCamera::~TitleCamera()
  */
 void TitleCamera::Initialize()
 {
-	m_cameraController->Initialize();
+	// TODO:GameObjectのStartに引数追加
+	GameContext dummy;
+	m_cameraController->Start(dummy);
 }
 
 /**
@@ -60,7 +62,7 @@ void TitleCamera::Initialize()
  */
 void TitleCamera::Update(const GameContext& gameContext)
 {
-	m_cameraController->Update();
+	m_cameraController->Update(gameContext);
 }
 
 /**

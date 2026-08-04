@@ -88,7 +88,7 @@ public:
 	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()
 	{
-		return &m_objectsList;
+		return &m_gameObjects;
 	}
 
 	// シーン名の取得

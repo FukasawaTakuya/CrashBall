@@ -55,10 +55,18 @@ BallController::~BallController()
 }
 
 /**
+ * \param 開始処理
+ * 
+ */
+void BallController::Awake()
+{
+}
+
+/**
  * \brief 初期化
  * 
  */
-void BallController::Initialize()
+void BallController::Start(const GameContext& gameContext)
 {
 }
 
@@ -95,15 +103,6 @@ void BallController::Render(const RenderContext& renderContext)
 
 	// 描画
 	m_renderer->Render(rendererManager);
-}
-
-
-/**
- * \brief 終了処理
- * 
- */
-void BallController::Finalize()
-{
 }
 
 

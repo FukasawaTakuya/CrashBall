@@ -41,7 +41,7 @@ Stage::~Stage()
  */
 void Stage::Initialize()
 {
-	m_stageController->Initialize();
+	m_stageController->Start();
 }
 
 /**

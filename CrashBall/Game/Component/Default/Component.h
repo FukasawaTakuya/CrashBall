@@ -40,6 +40,7 @@ struct PropertyInfo
 	void* data;									// プロパティのアドレス
 };
 
+// コンポーネントの登録
 #define RegisterComponent(Comp)\
 namespace{\
 	ComponentRegister<Comp> g_##Comp##Register(#Comp);\
@@ -90,8 +91,11 @@ public:
 	// 操作
 public:
 
-	// 初期化
-	virtual void Initialize() {};
+	// アタッチ時の処理
+	virtual void Awake() {};
+
+	// 初期処理
+	virtual void Start(const GameContext& gameContext) {};
 
 	// 更新
 	virtual void Update(const GameContext& gameContext) {};

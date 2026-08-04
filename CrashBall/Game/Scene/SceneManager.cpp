@@ -148,6 +148,7 @@ void SceneManager::RequestChangeScene(SceneID nextSceneID)
 		// 登録されたリクエストシーンを取得
 		m_pRequestScene = it->second.get();
 
+		// フェードアウト開始
 		m_changeScreen->StartFadeOut();
 	}
 }

@@ -94,7 +94,7 @@ StageController::~StageController()
  * \brief 初期化
  * 
  */
-void StageController::Initialize()
+void StageController::Start()
 {
 	// 色をデフォルトに戻す
 	for (auto& floorMeshColor : m_floorMeshColor)

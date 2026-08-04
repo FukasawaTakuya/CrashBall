@@ -62,7 +62,7 @@ EnemyHpGaugeController::~EnemyHpGaugeController()
  * \brief 初期化
  *
  */
-void EnemyHpGaugeController::Initialize()
+void EnemyHpGaugeController::Start()
 {
 	m_enemyHpGaugeController->SetCurrentAmount(1.0f);
 }

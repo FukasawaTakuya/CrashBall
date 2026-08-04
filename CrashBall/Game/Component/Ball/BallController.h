@@ -59,17 +59,17 @@ public:
 	// 操作
 public:
 
+	// 開始処理
+	void Awake() override;
+
 	// 初期化
-	void Initialize();
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update(const GameContext& gameContext);
+	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Render(const RenderContext& renderContext);
-
-	// 終了処理
-	void Finalize();
+	void Render(const RenderContext& renderContext) override;
 
 	// 移動
 	void Move();

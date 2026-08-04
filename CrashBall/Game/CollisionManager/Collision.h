@@ -23,14 +23,14 @@
 
 namespace Collision {
 
-	// 線分と直線の衝突判定
+	// 線分と平面の衝突判定
 	bool IsCollision(Segment* segment, Plane* plane);
-
-	// 線分と平面の衝突判定(交点から求める)
-	bool IsCollision(Segment* segment, DirectX::SimpleMath::Vector3 intersection);
 
 	// 線分と三角形の衝突判定
 	bool IsCollision(Segment* segment, Triangle* triangle);
+
+	// 線分とメッシュの衝突判定
+	bool IsCollision(Segment* segment, Mesh* mesh);
 
 	// 線分と球の衝突判定
 	bool IsCollision(Segment* segment, Sphere* sphere);

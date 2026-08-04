@@ -69,7 +69,7 @@ FloorMeshGaugeController::~FloorMeshGaugeController()
  * \brief 初期化
  * 
  */
-void FloorMeshGaugeController::Initialize()
+void FloorMeshGaugeController::Start()
 {
 	// 切り取り量の設定
 	m_playerGaugeController->SetCurrentAmount(0.0f);
