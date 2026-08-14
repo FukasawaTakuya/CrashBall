@@ -39,7 +39,7 @@ Ball::Ball(json* data)
  * \brief 初期化
  * 
  */
-void Ball::Initialize()
+void Ball::Start()
 {
 	// TODO:GameObjectのStartに引数追加
 	GameContext dummy;

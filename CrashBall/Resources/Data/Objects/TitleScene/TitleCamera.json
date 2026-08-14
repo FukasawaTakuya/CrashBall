@@ -1,0 +1,59 @@
+{
+   "name": "TitleCamera",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "Transform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector3",
+               "data": {
+                  "x": -9.938302993774414,
+                  "y": 14.299985885620117,
+                  "z": 6.725259780883789
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Quaternion",
+               "data": {
+                  "x": -0.0,
+                  "y": 0.0,
+                  "z": 0.0
+               }
+            },
+            {
+               "name": "localScale",
+               "type": "Vector3",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+               }
+            }
+         ]
+      },
+      {
+         "compName": "TitleCameraController",
+         "properties": [
+            {
+               "name": "baseOffset",
+               "type": "Vector3",
+               "data": {
+                  "x": 15.0,
+                  "y": 1.0,
+                  "z": 1.0
+               }
+            },
+            {
+               "name": "rotateAngeleRad",
+               "type": "Float",
+               "data": 0.0
+            }
+         ]
+      }
+   ],
+   "children": null
+}

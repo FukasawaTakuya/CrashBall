@@ -41,7 +41,7 @@ TextObject::~TextObject()
  * \brief 初期化
  * 
  */
-void TextObject::Initialize()
+void TextObject::Start()
 {
 }
 

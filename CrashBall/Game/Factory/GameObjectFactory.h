@@ -33,6 +33,8 @@ namespace  GameObjectFactory {
 
 		ifs >> data;
 
+		// ========== 以下を残す ============ //
+
 		// ゲームオブジェクトの生成
 		std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
 

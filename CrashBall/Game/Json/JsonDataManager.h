@@ -45,6 +45,9 @@ public:
 	// データの書き込み
 	void SaveFile() override;
 
+	// ゲームオブジェクトの読み込み
+	void LoadGameObject(const std::string& filepath);
+
 	// 取得/設定
 public:
 

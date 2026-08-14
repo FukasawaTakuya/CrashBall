@@ -42,7 +42,7 @@ Button::~Button()
  * \brief 初期化
  *
  */
-void Button::Initialize()
+void Button::Start()
 {
 }
 

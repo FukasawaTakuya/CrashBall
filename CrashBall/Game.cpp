@@ -70,6 +70,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_renderTexture             = std::make_unique<RenderTexture>();
 
     m_debugCamera = std::make_unique<DebugCamera>();
+    m_debugCamera->Start();
 
     // 各コンテキストの初期化
     m_gameContext =

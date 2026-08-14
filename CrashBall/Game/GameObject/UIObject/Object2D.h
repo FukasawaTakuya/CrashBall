@@ -43,7 +43,7 @@ public:
 public:
 
 	// ‰Šú‰»
-	virtual void Initialize() override;
+	virtual void Start() override;
 
 	// XV
 	virtual void Update(const GameContext& gameContext) override;

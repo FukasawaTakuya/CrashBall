@@ -66,14 +66,17 @@ public:
 	// 操作
 public:
 
+	// 開始処理
+	virtual void Awake();
+
 	// 初期化
-	virtual void Initialize() {};
+	virtual void Start(/*const GameContext& gameContext*/);
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) {};
+	virtual void Update(const GameContext& gameContext);
 
 	// 描画
-	virtual void Render(const RenderContext& renderContext) {};
+	virtual void Render(const RenderContext& renderContext);
 
 	// 終了処理
 	virtual void Finalize() {};

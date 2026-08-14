@@ -1,0 +1,64 @@
+{
+   "name": "GamePanel",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "RectTransform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector2",
+               "data": {
+                  "x": 0.0,
+                  "y": 0.0
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "localScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0
+               }
+            },
+            {
+               "name": "origin",
+               "type": "Enum",
+               "data": 0
+            }
+         ]
+      },
+      {
+         "compName": "FloorMeshGaugeController",
+         "properties": null
+      },
+      {
+         "compName": "AttackGaugeController",
+         "properties": null
+      },
+      {
+         "compName": "EnemyHpGaugeController",
+         "properties": null
+      }
+   ],
+   "children": [
+      "PlayerMeshGauge",
+      "EnemyMeshGauge",
+      "PlayerMeshText",
+      "EnemyMeshNumText",
+      "GaugeBackGround",
+      "MeshGaugeTrack",
+      "AttackGauge",
+      "AttackPowerText",
+      "AttackGaugeTrack",
+      "EnemyHpGauge",
+      "EnemyHpGaugeTrack",
+      "EnemyHpText"
+   ]
+}

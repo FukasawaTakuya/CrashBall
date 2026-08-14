@@ -1,0 +1,82 @@
+{
+   "name": "MeshGaugeTrack",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "SpriteRenderer",
+         "properties": [
+            {
+               "name": "color",
+               "type": "Color",
+               "data": {
+                  "a": 1.0,
+                  "b": 1.0,
+                  "g": 1.0,
+                  "r": 1.0
+               }
+            },
+            {
+               "name": "spriteScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.5,
+                  "y": 1.5
+               }
+            },
+            {
+               "name": "layerDepth",
+               "type": "Float",
+               "data": 0.10000000149011612
+            },
+            {
+               "name": "fillOrigin",
+               "type": "Enum",
+               "data": 3
+            },
+            {
+               "name": "fillAmount",
+               "type": "Float",
+               "data": 1.0
+            },
+            {
+               "name": "spriteEffects",
+               "type": "Enum",
+               "data": 0
+            }
+         ]
+      },
+      {
+         "compName": "RectTransform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector2",
+               "data": {
+                  "x": 960.0,
+                  "y": 1005.0
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "localScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0
+               }
+            },
+            {
+               "name": "origin",
+               "type": "Enum",
+               "data": 1
+            }
+         ]
+      }
+   ],
+   "children": null
+}

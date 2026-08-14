@@ -79,6 +79,28 @@ void JsonDataManager::SaveFile()
 }
 
 /**
+ * \brief ゲームオブジェクトの読み込み
+ * 
+ * \param filepath ファイルパス
+ */
+void JsonDataManager::LoadGameObject(const std::string& filepath)
+{
+	std::ifstream ifs(filepath);
+
+	if (!ifs.is_open())
+	{
+		return;
+	}
+
+	json data;
+
+	ifs >> data;
+
+	m_jsonData.emplace(data["name"], data);
+	m_files.emplace(data["name"], filepath);
+}
+
+/**
  * \brief Jsonデータの取得
  * 
  * \param key キー

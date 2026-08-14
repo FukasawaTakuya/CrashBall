@@ -41,7 +41,7 @@ FadeChangeScreen::~FadeChangeScreen()
  * \brief 初期化
  * 
  */
-void FadeChangeScreen::Initialize()
+void FadeChangeScreen::Start()
 {
 }
 

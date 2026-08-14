@@ -48,7 +48,7 @@ TitleCamera::~TitleCamera()
  * \brief 初期化
  * 
  */
-void TitleCamera::Initialize()
+void TitleCamera::Start()
 {
 	// TODO:GameObjectのStartに引数追加
 	GameContext dummy;

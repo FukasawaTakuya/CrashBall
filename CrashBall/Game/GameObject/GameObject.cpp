@@ -32,6 +32,57 @@ GameObject::GameObject(json* data)
 }
 
 /**
+ * \brief 開始処理
+ * 
+ */
+void GameObject::Awake()
+{
+	for (auto& comp : m_components)
+	{
+		comp.second.get()->Awake();
+	}
+}
+
+/**
+ * \brief 初期処理
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void GameObject::Start(/*const GameContext& gameContext*/)
+{
+	//for (auto& comp : m_components)
+	//{
+	//	comp.second.get()->Start(gameContext);
+	//}
+}
+
+/**
+ * \brief 更新
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void GameObject::Update(const GameContext& gameContext)
+{
+	for (auto& comp : m_components)
+	{
+		comp.second.get()->Update(gameContext);
+	}
+}
+
+/**
+ * \brief　描画
+ * 
+ * \param renderContext 描画用のコンテキスト
+ */
+void GameObject::Render(const RenderContext& renderContext)
+{
+	for (auto& comp : m_components)
+	{
+		comp.second.get()->Render(renderContext);
+	}
+}
+
+/**
  * \brief パラメータの書き込み
  * 
  */
@@ -74,7 +125,7 @@ void GameObject::InitializeChildren()
 {
 	for (auto& childe : m_children)
 	{
-		childe->Initialize();
+		childe->Start();
 	}
 }
 

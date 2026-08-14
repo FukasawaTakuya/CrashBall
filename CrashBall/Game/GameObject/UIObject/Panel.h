@@ -41,7 +41,7 @@ public:
 public:
 
 	// ‰Šú‰»
-	virtual void Initialize() = 0;
+	virtual void Start() = 0;
 
 	// XV
 	virtual void Update(const GameContext& gameContext) = 0;

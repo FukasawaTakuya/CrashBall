@@ -1,0 +1,74 @@
+{
+   "name": "EnemyHpText",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "RectTransform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector2",
+               "data": {
+                  "x": 960.0,
+                  "y": 37.5
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "localScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.2000000476837158,
+                  "y": 1.2000000476837158
+               }
+            },
+            {
+               "name": "origin",
+               "type": "Enum",
+               "data": 1
+            }
+         ]
+      },
+      {
+         "compName": "TextRenderer",
+         "properties": [
+            {
+               "name": "text",
+               "type": "String",
+               "data": "EnemyHP 200 / 200"
+            },
+            {
+               "name": "color",
+               "type": "Color",
+               "data": {
+                  "a": 1.0,
+                  "b": 1.0,
+                  "g": 1.0,
+                  "r": 1.0
+               }
+            },
+            {
+               "name": "fontScale",
+               "type": "Float",
+               "data": 0.5
+            },
+            {
+               "name": "layerDepth",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "fontKey",
+               "type": "String",
+               "data": "default"
+            }
+         ]
+      }
+   ],
+   "children": null
+}

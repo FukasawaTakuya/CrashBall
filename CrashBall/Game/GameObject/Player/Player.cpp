@@ -28,7 +28,7 @@ Player::Player(json* data)
  * \brief 初期化
  * 
  */
-void Player::Initialize()
+void Player::Start()
 {
 	// 初期位置に設定
 	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);

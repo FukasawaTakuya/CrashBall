@@ -1,0 +1,92 @@
+{
+   "name": "AttackGauge",
+   "tag": "Default",
+   "isActive": true,
+   "components": [
+      {
+         "compName": "SpriteRenderer",
+         "properties": [
+            {
+               "name": "color",
+               "type": "Color",
+               "data": {
+                  "a": 1.0,
+                  "b": 0.0,
+                  "g": 1.0,
+                  "r": 1.0
+               }
+            },
+            {
+               "name": "spriteScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 0.6000000238418579,
+                  "y": 0.6000000238418579
+               }
+            },
+            {
+               "name": "layerDepth",
+               "type": "Float",
+               "data": 0.10000000149011612
+            },
+            {
+               "name": "fillOrigin",
+               "type": "Enum",
+               "data": 6
+            },
+            {
+               "name": "fillAmount",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "spriteEffects",
+               "type": "Enum",
+               "data": 0
+            }
+         ]
+      },
+      {
+         "compName": "RectTransform",
+         "properties": [
+            {
+               "name": "localPosition",
+               "type": "Vector2",
+               "data": {
+                  "x": 960.0,
+                  "y": 765.0
+               }
+            },
+            {
+               "name": "localRotate",
+               "type": "Float",
+               "data": 0.0
+            },
+            {
+               "name": "localScale",
+               "type": "Vector2",
+               "data": {
+                  "x": 1.0,
+                  "y": 1.0
+               }
+            },
+            {
+               "name": "origin",
+               "type": "Enum",
+               "data": 1
+            }
+         ]
+      },
+      {
+         "compName": "SliderController",
+         "properties": [
+            {
+               "name": "slideSpeed",
+               "type": "Float",
+               "data": 5.0
+            }
+         ]
+      }
+   ],
+   "children": null
+}

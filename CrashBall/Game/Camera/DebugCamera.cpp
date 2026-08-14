@@ -32,7 +32,7 @@ DebugCamera::~DebugCamera()
  * \brief 初期化
  * 
  */
-void DebugCamera::Initialize()
+void DebugCamera::Start()
 {
 	// TODO:GameObjectのStartに引数追加
 	GameContext dummy;

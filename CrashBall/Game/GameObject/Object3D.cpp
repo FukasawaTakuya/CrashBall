@@ -32,7 +32,7 @@ Object3D::~Object3D()
  * \brief 初期化
  * 
  */
-void Object3D::Initialize()
+void Object3D::Start()
 {
 }
 

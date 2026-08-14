@@ -36,7 +36,7 @@ Enemy::~Enemy()
  * 
  * \param position 初期位置
  */
-void Enemy::Initialize()
+void Enemy::Start()
 {
 	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
 	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);

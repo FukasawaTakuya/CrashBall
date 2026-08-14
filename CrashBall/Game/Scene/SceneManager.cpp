@@ -16,7 +16,7 @@
  * \param gameContext ゲーム用のコンテキスト
  * \param renderContext 描画用のコンテキスト
  * \param resourceContext リソース用のコンテキスト
- * \param jsonDataManager json管理
+ * \param jsonDataManager json管理 
  */
 SceneManager::SceneManager(
 	const GameContext*		gameContext,

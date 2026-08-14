@@ -86,7 +86,7 @@ GamePanel::~GamePanel()
  * \brief 初期化
  *
  */
-void GamePanel::Initialize()
+void GamePanel::Start()
 {
 	m_floorMeshGaugeController->Start();
 	m_attackGaugeController->Initilize();

@@ -83,8 +83,8 @@ void TitleScene::OnEnter(
  */
 void TitleScene::Initialize()
 {
-	m_camera->Initialize();
-	m_stage->Initialize();
+	m_camera->Start();
+	m_stage->Start();
 }
 
 /**

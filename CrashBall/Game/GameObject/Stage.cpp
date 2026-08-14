@@ -39,7 +39,7 @@ Stage::~Stage()
  * \brief 初期化
  *
  */
-void Stage::Initialize()
+void Stage::Start()
 {
 	m_stageController->Start();
 }

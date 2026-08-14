@@ -61,6 +61,12 @@ void from_json(const ordered_json& j, Component& component)
 	}
 }
 
+
+// GameObjectへ変換
+void from_json(const ordered_json& j, GameObject& gameObject)
+{
+}
+
 // Traingleへ変換
 void from_json(const json& j, Triangle& triangle)
 {

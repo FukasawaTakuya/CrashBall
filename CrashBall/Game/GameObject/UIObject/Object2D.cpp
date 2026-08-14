@@ -38,7 +38,7 @@ Object2D::~Object2D()
  * \brief 初期化
  * 
  */
-void Object2D::Initialize()
+void Object2D::Start()
 {
 }
 

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GameObjectExporter.h"
 
-
 #include <fstream>
 
 /**
@@ -34,6 +33,8 @@ void GameObjectExporter::ExporterGameObject(
 	std::ofstream ofs(exportPath + gameObject->GetName() + ".json");
 
 	ordered_json jsonData;
+
+	//::to_json(jsonData, *gameObject); include
 
 	jsonData["name"] = gameObject->GetName();
 	jsonData["tag"] = gameObject->GetTag();

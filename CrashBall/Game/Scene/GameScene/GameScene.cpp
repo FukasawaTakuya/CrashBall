@@ -95,12 +95,12 @@ void GameScene::OnEnter(
  */
 void GameScene::Initialize()
 {
-    m_player->Initialize();
-    m_enemy->Initialize();
-    m_stage->Initialize();
-    m_enemy->Initialize();
-    m_gamePanel->Initialize();
-    m_camera->Initialize();
+    m_player->Start();
+    m_enemy->Start();
+    m_stage->Start();
+    m_enemy->Start();
+    m_gamePanel->Start();
+    m_camera->Start();
 }
 
 /**

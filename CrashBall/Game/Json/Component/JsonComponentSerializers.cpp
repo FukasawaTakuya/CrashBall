@@ -63,6 +63,12 @@ void to_json(ordered_json& j, const Component& component)
 	}
 }
 
+
+// GameObjectから変換
+void to_json(ordered_json& j, const GameObject& gameObject)
+{
+}
+
 // RectTransformから変換
 void to_json(json& j, const RectTransform& rectTransfrom)
 {

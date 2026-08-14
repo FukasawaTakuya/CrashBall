@@ -44,7 +44,7 @@ public:
 public:
 
 	// ‰Šú‰»
-	void Initialize();
+	void Start();
 
 	// XV
 	void Update(const GameContext& gameContext);

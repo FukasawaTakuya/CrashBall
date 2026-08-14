@@ -32,7 +32,7 @@ TitleLogo::~TitleLogo()
  * \brief 初期化
  * 
  */
-void TitleLogo::Initialize()
+void TitleLogo::Start()
 {
 }
 

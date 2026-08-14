@@ -42,7 +42,7 @@ Slider::~Slider()
  * \brief 初期化
  * 
  */
-void Slider::Initialize()
+void Slider::Start()
 {
 }
 
