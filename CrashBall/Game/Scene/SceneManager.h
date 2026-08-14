@@ -10,6 +10,7 @@
 #include "Interface/ISceneChanger.h"
 #include "Interface/ISceneEditer.h"
 
+#include "Game/Json/JsonDataManager.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
@@ -48,6 +49,8 @@ private:
 	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
 
 	IJsonDataManager* m_jsonDataManager;		// Json管理
+
+	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -102,6 +105,12 @@ public:
 
 	// パラメータの再読み込み
 	void ReloadParam() override;
+
+	// データの読み込み
+	void RoadData();
+
+	// シーンのセット
+	void SetScene(const std::string& sceneName);
 
 	// 取得/設定
 public:

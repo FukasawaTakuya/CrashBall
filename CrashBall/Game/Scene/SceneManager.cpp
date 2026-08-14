@@ -9,6 +9,7 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include <fstream>
 
 /**
  * \brief コンストラクタ
@@ -62,7 +63,7 @@ void SceneManager::SetStartScene()
  */
 void SceneManager::Initialize()
 {
-	m_pCurrentScene->Initialize();
+	m_pCurrentScene->Start();
 }
 
 /**
@@ -172,6 +173,40 @@ void SceneManager::ReloadParam()
 }
 
 /**
+ * \brief データの読み込み
+ * 
+ */
+void SceneManager::RoadData()
+{
+	std::ifstream ifs("Resources/Data/Scenes.json");
+	ordered_json data;
+	ifs >> data;
+
+	for (auto& scene : data["scenes"])
+	{
+		auto jsonManager = std::make_unique<JsonDataManager>();
+		std::string path = "Resources/Data/Objects/" + scene;
+
+		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
+		{
+			jsonManager->LoadGameObject(entity.path().string());
+		}
+
+		jsonManager->LoadPlayManager("Resources/Data/PlayManager/" + scene);
+		m_jsonManagers.emplace(scene, std::move(jsonManager));
+	}
+}
+
+void SceneManager::SetScene(const std::string& sceneName)
+{
+	auto it = m_jsonManagers.find(sceneName);
+	if (it != m_jsonManagers.end())
+	{
+		auto scene = std::make_unique<Scene>(*it);
+	}
+}
+
+/**
  * \brief シーン変更
  * 
  */
@@ -190,7 +225,7 @@ void SceneManager::ChangeScene()
 	);
 
 	// 新シーンの初期化
-	m_pCurrentScene->Initialize();
+	m_pCurrentScene->Start();
 
 	// リクエストを削除
 	m_pRequestScene = nullptr;

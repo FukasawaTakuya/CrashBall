@@ -81,7 +81,7 @@ void TitleScene::OnEnter(
  * \brief 初期化
  *
  */
-void TitleScene::Initialize()
+void TitleScene::Start()
 {
 	m_camera->Start();
 	m_stage->Start();

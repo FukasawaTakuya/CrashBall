@@ -34,6 +34,11 @@ public:
 
 	virtual json* GetJsonData(const std::string& key) = 0;
 
+	virtual std::unordered_map<std::string, json>& GetJsonData() = 0;
+
+	virtual	ordered_json GetPlayManagerData() = 0;
+
+
 	// データの再読み込み
 	virtual void ReloadFile() = 0;
 

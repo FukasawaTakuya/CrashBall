@@ -23,6 +23,9 @@ private:
 	std::unordered_map<std::string, std::string> m_files;	// ファイル名
 	std::unordered_map<std::string, json> m_jsonData;		// Jsonデータ
 
+	ordered_json m_playManagerData;
+	std::string m_playManagerFile;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -48,11 +51,24 @@ public:
 	// ゲームオブジェクトの読み込み
 	void LoadGameObject(const std::string& filepath);
 
+	// プレイマネージャーの読み込み
+	void LoadPlayManager(const std::string& filepath);
+
 	// 取得/設定
 public:
 
 	// Jsonデータの取得
 	json* GetJsonData(const std::string& key) override;
+
+	std::unordered_map<std::string, json>& GetJsonData() override
+	{
+		return m_jsonData;
+	}
+
+	ordered_json GetPlayManagerData()
+	{
+		return m_playManagerData;
+	}
 
 	// 内部実装
 private:

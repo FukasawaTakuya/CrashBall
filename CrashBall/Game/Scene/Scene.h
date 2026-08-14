@@ -28,11 +28,15 @@ protected:
 
 	ISceneChanger* m_pSceneChanger;
 
+	IJsonDataManager* m_jsonManager;
+
 	std::vector<GameObject*> m_gameObjects;
 
 	std::string m_sceneName = "scene";
 
 	std::vector<std::unique_ptr<GameObject>> m_objects;
+	std::unique_ptr<GameObject> m_playManager;
+
 	std::vector<GameObject*> m_objectsList;
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -54,36 +58,42 @@ public:
 	virtual void OnEnter(
 		const ResourceContext& resourceContext,
 		const GameContext& gameContext
-		) = 0;
+	) {};
 
 	// 初期化
-	virtual void Initialize() = 0;
+	virtual void Start()
+	{
+		for (auto& obj : m_objects)
+		{
+			obj->Start();
+		}
+	};
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) = 0;
+	virtual void Update(const GameContext& gameContext){};
 	
 	// 描画
-	virtual void Render(const RenderContext& renderContext) = 0;
+	virtual void Render(const RenderContext& renderContext){};
 
 	// 終了処理
-	virtual void Finalize() = 0;
+	virtual void Finalize(){};
 
 	// デバイス依存のリソース作成
-	virtual void CreateDeviceResources(const ResourceContext& resourceContext) = 0;
+	virtual void CreateDeviceResources(const ResourceContext& resourceContext){};
 
 	// ウインドウサイズ依存のリソース作成
-	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) = 0;
+	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj){};
 
 	// パラメータの書き込み
-	virtual void SaveParam() = 0;
+	virtual void SaveParam(){};
 
 	// パラメータの再読み込み
-	virtual void ReloadParam() = 0;
+	virtual void ReloadParam(){};
 
 	// 取得/設定
 public:
 	// カメラの取得
-	virtual ICamera* GetCamera() const = 0;
+	virtual ICamera* GetCamera() const {};
 
 	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()

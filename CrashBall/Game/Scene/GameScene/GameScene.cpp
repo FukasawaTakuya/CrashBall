@@ -93,7 +93,7 @@ void GameScene::OnEnter(
  * 
  * \param projMat 射影行列
  */
-void GameScene::Initialize()
+void GameScene::Start()
 {
     m_player->Start();
     m_enemy->Start();
