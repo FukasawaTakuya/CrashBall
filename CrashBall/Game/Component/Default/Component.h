@@ -12,6 +12,7 @@
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 #include "Game/Factory/ComponentRegister.h"
 
 #include "Game/Common/Utility.h"
@@ -102,6 +103,9 @@ public:
 
 	// 描画
 	virtual void Render(const RenderContext& renderContext) {};
+
+	// リソースの設定
+	virtual void SetResource(const ResourceContext& resourceContext) {};
 
 	// 取得/設定
 public:

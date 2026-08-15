@@ -14,26 +14,6 @@ RegisterComponent(TextRenderer)
 TextRenderer::TextRenderer(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを取得するゲームオブジェクト
- * \param other コピー元
- */
-TextRenderer::TextRenderer(
-	IGameObject* gameObject, 
-	const TextRenderer& other)
-	: Component(gameObject)
-	, m_text		(other.m_text)
-	, m_color		(other.m_color)
-	, m_fontScale	(other.m_fontScale)
-	, m_layerDepth	(other.m_layerDepth)
-	, m_fontKey		(other.m_fontKey)
-{
-	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 }
 
 /**
@@ -45,14 +25,23 @@ TextRenderer::~TextRenderer()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void TextRenderer::Awake()
+{
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
+}
+
+/**
  * \brief 描画
  * 
  * \param renderContext 描画用のコンテキスト
  */
-void TextRenderer::Render(ITextRendererManager* rendererManager)
+void TextRenderer::Render(const RenderContext& renderContext)
 {
 	// 描画命令の登録
-	rendererManager->RegisterRenderCommand(
+	renderContext.textRendererManager->RegisterRenderCommand(
 		m_pSpriteFont,
 		m_rectTransform->GetWorldPosition(),
 		m_color,

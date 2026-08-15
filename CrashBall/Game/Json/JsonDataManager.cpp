@@ -96,8 +96,8 @@ void JsonDataManager::LoadGameObject(const std::string& filepath)
 
 	ifs >> data;
 
-	m_jsonData.emplace(data["name"], data);
-	m_files.emplace(data["name"], filepath);
+	m_gameObjectData.emplace(data["name"], data);
+	m_gameObjectFiles.emplace(data["name"], filepath);
 }
 
 /**

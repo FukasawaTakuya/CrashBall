@@ -52,19 +52,14 @@ public:
 	// コンストラクタ
 	Mesh(IGameObject* gameObject);
 
-	// コンストラクタ
-	Mesh(
-		IGameObject* gameObject,
-		const Mesh& mesh);
-
-	// ムーブコンストラクタ
-	Mesh(Mesh&&) = default;
-
 	// デストラクタ
 	~Mesh();
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
 
 	// コライダーの描画
 	void DrawCollider() override {}

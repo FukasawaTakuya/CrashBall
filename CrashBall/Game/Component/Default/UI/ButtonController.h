@@ -64,6 +64,9 @@ public:
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake();
+
 	// 更新
 	void Update();
 

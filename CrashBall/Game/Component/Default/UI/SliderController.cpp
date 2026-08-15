@@ -22,23 +22,6 @@ SliderController::SliderController(IGameObject* gameObject)
 	, m_slideSpeed()
 	, m_targetAmount()
 {
-	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-SliderController::SliderController(
-	IGameObject* gameObject, 
-	const SliderController& other)
-	: Component(gameObject)
-	, m_slideSpeed(other.m_slideSpeed)
-	, m_targetAmount()
-{
-	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
 }
 
 /**
@@ -48,6 +31,16 @@ SliderController::SliderController(
 SliderController::~SliderController()
 {
 }
+
+/**
+ * \brief アタッチ時の処理
+ *
+ */
+void SliderController::Awake()
+{
+	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
+}
+
 
 /**
  * \brief スライド
@@ -60,3 +53,4 @@ void SliderController::Slide()
 
 	m_spriteRenderer->SetFillAmount(fillAmount);
 }
+

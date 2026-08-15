@@ -22,22 +22,6 @@ Transform::Transform(IGameObject* gameObejct)
 }
 
 /**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-Transform::Transform(
-	IGameObject*	 gameObject, 
-	const Transform& other)
-	: Component	(gameObject)
-	, m_localPosition(other.m_localPosition)
-	, m_localRotate	(other.m_localRotate)
-	, m_localScale	(other.m_localScale)
-{
-}
-
-/**
  * \brief デストラクタ
  * 
  */

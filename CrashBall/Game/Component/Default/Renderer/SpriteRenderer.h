@@ -11,8 +11,8 @@
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Physics/RectTransform.h"
 
-#include "Game/RendererManager/Interface/ISpriteRendererManager.h"
-#include "Game/ResourceManager/Interface/ISpriteManager.h"
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 
  // 切り取りの基準位置
 enum class FillOrigin
@@ -114,20 +114,30 @@ public:
 	// コンストラクタ
 	SpriteRenderer(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	SpriteRenderer(
-		IGameObject* gamebject,
-		const SpriteRenderer& other
-	);
-
 	// デストラクタ
 	~SpriteRenderer();
 
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake() override;
+
 	// 描画
-	void Render(ISpriteRendererManager* rendererManager);
+	void Render(const RenderContext& renderContext) override;
+
+	// リソースの設定
+	void SetResource(const ResourceContext& resourceContext) override
+	{
+		const SpriteInfo* spriteInfo = resourceContext.spriteManager->GetSpriteInfo(m_spriteKey);
+
+		if (spriteInfo != nullptr)
+		{
+			m_pSprite = spriteInfo->sprite.Get();
+			m_width = spriteInfo->width;
+			m_height = spriteInfo->height;
+		}
+	}
 
 	// 取得/設定
 public:
@@ -265,17 +275,4 @@ private:
 
 	friend void from_json(const nlohmann::json& j, SpriteRenderer& spriteRenderer);
 	friend void to_json(nlohmann::json& j, const SpriteRenderer& spriteRenderer);
-
-	// 演算子オーバーロード
-public:
-
-	void operator=(const SpriteRenderer& other)
-	{
-		m_color = other.m_color;
-		m_spriteScale = other.m_spriteScale;
-		m_layerDepth = other.m_layerDepth;
-		m_fillOrigin = other.m_fillOrigin;
-		m_spriteEffects = other.m_spriteEffects;
-		m_spriteKey = other.m_spriteKey;
-	}
 };

@@ -25,57 +25,8 @@ PlayerController::PlayerController(IGameObject* gameObject)
 	: Component(gameObject)
 	, m_stateMachine(std::make_unique<StateMachine<PlayerController>>(this))
 {
-	// プレイヤーステート用のコンテキスト
-	PlayerStateContext stateContext
-	{
-		GetGameObject()->GetComponent<Rigidbody>(),
-		GetGameObject()->GetComponent<Transform>(),
-		GetGameObject()->GetComponent<BallController>(),
-		GetGameObject()->GetComponent<PlayerStatusController>(),
-		this
-	};
-
-	// ステートの生成
-	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
-	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
-
-	// 初期のステートのセット
-	m_stateMachine->ChangeState<PlayerMoveState>();
 }
 
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-PlayerController::PlayerController(
-	IGameObject* gameObject,
-	const PlayerController& other)
-	: Component(gameObject)
-	, m_stateMachine	(std::make_unique<StateMachine<PlayerController>>(this))
-	, m_attackSpeed		(other.m_attackSpeed)
-	, m_attackDuration	(other.m_attackDuration)
-	, m_acceleration	(other.m_acceleration)
-	, m_maxSpeed		(other.m_maxSpeed)
-{
-	// プレイヤーステート用のコンテキスト
-	PlayerStateContext stateContext
-	{
-		GetGameObject()->GetComponent<Rigidbody>(),
-		GetGameObject()->GetComponent<Transform>(),
-		GetGameObject()->GetComponent<BallController>(),
-		GetGameObject()->GetComponent<PlayerStatusController>(),
-		this
-	};
-
-	// ステートの生成
-	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
-	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
-
-	// 初期のステートのセット
-	m_stateMachine->ChangeState<PlayerMoveState>();
-}
 
 /**
  * \brief デストラクタ
@@ -86,10 +37,34 @@ PlayerController::~PlayerController()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void PlayerController::Awake()
+{
+	// プレイヤーステート用のコンテキスト
+	PlayerStateContext stateContext
+	{
+		GetGameObject()->GetComponent<Rigidbody>(),
+		GetGameObject()->GetComponent<Transform>(),
+		GetGameObject()->GetComponent<BallController>(),
+		GetGameObject()->GetComponent<PlayerStatusController>(),
+		this
+	};
+
+	// ステートの生成
+	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
+	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
+
+	// 初期のステートのセット
+	m_stateMachine->ChangeState<PlayerMoveState>();
+}
+
+/**
  * \brief 初期化
  * 
  */
-void PlayerController::Start()
+void PlayerController::Start(const GameContext& gameContext)
 {
 }
 

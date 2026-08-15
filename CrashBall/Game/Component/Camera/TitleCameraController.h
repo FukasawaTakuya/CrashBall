@@ -64,6 +64,9 @@ public:
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake() override;
+
 	// 初期化
 	void Start(const GameContext& gameContext) override;
 
@@ -93,12 +96,4 @@ private:
 
 	friend void from_json(const json& j, TitleCameraController& titleCameraController);
 	friend void to_json(json& j, const TitleCameraController& titleCameraController);
-
-	// 演算子オーバーロード
-public:
-
-	void operator=(const TitleCameraController& other)
-	{
-		m_rotateAngeleRad = other.m_rotateAngeleRad;
-	}
 };

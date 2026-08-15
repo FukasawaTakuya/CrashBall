@@ -24,41 +24,6 @@ Rigidbody::Rigidbody(IGameObject* gameObject)
 {
 }
 
-
-/**
- * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param gravityAcceleration 重力加速度
- * \param friction 摩擦係数
- */
-Rigidbody::Rigidbody(
-	IGameObject* gameObject,
-	float		 gravityAcceleration, 
-	float		 friction)
-	: Component				(gameObject)
-	, m_gravityAcceleration	(gravityAcceleration)
-	, m_friction			(friction)
-{
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-Rigidbody::Rigidbody(
-	IGameObject*	 gameObject, 
-	const Rigidbody& other)
-	: Component				(gameObject)
-	, m_gravityAcceleration	(other.m_gravityAcceleration)
-	, m_friction			(other.m_friction)
-	, m_mass				(other.m_mass)
-	, m_isDynamic			(other.m_isDynamic)
-{
-}
-
 /**
  * \brief デストラクタ.
  * 

@@ -24,9 +24,6 @@ RegisterComponent(ButtonController)
 ButtonController::ButtonController(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	// キャッシュの取得
-	m_rectTransform  = GetGameObject()->GetComponent<RectTransform>();
-	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
 }
 
 /**
@@ -35,6 +32,17 @@ ButtonController::ButtonController(IGameObject* gameObject)
  */
 ButtonController::~ButtonController()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void ButtonController::Awake()
+{
+	// キャッシュの取得
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
+	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
 }
 
 /**

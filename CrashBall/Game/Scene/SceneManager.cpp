@@ -202,7 +202,7 @@ void SceneManager::SetScene(const std::string& sceneName)
 	auto it = m_jsonManagers.find(sceneName);
 	if (it != m_jsonManagers.end())
 	{
-		auto scene = std::make_unique<Scene>(*it);
+		auto scene = std::make_unique<Scene>(this, it->second.get());
 	}
 }
 

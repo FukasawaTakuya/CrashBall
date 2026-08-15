@@ -17,7 +17,6 @@
  * @brief ターゲットカメラコンポーネント
  */
 class  TargetCameraController : 
-	public Component,
 	public ICamera
 {
 	friend class ObjectInspectorGui;
@@ -52,7 +51,7 @@ protected:
 
 	DirectX::SimpleMath::Quaternion m_offsetRotate;	// オフセット分の回転
 
-	DirectX::SimpleMath::Vector3 m_offset;	// オフセット
+	DirectX::SimpleMath::Vector3 m_offset = { 0.0f, 1.0f, 1.0f };	// オフセット
 	float m_zoomRate = 1.0f;				// オフセットの拡大倍率
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
@@ -70,21 +69,16 @@ public:
 	TargetCameraController() = default;
 
 	// コンストラクタ
-	TargetCameraController(
-		IGameObject* gameObject,
-		const DirectX::SimpleMath::Vector3& offest = DirectX::SimpleMath::Vector3::One);
-
-	// コピーコンストラクタ
-	TargetCameraController(
-		IGameObject* gameObejct,
-		const TargetCameraController& other
-	);
+	TargetCameraController(IGameObject* gameObject);
 
 	// デストラクタ
 	~TargetCameraController();
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
 
 	// 初期化
 	void Start(const GameContext& gameContext) override;

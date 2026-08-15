@@ -41,19 +41,17 @@ public:
 	// デフォルトコンストラクタ
 	Sphere() = default;
 
-	Sphere(IGameObject* gameObject);
-
 	// コンストラクタ
-	Sphere(IGameObject* gameObject, float radius);
-
-	// コピーコンストラクタ
-	Sphere(IGameObject* gameObject, const Sphere& other);
+	Sphere(IGameObject* gameObject);
 
 	// デストラクタ
 	~Sphere();
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
 
 	// コライダーの描画
 	void DrawCollider() override {};

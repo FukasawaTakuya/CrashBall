@@ -14,20 +14,6 @@ RegisterComponent(Sphere)
 
 /**
  * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param radius 半径
- */
-Sphere::Sphere(
-	IGameObject* gameObject, 
-	float radius)
-	: Collider(gameObject, ColliderType::Sphere)
-	, m_radius(radius)
-{
-}
-
-/**
- * \brief コンストラクタ
  *
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
@@ -37,19 +23,6 @@ Sphere::Sphere(
 {
 }
 
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-Sphere::Sphere(
-	IGameObject*  gameObject, 
-	const Sphere& other)
-	: Collider	(gameObject, ColliderType::Sphere)
-	, m_radius	(other.m_radius)
-{
-}
 
 /**
  * \brief デストラクタ
@@ -57,4 +30,13 @@ Sphere::Sphere(
  */
 Sphere::~Sphere()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void Sphere::Awake()
+{
+	Collider::Awake();
 }

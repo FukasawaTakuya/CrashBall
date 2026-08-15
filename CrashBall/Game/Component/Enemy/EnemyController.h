@@ -77,25 +77,20 @@ public:
 	// コンストラクタ
 	EnemyController(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	EnemyController(
-		IGameObject* gameObject,
-		const EnemyController& other);
-
-	// ムーブコンストラクタ
-	EnemyController(EnemyController&&) = default;
-
 	// デストラクタ
 	~EnemyController();
 
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake() override;
+
 	// 初期化
-	void Start();
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update(const GameContext& gameContext);
+	void Update(const GameContext& gameContext) override;
 
 	// ダメージ処理
 	void Damage(float damage);

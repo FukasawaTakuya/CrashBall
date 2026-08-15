@@ -59,7 +59,7 @@ public:
 	// 操作
 public:
 
-	// 開始処理
+	// アタッチ時の処理
 	void Awake() override;
 
 	// 初期化

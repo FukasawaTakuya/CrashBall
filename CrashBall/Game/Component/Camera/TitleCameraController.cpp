@@ -23,23 +23,8 @@ RegisterComponent(TitleCameraController)
 TitleCameraController::TitleCameraController(IGameObject* gameObject)
 	: TargetCameraController(gameObject)
 {
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-TitleCameraController::TitleCameraController(
-	IGameObject* gameObject, 
-	const TitleCameraController& other)
-	: TargetCameraController(gameObject, other.m_baseOffset)
-	, m_rotateAngeleRad(other.m_rotateAngeleRad)
-{
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
-}
 
 /**
  * \brief デストラクタ
@@ -47,6 +32,17 @@ TitleCameraController::TitleCameraController(
  */
 TitleCameraController::~TitleCameraController()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void TitleCameraController::Awake()
+{
+	TargetCameraController::Awake();
+
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**

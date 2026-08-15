@@ -26,20 +26,14 @@ AttackGaugeController::AttackGaugeController(IGameObject* gameObject)
 
 
 /**
- * \brief コンストラクタ
+ * \brief デストラクタ
  * 
- * \param gameObejct コンポーネントを所有するゲームオブジェクト
- * \param pAttackGauge 攻撃ゲージのポインタ
- * \param pAttackGaugeTrack 攻撃ゲージの土台のポインタ
- * \param pAttackCostText 攻撃コスト表示テキストのポインタ
  */
-AttackGaugeController::AttackGaugeController(
-	IGameObject* gameObejct, 
-	IGameObject* pAttackGauge, 
-	IGameObject* pAttackPowerText)
-	: Component(gameObejct)
-	, m_pAttackGauge(pAttackGauge)
-	, m_pAttackPowerText(pAttackPowerText)
+AttackGaugeController::~AttackGaugeController()
+{
+}
+
+void AttackGaugeController::Awake()
 {
 	// コンポーネントのキャッシュの取得
 	m_attackPowerTextRenderer = m_pAttackPowerText->GetComponent<TextRenderer>();
@@ -49,18 +43,10 @@ AttackGaugeController::AttackGaugeController(
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-AttackGaugeController::~AttackGaugeController()
-{
-}
-
-/**
  * \brief 初期化
  * 
  */
-void AttackGaugeController::Initilize()
+void AttackGaugeController::Start(const GameContext& gameContext)
 {
 	m_attackGaugeController->SetCurrentAmount(0.0f);
 }
@@ -70,7 +56,7 @@ void AttackGaugeController::Initilize()
  * 
  * \param gameContext ゲーム用のコンテキスト
  */
-void AttackGaugeController::Update()
+void AttackGaugeController::Update(const GameContext& gameContext)
 {
 	// 切り取り量を求める
 	float fillValue = 

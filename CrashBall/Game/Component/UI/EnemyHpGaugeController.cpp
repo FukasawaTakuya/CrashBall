@@ -43,11 +43,6 @@ EnemyHpGaugeController::EnemyHpGaugeController(
 	, m_pEnemyHpGaugeTrack	(pEnemyHpGaugeTrack)
 	, m_pEnemyHpText		(pEnemyHpText)
 {
-	// コンポーネントのキャッシュの取得
-	m_enemyHpGaugeController =
-		m_pEnemyHpGauge->GetComponent<SliderController>();
-	m_enemyHpTextRenderer =
-		m_pEnemyHpText->GetComponent<TextRenderer>();
 }
 
 /**
@@ -59,10 +54,24 @@ EnemyHpGaugeController::~EnemyHpGaugeController()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void EnemyHpGaugeController::Awake()
+{
+	// コンポーネントのキャッシュの取得
+	m_enemyHpGaugeController =
+		m_pEnemyHpGauge->GetComponent<SliderController>();
+	m_enemyHpTextRenderer =
+		m_pEnemyHpText->GetComponent<TextRenderer>();
+
+}
+
+/**
  * \brief 初期化
  *
  */
-void EnemyHpGaugeController::Start()
+void EnemyHpGaugeController::Start(const GameContext& gameContext)
 {
 	m_enemyHpGaugeController->SetCurrentAmount(1.0f);
 }
@@ -72,7 +81,7 @@ void EnemyHpGaugeController::Start()
  *
  * \param gameConctext ゲーム用のコンテキスト
  */
-void EnemyHpGaugeController::Update()
+void EnemyHpGaugeController::Update(const GameContext& gameContext)
 {
 	// 切り取り量を求める
 	float fillValue = static_cast<float>(m_enemyHp) / static_cast<float>(m_enemyMaxHp);

@@ -23,24 +23,6 @@ RegisterComponent(GameCameraController)
 GameCameraController::GameCameraController(IGameObject* gameObejct)
 	: TargetCameraController(gameObejct)
 {
-	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
-}
-
-/**
- * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-GameCameraController::GameCameraController(
-	IGameObject* gameObject, 
-	const GameCameraController& other)
-	: TargetCameraController(gameObject, other.m_baseOffset)
-	, m_rotateAngleRad(other.m_rotateAngleRad)
-{
-	// キャッシュの取得
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
@@ -49,6 +31,18 @@ GameCameraController::GameCameraController(
  */
 GameCameraController::~GameCameraController()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void GameCameraController::Awake()
+{
+	TargetCameraController::Awake();
+
+	// キャッシュの取得
+	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**

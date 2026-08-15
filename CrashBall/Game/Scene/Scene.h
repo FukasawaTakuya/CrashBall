@@ -32,7 +32,11 @@ protected:
 
 	std::vector<GameObject*> m_gameObjects;
 
+
+	// ========================================= //
 	std::string m_sceneName = "scene";
+
+	ICamera* m_camera = nullptr;
 
 	std::vector<std::unique_ptr<GameObject>> m_objects;
 	std::unique_ptr<GameObject> m_playManager;
@@ -92,8 +96,9 @@ public:
 
 	// 取得/設定
 public:
+
 	// カメラの取得
-	virtual ICamera* GetCamera() const {};
+	virtual ICamera* GetCamera() const { return m_camera; };
 
 	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()

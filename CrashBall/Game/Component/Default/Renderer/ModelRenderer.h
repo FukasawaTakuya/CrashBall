@@ -9,9 +9,9 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Game/ResourceManager/Interface/IModelManager.h"
-#include "Game/RendererManager/Interface/IModelRendererManager.h"
 
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 #include "Game/Component/Default/Physics/Transform.h"
 
 
@@ -51,19 +51,23 @@ public:
 	// コンストラクタ
 	ModelRenderer(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	ModelRenderer(
-		IGameObject* gameObject,
-		const ModelRenderer& other);
-
 	// デストラクタ
 	~ModelRenderer();
 
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake();
+
 	// 描画
-	void Render(IModelRendererManager* rendererManager);
+	void Render(RenderContext* renderContext);
+
+	// リソースの設定
+	void SetResource(const ResourceContext& resourceContext) override
+	{
+		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
+	}
 
 	// 取得/設定
 public:
@@ -83,7 +87,6 @@ public:
 	// モデルの設定
 	void SetModel(IModelManager* modelManager)
 	{
-		m_pModel = modelManager->GetModel(m_modelKey);
 	}
 
 	// ディフーズカラーの設定
@@ -111,10 +114,4 @@ private:
 	friend void to_json(nlohmann::json& j, const ModelRenderer& modelRenderer);
 
 public:
-
-	// 演算子オーバーロード
-	void operator=(ModelRenderer renderer)
-	{
-		m_modelKey = renderer.m_modelKey;
-	}
 };

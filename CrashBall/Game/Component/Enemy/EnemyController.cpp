@@ -26,6 +26,22 @@ EnemyController::EnemyController(IGameObject* gameObject)
 	: Component(gameObject)
 	, m_stateMachine{ std::make_unique<StateMachine<EnemyController>>(this) }
 {
+}
+
+/**
+ * \brief デストラクタ
+ * 
+ */
+EnemyController::~EnemyController()
+{
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void EnemyController::Awake()
+{
 	// 敵ステート用のコンテキスト
 	EnemyStateContext stateContext{
 			GetGameObject()->GetComponent<Transform>(),
@@ -47,63 +63,15 @@ EnemyController::EnemyController(IGameObject* gameObject)
 }
 
 /**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-EnemyController::EnemyController(
-	IGameObject* gameObject, 
-	const EnemyController& other)
-	: Component(gameObject)
-	, m_stateMachine(std::make_unique<StateMachine<EnemyController>>(this))
-	, m_acceleration			(other.m_acceleration)
-	, m_avoidWallDistance		(other.m_avoidWallDistance)
-	, m_avoidWallWeakForce		(other.m_avoidWallWeakForce)
-	, m_avoidWallStrongForce	(other.m_avoidWallStrongForce)
-	, m_maxHp					(other.m_maxHp)
-	, m_directionCircleDistance	(other.m_directionCircleDistance)
-	, m_directionCircleRadius	(other.m_directionCircleRadius)
-	, m_directionChageInterval	(other.m_directionChageInterval)
-{
-	// 敵ステート用のコンテキスト
-	EnemyStateContext stateContext{
-			GetGameObject()->GetComponent<Transform>(),
-			GetGameObject()->GetComponent<Rigidbody>(),
-			this
-	};
-
-	// ステートの生成
-	m_stateMachine->CreateState<EnemyWanderState>(stateContext);
-
-	// 初期ステートの設定
-	m_stateMachine->ChangeState<EnemyWanderState>();
-
-	// コンポーネントのキャッシュ
-	m_transform		 = GetGameObject()->GetComponent<Transform>();
-	m_rigidbody		 = GetGameObject()->GetComponent<Rigidbody>();
-	m_modelRenderer  = GetGameObject()->GetComponent<ModelRenderer>();
-	m_ballController = GetGameObject()->GetComponent<BallController>();
-}
-
-/**
- * \brief デストラクタ
- * 
- */
-EnemyController::~EnemyController()
-{
-}
-
-/**
  * \brief 初期化
  * 
  */
-void EnemyController::Start()
+void EnemyController::Start(const GameContext& gameContext)
 {
 	// HPの初期化
 	m_hp = m_maxHp;
-	//// 移動速度を0に設定
-	//m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+	// 移動速度を0に設定
+	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**

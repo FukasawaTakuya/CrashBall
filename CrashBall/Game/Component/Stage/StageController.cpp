@@ -25,18 +25,20 @@ StageController::StageController(IGameObject* gameObject)
 {
 }
 
+
 /**
- * \brief コピーコンストラクタ
+ * \brief デストラクタ
  * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
  */
-StageController::StageController(
-	IGameObject* gameObject, 
-	const StageController& other)
-	: Component(gameObject)
-	, m_floorNormalY(other.m_floorNormalY)
-	, m_floorCenterPosY(other.m_floorCenterPosY)
+StageController::~StageController()
+{
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void StageController::Awake()
 {
 	// キャッシュの取得
 	Transform* transform = GetGameObject()->GetComponent<Transform>();
@@ -83,18 +85,10 @@ StageController::StageController(
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-StageController::~StageController()
-{
-}
-
-/**
  * \brief 初期化
  * 
  */
-void StageController::Start()
+void StageController::Start(const GameContext& gameContext)
 {
 	// 色をデフォルトに戻す
 	for (auto& floorMeshColor : m_floorMeshColor)
@@ -166,13 +160,6 @@ void StageController::Render(const RenderContext& renderContext)
 	}
 }
 
-/**
- * \brief 終了処理
- * 
- */
-void StageController::Finalize()
-{
-}
 
 /**
  * \brief 面の消費

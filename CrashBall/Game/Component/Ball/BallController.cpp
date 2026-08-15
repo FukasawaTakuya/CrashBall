@@ -21,11 +21,27 @@ RegisterComponent(BallController)
 BallController::BallController(IGameObject* gameObject)
 	: Component(gameObject)
 {
+}
+
+/**
+ * \brief デストラクタ
+ * 
+ */
+BallController::~BallController()
+{
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void BallController::Awake()
+{
 	// コンポーネントのキャッシュ
-	m_transform			= GetGameObject()->GetComponent<Transform>();
-	m_rigidbody			= GetGameObject()->GetComponent<Rigidbody>();
-	m_sphereCollider	= GetGameObject()->GetComponent<Sphere>();
-	m_renderer			= GetGameObject()->GetComponent<ModelRenderer>();
+	m_transform = GetGameObject()->GetComponent<Transform>();
+	m_rigidbody = GetGameObject()->GetComponent<Rigidbody>();
+	m_sphereCollider = GetGameObject()->GetComponent<Sphere>();
+	m_renderer = GetGameObject()->GetComponent<ModelRenderer>();
 
 	// 衝突時の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
@@ -44,22 +60,6 @@ BallController::BallController(IGameObject* gameObject)
 				SetIsGround(false);
 			}
 		});
-}
-
-/**
- * \brief デストラクタ
- * 
- */
-BallController::~BallController()
-{
-}
-
-/**
- * \param 開始処理
- * 
- */
-void BallController::Awake()
-{
 }
 
 /**

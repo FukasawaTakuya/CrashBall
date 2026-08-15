@@ -22,22 +22,6 @@ RegisterComponent(ModelRenderer)
 ModelRenderer::ModelRenderer(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	m_transform = GetGameObject()->GetComponent<Transform>();
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObjectコンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-ModelRenderer::ModelRenderer(
-	IGameObject*		 gameObject, 
-	const ModelRenderer& other)
-	: Component	(gameObject)
-	, m_modelKey(other.m_modelKey)
-{
-	m_transform = GetGameObject()->GetComponent<Transform>();
 }
 
 /**
@@ -49,18 +33,27 @@ ModelRenderer::~ModelRenderer()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void ModelRenderer::Awake()
+{
+	m_transform = GetGameObject()->GetComponent<Transform>();
+}
+
+/**
  * \brief モデルの描画
  * 
  * \param 描画管理
  * \param ワールド行列
  */
-void ModelRenderer::Render(IModelRendererManager* rendererManager)
+void ModelRenderer::Render(RenderContext* renderContext)
 {
 	if (m_pModel == nullptr) return;
 
 	// 描画命令の登録
 	if(m_pModel != nullptr)
-		rendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
+		renderContext->modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 }
 
 /**

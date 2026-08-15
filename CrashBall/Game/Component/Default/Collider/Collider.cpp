@@ -23,7 +23,15 @@ Collider::Collider(
 	IGameObject* gameObject,
 	ColliderType type)
 	: Component(gameObject)
-	, m_type{ type }
+	, m_type(type)
+{
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void Collider::Awake()
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();
 }

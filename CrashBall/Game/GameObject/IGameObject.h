@@ -13,6 +13,7 @@ enum class ObjectTag
 {
 	Default,
 	Player,
+	Camera,
 	Enemy,
 	Stage,
 };

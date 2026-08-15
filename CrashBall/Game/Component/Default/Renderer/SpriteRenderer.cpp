@@ -22,27 +22,6 @@ RegisterComponent(SpriteRenderer)
 SpriteRenderer::SpriteRenderer(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gamebject コンポーネントを所有しているオブジェクト
- * \param other コピー元
- */
-SpriteRenderer::SpriteRenderer(
-	IGameObject* gamebject, 
-	const SpriteRenderer& other)
-	: Component(gamebject)
-	, m_color			(other.m_color)
-	, m_spriteScale		(other.m_spriteScale)
-	, m_layerDepth		(other.m_layerDepth)
-	, m_fillOrigin		(other.m_fillOrigin)
-	, m_spriteEffects	(other.m_spriteEffects)
-	, m_spriteKey		(other.m_spriteKey)
-{
-	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 }
 
 /**
@@ -54,11 +33,20 @@ SpriteRenderer::~SpriteRenderer()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void SpriteRenderer::Awake()
+{
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
+}
+
+/**
  * \brief 描画
  * 
  * \param rendererManager スプライト描画管理クラス
  */
-void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
+void SpriteRenderer::Render(RenderContext& renderContext)
 {
 	// オフセット
 	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)];
@@ -86,7 +74,7 @@ void SpriteRenderer::Render(ISpriteRendererManager* rendererManager)
 	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 
 	// 描画命令の登録
-	rendererManager->RegisterRenderCommand(
+	renderContext->spriteRendererManager->RegisterRenderCommand(
 		m_pSprite,
 		position,
 		srcRect,

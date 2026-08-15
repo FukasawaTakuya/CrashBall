@@ -56,16 +56,7 @@ public:
 	Rigidbody(IGameObject* gameObject);
 
 	// コンストラクタ
-	Rigidbody(
-		IGameObject* gameObject, 
-		float gravityAcceleration, 
-		float friction);
-
-	// コピーコンストラクタ
-	Rigidbody(
-		IGameObject* gameObject,
-		const Rigidbody& other
-	);
+	Rigidbody(IGameObject* gameObject);
 
 	// デストラクタ
 	~Rigidbody();

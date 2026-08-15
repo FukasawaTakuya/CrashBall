@@ -56,13 +56,16 @@ public:
 	Collider() = default;
 
 	// コンストラクタ
-	Collider(IGameObject* gameObject, ColliderType type);
+	Collider(IGameObject* gameObject, ColliderType type = ColliderType::None);
 
 	// デストラクタ
 	virtual ~Collider() = default;
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
 
 	// コライダーの描画
 	virtual void DrawCollider() = 0;

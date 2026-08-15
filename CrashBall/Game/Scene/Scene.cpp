@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Scene.h"
 
+#include "Game/Factory/GameObjectFactory.h"
+
 /**
  * \brief コンストラクタ
  * 
@@ -11,11 +13,16 @@ Scene::Scene(
 	ISceneChanger* pSceneManager,
 	IJsonDataManager* jsonDataManager)
 	: m_pSceneChanger{ pSceneManager }
-	, m_jsonManager{ m_jsonManager }
+	, m_jsonManager{ jsonDataManager }
 {
-	for (auto& data : m_jsonManager->GetJsonData())
+	for (auto& data : m_jsonManager->GetGameObjectData())
 	{
-		auto obj = std::make_unique<GameObject>(data);
+		auto obj = GameObjectFactory::CreateObjectFromJson(data);
+
+		if (obj->GetTag() == ObjectTag::Camera)
+		{
+			//m_camera = obj->GetComponent
+		}
 
 		obj->Awake();
 

@@ -50,17 +50,14 @@ public:
 	// コンストラクタ
 	GameCameraController(IGameObject* gameObejct);
 
-	// コピーコンストラクタ
-	GameCameraController(
-		IGameObject* gameObject,
-		const GameCameraController& other
-	);
-
 	// デストラクタ
 	~GameCameraController();
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
 
 	// 初期化
 	void Start(const GameContext& gameContext) override;
@@ -89,18 +86,10 @@ private:
 		return m_compName;
 	}
 
-
 	// JsonConverter
 private:
 
 	friend void to_json(nlohmann::json& j, const GameCameraController& gameCameraController);
 	friend void from_json(const json& j, GameCameraController& gameCameraController);
 
-	// 演算子オーバーロード
-public:
-
-	void operator=(const GameCameraController& other)
-	{
-		m_rotateAngleRad = other.m_rotateAngleRad;
-	}
 };

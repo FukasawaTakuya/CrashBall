@@ -23,21 +23,6 @@ PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
 }
 
 /**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param playerStatusController プレイヤーステータス管理コンポーネント
- */
-PlayerStatusController::PlayerStatusController(
-	IGameObject*					gameObject, 
-	const PlayerStatusController&   playerStatusController)
-	: Component			(gameObject)
-	, m_attackCost		(playerStatusController.m_attackCost)
-	, m_minAttackPower	(playerStatusController.m_minAttackPower)
-{
-}
-
-/**
  * \brief デストラクタ
  * 
  */
@@ -49,7 +34,7 @@ PlayerStatusController::~PlayerStatusController()
  * \brief 更新
  * 
  */
-void PlayerStatusController::Update()
+void PlayerStatusController::Update(const GameContext& gameContext)
 {
 	if (m_floorMeshGetter == nullptr) return;
 

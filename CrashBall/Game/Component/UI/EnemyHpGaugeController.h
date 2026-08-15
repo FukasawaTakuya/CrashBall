@@ -61,11 +61,14 @@ public:
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake() override;
+
 	// 初期化
-	void Start();
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update();
+	void Update(const GameContext& gameContext) override;
 
 	// 終了処理
 	void Finalize();

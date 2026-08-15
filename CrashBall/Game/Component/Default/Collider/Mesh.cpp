@@ -26,26 +26,22 @@ Mesh::Mesh(IGameObject* gameObject)
 }
 
 /**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param mesh メッシュコライダー
- */
-Mesh::Mesh(
-	IGameObject* gameObject, 
-	const Mesh& mesh)
-	: Collider(gameObject, ColliderType::Mesh)
-	, m_meshData(mesh.m_meshData)
-{
-	LoadJson(m_meshData);
-}
-
-/**
  * \brief デストラクタ
  *
  */
 Mesh::~Mesh()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void Mesh::Awake()
+{
+	Collider::Awake();
+
+	LoadJson(m_meshData);
 }
 
 /**

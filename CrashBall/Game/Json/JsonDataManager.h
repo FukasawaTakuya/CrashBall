@@ -23,6 +23,9 @@ private:
 	std::unordered_map<std::string, std::string> m_files;	// ファイル名
 	std::unordered_map<std::string, json> m_jsonData;		// Jsonデータ
 
+	std::unordered_map<std::string, std::string> m_gameObjectFiles;	// ファイル名
+	std::unordered_map<std::string, json> m_gameObjectData;		// Jsonデータ
+
 	ordered_json m_playManagerData;
 	std::string m_playManagerFile;
 
@@ -60,9 +63,9 @@ public:
 	// Jsonデータの取得
 	json* GetJsonData(const std::string& key) override;
 
-	std::unordered_map<std::string, json>& GetJsonData() override
+	std::unordered_map<std::string, json>& GetGameObjectData() override
 	{
-		return m_jsonData;
+		return m_gameObjectData;
 	}
 
 	ordered_json GetPlayManagerData()

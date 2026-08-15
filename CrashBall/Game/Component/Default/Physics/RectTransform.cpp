@@ -13,7 +13,6 @@ using namespace DirectX;
 
 RegisterComponent(RectTransform)
 
-
 /**
  * \brief コンストラクタ
  * 
@@ -21,23 +20,6 @@ RegisterComponent(RectTransform)
  */
 RectTransform::RectTransform(IGameObject* gameObject)
 	: Component(gameObject)
-{
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param rectTransform レクトトランスフォーム
- */
-RectTransform::RectTransform(
-	IGameObject* gameObject,
-	const RectTransform& other)
-	: Component(gameObject)
-	, m_localPosition(other.m_localPosition)
-	, m_localRotate	(other.m_localRotate)
-	, m_localScale	(other.m_localScale)
-	, m_origin	(other.m_origin)
 {
 }
 

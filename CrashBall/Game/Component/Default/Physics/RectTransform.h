@@ -100,11 +100,6 @@ public:
 	// コンストラクタ
 	RectTransform(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	RectTransform(
-		IGameObject* gameObject, 
-		const RectTransform& other);
-
 	// デストラクタ
 	~RectTransform();
 
@@ -306,15 +301,4 @@ private:
 private:
 	friend void to_json(json& j, const RectTransform& rectTransfrom);
 	friend void from_json(const json& j, RectTransform& triangle);
-
-	// 演算子オーバーロード
-public:
-
-	void operator=(const RectTransform& other)
-	{
-		m_localPosition = other.m_localPosition;
-		m_localRotate = other.m_localRotate;
-		m_localScale = other.m_localScale;
-		m_origin = other.m_origin;
-	}
 };

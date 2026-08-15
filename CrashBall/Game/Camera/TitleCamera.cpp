@@ -103,5 +103,5 @@ void TitleCamera::ReloadParam()
 	GameObject::ReloadParam();
 
 	*GetComponent<Transform>() = (*m_data)["transform"];
-	*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
+	//*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
 }

@@ -8,26 +8,20 @@
 
 #pragma once
 #include "SimpleMath.h"
+#include "Game/Component/Default/Component.h"
 
 /**
  * @brief カメラコンポーネントのインターフェース
  */
-class  ICamera {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-
+class  ICamera : public Component {
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	ICamera() = default;
+	ICamera(IGameObject* gameObject)
+		: Component(gameObject) {}
 
 	// デストラクタ
 	virtual ~ICamera() = default;

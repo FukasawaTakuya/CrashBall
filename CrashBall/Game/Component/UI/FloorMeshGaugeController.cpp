@@ -49,12 +49,6 @@ FloorMeshGaugeController::FloorMeshGaugeController(
 	, m_pPlayerMeshNumText(pPlayerMeshNumText)
 	, m_pEnemyMeshNumText(pEnemyMeshNumText)
 {
-	// ゲージのコンポーネントのキャッシュの取得
-	m_playerGaugeController = m_pPalyerMeshGauge->GetComponent<SliderController>();
-	m_enemyGaugeController = m_pEnemyMeshGauge->GetComponent<SliderController>();
-	// テキストのコンポーネントのキャッシュの取得
-	m_playerTextRenderer	= pPlayerMeshNumText->GetComponent<TextRenderer>();
-	m_enemyTextRenderer		= pEnemyMeshNumText->GetComponent<TextRenderer>();
 }
 
 /**
@@ -66,10 +60,24 @@ FloorMeshGaugeController::~FloorMeshGaugeController()
 }
 
 /**
+ * \brief アタッチ時の処理
+ * 
+ */
+void FloorMeshGaugeController::Awake()
+{
+	// ゲージのコンポーネントのキャッシュの取得
+	m_playerGaugeController = m_pPalyerMeshGauge->GetComponent<SliderController>();
+	m_enemyGaugeController = m_pEnemyMeshGauge->GetComponent<SliderController>();
+	// テキストのコンポーネントのキャッシュの取得
+	m_playerTextRenderer = m_pPlayerMeshNumText->GetComponent<TextRenderer>();
+	m_enemyTextRenderer = m_pEnemyMeshNumText->GetComponent<TextRenderer>();
+}
+
+/**
  * \brief 初期化
  * 
  */
-void FloorMeshGaugeController::Start()
+void FloorMeshGaugeController::Start(const GameContext& gameContext)
 {
 	// 切り取り量の設定
 	m_playerGaugeController->SetCurrentAmount(0.0f);
@@ -85,7 +93,7 @@ void FloorMeshGaugeController::Start()
  * 
  * \param gameContext ゲーム用のコンテキスト
  */
-void FloorMeshGaugeController::Update()
+void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
 	// 全体の面に対する塗った面の割合
 	float playerFillAmount = static_cast<float>(m_playerMeshCount) / static_cast<float>(m_totalMeshCount);

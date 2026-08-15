@@ -79,32 +79,26 @@ public:
 	// コンストラクタ
 	StageController(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	StageController(
-		IGameObject* gameObject,
-		const StageController& other);
-
 	// デストラクタ
 	~StageController();
 
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake();
+
 	// 初期化
-	void Start();
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update(const GameContext& gameContext);
+	void Update(const GameContext& gameContext) override;
 
 	// 描画
-	void Render(const RenderContext& renderContext);
-
-	// 終了処理
-	void Finalize();
+	void Render(const RenderContext& renderContext) override;
 
 	// ペイント消費
 	void ConsumePaint(int consumePaintNum) override;
-
 
 	// 取得/設定
 public:
@@ -161,13 +155,4 @@ private:
 private:
 	friend void from_json(const json& j, StageController& stageController);
 	friend void to_json(json& j, const StageController& stageController);
-
-	// 
-public:
-
-	void operator=(const StageController& other)
-	{
-		m_floorNormalY = other.m_floorNormalY;
-		m_floorCenterPosY = other.m_floorCenterPosY;
-	}
 };

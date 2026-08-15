@@ -11,8 +11,9 @@
 #include "..\Component.h"
 #include "Game/Context/RenderContext.h"
 #include "..\Physics\RectTransform.h"
-#include "Game/ResourceManager/Interface/ITextManager.h"
 
+#include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 
 /**
  * @brief テキスト描画コンポーネント
@@ -61,18 +62,26 @@ public:
 	// コンストラクタ
 	TextRenderer(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	TextRenderer(
-		IGameObject* gameObject,
-		const TextRenderer& other);
-
 	// デストラクタ
 	~TextRenderer();
 
 	// 操作
 public:
 
-	void Render(ITextRendererManager* rendererManager);
+	// アタッチ時の処理
+	void Awake() override; 
+
+	// 描画
+	void Render(const RenderContext& renderContext) override;
+
+	// リソースの設定
+	void SetResource(const ResourceContext& resourceContext) override
+	{
+		m_pSpriteFont = resourceContext.textManager->GetSpriteFont(m_fontKey);
+
+		// テキストサイズを求める
+		CalcTextSize();
+	}
 
 	// 取得/設定
 public:

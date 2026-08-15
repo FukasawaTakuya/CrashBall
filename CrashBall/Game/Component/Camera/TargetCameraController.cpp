@@ -19,41 +19,9 @@ RegisterComponent(TargetCameraController)
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 TargetCameraController::TargetCameraController(
-	IGameObject* gameObject,
-	const DirectX::SimpleMath::Vector3& offset)
-	: Component(gameObject)
-	, m_baseOffset(offset)
+	IGameObject* gameObject)
+	: ICamera(gameObject)
 {
-	// キャッシュの取得
-	m_transform = GetGameObject()->GetComponent<Transform>();
-
-	// オフセットからターゲット方向のベクトル
-	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
-
-	// オフセット分の回転
-	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
-}
-
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObejct コンポーネントを所有するゲームオブジェクト
- * \param other ターゲットカメラコンポーネント
- */
-TargetCameraController::TargetCameraController(
-	IGameObject* gameObejct,
-	const TargetCameraController& other)
-	: Component(gameObejct)
-	, m_baseOffset(other.m_baseOffset)
-{
-	// キャッシュの取得
-	m_transform = GetGameObject()->GetComponent<Transform>();
-
-	// オフセットからターゲット方向のベクトル
-	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
-
-	// オフセット分の回転
-	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
 }
 
 /**
@@ -62,6 +30,22 @@ TargetCameraController::TargetCameraController(
  */
 TargetCameraController::~TargetCameraController()
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void TargetCameraController::Awake()
+{
+	// キャッシュの取得
+	m_transform = GetGameObject()->GetComponent<Transform>();
+
+	// オフセットからターゲット方向のベクトル
+	SimpleMath::Vector3 offsetDire = XMVector3Normalize(-m_baseOffset);
+
+	// オフセット分の回転
+	m_offsetRotate = SimpleMath::Quaternion::FromToRotation(SimpleMath::Vector3::Forward, offsetDire);
 }
 
 /**

@@ -50,11 +50,6 @@ public:
 	// コンストラクタ
 	SliderController(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	SliderController(
-		IGameObject* gameObject,
-		const SliderController& other);
-
 	// デストラクタ
 	~SliderController();
 
@@ -63,6 +58,9 @@ public:
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake();
 
 	// 取得/設定
 public:
@@ -100,12 +98,4 @@ private:
 
 	friend void from_json(const json& j, SliderController& sliderController);
 	friend void to_json(json& j, const SliderController& sliderController);
-
-	// 演算子オーバーロード
-public:
-
-	void operator=(const SliderController& other)
-	{
-		m_slideSpeed = other.m_slideSpeed;
-	}
 };
