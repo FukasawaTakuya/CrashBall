@@ -102,7 +102,7 @@ void BallController::Render(const RenderContext& renderContext)
 		= renderContext.modelRendererManager;
 
 	// 描画
-	m_renderer->Render(rendererManager);
+	m_renderer->Render(renderContext);
 }
 
 

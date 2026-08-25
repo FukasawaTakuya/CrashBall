@@ -22,8 +22,8 @@ Object2D::Object2D()
 Object2D::Object2D(json* data)
 	: GameObject(data)
 {
-	AddComponent<RectTransform>((*data)["rectTransform"]);
-	m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
+	//AddComponent<RectTransform>((*data)["rectTransform"]);
+	//m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
 }
 
 /**
@@ -38,7 +38,7 @@ Object2D::~Object2D()
  * \brief 初期化
  * 
  */
-void Object2D::Start()
+void Object2D::Start(const GameContext& gameContext)
 {
 }
 
@@ -58,7 +58,7 @@ void Object2D::Update(const GameContext& gameContext)
  */
 void Object2D::Render(const RenderContext& renderContext)
 {
-	m_spriteRenderer->Render(renderContext.spriteRendererManager);
+	m_spriteRenderer->Render(renderContext);
 }
 
 /**

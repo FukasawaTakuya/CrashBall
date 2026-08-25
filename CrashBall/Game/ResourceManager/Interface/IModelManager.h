@@ -15,12 +15,6 @@
  */
 class  IModelManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -31,17 +25,9 @@ public:
 	// デストラクタ
 	virtual ~IModelManager() = default;
 
-	// 操作
-public:
-
 	// 取得/設定
 public:
 
 	// モデルの取得
 	virtual DirectX::Model* GetModel(const std::string& key) = 0;
-
-
-	// 内部実装
-private:
-
 };

@@ -69,9 +69,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_renderTexture             = std::make_unique<RenderTexture>();
 
-    m_debugCamera = std::make_unique<DebugCamera>();
-    m_debugCamera->Start();
-
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -90,6 +87,9 @@ void Game::Initialize(HWND window, int width, int height)
         m_spriteManager.get(),
         m_textManager.get()
     };
+
+    m_debugCamera = std::make_unique<DebugCamera>();
+    m_debugCamera->Start(m_gameContext);
 
     m_sceneManager = std::make_unique<SceneManager>(
         &m_gameContext,

@@ -58,10 +58,10 @@ public:
 public:
 
 	// アタッチ時の処理
-	void Awake();
+	void Awake() override;
 
 	// 描画
-	void Render(RenderContext* renderContext);
+	void Render(const RenderContext& renderContext) override;
 
 	// リソースの設定
 	void SetResource(const ResourceContext& resourceContext) override

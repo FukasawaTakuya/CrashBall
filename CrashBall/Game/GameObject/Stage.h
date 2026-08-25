@@ -41,7 +41,7 @@ public:
 public:
 
 	// 初期化
-	void Start() override;
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
 	void Update(const GameContext& gameContext) override;

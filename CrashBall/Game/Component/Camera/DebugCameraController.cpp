@@ -22,9 +22,7 @@ RegisterComponent(DebugCameraController)
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 DebugCameraController::DebugCameraController(IGameObject* gameObject)
-	: TargetCameraController(
-		gameObject,
-		SimpleMath::Vector3(0.0f, 20.0f, 20.0f))
+	: TargetCameraController(gameObject)
 {
 	m_targetTransform = std::make_unique<Transform>();
 	SetTargetTransform(m_targetTransform.get());

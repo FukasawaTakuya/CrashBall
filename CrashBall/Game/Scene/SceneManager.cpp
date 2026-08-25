@@ -63,7 +63,7 @@ void SceneManager::SetStartScene()
  */
 void SceneManager::Initialize()
 {
-	m_pCurrentScene->Start();
+	m_pCurrentScene->Start(*m_gameContext);
 }
 
 /**
@@ -225,7 +225,7 @@ void SceneManager::ChangeScene()
 	);
 
 	// 新シーンの初期化
-	m_pCurrentScene->Start();
+	m_pCurrentScene->Start(*m_gameContext);
 
 	// リクエストを削除
 	m_pRequestScene = nullptr;

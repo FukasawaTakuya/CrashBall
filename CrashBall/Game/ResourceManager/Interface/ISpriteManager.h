@@ -23,12 +23,6 @@ struct SpriteInfo
  */
 class  ISpriteManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -39,16 +33,10 @@ public:
 	// デストラクタ
 	virtual ~ISpriteManager() = default;
 
-	// 操作
-public:
-
 	// 取得/設定
 public:
 
 	// スプライト情報の取得
 	virtual const SpriteInfo* GetSpriteInfo(const std::string& key) const = 0;
-
-	// 内部実装
-private:
 
 };

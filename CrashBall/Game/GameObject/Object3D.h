@@ -42,13 +42,13 @@ public:
 public:
 
 	// ‰Šú‰»
-	void Start();
+	void Start(const GameContext& gameContext) override;
 
 	// XV
-	void Update(const GameContext& gameContext);
+	void Update(const GameContext& gameContext) override;
 
 	// •`‰æ
-	void Render(const RenderContext& renderContext);
+	void Render(const RenderContext& renderContext) override;
 
 	// I—¹ˆ—
 	void Finalize();

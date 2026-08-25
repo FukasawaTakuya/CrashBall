@@ -77,6 +77,8 @@ public:
 	// コンストラクタ
 	EnemyController(IGameObject* gameObject);
 
+	EnemyController(const EnemyController&) = default;
+
 	// デストラクタ
 	~EnemyController();
 

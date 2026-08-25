@@ -25,7 +25,7 @@ Panel::Panel(json* data)
 	: GameObject(data)
 {
 
-	AddComponent<RectTransform>((*m_data)["rectTransform"]);
+	//AddComponent<RectTransform>((*m_data)["rectTransform"]);
 }
 
 /**

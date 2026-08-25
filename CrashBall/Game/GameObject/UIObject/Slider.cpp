@@ -25,9 +25,9 @@ Slider::Slider()
 Slider::Slider(json* data)
 	: GameObject(data)
 {
-	AddComponent<RectTransform>((*m_data)["rectTransform"]);
-	m_spriteRenderer = AddComponent<SpriteRenderer>((*m_data)["spriteRenderer"]);
-	m_sliderController = AddComponent<SliderController>((*m_data)["sliderController"]);
+	//AddComponent<RectTransform>((*m_data)["rectTransform"]);
+	//m_spriteRenderer = AddComponent<SpriteRenderer>((*m_data)["spriteRenderer"]);
+	//m_sliderController = AddComponent<SliderController>((*m_data)["sliderController"]);
 }
 
 /**
@@ -42,7 +42,7 @@ Slider::~Slider()
  * \brief 初期化
  * 
  */
-void Slider::Start()
+void Slider::Start(const GameContext& gameContext)
 {
 }
 
@@ -63,15 +63,7 @@ void Slider::Update(const GameContext& gameContext)
  */
 void Slider::Render(const RenderContext& renderContext)
 {
-	m_spriteRenderer->Render(renderContext.spriteRendererManager);
-}
-
-/**
- * \brief 終了処理
- * 
- */
-void Slider::Finalize()
-{
+	m_spriteRenderer->Render(renderContext);
 }
 
 /**

@@ -47,13 +47,13 @@ void ModelRenderer::Awake()
  * \param 描画管理
  * \param ワールド行列
  */
-void ModelRenderer::Render(RenderContext* renderContext)
+void ModelRenderer::Render(const RenderContext& renderContext)
 {
 	if (m_pModel == nullptr) return;
 
 	// 描画命令の登録
 	if(m_pModel != nullptr)
-		renderContext->modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
+		renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 }
 
 /**

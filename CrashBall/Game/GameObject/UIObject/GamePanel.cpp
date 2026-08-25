@@ -41,11 +41,11 @@ GamePanel::GamePanel(json* data)
 			m_enemyMeshNumText.get()
 		);
 
-	m_attackGaugeController =
-		AddComponent<AttackGaugeController>(
-			m_attackGauge.get(),
-			m_attackPowerText.get()
-		);
+	//m_attackGaugeController =
+	//	AddComponent<AttackGaugeController>(
+	//		m_attackGauge.get(),
+	//		m_attackPowerText.get()
+	//	);
 
 	m_enemyHpGaugeController =
 		AddComponent<EnemyHpGaugeController>(
@@ -86,11 +86,11 @@ GamePanel::~GamePanel()
  * \brief 初期化
  *
  */
-void GamePanel::Start()
+void GamePanel::Start(const GameContext& gameContext)
 {
-	m_floorMeshGaugeController->Start();
-	m_attackGaugeController->Initilize();
-	m_enemyHpGaugeController->Start();
+	m_floorMeshGaugeController->Start(gameContext);
+	m_attackGaugeController->Start(gameContext);
+	m_enemyHpGaugeController->Start(gameContext);
 }
 
 /**
@@ -115,9 +115,9 @@ void GamePanel::Update(const GameContext& gameContext)
 		m_enemyMaxHp
 	);
 
-	m_floorMeshGaugeController->Update();
-	m_attackGaugeController->Update();
-	m_enemyHpGaugeController->Update();
+	m_floorMeshGaugeController->Update(gameContext);
+	m_attackGaugeController->Update(gameContext);
+	m_enemyHpGaugeController->Update(gameContext);
 
 	UpdateChildren(gameContext);
 }
@@ -130,14 +130,6 @@ void GamePanel::Update(const GameContext& gameContext)
 void GamePanel::Render(const RenderContext& renderContext)
 {
 	RenderChildren(renderContext);
-}
-
-/**
- * \brief 終了処理
- *
- */
-void GamePanel::Finalize()
-{
 }
 
 /**

@@ -70,7 +70,7 @@ public:
 	virtual void Awake();
 
 	// 初期化
-	virtual void Start(/*const GameContext& gameContext*/);
+	virtual void Start(const GameContext& gameContext);
 
 	// 更新
 	virtual void Update(const GameContext& gameContext);

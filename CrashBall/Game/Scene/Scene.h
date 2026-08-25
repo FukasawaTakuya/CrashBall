@@ -65,11 +65,11 @@ public:
 	) {};
 
 	// 初期化
-	virtual void Start()
+	virtual void Start(const GameContext& gameContext)
 	{
 		for (auto& obj : m_objects)
 		{
-			obj->Start();
+			obj->Start(gameContext);
 		}
 	};
 

@@ -24,9 +24,9 @@ Button::Button()
 Button::Button(json* data)
 	: GameObject(data)
 {
-	m_rectTransform = AddComponent<RectTransform>((*data)["rectTransform"]);
-	m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
-	m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
+	//m_rectTransform = AddComponent<RectTransform>((*data)["rectTransform"]);
+	//m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
+	//m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
 	m_buttonController = AddComponent<ButtonController>();
 }
 
@@ -42,7 +42,7 @@ Button::~Button()
  * \brief 初期化
  *
  */
-void Button::Start()
+void Button::Start(const GameContext& gameContext)
 {
 }
 
@@ -63,8 +63,8 @@ void Button::Update(const GameContext& gameContext)
  */
 void Button::Render(const RenderContext& renderContext)
 {
-	m_spriteRenderer->Render(renderContext.spriteRendererManager);
-	m_textRenderer->Render(renderContext.textRendererManager);
+	m_spriteRenderer->Render(renderContext);
+	m_textRenderer->Render(renderContext);
 }
 
 /**

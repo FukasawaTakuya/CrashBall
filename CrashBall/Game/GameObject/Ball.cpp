@@ -23,13 +23,13 @@ using namespace DirectX;
 Ball::Ball(json* data)
 	: GameObject(data)
 {
-	if (!m_data->empty())
-	{
-		AddComponent<Transform>((*m_data)["transform"]);
-		AddComponent<Rigidbody>((*m_data)["rigidbody"]);
-		AddComponent<Sphere>((*m_data)["sphere"].get<Sphere>());
-		AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
-	}
+	//if (!m_data->empty())
+	//{
+	//	AddComponent<Transform>((*m_data)["transform"]);
+	//	AddComponent<Rigidbody>((*m_data)["rigidbody"]);
+	//	AddComponent<Sphere>((*m_data)["sphere"].get<Sphere>());
+	//	AddComponent<ModelRenderer>((*m_data)["modelRenderer"]);
+	//}
 
 	// ボール操作コンポーネントのキャッシュ
 	m_ballController = AddComponent<BallController>();
@@ -39,11 +39,9 @@ Ball::Ball(json* data)
  * \brief 初期化
  * 
  */
-void Ball::Start()
+void Ball::Start(const GameContext& gameContext)
 {
-	// TODO:GameObjectのStartに引数追加
-	GameContext dummy;
-	m_ballController->Start(dummy);
+	m_ballController->Start(gameContext);
 }
 
 /**

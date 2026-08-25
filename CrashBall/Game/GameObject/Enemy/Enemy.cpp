@@ -20,7 +20,7 @@ Enemy::Enemy(json* data)
 	:Ball(data)
 {
 	// コンポーネントの追加
-	m_enemyController = AddComponent<EnemyController>((*data)["enemyController"]);
+//	m_enemyController = AddComponent<EnemyController>((*data)["enemyController"]);
 }
 
 /**
@@ -36,12 +36,12 @@ Enemy::~Enemy()
  * 
  * \param position 初期位置
  */
-void Enemy::Start()
+void Enemy::Start(const GameContext& gameContext)
 {
-	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
-	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
+	//GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
+	//GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 
-	m_enemyController->Start();
+	m_enemyController->Start(gameContext);
 }
 
 /**
@@ -78,7 +78,7 @@ void Enemy::Finalize()
  */
 void Enemy::SaveParam()
 {
-	(*m_data)["enemyController"] = *m_enemyController;
+	//(*m_data)["enemyController"] = *m_enemyController;
 
 	Ball::SaveParam();
 }
@@ -89,7 +89,7 @@ void Enemy::SaveParam()
  */
 void Enemy::ReloadParam()
 {
-	*m_enemyController = (*m_data)["enemyController"];
+	//*m_enemyController = (*m_data)["enemyController"];
 
 	Ball::ReloadParam();
 }

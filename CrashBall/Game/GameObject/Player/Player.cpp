@@ -20,21 +20,21 @@ Player::Player(json* data)
 	: Ball(data)
 {
 	// コンポーネントの追加
-	m_playerStatusController = AddComponent<PlayerStatusController>((*data)["playerStatusController"]);
-	m_playerController = AddComponent<PlayerController>((*m_data)["playerController"]);
+	//m_playerStatusController = AddComponent<PlayerStatusController>((*data)["playerStatusController"]);
+	//m_playerController = AddComponent<PlayerController>((*m_data)["playerController"]);
 }
 
 /**
  * \brief 初期化
  * 
  */
-void Player::Start()
+void Player::Start(const GameContext& gameContext)
 {
-	// 初期位置に設定
-	GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
+	//// 初期位置に設定
+	//GetComponent<Transform>()->SetWorldPosition((*m_data)["transform"]["position"]);
 
-	// 移動速度を0にする
-	GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
+	//// 移動速度を0にする
+	//GetComponent<Rigidbody>()->SetVelocity(SimpleMath::Vector3::Zero);
 }
 
 /**
@@ -43,7 +43,7 @@ void Player::Start()
  */
 void Player::Update(const GameContext& gameContext)
 {
-	m_playerStatusController->Update();
+	m_playerStatusController->Update(gameContext);
 	m_playerController->Update(gameContext);
 
 	Ball::Update(gameContext);

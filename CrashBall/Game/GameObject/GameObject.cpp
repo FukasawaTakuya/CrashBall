@@ -41,6 +41,10 @@ void GameObject::Awake()
 	{
 		comp.second.get()->Awake();
 	}
+	for (auto& childe : m_children)
+	{
+		childe->Awake();
+	}
 }
 
 /**
@@ -48,12 +52,18 @@ void GameObject::Awake()
  * 
  * \param gameContext ゲーム用のコンテキスト
  */
-void GameObject::Start(/*const GameContext& gameContext*/)
+void GameObject::Start(const GameContext& gameContext)
 {
-	//for (auto& comp : m_components)
-	//{
-	//	comp.second.get()->Start(gameContext);
-	//}
+	for (auto& comp : m_components)
+	{
+		comp.second.get()->Start(gameContext);
+	}
+
+	for (auto& childe : m_children)
+	{
+		childe->Start(gameContext);
+	}
+
 }
 
 /**
@@ -67,6 +77,11 @@ void GameObject::Update(const GameContext& gameContext)
 	{
 		comp.second.get()->Update(gameContext);
 	}
+
+	for (auto& childe : m_children)
+	{
+		childe->Update(gameContext);
+	}
 }
 
 /**
@@ -79,6 +94,11 @@ void GameObject::Render(const RenderContext& renderContext)
 	for (auto& comp : m_components)
 	{
 		comp.second.get()->Render(renderContext);
+	}
+
+	for (auto& childe : m_children)
+	{
+		childe->Render(renderContext);
 	}
 }
 
@@ -123,10 +143,10 @@ void GameObject::AddChildren(GameObject* child)
  */
 void GameObject::InitializeChildren()
 {
-	for (auto& childe : m_children)
-	{
-		childe->Start();
-	}
+	//for (auto& childe : m_children)
+	//{
+	//	childe->Start();
+	//}
 }
 
 /**

@@ -42,7 +42,7 @@ public:
 public:
 
 	// 初期化
-	virtual void Start() override;
+	virtual void Start(const GameContext& gameContext) override;
 
 	// 更新
 	virtual void Update(const GameContext& gameContext) override;

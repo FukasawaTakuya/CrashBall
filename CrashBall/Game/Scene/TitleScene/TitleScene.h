@@ -57,7 +57,7 @@ public:
 	) override;
 
 	// ‰Šú‰»
-	void Start() override;
+	void Start();
 
 	// XV
 	void Update(const GameContext& gameContext) override;

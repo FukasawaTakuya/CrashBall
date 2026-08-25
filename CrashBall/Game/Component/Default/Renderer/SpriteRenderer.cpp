@@ -46,7 +46,7 @@ void SpriteRenderer::Awake()
  * 
  * \param rendererManager スプライト描画管理クラス
  */
-void SpriteRenderer::Render(RenderContext& renderContext)
+void SpriteRenderer::Render(const RenderContext& renderContext)
 {
 	// オフセット
 	SimpleMath::Vector4 offset = FillOriginOffeset[static_cast<int>(m_fillOrigin)];
@@ -74,7 +74,7 @@ void SpriteRenderer::Render(RenderContext& renderContext)
 	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 
 	// 描画命令の登録
-	renderContext->spriteRendererManager->RegisterRenderCommand(
+	renderContext.spriteRendererManager->RegisterRenderCommand(
 		m_pSprite,
 		position,
 		srcRect,

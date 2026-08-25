@@ -24,8 +24,8 @@ TextObject::TextObject()
 TextObject::TextObject(json* data)
 	: GameObject(data)
 {
-	AddComponent<RectTransform>((*data)["rectTransform"]);
-	m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
+	//AddComponent<RectTransform>((*data)["rectTransform"]);
+	//m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
 }
 
 
@@ -41,7 +41,7 @@ TextObject::~TextObject()
  * \brief 初期化
  * 
  */
-void TextObject::Start()
+void TextObject::Start(const GameContext& gameContext)
 {
 }
 
@@ -61,7 +61,7 @@ void TextObject::Update(const GameContext& gameContext)
  */
 void TextObject::Render(const RenderContext& renderContext)
 {
-	m_textRenderer->Render(renderContext.textRendererManager);
+	m_textRenderer->Render(renderContext);
 }
 
 /**

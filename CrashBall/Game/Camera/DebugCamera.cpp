@@ -32,11 +32,9 @@ DebugCamera::~DebugCamera()
  * \brief 初期化
  * 
  */
-void DebugCamera::Start()
+void DebugCamera::Start(const GameContext& gameContext)
 {
-	// TODO:GameObjectのStartに引数追加
-	GameContext dummy;
-	m_cameraController->Start(dummy);
+	m_cameraController->Start(gameContext);
 }
 
 /**

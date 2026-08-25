@@ -53,8 +53,6 @@ public:
 	// デフォルトコンストラクタ
 	Rigidbody() = default;
 
-	Rigidbody(IGameObject* gameObject);
-
 	// コンストラクタ
 	Rigidbody(IGameObject* gameObject);
 

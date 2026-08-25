@@ -20,11 +20,11 @@ using namespace DirectX;
 Stage::Stage(json* data)
 	: GameObject(data)
 {
-	// コンポーネントの追加
-	AddComponent<Transform>((*data)["transform"]);
-	AddComponent<Mesh>((*data)["mesh"]);
+	//// コンポーネントの追加
+	//AddComponent<Transform>((*data)["transform"]);
+	//AddComponent<Mesh>((*data)["mesh"]);
 
-	m_stageController = AddComponent<StageController>((*data)["stageController"]);
+	//m_stageController = AddComponent<StageController>((*data)["stageController"]);
 }
 
 /**
@@ -39,9 +39,9 @@ Stage::~Stage()
  * \brief 初期化
  *
  */
-void Stage::Start()
+void Stage::Start(const GameContext& gameContext)
 {
-	m_stageController->Start();
+	m_stageController->Start(gameContext);
 }
 
 /**
@@ -80,7 +80,7 @@ void Stage::SaveParam()
 	GameObject::SaveParam();
 
 	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["mesh"] = *GetComponent<Mesh>();
+	//(*m_data)["mesh"] = *GetComponent<Mesh>();
 	(*m_data)["stageController"] = *m_stageController;
 }
 
@@ -93,6 +93,6 @@ void Stage::ReloadParam()
 	GameObject::ReloadParam();
 
 	*GetComponent<Transform>() = (*m_data)["transform"];
-	*GetComponent<Mesh>() = (*m_data)["mesh"];
+	//*GetComponent<Mesh>() = (*m_data)["mesh"];
 	*GetComponent<StageController>() = (*m_data)["stageController"];
 }

@@ -41,7 +41,7 @@ FadeChangeScreen::~FadeChangeScreen()
  * \brief 初期化
  * 
  */
-void FadeChangeScreen::Start()
+void FadeChangeScreen::Start(const GameContext& gameContext)
 {
 }
 
@@ -88,7 +88,7 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
  */
 void FadeChangeScreen::Render(const RenderContext& renderContext)
 {
-	m_spriteRenderer->Render(renderContext.spriteRendererManager);
+	m_spriteRenderer->Render(renderContext);
 }
 
 /**

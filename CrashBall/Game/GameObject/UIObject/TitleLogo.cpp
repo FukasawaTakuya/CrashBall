@@ -17,7 +17,7 @@
 TitleLogo::TitleLogo(json* data)
 	: Object2D(data)
 {
-	m_spriteBobbing = AddComponent<SpriteBobbing>((*m_data)["spriteBobbing"]);
+	//m_spriteBobbing = AddComponent<SpriteBobbing>((*m_data)["spriteBobbing"]);
 }
 
 /**
@@ -32,7 +32,7 @@ TitleLogo::~TitleLogo()
  * \brief 初期化
  * 
  */
-void TitleLogo::Start()
+void TitleLogo::Start(const GameContext& gameContext)
 {
 }
 

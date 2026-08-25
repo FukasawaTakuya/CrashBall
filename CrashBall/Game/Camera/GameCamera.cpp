@@ -25,8 +25,8 @@ GameCamera::GameCamera(json* data)
 	: GameObject(data)
 {
 	// コンポーネントの追加
-	AddComponent<Transform>((*m_data)["transform"]);
-	m_cameraController = AddComponent<GameCameraController>((*m_data)["gameCameraController"]);
+	//AddComponent<Transform>((*m_data)["transform"]);
+	//m_cameraController = AddComponent<GameCameraController>((*m_data)["gameCameraController"]);
 }
 
 /**
@@ -41,11 +41,9 @@ GameCamera::~GameCamera()
  * \brief 初期化
  *
  */
-void GameCamera::Start()
+void GameCamera::Start(const GameContext& gameContext)
 {
-	// TODO:GameObjectのStartに引数追加
-	GameContext dummy;
-	m_cameraController->Start(dummy);
+	m_cameraController->Start(gameContext);
 }
 
 /**

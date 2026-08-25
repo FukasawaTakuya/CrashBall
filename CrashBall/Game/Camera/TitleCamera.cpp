@@ -30,9 +30,9 @@ TitleCamera::TitleCamera()
 TitleCamera::TitleCamera(json* data)
 	: GameObject(data)
 {
-	AddComponent<Transform>((*data)["transform"]);
-	m_cameraController
-		= AddComponent<TitleCameraController>((*m_data)["titleCameraController"]);
+	//AddComponent<Transform>((*data)["transform"]);
+	//m_cameraController
+	//	= AddComponent<TitleCameraController>((*m_data)["titleCameraController"]);
 
 }
 
@@ -48,11 +48,9 @@ TitleCamera::~TitleCamera()
  * \brief 初期化
  * 
  */
-void TitleCamera::Start()
+void TitleCamera::Start(const GameContext& gameContext)
 {
-	// TODO:GameObjectのStartに引数追加
-	GameContext dummy;
-	m_cameraController->Start(dummy);
+	m_cameraController->Start(gameContext);
 }
 
 /**
