@@ -14,6 +14,7 @@
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
+#include "Game/Context/ResourceContext.h"
 
 #include "Game/Component/Default/Component.h"
 
@@ -80,6 +81,8 @@ public:
 
 	// 終了処理
 	virtual void Finalize() {};
+
+	virtual void SetResource(const ResourceContext& resourceContext);
 
 	// パラメータの書き込み
 	virtual void SaveParam();

@@ -92,6 +92,7 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_spriteKey, PropertyType::String)
 		AddProperty(m_color, PropertyType::Color)
 		AddProperty(m_spriteScale, PropertyType::Vector2)
 		AddProperty(m_layerDepth, PropertyType::Float)

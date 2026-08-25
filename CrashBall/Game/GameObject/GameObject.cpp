@@ -102,6 +102,19 @@ void GameObject::Render(const RenderContext& renderContext)
 	}
 }
 
+void GameObject::SetResource(const ResourceContext& resourceContext)
+{
+	for (auto& comp : m_components)
+	{
+		comp.second.get()->SetResource(resourceContext);
+	}
+
+	for (auto& childe : m_children)
+	{
+		childe->SetResource(resourceContext);
+	}
+}
+
 /**
  * \brief パラメータの書き込み
  * 

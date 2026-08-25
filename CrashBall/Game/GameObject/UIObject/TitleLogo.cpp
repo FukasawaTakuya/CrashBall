@@ -9,6 +9,11 @@
 #include "pch.h"
 #include "TitleLogo.h"
 
+TitleLogo::TitleLogo()
+{
+	m_spriteBobbing = AddComponent<SpriteBobbing>();
+}
+
 /**
  * \brief コンストラクタ
  * 

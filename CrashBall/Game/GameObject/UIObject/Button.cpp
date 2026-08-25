@@ -24,9 +24,9 @@ Button::Button()
 Button::Button(json* data)
 	: GameObject(data)
 {
-	//m_rectTransform = AddComponent<RectTransform>((*data)["rectTransform"]);
-	//m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
-	//m_textRenderer = AddComponent<TextRenderer>((*data)["textRenderer"]);
+	m_rectTransform = AddComponent<RectTransform>();
+	m_spriteRenderer = AddComponent<SpriteRenderer>();
+	m_textRenderer = AddComponent<TextRenderer>();
 	m_buttonController = AddComponent<ButtonController>();
 }
 

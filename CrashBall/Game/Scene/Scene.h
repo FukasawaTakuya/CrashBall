@@ -74,16 +74,36 @@ public:
 	};
 
 	// 更新
-	virtual void Update(const GameContext& gameContext){};
+	virtual void Update(const GameContext& gameContext)
+	{
+		for (auto& obj : m_objects)
+		{
+			obj->Update(gameContext);
+		}
+
+	};
 	
 	// 描画
-	virtual void Render(const RenderContext& renderContext){};
+	virtual void Render(const RenderContext& renderContext)
+	{
+		for (auto& obj : m_objects)
+		{
+			obj->Render(renderContext);
+		}
+
+	};
 
 	// 終了処理
 	virtual void Finalize(){};
 
 	// デバイス依存のリソース作成
-	virtual void CreateDeviceResources(const ResourceContext& resourceContext){};
+	virtual void CreateDeviceResources(const ResourceContext& resourceContext)
+	{
+		for (auto& obj : m_objects)
+		{
+			obj->SetResource(resourceContext);
+		}
+	};
 
 	// ウインドウサイズ依存のリソース作成
 	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj){};

@@ -36,46 +36,51 @@
       },
       {
          "compName": "SpriteRenderer",
-         "properties": [
-            {
-               "name": "color",
-               "type": "Color",
-               "data": {
-                  "a": 1.0,
-                  "b": 1.0,
-                  "g": 1.0,
-                  "r": 1.0
-               }
-            },
-            {
-               "name": "spriteScale",
-               "type": "Vector2",
-               "data": {
-                  "x": 1.5,
-                  "y": 1.5
-               }
-            },
-            {
-               "name": "layerDepth",
-               "type": "Float",
-               "data": 0.0
-            },
-            {
-               "name": "fillOrigin",
-               "type": "Enum",
-               "data": 3
-            },
-            {
-               "name": "fillAmount",
-               "type": "Float",
-               "data": 1.0
-            },
-            {
-               "name": "spriteEffects",
-               "type": "Enum",
-               "data": 0
+        "properties": [
+          {
+            "name": "spriteKey",
+            "type": "String",
+            "data": "Button"
+          },
+          {
+            "name": "color",
+            "type": "Color",
+            "data": {
+              "a": 1.0,
+              "b": 1.0,
+              "g": 1.0,
+              "r": 1.0
             }
-         ]
+          },
+          {
+            "name": "spriteScale",
+            "type": "Vector2",
+            "data": {
+              "x": 1.5,
+              "y": 1.5
+            }
+          },
+          {
+            "name": "layerDepth",
+            "type": "Float",
+            "data": 0.0
+          },
+          {
+            "name": "fillOrigin",
+            "type": "Enum",
+            "data": 3
+          },
+          {
+            "name": "fillAmount",
+            "type": "Float",
+            "data": 1.0
+          },
+          {
+            "name": "spriteEffects",
+            "type": "Enum",
+            "data": 0
+          }
+        ]
       },
       {
          "compName": "TextRenderer",

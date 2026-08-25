@@ -29,6 +29,8 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
+	TitleLogo();
+
 	// コンストラクタ
 	TitleLogo(json* data);
 

@@ -152,6 +152,8 @@ void Game::Initialize(HWND window, int width, int height)
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
+    m_sceneManager->LoadData();
+
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
 
@@ -164,7 +166,6 @@ void Game::Initialize(HWND window, int width, int height)
     // 初期シーンをセット
     // m_sceneManager->SetStartScene();
 
-    m_sceneManager->LoadData();
 
    // m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
 

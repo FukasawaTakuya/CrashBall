@@ -102,7 +102,8 @@ void SceneManager::Update()
  */
 void SceneManager::Render()
 {
-	if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
+	//if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
+	m_current->Render(*m_renderContext);
 
 	//m_changeScreen->Render(*m_renderContext);
 }
@@ -117,6 +118,8 @@ void SceneManager::CreateDeviceResources()
 
 	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
 	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
+
+	m_current->CreateDeviceResources(*m_resourceContext);
 }
 
 /**
