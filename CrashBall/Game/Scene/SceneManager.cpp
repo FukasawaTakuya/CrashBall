@@ -88,6 +88,8 @@ void SceneManager::Update()
 	// シーン遷移スクリーンの更新
 	m_changeScreen->Update(*m_gameContext);
 
+	m_current->Update(*m_gameContext);
+
 	// 更新
 	if (m_pCurrentScene) {
 		m_pCurrentScene->Update(*m_gameContext);
@@ -102,7 +104,7 @@ void SceneManager::Render()
 {
 	if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
 
-	m_changeScreen->Render(*m_renderContext);
+	//m_changeScreen->Render(*m_renderContext);
 }
 
 /**
@@ -176,7 +178,7 @@ void SceneManager::ReloadParam()
  * \brief データの読み込み
  * 
  */
-void SceneManager::RoadData()
+void SceneManager::LoadData()
 {
 	std::ifstream ifs("Resources/Data/Scenes.json");
 	ordered_json data;
@@ -185,16 +187,19 @@ void SceneManager::RoadData()
 	for (auto& scene : data["scenes"])
 	{
 		auto jsonManager = std::make_unique<JsonDataManager>();
-		std::string path = "Resources/Data/Objects/" + scene;
+		std::string sceneName = scene;
+		std::string path = "Resources/Data/Objects/" + sceneName;
 
 		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
 		{
 			jsonManager->LoadGameObject(entity.path().string());
 		}
 
-		jsonManager->LoadPlayManager("Resources/Data/PlayManager/" + scene);
+		//jsonManager->LoadPlayManager("Resources/Data/PlayManager/" + scene);
 		m_jsonManagers.emplace(scene, std::move(jsonManager));
 	}
+
+	m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
 }
 
 void SceneManager::SetScene(const std::string& sceneName)

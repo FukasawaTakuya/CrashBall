@@ -52,6 +52,8 @@ private:
 
 	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
 
+	std::unique_ptr<Scene> m_current;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -107,7 +109,7 @@ public:
 	void ReloadParam() override;
 
 	// データの読み込み
-	void RoadData();
+	void LoadData();
 
 	// シーンのセット
 	void SetScene(const std::string& sceneName);
@@ -117,19 +119,19 @@ public:
 	// カメラの取得
 	ICamera* GetCamera() const
 	{
-		return m_pCurrentScene->GetCamera();
+		return m_current->GetCamera();
 	}
 
 	// ゲームオブジェクトの取得
 	std::vector<GameObject*>* GetGameObjects()
 	{
-		return m_pCurrentScene->GetGameObjects();
+		return m_current->GetGameObjects();
 	}
 
 	// 現在のシーンの取得
 	Scene* GetCurrentScene() const
 	{
-		return m_pCurrentScene;
+		return m_current.get();
 	}
 
 	// 内部実装

@@ -89,6 +89,7 @@ void Game::Initialize(HWND window, int width, int height)
     };
 
     m_debugCamera = std::make_unique<DebugCamera>();
+    m_debugCamera->Awake();
     m_debugCamera->Start(m_gameContext);
 
     m_sceneManager = std::make_unique<SceneManager>(
@@ -158,12 +159,16 @@ void Game::Initialize(HWND window, int width, int height)
     CreateWindowSizeDependentResources();
 
     // シーンの登録
-    m_sceneManager->CreateScene<GameScene>(SceneID::Game);
-    m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
+    //m_sceneManager->CreateScene<GameScene>(SceneID::Game);
+    //m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
     // 初期シーンをセット
-    m_sceneManager->SetStartScene();
+    // m_sceneManager->SetStartScene();
 
-    m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
+    m_sceneManager->LoadData();
+
+   // m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
+
+    m_editGuiManager->SetIsActive(true);
 
 
     //  ImGuiの初期化処理
@@ -236,9 +241,9 @@ void Game::Update(DX::StepTimer const& timer)
     }
 
     // 編集モードならデバッグカメラ更新
-    if (m_editGuiManager->GetEditMode())
+    if (/*m_editGuiManager->GetEditMode()*/1)
     {
-        m_debugCamera->Update(m_gameContext);
+        //m_debugCamera->Update(m_gameContext);
     }
     else
     {
@@ -296,7 +301,7 @@ void Game::Render()
     SimpleMath::Matrix view;
 
     // 編集モードならデバッグカメラからビュー取得
-    if (m_editGuiManager->GetEditMode())
+    if (/*m_editGuiManager->GetEditMode()*/1)
     {
         view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
     }
