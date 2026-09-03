@@ -6,6 +6,7 @@
     "components": [
         {
             "compName": "RectTransform",
+            "id": 10,
             "properties": [
                 {
                     "name": "localPosition",
@@ -37,6 +38,7 @@
         },
         {
             "compName": "SpriteRenderer",
+            "id": 11,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -85,6 +87,7 @@
         },
         {
             "compName": "TextRenderer",
+            "id": 12,
             "properties": [
                 {
                     "name": "text",
@@ -120,6 +123,7 @@
         },
         {
             "compName": "ButtonController",
+            "id": 13,
             "properties": null
         }
     ]

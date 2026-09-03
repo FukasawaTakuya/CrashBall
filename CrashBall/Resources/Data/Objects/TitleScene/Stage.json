@@ -6,6 +6,7 @@
     "components": [
         {
             "compName": "Transform",
+            "id": 7,
             "properties": [
                 {
                     "name": "localPosition",
@@ -38,6 +39,7 @@
         },
         {
             "compName": "Mesh",
+            "id": 8,
             "properties": [
                 {
                     "name": "meshData",
@@ -48,6 +50,7 @@
         },
         {
             "compName": "StageController",
+            "id": 9,
             "properties": [
                 {
                     "name": "floorNormalY",

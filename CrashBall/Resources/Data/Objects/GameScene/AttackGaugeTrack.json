@@ -1,88 +1,89 @@
 {
-   "name": "AttackGaugeTrack",
-   "tag": "Default",
-   "id": 7,
-   "isActive": true,
-   "components": [
-      {
-         "compName": "SpriteRenderer",
-         "properties": [
-            {
-               "name": "spriteKey",
-               "type": "String",
-               "data": ""
-            },
-            {
-               "name": "color",
-               "type": "Color",
-               "data": {
-                  "a": 1.0,
-                  "b": 1.0,
-                  "g": 0.6000000238418579,
-                  "r": 0.6000000238418579
-               }
-            },
-            {
-               "name": "spriteScale",
-               "type": "Vector2",
-               "data": {
-                  "x": 0.0,
-                  "y": 1.0
-               }
-            },
-            {
-               "name": "layerDepth",
-               "type": "Float",
-               "data": 4.203895392974451e-45
-            },
-            {
-               "name": "fillOrigin",
-               "type": "Enum",
-               "data": 1065353216
-            },
-            {
-               "name": "fillAmount",
-               "type": "Float",
-               "data": 0.0
-            },
-            {
-               "name": "spriteEffects",
-               "type": "Enum",
-               "data": 0
-            }
-         ]
-      },
-      {
-         "compName": "RectTransform",
-         "properties": [
-            {
-               "name": "localPosition",
-               "type": "Vector2",
-               "data": {
-                  "x": 960.0,
-                  "y": 765.0
-               }
-            },
-            {
-               "name": "localRotate",
-               "type": "Float",
-               "data": 0.0
-            },
-            {
-               "name": "localScale",
-               "type": "Vector2",
-               "data": {
-                  "x": 1.0,
-                  "y": 1.0
-               }
-            },
-            {
-               "name": "origin",
-               "type": "Enum",
-               "data": 1
-            }
-         ]
-      }
-   ],
-   "children": null
+    "name": "AttackGaugeTrack",
+    "tag": "Default",
+    "id": 7,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "SpriteRenderer",
+            "id": 26,
+            "properties": [
+                {
+                    "name": "spriteKey",
+                    "type": "String",
+                    "data": ""
+                },
+                {
+                    "name": "color",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 0.6000000238418579,
+                        "r": 0.6000000238418579
+                    }
+                },
+                {
+                    "name": "spriteScale",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 0.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "layerDepth",
+                    "type": "Float",
+                    "data": 4.203895392974451e-45
+                },
+                {
+                    "name": "fillOrigin",
+                    "type": "Enum",
+                    "data": 1065353216
+                },
+                {
+                    "name": "fillAmount",
+                    "type": "Float",
+                    "data": 0.0
+                },
+                {
+                    "name": "spriteEffects",
+                    "type": "Enum",
+                    "data": 0
+                }
+            ]
+        },
+        {
+            "compName": "RectTransform",
+            "id": 27,
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 960.0,
+                        "y": 765.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "type": "Float",
+                    "data": 0.0
+                },
+                {
+                    "name": "localScale",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 1.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "origin",
+                    "type": "Enum",
+                    "data": 1
+                }
+            ]
+        }
+    ]
 }

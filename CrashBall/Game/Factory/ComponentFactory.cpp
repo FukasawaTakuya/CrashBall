@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
+#include "Game/Component/Default/Component.h"
 #include "ComponentFactory.h"
-#include "Game/Component/Default/Physics/RigidBody.h"
 
 namespace
 {

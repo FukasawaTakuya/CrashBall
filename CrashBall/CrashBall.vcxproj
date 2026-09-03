@@ -344,6 +344,8 @@
     <ClInclude Include="Game\Geometory\Plane.h" />
     <ClInclude Include="Game\Geometory\Segment.h" />
     <ClInclude Include="Game\Geometory\Triangle.h" />
+    <ClInclude Include="Game\IDGenerator\ComponentIDGenerator.h" />
+    <ClInclude Include="Game\IDGenerator\GameObejctIDGenerator.h" />
     <ClInclude Include="Game\Json\Component\JsonComponentDeserializers.h" />
     <ClInclude Include="Game\Json\Component\JsonComponentSerializers.h" />
     <ClInclude Include="Game\Json\Enum\JsonEnumSerializers.h" />

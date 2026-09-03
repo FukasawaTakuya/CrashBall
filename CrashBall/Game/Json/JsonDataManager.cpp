@@ -12,6 +12,8 @@
 #include <fstream>
 #include "Game/Scene/SceneManager.h"
 
+#include "Game/IDGenerator/GameObejctIDGenerator.h"
+
 /**
  * \brief コンストラクタ
  * 
@@ -99,6 +101,9 @@ void JsonDataManager::LoadGameObject(const std::string& filepath)
 
 	m_gameObjectData.emplace(data["name"], data);
 	m_gameObjectFiles.emplace(data["name"], filepath);
+
+	// 最大IDか調べる
+	GameObejctIDGenerator::CheckMaxID(data["id"].get<int>());
 }
 
 /**

@@ -30,10 +30,6 @@ class SceneManager
 	, public ISceneEditer
 {
 	
-public: 
-	// GameObejctのID
-	static int s_gameObjectID;
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

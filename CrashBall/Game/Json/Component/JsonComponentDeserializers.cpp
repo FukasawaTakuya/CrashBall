@@ -8,6 +8,7 @@ using namespace DirectX;
 // Componentへ変換
 void from_json(const ordered_json& j, Component& component)
 {
+	component.SetID(j["id"]);
 	auto& properties = component.GetProperties();
 
 	for (int i = 0; i < j["properties"].size(); i++)

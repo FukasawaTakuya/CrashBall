@@ -23,8 +23,11 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PropertyType, {
 	{ PropertyType::Vector3,	"Vector3"		},
 	{ PropertyType::Quaternion, "Quaternion"	},
 	{ PropertyType::Color,		"Color"			},
+	{ PropertyType::Slider,		"Slider"		},
 	{ PropertyType::String,		"String"		},
-	{ PropertyType::Enum,		"Enum"			}
+	{ PropertyType::Enum,		"Enum"			},
+	{ PropertyType::GameObject,	"GameObject"	},
+	{ PropertyType::Component,	"Componet"		}
 	}
 );
 

@@ -8,6 +8,7 @@
 
 #pragma once
 #include "Game/GameObject/GameObject.h"
+#include "Game/IDGenerator/ComponentIDGenerator.h"
 
 #include <fstream>
 
@@ -76,6 +77,9 @@ namespace  GameObjectFactory {
 			);
 
 			jsonComp.get_to<Component>(*compPtr);
+
+			// 最大IDか調べる
+			ComponentIDGenerator::CheckMaxID(compPtr->GetID());
 		}
 
 		return std::move(obj);

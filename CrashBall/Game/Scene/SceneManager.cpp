@@ -11,8 +11,6 @@
 #include "Scene.h"
 #include <fstream>
 
-int SceneManager::s_gameObjectID = -1;
-
 /**
  * \brief コンストラクタ
  * 

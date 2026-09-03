@@ -28,8 +28,6 @@ class GameObject : public IGameObject {
 	friend class ObjectInspectorGui;
 	friend class GameObjectExporter;
 
-	static int gameObejctID;
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

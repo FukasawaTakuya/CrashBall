@@ -104,6 +104,8 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 			{
 				m_drawInspecter[typeid(*comp)](comp.get());
 			}
+
+			ImGui::InputInt("ID", &comp->m_id);
 		}
 
 		ImGui::EndChild();

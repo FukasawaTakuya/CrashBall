@@ -6,6 +6,7 @@
     "components": [
         {
             "compName": "Transform",
+            "id": 0,
             "properties": [
                 {
                     "name": "localPosition",
@@ -38,6 +39,7 @@
         },
         {
             "compName": "Sphere",
+            "id": 1,
             "properties": [
                 {
                     "name": "radius",
@@ -48,6 +50,7 @@
         },
         {
             "compName": "ModelRenderer",
+            "id": 2,
             "properties": [
                 {
                     "name": "modelKey",
@@ -58,6 +61,7 @@
         },
         {
             "compName": "Rigidbody",
+            "id": 3,
             "properties": [
                 {
                     "name": "gravityAcceleration",
@@ -83,6 +87,7 @@
         },
         {
             "compName": "PlayerStatusController",
+            "id": 4,
             "properties": [
                 {
                     "name": "attackCost",
@@ -98,6 +103,7 @@
         },
         {
             "compName": "PlayerController",
+            "id": 5,
             "properties": [
                 {
                     "name": "attackSpeed",
@@ -123,6 +129,7 @@
         },
         {
             "compName": "BallController",
+            "id": 6,
             "properties": null
         }
     ]

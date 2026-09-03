@@ -10,8 +10,6 @@
 
 #include "Game/Json/Component/JsonComponentSerializers.h"
 
-int GameObject::gameObejctID = 0;
-
 /**
  * \brief コンストラクタ
  * 

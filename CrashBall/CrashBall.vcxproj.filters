@@ -158,6 +158,9 @@
     <Filter Include="Game\Json\Exporter">
       <UniqueIdentifier>{75b2052b-a79e-413e-aafd-b6224ead08c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\IDGenerator">
+      <UniqueIdentifier>{479b967a-5015-4864-ad13-4482461515e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -585,6 +588,13 @@
     <ClInclude Include="Game\Factory\ComponentRegister.h">
       <Filter>Game\Factory</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Json\Loader\SceneLoader.h" />
+    <ClInclude Include="Game\IDGenerator\GameObejctIDGenerator.h">
+      <Filter>Game\IDGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\IDGenerator\ComponentIDGenerator.h">
+      <Filter>Game\IDGenerator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -881,6 +891,7 @@
     <ClCompile Include="Game\Json\Exporter\ComponentExporter.cpp">
       <Filter>Game\Json\Exporter</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

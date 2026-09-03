@@ -6,6 +6,7 @@
     "components": [
         {
             "compName": "Transform",
+            "id": 14,
             "properties": [
                 {
                     "name": "localPosition",
@@ -38,6 +39,7 @@
         },
         {
             "compName": "TitleCameraController",
+            "id": 15,
             "properties": [
                 {
                     "name": "baseOffset",

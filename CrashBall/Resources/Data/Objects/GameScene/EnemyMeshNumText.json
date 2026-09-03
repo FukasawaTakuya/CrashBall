@@ -1,75 +1,76 @@
 {
-   "name": "EnemyMeshNumText",
-   "tag": "Default",
-   "id": 14,
-   "isActive": true,
-   "components": [
-      {
-         "compName": "RectTransform",
-         "properties": [
-            {
-               "name": "localPosition",
-               "type": "Vector2",
-               "data": {
-                  "x": 1335.0,
-                  "y": 937.5
-               }
-            },
-            {
-               "name": "localRotate",
-               "type": "Float",
-               "data": 0.0
-            },
-            {
-               "name": "localScale",
-               "type": "Vector2",
-               "data": {
-                  "x": 1.5,
-                  "y": 1.5
-               }
-            },
-            {
-               "name": "origin",
-               "type": "Enum",
-               "data": 1
-            }
-         ]
-      },
-      {
-         "compName": "TextRenderer",
-         "properties": [
-            {
-               "name": "text",
-               "type": "String",
-               "data": "Enemy:0面"
-            },
-            {
-               "name": "color",
-               "type": "Color",
-               "data": {
-                  "a": 1.0,
-                  "b": 0.7568628191947937,
-                  "g": 0.7137255072593689,
-                  "r": 1.0
-               }
-            },
-            {
-               "name": "fontScale",
-               "type": "Float",
-               "data": 0.75
-            },
-            {
-               "name": "layerDepth",
-               "type": "Float",
-               "data": 0.10000000149011612
-            },
-            {
-               "name": "fontKey",
-               "type": "String",
-               "data": "default"
-            }
-         ]
-      }
-   ],
-   "children": null
+    "name": "EnemyMeshNumText",
+    "tag": "Default",
+    "id": 14,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "RectTransform",
+            "id": 46,
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 1335.0,
+                        "y": 937.5
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "type": "Float",
+                    "data": 0.0
+                },
+                {
+                    "name": "localScale",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 1.5,
+                        "y": 1.5
+                    }
+                },
+                {
+                    "name": "origin",
+                    "type": "Enum",
+                    "data": 1
+                }
+            ]
+        },
+        {
+            "compName": "TextRenderer",
+            "id": 47,
+            "properties": [
+                {
+                    "name": "text",
+                    "type": "String",
+                    "data": "Enemy:0面"
+                },
+                {
+                    "name": "color",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.7568628191947937,
+                        "g": 0.7137255072593689,
+                        "r": 1.0
+                    }
+                },
+                {
+                    "name": "fontScale",
+                    "type": "Float",
+                    "data": 0.75
+                },
+                {
+                    "name": "layerDepth",
+                    "type": "Float",
+                    "data": 0.10000000149011612
+                },
+                {
+                    "name": "fontKey",
+                    "type": "String",
+                    "data": "default"
+                }
+            ]
+        }
+    ]
 }

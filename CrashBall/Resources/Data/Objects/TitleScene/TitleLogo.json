@@ -6,6 +6,7 @@
     "components": [
         {
             "compName": "RectTransform",
+            "id": 16,
             "properties": [
                 {
                     "name": "localPosition",
@@ -37,6 +38,7 @@
         },
         {
             "compName": "SpriteRenderer",
+            "id": 17,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -85,6 +87,7 @@
         },
         {
             "compName": "SpriteBobbing",
+            "id": 18,
             "properties": [
                 {
                     "name": "amplitude",

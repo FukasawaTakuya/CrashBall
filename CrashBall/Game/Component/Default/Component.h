@@ -28,8 +28,11 @@ enum class PropertyType
 	Vector3,
 	Quaternion,
 	Color,
+	Slider,
 	String,
 	Enum,
+	GameObject,
+	Component,
 };
 
 // プロパティ情報
@@ -51,6 +54,8 @@ namespace{\
  * \brief 基底コンポーネント
  */
 class  Component {
+
+	friend class ObjectInspectorGui;
 
 // マクロの宣言 ---------------------------------------------------------
 
@@ -75,6 +80,7 @@ private:	\
 private:
 
 	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
+	int m_id = 0;	// ID
 
 protected:
 	std::type_index m_baseTypeid = typeid(Component);	// 基底クラスのtypeid
@@ -119,9 +125,22 @@ public:
 		return m_gameObject; 
 	}
 
+	// 基底クラスのtypeidを取得
 	std::type_index GetBaseTypeid() const
 	{
 		return m_baseTypeid;
+	}
+
+	// コンポーネントのIDを取得
+	int GetID() const
+	{
+		return m_id;
+	}
+
+	// コンポーネントのIDを設定
+	void SetID(int id)
+	{
+		m_id = id;
 	}
 
 	// 内部実装
