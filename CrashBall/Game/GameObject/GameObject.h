@@ -28,17 +28,25 @@ class GameObject : public IGameObject {
 	friend class ObjectInspectorGui;
 	friend class GameObjectExporter;
 
+	static int gameObejctID;
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// コンポーネントのコンテナ
-	std::unordered_map<std::type_index, std::unique_ptr<Component>> m_components;
+	std::vector<std::unique_ptr<Component>> m_components;
+
+	// 検索用のコンポーネントのコンテナ
+	std::unordered_map<std::type_index, Component*> m_componentsMap;
 
 	// タグ
 	ObjectTag m_tag;
 
 	// オブジェクト名
 	std::string m_name = "object";
+
+	// ID
+	int m_id = 0;
 
 	// アクティブフラグ
 	bool m_isActice = true;
@@ -49,7 +57,7 @@ private:
 protected:
 
 	// Jsonデータ
-	json* m_data = nullptr;
+	ordered_json* m_data = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -59,7 +67,7 @@ public:
 	GameObject(ObjectTag tag = ObjectTag::Default);
 
 	// コンストラクタ
-	GameObject(json* data);
+	GameObject(ordered_json* data);
 
 	// デストラクタ
 	~GameObject() = default;
@@ -81,6 +89,9 @@ public:
 
 	// 終了処理
 	virtual void Finalize() {};
+
+	// データの保存
+	void SaveData();
 
 	virtual void SetResource(const ResourceContext& resourceContext);
 
@@ -117,17 +128,31 @@ public:
 		// コンポーネントの生成
 		CompType* pComp = comp.get();
 		// コンテナに格納
-		m_components.emplace(typeid(CompType), std::move(comp));
-
+		m_components.push_back(std::move(comp));
+		// 検索用コンテナに格納
+		m_componentsMap.emplace(typeid(CompType), pComp);
+		// 親がComponentでないときに親のIDでもマップに登録
+		if (pComp->GetBaseTypeid() != typeid(Component))
+		{
+			m_componentsMap.emplace(pComp->GetBaseTypeid(), pComp);
+		}
 		// コンポーネントのポインタを返す
 		return pComp;
 	}
 
 	Component* AddComponent(std::unique_ptr<Component>&& comp)
 	{
-		Component* ptr = comp.get();
-		m_components.emplace(typeid(*comp.get()), std::move(comp));
-		return ptr;
+		Component* pComp = comp.get();
+		// コンテナに格納
+		m_components.push_back(std::move(comp));
+		// 検索用コンテナに格納
+		m_componentsMap.emplace(typeid(*pComp), pComp);
+		// 親がComponentでないときに親のIDでもマップに登録
+		if (pComp->GetBaseTypeid() != typeid(Component))
+		{
+			m_componentsMap.emplace(pComp->GetBaseTypeid(), pComp);
+		}
+		return pComp;
 	}
 
 	// タグの取得
@@ -146,6 +171,11 @@ public:
 	std::string GetName() const
 	{
 		return m_name;
+	}
+
+	int GetID() const
+	{
+		return m_id;
 	}
 
 	// アクティブフラグの取得
@@ -167,8 +197,14 @@ public:
 		m_tag = tag;
 	}
 
+	// IDの設定
+	void SetID(int id)
+	{
+		m_id = id;
+	}
+
 	// データの設定
-	void SetData(json* data)
+	void SetData(ordered_json* data)
 	{
 		m_data = data;
 	}
@@ -185,18 +221,21 @@ private:
 	// 関数テンプレート無しでコンポーネントを取得する
 	Component* GetComponent(std::type_index type) override
 	{
-		auto it = m_components.find(type);
-			// イテレータが終端でなければコンポーネントを返す
-			if (it != m_components.end()) {
-				return it->second.get();
-			}
-			// イテレータが終端ならnullptrを返す
-			else return nullptr;
+		auto it = m_componentsMap.find(type);
+		// イテレータが終端でなければコンポーネントを返す
+		if (it != m_componentsMap.end()) {
+			return it->second;
+		}
+		// イテレータが終端ならnullptrを返す
+		else return nullptr;
 	}
 
 	// コンポーネントの取得
-	const std::unordered_map<std::type_index, std::unique_ptr<Component>>* GetComponentsList() const
+	const std::vector<std::unique_ptr<Component>>* GetComponentsList() const
 	{
 		return &m_components;
 	}
+
+private:
+	friend void to_json(ordered_json& j, const GameObject& gameObject);
 };

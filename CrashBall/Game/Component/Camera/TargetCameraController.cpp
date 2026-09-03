@@ -22,6 +22,7 @@ TargetCameraController::TargetCameraController(
 	IGameObject* gameObject)
 	: ICamera(gameObject)
 {
+	m_baseTypeid = typeid(TargetCameraController);
 }
 
 /**

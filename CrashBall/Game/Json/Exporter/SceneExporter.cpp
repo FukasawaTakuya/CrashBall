@@ -37,7 +37,7 @@ SceneExporter::~SceneExporter()
 void SceneExporter::ExportScene(Scene* scene)
 {
 	// 保存フォルダ
-	std::filesystem::path exportFile = "Resources/Data/" + scene->GetSceneName();
+	std::filesystem::path exportFile = "Resources/Data/Objects" + scene->GetSceneName();
 
 	// オブジェクト保存フォルダ
 	std::filesystem::path objectExportFile = exportFile.string() + "/Objects";
@@ -62,7 +62,7 @@ void SceneExporter::ExportScene(Scene* scene)
 	// オブジェクト名の保存とオブジェクトのエクスポート
 	for (auto obj : *scene->GetGameObjects())
 	{
-		sceneData["Objects"].push_back(obj->GetName());
+		//sceneData["Objects"].push_back(obj->GetName());
 
 		// オブジェクトのエクスポート
 		m_gameObjectExporter->ExporterGameObject(obj, objectExportPath);

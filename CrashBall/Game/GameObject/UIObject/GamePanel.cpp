@@ -17,7 +17,7 @@ using namespace DirectX;
  * \brief コンストラクタ
  * 
  */
-GamePanel::GamePanel(json* data)
+GamePanel::GamePanel(ordered_json* data)
 	: Panel(data)
 	, m_playerMeshGauge		 (std::make_unique<Slider>(&(*data)["playerMeshGauge"]))
 	, m_enemyMeshGauge		 (std::make_unique<Slider>(&(*data)["enemyMeshGauge"]))
@@ -118,8 +118,6 @@ void GamePanel::Update(const GameContext& gameContext)
 	m_floorMeshGaugeController->Update(gameContext);
 	m_attackGaugeController->Update(gameContext);
 	m_enemyHpGaugeController->Update(gameContext);
-
-	UpdateChildren(gameContext);
 }
 
 /**
@@ -129,7 +127,6 @@ void GamePanel::Update(const GameContext& gameContext)
  */
 void GamePanel::Render(const RenderContext& renderContext)
 {
-	RenderChildren(renderContext);
 }
 
 /**
@@ -177,7 +174,7 @@ void GamePanel::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+	//*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
 
 	m_playerMeshGauge	->SetData(&(*m_data)["playerMeshGauge"]);
 	m_enemyMeshGauge	->SetData(&(*m_data)["enemyMeshGauge"]);

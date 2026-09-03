@@ -54,10 +54,10 @@ public:
 	// コンストラクタ
 	ScriptableComponent(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	ScriptableComponent(
-		IGameObject* gameObject,
-		const ScriptableComponent& other);
+	//// コピーコンストラクタ
+	//ScriptableComponent(
+	//	IGameObject* gameObject,
+	//	const ScriptableComponent& other);
 
 	// デストラクタ
 	~ScriptableComponent();

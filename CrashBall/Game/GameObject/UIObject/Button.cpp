@@ -21,7 +21,7 @@ Button::Button()
 	m_buttonController = AddComponent<ButtonController>();
 }
 
-Button::Button(json* data)
+Button::Button(ordered_json* data)
 	: GameObject(data)
 {
 	m_rectTransform = AddComponent<RectTransform>();
@@ -96,7 +96,7 @@ void Button::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*m_rectTransform = (*m_data)["rectTransform"];
-	*m_spriteRenderer = (*m_data)["spriteRenderer"];
-	*m_textRenderer = (*m_data)["textRenderer"];
+	//*m_rectTransform = (*m_data)["rectTransform"];
+	//*m_spriteRenderer = (*m_data)["spriteRenderer"];
+	//*m_textRenderer = (*m_data)["textRenderer"];
 }

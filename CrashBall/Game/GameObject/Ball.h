@@ -33,7 +33,7 @@ protected:
 public:
 
 	// コンストラクタ
-	Ball(json* data);
+	Ball(ordered_json* data);
 
 	// デストラクタ
 	~Ball() = default;

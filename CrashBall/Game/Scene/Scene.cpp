@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 #include "Game/Factory/GameObjectFactory.h"
+#include "Game/Component/Camera/TargetCameraController.h"
 
 /**
  * \brief コンストラクタ
@@ -21,15 +22,16 @@ Scene::Scene(
 
 		if (obj->GetTag() == ObjectTag::Camera)
 		{
-			//m_camera = obj->GetComponent<???>();
+			m_camera = obj->GetComponent<TargetCameraController>();
 		}
 
 		// TODO:親子関係
 
-		obj->Awake();
+		//obj->Awake();
 
 		AddObject(std::move(obj));
 	}
+
 	//m_playManager = std::make_unique<GameObject>(m_jsonManager->GetPlayManagerData());
 
 	// TODO:コライダー登録

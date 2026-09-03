@@ -33,7 +33,7 @@ public:
 	TextObject();
 
 
-	TextObject(json* data);
+	TextObject(ordered_json* data);
 
 	// デストラクタ
 	~TextObject();

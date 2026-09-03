@@ -11,6 +11,8 @@
 #include "Scene.h"
 #include <fstream>
 
+int SceneManager::s_gameObjectID = -1;
+
 /**
  * \brief コンストラクタ
  * 
@@ -63,7 +65,7 @@ void SceneManager::SetStartScene()
  */
 void SceneManager::Initialize()
 {
-	m_pCurrentScene->Start(*m_gameContext);
+	//m_pCurrentScene->Start(*m_gameContext);
 }
 
 /**
@@ -88,7 +90,7 @@ void SceneManager::Update()
 	// シーン遷移スクリーンの更新
 	m_changeScreen->Update(*m_gameContext);
 
-	m_current->Update(*m_gameContext);
+	//m_current->Update(*m_gameContext);
 
 	// 更新
 	if (m_pCurrentScene) {
@@ -103,7 +105,7 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	//if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
-	m_current->Render(*m_renderContext);
+	//m_current->Render(*m_renderContext);
 
 	//m_changeScreen->Render(*m_renderContext);
 }
@@ -114,10 +116,10 @@ void SceneManager::Render()
  */
 void SceneManager::CreateDeviceResources()
 {
-	if(m_pCurrentScene) m_pCurrentScene->CreateDeviceResources(*m_resourceContext);
+	//if(m_pCurrentScene) m_pCurrentScene->CreateDeviceResources(*m_resourceContext);
 
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
+	//m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
+	//m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
 
 	m_current->CreateDeviceResources(*m_resourceContext);
 }
@@ -198,11 +200,20 @@ void SceneManager::LoadData()
 			jsonManager->LoadGameObject(entity.path().string());
 		}
 
-		//jsonManager->LoadPlayManager("Resources/Data/PlayManager/" + scene);
 		m_jsonManagers.emplace(scene, std::move(jsonManager));
 	}
 
 	m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
+	//m_current = std::make_unique<Scene>(this, m_jsonManagers["GameScene"].get());
+}
+
+/**
+ * \brief データの保存
+ * 
+ */
+void SceneManager::SaveData()
+{
+	m_current->SaveFile();
 }
 
 void SceneManager::SetScene(const std::string& sceneName)

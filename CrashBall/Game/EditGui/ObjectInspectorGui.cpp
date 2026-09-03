@@ -93,15 +93,16 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 	if (selectedObject != nullptr)
 	{
 		ImGui::InputText("Name", &selectedObject->m_name);
+		ImGui::InputInt("ID", &selectedObject->m_id);
 
 		ImGui::BeginChild(selectedObject->GetName().c_str());
 
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
 			// コンポーネント表示関数テーブルに存在すれば表示
-			if (m_drawInspecter.find(comp.first) != m_drawInspecter.end())
+			if (m_drawInspecter.find(typeid(*comp)) != m_drawInspecter.end())
 			{
-				m_drawInspecter[comp.first](comp.second.get());
+				m_drawInspecter[typeid(*comp)](comp.get());
 			}
 		}
 

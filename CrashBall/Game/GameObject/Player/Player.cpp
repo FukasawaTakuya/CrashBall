@@ -16,7 +16,7 @@ using namespace DirectX;
  * 
  * \param data Jsonデータ
  */
-Player::Player(json* data)
+Player::Player(ordered_json* data)
 	: Ball(data)
 {
 	// コンポーネントの追加
@@ -84,8 +84,8 @@ void Player::SaveParam()
  */
 void Player::ReloadParam()
 {
-	*m_playerStatusController = (*m_data)["playerStatusController"];
-	*m_playerController = (*m_data)["playerController"];
-	
+	//*m_playerStatusController = (*m_data)["playerStatusController"];
+	//*m_playerController = (*m_data)["playerController"];
+	//
 	Ball::ReloadParam();
 }

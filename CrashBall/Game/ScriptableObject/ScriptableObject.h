@@ -26,7 +26,7 @@ protected:
 public:
 
 	// コンストラクタ
-	ScriptableObject(json* data);
+	ScriptableObject(ordered_json* data);
 
 	// デストラクタ
 	virtual ~ScriptableObject() = default;
@@ -57,7 +57,7 @@ public:
 	void ReloadParam()
 	{
 		GameObject::ReloadParam();
-		*m_scriptable = (*m_data)["scriptable"];
+		//*m_scriptable = (*m_data)["scriptable"];
 	}
 
 	// 取得/設定

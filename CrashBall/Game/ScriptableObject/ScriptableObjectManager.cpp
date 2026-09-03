@@ -36,7 +36,7 @@ void ScriptableObjectManager::RegisterObject(
 	const std::string& key,
 	std::unique_ptr<ScriptableObject> object)
 {
-	m_scriptableObjectList.emplace(key, std::move(object));
+	//m_scriptableObjectList.emplace(key, std::move(object));
 }
 
 /**
@@ -45,10 +45,10 @@ void ScriptableObjectManager::RegisterObject(
  */
 void ScriptableObjectManager::SaveParam()
 {
-	for (auto& object : m_scriptableObjectList)
-	{
-		object.second->SaveParam();
-	}
+	//for (auto& object : m_scriptableObjectList)
+	//{
+	//	object.second->SaveParam();
+	//}
 }
 
 /**
@@ -57,10 +57,10 @@ void ScriptableObjectManager::SaveParam()
  */
 void ScriptableObjectManager::ReloadParam()
 {
-	for (auto& object : m_scriptableObjectList)
-	{
-		object.second->ReloadParam();
-	}
+	//for (auto& object : m_scriptableObjectList)
+	//{
+	//	object.second->ReloadParam();
+	//}
 }
 
 /**

@@ -10,6 +10,7 @@
 #include "JsonDataManager.h"
 
 #include <fstream>
+#include "Game/Scene/SceneManager.h"
 
 /**
  * \brief コンストラクタ
@@ -92,7 +93,7 @@ void JsonDataManager::LoadGameObject(const std::string& filepath)
 		return;
 	}
 
-	json data;
+	ordered_json data;
 
 	ifs >> data;
 
@@ -123,12 +124,25 @@ void JsonDataManager::LoadPlayManager(const std::string& filepath)
 }
 
 /**
+ * \brief ゲームオブジェクトの保存
+ * 
+ */
+void JsonDataManager::SaveGameObject()
+{
+	for (auto& file : m_gameObjectFiles)
+	{
+		std::ofstream ofs(file.second);
+		ofs << m_gameObjectData[file.first].dump(4);
+	}
+}
+
+/**
  * \brief Jsonデータの取得
  * 
  * \param key キー
  * \return Jsonデータ
  */
-json* JsonDataManager::GetJsonData(const std::string& key)
+ordered_json* JsonDataManager::GetJsonData(const std::string& key)
 {
 	auto it = m_jsonData.find(key);
 

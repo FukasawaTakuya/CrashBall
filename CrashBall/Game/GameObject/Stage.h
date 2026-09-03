@@ -32,7 +32,7 @@ private:
 public:
 
 	// コンストラクタ
-	Stage(json* data);
+	Stage(ordered_json* data);
 
 	// デストラクタ
 	~Stage();

@@ -53,7 +53,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
-    m_sriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
+   // m_sriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
 
     m_modelManager              = std::make_unique<ModelManager>();
     m_spriteManager             = std::make_unique<SpriteManager>();
@@ -104,7 +104,7 @@ void Game::Initialize(HWND window, int width, int height)
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
-    ServiceLocator::Set<IScriptableObjectManager>(m_sriptableObjectManager.get());
+    //ServiceLocator::Set<IScriptableObjectManager>(m_sriptableObjectManager.get());
 
     // Jsonのロード
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
@@ -138,20 +138,21 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->RegisterSeFile("damage", L"Resources/Sound/SE/Attack.wav");
 
     // ScriptableObjectの作成
-    m_sriptableObjectManager->RegisterObject(
-        "gameColor",
-        GameObjectFactory::Create<ScriptableObject>(m_jsonDataManager->GetJsonData("gameColors"))
-    );
+    //m_sriptableObjectManager->RegisterObject(
+    //    "gameColor",
+    //    GameObjectFactory::Create<ScriptableObject>(m_jsonDataManager->GetJsonData("gameColors"))
+    //);
 
-    // ScriptableObejctリストに追加
-    for (auto& object : *m_sriptableObjectManager->GetScriptableObejctList())
-    {
-        m_scriptableObjects.push_back(object.second.get());
-    }
+    //// ScriptableObejctリストに追加
+    //for (auto& object : *m_sriptableObjectManager->GetScriptableObejctList())
+    //{
+    //    m_scriptableObjects.push_back(object.second.get());
+    //}
 
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
+    // jsonデータの読み込み
     m_sceneManager->LoadData();
 
     // デバイス依存のリソースの作成
@@ -244,7 +245,7 @@ void Game::Update(DX::StepTimer const& timer)
     // 編集モードならデバッグカメラ更新
     if (/*m_editGuiManager->GetEditMode()*/1)
     {
-        //m_debugCamera->Update(m_gameContext);
+        m_debugCamera->Update(m_gameContext);
     }
     else
     {
@@ -276,7 +277,8 @@ void Game::Update(DX::StepTimer const& timer)
 
     if (m_inputSystem->GetKeyTrigger(Keyboard::R))
     {
-        m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
+       // m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
+        m_sceneManager->SaveData();
     }
 }
 #pragma endregion

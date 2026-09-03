@@ -16,7 +16,7 @@ using namespace DirectX;
  * 
  * \param data Jsonデータ
  */
-Enemy::Enemy(json* data)
+Enemy::Enemy(ordered_json* data)
 	:Ball(data)
 {
 	// コンポーネントの追加

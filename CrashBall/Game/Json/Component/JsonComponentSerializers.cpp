@@ -14,59 +14,68 @@ void to_json(ordered_json& j, const Component& component)
 
 	for (auto& prop : component.GetProperties())
 	{
-		ordered_json ele;
-		ele["name"] = prop.name;
-		ele["type"] = prop.propType;
+		ordered_json jsonProp;
+		jsonProp["name"] = prop.name;
+		jsonProp["type"] = prop.propType;
 		switch (prop.propType)
 		{
 		case PropertyType::Bool:
-			ele["data"] = *static_cast<bool*>(prop.data);
+			jsonProp["data"] = *static_cast<bool*>(prop.data);
 			break;
 		case PropertyType::Int:
-			ele["data"] = *static_cast<int*>(prop.data);
+			jsonProp["data"] = *static_cast<int*>(prop.data);
 			break;
 		case PropertyType::Float:
-			ele["data"] = *static_cast<float*>(prop.data);
+			jsonProp["data"] = *static_cast<float*>(prop.data);
 			break;
 		case PropertyType::Vector2:
-			ele["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(prop.data);
+			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(prop.data);
 			break;
 		case PropertyType::Vector3:
-			ele["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(prop.data);
+			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(prop.data);
 			break;
 		case PropertyType::Quaternion:
-			ele["data"] = *static_cast<DirectX::SimpleMath::Quaternion*>(prop.data);
+			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Quaternion*>(prop.data);
 			break;
 		case PropertyType::Color:
-			ele["data"] = *static_cast<DirectX::SimpleMath::Color*>(prop.data);
+			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Color*>(prop.data);
 			break;
 		case PropertyType::String:
 			// wstringの時はマルチバイト文字に変換する
 			if (typeid(std::wstring) == prop.propTypeId)
 			{
-				ele["data"] =
+				jsonProp["data"] =
 					Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(prop.data));
 			}
 			else if(typeid(std::string) == prop.propTypeId)
 			{
-				ele["data"] = *static_cast<std::string*>(prop.data);
+				jsonProp["data"] = *static_cast<std::string*>(prop.data);
 			}
 			break;
 		case PropertyType::Enum:
-			ele["data"] = *static_cast<int*>(prop.data);
+			jsonProp["data"] = *static_cast<int*>(prop.data);
 			break;
 		default:
 			break;
 		}
 
-		j["properties"].push_back(ele);
+		j["properties"].push_back(jsonProp);
 	}
 }
-
 
 // GameObjectから変換
 void to_json(ordered_json& j, const GameObject& gameObject)
 {
+	j["name"] = gameObject.GetName();
+	j["tag"] = gameObject.GetTag();
+	j["id"] = gameObject.GetID();
+	j["isActive"] = gameObject.GetIsActive();
+	j["components"];
+
+	for (auto& comp : *gameObject.GetComponentsList())
+	{
+		j["components"].push_back(*comp.get());
+	}
 }
 
 // RectTransformから変換
@@ -209,10 +218,10 @@ void to_json(json& j, const ScriptableComponent::Element& element)
 // ScriptableComponentから変換
 void to_json(json& j, const ScriptableComponent& scritableComponent)
 {
-	for (auto& it : scritableComponent.GetValueList())
-	{
-		j["elements"].push_back(it);
-	}
+	//for (auto& it : scritableComponent.GetValueList())
+	//{
+	//	j["elements"].push_back(it);
+	//}
 }
 
 // PlayerControllerから変換

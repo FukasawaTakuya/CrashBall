@@ -3,7 +3,7 @@
 
 using namespace DirectX;
 
-RegisterComponent(ScriptableComponent)
+//RegisterComponent(ScriptableComponent)
 
 
 /**
@@ -21,13 +21,14 @@ ScriptableComponent::ScriptableComponent(IGameObject* gameObject)
  * \param gameObject コンポーネントを所有するゲームオブジェクト
  * \param other コピー元
  */
-ScriptableComponent::ScriptableComponent(
-	IGameObject* gameObject, 
-	const ScriptableComponent& other)
-{
-	m_values.clear();
-	m_values = other.m_values;
-}
+//ScriptableComponent::ScriptableComponent(
+//	IGameObject* gameObject, 
+//	const ScriptableComponent& other)
+//{
+//	m_values.clear();
+//	m_values = other.m_values;
+//}
+
 
 /**
  * \brief デストラクタ

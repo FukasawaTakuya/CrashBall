@@ -21,7 +21,7 @@ TextObject::TextObject()
 }
 
 
-TextObject::TextObject(json* data)
+TextObject::TextObject(ordered_json* data)
 	: GameObject(data)
 {
 	//AddComponent<RectTransform>((*data)["rectTransform"]);
@@ -92,7 +92,7 @@ void TextObject::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
-	*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];
+	//*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
+	//*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];
 	
 }

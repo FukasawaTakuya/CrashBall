@@ -29,6 +29,11 @@ class SceneManager
 	: public ISceneChanger
 	, public ISceneEditer
 {
+	
+public: 
+	// GameObejctのID
+	static int s_gameObjectID;
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -110,6 +115,9 @@ public:
 
 	// データの読み込み
 	void LoadData();
+
+	// データの保存
+	void SaveData();
 
 	// シーンのセット
 	void SetScene(const std::string& sceneName);

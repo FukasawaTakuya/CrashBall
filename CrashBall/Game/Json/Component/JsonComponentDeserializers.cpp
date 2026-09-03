@@ -65,6 +65,24 @@ void from_json(const ordered_json& j, Component& component)
 // GameObjectへ変換
 void from_json(const ordered_json& j, GameObject& gameObject)
 {
+	gameObject.SetName(j["name"]);
+	gameObject.SetTag(j["tag"]);
+	gameObject.SetID(j["id"]);
+	gameObject.SetIsActive(j["isActive"]);
+	//gameObject.SetData(&j);
+
+	for (auto& jsonComp : j["components"])
+	{
+		// コンポーネントの追加
+		for (auto& jsonComp : j["components"])
+		{
+			auto compPtr = gameObject.AddComponent(
+				ComponentFactory::CreataFromJson(jsonComp["compName"], &gameObject)
+			);
+
+			jsonComp.get_to<Component>(*compPtr);
+		}
+	}
 }
 
 // Traingleへ変換
@@ -194,16 +212,16 @@ void from_json(const json& j, ScriptableComponent::Element& element)
 // ScriptableComponentへ変換
 void from_json(const json& j, ScriptableComponent& scriptable)
 {
-	for (auto& element : j["elements"])
-	{
-		std::string key;
-		ScriptableComponent::Element ele;
+	//for (auto& element : j["elements"])
+	//{
+	//	std::string key;
+	//	ScriptableComponent::Element ele;
 
-		element[0].get_to(key);
-		element[1].get_to(ele);
+	//	element[0].get_to(key);
+	//	element[1].get_to(ele);
 
-		scriptable.AddValue(key, ele.first, ele.second);
-	}
+	//	scriptable.AddValue(key, ele.first, ele.second);
+	//}
 }
 
 // PlayerControllerへ変換

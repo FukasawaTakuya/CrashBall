@@ -48,10 +48,10 @@ void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
 	}
 
     // ScriptableObjectを表示
-    for (auto& sprictableObject : *Scriptable::GetScriptableObejctList())
-    {
-        DrawObjectGui(sprictableObject.second.get());
-    }
+    //for (auto& sprictableObject : *Scriptable::GetScriptableObejctList())
+    //{
+    //    DrawObjectGui(sprictableObject.second.get());
+    //}
 
     ImGui::EndChild();
 

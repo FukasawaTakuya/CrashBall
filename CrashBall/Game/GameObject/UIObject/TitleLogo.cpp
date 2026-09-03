@@ -19,7 +19,7 @@ TitleLogo::TitleLogo()
  * 
  * \param data データ
  */
-TitleLogo::TitleLogo(json* data)
+TitleLogo::TitleLogo(ordered_json* data)
 	: Object2D(data)
 {
 	//m_spriteBobbing = AddComponent<SpriteBobbing>((*m_data)["spriteBobbing"]);
@@ -88,5 +88,5 @@ void TitleLogo::ReloadParam()
 {
 	Object2D::ReloadParam();
 
-	*m_spriteBobbing = (*m_data)["spriteBobbing"];
+	//*m_spriteBobbing = (*m_data)["spriteBobbing"];
 }

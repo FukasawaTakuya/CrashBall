@@ -75,6 +75,9 @@ private:	\
 private:
 
 	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
+
+protected:
+	std::type_index m_baseTypeid = typeid(Component);	// 基底クラスのtypeid
 	
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -114,6 +117,11 @@ public:
 	IGameObject* GetGameObject() const 
 	{ 
 		return m_gameObject; 
+	}
+
+	std::type_index GetBaseTypeid() const
+	{
+		return m_baseTypeid;
 	}
 
 	// 内部実装

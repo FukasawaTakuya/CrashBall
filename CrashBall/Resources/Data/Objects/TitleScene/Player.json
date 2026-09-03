@@ -1,129 +1,129 @@
 {
-   "name": "Player",
-   "tag": "Player",
-   "isActive": true,
-  "components": [
-    {
-      "compName": "Transform",
-      "properties": [
+    "name": "Player",
+    "tag": "Player",
+    "id": 0,
+    "isActive": true,
+    "components": [
         {
-          "name": "localPosition",
-          "type": "Vector3",
-          "data": {
-            "x": 0.0,
-            "y": 10.300000190734863,
-            "z": 0.0
-          }
+            "compName": "Transform",
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "type": "Vector3",
+                    "data": {
+                        "x": 0.0,
+                        "y": 10.300000190734863,
+                        "z": 0.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "type": "Quaternion",
+                    "data": {
+                        "x": 0.011047035455703735,
+                        "y": 1.954553246498108,
+                        "z": 0.40055617690086365
+                    }
+                },
+                {
+                    "name": "localScale",
+                    "type": "Vector3",
+                    "data": {
+                        "x": 0.029999999329447746,
+                        "y": 0.029999999329447746,
+                        "z": 0.029999999329447746
+                    }
+                }
+            ]
         },
         {
-          "name": "localRotate",
-          "type": "Quaternion",
-          "data": {
-            "x": 0.01104703638702631,
-            "y": 1.954553246498108,
-            "z": 0.40055614709854126
-          }
+            "compName": "Sphere",
+            "properties": [
+                {
+                    "name": "radius",
+                    "type": "Float",
+                    "data": 20.0
+                }
+            ]
         },
         {
-          "name": "localScale",
-          "type": "Vector3",
-          "data": {
-            "x": 0.029999999329447746,
-            "y": 0.029999999329447746,
-            "z": 0.029999999329447746
-          }
+            "compName": "ModelRenderer",
+            "properties": [
+                {
+                    "name": "modelKey",
+                    "type": "String",
+                    "data": "player"
+                }
+            ]
+        },
+        {
+            "compName": "Rigidbody",
+            "properties": [
+                {
+                    "name": "gravityAcceleration",
+                    "type": "Float",
+                    "data": 25.799999237060547
+                },
+                {
+                    "name": "friction",
+                    "type": "Float",
+                    "data": 1.2000000476837158
+                },
+                {
+                    "name": "mass",
+                    "type": "Float",
+                    "data": 1.0
+                },
+                {
+                    "name": "isDynamic",
+                    "type": "Bool",
+                    "data": true
+                }
+            ]
+        },
+        {
+            "compName": "PlayerStatusController",
+            "properties": [
+                {
+                    "name": "attackCost",
+                    "type": "Int",
+                    "data": 20
+                },
+                {
+                    "name": "minAttackPower",
+                    "type": "Float",
+                    "data": 10.0
+                }
+            ]
+        },
+        {
+            "compName": "PlayerController",
+            "properties": [
+                {
+                    "name": "attackSpeed",
+                    "type": "Float",
+                    "data": 60.0
+                },
+                {
+                    "name": "attackDuration",
+                    "type": "Float",
+                    "data": 0.5
+                },
+                {
+                    "name": "acceleration",
+                    "type": "Float",
+                    "data": 35.0
+                },
+                {
+                    "name": "maxSpeed",
+                    "type": "Float",
+                    "data": 40.0
+                }
+            ]
+        },
+        {
+            "compName": "BallController",
+            "properties": null
         }
-      ]
-    },
-    {
-      "compName": "Sphere",
-      "properties": [
-        {
-          "name": "radius",
-          "type": "Float",
-          "data": 20.0
-        }
-      ]
-    },
-    {
-      "compName": "ModelRenderer",
-      "properties": [
-        {
-          "name": "modelKey",
-          "type": "String",
-          "data": "player"
-        }
-      ]
-    },
-    {
-      "compName": "Rigidbody",
-      "properties": [
-        {
-          "name": "gravityAcceleration",
-          "type": "Float",
-          "data": 25.799999237060547
-        },
-        {
-          "name": "friction",
-          "type": "Float",
-          "data": 1.2000000476837158
-        },
-        {
-          "name": "mass",
-          "type": "Float",
-          "data": 1.0
-        },
-        {
-          "name": "isDynamic",
-          "type": "Bool",
-          "data": true
-        }
-      ]
-    },
-    {
-      "compName": "PlayerStatusController",
-      "properties": [
-        {
-          "name": "attackCost",
-          "type": "Int",
-          "data": 20
-        },
-        {
-          "name": "minAttackPower",
-          "type": "Float",
-          "data": 10.0
-        }
-      ]
-    },
-    {
-      "compName": "PlayerController",
-      "properties": [
-        {
-          "name": "attackSpeed",
-          "type": "Float",
-          "data": 60.0
-        },
-        {
-          "name": "attackDuration",
-          "type": "Float",
-          "data": 0.5
-        },
-        {
-          "name": "acceleration",
-          "type": "Float",
-          "data": 35.0
-        },
-        {
-          "name": "maxSpeed",
-          "type": "Float",
-          "data": 40.0
-        }
-      ]
-    },
-    {
-      "compName": "BallController",
-      "properties": null
-    }
-  ],
-   "children": null
+    ]
 }

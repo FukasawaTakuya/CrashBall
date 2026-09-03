@@ -25,6 +25,7 @@ Collider::Collider(
 	: Component(gameObject)
 	, m_type(type)
 {
+	m_baseTypeid = typeid(Collider);
 }
 
 /**

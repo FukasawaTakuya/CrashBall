@@ -27,7 +27,7 @@ TitleCamera::TitleCamera()
  * 
  * \param data データ
  */
-TitleCamera::TitleCamera(json* data)
+TitleCamera::TitleCamera(ordered_json* data)
 	: GameObject(data)
 {
 	//AddComponent<Transform>((*data)["transform"]);
@@ -100,6 +100,6 @@ void TitleCamera::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<Transform>() = (*m_data)["transform"];
+	//*GetComponent<Transform>() = (*m_data)["transform"];
 	//*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
 }

@@ -144,6 +144,11 @@ public:
 		m_targetTransform = targetTransform;
 	}
 
+	void SetBaseOffset(const DirectX::SimpleMath::Vector3& baseOffset)
+	{
+		m_baseOffset = baseOffset;
+	}
+
 	// 内部実装
 private:
 

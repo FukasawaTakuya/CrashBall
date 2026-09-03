@@ -33,7 +33,7 @@ private:
 public:
 
 	// コンストラクタ
-	Player(json* data);
+	Player(ordered_json* data);
 
 	// デストラクタ
 	~Player() = default;

@@ -37,7 +37,7 @@ public:
 	Button();
 
 	// 
-	Button(json* data);
+	Button(ordered_json* data);
 
 	// デストラクタ
 	~Button();

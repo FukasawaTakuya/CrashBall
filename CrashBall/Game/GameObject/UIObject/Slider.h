@@ -35,7 +35,7 @@ public:
 	Slider();
 
 	// コンストラクタ
-	Slider(json* data);
+	Slider(ordered_json* data);
 
 	// デストラクタ
 	~Slider();

@@ -22,7 +22,7 @@ Slider::Slider()
 	m_sliderController = AddComponent<SliderController>();
 }
 
-Slider::Slider(json* data)
+Slider::Slider(ordered_json* data)
 	: GameObject(data)
 {
 	//AddComponent<RectTransform>((*m_data)["rectTransform"]);
@@ -87,7 +87,7 @@ void Slider::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<RectTransform>()		= (*m_data)["rectTransform"];
-	*GetComponent<SpriteRenderer>()		= (*m_data)["spriteRenderer"];
-	*GetComponent<SliderController>()	= (*m_data)["sliderController"];
+	//*GetComponent<RectTransform>()		= (*m_data)["rectTransform"];
+	//*GetComponent<SpriteRenderer>()		= (*m_data)["spriteRenderer"];
+	//*GetComponent<SliderController>()	= (*m_data)["sliderController"];
 }

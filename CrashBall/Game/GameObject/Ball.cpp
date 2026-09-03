@@ -20,7 +20,7 @@ using namespace DirectX;
  * 
  * \param data
  */
-Ball::Ball(json* data)
+Ball::Ball(ordered_json* data)
 	: GameObject(data)
 {
 	//if (!m_data->empty())
@@ -94,9 +94,9 @@ void Ball::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<Transform>() = (*m_data)["transform"];
-	*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
-	*GetComponent<Sphere>()		= (*m_data)["sphere"];
-	*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
+	//*GetComponent<Transform>() = (*m_data)["transform"];
+	//*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
+	//*GetComponent<Sphere>()		= (*m_data)["sphere"];
+	//*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
 	
 }

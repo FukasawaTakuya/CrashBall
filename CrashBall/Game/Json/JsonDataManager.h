@@ -21,10 +21,10 @@ public:
 private:
 
 	std::unordered_map<std::string, std::string> m_files;	// ファイル名
-	std::unordered_map<std::string, json> m_jsonData;		// Jsonデータ
+	std::unordered_map<std::string, ordered_json> m_jsonData;		// Jsonデータ
 
 	std::unordered_map<std::string, std::string> m_gameObjectFiles;	// ファイル名
-	std::unordered_map<std::string, json> m_gameObjectData;		// Jsonデータ
+	std::unordered_map<std::string, ordered_json> m_gameObjectData;	// Jsonデータ
 
 	ordered_json m_playManagerData;
 	std::string m_playManagerFile;
@@ -57,13 +57,16 @@ public:
 	// プレイマネージャーの読み込み
 	void LoadPlayManager(const std::string& filepath);
 
+	// ゲームオブジェクトの保存
+	void SaveGameObject() override;
+
 	// 取得/設定
 public:
 
 	// Jsonデータの取得
-	json* GetJsonData(const std::string& key) override;
+	ordered_json* GetJsonData(const std::string& key) override;
 
-	std::unordered_map<std::string, json>& GetGameObjectData() override
+	std::unordered_map<std::string, ordered_json>& GetGameObjectData() override
 	{
 		return m_gameObjectData;
 	}

@@ -25,7 +25,7 @@ public:
 	Panel();
 
 	// デストラクタ
-	Panel(json* data);
+	Panel(ordered_json* data);
 
 	// デストラクタ
 	virtual ~Panel();

@@ -7,15 +7,6 @@ using namespace nlohmann;
  * @brief Jsonデータ管理クラスのインターフェース
  */
 class  IJsonDataManager {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -32,9 +23,9 @@ public:
 	// 取得/設定
 public:
 
-	virtual json* GetJsonData(const std::string& key) = 0;
+	virtual ordered_json* GetJsonData(const std::string& key) = 0;
 
-	virtual std::unordered_map<std::string, json>& GetGameObjectData() = 0;
+	virtual std::unordered_map<std::string, ordered_json>& GetGameObjectData() = 0;
 
 	virtual	ordered_json GetPlayManagerData() = 0;
 
@@ -44,6 +35,8 @@ public:
 
 	// データの書き込み
 	virtual void SaveFile() = 0;
+
+	virtual void SaveGameObject() = 0;
 
 
 	// 内部実装

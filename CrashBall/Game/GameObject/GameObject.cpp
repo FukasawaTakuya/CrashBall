@@ -8,6 +8,9 @@
 #include "pch.h"
 #include "GameObject.h"
 
+#include "Game/Json/Component/JsonComponentSerializers.h"
+
+int GameObject::gameObejctID = 0;
 
 /**
  * \brief コンストラクタ
@@ -19,15 +22,8 @@ GameObject::GameObject(ObjectTag tag)
 {
 }
 
-/**
- * \brief コンストラクタ
- * 
- * \param data Jsonデータ
- */
-GameObject::GameObject(json* data)
+GameObject::GameObject(ordered_json* data)
 	: m_data(data)
-	, m_tag((*data)["ObjectTag"])
-	, m_name((*data)["name"])
 {
 }
 
@@ -39,7 +35,7 @@ void GameObject::Awake()
 {
 	for (auto& comp : m_components)
 	{
-		comp.second.get()->Awake();
+		comp->Awake();
 	}
 	for (auto& childe : m_children)
 	{
@@ -56,14 +52,13 @@ void GameObject::Start(const GameContext& gameContext)
 {
 	for (auto& comp : m_components)
 	{
-		comp.second.get()->Start(gameContext);
+		comp->Start(gameContext);
 	}
 
 	for (auto& childe : m_children)
 	{
 		childe->Start(gameContext);
 	}
-
 }
 
 /**
@@ -75,7 +70,7 @@ void GameObject::Update(const GameContext& gameContext)
 {
 	for (auto& comp : m_components)
 	{
-		comp.second.get()->Update(gameContext);
+		comp->Update(gameContext);
 	}
 
 	for (auto& childe : m_children)
@@ -93,7 +88,7 @@ void GameObject::Render(const RenderContext& renderContext)
 {
 	for (auto& comp : m_components)
 	{
-		comp.second.get()->Render(renderContext);
+		comp->Render(renderContext);
 	}
 
 	for (auto& childe : m_children)
@@ -102,11 +97,25 @@ void GameObject::Render(const RenderContext& renderContext)
 	}
 }
 
+/**
+ * \brief データの保存
+ * 
+ */
+void GameObject::SaveData()
+{
+	*m_data = *this;
+}
+
+/**
+ * \brief リソースの設定
+ * 
+ * \param resourceContext
+ */
 void GameObject::SetResource(const ResourceContext& resourceContext)
 {
 	for (auto& comp : m_components)
 	{
-		comp.second.get()->SetResource(resourceContext);
+		comp->SetResource(resourceContext);
 	}
 
 	for (auto& childe : m_children)
@@ -148,55 +157,4 @@ void GameObject::AddChildren(GameObject* child)
 	{
 		transform->SetParentInBuildTime(this->GetComponent<Transform>());
 	}
-}
-
-/**
- * \brief 子オブジェクトの初期化
- * 
- */
-void GameObject::InitializeChildren()
-{
-	//for (auto& childe : m_children)
-	//{
-	//	childe->Start();
-	//}
-}
-
-/**
- * \brief 子オブジェクトの更新
- * 
- * \param gameContext ゲーム用のコンテキスト
- */
-void GameObject::UpdateChildren(const GameContext& gameContext)
-{
-	for (auto& childe : m_children)
-	{
-		childe->Update(gameContext);
-	}
-}
-
-/**
- * \brief 子オブジェクトの描画
- * 
- * \param renderContext 描画用のコンテキスト
- */
-void GameObject::RenderChildren(const RenderContext& renderContext)
-{
-	for (auto& childe : m_children)
-	{
-		childe->Render(renderContext);
-	}
-}
-
-/**
- * \brief 子オブジェクトの終了処理
- * 
- */
-void GameObject::FinalizeChildren()
-{
-	for (auto& childe : m_children)
-	{
-		childe->Finalize();
-	}
-
 }

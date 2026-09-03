@@ -32,7 +32,7 @@ public:
 	TitleLogo();
 
 	// コンストラクタ
-	TitleLogo(json* data);
+	TitleLogo(ordered_json* data);
 
 	// デストラクタ
 	~TitleLogo();

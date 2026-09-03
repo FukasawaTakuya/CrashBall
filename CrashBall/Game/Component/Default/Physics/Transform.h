@@ -239,12 +239,4 @@ private:
 	friend void from_json(const nlohmann::json& j, Transform& transform);
 	friend void to_json(nlohmann::json& j, const Transform& transfrom);
 
-public:
-
-	void operator=(const Transform& other)
-	{
-		m_localPosition = other.m_localPosition;
-		m_localRotate = other.m_localRotate;
-		m_localScale = other.m_localScale;
-	}
 };

@@ -38,13 +38,14 @@ void GameObjectExporter::ExporterGameObject(
 
 	jsonData["name"] = gameObject->GetName();
 	jsonData["tag"] = gameObject->GetTag();
+	jsonData["id"] = gameObject->GetID();
 	jsonData["isActive"] = gameObject->GetIsActive();
 
 	// コンポーネントを書き込む
 	for (auto& comp : *gameObject->GetComponentsList())
 	{
 		jsonData["components"].push_back(
-			*static_cast<Component*>(comp.second.get())
+			*static_cast<Component*>(comp.get())
 		);
 	}
 

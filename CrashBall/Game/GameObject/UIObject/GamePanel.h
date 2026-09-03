@@ -67,7 +67,7 @@ private:
 public:
 
 	// コンストラクタ
-	GamePanel(json* data);
+	GamePanel(ordered_json* data);
 
 	// デストラクタ
 	~GamePanel();

@@ -21,7 +21,7 @@ Panel::Panel()
 	AddComponent<RectTransform>();
 }
 
-Panel::Panel(json* data)
+Panel::Panel(ordered_json* data)
 	: GameObject(data)
 {
 

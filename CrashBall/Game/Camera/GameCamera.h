@@ -28,7 +28,7 @@ private:
 public:
 
 	// コンストラクタ
-	GameCamera(json* data);
+	GameCamera(ordered_json* data);
 
 	// デストラクタ
 	~GameCamera();

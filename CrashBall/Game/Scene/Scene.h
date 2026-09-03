@@ -69,7 +69,7 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			obj->Start(gameContext);
+			//obj->Start(gameContext);
 		}
 	};
 
@@ -78,7 +78,7 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			obj->Update(gameContext);
+			//obj->Update(gameContext);
 		}
 
 	};
@@ -88,7 +88,7 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			obj->Render(renderContext);
+			//obj->Render(renderContext);
 		}
 
 	};
@@ -113,6 +113,16 @@ public:
 
 	// パラメータの再読み込み
 	virtual void ReloadParam(){};
+
+	void SaveFile()
+	{
+		for (auto& obj : m_objects)
+		{
+			obj->SaveData();
+		}
+
+		m_jsonManager->SaveGameObject();
+	}
 
 	// 取得/設定
 public:

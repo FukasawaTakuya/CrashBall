@@ -21,7 +21,7 @@ using namespace DirectX;
  * 
  * \param data データ
  */
-GameCamera::GameCamera(json* data)
+GameCamera::GameCamera(ordered_json* data)
 	: GameObject(data)
 {
 	// コンポーネントの追加
@@ -92,8 +92,5 @@ void GameCamera::SaveParam()
 void GameCamera::ReloadParam()
 {
 	GameObject::ReloadParam();
-
-	*GetComponent<Transform>() = (*m_data)["transform"];
-	//*GetComponent<GameCameraController>() = (*m_data)["gameCameraController"];
 }
 

@@ -57,23 +57,25 @@ namespace  GameObjectFactory {
 
 	// データからのゲームオブジェクトの作成
 	static std::unique_ptr<GameObject> CreateObjectFromJson(
-		const ordered_json& data)
+		ordered_json& data)
 	{
 		// ゲームオブジェクトの生成
 		std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
 
 		obj->SetName(data["name"]);
 		obj->SetTag(data["tag"]);
+		obj->SetID(data["id"]);
 		obj->SetIsActive(data["isActive"]);
+		obj->SetData(&data);
 
 		// コンポーネントの追加
-		for (auto& comp : data["components"])
+		for (auto& jsonComp : data["components"])
 		{
 			auto compPtr = obj->AddComponent(
-				ComponentFactory::CreataFromJson(comp["compName"], obj.get())
+				ComponentFactory::CreataFromJson(jsonComp["compName"], obj.get())
 			);
 
-			comp.get_to<Component>(*compPtr);
+			jsonComp.get_to<Component>(*compPtr);
 		}
 
 		return std::move(obj);

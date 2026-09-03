@@ -29,7 +29,7 @@ private:
 public:
 
 	// コンストラクタ
-	Enemy(json* data);
+	Enemy(ordered_json* data);
 
 	// デストラクタ
 	~Enemy();

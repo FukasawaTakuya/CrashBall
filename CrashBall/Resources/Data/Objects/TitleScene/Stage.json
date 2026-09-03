@@ -1,65 +1,65 @@
 {
-   "name": "Stage",
-   "tag": "Stage",
-   "isActive": true,
-   "components": [
-      {
-         "compName": "Transform",
-         "properties": [
-            {
-               "name": "localPosition",
-               "type": "Vector3",
-               "data": {
-                  "x": 0.0,
-                  "y": 0.0,
-                  "z": 0.0
-               }
-            },
-            {
-               "name": "localRotate",
-               "type": "Quaternion",
-               "data": {
-                  "x": -0.0,
-                  "y": 0.0,
-                  "z": 0.0
-               }
-            },
-            {
-               "name": "localScale",
-               "type": "Vector3",
-               "data": {
-                  "x": 15.0,
-                  "y": 15.0,
-                  "z": 15.0
-               }
-            }
-         ]
-      },
-      {
-         "compName": "Mesh",
-         "properties": [
-            {
-               "name": "meshData",
-               "type": "String",
-               "data": "Resources/Models/Stage.json"
-            }
-         ]
-      },
-      {
-         "compName": "StageController",
-         "properties": [
-            {
-               "name": "floorNormalY",
-               "type": "Float",
-               "data": 0.30000001192092896
-            },
-            {
-               "name": "floorCenterPosY",
-               "type": "Float",
-               "data": 15.0
-            }
-         ]
-      }
-   ],
-   "children": null
+    "name": "Stage",
+    "tag": "Stage",
+    "id": 1,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "Transform",
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "type": "Vector3",
+                    "data": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "type": "Quaternion",
+                    "data": {
+                        "x": -0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    }
+                },
+                {
+                    "name": "localScale",
+                    "type": "Vector3",
+                    "data": {
+                        "x": 15.0,
+                        "y": 15.0,
+                        "z": 15.0
+                    }
+                }
+            ]
+        },
+        {
+            "compName": "Mesh",
+            "properties": [
+                {
+                    "name": "meshData",
+                    "type": "String",
+                    "data": "Resources/Models/Stage.json"
+                }
+            ]
+        },
+        {
+            "compName": "StageController",
+            "properties": [
+                {
+                    "name": "floorNormalY",
+                    "type": "Float",
+                    "data": 0.30000001192092896
+                },
+                {
+                    "name": "floorCenterPosY",
+                    "type": "Float",
+                    "data": 15.0
+                }
+            ]
+        }
+    ]
 }

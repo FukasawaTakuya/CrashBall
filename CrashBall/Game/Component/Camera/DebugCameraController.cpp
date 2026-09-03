@@ -26,6 +26,7 @@ DebugCameraController::DebugCameraController(IGameObject* gameObject)
 {
 	m_targetTransform = std::make_unique<Transform>();
 	SetTargetTransform(m_targetTransform.get());
+	SetBaseOffset({ 0.0f, 10.0f, 10.0f });
 }
 
 /**

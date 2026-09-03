@@ -17,7 +17,7 @@ using namespace DirectX;
  * 
  * \param data jsonデータ
  */
-Stage::Stage(json* data)
+Stage::Stage(ordered_json* data)
 	: GameObject(data)
 {
 	//// コンポーネントの追加
@@ -92,7 +92,7 @@ void Stage::ReloadParam()
 {
 	GameObject::ReloadParam();
 
-	*GetComponent<Transform>() = (*m_data)["transform"];
-	//*GetComponent<Mesh>() = (*m_data)["mesh"];
-	*GetComponent<StageController>() = (*m_data)["stageController"];
+	//*GetComponent<Transform>() = (*m_data)["transform"];
+	////*GetComponent<Mesh>() = (*m_data)["mesh"];
+	//*GetComponent<StageController>() = (*m_data)["stageController"];
 }
