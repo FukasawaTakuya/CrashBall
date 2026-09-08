@@ -88,7 +88,7 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			//obj->Render(renderContext);
+			obj->Render(renderContext);
 		}
 
 	};
@@ -149,7 +149,7 @@ public:
 
 	void AddObject(std::unique_ptr<GameObject>&& object)
 	{
-		m_objectsList.push_back(object.get());
+		//m_objectsList.push_back(object.get());
 		m_objects.push_back(std::move(object));
 	}
 

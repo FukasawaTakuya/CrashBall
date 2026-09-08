@@ -6,6 +6,63 @@
 
 using namespace DirectX;
 
+// PropertyInfoから変換
+void to_json(ordered_json& j, const PropertyInfo& property)
+{
+	j["name"] = property.name;
+	j["type"] = property.propType;
+	switch (property.propType)
+	{
+	case PropertyType::Bool:
+		j["data"] = *static_cast<bool*>(property.data);
+		break;
+	case PropertyType::Int:
+		j["data"] = *static_cast<int*>(property.data);
+		break;
+	case PropertyType::Float:
+		j["data"] = *static_cast<float*>(property.data);
+		break;
+	case PropertyType::Vector2:
+		j["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(property.data);
+		break;
+	case PropertyType::Vector3:
+		j["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(property.data);
+		break;
+	case PropertyType::Quaternion:
+		j["data"] = *static_cast<DirectX::SimpleMath::Quaternion*>(property.data);
+		break;
+	case PropertyType::Color:
+		j["data"] = *static_cast<DirectX::SimpleMath::Color*>(property.data);
+		break;
+	case PropertyType::Slider:
+		j["data"] = *static_cast<float*>(property.data);
+		break;
+	case PropertyType::String:
+		// wstringの時はマルチバイト文字に変換する
+		if (typeid(std::wstring) == property.propTypeId)
+		{
+			j["data"] =
+				Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(property.data));
+		}
+		else if (typeid(std::string) == property.propTypeId)
+		{
+			j["data"] = *static_cast<std::string*>(property.data);
+		}
+		break;
+	case PropertyType::Enum:
+		j["data"] = *static_cast<int*>(property.data);
+		break;
+	case PropertyType::GameObject:
+		j["data"] = (*static_cast<GameObject**>(property.data))->GetID();
+		break;
+	case PropertyType::Component:
+		j["data"] = (*static_cast<Component**>(property.data))->GetID();
+		break;
+	default:
+		break;
+	}
+}
+
 // Componentから変換
 void to_json(ordered_json& j, const Component& component)
 {
@@ -15,52 +72,7 @@ void to_json(ordered_json& j, const Component& component)
 
 	for (auto& prop : component.GetProperties())
 	{
-		ordered_json jsonProp;
-		jsonProp["name"] = prop.name;
-		jsonProp["type"] = prop.propType;
-		switch (prop.propType)
-		{
-		case PropertyType::Bool:
-			jsonProp["data"] = *static_cast<bool*>(prop.data);
-			break;
-		case PropertyType::Int:
-			jsonProp["data"] = *static_cast<int*>(prop.data);
-			break;
-		case PropertyType::Float:
-			jsonProp["data"] = *static_cast<float*>(prop.data);
-			break;
-		case PropertyType::Vector2:
-			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(prop.data);
-			break;
-		case PropertyType::Vector3:
-			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Vector3*>(prop.data);
-			break;
-		case PropertyType::Quaternion:
-			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Quaternion*>(prop.data);
-			break;
-		case PropertyType::Color:
-			jsonProp["data"] = *static_cast<DirectX::SimpleMath::Color*>(prop.data);
-			break;
-		case PropertyType::String:
-			// wstringの時はマルチバイト文字に変換する
-			if (typeid(std::wstring) == prop.propTypeId)
-			{
-				jsonProp["data"] =
-					Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(prop.data));
-			}
-			else if(typeid(std::string) == prop.propTypeId)
-			{
-				jsonProp["data"] = *static_cast<std::string*>(prop.data);
-			}
-			break;
-		case PropertyType::Enum:
-			jsonProp["data"] = *static_cast<int*>(prop.data);
-			break;
-		default:
-			break;
-		}
-
-		j["properties"].push_back(jsonProp);
+		j["properties"].push_back(prop);
 	}
 }
 
@@ -71,11 +83,17 @@ void to_json(ordered_json& j, const GameObject& gameObject)
 	j["tag"] = gameObject.GetTag();
 	j["id"] = gameObject.GetID();
 	j["isActive"] = gameObject.GetIsActive();
-	j["components"];
+	j["components"] = nullptr;
+	j["children"] = nullptr;
 
 	for (auto& comp : *gameObject.GetComponentsList())
 	{
 		j["components"].push_back(*comp.get());
+	}
+
+	for (auto& obj : gameObject.GetChildren())
+	{
+		j["children"].push_back(obj->GetID());
 	}
 }
 

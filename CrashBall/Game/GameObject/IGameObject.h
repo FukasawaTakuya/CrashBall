@@ -66,8 +66,23 @@ public:
 		}
 	}
 
+	// 名前の取得
+	virtual std::string GetName() const = 0;
 	// タグの取得
 	virtual ObjectTag GetTag() const = 0;
+	// IDの取得
+	virtual int GetID() const = 0;
+	// アクティブフラグの取得
+	virtual bool GetIsActive() const = 0;
+
+	// 名前の設定
+	virtual void SetName(std::string name) = 0;
+	// タグの設定
+	virtual void SetTag(ObjectTag tag) = 0;
+	// IDの設定
+	virtual void SetID(int id) = 0;
+	// アクティブフラグの設定
+	virtual void SetIsActive(bool isActive) = 0;
 
 	// 内部実装
 protected:

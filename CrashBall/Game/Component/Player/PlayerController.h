@@ -37,12 +37,15 @@ private:
 	float m_acceleration = 0.0f;	// 加速度 
 	float m_maxSpeed = 0.0f;		// 最大速度
 
+	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
+
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_attackSpeed,		PropertyType::Float)
 		AddProperty(m_attackDuration,	PropertyType::Float)
 		AddProperty(m_acceleration,		PropertyType::Float)
 		AddProperty(m_maxSpeed,			PropertyType::Float)
+		AddProperty(m_enemyTransform,	PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -55,8 +58,6 @@ private:
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
 	const ICamera* m_pCamera = nullptr;				// カメラのポインタ
-
-	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
 
 	IPaintConsumer* m_paintConsumer = nullptr;		// 面消費インターフェース
 

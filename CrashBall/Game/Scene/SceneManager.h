@@ -127,9 +127,9 @@ public:
 	}
 
 	// ゲームオブジェクトの取得
-	std::vector<GameObject*>* GetGameObjects()
+	std::vector<std::unique_ptr<GameObject>>& GetGameObjects()
 	{
-		return m_current->GetGameObjects();
+		return m_current->GetObjects();
 	}
 
 	// 現在のシーンの取得

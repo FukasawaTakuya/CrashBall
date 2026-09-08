@@ -35,6 +35,9 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_pEnemyHpGauge, PropertyType::GameObject)
+		AddProperty(m_pEnemyHpGaugeTrack, PropertyType::GameObject)
+		AddProperty(m_pEnemyHpText, PropertyType::GameObject)
 	EndProperty()
 
 	// コンポーネント名の設定

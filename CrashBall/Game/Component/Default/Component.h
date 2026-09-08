@@ -143,14 +143,15 @@ public:
 		m_id = id;
 	}
 
-	// 内部実装
-private:
-
 	// プロパティの取得
 	virtual const std::vector<PropertyInfo>& GetProperties() const = 0;
 
 	// コンポーネント名の取得
 	virtual std::string GetCompName() const = 0;
+
+	// 内部実装
+private:
+
 
 private:
 

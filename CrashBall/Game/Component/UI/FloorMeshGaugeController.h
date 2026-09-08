@@ -46,6 +46,10 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_pPalyerMeshGauge	, PropertyType::GameObject)
+		AddProperty(m_pEnemyMeshGauge	, PropertyType::GameObject)
+		AddProperty(m_pPlayerMeshNumText, PropertyType::GameObject)
+		AddProperty(m_pEnemyMeshNumText	, PropertyType::GameObject)
 	EndProperty()
 
 	// コンポーネント名の設定

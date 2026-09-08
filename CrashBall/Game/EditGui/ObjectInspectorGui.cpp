@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "ObjectInspectorGui.h"
+#include "Library/magic_enum.hpp"
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_stdlib.h"
@@ -42,35 +43,39 @@ using namespace DirectX;
  */
 ObjectInspectorGui::ObjectInspectorGui()
 {
-	// Collider
-	m_drawInspecter.emplace(typeid(Sphere), DrawSphere);
-	m_drawInspecter.emplace(typeid(Mesh), DrawMesh);
-	// Physics
-	m_drawInspecter.emplace(typeid(Transform), DrawTransform);
-	m_drawInspecter.emplace(typeid(RectTransform), DrawRectTransform);
-	m_drawInspecter.emplace(typeid(Rigidbody), DrawRigidbody);
-	// Renderer
-	m_drawInspecter.emplace(typeid(ModelRenderer), DrawModelRenderer);
-	m_drawInspecter.emplace(typeid(SpriteRenderer), DrawSpriteRenderer);
-	m_drawInspecter.emplace(typeid(TextRenderer), DrawTextRenderer);
-	// UI
-	m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
-	m_drawInspecter.emplace(typeid(SpriteBobbing), DrawSpriteBobbing);
-	m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
-	m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
-	// Camera
-	m_drawInspecter.emplace(typeid(TargetCameraController), DrawTargetCamera);
+	//// Collider
+	//m_drawInspecter.emplace(typeid(Sphere), DrawSphere);
+	//m_drawInspecter.emplace(typeid(Mesh), DrawMesh);
+	//// Physics
+	//m_drawInspecter.emplace(typeid(Transform), DrawTransform);
+	//m_drawInspecter.emplace(typeid(RectTransform), DrawRectTransform);
+	//m_drawInspecter.emplace(typeid(Rigidbody), DrawRigidbody);
+	//// Renderer
+	//m_drawInspecter.emplace(typeid(ModelRenderer), DrawModelRenderer);
+	//m_drawInspecter.emplace(typeid(SpriteRenderer), DrawSpriteRenderer);
+	//m_drawInspecter.emplace(typeid(TextRenderer), DrawTextRenderer);
+	//// UI
+	//m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
+	//m_drawInspecter.emplace(typeid(SpriteBobbing), DrawSpriteBobbing);
+	//m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
+	//m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
+	//// Camera
+	//m_drawInspecter.emplace(typeid(TargetCameraController), DrawTargetCamera);
 
-	// Scriptable
-	m_drawInspecter.emplace(typeid(ScriptableComponent), DrawScriptableComponent);
+	//// Scriptable
+	//m_drawInspecter.emplace(typeid(ScriptableComponent), DrawScriptableComponent);
 
-	// Others
-	m_drawInspecter.emplace(typeid(PlayerController), DrawPlayerController);
-	m_drawInspecter.emplace(typeid(PlayerStatusController), DrawPlayerStateController);
-	m_drawInspecter.emplace(typeid(EnemyController), DrawEnemyController);
-	m_drawInspecter.emplace(typeid(StageController), DrawStageController);
-	m_drawInspecter.emplace(typeid(TitleCameraController), DrawTitleCameraController);
-	m_drawInspecter.emplace(typeid(GameCameraController), DrawGameCameraController);
+	//// Others
+	//m_drawInspecter.emplace(typeid(PlayerController), DrawPlayerController);
+	//m_drawInspecter.emplace(typeid(PlayerStatusController), DrawPlayerStateController);
+	//m_drawInspecter.emplace(typeid(EnemyController), DrawEnemyController);
+	//m_drawInspecter.emplace(typeid(StageController), DrawStageController);
+	//m_drawInspecter.emplace(typeid(TitleCameraController), DrawTitleCameraController);
+	//m_drawInspecter.emplace(typeid(GameCameraController), DrawGameCameraController);
+
+	m_drawProperty.emplace(typeid(Origin), DrawEnum<Origin>);
+	m_drawProperty.emplace(typeid(FillOrigin), DrawEnum<FillOrigin>);
+	m_drawProperty.emplace(typeid(DX11::SpriteEffects), DrawEnum<DX11::SpriteEffects>);
 }
 
 /**
@@ -99,13 +104,23 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
-			// コンポーネント表示関数テーブルに存在すれば表示
-			if (m_drawInspecter.find(typeid(*comp)) != m_drawInspecter.end())
-			{
-				m_drawInspecter[typeid(*comp)](comp.get());
-			}
+			//// コンポーネント表示関数テーブルに存在すれば表示
+			//if (m_drawInspecter.find(typeid(*comp)) != m_drawInspecter.end())
+			//{
+			//	m_drawInspecter[typeid(*comp)](comp.get());
+			//}
 
-			ImGui::InputInt("ID", &comp->m_id);
+			//ImGui::InputInt("ID", &comp->m_id);
+
+			ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
+
+			ImGui::Separator();
+
+			if (ImGui::TreeNodeEx(comp->GetCompName().c_str(), flag))
+			{
+				DrawProperty(comp.get());
+				ImGui::TreePop();
+			}
 		}
 
 		ImGui::EndChild();
@@ -115,6 +130,212 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 }
 
 // ------------------------- Inspector表示関数 ------------------------- //
+
+void ObjectInspectorGui::DrawProperty(Component* comp)
+{
+	for (auto& property : comp->GetProperties())
+	{
+		switch (property.propType)
+		{
+		case PropertyType::Bool:
+			ImGui::Checkbox(
+				property.name.c_str(),
+				static_cast<bool*>(property.data));
+			break;
+		case PropertyType::Int:
+			ImGui::DragInt(
+				property.name.c_str(),
+				static_cast<int*>(property.data));
+			break;
+		case PropertyType::Float:
+			ImGui::DragFloat(
+				property.name.c_str(),
+				static_cast<float*>(property.data));
+			break;
+		case PropertyType::Vector2:
+			ImGui::DragFloat2(
+				property.name.c_str(),
+				&(*static_cast<SimpleMath::Vector2*>(property.data)).x);
+			break;
+		case PropertyType::Vector3:
+			ImGui::DragFloat3(
+				property.name.c_str(),
+				&(*static_cast<SimpleMath::Vector3*>(property.data)).x);
+			break;
+		case PropertyType::Quaternion:
+		{
+			// Vector3型に直す
+			SimpleMath::Vector3 v3 = static_cast<SimpleMath::Quaternion*>(property.data)->ToEuler();
+			// 度数表記に直す
+			v3.x = XMConvertToDegrees(v3.x);
+			v3.y = XMConvertToDegrees(v3.y);
+			v3.z = XMConvertToDegrees(v3.z);
+			// 表示
+			ImGui::DragFloat3(
+				property.name.c_str(),
+				&v3.x);
+			// 弧度法に直す
+			v3.x = XMConvertToRadians(v3.x);
+			v3.y = XMConvertToRadians(v3.y);
+			v3.z = XMConvertToRadians(v3.z);
+			// Quarternion型に直す
+			*static_cast<SimpleMath::Quaternion*>(property.data) =
+				SimpleMath::Quaternion::CreateFromYawPitchRoll(v3);
+		}
+			break;
+		case PropertyType::Color:
+			ImGui::ColorEdit4(
+				property.name.c_str(),
+				&(*static_cast<SimpleMath::Color*>(property.data)).x);
+			break;
+		case PropertyType::Slider:
+			ImGui::SliderFloat(
+				property.name.c_str(),
+				static_cast<float*>(property.data), 0.0f, 1.0f);
+			break;
+		case PropertyType::String:
+			// wstringの時はマルチバイト文字に変換する
+			if (typeid(std::wstring) == property.propTypeId)
+			{
+				std::string s = Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(property.data));
+				ImGui::InputText(
+					property.name.c_str(),
+					&s);
+			}
+			else if (typeid(std::string) == property.propTypeId)
+			{
+				ImGui::InputText(
+					property.name.c_str(),
+					static_cast<std::string*>(property.data));
+			}
+			break;
+		case PropertyType::Enum:
+		{
+			m_drawProperty[property.propTypeId](property);
+			//ImGui::Text("Enum");
+		}
+			break;
+		case PropertyType::GameObject:
+			if (*static_cast<GameObject**>(property.data) != nullptr)
+			{
+				ImGui::Text((*static_cast<GameObject**>(property.data))->GetName().c_str());
+			}
+			break;
+		case PropertyType::Component:
+			if (*static_cast<Component**>(property.data) != nullptr)
+			{
+				ImGui::Text((*static_cast<Component**>(property.data))->GetCompName().c_str());
+			}
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void ObjectInspectorGui::DrawBool(const PropertyInfo& property)
+{
+	ImGui::Checkbox(
+		property.name.c_str(),
+		static_cast<bool*>(property.data));
+}
+
+void ObjectInspectorGui::DrawInt(const PropertyInfo& property)
+{
+	ImGui::DragInt(
+		property.name.c_str(),
+		static_cast<int*>(property.data));
+}
+
+void ObjectInspectorGui::DrawFloat(const PropertyInfo& property)
+{
+	ImGui::DragFloat(
+		property.name.c_str(),
+		static_cast<float*>(property.data));
+}
+
+void ObjectInspectorGui::DrawVector2(const PropertyInfo& property)
+{
+	ImGui::DragFloat2(
+		property.name.c_str(),
+		&(*static_cast<SimpleMath::Vector2*>(property.data)).x);
+}
+
+void ObjectInspectorGui::DrawVector3(const PropertyInfo& property)
+{
+	ImGui::DragFloat3(
+		property.name.c_str(),
+		&(*static_cast<SimpleMath::Vector3*>(property.data)).x);
+}
+
+void ObjectInspectorGui::DrawQuarternion(const PropertyInfo& property)
+{
+	// Vector3型に直す
+	SimpleMath::Vector3 v3 = static_cast<SimpleMath::Quaternion*>(property.data)->ToEuler();
+	// 度数表記に直す
+	v3.x = XMConvertToDegrees(v3.x);
+	v3.y = XMConvertToDegrees(v3.y);
+	v3.z = XMConvertToDegrees(v3.z);
+	// 表示
+	ImGui::DragFloat3(
+		property.name.c_str(),
+		&v3.x);
+	// 弧度法に直す
+	v3.x = XMConvertToRadians(v3.x);
+	v3.y = XMConvertToRadians(v3.y);
+	v3.z = XMConvertToRadians(v3.z);
+	// Quarternion型に直す
+	*static_cast<SimpleMath::Quaternion*>(property.data) =
+		SimpleMath::Quaternion::CreateFromYawPitchRoll(v3);
+}
+
+void ObjectInspectorGui::DrawColor(const PropertyInfo& property)
+{
+	ImGui::ColorEdit4(
+		property.name.c_str(),
+		&(*static_cast<SimpleMath::Color*>(property.data)).x);
+}
+
+void ObjectInspectorGui::DrawSlider(const PropertyInfo& property)
+{
+	ImGui::SliderFloat(
+		property.name.c_str(),
+		static_cast<float*>(property.data), 0.0f, 1.0f);
+}
+
+void ObjectInspectorGui::DrawString(const PropertyInfo& property)
+{
+	// wstringの時はマルチバイト文字に変換する
+	if (typeid(std::wstring) == property.propTypeId)
+	{
+		std::string s = Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(property.data));
+		ImGui::InputText(
+			property.name.c_str(),
+			&s);
+	}
+	else if (typeid(std::string) == property.propTypeId)
+	{
+		ImGui::InputText(
+			property.name.c_str(),
+			static_cast<std::string*>(property.data));
+	}
+}
+
+void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
+{
+	if (*static_cast<GameObject**>(property.data) != nullptr)
+	{
+		ImGui::Text((*static_cast<GameObject**>(property.data))->GetName().c_str());
+	}
+}
+
+void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
+{
+	if (*static_cast<Component**>(property.data) != nullptr)
+	{
+		ImGui::Text((*static_cast<Component**>(property.data))->GetCompName().c_str());
+	}
+}
 
 /**
  * \brief 球コライダーの表示

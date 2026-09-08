@@ -28,6 +28,7 @@ private:
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_rotateAngleRad, PropertyType::Float)
+		AddProperty(m_targetTransform, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定

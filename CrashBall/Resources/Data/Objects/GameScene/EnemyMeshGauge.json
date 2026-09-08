@@ -11,15 +11,15 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": ""
+                    "data": "Gauge"
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 1.0,
-                        "g": 1.0,
+                        "b": 0.7568627595901489,
+                        "g": 0.7137255072593689,
                         "r": 1.0
                     }
                 },
@@ -27,7 +27,7 @@
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 0.20000000298023224,
+                        "x": 1.0,
                         "y": 1.0
                     }
                 },
@@ -43,8 +43,8 @@
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Float",
-                    "data": 0.0
+                    "type": "Slider",
+                    "data": 0.010999999940395355
                 },
                 {
                     "name": "spriteEffects",
@@ -96,5 +96,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

@@ -58,7 +58,8 @@ namespace  GameObjectFactory {
 
 	// データからのゲームオブジェクトの作成
 	static std::unique_ptr<GameObject> CreateObjectFromJson(
-		ordered_json& data)
+		ordered_json& data,
+		std::unordered_map<int, Component*>& components)
 	{
 		// ゲームオブジェクトの生成
 		std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
@@ -80,6 +81,9 @@ namespace  GameObjectFactory {
 
 			// 最大IDか調べる
 			ComponentIDGenerator::CheckMaxID(compPtr->GetID());
+
+			// コンテナに格納
+			components.emplace(compPtr->GetID(), compPtr);
 		}
 
 		return std::move(obj);

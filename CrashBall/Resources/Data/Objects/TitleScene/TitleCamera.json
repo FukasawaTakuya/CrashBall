@@ -54,6 +54,11 @@
                     "name": "rotateAngeleRad",
                     "type": "Float",
                     "data": 0.0
+                },
+                {
+                    "name": "targetTransform",
+                    "type": "Componet",
+                    "data": 0
                 }
             ]
         }

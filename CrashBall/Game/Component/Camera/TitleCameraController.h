@@ -30,6 +30,7 @@ private:
 	BeginProperty()
 		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngeleRad, PropertyType::Float)
+		AddProperty(m_targetTransform, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定

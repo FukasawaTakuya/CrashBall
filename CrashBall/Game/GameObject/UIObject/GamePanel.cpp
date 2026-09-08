@@ -54,18 +54,18 @@ GamePanel::GamePanel(ordered_json* data)
 			m_enemyHpText.get()
 		);
 
-	AddChildren(m_playerMeshGauge.get());
-	AddChildren(m_enemyMeshGauge.get());
-	AddChildren(m_playerMeshNumText.get());
-	AddChildren(m_enemyMeshNumText.get());
-	AddChildren(m_gaugeBackGround.get());
-	AddChildren(m_meshGaugeTrack.get());
-	AddChildren(m_attackGauge.get());
-	AddChildren(m_attackPowerText.get());
-	AddChildren(m_attackGaugeTrack.get());
-	AddChildren(m_enemyHpGauge.get());
-	AddChildren(m_enemyHpGaugeTrack.get());
-	AddChildren(m_enemyHpText.get());
+	//AddChildren(m_playerMeshGauge.get());
+	//AddChildren(m_enemyMeshGauge.get());
+	//AddChildren(m_playerMeshNumText.get());
+	//AddChildren(m_enemyMeshNumText.get());
+	//AddChildren(m_gaugeBackGround.get());
+	//AddChildren(m_meshGaugeTrack.get());
+	//AddChildren(m_attackGauge.get());
+	//AddChildren(m_attackPowerText.get());
+	//AddChildren(m_attackGaugeTrack.get());
+	//AddChildren(m_enemyHpGauge.get());
+	//AddChildren(m_enemyHpGaugeTrack.get());
+	//AddChildren(m_enemyHpText.get());
 
 	RectTransform* rectTransform = GetComponent<RectTransform>();
 	for (auto& childe : GetChildren())
@@ -225,8 +225,8 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_gaugeBackGround->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	//　色の設定
-	m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
-	m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
+	//m_playerMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
+	//m_enemyMeshGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
 
 	// フォントの設定
 	m_playerMeshNumText->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
@@ -253,7 +253,7 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_enemyHpGaugeTrack->GetComponent<SpriteRenderer>()->SetSprite(spriteManager);
 
 	// 色の設定
-	m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
+	//m_enemyHpGauge->GetComponent<SpriteRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
 
 
 	// フォントの設定

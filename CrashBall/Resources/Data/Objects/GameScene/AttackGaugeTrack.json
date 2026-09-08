@@ -11,23 +11,23 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": ""
+                    "data": "AttakcIcon"
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 1.0,
-                        "g": 0.6000000238418579,
-                        "r": 0.6000000238418579
+                        "b": 0.501960813999176,
+                        "g": 0.501960813999176,
+                        "r": 0.501960813999176
                     }
                 },
                 {
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 0.0,
+                        "x": 1.0,
                         "y": 1.0
                     }
                 },
@@ -39,11 +39,11 @@
                 {
                     "name": "fillOrigin",
                     "type": "Enum",
-                    "data": 1065353216
+                    "data": 0
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Float",
+                    "type": "Slider",
                     "data": 0.0
                 },
                 {
@@ -85,5 +85,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

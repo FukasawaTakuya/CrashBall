@@ -54,7 +54,7 @@ public:
 
 	// 更新
 	void Update(
-		std::vector<GameObject*>* gameObjects,
+		std::vector<std::unique_ptr<GameObject>>& gameObjects,
 		ID3D11ShaderResourceView* srv);
 
 	// 取得/設定

@@ -21,9 +21,9 @@
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.1197788417339325,
+                        "x": -0.11977855116128922,
                         "y": -2.7507383823394775,
-                        "z": 0.034399643540382385
+                        "z": 0.034399837255477905
                     }
                 },
                 {
@@ -124,6 +124,11 @@
                     "name": "maxSpeed",
                     "type": "Float",
                     "data": 40.0
+                },
+                {
+                    "name": "enemyTransform",
+                    "type": "Componet",
+                    "data": 33
                 }
             ]
         },
@@ -132,5 +137,6 @@
             "id": 60,
             "properties": null
         }
-    ]
+    ],
+    "children": null
 }

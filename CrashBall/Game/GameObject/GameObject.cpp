@@ -102,6 +102,10 @@ void GameObject::Render(const RenderContext& renderContext)
 void GameObject::SaveData()
 {
 	*m_data = *this;
+	for (auto& child : m_children)
+	{
+		child->SaveData();
+	}
 }
 
 /**
@@ -146,13 +150,18 @@ void GameObject::ReloadParam()
  * \brief 子オブジェクトの追加
  * 
  */
-void GameObject::AddChildren(GameObject* child)
+void GameObject::AddChildren(std::unique_ptr<GameObject>&& child)
 {
-	m_children.push_back(child);
-
 	Transform* transform = child->GetComponent<Transform>();
 	if (transform != nullptr)
 	{
 		transform->SetParentInBuildTime(this->GetComponent<Transform>());
 	}
+	RectTransform* rectTransform = child->GetComponent<RectTransform>();
+	if (rectTransform != nullptr)
+	{
+		rectTransform->SetParentInBuildTime(this->GetComponent<RectTransform>());
+	}
+
+	m_children.push_back(std::move(child));
 }

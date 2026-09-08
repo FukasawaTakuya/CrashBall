@@ -39,17 +39,79 @@
         {
             "compName": "FloorMeshGaugeController",
             "id": 23,
-            "properties": null
+            "properties": [
+                {
+                    "name": "pPalyerMeshGauge",
+                    "type": "GameObject",
+                    "data": 19
+                },
+                {
+                    "name": "pEnemyMeshGauge",
+                    "type": "GameObject",
+                    "data": 8
+                },
+                {
+                    "name": "pPlayerMeshNumText",
+                    "type": "GameObject",
+                    "data": 20
+                },
+                {
+                    "name": "pEnemyMeshNumText",
+                    "type": "GameObject",
+                    "data": 14
+                }
+            ]
         },
         {
             "compName": "AttackGaugeController",
             "id": 24,
-            "properties": null
+            "properties": [
+                {
+                    "name": "pAttackGauge",
+                    "type": "GameObject",
+                    "data": 5
+                },
+                {
+                    "name": "pAttackPowerText",
+                    "type": "GameObject",
+                    "data": 9
+                }
+            ]
         },
         {
             "compName": "EnemyHpGaugeController",
             "id": 25,
-            "properties": null
+            "properties": [
+                {
+                    "name": "pEnemyHpGauge",
+                    "type": "GameObject",
+                    "data": 11
+                },
+                {
+                    "name": "pEnemyHpGaugeTrack",
+                    "type": "GameObject",
+                    "data": 12
+                },
+                {
+                    "name": "pEnemyHpText",
+                    "type": "GameObject",
+                    "data": 13
+                }
+            ]
         }
+    ],
+    "children": [
+        5,
+        7,
+        8,
+        9,
+        11,
+        12,
+        13,
+        14,
+        16,
+        17,
+        19,
+        20
     ]
 }

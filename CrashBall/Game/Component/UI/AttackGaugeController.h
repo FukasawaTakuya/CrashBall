@@ -39,6 +39,8 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_pAttackGauge, PropertyType::GameObject)
+		AddProperty(m_pAttackPowerText, PropertyType::GameObject)
 	EndProperty()
 
 	// コンポーネント名の設定

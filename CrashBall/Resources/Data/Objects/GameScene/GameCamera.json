@@ -45,8 +45,14 @@
                     "name": "rotateAngleRad",
                     "type": "Float",
                     "data": 60.0
+                },
+                {
+                    "name": "targetTransform",
+                    "type": "Componet",
+                    "data": 54
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

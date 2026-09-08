@@ -11,7 +11,7 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": ""
+                    "data": "Gauge"
                 },
                 {
                     "name": "color",
@@ -43,8 +43,8 @@
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Float",
-                    "data": 0.0
+                    "type": "Slider",
+                    "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
@@ -96,5 +96,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

@@ -32,20 +32,17 @@ ObjectListGui::~ObjectListGui()
  * 
  * \param gameObjects ゲームオブジェクトのコンテナ
  */
-void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
+void ObjectListGui::Update(std::vector<std::unique_ptr<GameObject>>& gameObjects)
 {
 	ImGui::Begin("ObjectList");
 
     ImGui::BeginChild("ObjectList");
 
     // オブジェクトリストを表示
-	if (gameObjects != nullptr)
-	{
-		for (auto& object : *gameObjects)
-		{
-			DrawObjectGui(object);
-		}
-	}
+    for (auto& object : gameObjects)
+    {
+        DrawObjectGui(object.get());
+    }
 
     // ScriptableObjectを表示
     //for (auto& sprictableObject : *Scriptable::GetScriptableObejctList())
@@ -66,7 +63,7 @@ void ObjectListGui::Update(std::vector<GameObject*>* gameObjects)
 void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
-    ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;
+    ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
 
     // 子がいない場合葉ノード描画
     if (object->GetChildren().empty())
@@ -99,7 +96,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
         // 子オブジェクトを描画
         for (auto& child : object->GetChildren())
         {
-            DrawObjectGui(child);
+            DrawObjectGui(child.get());
         }
 
         // ドラッグされている場合の処理
@@ -123,7 +120,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
                 GameObject* child =
                     *(GameObject**)payload->Data;
 
-                object->AddChildren(child);
+                //object->AddChildren(child);
             }
 
             ImGui::EndDragDropTarget();

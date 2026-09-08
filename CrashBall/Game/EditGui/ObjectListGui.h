@@ -37,7 +37,7 @@ public:
 public:
 
 	// 更新 
-	void Update(std::vector<GameObject*>* gameObjects);
+	void Update(std::vector<std::unique_ptr<GameObject>>& gameObjects);
 
 	// 取得/設定
 public:

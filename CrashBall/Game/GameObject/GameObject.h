@@ -50,7 +50,7 @@ private:
 	bool m_isActice = true;
 
 	// 子オブジェクト
-	std::vector<GameObject*> m_children;
+	std::vector<std::unique_ptr<GameObject>> m_children;
 
 protected:
 
@@ -100,7 +100,7 @@ public:
 	virtual void ReloadParam();
 
 	// 子オブジェクトの追加
-	void AddChildren(GameObject* child);
+	void AddChildren(std::unique_ptr<GameObject>&& child);
 
 	// 子オブジェクトの初期化
 	void InitializeChildren();
@@ -160,7 +160,7 @@ public:
 	using IGameObject::GetComponent;
 
 	// 子オブジェクトの取得
-	const std::vector<GameObject*>& GetChildren() const
+	const std::vector<std::unique_ptr<GameObject>>& GetChildren() const
 	{
 		return m_children;
 	}

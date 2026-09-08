@@ -49,7 +49,7 @@ EditGuiManager::~EditGuiManager()
  * \param srv レンダーテクスチャ
  */
 void EditGuiManager::Update(
-    std::vector<GameObject*>* gameObjects, 
+    std::vector<std::unique_ptr<GameObject>>& gameObjects,
     ID3D11ShaderResourceView* srv)
 {
     if (!m_isActive) return;

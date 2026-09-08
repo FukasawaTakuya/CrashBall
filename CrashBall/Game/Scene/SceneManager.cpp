@@ -103,7 +103,7 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	//if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
-	//m_current->Render(*m_renderContext);
+	m_current->Render(*m_renderContext);
 
 	//m_changeScreen->Render(*m_renderContext);
 }
@@ -201,8 +201,8 @@ void SceneManager::LoadData()
 		m_jsonManagers.emplace(scene, std::move(jsonManager));
 	}
 
-	m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
-	//m_current = std::make_unique<Scene>(this, m_jsonManagers["GameScene"].get());
+	//m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
+	m_current = std::make_unique<Scene>(this, m_jsonManagers["GameScene"].get());
 }
 
 /**

@@ -52,10 +52,10 @@ void GameObjectExporter::ExporterGameObject(
 	jsonData["children"] = nullptr;
 
 	// 子オブジェクトを書き込む
-	for (auto child : gameObject->GetChildren())
+	for (auto& child : gameObject->GetChildren())
 	{
 		jsonData["children"].push_back(child->GetName());
-		ExporterGameObject(child, exportPath);
+		ExporterGameObject(child.get(), exportPath);
 	}
 
 	// ファイルに書き込み

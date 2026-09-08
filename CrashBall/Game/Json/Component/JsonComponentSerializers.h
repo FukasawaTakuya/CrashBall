@@ -21,6 +21,9 @@
 #include "Game/Component/Camera/GameCameraController.h"
 #include "Game/Component/Default/ScriptableComponent.h"
 
+// PropertyInfoから変換
+void to_json(ordered_json& j, const PropertyInfo& property);
+
 // Componentから変換
 void to_json(ordered_json& j, const Component& component);
 

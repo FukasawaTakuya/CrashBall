@@ -24,7 +24,6 @@ enum class FillOrigin
 	Top,
 	Right,
 	Bottom,
-
 	OriginNum,
 };
 
@@ -97,7 +96,7 @@ private:
 		AddProperty(m_spriteScale, PropertyType::Vector2)
 		AddProperty(m_layerDepth, PropertyType::Float)
 		AddProperty(m_fillOrigin, PropertyType::Enum)
-		AddProperty(m_fillAmount, PropertyType::Float)
+		AddProperty(m_fillAmount, PropertyType::Slider)
 		AddProperty(m_spriteEffects, PropertyType::Enum)
 	EndProperty()
 
