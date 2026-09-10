@@ -79,27 +79,3 @@ void TitleCamera::Render(const RenderContext& renderContext)
 void TitleCamera::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void TitleCamera::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["titleCameraController"] = *GetComponent<TitleCameraController>();
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void TitleCamera::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<Transform>() = (*m_data)["transform"];
-	//*GetComponent<TitleCameraController>() = (*m_data)["titleCameraController"];
-}

@@ -11,30 +11,30 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": "AttakcIcon"
+                    "data": "AttackIcon"
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 0.501960813999176,
-                        "g": 0.501960813999176,
-                        "r": 0.501960813999176
+                        "b": 0.32028472423553467,
+                        "g": 0.32028472423553467,
+                        "r": 0.32028472423553467
                     }
                 },
                 {
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.0,
-                        "y": 1.0
+                        "x": 0.800000011920929,
+                        "y": 0.800000011920929
                     }
                 },
                 {
                     "name": "layerDepth",
                     "type": "Float",
-                    "data": 4.203895392974451e-45
+                    "data": 0.0
                 },
                 {
                     "name": "fillOrigin",
@@ -44,7 +44,7 @@
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.0
+                    "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
@@ -62,7 +62,7 @@
                     "type": "Vector2",
                     "data": {
                         "x": 960.0,
-                        "y": 765.0
+                        "y": 721.0
                     }
                 },
                 {

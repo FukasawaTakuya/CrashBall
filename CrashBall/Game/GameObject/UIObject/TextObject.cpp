@@ -71,28 +71,3 @@ void TextObject::Render(const RenderContext& renderContext)
 void TextObject::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void TextObject::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
-	(*m_data)["textRenderer"] = *GetComponent<TextRenderer>();
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void TextObject::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
-	//*GetComponent<TextRenderer>() = (*m_data)["textRenderer"];
-	
-}

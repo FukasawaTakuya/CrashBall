@@ -17,11 +17,15 @@
  */
 class  ObjectListGui {
 
+	using ObjectCollection = std::vector<std::unique_ptr<GameObject>>;
+
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// 選択中のオブジェクト
 	GameObject* m_selectedObject = nullptr;
+
+	std::function<void(ObjectCollection&)> m_AddChildFunc = [](ObjectCollection&) {};
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -37,7 +41,7 @@ public:
 public:
 
 	// 更新 
-	void Update(std::vector<std::unique_ptr<GameObject>>& gameObjects);
+	void Update(ObjectCollection& gameObjects);
 
 	// 取得/設定
 public:

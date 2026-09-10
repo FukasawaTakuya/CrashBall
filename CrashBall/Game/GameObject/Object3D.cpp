@@ -63,11 +63,3 @@ void Object3D::Render(const RenderContext& renderContext)
 void Object3D::Finalize()
 {
 }
-
-void Object3D::SaveParam()
-{
-}
-
-void Object3D::ReloadParam()
-{
-}

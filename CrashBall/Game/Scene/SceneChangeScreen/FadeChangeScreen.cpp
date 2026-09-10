@@ -98,19 +98,3 @@ void FadeChangeScreen::Render(const RenderContext& renderContext)
 void FadeChangeScreen::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void FadeChangeScreen::SaveParam()
-{
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void FadeChangeScreen::ReloadParam()
-{
-}

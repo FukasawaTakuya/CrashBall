@@ -54,12 +54,6 @@ public:
 	// 終了処理
 	void Finalize() override;
 
-	// パラメータの書き込み
-	void SaveParam() override;
-
-	// データの再読み込み
-	void ReloadParam() override;
-
 
 	// フェードインの開始
 	void StartFadeIn()

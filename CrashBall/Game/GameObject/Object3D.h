@@ -53,13 +53,6 @@ public:
 	// 終了処理
 	void Finalize();
 
-	// パラメータの書き込み
-	void SaveParam() override;
-
-	// データの再読み込み
-	void ReloadParam() override;
-
-
 	// 取得/設定
 public:
 

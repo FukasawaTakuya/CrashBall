@@ -18,33 +18,33 @@
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 1.0,
-                        "g": 1.0,
-                        "r": 1.0
+                        "b": 0.9803921580314636,
+                        "g": 0.8078431487083435,
+                        "r": 0.529411792755127
                     }
                 },
                 {
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 0.20000000298023224,
+                        "x": 1.0,
                         "y": 1.0
                     }
                 },
                 {
                     "name": "layerDepth",
                     "type": "Float",
-                    "data": 4.203895392974451e-45
+                    "data": 0.20000000298023224
                 },
                 {
                     "name": "fillOrigin",
                     "type": "Enum",
-                    "data": 0
+                    "data": 3
                 },
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 1.0
+                    "data": 0.0
                 },
                 {
                     "name": "spriteEffects",

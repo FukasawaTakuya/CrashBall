@@ -65,27 +65,3 @@ void Player::Render(const RenderContext& renderContext)
 void Player::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Player::SaveParam()
-{
-	(*m_data)["playerStatusController"] = *m_playerStatusController;
-	(*m_data)["playerController"] = *m_playerController;
-
-	Ball::SaveParam();
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void Player::ReloadParam()
-{
-	//*m_playerStatusController = (*m_data)["playerStatusController"];
-	//*m_playerController = (*m_data)["playerController"];
-	//
-	Ball::ReloadParam();
-}

@@ -127,26 +127,6 @@ void GameObject::SetResource(const ResourceContext& resourceContext)
 }
 
 /**
- * \brief パラメータの書き込み
- * 
- */
-void GameObject::SaveParam()
-{
-	(*m_data)["ObjectTag"] = m_tag;
-	(*m_data)["name"] = m_name;
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void GameObject::ReloadParam()
-{
-	m_tag = (*m_data)["ObjectTag"];
-	m_name = (*m_data)["name"];
-}
-
-/**
  * \brief 子オブジェクトの追加
  * 
  */
@@ -164,4 +144,37 @@ void GameObject::AddChildren(std::unique_ptr<GameObject>&& child)
 	}
 
 	m_children.push_back(std::move(child));
+}
+
+/**
+ * \brief 子オブジェクトの削除
+ * 
+ * \param name オブジェクト名
+ */
+void GameObject::RemoveChild(const std::string& name)
+{
+	auto it = std::ranges::find_if(m_children, [&](std::unique_ptr<GameObject>& child)
+		{
+			return child->GetName() == name;
+		});
+
+	if (it != m_children.end())
+	{
+		m_children.erase(it);
+	}
+}
+
+/**
+ * \brief 子オブジェクトの検索
+ * 
+ * \param name オブジェクト名
+ * \return 子オブジェクトのポインタ
+ */
+GameObject* GameObject::FindChild(const std::string& name)
+{
+	auto it = std::ranges::find_if(m_children, [&](std::unique_ptr<GameObject>& child)
+		{
+			return child->GetName() == name;
+		});
+	return it->get();
 }

@@ -34,17 +34,17 @@
                 {
                     "name": "layerDepth",
                     "type": "Float",
-                    "data": 7.006492321624085e-45
+                    "data": 0.20000000298023224
                 },
                 {
                     "name": "fillOrigin",
                     "type": "Enum",
-                    "data": 0
+                    "data": 5
                 },
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.010999999940395355
+                    "data": 0.0
                 },
                 {
                     "name": "spriteEffects",

@@ -199,11 +199,6 @@ void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& pro
  */
 void GameScene::SaveParam()
 {
-    m_player->SaveParam();
-    m_enemy->SaveParam();
-    m_stage->SaveParam();
-    m_gamePanel->SaveParam();
-    m_camera->SaveParam();
 }
 
 /**
@@ -212,9 +207,4 @@ void GameScene::SaveParam()
  */
 void GameScene::ReloadParam()
 {
-    m_player->ReloadParam();
-    m_enemy->ReloadParam();
-    m_stage->ReloadParam();
-    m_gamePanel->ReloadParam();
-    m_camera->ReloadParam();
 }

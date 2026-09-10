@@ -88,34 +88,11 @@ public:
 	// 終了処理
 	virtual void Finalize() {};
 
-	// データの保存
-	void SaveData();
-
+	// リソースの設定
 	virtual void SetResource(const ResourceContext& resourceContext);
 
-	// パラメータの書き込み
-	virtual void SaveParam();
-
-	// データの再読み込み
-	virtual void ReloadParam();
-
-	// 子オブジェクトの追加
-	void AddChildren(std::unique_ptr<GameObject>&& child);
-
-	// 子オブジェクトの初期化
-	void InitializeChildren();
-
-	// 子オブジェクトの更新
-	void UpdateChildren(const GameContext& gameContext);
-
-	// 子オブジェクトの描画
-	void RenderChildren(const RenderContext& renderContext);
-
-	// 子オブジェクトの終了処理
-	void FinalizeChildren();
-
-	// 取得/設定
-public:
+	// データの保存
+	void SaveData();
 
 	// コンポーネントの追加
 	template<typename CompType, typename... Args>
@@ -138,6 +115,7 @@ public:
 		return pComp;
 	}
 
+	// コンポーネントの追加
 	Component* AddComponent(std::unique_ptr<Component>&& comp)
 	{
 		Component* pComp = comp.get();
@@ -153,8 +131,18 @@ public:
 		return pComp;
 	}
 
-	// タグの取得
-	ObjectTag GetTag() const override { return m_tag; }
+	// 子オブジェクトの追加
+	void AddChildren(std::unique_ptr<GameObject>&& child);
+
+	// 子オブジェクトの削除
+	void RemoveChild(const std::string& name);
+
+	// 子オブジェクトの検索
+	GameObject* FindChild(const std::string& name);
+
+	// 取得/設定
+public:
+
 
 	// コンポーネントの取得
 	using IGameObject::GetComponent;
@@ -166,51 +154,53 @@ public:
 	}
 
 	// 名前の取得
-	std::string GetName() const
+	std::string GetName() const override
 	{
 		return m_name;
 	}
 
-	int GetID() const
+	// タグの取得
+	ObjectTag GetTag() const override { return m_tag; }
+
+	int GetID() const override
 	{
 		return m_id;
 	}
 
 	// アクティブフラグの取得
-	bool GetIsActive() const
+	bool GetIsActive() const override
 	{
 		return m_isActice;
 	}
 
 	// 名前の設定
-	void SetName(std::string name)
+	void SetName(std::string name) override
 	{
 		m_name = name;
 	}
 
-
 	// タグの設定
-	void SetTag(ObjectTag tag)
+	void SetTag(ObjectTag tag) override
 	{
 		m_tag = tag;
 	}
 
 	// IDの設定
-	void SetID(int id)
+	void SetID(int id) override
 	{
 		m_id = id;
+	}
+
+	// アクティブフラグの設定
+	void SetIsActive(bool isActive) override
+	{
+		m_isActice = isActive;
 	}
 
 	// データの設定
 	void SetData(ordered_json* data)
 	{
 		m_data = data;
-	}
-
-	// アクティブフラグの設定
-	void SetIsActive(bool isActive)
-	{
-		m_isActice = isActive;
 	}
 
 	// 内部実装

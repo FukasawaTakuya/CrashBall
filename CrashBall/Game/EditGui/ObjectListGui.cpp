@@ -32,9 +32,9 @@ ObjectListGui::~ObjectListGui()
  * 
  * \param gameObjects ゲームオブジェクトのコンテナ
  */
-void ObjectListGui::Update(std::vector<std::unique_ptr<GameObject>>& gameObjects)
+void ObjectListGui::Update(ObjectCollection& gameObjects)
 {
-	ImGui::Begin("ObjectList");
+    ImGui::Begin("ObjectList");
 
     ImGui::BeginChild("ObjectList");
 
@@ -44,26 +44,23 @@ void ObjectListGui::Update(std::vector<std::unique_ptr<GameObject>>& gameObjects
         DrawObjectGui(object.get());
     }
 
-    // ScriptableObjectを表示
-    //for (auto& sprictableObject : *Scriptable::GetScriptableObejctList())
-    //{
-    //    DrawObjectGui(sprictableObject.second.get());
-    //}
-
     ImGui::EndChild();
 
-	ImGui::End();
+    ImGui::End();
+
+    m_AddChildFunc(gameObjects);
+    m_AddChildFunc = [](ObjectCollection&) {};
 }
 
 /**
  * \brief オブジェクトの表示
- * 
+ *
  * \param object ゲームオブジェクト
  */
 void ObjectListGui::DrawObjectGui(GameObject* object)
 {
     // 表示詳細フラグ
-    ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding | ImGuiTreeNodeFlags_DefaultOpen;
+    ImGuiBackendFlags flags = ImGuiTreeNodeFlags_FramePadding;
 
     // 子がいない場合葉ノード描画
     if (object->GetChildren().empty())
@@ -85,7 +82,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
             object->GetName().c_str());
 
     // クリック時の処理
-    if (ImGui::IsItemClicked())
+    if (ImGui::IsItemDeactivated() && ImGui::IsItemHovered())
     {
         m_selectedObject = object;
     }
@@ -93,19 +90,13 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
     // 開いているの時の処理
     if (opened)
     {
-        // 子オブジェクトを描画
-        for (auto& child : object->GetChildren())
-        {
-            DrawObjectGui(child.get());
-        }
-
         // ドラッグされている場合の処理
         if (ImGui::BeginDragDropSource())
         {
-            ImGui::Text("%s", object->GetName());
+            ImGui::Text(object->GetName().c_str());
 
             ImGui::SetDragDropPayload(
-                "GAME_OBJECT",
+                "DragGameObject",
                 &object,
                 sizeof(object));
 
@@ -115,15 +106,34 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
         if (ImGui::BeginDragDropTarget())
         {
             if (const ImGuiPayload* payload =
-                ImGui::AcceptDragDropPayload("GAME_OBJECT"))
+                ImGui::AcceptDragDropPayload("DragGameObject"))
             {
                 GameObject* child =
                     *(GameObject**)payload->Data;
+                    
+                m_AddChildFunc = [&, child](ObjectCollection& objects)
+                    {
+                        auto it = std::ranges::find_if(objects, [&](std::unique_ptr<GameObject>& g)
+                            {
+                                return child->GetID() == g->GetID();
+                            });
 
-                //object->AddChildren(child);
+                        // 子オブジェクトの検索ができないため呼ばれない
+                        if (it != objects.end())
+                        {
+                            object->AddChildren(std::move(*it));
+                            objects.erase(it);
+                        }
+                    };
             }
 
             ImGui::EndDragDropTarget();
+        }
+
+        // 子オブジェクトを描画
+        for (auto& child : object->GetChildren())
+        {
+            DrawObjectGui(child.get());
         }
 
         ImGui::TreePop();

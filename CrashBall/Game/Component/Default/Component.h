@@ -66,7 +66,8 @@ private:	\
 
 	// プロパティの追加
 #define AddProperty(field, type)\
-	{ PropertyInfo(Utility::RemoveMemberPrefix(#field), type, typeid(field), &field) } ,
+	{ PropertyInfo(Utility::RemoveMemberPrefix(#field), type, \
+		typeid(std::remove_const_t<std::remove_pointer_t<decltype(field)>>), &field) } ,
 
 	// プロパティ記述終了
 #define EndProperty()\

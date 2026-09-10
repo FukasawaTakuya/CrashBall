@@ -17,17 +17,17 @@
                     "name": "color",
                     "type": "Color",
                     "data": {
-                        "a": 1.0,
-                        "b": 1.0,
-                        "g": 1.0,
-                        "r": 1.649999976158142
+                        "a": 0.43921568989753723,
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
                     }
                 },
                 {
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 0.0,
+                        "x": 1.0,
                         "y": 1.0
                     }
                 },
@@ -44,7 +44,7 @@
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.0
+                    "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
@@ -62,7 +62,7 @@
                     "type": "Vector2",
                     "data": {
                         "x": 960.0,
-                        "y": 1005.0
+                        "y": 976.0
                     }
                 },
                 {
@@ -74,8 +74,8 @@
                     "name": "localScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.0,
-                        "y": 1.0
+                        "x": 1.600000023841858,
+                        "y": 5.0
                     }
                 },
                 {

@@ -72,25 +72,3 @@ void GameCamera::Render(const RenderContext& renderContext)
 void GameCamera::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void GameCamera::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["gameCameraController"] = *GetComponent<GameCameraController>();
-}
-
-/**
- * \brief パラメータの再読み込み
- *
- */
-void GameCamera::ReloadParam()
-{
-	GameObject::ReloadParam();
-}
-

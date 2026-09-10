@@ -65,29 +65,3 @@ void Slider::Render(const RenderContext& renderContext)
 {
 	m_spriteRenderer->Render(renderContext);
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Slider::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["rectTransform"]		= *GetComponent<RectTransform>();
-	(*m_data)["spriteRenderer"]		= *GetComponent<SpriteRenderer>();
-	(*m_data)["sliderController"]	= *GetComponent<SliderController>();
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void Slider::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<RectTransform>()		= (*m_data)["rectTransform"];
-	//*GetComponent<SpriteRenderer>()		= (*m_data)["spriteRenderer"];
-	//*GetComponent<SliderController>()	= (*m_data)["sliderController"];
-}

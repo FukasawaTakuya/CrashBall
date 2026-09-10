@@ -37,45 +37,31 @@
 
 using namespace DirectX;
 
+using DrawEnumFunc = void(*)(const PropertyInfo&);
+std::unordered_map<std::type_index, DrawEnumFunc> ObjectInspectorGui::s_drawEnum = {};
+
 /**
  * \brief コンストラクタ
  * 
  */
 ObjectInspectorGui::ObjectInspectorGui()
 {
-	//// Collider
-	//m_drawInspecter.emplace(typeid(Sphere), DrawSphere);
-	//m_drawInspecter.emplace(typeid(Mesh), DrawMesh);
-	//// Physics
-	//m_drawInspecter.emplace(typeid(Transform), DrawTransform);
-	//m_drawInspecter.emplace(typeid(RectTransform), DrawRectTransform);
-	//m_drawInspecter.emplace(typeid(Rigidbody), DrawRigidbody);
-	//// Renderer
-	//m_drawInspecter.emplace(typeid(ModelRenderer), DrawModelRenderer);
-	//m_drawInspecter.emplace(typeid(SpriteRenderer), DrawSpriteRenderer);
-	//m_drawInspecter.emplace(typeid(TextRenderer), DrawTextRenderer);
-	//// UI
-	//m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
-	//m_drawInspecter.emplace(typeid(SpriteBobbing), DrawSpriteBobbing);
-	//m_drawInspecter.emplace(typeid(SliderController), DrawSliderController);
-	//m_drawInspecter.emplace(typeid(ButtonController), DrawButtonController);
-	//// Camera
-	//m_drawInspecter.emplace(typeid(TargetCameraController), DrawTargetCamera);
+	m_drawProperty.emplace(PropertyType::Bool, DrawBool);
+	m_drawProperty.emplace(PropertyType::Int, DrawInt);
+	m_drawProperty.emplace(PropertyType::Float, DrawFloat);
+	m_drawProperty.emplace(PropertyType::Vector2, DrawVector2);
+	m_drawProperty.emplace(PropertyType::Vector3, DrawVector3);
+	m_drawProperty.emplace(PropertyType::Quaternion, DrawQuaternion);
+	m_drawProperty.emplace(PropertyType::Color, DrawColor);
+	m_drawProperty.emplace(PropertyType::Slider, DrawSlider);
+	m_drawProperty.emplace(PropertyType::String, DrawString);
+	m_drawProperty.emplace(PropertyType::Enum, DrawEnum);
+	m_drawProperty.emplace(PropertyType::GameObject, DrawGameObject);
+	m_drawProperty.emplace(PropertyType::Component, DrawComponent);
 
-	//// Scriptable
-	//m_drawInspecter.emplace(typeid(ScriptableComponent), DrawScriptableComponent);
-
-	//// Others
-	//m_drawInspecter.emplace(typeid(PlayerController), DrawPlayerController);
-	//m_drawInspecter.emplace(typeid(PlayerStatusController), DrawPlayerStateController);
-	//m_drawInspecter.emplace(typeid(EnemyController), DrawEnemyController);
-	//m_drawInspecter.emplace(typeid(StageController), DrawStageController);
-	//m_drawInspecter.emplace(typeid(TitleCameraController), DrawTitleCameraController);
-	//m_drawInspecter.emplace(typeid(GameCameraController), DrawGameCameraController);
-
-	m_drawProperty.emplace(typeid(Origin), DrawEnum<Origin>);
-	m_drawProperty.emplace(typeid(FillOrigin), DrawEnum<FillOrigin>);
-	m_drawProperty.emplace(typeid(DX11::SpriteEffects), DrawEnum<DX11::SpriteEffects>);
+	ObjectInspectorGui::s_drawEnum.emplace(typeid(Origin), DrawEnumList<Origin>);
+	ObjectInspectorGui::s_drawEnum.emplace(typeid(FillOrigin), DrawEnumList<FillOrigin>);
+	ObjectInspectorGui::s_drawEnum.emplace(typeid(DX11::SpriteEffects), DrawEnumList<DX11::SpriteEffects>);
 }
 
 /**
@@ -104,14 +90,6 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
-			//// コンポーネント表示関数テーブルに存在すれば表示
-			//if (m_drawInspecter.find(typeid(*comp)) != m_drawInspecter.end())
-			//{
-			//	m_drawInspecter[typeid(*comp)](comp.get());
-			//}
-
-			//ImGui::InputInt("ID", &comp->m_id);
-
 			ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
 
 			ImGui::Separator();
@@ -122,6 +100,11 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 				ImGui::TreePop();
 			}
 		}
+		// 後で消す
+		for (auto& child : selectedObject->GetChildren())
+		{
+			ImGui::Text(child->GetName().c_str());
+		}
 
 		ImGui::EndChild();
 	}
@@ -129,110 +112,24 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 	ImGui::End();
 }
 
-// ------------------------- Inspector表示関数 ------------------------- //
-
+/**
+ * \brief プロパティの表示
+ * 
+ * \param comp コンポーネント
+ */
 void ObjectInspectorGui::DrawProperty(Component* comp)
 {
 	for (auto& property : comp->GetProperties())
 	{
-		switch (property.propType)
-		{
-		case PropertyType::Bool:
-			ImGui::Checkbox(
-				property.name.c_str(),
-				static_cast<bool*>(property.data));
-			break;
-		case PropertyType::Int:
-			ImGui::DragInt(
-				property.name.c_str(),
-				static_cast<int*>(property.data));
-			break;
-		case PropertyType::Float:
-			ImGui::DragFloat(
-				property.name.c_str(),
-				static_cast<float*>(property.data));
-			break;
-		case PropertyType::Vector2:
-			ImGui::DragFloat2(
-				property.name.c_str(),
-				&(*static_cast<SimpleMath::Vector2*>(property.data)).x);
-			break;
-		case PropertyType::Vector3:
-			ImGui::DragFloat3(
-				property.name.c_str(),
-				&(*static_cast<SimpleMath::Vector3*>(property.data)).x);
-			break;
-		case PropertyType::Quaternion:
-		{
-			// Vector3型に直す
-			SimpleMath::Vector3 v3 = static_cast<SimpleMath::Quaternion*>(property.data)->ToEuler();
-			// 度数表記に直す
-			v3.x = XMConvertToDegrees(v3.x);
-			v3.y = XMConvertToDegrees(v3.y);
-			v3.z = XMConvertToDegrees(v3.z);
-			// 表示
-			ImGui::DragFloat3(
-				property.name.c_str(),
-				&v3.x);
-			// 弧度法に直す
-			v3.x = XMConvertToRadians(v3.x);
-			v3.y = XMConvertToRadians(v3.y);
-			v3.z = XMConvertToRadians(v3.z);
-			// Quarternion型に直す
-			*static_cast<SimpleMath::Quaternion*>(property.data) =
-				SimpleMath::Quaternion::CreateFromYawPitchRoll(v3);
-		}
-			break;
-		case PropertyType::Color:
-			ImGui::ColorEdit4(
-				property.name.c_str(),
-				&(*static_cast<SimpleMath::Color*>(property.data)).x);
-			break;
-		case PropertyType::Slider:
-			ImGui::SliderFloat(
-				property.name.c_str(),
-				static_cast<float*>(property.data), 0.0f, 1.0f);
-			break;
-		case PropertyType::String:
-			// wstringの時はマルチバイト文字に変換する
-			if (typeid(std::wstring) == property.propTypeId)
-			{
-				std::string s = Utility::ConvertToMultiByteChar(*static_cast<std::wstring*>(property.data));
-				ImGui::InputText(
-					property.name.c_str(),
-					&s);
-			}
-			else if (typeid(std::string) == property.propTypeId)
-			{
-				ImGui::InputText(
-					property.name.c_str(),
-					static_cast<std::string*>(property.data));
-			}
-			break;
-		case PropertyType::Enum:
-		{
-			m_drawProperty[property.propTypeId](property);
-			//ImGui::Text("Enum");
-		}
-			break;
-		case PropertyType::GameObject:
-			if (*static_cast<GameObject**>(property.data) != nullptr)
-			{
-				ImGui::Text((*static_cast<GameObject**>(property.data))->GetName().c_str());
-			}
-			break;
-		case PropertyType::Component:
-			if (*static_cast<Component**>(property.data) != nullptr)
-			{
-				ImGui::Text((*static_cast<Component**>(property.data))->GetCompName().c_str());
-			}
-			break;
-		default:
-			break;
-		}
+		m_drawProperty[property.propType](property);
 	}
 }
 
+/**
+ * \brief Bool型のプロパティ表示
+ * 
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawBool(const PropertyInfo& property)
 {
 	ImGui::Checkbox(
@@ -240,6 +137,11 @@ void ObjectInspectorGui::DrawBool(const PropertyInfo& property)
 		static_cast<bool*>(property.data));
 }
 
+/**
+ * \brief Int型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawInt(const PropertyInfo& property)
 {
 	ImGui::DragInt(
@@ -247,6 +149,11 @@ void ObjectInspectorGui::DrawInt(const PropertyInfo& property)
 		static_cast<int*>(property.data));
 }
 
+/**
+ * \brief Float型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawFloat(const PropertyInfo& property)
 {
 	ImGui::DragFloat(
@@ -254,6 +161,11 @@ void ObjectInspectorGui::DrawFloat(const PropertyInfo& property)
 		static_cast<float*>(property.data));
 }
 
+/**
+ * \brief Vector2型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawVector2(const PropertyInfo& property)
 {
 	ImGui::DragFloat2(
@@ -261,6 +173,11 @@ void ObjectInspectorGui::DrawVector2(const PropertyInfo& property)
 		&(*static_cast<SimpleMath::Vector2*>(property.data)).x);
 }
 
+/**
+ * \brief Veccor3型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawVector3(const PropertyInfo& property)
 {
 	ImGui::DragFloat3(
@@ -268,7 +185,12 @@ void ObjectInspectorGui::DrawVector3(const PropertyInfo& property)
 		&(*static_cast<SimpleMath::Vector3*>(property.data)).x);
 }
 
-void ObjectInspectorGui::DrawQuarternion(const PropertyInfo& property)
+/**
+ * \brief Quaternion型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
+void ObjectInspectorGui::DrawQuaternion(const PropertyInfo& property)
 {
 	// Vector3型に直す
 	SimpleMath::Vector3 v3 = static_cast<SimpleMath::Quaternion*>(property.data)->ToEuler();
@@ -289,6 +211,11 @@ void ObjectInspectorGui::DrawQuarternion(const PropertyInfo& property)
 		SimpleMath::Quaternion::CreateFromYawPitchRoll(v3);
 }
 
+/**
+ * \brief Color型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawColor(const PropertyInfo& property)
 {
 	ImGui::ColorEdit4(
@@ -296,6 +223,11 @@ void ObjectInspectorGui::DrawColor(const PropertyInfo& property)
 		&(*static_cast<SimpleMath::Color*>(property.data)).x);
 }
 
+/**
+ * \brief Slider型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawSlider(const PropertyInfo& property)
 {
 	ImGui::SliderFloat(
@@ -303,6 +235,11 @@ void ObjectInspectorGui::DrawSlider(const PropertyInfo& property)
 		static_cast<float*>(property.data), 0.0f, 1.0f);
 }
 
+/**
+ * \brief Bool型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawString(const PropertyInfo& property)
 {
 	// wstringの時はマルチバイト文字に変換する
@@ -314,530 +251,81 @@ void ObjectInspectorGui::DrawString(const PropertyInfo& property)
 			&s);
 	}
 	else if (typeid(std::string) == property.propTypeId)
-	{
 		ImGui::InputText(
 			property.name.c_str(),
 			static_cast<std::string*>(property.data));
-	}
 }
 
+/**
+ * \brief Enum型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
+void ObjectInspectorGui::DrawEnum(const PropertyInfo& property)
+{
+	s_drawEnum[property.propTypeId](property);
+}
+
+/**
+ * \brief GameObject型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 {
-	if (*static_cast<GameObject**>(property.data) != nullptr)
+	GameObject* gameObject = *static_cast<GameObject**>(property.data);
+	std::string s;
+	if (gameObject != nullptr)
 	{
-		ImGui::Text((*static_cast<GameObject**>(property.data))->GetName().c_str());
+		s = gameObject->GetName();
+	}
+	else
+	{
+		s = "nullPtr";
+	}
+	ImGui::InputText(
+		property.name.c_str(),
+		&s);
+
+	if (ImGui::BeginDragDropTarget())
+	{
+		if (const ImGuiPayload* payload =
+			ImGui::AcceptDragDropPayload("DragGameObject"))
+		{
+			*static_cast<GameObject**>(property.data) = *(GameObject**)payload->Data;
+		}
 	}
 }
 
+/**
+ * \brief Component型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
 void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 {
-	if (*static_cast<Component**>(property.data) != nullptr)
+	Component* component = *static_cast<Component**>(property.data);
+	std::string s;
+	if (component != nullptr)
 	{
-		ImGui::Text((*static_cast<Component**>(property.data))->GetCompName().c_str());
+		s = component->GetGameObject()->GetName() + "::" + component->GetCompName();
 	}
-}
-
-/**
- * \brief 球コライダーの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawSphere(Component* comp)
-{
-	Sphere* sphere = static_cast<Sphere*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("Sphere", flag))
+	else
 	{
-		ImGui::DragFloat("Radius", &sphere->m_radius);
-
-		ImGui::TreePop();
+		s = "nullPtr";
 	}
-}
+	ImGui::InputText(
+		property.name.c_str(),
+		&s);
 
-/**
- * \brief メッシュコライダーの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawMesh(Component* comp)
-{
-	Mesh* mesh = static_cast<Mesh*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("Mesh", flag))
+	if (ImGui::BeginDragDropTarget())
 	{
-		ImGui::InputText("MeshData", &mesh->m_meshData);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief モデルレンダラーの表示
- *  
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawModelRenderer(Component* comp)
-{
-	ModelRenderer* modelRenderer = static_cast<ModelRenderer*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("ModelRenderer", flag))
-	{
-		ImGui::InputText("ModelKay", &modelRenderer->m_modelKey);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief スプライトレンダラーの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawSpriteRenderer(Component* comp)
-{
-	SpriteRenderer* spriteRenderer = static_cast<SpriteRenderer*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("SpriteRenderer", flag))
-	{
-		ImGui::InputText("SpriteKey", &spriteRenderer->m_spriteKey);
-
-		ImGui::ColorEdit4("Color", &spriteRenderer->m_color.x);
-
-		ImGui::DragFloat2("SpriteScale", &spriteRenderer->m_spriteScale.x, 0.1f);
-		ImGui::DragFloat("LayerDepth", &spriteRenderer->m_layerDepth, 0.1f);
-
-		int currentFillOrigin = static_cast<int>(spriteRenderer->m_fillOrigin);
-		ImGui::Combo("FillOrigin", &currentFillOrigin, FillOriginName, IM_ARRAYSIZE(FillOriginName));
-		spriteRenderer->m_fillOrigin = static_cast<FillOrigin>(currentFillOrigin);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief テキストレンダラーの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawTextRenderer(Component* comp)
-{
-	TextRenderer* textRenderer = static_cast<TextRenderer*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("TextRenderer", flag))
-	{
-		std::string text = Utility::ConvertToMultiByteChar(textRenderer->m_text);
-
-		ImGui::InputText("SpriteKey", &textRenderer->m_fontKey);
-		ImGui::InputText("Text", &text);
-		textRenderer->m_text = Utility::ConvertToWideChar(text);
-
-		ImGui::ColorEdit4("Color", &textRenderer->m_color.x);
-		ImGui::DragFloat("FontScale", &textRenderer->m_fontScale, 0.1f);
-		ImGui::DragFloat("LayerDepth", &textRenderer->m_layerDepth, 0.1f);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief トランスフォームの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawTransform(Component* comp)
-{
-	Transform* transform = static_cast<Transform*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("Transform", flag))
-	{
-		// 回転
-		SimpleMath::Vector3 rotate = transform->GetLocalRotate().ToEuler();
-
-		rotate.x = XMConvertToDegrees(rotate.x);
-		rotate.y = XMConvertToDegrees(rotate.y);
-		rotate.z = XMConvertToDegrees(rotate.z);
-
-		ImGui::DragFloat3("Position", &transform->m_localPosition.x);
-		ImGui::DragFloat3("Rotate", &rotate.x);
-		ImGui::DragFloat3("Scale", &transform->m_localScale.x, 0.1f);
-
-		rotate.x = XMConvertToRadians(rotate.x);
-		rotate.y = XMConvertToRadians(rotate.y);
-		rotate.z = XMConvertToRadians(rotate.z);
-
-		transform->SetRotate(SimpleMath::Quaternion::CreateFromYawPitchRoll(rotate));
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief 2Dトランスフォームの表示
- *
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawRectTransform(Component* comp)
-{
-	RectTransform* rectTransform = static_cast<RectTransform*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("RectTransform", flag))
-	{
-		float rotate = XMConvertToDegrees(rectTransform->m_localRotate);
-
-		ImGui::DragFloat2("Position", &rectTransform->m_localPosition.x);
-		ImGui::DragFloat("Rotate", &rotate);
-		ImGui::DragFloat2("Scale", &rectTransform->m_localScale.x, 0.1f);
-
-		int currentOrigin = static_cast<int>(rectTransform->m_origin);
-
-		if (ImGui::Combo("Origin", &currentOrigin, OriginNameList, IM_ARRAYSIZE(OriginNameList)))
+		if (const ImGuiPayload* payload =
+			ImGui::AcceptDragDropPayload("DragGameObject"))
 		{
-			rectTransform->m_origin = static_cast<Origin>(currentOrigin);
+			*static_cast<Component**>(property.data) 
+			 = (*(GameObject**)payload->Data)->GetComponent(property.propTypeId);
 		}
-
-		rectTransform->m_localRotate = XMConvertToRadians(rotate);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief 物理演算の表示
- * 
- * \param comp コンポーネント
- */
-void ObjectInspectorGui::DrawRigidbody(Component* comp)
-{
-	Rigidbody* rigidbody = static_cast<Rigidbody*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("Rigidbody", flag))
-	{
-		ImGui::DragFloat("GravityAcceleration", &rigidbody->m_gravityAcceleration,	0.1f, 0.0f, 100.0f);
-		ImGui::DragFloat("Friction",			&rigidbody->m_friction,				0.1f, 0.0f, 100.0f);
-		ImGui::DragFloat("Mass",				&rigidbody->m_mass,					0.1f, 0.0f, 100.0f);
-		
-		bool togle = rigidbody->m_isDynamic;
-
-		ImGui::Checkbox("IsDynamic", &togle);
-		
-		if (togle)
-		{
-			rigidbody->m_isDynamic = 1.0f;
-		}
-		else
-		{
-			rigidbody->m_isDynamic = 0.0f;
-		}
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief スライダーの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawSliderController(Component* comp)
-{
-	SliderController* sliderController = static_cast<SliderController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("SlideController", flag))
-	{
-		ImGui::SliderFloat("targetAmount", &sliderController->m_targetAmount, 0.0f, 1.0f);
-
-		ImGui::DragFloat("SlideSpeed", &sliderController->m_slideSpeed);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief ボタンの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawButtonController(Component* comp)
-{
-	ButtonController* buttonController = static_cast<ButtonController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("ButtonController", flag))
-	{
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief スライダー浮遊コンポーネント
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawSpriteBobbing(Component* comp)
-{
-	SpriteBobbing* spriteBobbing = static_cast<SpriteBobbing*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("SpriteBobbing", flag))
-	{
-		ImGui::DragFloat("Amplitude", &spriteBobbing->m_amplitude);
-		ImGui::DragFloat("Frequency", &spriteBobbing->m_frequency);
-		ImGui::DragFloat2("InitPos", &spriteBobbing->m_initPos.x);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief ターゲットカメラの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawTargetCamera(Component* comp)
-{
-	TargetCameraController* targetCamera = static_cast<TargetCameraController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-	
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("TargetCamera", flag))
-	{
-		ImGui::DragFloat3("Offset", &targetCamera->m_baseOffset.x);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief ScriptableObjectの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawScriptableComponent(Component* comp)
-{
-	ScriptableComponent* scriptable = static_cast<ScriptableComponent*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("Scriptable", flag))
-	{
-		for (auto& value : scriptable->GetValueList())
-		{
-			switch (value.second.first)
-			{
-			case ValueType::Float:
-				ImGui::DragFloat(value.first.c_str(), &std::get<float>(value.second.second));
-				break;
-			case ValueType::Vector2:
-				ImGui::DragFloat2(value.first.c_str(), &std::get<SimpleMath::Vector2>(value.second.second).x);
-				break;
-			case ValueType::Vector3:
-				ImGui::DragFloat3(value.first.c_str(), &std::get<SimpleMath::Vector3>(value.second.second).x);
-				break;
-			case ValueType::Color:
-				ImGui::ColorEdit4(value.first.c_str(), &std::get<SimpleMath::Color>(value.second.second).x);
-				break;
-			case ValueType::String:
-				ImGui::InputText(value.first.c_str(), &std::get<std::string>(value.second.second));
-				break;
-			default:
-				break;
-			}
-		}
-
-		ImGui::TreePop();
 	}
 
-}
-
-/**
- * \brief プレイヤー操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawPlayerController(Component* comp)
-{
-	PlayerController* playerController = static_cast<PlayerController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("PlayerController", flag))
-	{
-		ImGui::DragFloat("AttackDuration", &playerController->m_attackDuration);
-		ImGui::DragFloat("AttackSpeed", &playerController->m_attackSpeed);
-		ImGui::DragFloat("Acceleration", &playerController->m_acceleration);
-		ImGui::DragFloat("MaxSpeed", &playerController->m_maxSpeed);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief プレイヤーステータス操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawPlayerStateController(Component* comp)
-{
-	PlayerStatusController* playerStatusController = static_cast<PlayerStatusController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("PlayerStatusController", flag))
-	{
-		ImGui::DragInt("AttackCost", &playerStatusController->m_attackCost);
-		ImGui::DragFloat("MinAttackPower", &playerStatusController->m_minAttackPower);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief 敵操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawEnemyController(Component* comp)
-{
-	EnemyController* enemyController = static_cast<EnemyController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("EnemyController", flag))
-	{
-		ImGui::DragFloat("Acceleration", &enemyController->m_acceleration);
-		ImGui::DragFloat("AvoidWallDistance", &enemyController->m_avoidWallDistance);
-		ImGui::DragFloat("AvoidWallWeakForce", &enemyController->m_avoidWallWeakForce);
-		ImGui::DragFloat("AvoidWallStrongForce", &enemyController->m_avoidWallStrongForce);
-		ImGui::DragFloat("MaxHp", &enemyController->m_maxHp);
-
-		ImGui::DragFloat("DirectionCircleDistance", &enemyController->m_directionCircleDistance);
-		ImGui::DragFloat("DirectionCircleRadius", &enemyController->m_directionCircleRadius);
-		ImGui::DragFloat("DirectionChageInterval", &enemyController->m_directionChageInterval);
-
-		ImGui::TreePop();
-	}
-
-}
-
-/**
- * \brief ステージ操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawStageController(Component* comp)
-{
-
-	StageController* stageController = static_cast<StageController*>(comp);
-
-	ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("EnemyController", flag))
-	{
-		ImGui::DragFloat("FloorCenterPosY", &stageController->m_floorCenterPosY);
-		ImGui::DragFloat("FloorNormalY", &stageController->m_floorNormalY);
-
-		ImGui::TreePop();
-	}
-}
-
-/**
- * \brief タイトルカメラ操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawTitleCameraController(Component* comp)
-{
-	TitleCameraController* titleCameraController 
-		= static_cast<TitleCameraController*>(comp);
-
-	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("TitleCameraController", flag))
-	{
-		ImGui::DragFloat("rotateAngleRad", &titleCameraController->m_rotateAngeleRad);
-
-		ImGui::TreePop();
-	}
-
-	DrawTargetCamera(comp);
-}
-
-/**
- * \brief ゲームカメラ操作コンポーネントの表示
- * 
- * \param comp 基底コンポーネント
- */
-void ObjectInspectorGui::DrawGameCameraController(Component* comp)
-{
-	GameCameraController* gameCameraController
-		= static_cast<GameCameraController*>(comp);
-
-	ImGuiTreeNodeFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
-
-	ImGui::Separator();
-
-	if (ImGui::TreeNodeEx("GameCameraController", flag))
-	{
-		ImGui::DragFloat("rotateAngleRad", &gameCameraController->m_rotateAngleRad);
-
-		ImGui::TreePop();
-	}
-
-	DrawTargetCamera(comp);
 }

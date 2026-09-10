@@ -68,28 +68,3 @@ void Object2D::Render(const RenderContext& renderContext)
 void Object2D::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Object2D::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["rectTransform"] = *GetComponent<RectTransform>();
-	(*m_data)["spriteRenderer"] = *GetComponent<SpriteRenderer>();
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void Object2D::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<RectTransform>() = (*m_data)["rectTransform"];
-	//*GetComponent<SpriteRenderer>() = (*m_data)["spriteRenderer"];
-	//SetTag((*m_data)["ObjectTag"]);
-}

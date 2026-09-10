@@ -63,19 +63,3 @@ void DebugCamera::Render(const RenderContext& renderContext)
 void DebugCamera::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void DebugCamera::SaveParam()
-{
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void DebugCamera::ReloadParam()
-{
-}

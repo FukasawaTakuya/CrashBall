@@ -68,25 +68,3 @@ void TitleLogo::Render(const RenderContext& renderContext)
 void TitleLogo::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void TitleLogo::SaveParam()
-{
-	Object2D::SaveParam();
-
-	(*m_data)["spriteBobbing"] = *m_spriteBobbing;
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void TitleLogo::ReloadParam()
-{
-	Object2D::ReloadParam();
-
-	//*m_spriteBobbing = (*m_data)["spriteBobbing"];
-}

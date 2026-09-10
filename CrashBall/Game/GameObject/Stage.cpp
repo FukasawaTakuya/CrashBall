@@ -70,29 +70,3 @@ void Stage::Render(const RenderContext& renderContext)
 void Stage::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Stage::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["transform"] = *GetComponent<Transform>();
-	//(*m_data)["mesh"] = *GetComponent<Mesh>();
-	(*m_data)["stageController"] = *m_stageController;
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void Stage::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<Transform>() = (*m_data)["transform"];
-	////*GetComponent<Mesh>() = (*m_data)["mesh"];
-	//*GetComponent<StageController>() = (*m_data)["stageController"];
-}

@@ -39,7 +39,7 @@
                 {
                     "name": "fillOrigin",
                     "type": "Enum",
-                    "data": 0
+                    "data": 3
                 },
                 {
                     "name": "fillAmount",
@@ -62,7 +62,7 @@
                     "type": "Vector2",
                     "data": {
                         "x": 960.0,
-                        "y": 90.0
+                        "y": 103.0
                     }
                 },
                 {
@@ -74,8 +74,8 @@
                     "name": "localScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.0,
-                        "y": 1.0
+                        "x": 1.2000000476837158,
+                        "y": 1.5
                     }
                 },
                 {

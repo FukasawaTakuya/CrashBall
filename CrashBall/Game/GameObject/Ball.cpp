@@ -71,32 +71,3 @@ void Ball::Render(const RenderContext& renderContext)
 void Ball::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Ball::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["transform"] = *GetComponent<Transform>();
-	(*m_data)["rigidbody"] = *GetComponent<Rigidbody>();
-	(*m_data)["sphere"] = *GetComponent<Sphere>();
-	(*m_data)["modelRenderer"] = *GetComponent<ModelRenderer>();
-}
-
-/**
- * \brief Jsonの再読み込み
- * 
- */
-void Ball::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*GetComponent<Transform>() = (*m_data)["transform"];
-	//*GetComponent<Rigidbody>() = (*m_data)["rigidbody"];
-	//*GetComponent<Sphere>()		= (*m_data)["sphere"];
-	//*GetComponent<ModelRenderer>() = (*m_data)["modelRenderer"];
-	
-}

@@ -160,10 +160,6 @@ void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& pr
  */
 void TitleScene::SaveParam()
 {
-	m_player->SaveParam();
-	m_titleLogo->SaveParam();
-	m_startButton->SaveParam();
-	m_camera->SaveParam();
 }
 
 /**
@@ -172,8 +168,4 @@ void TitleScene::SaveParam()
  */
 void TitleScene::ReloadParam()
 {
-	m_player->ReloadParam();
-	m_titleLogo->ReloadParam();
-	m_startButton->ReloadParam();
-	m_camera->ReloadParam();
 }

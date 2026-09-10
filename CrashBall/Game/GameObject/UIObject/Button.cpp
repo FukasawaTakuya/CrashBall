@@ -74,29 +74,3 @@ void Button::Render(const RenderContext& renderContext)
 void Button::Finalize()
 {
 }
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void Button::SaveParam()
-{
-	GameObject::SaveParam();
-
-	(*m_data)["rectTransform"] = *m_rectTransform;
-	(*m_data)["spriteRenderer"] = *m_spriteRenderer;
-	(*m_data)["textRenderer"] = *m_textRenderer;
-}
-
-/**
- * \brief パラメータの再読み込み
- *
- */
-void Button::ReloadParam()
-{
-	GameObject::ReloadParam();
-
-	//*m_rectTransform = (*m_data)["rectTransform"];
-	//*m_spriteRenderer = (*m_data)["spriteRenderer"];
-	//*m_textRenderer = (*m_data)["textRenderer"];
-}

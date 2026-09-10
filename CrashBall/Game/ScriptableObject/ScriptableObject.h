@@ -46,20 +46,6 @@ public:
 	// 終了処理
 	void Finalize() override {}
 
-	// パラメータの書き込み
-	void SaveParam()
-	{
-		GameObject::SaveParam();
-		(*m_data)["scriptable"] = *m_scriptable;
-	}
-
-	// データの再読み込み
-	void ReloadParam()
-	{
-		GameObject::ReloadParam();
-		//*m_scriptable = (*m_data)["scriptable"];
-	}
-
 	// 取得/設定
 public:
 

@@ -71,25 +71,3 @@ void Enemy::Render(const RenderContext& renderContext)
 void Enemy::Finalize()
 {
 }
-
-/**
- * \brief パラメータ書き込み
- * 
- */
-void Enemy::SaveParam()
-{
-	//(*m_data)["enemyController"] = *m_enemyController;
-
-	Ball::SaveParam();
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void Enemy::ReloadParam()
-{
-	//*m_enemyController = (*m_data)["enemyController"];
-
-	Ball::ReloadParam();
-}
