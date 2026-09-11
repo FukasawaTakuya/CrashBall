@@ -11,6 +11,7 @@
 #include "Game/IDGenerator/ComponentIDGenerator.h"
 
 #include <fstream>
+#include "Game/ScriptableObject/ScriptableObject.h"
 
 namespace  GameObjectFactory {
 
@@ -55,6 +56,29 @@ namespace  GameObjectFactory {
 
 		return std::move(obj);
 	}
+
+	// データからのスクリプタブルオブジェクトの作成
+	static std::unique_ptr<ScriptableObject> CreateScriptableObjectFromJson(ordered_json& data)
+	{
+		// スクリプタブルオブジェクトの生成
+		std::unique_ptr<ScriptableObject> obj = std::make_unique<ScriptableObject>();
+
+		obj->SetName(data["name"]);
+		obj->SetData(&data);
+
+		// コンポーネントの追加
+		for (auto& jsonComp : data["components"])
+		{
+			auto compPtr = obj->Set(
+				ComponentFactory::CreataFromJson(jsonComp["compName"], obj.get())
+			);
+
+			jsonComp.get_to<Component>(*compPtr);
+		}
+
+		return std::move(obj);
+	}
+
 
 	// データからのゲームオブジェクトの作成
 	static std::unique_ptr<GameObject> CreateObjectFromJson(

@@ -35,15 +35,15 @@ GameScene::GameScene(
 {
     // プレイヤーの初期設定
     PlayerController* playerController = m_player->GetComponent<PlayerController>();
-    playerController->SetEnemyTransform (m_enemy->GetComponent<Transform>());
-    playerController->SetCamera         (m_camera->GetComponent<GameCameraController>());
-    playerController->SetStageInterface (m_stage->GetComponent<StageController>());
+    //playerController->SetEnemyTransform (m_enemy->GetComponent<Transform>());
+    //playerController->SetCamera         (m_camera->GetComponent<GameCameraController>());
+    //playerController->SetStageInterface (m_stage->GetComponent<StageController>());
 
     // 敵の初期設定
-    m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
+    //m_enemy->GetComponent<EnemyController>()->SetFloor(m_stage->GetComponent<StageController>());
 
     // ターゲットのトランスフォームの設定
-    m_camera->GetComponent<GameCameraController>()->SetTargetTransform(m_player->GetComponent<Transform>());
+    //m_camera->GetComponent<GameCameraController>()->SetTargetTransform(m_player->GetComponent<Transform>());
 
     // コライダーの登録
     m_collisionManager->RegistCollider(m_player->GetComponent<Sphere>());
@@ -55,7 +55,7 @@ GameScene::GameScene(
     m_stageController        = m_stage->GetComponent<StageController>();
     m_playerStatusController = m_player->GetComponent<PlayerStatusController>();
 
-    m_gameColor = Scriptable::GetScriptableObject("gameColor");
+    //m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
     m_gameObjects.push_back(m_player.get());
     m_gameObjects.push_back(m_enemy.get());
@@ -116,17 +116,6 @@ void GameScene::Update(const GameContext& gameContext)
     m_stage->Update(gameContext);
     m_camera->Update(gameContext);
     m_collisionManager->Update();
-
-    // UI用の数値の設定
-    m_gamePanel->SetUIValue(
-        m_stageController->GetPlayerMeshCount(),
-        m_stageController->GetEnemyMeshCount(),
-        m_stageController->GetTotalMeshCount(),
-        m_playerStatusController->GetAttacckCost(),
-        m_playerStatusController->GetAttackPower(),
-        m_enemyController->GetHp(),
-        m_enemyController->GetMaxHP()
-    );
 
     // UIの更新
     m_gamePanel->Update(gameContext);

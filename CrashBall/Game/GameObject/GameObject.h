@@ -160,8 +160,12 @@ public:
 	}
 
 	// タグの取得
-	ObjectTag GetTag() const override { return m_tag; }
+	ObjectTag GetTag() const override 
+	{ 
+		return m_tag; 
+	}
 
+	// IDの取得
 	int GetID() const override
 	{
 		return m_id;

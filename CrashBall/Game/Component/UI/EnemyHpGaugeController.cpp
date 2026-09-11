@@ -15,7 +15,6 @@
 using namespace DirectX;
 RegisterComponent(EnemyHpGaugeController)
 
-
 /**
  * \brief コンストラクタ
  *
@@ -23,25 +22,6 @@ RegisterComponent(EnemyHpGaugeController)
  */
 EnemyHpGaugeController::EnemyHpGaugeController(IGameObject* gameObject)
 	: Component(gameObject)
-{
-}
-
-/**
- * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param pEnemyHpGauge 敵のHPゲージのポインタ
- * \param pEnemyHpText 敵のHP表示テキストのポインタ
- */
-EnemyHpGaugeController::EnemyHpGaugeController(
-	IGameObject* gameObject,
-	IGameObject* pEnemyHpGauge,
-	IGameObject* pEnemyHpGaugeTrack,
-	IGameObject* pEnemyHpText)
-	: Component(gameObject)
-	, m_pEnemyHpGauge		(pEnemyHpGauge)
-	, m_pEnemyHpGaugeTrack	(pEnemyHpGaugeTrack)
-	, m_pEnemyHpText		(pEnemyHpText)
 {
 }
 
@@ -83,8 +63,12 @@ void EnemyHpGaugeController::Start(const GameContext& gameContext)
  */
 void EnemyHpGaugeController::Update(const GameContext& gameContext)
 {
+	int enemyHp = m_pEnemyController->GetHp();		// 敵のHP
+	int enemyMaxHp = m_pEnemyController->GetMaxHP();	// 敵の最大HP
+
+
 	// 切り取り量を求める
-	float fillValue = static_cast<float>(m_enemyHp) / static_cast<float>(m_enemyMaxHp);
+	float fillValue = static_cast<float>(enemyHp) / static_cast<float>(enemyMaxHp);
 
 	// 目標値の設定
 	m_enemyHpGaugeController->SetTargetAmount(fillValue);
@@ -92,7 +76,7 @@ void EnemyHpGaugeController::Update(const GameContext& gameContext)
 	m_enemyHpGaugeController->Slide();
 
 	// 敵HPテキストの設定
-	m_enemyHpTextRenderer->SetText(L"EnemyHP {} / {}", m_enemyHp, m_enemyMaxHp);
+	m_enemyHpTextRenderer->SetText(L"EnemyHP {} / {}", enemyHp, enemyMaxHp);
 }
 
 /**

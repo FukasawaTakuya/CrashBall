@@ -36,10 +36,10 @@ PlayerStatusController::~PlayerStatusController()
  */
 void PlayerStatusController::Update(const GameContext& gameContext)
 {
-	if (m_floorMeshGetter == nullptr) return;
+	if (m_pFloorMeshGetter == nullptr) return;
 
 	// プレイヤーの面の数が攻撃コストより多ければフラグをオン
-	if (m_floorMeshGetter->GetPlayerMeshCount() >= m_attackCost)
+	if (m_pFloorMeshGetter->GetPlayerMeshCount() >= m_attackCost)
 	{
 		m_canAttack = true;
 	}
@@ -50,8 +50,8 @@ void PlayerStatusController::Update(const GameContext& gameContext)
 
 	if (!m_isAttack)
 	{
-		int playerMeshCount = m_floorMeshGetter->GetPlayerMeshCount();
-		int enemyMeshCount = m_floorMeshGetter->GetEnemyMeshCount();
+		int playerMeshCount = m_pFloorMeshGetter->GetPlayerMeshCount();
+		int enemyMeshCount = m_pFloorMeshGetter->GetEnemyMeshCount();
 
 		m_attackPower = playerMeshCount - enemyMeshCount;
 

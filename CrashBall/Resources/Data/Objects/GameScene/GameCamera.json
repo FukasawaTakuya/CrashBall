@@ -1,6 +1,6 @@
 {
     "name": "GameCamera",
-    "tag": "Default",
+    "tag": "Camera",
     "id": 15,
     "isActive": true,
     "components": [
@@ -12,9 +12,9 @@
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 0.0,
-                        "y": 16.0,
-                        "z": 17.0
+                        "x": 9.440674781799316,
+                        "y": 11.697112083435059,
+                        "z": 40.125404357910156
                     }
                 },
                 {
@@ -41,6 +41,15 @@
             "compName": "GameCameraController",
             "id": 49,
             "properties": [
+                {
+                    "name": "baseOffset",
+                    "type": "Vector3",
+                    "data": {
+                        "x": 0.0,
+                        "y": 4.0,
+                        "z": 12.0
+                    }
+                },
                 {
                     "name": "rotateAngleRad",
                     "type": "Float",

@@ -36,6 +36,8 @@ private:
 	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
 	float m_directionChageInterval;		// 加速方向を変える間隔
 
+	const StageController* m_stageController = nullptr;	// 壁メッシュの取得クラス
+
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_acceleration,				PropertyType::Float)
@@ -46,6 +48,7 @@ private:
 		AddProperty(m_directionCircleDistance,	PropertyType::Float)
 		AddProperty(m_directionCircleRadius,	PropertyType::Float)
 		AddProperty(m_directionChageInterval,	PropertyType::Float)
+		AddProperty(m_stageController,			PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -62,8 +65,6 @@ private:
 	BallController* m_ballController = nullptr;		// ボール操作コンポーネントのキャッシュ
 
 	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
-
-	const IWallMeshGetter* m_wallMeshGetter = nullptr;	// 壁メッシュの取得クラス
 
 	float m_hp = m_maxHp;	// 体力
 
@@ -119,7 +120,7 @@ public:
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }
 
 	// ステージのポインタの設定
-	void SetFloor(IWallMeshGetter* meshGetter) { m_wallMeshGetter = meshGetter; }
+	void SetFloor(StageController* meshGetter) { m_stageController = meshGetter; }
 
 	// 内部実装
 private:

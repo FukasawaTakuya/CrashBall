@@ -25,32 +25,6 @@ FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
 {
 }
 
-
-/**
- * \brief コンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param pPalyerMeshGauge プレイヤーのメッシュゲージのポインタ
- * \param pEnemyMeshGauge 敵のメッシュゲージのポインタ
- * \param pGaugeTrack ゲージの土台のポインタ
- * \param pGaugeBackGround ゲージの背景のポインタ
- * \param pPlayerMeshNumText プレイヤーのメッシュ数表示テキストのポインタ
- * \param pEnemyMeshNumText 敵のメッシュ数表示テキストのポインタ
- */
-FloorMeshGaugeController::FloorMeshGaugeController(
-	IGameObject* gameObject, 
-	IGameObject* pPalyerMeshGauge, 
-	IGameObject* pEnemyMeshGauge, 
-	IGameObject* pPlayerMeshNumText, 
-	IGameObject* pEnemyMeshNumText)
-	: Component(gameObject)
-	, m_pPalyerMeshGauge(pPalyerMeshGauge)
-	, m_pEnemyMeshGauge(pEnemyMeshGauge)
-	, m_pPlayerMeshNumText(pPlayerMeshNumText)
-	, m_pEnemyMeshNumText(pEnemyMeshNumText)
-{
-}
-
 /**
  * \brief デストラクタ
  * 
@@ -95,9 +69,14 @@ void FloorMeshGaugeController::Start(const GameContext& gameContext)
  */
 void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
+
+	int playerMeshCount = m_pStageController->GetPlayerMeshCount();	// プレイヤーの面の数
+	int enemyMeshCount = m_pStageController->GetEnemyMeshCount();	// 敵の面の数
+	int totalMeshCount = m_pStageController->GetTotalMeshCount();	// 全体の面の数
+
 	// 全体の面に対する塗った面の割合
-	float playerFillAmount = static_cast<float>(m_playerMeshCount) / static_cast<float>(m_totalMeshCount);
-	float enemyFillAmount = static_cast<float>(m_enemyMeshCount) / static_cast<float>(m_totalMeshCount);
+	float playerFillAmount = static_cast<float>(playerMeshCount) / static_cast<float>(totalMeshCount);
+	float enemyFillAmount = static_cast<float>(enemyMeshCount) / static_cast<float>(totalMeshCount);
 
 	// 目標値の設定
 	m_enemyGaugeController->SetTargetAmount(enemyFillAmount);
@@ -107,8 +86,8 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 	m_playerGaugeController->Slide();
 
 	// テキストの設定
-	m_playerTextRenderer->SetText(L"Player:{}面", m_playerMeshCount);
-	m_enemyTextRenderer->SetText(L"Enemy:{}面", m_enemyMeshCount);
+	m_playerTextRenderer->SetText(L"Player:{}面", playerMeshCount);
+	m_enemyTextRenderer->SetText(L"Enemy:{}面", enemyMeshCount);
 }
 
 /**

@@ -13,6 +13,8 @@
 #include "Game/State/Player/PlayerAttackState.h"
 #include "Game/Component/Enemy/EnemyController.h"
 
+#include "Game/ScriptableObject/Scriptable.h"
+
 
 RegisterComponent(PlayerController)
 
@@ -58,6 +60,10 @@ void PlayerController::Awake()
 
 	// 初期のステートのセット
 	m_stateMachine->ChangeState<PlayerMoveState>();
+
+	GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
+		Scriptable::GetScriptableObject<GameColor>()->m_playerColor
+	);
 }
 
 /**

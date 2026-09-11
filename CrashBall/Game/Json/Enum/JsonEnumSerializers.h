@@ -11,6 +11,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ObjectTag, {
 	{ ObjectTag::Default,	"Default"	},
 	{ ObjectTag::Player,	"Player"	},
 	{ ObjectTag::Enemy,		"Enemy"		},
+	{ ObjectTag::Camera,	"Camera"	},
 	{ ObjectTag::Stage,		"Stage"		}
 	}
 );
@@ -67,15 +68,6 @@ NLOHMANN_JSON_SERIALIZE_ENUM(FillOrigin, {
 	{ FillOrigin::Top,				"Top"				},
 	{ FillOrigin::Right,			"Right"				},
 	{ FillOrigin::Bottom,			"Bottom"			}
-	});
-
-
-NLOHMANN_JSON_SERIALIZE_ENUM(ValueType, {
-	{ ValueType::Float,		"CenterTop"	},
-	{ ValueType::Vector2,	"Vector2"	},
-	{ ValueType::Vector3,	"Vector3"	},
-	{ ValueType::Color,		"Color"		},
-	{ ValueType::String,	"String"	}
 	});
 
 namespace DirectX::DX11

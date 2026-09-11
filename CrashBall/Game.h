@@ -66,7 +66,7 @@ private:
 
     std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム
     std::unique_ptr<TimeManager>                m_timeManager;                  // 時間管理
-    std::unique_ptr<ScriptableObjectManager>    m_sriptableObjectManager;       // ScriptableObject管理
+    std::unique_ptr<ScriptableObjectManager>    m_scriptableObjectManager;       // ScriptableObject管理
 
     std::unique_ptr<ModelManager>               m_modelManager;                 // モデル管理
     std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理

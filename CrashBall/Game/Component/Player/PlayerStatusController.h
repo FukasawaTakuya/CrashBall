@@ -10,6 +10,7 @@
 
 #include "../Default/Component.h"
 #include "../Stage/IFloorMeshGetter.h"
+#include "Game/Component/Stage/StageController.h"
 
 
 /**
@@ -26,10 +27,14 @@ private:
 	int m_attackCost		= 0;		// 攻撃コスト
 	float m_minAttackPower	= 0.0f;		// 最低攻撃力
 
+	const StageController* m_pFloorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
+
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_attackCost, PropertyType::Int)
 		AddProperty(m_minAttackPower, PropertyType::Float)
+		AddProperty(m_minAttackPower, PropertyType::Float)
+		AddProperty(m_pFloorMeshGetter, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -40,8 +45,6 @@ private:
 private:
 
 	float m_attackPower = 0;	// 攻撃力
-
-	IFloorMeshGetter* m_floorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
 	bool m_canAttack = false;	// 攻撃可能かどうか
 
@@ -80,7 +83,7 @@ public:
 	// 床メッシュ取得コンポーネントを設定 
 	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
 	{
-		m_floorMeshGetter = floorMeshGetter;
+		//m_pFloorMeshGetter = floorMeshGetter;
 	}
 
 	void SetIsAttack(bool isAttack)

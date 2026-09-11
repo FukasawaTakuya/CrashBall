@@ -53,7 +53,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
-   // m_sriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
+    m_scriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
 
     m_modelManager              = std::make_unique<ModelManager>();
     m_spriteManager             = std::make_unique<SpriteManager>();
@@ -104,7 +104,7 @@ void Game::Initialize(HWND window, int width, int height)
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
-    //ServiceLocator::Set<IScriptableObjectManager>(m_sriptableObjectManager.get());
+    ServiceLocator::Set<IScriptableObjectManager>(m_scriptableObjectManager.get());
 
     // Jsonのロード
     m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
@@ -149,10 +149,12 @@ void Game::Initialize(HWND window, int width, int height)
     //    m_scriptableObjects.push_back(object.second.get());
     //}
 
+    m_scriptableObjectManager->LoadScriptableObject();
+
     // サウンドの作成
     m_soundManager->CreateSound(m_soundPlayer->GetAudioEngine());
 
-    // jsonデータの読み込み
+    // シーンデータの読み込み
     m_sceneManager->LoadData();
 
     // デバイス依存のリソースの作成
@@ -169,8 +171,6 @@ void Game::Initialize(HWND window, int width, int height)
 
 
    // m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
-
-    m_editGuiManager->SetIsActive(true);
 
 
     //  ImGuiの初期化処理
@@ -243,9 +243,10 @@ void Game::Update(DX::StepTimer const& timer)
     }
 
     // 編集モードならデバッグカメラ更新
-    if (/*m_editGuiManager->GetEditMode()*/1)
+    if (m_editGuiManager->GetEditMode())
     {
         m_debugCamera->Update(m_gameContext);
+        //m_sceneManager->Update();
     }
     else
     {
@@ -279,6 +280,7 @@ void Game::Update(DX::StepTimer const& timer)
     {
        // m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
         m_sceneManager->SaveData();
+        m_scriptableObjectManager->SaveData();
     }
 }
 #pragma endregion
@@ -304,7 +306,7 @@ void Game::Render()
     SimpleMath::Matrix view;
 
     // 編集モードならデバッグカメラからビュー取得
-    if (/*m_editGuiManager->GetEditMode()*/1)
+    if (m_editGuiManager->GetEditMode())
     {
         view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
     }

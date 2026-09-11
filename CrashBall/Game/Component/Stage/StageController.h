@@ -20,6 +20,7 @@
 
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
+#include "Game/ScriptableObject/GameColor.h"
 
 
 /**
@@ -54,7 +55,7 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	const ScriptableObject* m_gameColor = nullptr;
+	const GameColor* m_gameColor = nullptr;
 	
 	Mesh* m_meshCollider = nullptr;	// コンポーネントのキャッシュ
 

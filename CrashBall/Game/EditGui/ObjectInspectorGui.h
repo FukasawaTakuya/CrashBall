@@ -10,6 +10,7 @@
 
 #include "Game/Component/Default/Component.h"
 #include "Game/GameObject/GameObject.h"
+#include "Game/Common/Utility.h"
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_stdlib.h"
@@ -21,7 +22,7 @@
 class  ObjectInspectorGui {
 
 	using DrawPropertyFunc = void(*)(const PropertyInfo&);
-	using DrawEnumFunc = void(*)(const PropertyInfo&);
+	using DrawEnumFunc = void(*)(const std::string&, void*);
 
 	// 列挙型表示関数テーブル
 	static std::unordered_map<std::type_index, DrawEnumFunc> s_drawEnum;
@@ -31,7 +32,6 @@ private:
 
 	// プロパティ表示関数テーブル
 	std::unordered_map<PropertyType, DrawPropertyFunc> m_drawProperty;
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -76,7 +76,7 @@ private:
 	static void DrawSlider(const PropertyInfo& property);
 	// String型のプロパティ表示
 	static void DrawString(const PropertyInfo& property);
-	// Enum型のプロパティ表示
+	// 列挙型のプロパティ表示
 	static void DrawEnum(const PropertyInfo& property);
 	// GameObject型のプロパティ表示
 	static void DrawGameObject(const PropertyInfo& property);
@@ -85,33 +85,18 @@ private:
 
 	// 列挙型の表示
 	template<typename Enum>
-	static void DrawEnumList(const PropertyInfo& property);
+	static void DrawEnumList(const std::string& name, void* value);
 };
 
-inline const char* StringViewToCharArray(const std::array<std::string_view, 256Ui64>& svArray);
-
 template<typename Enum>
-inline void ObjectInspectorGui::DrawEnumList(const PropertyInfo& property)
+inline void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
 {
 	static std::array<const char*, magic_enum::enum_count<Enum>()> enumNames[magic_enum::enum_count<Enum>()]
-		= { StringViewToCharArray<magic_enum::enum_count<Enum>()>(magic_enum::enum_names<Enum>()) };
+		= { Utility::StringViewToCharArray<magic_enum::enum_count<Enum>()>(magic_enum::enum_names<Enum>()) };
 
-	int currentOrigin = *static_cast<int*>(property.data);
-	if (ImGui::Combo(property.name.c_str(), &currentOrigin, enumNames->data(), magic_enum::enum_names<Enum>().size()))
+	int currentEnum = *static_cast<int*>(value);
+	if (ImGui::Combo(name.c_str(), &currentEnum, enumNames->data(), magic_enum::enum_names<Enum>().size()))
 	{
-		*static_cast<int*>(property.data) = currentOrigin;
+		*static_cast<int*>(value) = currentEnum;
 	}
-}
-
-template<size_t N>
-inline std::array<const char*, N> StringViewToCharArray(const std::array<std::string_view, N>& svArray)
-{
-	std::array<const char*, N> cArray;
-
-	for (int i = 0; i < N; i++)
-	{
-		cArray[i] = svArray[i].data();
-	}
-
-	return cArray;
 }

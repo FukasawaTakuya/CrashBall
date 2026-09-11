@@ -12,6 +12,8 @@
 #include "Game/State/Enemy/EnemyWanderState.h"
 #include "Game/Component/Ball/BallController.h"
 
+#include "Game/ScriptableObject/Scriptable.h"
+
 using namespace DirectX;
 
 RegisterComponent(EnemyController)
@@ -60,6 +62,11 @@ void EnemyController::Awake()
 	m_rigidbody = GetGameObject()->GetComponent<Rigidbody>();
 	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
 	m_ballController = GetGameObject()->GetComponent<BallController>();
+
+	GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
+		Scriptable::GetScriptableObject<GameColor>()->m_enemyColor
+	);
+
 }
 
 /**
@@ -112,7 +119,7 @@ void EnemyController::Damage(float damage)
 void EnemyController::AvoidWall()
 {
 	// 壁のメッシュを取得
-	auto& wallMesh = m_wallMeshGetter->GetWallMesh();
+	auto& wallMesh = m_stageController->GetWallMesh();
 
 	for (auto& wallFace : wallMesh)
 	{

@@ -56,21 +56,3 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 		renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 }
 
-/**
- * \brief ディフーズカラーの設定
- * 
- * \param color 色
- */
-void ModelRenderer::SetDiffuseColor(const DirectX::SimpleMath::Color& color)
-{
-	m_pModel->UpdateEffects(
-		[&](IEffect* effect) {
-
-			BasicEffect* basic = dynamic_cast<BasicEffect*>(effect);
-			if (basic)
-			{
-				basic->SetDiffuseColor(color);
-			}
-		});
-}
-

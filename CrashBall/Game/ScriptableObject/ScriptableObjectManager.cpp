@@ -9,11 +9,15 @@
 #include "pch.h"
 #include "ScriptableObjectManager.h"
 
+#include <fstream>
+#include "Game/Factory/GameObjectFactory.h"
+
 /**
  * \brief コンストラクタ
  * 
  */
 ScriptableObjectManager::ScriptableObjectManager()
+	: m_jsonManager(std::make_unique<JsonDataManager>())
 {
 }
 
@@ -24,6 +28,32 @@ ScriptableObjectManager::ScriptableObjectManager()
  */
 ScriptableObjectManager::~ScriptableObjectManager()
 {
+}
+
+/**
+ * \brief ScriptableObjectのロード
+ * 
+ */
+void ScriptableObjectManager::LoadScriptableObject()
+{
+	std::string filepath = "Resources/Data/ScriptableObjects";
+
+	if(m_jsonManager.get() == nullptr) return;
+
+	// jsonデータの読み込み
+	for (auto& entity : std::filesystem::recursive_directory_iterator(filepath))
+	{
+		std::string s = entity.path().string();
+		m_jsonManager->LoadGameObject(s);
+	}
+
+	// オブジェクトの生成
+	for (auto& data : m_jsonManager->GetGameObjectData())
+	{
+		// オブジェクトの生成
+		auto obj = GameObjectFactory::CreateScriptableObjectFromJson(data.second);
+		m_scriptableObjectList.emplace(obj->Get()->GetScirptableTypeid(), std::move(obj));
+	}
 }
 
 /**
@@ -43,37 +73,12 @@ void ScriptableObjectManager::RegisterObject(
  * \brief パラメータの保存
  * 
  */
-void ScriptableObjectManager::SaveParam()
+void ScriptableObjectManager::SaveData()
 {
-	//for (auto& object : m_scriptableObjectList)
-	//{
-	//	object.second->SaveParam();
-	//}
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void ScriptableObjectManager::ReloadParam()
-{
-	//for (auto& object : m_scriptableObjectList)
-	//{
-	//	object.second->ReloadParam();
-	//}
-}
-
-/**
- * \brief ScriptableObjectの取得
- * 
- * \param key キー
- * \return ScriptableObjectのポインタ
- */
-const ScriptableObject* ScriptableObjectManager::GetScriptableObject(const std::string& key)
-{
-	if (m_scriptableObjectList.find(key) != m_scriptableObjectList.end())
+	for (auto& object : m_scriptableObjectList)
 	{
-		return m_scriptableObjectList[key].get();
+		object.second->SaveData();
 	}
-	else return nullptr;
+
+	m_jsonManager->SaveGameObject();
 }

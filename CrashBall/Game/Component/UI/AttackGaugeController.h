@@ -14,7 +14,9 @@
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
 
-#include "Game/ScriptableObject/ScriptableObject.h"
+#include "Game/ScriptableObject/GameColor.h"
+#include "Game/Component/Player/PlayerStatusController.h"
+#include "Game/Component/Stage/StageController.h"
 
 
 /**
@@ -28,19 +30,20 @@ private:
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
 	IGameObject* m_pAttackPowerText	  = nullptr;	// 攻撃力表示テキスト
 
+	const PlayerStatusController* m_pPlayerStatusController = nullptr;
+	const StageController* m_pStageController = nullptr;
+
 	TextRenderer*	m_attackPowerTextRenderer	= nullptr;	// 攻撃力表示テキスト描画コンポーネントのキャッシュ
 	SliderController* m_attackGaugeController	= nullptr;	// 攻撃ゲージの操作コンポーネントのキャッシュ
 
-	int m_playerMeshCount	= 0;	// プレイヤーの面の数
-	int m_playerAttackCost	= 0;	// プレイヤーの攻撃コスト
-	int m_playerAttackPower = 0;	// プレイヤーの攻撃力
-
-	const ScriptableObject* m_gameColor = nullptr;
+	const GameColor* m_gameColor = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pAttackGauge, PropertyType::GameObject)
 		AddProperty(m_pAttackPowerText, PropertyType::GameObject)
+		AddProperty(m_pPlayerStatusController, PropertyType::Component)
+		AddProperty(m_pStageController, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -51,14 +54,8 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	AttackGaugeController(IGameObject* gameObject);
-
 	// コンストラクタ
-	AttackGaugeController(
-		IGameObject* gameObejct,
-		IGameObject* pAttackGauge,
-		IGameObject* pAttackPowerText
-	);
+	AttackGaugeController(IGameObject* gameObject);
 
 	// デストラクタ
 	~AttackGaugeController();
@@ -77,17 +74,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// UI表示に必要な数値の設定
-	void SetUIValue(
-		int playerMeshCount,
-		int playerAttackCost,
-		int playerAttackPower)
-	{
-		m_playerMeshCount	= playerMeshCount;
-		m_playerAttackCost	= playerAttackCost;
-		m_playerAttackPower	= playerAttackPower;
-	}
 
 
 	// 内部実装

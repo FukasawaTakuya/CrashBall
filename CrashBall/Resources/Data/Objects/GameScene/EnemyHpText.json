@@ -43,7 +43,7 @@
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "EnemyHP 200 / 200"
+                    "data": "EnemyHP 0 / 0"
                 },
                 {
                     "name": "color",

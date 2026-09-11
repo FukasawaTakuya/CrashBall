@@ -13,8 +13,9 @@
 
 namespace Scriptable
 {
-	// ScriptableObjectの取得 
-	inline const ScriptableObject* GetScriptableObject(const std::string& key)
+	// ScriptableObjectの取得
+	template<typename T>
+	inline const T* GetScriptableObject()
 	{
 		// ScriptableObjectマネージャ 
 		static IScriptableObjectManager* scriptableManager
@@ -22,7 +23,7 @@ namespace Scriptable
 		// マネージャが存在すれば取得する 
 		if (scriptableManager != nullptr)
 		{
-			return scriptableManager->GetScriptableObject(key);
+			return scriptableManager->GetScriptableObject<T>();
 		}
 		// 存在しなければnullptr 
 		else return nullptr;

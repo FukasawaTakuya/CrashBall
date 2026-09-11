@@ -1,0 +1,65 @@
+{
+    "name": "GameColor",
+    "tag": "Default",
+    "id": 0,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "GameColor",
+            "id": -1,
+            "properties": [
+                {
+                    "name": "playerColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.9803921580314636,
+                        "g": 0.8078431487083435,
+                        "r": 0.529411792755127
+                    }
+                },
+                {
+                    "name": "enemyColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.7568627595901489,
+                        "g": 0.7137255072593689,
+                        "r": 1.0
+                    }
+                },
+                {
+                    "name": "defaultFaceColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
+                    }
+                },
+                {
+                    "name": "attackGaugeColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 1.0,
+                        "r": 1.0
+                    }
+                },
+                {
+                    "name": "attackGaugeTrackColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.32156863808631897,
+                        "g": 0.32156863808631897,
+                        "r": 0.32156863808631897
+                    }
+                }
+            ]
+        }
+    ],
+    "children": null
+}

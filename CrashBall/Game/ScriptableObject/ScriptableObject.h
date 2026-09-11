@@ -26,34 +26,31 @@ protected:
 public:
 
 	// コンストラクタ
-	ScriptableObject(ordered_json* data);
+	ScriptableObject();
 
 	// デストラクタ
 	virtual ~ScriptableObject() = default;
 
-	// 操作
-public:
-
-	// 初期化
-	void Start() {}
-
-	// 更新
-	void Update(const GameContext& gameContext) override {}
-
-	// 描画
-	void Render(const RenderContext& renderContext) override {}
-
-	// 終了処理
-	void Finalize() override {}
-
 	// 取得/設定
 public:
 
-	// 要素の取得
-	template<typename T>
-	T GetValue(const std::string& key) const
+	// スクリプタブルオブジェクトの取得
+	ScriptableComponent* Get() const
 	{
-		return m_scriptable->GetValue<T>(key);
+		return m_scriptable;
+	}
+
+	// スクリプタブルオブジェクトの設定
+	Component* Set(std::unique_ptr<Component>&& comp)
+	{
+		ScriptableComponent* ptr = dynamic_cast<ScriptableComponent*>(comp.get());
+		if (ptr != nullptr)
+		{
+			m_scriptable = ptr;
+		}
+		GameObject::AddComponent(std::move(comp));
+
+		return ptr;
 	}
 
 	// 内部実装

@@ -44,4 +44,19 @@ namespace Utility
         size_t pos = member.rfind("_");
         return member.substr(pos + 1);
     }
+
+    // StringView配列=>const char*配列に変換
+    template<size_t N>
+    inline std::array<const char*, N> StringViewToCharArray(const std::array<std::string_view, N>& svArray)
+    {
+        std::array<const char*, N> cArray;
+
+        for (int i = 0; i < N; i++)
+        {
+            cArray[i] = svArray[i].data();
+        }
+
+        return cArray;
+    }
+
 }

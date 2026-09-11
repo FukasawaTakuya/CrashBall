@@ -63,7 +63,7 @@ void SceneManager::SetStartScene()
  */
 void SceneManager::Initialize()
 {
-	//m_pCurrentScene->Start(*m_gameContext);
+	m_pCurrentScene->Start(*m_gameContext);
 }
 
 /**
@@ -88,7 +88,7 @@ void SceneManager::Update()
 	// シーン遷移スクリーンの更新
 	m_changeScreen->Update(*m_gameContext);
 
-	//m_current->Update(*m_gameContext);
+	m_current->Update(*m_gameContext);
 
 	// 更新
 	if (m_pCurrentScene) {
@@ -203,6 +203,8 @@ void SceneManager::LoadData()
 
 	//m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
 	m_current = std::make_unique<Scene>(this, m_jsonManagers["GameScene"].get());
+
+	m_current->Start(*m_gameContext);
 }
 
 /**

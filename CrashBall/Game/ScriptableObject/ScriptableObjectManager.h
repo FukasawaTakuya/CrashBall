@@ -10,6 +10,7 @@
 #include "ScriptableObject.h"
 
 #include "Game/ServiceLocator/IScriptableObjectManager.h"
+#include "Game/Json/JsonDataManager.h"
 
 /**
  * \brief ScriptableObject管理
@@ -19,6 +20,9 @@ class  ScriptableObjectManager : public IScriptableObjectManager
 
 	// データメンバの宣言 -----------------------------------------------
 private:
+
+	// Jsonデータ管理
+	std::unique_ptr<JsonDataManager> m_jsonManager;
 
 	// ScriptableObjectのコンテナ
 	ScriptableObjectContainer m_scriptableObjectList;
@@ -36,29 +40,41 @@ public:
 	// 操作
 public:
 
+	// ScriptableObjectの読み込み
+	void LoadScriptableObject();
+
 	// ScriptableObjectの登録
 	void RegisterObject(
 		const std::string& key,
 		std::unique_ptr<ScriptableObject> object);
 
 	// パラメータの保存
-	void SaveParam();
-
-	// パラメータの再読み込み
-	void ReloadParam();
+	void SaveData();
 
 	// 取得/設定
 public:
 
 	// ScriptableObjectの取得
-	const ScriptableObject* GetScriptableObject(const std::string& key) override;
+	using IScriptableObjectManager::GetScriptableObject;
 
 	// ScriptableObjectのコンテナの取得
-	const ScriptableObjectContainer* GetScriptableObejctList()
+	const ScriptableObjectContainer* GetScriptableObejctList() override
 	{
 		return &m_scriptableObjectList;
 	}
 
 	// 内部実装
 private:
+
+	// 関数テンプレート無しでScriptableObjectを取得する
+	ScriptableComponent* GetScriptableObject(std::type_index type) override
+	{
+		auto it = m_scriptableObjectList.find(type);
+		// イテレータが終端でなければコンポーネントを返す
+		if (it != m_scriptableObjectList.end()) {
+			return it->second->Get();
+		}
+		// イテレータが終端ならnullptrを返す
+		else return nullptr;
+	}
 };

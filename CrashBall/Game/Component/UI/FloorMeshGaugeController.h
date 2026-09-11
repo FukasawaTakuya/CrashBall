@@ -16,6 +16,7 @@
 
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
+#include "Game/Component/Stage/StageController.h"
 
 
 /**
@@ -32,6 +33,8 @@ private:
 	IGameObject* m_pPlayerMeshNumText	= nullptr;	// プレイヤーのメッシュ数表示
 	IGameObject* m_pEnemyMeshNumText	= nullptr;	// 敵のメッシュ数表示
 
+	const StageController* m_pStageController = nullptr;	// ステージ管理コンポーネント
+
 	// ゲージのコンポーネントのキャッシュ
 	SliderController* m_playerGaugeController	= nullptr;
 	SliderController* m_enemyGaugeController	= nullptr;
@@ -40,16 +43,13 @@ private:
 	TextRenderer* m_playerTextRenderer = nullptr;
 	TextRenderer* m_enemyTextRenderer  = nullptr;
 
-	int m_playerMeshCount = 0;	// プレイヤーの面の数
-	int m_enemyMeshCount = 0;	// 敵の面の数
-	int m_totalMeshCount = 0;	// 全体の面の数
-
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pPalyerMeshGauge	, PropertyType::GameObject)
 		AddProperty(m_pEnemyMeshGauge	, PropertyType::GameObject)
 		AddProperty(m_pPlayerMeshNumText, PropertyType::GameObject)
 		AddProperty(m_pEnemyMeshNumText	, PropertyType::GameObject)
+		AddProperty(m_pStageController	, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -61,15 +61,6 @@ private:
 public:
 
 	FloorMeshGaugeController(IGameObject* gameObject);
-
-	// コンストラクタ
-	FloorMeshGaugeController(
-		IGameObject* gameObject,		
-		IGameObject* pPalyerMeshGauge,
-		IGameObject* pEnemyMeshGauge,
-		IGameObject* pPlayerMeshNumText,
-		IGameObject* pEnemyMeshNumText
-		);
 
 	// デストラクタ
 	~FloorMeshGaugeController();
@@ -91,18 +82,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// UI表示に必要な数値を設定
-	void SetUIValue(
-		int playerMeshCount,
-		int enemyMeshCount,
-		int totalMeshCount
-	)
-	{
-		m_playerMeshCount = playerMeshCount;
-		m_enemyMeshCount  = enemyMeshCount;
-		m_totalMeshCount  = totalMeshCount;
-	}
 
 	// 内部実装
 private:

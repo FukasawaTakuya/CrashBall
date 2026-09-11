@@ -44,7 +44,7 @@ TitleScene::TitleScene(
 				m_pSceneChanger->RequestChangeScene(SceneID::Game);
 			});
 
-	m_gameColor = Scriptable::GetScriptableObject("gameColor");
+	//m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
 	m_gameObjects.push_back(m_camera.get());
 	m_gameObjects.push_back(m_player.get());

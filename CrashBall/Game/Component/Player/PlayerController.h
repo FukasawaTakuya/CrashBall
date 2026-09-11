@@ -27,7 +27,8 @@ class  PlayerController : public Component {
 	// インスペクター編集GUIをフレンド化
 	friend class ObjectInspectorGui;
 
-	// パラメータの宣言 -------------------------------------------------
+	// データメンバの宣言 -----------------------------------------------
+	// パラメータの宣言
 private:
 
 	// AttackState
@@ -37,29 +38,27 @@ private:
 	float m_acceleration = 0.0f;	// 加速度 
 	float m_maxSpeed = 0.0f;		// 最大速度
 
-	const Transform* m_enemyTransform = nullptr;	// 敵のトランスフォームコンポーネント
+	const Transform* m_pEnemyTransform = nullptr;				// 敵のトランスフォームコンポーネント
+	const TargetCameraController* m_pCameraController = nullptr;// カメラのポインタ
+	StageController* m_pStageController = nullptr;				// 面消費インターフェース
 
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_attackSpeed,		PropertyType::Float)
-		AddProperty(m_attackDuration,	PropertyType::Float)
-		AddProperty(m_acceleration,		PropertyType::Float)
-		AddProperty(m_maxSpeed,			PropertyType::Float)
-		AddProperty(m_enemyTransform,	PropertyType::Component)
+		AddProperty(m_attackSpeed,			PropertyType::Float)
+		AddProperty(m_attackDuration,		PropertyType::Float)
+		AddProperty(m_acceleration,			PropertyType::Float)
+		AddProperty(m_maxSpeed,				PropertyType::Float)
+		AddProperty(m_pEnemyTransform,		PropertyType::Component)
+		AddProperty(m_pCameraController,	PropertyType::Component)
+		AddProperty(m_pStageController,		PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
 	SetCompName("PlayerController")
 
-
-	// データメンバの宣言 -----------------------------------------------
 private:
 
 	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
-
-	const ICamera* m_pCamera = nullptr;				// カメラのポインタ
-
-	IPaintConsumer* m_paintConsumer = nullptr;		// 面消費インターフェース
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -100,19 +99,19 @@ public:
 	// カメラのポインタの取得
 	const ICamera* GetCamera() 
 	{ 
-		return m_pCamera; 
+		return m_pCameraController; 
 	}
 
 	// 敵のトランスフォームの取得
 	const Transform* GetEnemyTransform()
 	{ 
-		return m_enemyTransform; 
+		return m_pEnemyTransform; 
 	}
 	
 	// 面消費インターフェースの取得
 	IPaintConsumer* GetPaintConsumer() const
 	{
-		return m_paintConsumer;
+		return m_pStageController;
 	}
 
 	// パラメータの取得
@@ -126,19 +125,19 @@ public:
 	float GetMaxSpeed()			const { return m_maxSpeed; }
 
 	// カメラのポインタのセット
-	void SetCamera(const TargetCameraController* pCamera) { m_pCamera = pCamera; }
+	void SetCamera(const TargetCameraController* pCamera) { m_pCameraController = pCamera; }
 
 	// 敵のトランスフォームの設定
 	void SetEnemyTransform(Transform* enemyTransform)
 	{
-		m_enemyTransform = enemyTransform;
+		m_pEnemyTransform = enemyTransform;
 	}
 
 	// ステージ操作コンポーネントからインターフェースを設定する
 	void SetStageInterface(StageController* stageController)
 	{
 		// 面消費コンポーネントの設定
-		m_paintConsumer = stageController;
+		m_pStageController = stageController;
 		// 床メッシュ取得コンポーネントを設定
 		GetGameObject()->GetComponent<PlayerStatusController>()->SetFloorMeshGetter(stageController);
 	}

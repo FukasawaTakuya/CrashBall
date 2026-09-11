@@ -1,8 +1,8 @@
-/*****************************************************************//**
+ï»¿/*****************************************************************//**
  * \file   ModelRenderer.h
- * \brief  ƒ‚ƒfƒ‹•`‰æƒRƒ“ƒ|[ƒlƒ“ƒg 
+ * \brief  ãƒ¢ãƒ‡ãƒ«æç”»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ 
  * 
- * \author [‘ò‘ñ–î
+ * \author æ·±æ²¢æ‹“çŸ¢
  * \date   April 2026
  *********************************************************************/
 
@@ -16,92 +16,107 @@
 
 
  /**
- * @brief ƒ‚ƒfƒ‹•`‰æƒRƒ“ƒ|[ƒlƒ“ƒg
+ * @brief ãƒ¢ãƒ‡ãƒ«æç”»ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
  */
 class  ModelRenderer : public Component {
 
-	// ƒCƒ“ƒXƒyƒNƒ^[•ÒWGUI‚ğƒtƒŒƒ“ƒh‰»
+	// ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ç·¨é›†GUIã‚’ãƒ•ãƒ¬ãƒ³ãƒ‰åŒ–
 	friend class ObjectInspectorGui;
 
-	// ƒf[ƒ^ƒƒ“ƒo‚ÌéŒ¾ -----------------------------------------------
+	// ãƒ‡ãƒ¼ã‚¿ãƒ¡ãƒ³ãƒã®å®£è¨€ -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;	// ƒ‚ƒfƒ‹‚Ìƒ|ƒCƒ“ƒ^
+	DirectX::Model* m_pModel = nullptr;	// ãƒ¢ãƒ‡ãƒ«ã®ãƒã‚¤ãƒ³ã‚¿
 
-	Transform* m_transform = nullptr;	// ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ÌƒLƒƒƒbƒVƒ…
+	Transform* m_transform = nullptr;	// ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã®ã‚­ãƒ£ãƒƒã‚·ãƒ¥
 
-	std::string m_modelKey;	// ƒ‚ƒfƒ‹‚ÌƒL[
+	DirectX::SimpleMath::Color m_diffuseColor; // ãƒ‡ã‚£ãƒ•ãƒ¼ã‚ºã‚«ãƒ©ãƒ¼
 
-	// ƒvƒƒpƒeƒB‚Ìİ’è
+	std::string m_modelKey;	// ãƒ¢ãƒ‡ãƒ«ã®ã‚­ãƒ¼
+
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è¨­å®š
 	BeginProperty()
 		AddProperty(m_modelKey, PropertyType::String)
 	EndProperty()
 
-	// ƒRƒ“ƒ|[ƒlƒ“ƒg–¼‚Ìİ’è
+	// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåã®è¨­å®š
 	SetCompName("ModelRenderer")
 
 	
-	// ƒƒ“ƒoŠÖ”‚ÌéŒ¾ -------------------------------------------------
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^/ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ¡ãƒ³ãƒé–¢æ•°ã®å®£è¨€ -------------------------------------------------
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿/ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 public:
 
-	// ƒfƒtƒHƒ‹ƒgƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	ModelRenderer() = default;
 
-	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	ModelRenderer(IGameObject* gameObject);
 
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~ModelRenderer();
 
-	// ‘€ì
+	// æ“ä½œ
 public:
 
-	// ƒAƒ^ƒbƒ`‚Ìˆ—
+	// ã‚¢ã‚¿ãƒƒãƒæ™‚ã®å‡¦ç†
 	void Awake() override;
 
-	// •`‰æ
+	// æç”»
 	void Render(const RenderContext& renderContext) override;
 
-	// ƒŠƒ\[ƒX‚Ìİ’è
+	// ãƒªã‚½ãƒ¼ã‚¹ã®è¨­å®š
 	void SetResource(const ResourceContext& resourceContext) override
 	{
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
+
+		m_pModel->UpdateEffects(
+			[&](DirectX::IEffect* effect) {
+
+				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
+				if (basic)
+				{
+					basic->SetDiffuseColor(m_diffuseColor);
+				}
+			});
 	}
 
-	// æ“¾/İ’è
+	// å–å¾—/è¨­å®š
 public:
 
-	// ƒ‚ƒfƒ‹‚Ìæ“¾ 
+	// ãƒ¢ãƒ‡ãƒ«ã®å–å¾— 
 	DirectX::Model* GetModel() const
 	{
 		return m_pModel;
 	}
 	
-	// ƒ‚ƒfƒ‹‚ÌƒL[‚Ìæ“¾
+	// ãƒ¢ãƒ‡ãƒ«ã®ã‚­ãƒ¼ã®å–å¾—
 	std::string GetModelKey() const
 	{
 		return m_modelKey;
 	}
 
-	// ƒ‚ƒfƒ‹‚Ìİ’è
+	// ãƒ¢ãƒ‡ãƒ«ã®è¨­å®š
 	void SetModel(IModelManager* modelManager)
 	{
 	}
 
-	// ƒfƒBƒt[ƒYƒJƒ‰[‚Ìİ’è
-	void SetDiffuseColor(const DirectX::SimpleMath::Color& color);
+	// ãƒ‡ã‚£ãƒ•ãƒ¼ã‚ºã‚«ãƒ©ãƒ¼ã®è¨­å®š
+	void SetDiffuseColor(const DirectX::SimpleMath::Color& color)
+	{
+		m_diffuseColor = color;
+	}
 
-	// “à•”À‘•
+	// å†…éƒ¨å®Ÿè£…
 private:
 
-	// ƒvƒƒpƒeƒB‚Ìæ“¾
+	// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®å–å¾—
 	virtual const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
 	}
 
-	// ƒRƒ“ƒ|[ƒlƒ“ƒg–¼‚Ìæ“¾
+	// ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆåã®å–å¾—
 	virtual std::string GetCompName() const override
 	{
 		return m_compName;

@@ -43,7 +43,7 @@
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "Power:10"
+                    "data": "Power:0"
                 },
                 {
                     "name": "color",

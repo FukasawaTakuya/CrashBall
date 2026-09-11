@@ -13,6 +13,7 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Common/Screen.h"
 #include "Game/Component/Default/UI/SliderController.h"
+#include "Game/Component/Enemy/EnemyController.h"
 
 
 /**
@@ -27,17 +28,17 @@ private:
 	IGameObject* m_pEnemyHpGaugeTrack	= nullptr;	// 敵のHPゲージの土台
 	IGameObject* m_pEnemyHpText			= nullptr;	// 敵のHPの表示テキスト
 
+	const EnemyController* m_pEnemyController = nullptr;	// 敵管理コンポーネント
+
 	SliderController* m_enemyHpGaugeController = nullptr;	// HPゲージの操作コンポーネント
 	TextRenderer* m_enemyHpTextRenderer		   = nullptr;	// テキストの描画コンポーネント
-
-	int m_enemyHp = 0;		// 敵のHP
-	int m_enemyMaxHp = 0;	// 敵の最大HP
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pEnemyHpGauge, PropertyType::GameObject)
 		AddProperty(m_pEnemyHpGaugeTrack, PropertyType::GameObject)
 		AddProperty(m_pEnemyHpText, PropertyType::GameObject)
+		AddProperty(m_pEnemyController, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -48,15 +49,8 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	EnemyHpGaugeController(IGameObject* gameObject);
-
 	// コンストラクタ
-	EnemyHpGaugeController(
-		IGameObject* gameObject,
-		IGameObject* pEnemyHpGauge,
-		IGameObject* pEnemyHpGaugeTrack,
-		IGameObject* pEnemyHpText
-	);
+	EnemyHpGaugeController(IGameObject* gameObject);
 
 	// デストラクタ
 	~EnemyHpGaugeController();
@@ -78,15 +72,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// UI表示に必要な数値の設定
-	void SetUIValue(
-		int enemyHp,
-		int enemyMaxHp)
-	{
-		m_enemyHp = enemyHp;
-		m_enemyMaxHp = enemyMaxHp;
-	}
 
 	// 内部実装
 private:

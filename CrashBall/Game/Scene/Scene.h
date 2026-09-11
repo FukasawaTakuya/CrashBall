@@ -17,6 +17,7 @@
 #include "Game/Component/Camera/ICamera.h"
 
 #include "Game/GameObject/GameObject.h"
+#include "Game/CollisionManager/CollisionManager.h"
 
 /**
  * \brief 基底シーン
@@ -42,6 +43,8 @@ protected:
 	std::unique_ptr<GameObject> m_playManager;
 
 	std::vector<GameObject*> m_objectsList;
+
+	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -69,7 +72,7 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			//obj->Start(gameContext);
+			obj->Start(gameContext);
 		}
 	};
 
@@ -78,9 +81,10 @@ public:
 	{
 		for (auto& obj : m_objects)
 		{
-			//obj->Update(gameContext);
+			obj->Update(gameContext);
 		}
 
+		m_collisionManager->Update();
 	};
 	
 	// 描画
@@ -90,7 +94,6 @@ public:
 		{
 			obj->Render(renderContext);
 		}
-
 	};
 
 	// 終了処理

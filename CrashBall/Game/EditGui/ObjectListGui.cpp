@@ -38,10 +38,19 @@ void ObjectListGui::Update(ObjectCollection& gameObjects)
 
     ImGui::BeginChild("ObjectList");
 
+    ImGui::SeparatorText("GameObject");
+
     // オブジェクトリストを表示
     for (auto& object : gameObjects)
     {
         DrawObjectGui(object.get());
+    }
+
+    ImGui::SeparatorText("ScriptableObject");
+
+    for (auto& scriptable : *Scriptable::GetScriptableObejctList())
+    {
+        DrawObjectGui(scriptable.second.get());
     }
 
     ImGui::EndChild();
@@ -103,6 +112,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
             ImGui::EndDragDropSource();
         }
 
+        // ドロップ時の処理
         if (ImGui::BeginDragDropTarget())
         {
             if (const ImGuiPayload* payload =

@@ -70,10 +70,10 @@ void EditButton::Update()
         if (ImGui::Button("Save"))
         {
             m_pSceneEditer->SaveParam();
-            for (auto& obj : *Scriptable::GetScriptableObejctList())
-            {
-                //obj.second->SaveParam();
-            }
+            //for (auto& obj : *Scriptable::GetScriptableObejctList())
+            //{
+            //    //obj.second->SaveParam();
+            //}
 
             m_pJsonDataManager->SaveFile();
         }
@@ -85,10 +85,10 @@ void EditButton::Update()
         {
             m_pJsonDataManager->ReloadFile();
             m_pSceneEditer->ReloadParam();
-            for (auto& obj : *Scriptable::GetScriptableObejctList())
-            {
-                //obj.second->ReloadParam();
-            }
+            //for (auto& obj : *Scriptable::GetScriptableObejctList())
+            //{
+            //    //obj.second->ReloadParam();
+            //}
         }
     }
 

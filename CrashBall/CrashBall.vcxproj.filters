@@ -595,6 +595,9 @@
     <ClInclude Include="Game\IDGenerator\ComponentIDGenerator.h">
       <Filter>Game\IDGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="Game\ScriptableObject\GameColor.h">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -892,6 +895,7 @@
       <Filter>Game\Json\Exporter</Filter>
     </ClCompile>
     <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
+    <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

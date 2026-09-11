@@ -12,18 +12,18 @@
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 0.0,
-                        "y": 12.0,
-                        "z": 5.0
+                        "x": 9.440674781799316,
+                        "y": 7.697112083435059,
+                        "z": 28.12540626525879
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.11977855116128922,
-                        "y": -2.7507383823394775,
-                        "z": 0.0343998521566391
+                        "x": -0.4685148000717163,
+                        "y": -2.4043681621551514,
+                        "z": -0.06734462827444077
                     }
                 },
                 {
@@ -98,6 +98,16 @@
                     "name": "minAttackPower",
                     "type": "Float",
                     "data": 10.0
+                },
+                {
+                    "name": "minAttackPower",
+                    "type": "Float",
+                    "data": 10.0
+                },
+                {
+                    "name": "pFloorMeshGetter",
+                    "type": "Componet",
+                    "data": 68
                 }
             ]
         },
@@ -126,9 +136,19 @@
                     "data": 40.0
                 },
                 {
-                    "name": "enemyTransform",
+                    "name": "pEnemyTransform",
                     "type": "Componet",
                     "data": 33
+                },
+                {
+                    "name": "pCameraController",
+                    "type": "Componet",
+                    "data": 49
+                },
+                {
+                    "name": "pStageController",
+                    "type": "Componet",
+                    "data": 68
                 }
             ]
         },

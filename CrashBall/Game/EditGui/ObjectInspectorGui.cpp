@@ -37,7 +37,7 @@
 
 using namespace DirectX;
 
-using DrawEnumFunc = void(*)(const PropertyInfo&);
+using DrawEnumFunc = void(*)(const std::string&, void*);
 std::unordered_map<std::type_index, DrawEnumFunc> ObjectInspectorGui::s_drawEnum = {};
 
 /**
@@ -62,6 +62,7 @@ ObjectInspectorGui::ObjectInspectorGui()
 	ObjectInspectorGui::s_drawEnum.emplace(typeid(Origin), DrawEnumList<Origin>);
 	ObjectInspectorGui::s_drawEnum.emplace(typeid(FillOrigin), DrawEnumList<FillOrigin>);
 	ObjectInspectorGui::s_drawEnum.emplace(typeid(DX11::SpriteEffects), DrawEnumList<DX11::SpriteEffects>);
+	ObjectInspectorGui::s_drawEnum.emplace(typeid(ObjectTag), DrawEnumList<ObjectTag>);
 }
 
 /**
@@ -85,6 +86,10 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 	{
 		ImGui::InputText("Name", &selectedObject->m_name);
 		ImGui::InputInt("ID", &selectedObject->m_id);
+		ObjectTag tag = selectedObject->GetTag();
+		s_drawEnum[typeid(ObjectTag)]("Tag", &tag);
+		selectedObject->SetTag(tag);
+
 
 		ImGui::BeginChild(selectedObject->GetName().c_str());
 
@@ -124,6 +129,10 @@ void ObjectInspectorGui::DrawProperty(Component* comp)
 		m_drawProperty[property.propType](property);
 	}
 }
+
+// ========================================================================= //
+// ========================== プロパティ表示関数一覧 ========================== //
+// ========================================================================= //
 
 /**
  * \brief Bool型のプロパティ表示
@@ -257,13 +266,13 @@ void ObjectInspectorGui::DrawString(const PropertyInfo& property)
 }
 
 /**
- * \brief Enum型のプロパティ表示
+ * \brief 列挙型のプロパティ表示
  *
  * \param property プロパティ
  */
 void ObjectInspectorGui::DrawEnum(const PropertyInfo& property)
 {
-	s_drawEnum[property.propTypeId](property);
+	s_drawEnum[property.propTypeId](property.name, property.data);
 }
 
 /**
@@ -281,7 +290,7 @@ void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 	}
 	else
 	{
-		s = "nullPtr";
+		s = "nullPtr(GameObject)";
 	}
 	ImGui::InputText(
 		property.name.c_str(),
@@ -312,7 +321,7 @@ void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 	}
 	else
 	{
-		s = "nullPtr";
+		s = "nullPtr(Component)";
 	}
 	ImGui::InputText(
 		property.name.c_str(),
@@ -327,5 +336,4 @@ void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 			 = (*(GameObject**)payload->Data)->GetComponent(property.propTypeId);
 		}
 	}
-
 }

@@ -33,45 +33,32 @@ GamePanel::GamePanel(ordered_json* data)
 	, m_enemyHpText			 (std::make_unique<TextObject>(&(*data)["enemyHpText"]))
 {
 
-	m_floorMeshGaugeController =
-		AddComponent<FloorMeshGaugeController>(
-			m_playerMeshGauge.get(),
-			m_enemyMeshGauge.get(),
-			m_playerMeshNumText.get(),
-			m_enemyMeshNumText.get()
-		);
-
-	//m_attackGaugeController =
-	//	AddComponent<AttackGaugeController>(
-	//		m_attackGauge.get(),
-	//		m_attackPowerText.get()
+	//m_floorMeshGaugeController =
+	//	AddComponent<FloorMeshGaugeController>(
+	//		m_playerMeshGauge.get(),
+	//		m_enemyMeshGauge.get(),
+	//		m_playerMeshNumText.get(),
+	//		m_enemyMeshNumText.get()
 	//	);
 
-	m_enemyHpGaugeController =
-		AddComponent<EnemyHpGaugeController>(
-			m_enemyHpGauge.get(),
-			m_enemyHpGaugeTrack.get(),
-			m_enemyHpText.get()
-		);
+	////m_attackGaugeController =
+	////	AddComponent<AttackGaugeController>(
+	////		m_attackGauge.get(),
+	////		m_attackPowerText.get()
+	////	);
 
-	//AddChildren(m_playerMeshGauge.get());
-	//AddChildren(m_enemyMeshGauge.get());
-	//AddChildren(m_playerMeshNumText.get());
-	//AddChildren(m_enemyMeshNumText.get());
-	//AddChildren(m_gaugeBackGround.get());
-	//AddChildren(m_meshGaugeTrack.get());
-	//AddChildren(m_attackGauge.get());
-	//AddChildren(m_attackPowerText.get());
-	//AddChildren(m_attackGaugeTrack.get());
-	//AddChildren(m_enemyHpGauge.get());
-	//AddChildren(m_enemyHpGaugeTrack.get());
-	//AddChildren(m_enemyHpText.get());
+	//m_enemyHpGaugeController =
+	//	AddComponent<EnemyHpGaugeController>(
+	//		m_enemyHpGauge.get(),
+	//		m_enemyHpGaugeTrack.get(),
+	//		m_enemyHpText.get()
+	//	);
 
-	RectTransform* rectTransform = GetComponent<RectTransform>();
-	for (auto& childe : GetChildren())
-	{
-		childe->GetComponent<RectTransform>()->SetParentInBuildTime(rectTransform);
-	}
+	//RectTransform* rectTransform = GetComponent<RectTransform>();
+	//for (auto& childe : GetChildren())
+	//{
+	//	childe->GetComponent<RectTransform>()->SetParentInBuildTime(rectTransform);
+	//}
 }
 
 /**
@@ -100,20 +87,6 @@ void GamePanel::Start(const GameContext& gameContext)
  */
 void GamePanel::Update(const GameContext& gameContext)
 {
-	// UIの数値を設定
-	m_floorMeshGaugeController->SetUIValue(
-		m_playerMeshCount,
-		m_enemyMeshCount,
-		m_totalMeshCount);
-	m_attackGaugeController->SetUIValue(
-		m_playerMeshCount,
-		m_playerAttackCost,
-		m_playerAttackPower
-	);
-	m_enemyHpGaugeController->SetUIValue(
-		m_enemyHp,
-		m_enemyMaxHp
-	);
 
 	m_floorMeshGaugeController->Update(gameContext);
 	m_attackGaugeController->Update(gameContext);
@@ -139,7 +112,7 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	ISpriteManager* spriteManager = resourceContext.spriteManager;
 	ITextManager* textManager = resourceContext.textManager;
 
-	auto gameColor = Scriptable::GetScriptableObject("gameColor");
+	auto gameColor = Scriptable::GetScriptableObject<GameColor>;
 
 	// FloorMeshGauge ==================================================
 
@@ -158,8 +131,8 @@ void GamePanel::SetSprite(const ResourceContext& resourceContext)
 	m_enemyMeshNumText->GetComponent<TextRenderer>()->SetSpriteFont(textManager);
 
 	// 色の設定
-	m_playerMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
-	m_enemyMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
+	//m_playerMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("PlayerColor"));
+	//m_enemyMeshNumText->GetComponent<TextRenderer>()->SetColor(gameColor->GetValue<SimpleMath::Color>("EnemyColor"));
 
 	// AttackGauge ==================================================
 

@@ -15,6 +15,7 @@ Scene::Scene(
 	IJsonDataManager* jsonDataManager)
 	: m_pSceneChanger{ pSceneManager }
 	, m_jsonManager{ jsonDataManager }
+	, m_collisionManager(std::make_unique<CollisionManager>())
 {
 	std::unordered_map<int, GameObject*> objects;
 	std::unordered_map<int, Component*> components;
@@ -28,6 +29,13 @@ Scene::Scene(
 		if (obj->GetTag() == ObjectTag::Camera)
 		{
 			m_camera = obj->GetComponent<TargetCameraController>();
+		}
+
+		// 衝突判定登録
+		Collider* col = obj->GetComponent<Collider>();
+		if (col != nullptr)
+		{
+			m_collisionManager->RegistCollider(col);
 		}
 
 		objects.emplace(obj->GetID(), obj.get());
