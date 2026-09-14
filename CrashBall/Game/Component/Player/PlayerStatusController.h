@@ -33,7 +33,6 @@ private:
 	BeginProperty()
 		AddProperty(m_attackCost, PropertyType::Int)
 		AddProperty(m_minAttackPower, PropertyType::Float)
-		AddProperty(m_minAttackPower, PropertyType::Float)
 		AddProperty(m_pFloorMeshGetter, PropertyType::Component)
 	EndProperty()
 

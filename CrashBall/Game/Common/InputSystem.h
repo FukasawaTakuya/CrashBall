@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/ServiceLocator/IInputService.h"
+#include "Game/Common/Screen.h"
 
 class InputSystem : public IInputService {
 
@@ -137,5 +138,18 @@ public:
 	int GetWheelValue() override
 	{
 		return DirectX::Mouse::Get().GetState().scrollWheelValue;
+	}
+
+	inline bool CheckHoverScreen()
+	{
+		if (m_mousePos.x > 0.0f && m_mousePos.x < Screen::WIDTH &&
+			m_mousePos.y > 0.0f && m_mousePos.y < Screen::HEIGHT)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 };

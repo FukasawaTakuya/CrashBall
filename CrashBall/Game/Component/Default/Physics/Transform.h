@@ -200,7 +200,7 @@ public:
 	}
 
 	// 実行中の親の設定
-	void SetParentInRuntime(Transform* parent)
+	void SetParentInRunTime(Transform* parent)
 	{
 		m_parent = parent;
 		if (parent != nullptr)

@@ -7,13 +7,14 @@
         {
             "compName": "RectTransform",
             "id": 46,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector2",
                     "data": {
-                        "x": 1335.0,
-                        "y": 937.5
+                        "x": 375.0,
+                        "y": -38.5
                     }
                 },
                 {
@@ -25,8 +26,8 @@
                     "name": "localScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.5,
-                        "y": 1.5
+                        "x": 0.9375,
+                        "y": 0.30000001192092896
                     }
                 },
                 {
@@ -39,11 +40,12 @@
         {
             "compName": "TextRenderer",
             "id": 47,
+            "isActive": true,
             "properties": [
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "Enemy:0面"
+                    "data": "Enemy:106面"
                 },
                 {
                     "name": "color",

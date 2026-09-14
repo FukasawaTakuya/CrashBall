@@ -30,56 +30,6 @@ JsonDataManager::~JsonDataManager()
 {
 }
 
-/**
- * \brief データの読み込み
- * 
- * \param key キー
- * \param fileName ファイル名
- */
-void JsonDataManager::LoadFile(
-	const std::string& key,
-	const char* fileName)
-{
-	std::ifstream ifs(fileName);
-
-	if (!ifs.is_open())
-	{
-		return;
-	}
-
-	json data;
-
-	ifs >> data;
-
-	m_jsonData.emplace(key, data);
-	m_files.emplace(key, fileName);
-}
-
-/**
- * \brief データの再読み込み
- * 
- */
-void JsonDataManager::ReloadFile()
-{
-	for (auto& j : m_jsonData)
-	{
-		std::ifstream ifs(m_files[j.first]);
-		ifs >> j.second;
-	}
-}
-
-/**
- * \brief データの書き込み
- * 
- */
-void JsonDataManager::SaveFile()
-{
-	for (auto& j : m_jsonData)
-	{
-		std::ofstream ofs("Resources/Data/" + j.first + ".json");
-		ofs << j.second.dump(4);
-	}
-}
 
 /**
  * \brief ゲームオブジェクトの読み込み
@@ -132,7 +82,7 @@ void JsonDataManager::LoadPlayManager(const std::string& filepath)
  * \brief ゲームオブジェクトの保存
  * 
  */
-void JsonDataManager::SaveGameObject()
+void JsonDataManager::SaveGameObjectData()
 {
 	for (auto& file : m_gameObjectFiles)
 	{
@@ -142,28 +92,41 @@ void JsonDataManager::SaveGameObject()
 }
 
 /**
- * \brief Jsonデータの取得
+ * \brief ゲームオブジェクトデータの削除
  * 
- * \param key キー
- * \return Jsonデータ
+ * \param objName オブジェクト名
  */
-ordered_json* JsonDataManager::GetJsonData(const std::string& key)
+void JsonDataManager::DeleteGameObjectData(const std::string& objName)
 {
-	auto it = m_jsonData.find(key);
 
-	if (it != m_jsonData.end())
+	// ゲームオブジェクトデータの削除
 	{
-		return &it->second;
+		auto it = m_gameObjectData.find(objName);
+		if (it != m_gameObjectData.end())
+		{
+			m_gameObjectData.erase(it);
+		}
 	}
-	// 見つからなければ新たにデータを作る
-	else
+
 	{
-		m_jsonData.emplace(key, json::object());
-		m_files.emplace(key, "Resources/Data/" + key + ".json");
-
-		std::ofstream ofs("Resources/Data/" + key + ".json");
-		ofs << m_jsonData[key].dump(2);
-
-		return &m_jsonData[key];
+		auto it = m_gameObjectFiles.find(objName);
+		if (it != m_gameObjectFiles.end())
+		{
+			// ファイルの削除
+			std::remove(it->second.c_str());
+			// ファイルパスの削除
+			m_gameObjectFiles.erase(it);
+		}
 	}
+}
+
+/**
+ * \brief ゲームオブジェクトの追加
+ * 
+ * \param objName オブジェクト名
+ */
+void JsonDataManager::AddGameObjectData(const std::string& objName)
+{
+	m_gameObjectData.emplace(objName, ordered_json());
+	m_gameObjectFiles.emplace(objName, m_saveFilePath + objName);
 }

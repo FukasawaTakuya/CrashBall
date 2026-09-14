@@ -11,18 +11,18 @@
 
 namespace GameObejctIDGenerator
 {
-	static int s_gameObjectID = 0;
+	inline int g_gameObjectID = 0;
 
 	// 一番大きいIDか調べる 
 	inline void CheckMaxID(int id)
 	{
-		s_gameObjectID =
-			std::max(id, s_gameObjectID);
+		g_gameObjectID =
+			std::max(id, g_gameObjectID);
 	}
 
-	// IDの加算 
-	inline void GeneratID()
+	// IDの取得 
+	inline int GetID()
 	{
-		s_gameObjectID++;
+		return ++g_gameObjectID;
 	}
 }

@@ -74,12 +74,6 @@ public:
 	// ウインドウサイズ依存のリソース作成
 	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
-	// パラメータの書き込み
-	void SaveParam() override;
-
-	// パラメータの再読み込み
-	void ReloadParam() override;
-
 	// カメラの取得
 	ICamera* GetCamera() const override
 	{

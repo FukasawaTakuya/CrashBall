@@ -4,11 +4,18 @@
 
 namespace
 {
+
 	// コンポネント生成関数テーブルの取得
 	std::unordered_map<std::string, ComponentFactory::CreataFunc>& GetTable()
 	{
 		static std::unordered_map<std::string, ComponentFactory::CreataFunc> m_createCompTable;
 		return m_createCompTable;
+	}
+
+	std::vector<std::string>& GetCompNameList()
+	{
+		static std::vector<std::string> s_compNameList;
+		return s_compNameList;
 	}
 }
 
@@ -37,4 +44,10 @@ void ComponentFactory::RegistComponentFunc(
 	CreataFunc func)
 {
 	GetTable().emplace(compName, func);
+	GetCompNameList().push_back(compName);
+}
+
+const std::vector<std::string>& ComponentFactory::GetCompNames()
+{
+	return GetCompNameList();
 }

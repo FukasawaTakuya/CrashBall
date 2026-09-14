@@ -7,6 +7,7 @@
         {
             "compName": "SpriteRenderer",
             "id": 50,
+            "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -56,6 +57,7 @@
         {
             "compName": "RectTransform",
             "id": 51,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
@@ -86,5 +88,11 @@
             ]
         }
     ],
-    "children": null
+    "children": [
+        17,
+        19,
+        20,
+        8,
+        14
+    ]
 }

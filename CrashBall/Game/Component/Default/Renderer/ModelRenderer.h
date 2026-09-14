@@ -30,13 +30,14 @@ private:
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
-	DirectX::SimpleMath::Color m_diffuseColor; // ディフーズカラー
+	DirectX::SimpleMath::Color m_diffuseColor = {1.0f, 1.0f, 1.0f, 1.0f}; // ディフーズカラー
 
 	std::string m_modelKey;	// モデルのキー
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_modelKey, PropertyType::String)
+		AddProperty(m_diffuseColor, PropertyType::Color)
 	EndProperty()
 
 	// コンポーネント名の設定

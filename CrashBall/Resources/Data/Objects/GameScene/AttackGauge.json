@@ -7,6 +7,7 @@
         {
             "compName": "SpriteRenderer",
             "id": 19,
+            "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -44,7 +45,7 @@
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.0
+                    "data": 0.2500002980232239
                 },
                 {
                     "name": "spriteEffects",
@@ -56,6 +57,7 @@
         {
             "compName": "RectTransform",
             "id": 20,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
@@ -88,6 +90,7 @@
         {
             "compName": "SliderController",
             "id": 21,
+            "isActive": true,
             "properties": [
                 {
                     "name": "slideSpeed",
@@ -97,5 +100,8 @@
             ]
         }
     ],
-    "children": null
+    "children": [
+        7,
+        9
+    ]
 }

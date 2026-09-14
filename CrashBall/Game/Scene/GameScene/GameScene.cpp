@@ -26,11 +26,11 @@ GameScene::GameScene(
     ISceneChanger* pSceneManager,
     IJsonDataManager* jsonDataManager)
 	: Scene(pSceneManager, jsonDataManager)
-    , m_stage           (GameObjectFactory::Create<Stage>(jsonDataManager->GetJsonData("stage")))
-    , m_player          (GameObjectFactory::Create<Player>(jsonDataManager->GetJsonData("player")))
-	, m_enemy           (GameObjectFactory::Create<Enemy>(jsonDataManager->GetJsonData("enemy")))
-    , m_gamePanel       (GameObjectFactory::Create<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
-    , m_camera          (GameObjectFactory::Create<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
+ //   , m_stage           (GameObjectFactory::Create<Stage>(jsonDataManager->GetJsonData("stage")))
+ //   , m_player          (GameObjectFactory::Create<Player>(jsonDataManager->GetJsonData("player")))
+	//, m_enemy           (GameObjectFactory::Create<Enemy>(jsonDataManager->GetJsonData("enemy")))
+ //   , m_gamePanel       (GameObjectFactory::Create<GamePanel>(jsonDataManager->GetJsonData("gamePanel")))
+ //   , m_camera          (GameObjectFactory::Create<GameCamera>(jsonDataManager->GetJsonData("gameCamera")))
     , m_collisionManager(std::make_unique<CollisionManager>())
 {
     // プレイヤーの初期設定
@@ -57,11 +57,11 @@ GameScene::GameScene(
 
     //m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
-    m_gameObjects.push_back(m_player.get());
-    m_gameObjects.push_back(m_enemy.get());
-    m_gameObjects.push_back(m_stage.get());
-    m_gameObjects.push_back(m_camera.get());
-    m_gameObjects.push_back(m_gamePanel.get());
+    //m_gameObjects.push_back(m_player.get());
+    //m_gameObjects.push_back(m_enemy.get());
+    //m_gameObjects.push_back(m_stage.get());
+    //m_gameObjects.push_back(m_camera.get());
+    //m_gameObjects.push_back(m_gamePanel.get());
 
     m_sceneName = "GameScene";
 }
@@ -123,7 +123,7 @@ void GameScene::Update(const GameContext& gameContext)
     if (m_enemyController->GetHp() <= 0.0f || 
         Input::GetKeyDown(Keyboard::Escape))
     {
-        m_pSceneChanger->RequestChangeScene(SceneID::Title);
+       // m_pSceneChanger->RequestChangeScene(SceneID::Title);
     }
 }
 
@@ -179,21 +179,5 @@ void GameScene::CreateDeviceResources(const ResourceContext& resourceContext)
  * \param proj 射影行列
  */
 void GameScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
-{
-}
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void GameScene::SaveParam()
-{
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void GameScene::ReloadParam()
 {
 }

@@ -11,6 +11,7 @@
 #include "ImGui/imgui.h"
 
 #include "Game/GameObject/GameObject.h"
+#include "Game/Scene/Interface/ISceneEditer.h"
 
 /**
  * \brief オブジェクトリスト表示
@@ -41,7 +42,7 @@ public:
 public:
 
 	// 更新 
-	void Update(ObjectCollection& gameObjects);
+	void Update(ISceneEditer* sceneEditer);
 
 	// 取得/設定
 public:

@@ -46,10 +46,19 @@ void ButtonController::Awake()
 }
 
 /**
+ * \brief 初期処理
+ * 
+ * \param gameContext
+ */
+void ButtonController::Start(const GameContext& gameContext)
+{
+}
+
+/**
  * \brief 更新
  * 
  */
-void ButtonController::Update()
+void ButtonController::Update(const GameContext& gameContext)
 {
 	SimpleMath::Vector2 mousePos = Input::GetMousePos();
 

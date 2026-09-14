@@ -65,10 +65,13 @@ public:
 public:
 
 	// アタッチ時の処理
-	void Awake();
+	virtual void Awake() override;
+
+	// 初期処理
+	virtual void Start(const GameContext& gameContext) override;
 
 	// 更新
-	void Update();
+	virtual void Update(const GameContext& gameContext) override;
 
 	// 取得/設定
 public:

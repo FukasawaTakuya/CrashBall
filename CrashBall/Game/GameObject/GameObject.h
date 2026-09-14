@@ -52,6 +52,9 @@ private:
 	// 子オブジェクト
 	std::vector<std::unique_ptr<GameObject>> m_children;
 
+	// 親オブジェクト
+	GameObject* m_parent = nullptr;
+
 protected:
 
 	// Jsonデータ
@@ -131,18 +134,20 @@ public:
 		return pComp;
 	}
 
-	// 子オブジェクトの追加
-	void AddChildren(std::unique_ptr<GameObject>&& child);
+	// ビルド時の子オブジェクトの追加
+	void AddChildrenInBuildTime(std::unique_ptr<GameObject> child);
+
+	// 実行中の子オブジェクトの追加
+	void AddChildrenInRunTime(std::unique_ptr<GameObject> child);
 
 	// 子オブジェクトの削除
-	void RemoveChild(const std::string& name);
+	std::unique_ptr<GameObject> RemoveChild(const std::string& name);
 
 	// 子オブジェクトの検索
 	GameObject* FindChild(const std::string& name);
 
 	// 取得/設定
 public:
-
 
 	// コンポーネントの取得
 	using IGameObject::GetComponent;
@@ -154,13 +159,13 @@ public:
 	}
 
 	// 名前の取得
-	std::string GetName() const override
+	const std::string& GetName() const override
 	{
 		return m_name;
 	}
 
 	// タグの取得
-	ObjectTag GetTag() const override 
+	const ObjectTag& GetTag() const override 
 	{ 
 		return m_tag; 
 	}
@@ -175,6 +180,12 @@ public:
 	bool GetIsActive() const override
 	{
 		return m_isActice;
+	}
+
+	// 親の取得
+	GameObject* GetParent() const override
+	{
+		return m_parent;
 	}
 
 	// 名前の設定
@@ -205,6 +216,12 @@ public:
 	void SetData(ordered_json* data)
 	{
 		m_data = data;
+	}
+
+	// 親の設定
+	void SetParent(GameObject* parent) override
+	{
+		m_parent = parent;
 	}
 
 	// 内部実装

@@ -33,7 +33,7 @@ public:
 	// ‘€ì
 public:
 
-	virtual void RequestChangeScene(SceneID sceneID) = 0;
+	//virtual void RequestChangeScene(SceneID sceneID) = 0;
 
 	// æ“¾/İ’è
 public:

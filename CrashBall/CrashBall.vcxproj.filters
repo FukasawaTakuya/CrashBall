@@ -598,6 +598,15 @@
     <ClInclude Include="Game\ScriptableObject\GameColor.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Scene\Interface\ISceneManager.h">
+      <Filter>Game\Scene\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Engine\SceneManegement.h">
+      <Filter>Game\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -896,6 +905,7 @@
     </ClCompile>
     <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
     <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

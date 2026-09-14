@@ -27,11 +27,13 @@ namespace ComponentFactory
 
 	// Jsonからコンポーネントを生成
 	std::unique_ptr<Component> CreataFromJson(
-		const std::string& compName,
+		const std::string& compName, 
 		IGameObject* gameObject);
 
 	using CreataFunc = std::function<std::unique_ptr<Component>(IGameObject* gameObject)>;
 
 	// コンポーネント生成関数の登録
 	void RegistComponentFunc(const std::string& compName, CreataFunc func);
+
+	const std::vector<std::string>& GetCompNames();
 };

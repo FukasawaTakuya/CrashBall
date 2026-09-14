@@ -7,6 +7,7 @@
         {
             "compName": "GameColor",
             "id": -1,
+            "isActive": true,
             "properties": [
                 {
                     "name": "playerColor",

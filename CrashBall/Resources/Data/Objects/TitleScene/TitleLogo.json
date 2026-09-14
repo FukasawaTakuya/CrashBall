@@ -7,6 +7,7 @@
         {
             "compName": "RectTransform",
             "id": 16,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
@@ -39,6 +40,7 @@
         {
             "compName": "SpriteRenderer",
             "id": 17,
+            "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -75,7 +77,7 @@
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Float",
+                    "type": "Slider",
                     "data": 1.0
                 },
                 {
@@ -88,6 +90,7 @@
         {
             "compName": "SpriteBobbing",
             "id": 18,
+            "isActive": true,
             "properties": [
                 {
                     "name": "amplitude",
@@ -109,5 +112,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

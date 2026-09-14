@@ -22,7 +22,7 @@ Scene::Scene(
 
 	for (auto& data : m_jsonManager->GetGameObjectData())
 	{
-		// オブジェクトの生成(プロパティの読み込みは行わない)
+		// オブジェクトの生成
 		auto obj = GameObjectFactory::CreateObjectFromJson(data.second, components);
 
 		// カメラの場合
@@ -39,62 +39,53 @@ Scene::Scene(
 		}
 
 		objects.emplace(obj->GetID(), obj.get());
+		AddMap(obj.get());
 
-		AddObject(std::move(obj));
+		m_gameObjects.push_back(std::move(obj));
 	}
 
 	// プロパティの読み込み
-	for (auto& data : m_jsonManager->GetGameObjectData())
+	for (auto& comp : components)
 	{
-		// コンポーネントの追加
-		for (auto& jsonComp : data.second["components"])
+		for (auto& prop : comp.second->GetProperties())
 		{
-			// idからコンポーネントを検索
-			auto comp = components.find(jsonComp["id"])->second;
-
-			// jsonデータを読み込む
-			jsonComp.get_to<Component>(*comp);
-
-			for (auto& prop : comp->GetProperties())
+			if (prop.propType == PropertyType::GameObject)
 			{
-				if (prop.propType == PropertyType::GameObject)
+				auto it = objects.find(*static_cast<int*>(prop.data));
+				if (it != objects.end())
 				{
-					auto it = objects.find(*static_cast<int*>(prop.data));
-					if (it != objects.end())
-					{
-						*static_cast<IGameObject**>(prop.data) = it->second;
-					}
+					*static_cast<IGameObject**>(prop.data) = it->second;
 				}
-				else if (prop.propType == PropertyType::Component)
+			}
+			else if (prop.propType == PropertyType::Component)
+			{
+				auto it = components.find(*static_cast<int*>(prop.data));
+				if (it != components.end())
 				{
-					auto it = components.find(*static_cast<int*>(prop.data));
-					if (it != components.end())
-					{
-						*static_cast<Component**>(prop.data) = it->second;
-					}
+					*static_cast<Component**>(prop.data) = it->second;
 				}
 			}
 		}
+	}
 
 		// 親子関係の生成
-		for (auto& obj : objects)
+	for (auto& obj : objects)
+	{
+		// 該当データを持ってくる
+		auto& jsonObj = m_jsonManager->GetGameObjectData().find(obj.second->GetName())->second;
+
+		for (auto& child : jsonObj["children"])
 		{
-			// 該当データを持ってくる
-			auto& jsonObj = m_jsonManager->GetGameObjectData().find(obj.second->GetName())->second;
-
-			for (auto& child : jsonObj["children"])
-			{
-				auto it = std::ranges::find_if(m_objects, [&](std::unique_ptr<GameObject>& g)
-					{
-						return child == g->GetID();
-					});
-
-				if (it != m_objects.end())
+			auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& g)
 				{
-					obj.second->AddChildren(std::move(*it));
-					// オブジェクトリストから削除
-					m_objects.erase(it);
-				}
+					return child == g->GetID();
+				});
+
+			if (it != m_gameObjects.end())
+			{
+				obj.second->AddChildrenInBuildTime(std::move(*it));
+				// オブジェクトリストから削除
+				m_gameObjects.erase(it);
 			}
 		}
 	}
@@ -103,16 +94,125 @@ Scene::Scene(
 	{
 		obj.second->Awake();
 	}
+}
 
-	//m_playManager = std::make_unique<GameObject>(m_jsonManager->GetPlayManagerData());
+GameObject* Scene::CreateNewGameObject()
+{
+	auto newGameObject = std::make_unique<GameObject>();
+	GameObject* ptr = newGameObject.get();
+	m_gameObjects.push_back(std::move(newGameObject));
 
-	// TODO:コライダー登録
-	// TODO:カメラターゲット登録
-	// TODO:UI登録
-	// TODO:GamePanel修正 PanelController作れば解決　子からオブジェクト取得
+	//m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
+
+	//ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
+	//newObj->SetData(data);
+
+	//newObj->SetID(GameObejctIDGenerator::GetID());
+
+	AddMap(ptr);
+	return ptr;
+}
+
+void Scene::DeleteGameObject(GameObject* obj)
+{
+	DeleteMap(obj);
+
+	for (auto& child : obj->GetChildren())
+	{
+		DeleteMap(child.get());
+	}
+
+	auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& gameObject)
+		{
+			return gameObject->GetName() == obj->GetName();
+		});
+
+	if (it != m_gameObjects.end())
+	{
+		m_gameObjects.erase(it);
+	}
+}
+
+void Scene::DeleteMap(GameObject* obj)
+{
+	if (FindGameObject(obj->GetName()) != nullptr)
+	{
+		m_objNameMap.erase(obj->GetName());
+	} 
+	auto range = FindGameObjectsWithTag(obj->GetTag());
+	for (auto it = range.first; it != range.second; it++)
+	{
+		if (it->second->GetName() == obj->GetName())
+		{
+			m_objTagMap.erase(it);
+			break;
+		}
+	}
+}
+
+/**
+ * \brief ゲームオブジェクトの検索
+ * 
+ * \param objectName オブジェクト名
+ * \return ゲームオブジェクト
+ */
+GameObject* Scene::FindGameObject(const std::string& objectName) const
+{
+	auto it = m_objNameMap.find(objectName);
+	if (it != m_objNameMap.end())
+	{
+		return it->second;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+/**
+ * \brief ゲームオブジェクトのタグでの検索
+ * 
+ * \param tag タグ
+ * \return ゲームオブジェクト
+ */
+GameObject* Scene::FindGameObjectWithTag(const ObjectTag& tag) const
+{
+	auto it = m_objTagMap.find(tag);
+	if (it != m_objTagMap.end())
+	{
+		return it->second;
+	}
+	else
+	{
+		return nullptr;
+	}
+}
+
+
+/**
+ * \brief ゲームオブジェクトのタグでの検索(複数)
+ *
+ * \param tag タグ
+ * \return 見つかったゲームオブジェクトの先頭から終端までのイテレータ
+ */
+std::pair<TagMapIt, TagMapIt> Scene::FindGameObjectsWithTag(const ObjectTag& tag) const
+{
+	std::pair<TagMapIt, TagMapIt> range = m_objTagMap.equal_range(tag);
+	return range;
 }
 
 void Scene::ChangeScene(SceneID nextSceneID)
 {
-	m_pSceneChanger->RequestChangeScene(nextSceneID);
+	//m_pSceneChanger->RequestChangeScene(nextSceneID);
+}
+
+/**
+ * \brief マップに追加
+ * 
+ * \param gameObject ゲームオブジェクト
+ */
+void Scene::AddMap(GameObject* gameObject)
+{
+	m_objNameMap.emplace(gameObject->GetName(), gameObject);
+	m_objTagMap.emplace(gameObject->GetTag(), gameObject);
 }

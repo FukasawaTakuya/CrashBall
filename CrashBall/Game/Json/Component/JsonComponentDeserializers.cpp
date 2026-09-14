@@ -64,6 +64,7 @@ void from_json(const ordered_json& j, PropertyInfo& property)
 void from_json(const ordered_json& j, Component& component)
 {
 	component.SetID(j["id"]);
+	component.SetIsActive(j["isActive"]);
 	auto& properties = component.GetProperties();
 
 	for (int i = 0; i < j["properties"].size(); i++)

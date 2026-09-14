@@ -68,6 +68,7 @@ void to_json(ordered_json& j, const Component& component)
 {
 	j["compName"] = component.GetCompName();
 	j["id"] = component.GetID();
+	j["isActive"] = component.GetIsActive();
 	j["properties"] = nullptr;
 
 	for (auto& prop : component.GetProperties())

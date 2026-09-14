@@ -53,7 +53,7 @@ void Button::Start(const GameContext& gameContext)
  */
 void Button::Update(const GameContext& gameContext)
 {
-	m_buttonController->Update();
+	m_buttonController->Update(gameContext);
 }
 
 /**

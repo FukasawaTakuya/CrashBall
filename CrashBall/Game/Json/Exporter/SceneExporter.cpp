@@ -59,14 +59,14 @@ void SceneExporter::ExportScene(Scene* scene)
 
 	sceneData["SceneName"] = scene->GetSceneName();
 
-	// オブジェクト名の保存とオブジェクトのエクスポート
-	for (auto obj : *scene->GetGameObjects())
-	{
-		//sceneData["Objects"].push_back(obj->GetName());
+	//// オブジェクト名の保存とオブジェクトのエクスポート
+	//for (auto obj : *scene->GetGameObjects())
+	//{
+	//	//sceneData["Objects"].push_back(obj->GetName());
 
-		// オブジェクトのエクスポート
-		m_gameObjectExporter->ExporterGameObject(obj, objectExportPath);
-	}
+	//	// オブジェクトのエクスポート
+	//	m_gameObjectExporter->ExporterGameObject(obj, objectExportPath);
+	//}
 
 	// 書き込み
 	ofs << sceneData.dump(3);

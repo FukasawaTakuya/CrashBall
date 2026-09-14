@@ -56,7 +56,7 @@ public:
 private:
 
 	// プロパティの表示
-	void DrawProperty(Component* comp);
+	void DrawProperty(Component* comp); 
 
 	// Bool型のプロパティ表示
 	static void DrawBool(const PropertyInfo& property);

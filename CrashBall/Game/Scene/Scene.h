@@ -19,6 +19,8 @@
 #include "Game/GameObject/GameObject.h"
 #include "Game/CollisionManager/CollisionManager.h"
 
+using TagMapIt = std::unordered_multimap<ObjectTag, GameObject*>::const_iterator;
+
 /**
  * \brief 基底シーン
  */
@@ -27,22 +29,17 @@ class Scene {
 	// データメンバの宣言 -----------------------------------------------
 protected:
 
-	ISceneChanger* m_pSceneChanger;
-
-	IJsonDataManager* m_jsonManager;
-
-	std::vector<GameObject*> m_gameObjects;
-
-
-	// ========================================= //
 	std::string m_sceneName = "scene";
 
 	ICamera* m_camera = nullptr;
 
-	std::vector<std::unique_ptr<GameObject>> m_objects;
-	std::unique_ptr<GameObject> m_playManager;
+	ISceneChanger* m_pSceneChanger;
 
-	std::vector<GameObject*> m_objectsList;
+	IJsonDataManager* m_jsonManager;
+
+	std::vector<std::unique_ptr<GameObject>> m_gameObjects;		// GameObjectのコンテナ
+	std::unordered_map<std::string, GameObject*> m_objNameMap;	// GameObjectの名前マップ
+	std::unordered_multimap<ObjectTag, GameObject*> m_objTagMap;// GameOBjectのタグマップ
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
@@ -70,7 +67,7 @@ public:
 	// 初期化
 	virtual void Start(const GameContext& gameContext)
 	{
-		for (auto& obj : m_objects)
+		for (auto& obj : m_gameObjects)
 		{
 			obj->Start(gameContext);
 		}
@@ -79,7 +76,7 @@ public:
 	// 更新
 	virtual void Update(const GameContext& gameContext)
 	{
-		for (auto& obj : m_objects)
+		for (auto& obj : m_gameObjects)
 		{
 			obj->Update(gameContext);
 		}
@@ -90,7 +87,7 @@ public:
 	// 描画
 	virtual void Render(const RenderContext& renderContext)
 	{
-		for (auto& obj : m_objects)
+		for (auto& obj : m_gameObjects)
 		{
 			obj->Render(renderContext);
 		}
@@ -102,7 +99,7 @@ public:
 	// デバイス依存のリソース作成
 	virtual void CreateDeviceResources(const ResourceContext& resourceContext)
 	{
-		for (auto& obj : m_objects)
+		for (auto& obj : m_gameObjects)
 		{
 			obj->SetResource(resourceContext);
 		}
@@ -111,21 +108,33 @@ public:
 	// ウインドウサイズ依存のリソース作成
 	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj){};
 
-	// パラメータの書き込み
-	virtual void SaveParam(){};
-
-	// パラメータの再読み込み
-	virtual void ReloadParam(){};
-
-	void SaveFile()
+	// データの保存
+	void SaveData()
 	{
-		for (auto& obj : m_objects)
+		for (auto& obj : m_gameObjects)
 		{
 			obj->SaveData();
 		}
-
-		m_jsonManager->SaveGameObject();
+		m_jsonManager->SaveGameObjectData();
 	}
+
+	// 新しいゲームオブジェクトの生成
+	GameObject* CreateNewGameObject();
+
+	// ゲームオブジェクトの削除
+	void DeleteGameObject(GameObject* obj);
+
+	// マップから削除
+	void DeleteMap(GameObject* obj);
+
+	// ゲームオブジェクトの検索
+	GameObject* FindGameObject(const std::string& objectName) const;
+
+	// ゲームオブジェクトのタグでの検索
+	GameObject* FindGameObjectWithTag(const ObjectTag& tag) const;
+
+	// ゲームオブジェクトのタグでの検索
+	std::pair<TagMapIt, TagMapIt> FindGameObjectsWithTag(const ObjectTag& tag) const;
 
 	// 取得/設定
 public:
@@ -133,30 +142,31 @@ public:
 	// カメラの取得
 	virtual ICamera* GetCamera() const { return m_camera; };
 
-	// ゲームオブジェクトの取得
-	std::vector<GameObject*>* GetGameObjects()
-	{
-		return &m_objectsList;
-	}
-
 	// シーン名の取得
 	std::string GetSceneName() const
 	{
 		return m_sceneName;
 	}
 
+	// ゲームオブジェクトのコンテナの取得
 	std::vector<std::unique_ptr<GameObject>>& GetObjects()
 	{
-		return m_objects;
+		return m_gameObjects;
 	}
 
-	void AddObject(std::unique_ptr<GameObject>&& object)
+	// シーン名の設定
+	void SetSceneName(const std::string& sceneName)
 	{
-		//m_objectsList.push_back(object.get());
-		m_objects.push_back(std::move(object));
+		m_sceneName = sceneName;
 	}
 
 	// 内部実装
-protected:
+private:
+
+	// シーンの変更
 	void ChangeScene(SceneID nextSceneID);
+
+	// マップに追加
+	void AddMap(GameObject* gameObject);
+
 };

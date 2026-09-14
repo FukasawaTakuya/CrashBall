@@ -7,14 +7,15 @@
         {
             "compName": "Transform",
             "id": 0,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 0.0,
-                        "y": 10.300000190734863,
-                        "z": 0.0
+                        "x": 0.0012258798815310001,
+                        "y": 10.326594352722168,
+                        "z": -0.0009852153016254306
                     }
                 },
                 {
@@ -40,6 +41,7 @@
         {
             "compName": "Sphere",
             "id": 1,
+            "isActive": true,
             "properties": [
                 {
                     "name": "radius",
@@ -51,17 +53,29 @@
         {
             "compName": "ModelRenderer",
             "id": 2,
+            "isActive": true,
             "properties": [
                 {
                     "name": "modelKey",
                     "type": "String",
                     "data": "player"
+                },
+                {
+                    "name": "diffuseColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.9803921580314636,
+                        "g": 0.8078431487083435,
+                        "r": 0.529411792755127
+                    }
                 }
             ]
         },
         {
             "compName": "Rigidbody",
             "id": 3,
+            "isActive": false,
             "properties": [
                 {
                     "name": "gravityAcceleration",
@@ -88,6 +102,7 @@
         {
             "compName": "PlayerStatusController",
             "id": 4,
+            "isActive": false,
             "properties": [
                 {
                     "name": "attackCost",
@@ -98,12 +113,18 @@
                     "name": "minAttackPower",
                     "type": "Float",
                     "data": 10.0
+                },
+                {
+                    "name": "pFloorMeshGetter",
+                    "type": "Componet",
+                    "data": 0
                 }
             ]
         },
         {
             "compName": "PlayerController",
             "id": 5,
+            "isActive": false,
             "properties": [
                 {
                     "name": "attackSpeed",
@@ -126,7 +147,17 @@
                     "data": 40.0
                 },
                 {
-                    "name": "enemyTransform",
+                    "name": "pEnemyTransform",
+                    "type": "Componet",
+                    "data": 0
+                },
+                {
+                    "name": "pCameraController",
+                    "type": "Componet",
+                    "data": 0
+                },
+                {
+                    "name": "pStageController",
                     "type": "Componet",
                     "data": 0
                 }
@@ -135,7 +166,9 @@
         {
             "compName": "BallController",
             "id": 6,
+            "isActive": false,
             "properties": null
         }
-    ]
+    ],
+    "children": null
 }

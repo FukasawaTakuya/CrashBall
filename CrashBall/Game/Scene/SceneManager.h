@@ -9,6 +9,7 @@
 #pragma once
 #include "Interface/ISceneChanger.h"
 #include "Interface/ISceneEditer.h"
+#include "Interface/ISceneManager.h"
 
 #include "Game/Json/JsonDataManager.h"
 #include "Game/Context/GameContext.h"
@@ -28,19 +29,16 @@ class Camera;
 class SceneManager 
 	: public ISceneChanger
 	, public ISceneEditer
+	, public ISceneManager
 {
 	
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// シーンのキャッシュ
-	std::unordered_map<SceneID, std::unique_ptr<Scene>> m_scenes;
+	std::string m_currentSceneName;
 
-	// 現在のシーン
-	Scene* m_pCurrentScene;
-
-	// シーン変更リクエスト
-	Scene* m_pRequestScene;
+	// リクエストシーン名
+	std::string m_requestSceneName;
 
 	// シーン遷移スクリーン
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
@@ -49,11 +47,9 @@ private:
 	const RenderContext* m_renderContext;		// 描画用のコンテキスト
 	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
 
-	IJsonDataManager* m_jsonDataManager;		// Json管理
-
 	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
 
-	std::unique_ptr<Scene> m_current;
+	std::unique_ptr<Scene> m_currentScene;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -75,18 +71,18 @@ public:
 	requires std::derived_from<SceneType, Scene>
 	void CreateScene(SceneID sceneID)
 	{
-		// シーンの作成
-		std::unique_ptr<SceneType> scene
-			= std::make_unique<SceneType>(this, m_jsonDataManager);
-		// コンテナに追加
-		m_scenes.emplace(sceneID, std::move(scene));
+		//// シーンの作成
+		//std::unique_ptr<SceneType> scene
+		//	= std::make_unique<SceneType>(this, m_jsonDataManager);
+		//// コンテナに追加
+		//m_scenes.emplace(sceneID, std::move(scene));
 	}
 
 	// 最初のシーンのセット
-	void SetStartScene();
+	void SetStartScene(const std::string& sceneName);
 
 	// 初期化
-	void Initialize() override;
+	void Start() override;
 
 	// 更新
 	void Update();
@@ -100,47 +96,51 @@ public:
 	// ウインドウサイズ依存のリソース作成
 	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
 
-	// シーン変更のリクエスト
-	void RequestChangeScene(SceneID nextSceneID) override;
-
-	// パラメータの書き込み
-	void SaveParam() override;
-
-	// パラメータの再読み込み
-	void ReloadParam() override;
-
 	// データの読み込み
 	void LoadData();
 
 	// データの保存
-	void SaveData();
+	void SaveData() override;
 
-	// シーンのセット
-	void SetScene(const std::string& sceneName);
+	// シーンの変更
+	void RequestChangeScene(const std::string& sceneName) override;
+
+	// 新しいオブジェクトの生成
+	void CreateNewGameObject() override;
+
+	// ゲームオブジェクトの削除
+	void DeleteGameObject(GameObject* obj) override;
 
 	// 取得/設定
 public:
 	// カメラの取得
 	ICamera* GetCamera() const
 	{
-		return m_current->GetCamera();
+		return m_currentScene->GetCamera();
 	}
 
 	// ゲームオブジェクトの取得
-	std::vector<std::unique_ptr<GameObject>>& GetGameObjects()
+	std::vector<std::unique_ptr<GameObject>>& GetGameObjects() override
 	{
-		return m_current->GetObjects();
+		return m_currentScene->GetObjects();
 	}
 
 	// 現在のシーンの取得
 	Scene* GetCurrentScene() const
 	{
-		return m_current.get();
+		return m_currentScene.get();
 	}
+
+	// ゲームオブジェクトの検索
+	GameObject* FindGameObject(const std::string& objectName) const override;
+
+	// ゲームオブジェクトのタグでの検索
+	GameObject* FindGameObjectWithTag(ObjectTag tag) const override;
+
+	// ゲームオブジェクトのタグでの検索
+	std::pair<TagMapIt, TagMapIt> FindGameObjectsWithTag(ObjectTag tag) const override;
 
 	// 内部実装
 private:
-	// シーン変更
-	void ChangeScene();
 
 };

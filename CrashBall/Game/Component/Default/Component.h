@@ -82,6 +82,7 @@ private:
 
 	IGameObject* m_gameObject = nullptr;	// ゲームオブジェクト
 	int m_id = 0;	// ID
+	bool m_isActive = true;
 
 protected:
 	std::type_index m_baseTypeid = typeid(Component);	// 基底クラスのtypeid
@@ -138,11 +139,24 @@ public:
 		return m_id;
 	}
 
+	// アクティブフラグの取得
+	bool GetIsActive() const
+	{
+		return m_isActive;
+	}
+
 	// コンポーネントのIDを設定
 	void SetID(int id)
 	{
 		m_id = id;
 	}
+
+	// アクティブフラグの取得
+	void SetIsActive(bool isActive)
+	{
+		m_isActive = isActive;
+	}
+
 
 	// プロパティの取得
 	virtual const std::vector<PropertyInfo>& GetProperties() const = 0;

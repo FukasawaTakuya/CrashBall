@@ -8,6 +8,11 @@
 
 #pragma once
 
+#include <vector>
+#include <memory>
+
+class GameObject;
+
 
 /**
  * \brief シーン編集機能のインタフェース
@@ -28,17 +33,21 @@ public:
 public:
 
 	// 初期化
-	virtual void Initialize() = 0;
+	virtual void Start() = 0;
 
 	// パラメータの書き込み
-	virtual void SaveParam() = 0;
+	virtual void SaveData() = 0;
 
-	// パラメータの再読み込み
-	virtual void ReloadParam() = 0;
+	// 新しいゲームオブジェクトの生成
+	virtual void CreateNewGameObject() = 0;
 
+	virtual void DeleteGameObject(GameObject* obj) = 0;
 
 	// 取得/設定
 public:
+
+	// ゲームオブジェクトの取得
+	virtual std::vector<std::unique_ptr<GameObject>>& GetGameObjects() = 0;
 
 	// 内部実装
 private:

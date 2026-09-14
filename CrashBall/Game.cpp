@@ -99,24 +99,13 @@ void Game::Initialize(HWND window, int width, int height)
         m_jsonDataManager.get()
     );
 
-    m_editGuiManager = std::make_unique<EditGuiManager>(m_sceneManager.get(), m_jsonDataManager.get());
+    m_editGuiManager = std::make_unique<EditGuiManager>();
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
     ServiceLocator::Set<IScriptableObjectManager>(m_scriptableObjectManager.get());
-
-    // Jsonのロード
-    m_jsonDataManager->LoadFile("player", "Resources/Data/player.json");
-    m_jsonDataManager->LoadFile("titlePlayer", "Resources/Data/titlePlayer.json");
-    m_jsonDataManager->LoadFile("enemy", "Resources/Data/enemy.json");
-    m_jsonDataManager->LoadFile("stage", "Resources/Data/stage.json");
-    m_jsonDataManager->LoadFile("gamePanel", "Resources/Data/gamePanel.json");
-    m_jsonDataManager->LoadFile("titleLogo", "Resources/Data/titleLogo.json");
-    m_jsonDataManager->LoadFile("startButton", "Resources/Data/startButton.json");
-    m_jsonDataManager->LoadFile("titleCamera", "Resources/Data/titleCamera.json");
-    m_jsonDataManager->LoadFile("gameCamera", "Resources/Data/gameCamera.json");
-    m_jsonDataManager->LoadFile("gameColors", "Resources/Data/gameColors.json");
+    ServiceLocator::Set<ISceneManager>(m_sceneManager.get());
 
     // 作成するリソースのファイル名を登録
     // モデル
@@ -137,18 +126,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_soundManager->RegisterSeFile("attack", L"Resources/Sound/SE/Attack.wav");
     m_soundManager->RegisterSeFile("damage", L"Resources/Sound/SE/Attack.wav");
 
-    // ScriptableObjectの作成
-    //m_sriptableObjectManager->RegisterObject(
-    //    "gameColor",
-    //    GameObjectFactory::Create<ScriptableObject>(m_jsonDataManager->GetJsonData("gameColors"))
-    //);
-
-    //// ScriptableObejctリストに追加
-    //for (auto& object : *m_sriptableObjectManager->GetScriptableObejctList())
-    //{
-    //    m_scriptableObjects.push_back(object.second.get());
-    //}
-
+    // ScriptableObjectの読み込み
     m_scriptableObjectManager->LoadScriptableObject();
 
     // サウンドの作成
@@ -157,21 +135,13 @@ void Game::Initialize(HWND window, int width, int height)
     // シーンデータの読み込み
     m_sceneManager->LoadData();
 
+    m_sceneManager->SetStartScene("GameScene");
+
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
 
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
-
-    // シーンの登録
-    //m_sceneManager->CreateScene<GameScene>(SceneID::Game);
-    //m_sceneManager->CreateScene<TitleScene>(SceneID::Title);
-    // 初期シーンをセット
-    // m_sceneManager->SetStartScene();
-
-
-   // m_sceneLoader->LoadScene(m_sceneManager->GetCurrentScene());
-
 
     //  ImGuiの初期化処理
     {
@@ -243,10 +213,13 @@ void Game::Update(DX::StepTimer const& timer)
     }
 
     // 編集モードならデバッグカメラ更新
-    if (m_editGuiManager->GetEditMode())
+    if (m_editGuiManager->GetIsActive())
     {
-        m_debugCamera->Update(m_gameContext);
-        //m_sceneManager->Update();
+        if (m_inputSystem->CheckHoverScreen())
+        {
+            m_debugCamera->Update(m_gameContext);
+        }
+        m_sceneManager->Update();
     }
     else
     {
@@ -264,7 +237,7 @@ void Game::Update(DX::StepTimer const& timer)
 
     // エディタの更新
     m_editGuiManager->Update(
-        m_sceneManager->GetGameObjects(),
+        m_sceneManager.get(),
         m_renderTexture->GetRenderTexture()
     );
 
@@ -306,7 +279,7 @@ void Game::Render()
     SimpleMath::Matrix view;
 
     // 編集モードならデバッグカメラからビュー取得
-    if (m_editGuiManager->GetEditMode())
+    if (m_editGuiManager->GetIsActive())
     {
         view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
     }

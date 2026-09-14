@@ -1,28 +1,29 @@
 {
     "name": "TitleCamera",
-    "tag": "Default",
+    "tag": "Camera",
     "id": 3,
     "isActive": true,
     "components": [
         {
             "compName": "Transform",
             "id": 14,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": -9.938302993774414,
-                        "y": 14.299985885620117,
-                        "z": 6.725259780883789
+                        "x": -2.2891883850097656,
+                        "y": 14.326593399047852,
+                        "z": -11.780370712280273
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.0,
-                        "y": 0.0,
+                        "x": 0.0,
+                        "y": -2.9495463371276855,
                         "z": 0.0
                     }
                 },
@@ -40,20 +41,21 @@
         {
             "compName": "TitleCameraController",
             "id": 15,
+            "isActive": true,
             "properties": [
                 {
                     "name": "baseOffset",
                     "type": "Vector3",
                     "data": {
-                        "x": 15.0,
-                        "y": 1.0,
-                        "z": 1.0
+                        "x": 0.0,
+                        "y": 4.0,
+                        "z": 12.0
                     }
                 },
                 {
                     "name": "rotateAngeleRad",
                     "type": "Float",
-                    "data": 0.0
+                    "data": 15.0
                 },
                 {
                     "name": "targetTransform",
@@ -62,5 +64,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

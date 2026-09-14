@@ -18,20 +18,13 @@ enum class ObjectTag
 	Stage,
 };
 
+class GameObject;
 class Component;
 
 /**
  * \brief 基底オブジェクトのインターフェース
  */
 class  IGameObject {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -67,13 +60,15 @@ public:
 	}
 
 	// 名前の取得
-	virtual std::string GetName() const = 0;
+	virtual const std::string& GetName() const = 0;
 	// タグの取得
-	virtual ObjectTag GetTag() const = 0;
+	virtual const ObjectTag& GetTag() const = 0;
 	// IDの取得
 	virtual int GetID() const = 0;
 	// アクティブフラグの取得
 	virtual bool GetIsActive() const = 0;
+	// 親の取得
+	virtual GameObject* GetParent() const = 0;
 
 	// 名前の設定
 	virtual void SetName(std::string name) = 0;
@@ -83,6 +78,8 @@ public:
 	virtual void SetID(int id) = 0;
 	// アクティブフラグの設定
 	virtual void SetIsActive(bool isActive) = 0;
+	// 親の設定
+	virtual void SetParent(GameObject* parent) = 0;
 
 	// 内部実装
 protected:

@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include <fstream>
+#include "Game/IDGenerator/GameObejctIDGenerator.h"
 
 /**
  * \brief コンストラクタ
@@ -27,11 +28,9 @@ SceneManager::SceneManager(
 	: m_gameContext(gameContext)
 	, m_renderContext(renderContext)
 	, m_resourceContext(resourceContext)
-	, m_jsonDataManager(jsonDataManager)
-	, m_pCurrentScene(nullptr)
-	, m_pRequestScene(nullptr)
 	, m_changeScreen(std::make_unique<FadeChangeScreen>())
 {
+	m_changeScreen->Awake();
 }
 
 /**
@@ -46,24 +45,26 @@ SceneManager::~SceneManager()
  * \brief 最初のシーンのセット
  * 
  */
-void SceneManager::SetStartScene()
+void SceneManager::SetStartScene(const std::string& sceneName)
 {
-	m_pCurrentScene = m_scenes[SceneID::Title].get();
-	// 新シーンの遷移時の処理
-	m_pCurrentScene->OnEnter(
-		*m_resourceContext,
-		*m_gameContext
-	);
-	m_changeScreen->StartFadeIn();
+	m_currentSceneName = sceneName;
+	auto it = m_jsonManagers.find(sceneName);
+	// シーンが未登録でないとき
+	if (it != m_jsonManagers.end())
+	{
+		// シーン変更
+		m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[sceneName].get());
+		m_currentScene->Start(*m_gameContext);
+	}
 }
 
 /**
  * \brief 初期化
  * 
  */
-void SceneManager::Initialize()
+void SceneManager::Start()
 {
-	m_pCurrentScene->Start(*m_gameContext);
+	m_currentScene->Start(*m_gameContext);
 }
 
 /**
@@ -73,27 +74,24 @@ void SceneManager::Initialize()
 void SceneManager::Update()
 {
 	// 変更リクエストがnullじゃないなら変更
-	if (m_pRequestScene) 
+	if (m_requestSceneName  != "")
 	{
 		// フェードアウトが完了したら
 		if (!m_changeScreen->GetIsFadeOut())
 		{
-			// シーン遷移
-			ChangeScene();
+			// シーン変更
+			m_currentScene->Finalize();
+			m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[m_requestSceneName].get());
+
 			// フェードイン開始
 			m_changeScreen->StartFadeIn();
 		}
 	}
 
 	// シーン遷移スクリーンの更新
-	m_changeScreen->Update(*m_gameContext);
+	//m_changeScreen->Update(*m_gameContext);
 
-	m_current->Update(*m_gameContext);
-
-	// 更新
-	if (m_pCurrentScene) {
-		m_pCurrentScene->Update(*m_gameContext);
-	}
+	m_currentScene->Update(*m_gameContext);
 }
 
 /**
@@ -102,8 +100,7 @@ void SceneManager::Update()
  */
 void SceneManager::Render()
 {
-	//if (m_pCurrentScene) m_pCurrentScene->Render(*m_renderContext);
-	m_current->Render(*m_renderContext);
+	m_currentScene->Render(*m_renderContext);
 
 	//m_changeScreen->Render(*m_renderContext);
 }
@@ -114,12 +111,10 @@ void SceneManager::Render()
  */
 void SceneManager::CreateDeviceResources()
 {
-	//if(m_pCurrentScene) m_pCurrentScene->CreateDeviceResources(*m_resourceContext);
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
 
-	//m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
-	//m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
-
-	m_current->CreateDeviceResources(*m_resourceContext);
+	m_currentScene->CreateDeviceResources(*m_resourceContext);
 }
 
 /**
@@ -129,52 +124,7 @@ void SceneManager::CreateDeviceResources()
  */
 void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
 {
-	for (auto& scene : m_scenes)
-	{
-		scene.second->CreateWindowSizeResources(proj);
-	}
-}
-
-/**
- * \brief シーン変更のリクエスト
- * 
- * \param nextSceneID 次のシーンのID
- */
-void SceneManager::RequestChangeScene(SceneID nextSceneID)
-{
-	// フェードインが終わっていなければリターン
-	if (m_changeScreen->GetIsFadeIn()) return;
-
-	if (m_pRequestScene != nullptr) return;
-
-	auto it = m_scenes.find(nextSceneID);
-	// シーンが未登録
-	if (it != m_scenes.end())
-	{
-		// 登録されたリクエストシーンを取得
-		m_pRequestScene = it->second.get();
-
-		// フェードアウト開始
-		m_changeScreen->StartFadeOut();
-	}
-}
-
-/**
- * \brief パラメータの書き込み
- * 
- */
-void SceneManager::SaveParam()
-{
-	m_pCurrentScene->SaveParam();
-}
-
-/**
- * \brief パラメータの再読み込み
- * 
- */
-void SceneManager::ReloadParam()
-{
-	m_pCurrentScene->ReloadParam();
+	m_currentScene->CreateWindowSizeResources(proj);
 }
 
 /**
@@ -193,6 +143,8 @@ void SceneManager::LoadData()
 		std::string sceneName = scene;
 		std::string path = "Resources/Data/Objects/" + sceneName;
 
+		jsonManager->SetSaveFilePath(path + "/");
+
 		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
 		{
 			jsonManager->LoadGameObject(entity.path().string());
@@ -200,11 +152,6 @@ void SceneManager::LoadData()
 
 		m_jsonManagers.emplace(scene, std::move(jsonManager));
 	}
-
-	//m_current = std::make_unique<Scene>(this, m_jsonManagers["TitleScene"].get());
-	m_current = std::make_unique<Scene>(this, m_jsonManagers["GameScene"].get());
-
-	m_current->Start(*m_gameContext);
 }
 
 /**
@@ -213,39 +160,112 @@ void SceneManager::LoadData()
  */
 void SceneManager::SaveData()
 {
-	m_current->SaveFile();
+	m_currentScene->SaveData();
 }
 
-void SceneManager::SetScene(const std::string& sceneName)
+/**
+ * \brief シーンの変更
+ * 
+ * \param sceneName
+ */
+void SceneManager::RequestChangeScene(const std::string& sceneName)
 {
 	auto it = m_jsonManagers.find(sceneName);
+	// シーンが未登録でないとき
 	if (it != m_jsonManagers.end())
 	{
-		auto scene = std::make_unique<Scene>(this, it->second.get());
+		// シーン変更
+		m_currentScene->Finalize();
+		m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[sceneName].get());
+
+	}
+
+	//// フェードインが終わっていなければリターン
+	//if (m_changeScreen->GetIsFadeIn()) return;
+
+	//if (m_requestSceneName != "") return;
+
+	//auto it = m_jsonManagers.find(sceneName);
+	//// シーンが未登録でないとき
+	//if (it != m_jsonManagers.end())
+	//{
+	//	// フェードアウト開始
+	//	m_changeScreen->StartFadeOut();
+	//}
+
+}
+
+/**
+ * \brief 新しいオブジェクトの生成
+ * 
+ */
+void SceneManager::CreateNewGameObject()
+{
+	GameObject* newObj = m_currentScene->CreateNewGameObject();
+	//m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
+
+	//ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
+	//newObj->SetData(data);
+
+	//newObj->SetID(GameObejctIDGenerator::GetID());
+}
+
+void SceneManager::DeleteGameObject(GameObject* obj)
+{
+	m_jsonManagers[m_currentSceneName]->DeleteGameObjectData(obj->GetName());
+	m_currentScene->DeleteGameObject(obj);
+}
+
+/**
+ * \brief ゲームオブジェクトの検索
+ * 
+ * \param objectName ゲームオブジェクト名
+ * \return ゲームオブジェクト
+ */
+GameObject* SceneManager::FindGameObject(const std::string& objectName) const
+{
+	if (m_currentScene.get() != nullptr)
+	{
+		return m_currentScene->FindGameObject(objectName);
+	}
+	else
+	{
+		return nullptr;
 	}
 }
 
 /**
- * \brief シーン変更
- * 
+ * \brief ゲームオブジェクトのタグでの検索
+ *
+ * \param tag タグ
+ * \return ゲームオブジェクト
  */
-void SceneManager::ChangeScene()
+GameObject* SceneManager::FindGameObjectWithTag(ObjectTag tag) const
 {
-	// 現シーンの終了処理
-	m_pCurrentScene->Finalize();
+	if (m_currentScene.get() != nullptr)
+	{
+		return m_currentScene->FindGameObjectWithTag(tag);
+	}
+	else
+	{
+		return nullptr;
+	}
+}
 
-	// シーン切り替え
-	m_pCurrentScene = m_pRequestScene;
-
-	// 新シーンの遷移時の処理
-	m_pCurrentScene->OnEnter(
-		*m_resourceContext,
-		*m_gameContext
-	);
-
-	// 新シーンの初期化
-	m_pCurrentScene->Start(*m_gameContext);
-
-	// リクエストを削除
-	m_pRequestScene = nullptr;
+/**
+ * \brief ゲームオブジェクトのタグでの検索(複数)
+ *
+ * \param tag タグ
+ * \return 見つかったゲームオブジェクトの先頭から終端までのイテレータ
+ */
+std::pair<TagMapIt, TagMapIt> SceneManager::FindGameObjectsWithTag(ObjectTag tag) const
+{
+	if (m_currentScene.get() != nullptr)
+	{
+		return m_currentScene->FindGameObjectsWithTag(tag);
+	}
+	else
+	{
+		return std::pair<TagMapIt, TagMapIt>{};
+	}
 }

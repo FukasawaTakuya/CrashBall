@@ -20,17 +20,12 @@ class  EditButton {
 	// メンバ関数の宣言 -------------------------------------------------
 
 	IEditModeChanger*	m_pEditModeChanger   = nullptr;	// 編集モード切り替え
-	ISceneEditer*		m_pSceneEditer		 = nullptr;	// シーン編集
-	IJsonDataManager*	m_pJsonDataManager   = nullptr;	// Jsonデータ管理
 	
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	EditButton(
-		IEditModeChanger*	pEditModeChanger,
-		ISceneEditer*		pSceneEditer,
-		IJsonDataManager*	pJsonDataManager);
+	EditButton(IEditModeChanger*	pEditModeChanger);
 
 	// デストラクタ
 	~EditButton();
@@ -39,7 +34,7 @@ public:
 public:
 
 	// 更新
-	void Update();
+	void Update(ISceneEditer* sceneEditer);
 
 	// 取得/設定
 public:

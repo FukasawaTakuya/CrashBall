@@ -7,6 +7,7 @@
         {
             "compName": "RectTransform",
             "id": 22,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
@@ -39,6 +40,7 @@
         {
             "compName": "FloorMeshGaugeController",
             "id": 23,
+            "isActive": true,
             "properties": [
                 {
                     "name": "pPalyerMeshGauge",
@@ -70,6 +72,7 @@
         {
             "compName": "AttackGaugeController",
             "id": 24,
+            "isActive": true,
             "properties": [
                 {
                     "name": "pAttackGauge",
@@ -96,6 +99,7 @@
         {
             "compName": "EnemyHpGaugeController",
             "id": 25,
+            "isActive": true,
             "properties": [
                 {
                     "name": "pEnemyHpGauge",
@@ -122,16 +126,8 @@
     ],
     "children": [
         5,
-        7,
-        8,
-        9,
         11,
-        12,
-        13,
-        14,
         16,
-        17,
-        19,
-        20
+        22
     ]
 }

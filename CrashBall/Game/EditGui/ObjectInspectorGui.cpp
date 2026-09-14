@@ -14,26 +14,7 @@
 #include "ImGui/imgui_stdlib.h"
 #include "Game/Common/Utility.h"
 
-#include "Game/Component/Default/Physics/Transform.h"
-#include "Game/Component/Default/Physics/RectTransform.h"
-#include "Game/Component/Default/Physics/RigidBody.h"
-#include "Game/Component/Default/Collider/Sphere.h"
-#include "Game/Component/Default/Collider/Mesh.h"
-#include "Game/Component/Default/Renderer/ModelRenderer.h"
-#include "Game/Component/Default/Renderer/SpriteRenderer.h"
-#include "Game/Component/Default/Renderer/TextRenderer.h"
-#include "Game/Component/Default/UI/SliderController.h"
-#include "Game/Component/Default/UI/ButtonController.h"
-#include "Game/Component/Default/UI/SpriteBobbing.h"
-#include "Game/Component/Camera/TargetCameraController.h"
-#include "Game/Component/Default/ScriptableComponent.h"
-
-#include "Game/Component/Player/PlayerController.h"
-#include "Game/Component/Player/PlayerStatusController.h"
-#include "Game/Component/Enemy/EnemyController.h"
-#include "Game/Component/Stage/StageController.h"
-#include "Game/Component/Camera/TitleCameraController.h"
-#include "Game/Component/Camera/GameCameraController.h"
+#include "Game/Factory/ComponentFactory.h"
 
 using namespace DirectX;
 
@@ -84,12 +65,11 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 	if (selectedObject != nullptr)
 	{
+		ImGui::Checkbox(" ", &selectedObject->m_isActice);
+		ImGui::SameLine();
 		ImGui::InputText("Name", &selectedObject->m_name);
 		ImGui::InputInt("ID", &selectedObject->m_id);
-		ObjectTag tag = selectedObject->GetTag();
-		s_drawEnum[typeid(ObjectTag)]("Tag", &tag);
-		selectedObject->SetTag(tag);
-
+		s_drawEnum[typeid(ObjectTag)]("Tag", &selectedObject->m_tag);
 
 		ImGui::BeginChild(selectedObject->GetName().c_str());
 
@@ -101,17 +81,49 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 			if (ImGui::TreeNodeEx(comp->GetCompName().c_str(), flag))
 			{
+				ImGui::SameLine();
+				ImGui::Checkbox(" ", &comp->m_isActive);
 				DrawProperty(comp.get());
 				ImGui::TreePop();
 			}
 		}
-		// 後で消す
-		for (auto& child : selectedObject->GetChildren())
+
+		static bool isOpenComponents = false;
+		if (ImGui::Button("Add Component"))
 		{
-			ImGui::Text(child->GetName().c_str());
+			isOpenComponents = !isOpenComponents;
+		}
+
+		if (isOpenComponents)
+		{
+			const auto& componentNameList = ComponentFactory::GetCompNames();
+
+			if(ImGui::BeginChild("Components"))
+			{
+				for (auto& compName : componentNameList)
+				{
+					ImGui::Selectable(compName.c_str());
+
+					if (ImGui::IsItemClicked())
+					{
+						auto comp = ComponentFactory::CreataFromJson(
+							compName,
+							selectedObject
+						);
+
+						auto ptr = comp.get();
+						selectedObject->AddComponent(std::move(comp));
+						ptr->Awake();
+						isOpenComponents = false;
+						break;
+					}
+				}
+				ImGui::EndChild();
+			}
 		}
 
 		ImGui::EndChild();
+
 	}
 
 	ImGui::End();

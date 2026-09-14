@@ -10,6 +10,8 @@
 #include "ObjectListGui.h"
 
 #include "Game/ScriptableObject/Scriptable.h"
+#include "Game/Engine/SceneManegement.h"
+#include "Game/Engine/Input.h"
 
 /**
  * \brief コンストラクタ
@@ -32,7 +34,7 @@ ObjectListGui::~ObjectListGui()
  * 
  * \param gameObjects ゲームオブジェクトのコンテナ
  */
-void ObjectListGui::Update(ObjectCollection& gameObjects)
+void ObjectListGui::Update(ISceneEditer* sceneEditer)
 {
     ImGui::Begin("ObjectList");
 
@@ -41,7 +43,7 @@ void ObjectListGui::Update(ObjectCollection& gameObjects)
     ImGui::SeparatorText("GameObject");
 
     // オブジェクトリストを表示
-    for (auto& object : gameObjects)
+    for (auto& object : sceneEditer->GetGameObjects())
     {
         DrawObjectGui(object.get());
     }
@@ -53,12 +55,23 @@ void ObjectListGui::Update(ObjectCollection& gameObjects)
         DrawObjectGui(scriptable.second.get());
     }
 
+    if (ImGui::Button("New GameObject"))
+    {
+        sceneEditer->CreateNewGameObject();
+    }
+
     ImGui::EndChild();
 
     ImGui::End();
 
-    m_AddChildFunc(gameObjects);
+    m_AddChildFunc(sceneEditer->GetGameObjects());
     m_AddChildFunc = [](ObjectCollection&) {};
+
+    if (Input::GetKeyTrigger(DirectX::Keyboard::Delete))
+    {
+        sceneEditer->DeleteGameObject(m_selectedObject);
+        m_selectedObject = nullptr;
+    }
 }
 
 /**
@@ -121,18 +134,33 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
                 GameObject* child =
                     *(GameObject**)payload->Data;
                     
-                m_AddChildFunc = [&, child](ObjectCollection& objects)
+                m_AddChildFunc = [&, child, object](ObjectCollection& objects)
                     {
-                        auto it = std::ranges::find_if(objects, [&](std::unique_ptr<GameObject>& g)
-                            {
-                                return child->GetID() == g->GetID();
-                            });
-
-                        // 子オブジェクトの検索ができないため呼ばれない
-                        if (it != objects.end())
+                        GameObject* parent = child->GetParent();
+                        std::unique_ptr<GameObject> temp;
+                        // 親がいる場合
+                        if (parent != nullptr)
                         {
-                            object->AddChildren(std::move(*it));
-                            objects.erase(it);
+                            temp = parent->RemoveChild(child->GetName());
+                        }
+                        // 親がいない場合
+                        else
+                        {
+                            auto it = std::ranges::find_if(objects, [&](std::unique_ptr<GameObject>& g)
+                                {
+                                    return child->GetID() == g->GetID();
+                                });
+
+                            if (it != objects.end())
+                            {
+                                temp = std::move(*it);
+                                objects.erase(it);
+                            }
+                        }
+
+                        if (object != nullptr)
+                        {
+                            object->AddChildrenInRunTime(std::move(temp));
                         }
                     };
             }

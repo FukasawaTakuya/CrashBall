@@ -41,6 +41,6 @@ void SceneLoader::LoadScene(Scene* scene)
 		);
 
 		// TODO:JsonManagerにファイルパスとjsonを保管
-		scene->AddObject(std::move(obj));
+		//scene->AddObject(std::move(obj));
 	}
 }

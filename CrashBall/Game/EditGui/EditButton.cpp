@@ -18,13 +18,8 @@
  * \param pSceneEditer シーン編集
  * \param pJsonDataManager Jsonデータ管理
  */
-EditButton::EditButton(
-    IEditModeChanger*   pEditModeChanger,
-    ISceneEditer*       pSceneEditer,
-    IJsonDataManager*   pJsonDataManager)
+EditButton::EditButton(IEditModeChanger*   pEditModeChanger)
     : m_pEditModeChanger(pEditModeChanger)
-    , m_pSceneEditer    (pSceneEditer)
-    , m_pJsonDataManager(pJsonDataManager)
 {
 }
 
@@ -40,7 +35,7 @@ EditButton::~EditButton()
  * \brief 更新
  * 
  */
-void EditButton::Update()
+void EditButton::Update(ISceneEditer* sceneEditer)
 {
     ImGui::Begin("Buttons");
 
@@ -58,7 +53,7 @@ void EditButton::Update()
     if (ImGui::Button("Edit"))
     {
         m_pEditModeChanger->SetEditMode(true);
-        m_pSceneEditer->Initialize();
+        sceneEditer->Start();
     }
 
     ImGui::SameLine(0.0f, 40.0f);
@@ -69,13 +64,13 @@ void EditButton::Update()
         // セーブボタン
         if (ImGui::Button("Save"))
         {
-            m_pSceneEditer->SaveParam();
+            //sceneEditer->SaveParam();
             //for (auto& obj : *Scriptable::GetScriptableObejctList())
             //{
             //    //obj.second->SaveParam();
             //}
 
-            m_pJsonDataManager->SaveFile();
+            //m_pJsonDataManager->SaveFile();
         }
 
         ImGui::SameLine(0.0f, 10.0f);
@@ -83,8 +78,8 @@ void EditButton::Update()
         // ロードボタン
         if (ImGui::Button("Load"))
         {
-            m_pJsonDataManager->ReloadFile();
-            m_pSceneEditer->ReloadParam();
+            //m_pJsonDataManager->ReloadFile();
+            //sceneEditer->ReloadParam();
             //for (auto& obj : *Scriptable::GetScriptableObejctList())
             //{
             //    //obj.second->ReloadParam();

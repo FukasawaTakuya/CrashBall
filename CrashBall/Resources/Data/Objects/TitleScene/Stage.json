@@ -7,6 +7,7 @@
         {
             "compName": "Transform",
             "id": 7,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
@@ -40,6 +41,7 @@
         {
             "compName": "Mesh",
             "id": 8,
+            "isActive": true,
             "properties": [
                 {
                     "name": "meshData",
@@ -51,6 +53,7 @@
         {
             "compName": "StageController",
             "id": 9,
+            "isActive": true,
             "properties": [
                 {
                     "name": "floorNormalY",
@@ -64,5 +67,6 @@
                 }
             ]
         }
-    ]
+    ],
+    "children": null
 }

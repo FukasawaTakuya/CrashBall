@@ -26,11 +26,11 @@ TitleScene::TitleScene(
 	ISceneChanger* pSceneChanger,
 	IJsonDataManager* jsonDataManager)
 	: Scene(pSceneChanger, jsonDataManager)
-	, m_camera(std::make_unique<TitleCamera>(jsonDataManager->GetJsonData("titleCamera")))
-	, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("titlePlayer")))
-	, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
-	, m_titleLogo(std::make_unique<TitleLogo>(jsonDataManager->GetJsonData("titleLogo")))
-	, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
+	//, m_camera(std::make_unique<TitleCamera>(jsonDataManager->GetJsonData("titleCamera")))
+	//, m_player(std::make_unique<Player>(jsonDataManager->GetJsonData("titlePlayer")))
+	//, m_stage(std::make_unique<Stage>(jsonDataManager->GetJsonData("stage")))
+	//, m_titleLogo(std::make_unique<TitleLogo>(jsonDataManager->GetJsonData("titleLogo")))
+	//, m_startButton(std::make_unique<Button>(jsonDataManager->GetJsonData("startButton")))
 {
 	// ターゲットのセット
 	m_camera->GetComponent<TitleCameraController>()->SetTargetTransform(
@@ -41,16 +41,16 @@ TitleScene::TitleScene(
 	m_startButton->GetComponent<ButtonController>()
 		->SetOnPushCommand([&]()
 			{
-				m_pSceneChanger->RequestChangeScene(SceneID::Game);
+				//m_pSceneChanger->RequestChangeScene(SceneID::Game);
 			});
 
 	//m_gameColor = Scriptable::GetScriptableObject("gameColor");
 
-	m_gameObjects.push_back(m_camera.get());
-	m_gameObjects.push_back(m_player.get());
-	m_gameObjects.push_back(m_stage.get());
-	m_gameObjects.push_back(m_titleLogo.get());
-	m_gameObjects.push_back(m_startButton.get());
+	//m_gameObjects.push_back(m_camera.get());
+	//m_gameObjects.push_back(m_player.get());
+	//m_gameObjects.push_back(m_stage.get());
+	//m_gameObjects.push_back(m_titleLogo.get());
+	//m_gameObjects.push_back(m_startButton.get());
 
 	m_sceneName = "TitleScene";
 }
@@ -96,7 +96,7 @@ void TitleScene::Update(const GameContext& gameContext)
 {
 	if (Input::GetKeyTrigger(Keyboard::Space))
 	{
-		m_pSceneChanger->RequestChangeScene(SceneID::Game);
+		//m_pSceneChanger->RequestChangeScene(SceneID::Game);
 	}
 
 	m_camera->Update(gameContext);
@@ -151,21 +151,5 @@ void TitleScene::CreateDeviceResources(const ResourceContext& resourceContext)
  * \param proj 射影行列
  */
 void TitleScene::CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj)
-{
-}
-
-/**
- * \brief パラメータの書き込み
- *
- */
-void TitleScene::SaveParam()
-{
-}
-
-/**
- * \brief パラメータの再読み込み
- *
- */
-void TitleScene::ReloadParam()
 {
 }

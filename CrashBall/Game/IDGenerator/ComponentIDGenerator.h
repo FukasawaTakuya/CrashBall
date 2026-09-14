@@ -11,7 +11,7 @@
 
 namespace ComponentIDGenerator
 {
-	static int s_componentID = 0;
+	inline int s_componentID = 0;
 
 	// 一番大きいIDか調べる
 	inline void CheckMaxID(int id)
@@ -21,13 +21,8 @@ namespace ComponentIDGenerator
 	}
 
 	// IDの加算
-	inline void GeneratID()
-	{
-		s_componentID++;
-	}
-
 	inline int GetID()
 	{
-		return s_componentID;
+		return ++s_componentID;
 	}
 }

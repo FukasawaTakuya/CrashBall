@@ -7,14 +7,15 @@
         {
             "compName": "Transform",
             "id": 48,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 9.440674781799316,
-                        "y": 11.697112083435059,
-                        "z": 40.125404357910156
+                        "x": 9.759682655334473,
+                        "y": 11.698330879211426,
+                        "z": 40.126102447509766
                     }
                 },
                 {
@@ -40,6 +41,7 @@
         {
             "compName": "GameCameraController",
             "id": 49,
+            "isActive": true,
             "properties": [
                 {
                     "name": "baseOffset",

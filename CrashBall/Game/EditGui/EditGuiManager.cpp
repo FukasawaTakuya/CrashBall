@@ -15,21 +15,13 @@
 /**
  * \brief コンストラクタ
  * 
- * \param pSceneEditer シーン編集
- * \param pJsonDataManager Jsonデータ管理
  */
-EditGuiManager::EditGuiManager(
-    ISceneEditer* pSceneEditer,
-    IJsonDataManager* pJsonDataManager)
+EditGuiManager::EditGuiManager()
 {
     m_objectListGui         = std::make_unique<ObjectListGui>();
     m_objectInspectorGui    = std::make_unique<ObjectInspectorGui>();
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
-    m_editButton            = std::make_unique<EditButton>(
-                                    this,
-                                    pSceneEditer,
-                                    pJsonDataManager
-                                    );
+    m_editButton            = std::make_unique<EditButton>(this);
 }
 
 /**
@@ -49,7 +41,7 @@ EditGuiManager::~EditGuiManager()
  * \param srv レンダーテクスチャ
  */
 void EditGuiManager::Update(
-    std::vector<std::unique_ptr<GameObject>>& gameObjects,
+    ISceneEditer* sceneEditer,
     ID3D11ShaderResourceView* srv)
 {
     if (!m_isActive) return;
@@ -113,8 +105,8 @@ void EditGuiManager::Update(
     ImGui::DockSpaceOverViewport(dockspaceID);
 
     // 更新
-    m_objectListGui->Update(gameObjects);
+    m_objectListGui->Update(sceneEditer);
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
     m_gameViewRenderer->Update(srv);
-    m_editButton->Update();
+    m_editButton->Update(sceneEditer);
 }

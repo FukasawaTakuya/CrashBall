@@ -18,8 +18,6 @@
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/ScriptableObject/ScriptableObject.h"
 
-#include "Game/Context/GameContext.h"
-#include "Game/Context/RenderContext.h"
 #include "Game/ScriptableObject/GameColor.h"
 
 

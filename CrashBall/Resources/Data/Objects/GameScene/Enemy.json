@@ -7,23 +7,24 @@
         {
             "compName": "Transform",
             "id": 33,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 8.799503326416016,
-                        "y": 8.41038990020752,
-                        "z": -16.21702003479004
+                        "x": -1.4583476781845093,
+                        "y": 9.418890953063965,
+                        "z": -24.609424591064453
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": 0.464241087436676,
-                        "y": -0.36302512884140015,
-                        "z": 1.6476376056671143
+                        "x": 0.10962402820587158,
+                        "y": -1.8233839273452759,
+                        "z": -1.4498822689056396
                     }
                 },
                 {
@@ -40,17 +41,29 @@
         {
             "compName": "ModelRenderer",
             "id": 34,
+            "isActive": true,
             "properties": [
                 {
                     "name": "modelKey",
                     "type": "String",
                     "data": "enemy"
+                },
+                {
+                    "name": "diffuseColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.7568627595901489,
+                        "g": 0.7137255072593689,
+                        "r": 1.0
+                    }
                 }
             ]
         },
         {
             "compName": "Rigidbody",
             "id": 35,
+            "isActive": true,
             "properties": [
                 {
                     "name": "gravityAcceleration",
@@ -77,6 +90,7 @@
         {
             "compName": "Sphere",
             "id": 36,
+            "isActive": true,
             "properties": [
                 {
                     "name": "radius",
@@ -88,11 +102,13 @@
         {
             "compName": "BallController",
             "id": 37,
+            "isActive": true,
             "properties": null
         },
         {
             "compName": "EnemyController",
             "id": 38,
+            "isActive": true,
             "properties": [
                 {
                     "name": "acceleration",

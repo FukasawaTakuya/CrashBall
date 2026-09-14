@@ -7,23 +7,24 @@
         {
             "compName": "Transform",
             "id": 54,
+            "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 9.440674781799316,
-                        "y": 7.697112083435059,
-                        "z": 28.12540626525879
+                        "x": 9.758984565734863,
+                        "y": 7.698441982269287,
+                        "z": 28.12626075744629
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.4685148000717163,
-                        "y": -2.4043681621551514,
-                        "z": -0.06734462827444077
+                        "x": -1.0475482940673828,
+                        "y": 2.014676570892334,
+                        "z": -1.0662288665771484
                     }
                 },
                 {
@@ -40,6 +41,7 @@
         {
             "compName": "Sphere",
             "id": 55,
+            "isActive": true,
             "properties": [
                 {
                     "name": "radius",
@@ -51,17 +53,29 @@
         {
             "compName": "ModelRenderer",
             "id": 56,
+            "isActive": true,
             "properties": [
                 {
                     "name": "modelKey",
                     "type": "String",
                     "data": "player"
+                },
+                {
+                    "name": "diffuseColor",
+                    "type": "Color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.9803921580314636,
+                        "g": 0.8078431487083435,
+                        "r": 0.529411792755127
+                    }
                 }
             ]
         },
         {
             "compName": "Rigidbody",
             "id": 57,
+            "isActive": true,
             "properties": [
                 {
                     "name": "gravityAcceleration",
@@ -88,16 +102,12 @@
         {
             "compName": "PlayerStatusController",
             "id": 58,
+            "isActive": true,
             "properties": [
                 {
                     "name": "attackCost",
                     "type": "Int",
                     "data": 20
-                },
-                {
-                    "name": "minAttackPower",
-                    "type": "Float",
-                    "data": 10.0
                 },
                 {
                     "name": "minAttackPower",
@@ -114,6 +124,7 @@
         {
             "compName": "PlayerController",
             "id": 59,
+            "isActive": true,
             "properties": [
                 {
                     "name": "attackSpeed",
@@ -155,6 +166,7 @@
         {
             "compName": "BallController",
             "id": 60,
+            "isActive": true,
             "properties": null
         }
     ],

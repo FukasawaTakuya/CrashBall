@@ -48,14 +48,20 @@ void GameObject::Awake()
  */
 void GameObject::Start(const GameContext& gameContext)
 {
-	for (auto& comp : m_components)
+	if (m_isActice)
 	{
-		comp->Start(gameContext);
-	}
+		for (auto& comp : m_components)
+		{
+			if (comp->GetIsActive())
+			{
+				comp->Start(gameContext);
+			}
+		}
 
-	for (auto& childe : m_children)
-	{
-		childe->Start(gameContext);
+		for (auto& childe : m_children)
+		{
+			childe->Start(gameContext);
+		}
 	}
 }
 
@@ -66,14 +72,20 @@ void GameObject::Start(const GameContext& gameContext)
  */
 void GameObject::Update(const GameContext& gameContext)
 {
-	for (auto& comp : m_components)
+	if (m_isActice)
 	{
-		comp->Update(gameContext);
-	}
+		for (auto& comp : m_components)
+		{
+			if (comp->GetIsActive())
+			{
+				comp->Update(gameContext);
+			}
+		}
 
-	for (auto& childe : m_children)
-	{
-		childe->Update(gameContext);
+		for (auto& childe : m_children)
+		{
+			childe->Update(gameContext);
+		}
 	}
 }
 
@@ -84,14 +96,20 @@ void GameObject::Update(const GameContext& gameContext)
  */
 void GameObject::Render(const RenderContext& renderContext)
 {
-	for (auto& comp : m_components)
+	if (m_isActice)
 	{
-		comp->Render(renderContext);
-	}
+		for (auto& comp : m_components)
+		{
+			if (comp->GetIsActive())
+			{
+				comp->Render(renderContext);
+			}
+		}
 
-	for (auto& childe : m_children)
-	{
-		childe->Render(renderContext);
+		for (auto& childe : m_children)
+		{
+			childe->Render(renderContext);
+		}
 	}
 }
 
@@ -127,21 +145,45 @@ void GameObject::SetResource(const ResourceContext& resourceContext)
 }
 
 /**
- * \brief 子オブジェクトの追加
+ * \brief ビルド時の子オブジェクトの追加
  * 
  */
-void GameObject::AddChildren(std::unique_ptr<GameObject>&& child)
+void GameObject::AddChildrenInBuildTime(std::unique_ptr<GameObject> child)
 {
 	Transform* transform = child->GetComponent<Transform>();
 	if (transform != nullptr)
 	{
-		transform->SetParentInBuildTime(this->GetComponent<Transform>());
+		transform->SetParentInBuildTime(GetComponent<Transform>());
 	}
 	RectTransform* rectTransform = child->GetComponent<RectTransform>();
 	if (rectTransform != nullptr)
 	{
-		rectTransform->SetParentInBuildTime(this->GetComponent<RectTransform>());
+		rectTransform->SetParentInBuildTime(GetComponent<RectTransform>());
 	}
+
+	child->SetParent(this);
+
+	m_children.push_back(std::move(child));
+}
+
+/**
+ * \brief 実行中の子オブジェクトの追加
+ *
+ */
+void GameObject::AddChildrenInRunTime(std::unique_ptr<GameObject> child)
+{
+	Transform* transform = child->GetComponent<Transform>();
+	if (transform != nullptr)
+	{
+		transform->SetParentInRunTime(GetComponent<Transform>());
+	}
+	RectTransform* rectTransform = child->GetComponent<RectTransform>();
+	if (rectTransform != nullptr)
+	{
+		rectTransform->SetParentInRunTime(GetComponent<RectTransform>());
+	}
+
+	child->SetParent(this);
 
 	m_children.push_back(std::move(child));
 }
@@ -151,7 +193,7 @@ void GameObject::AddChildren(std::unique_ptr<GameObject>&& child)
  * 
  * \param name オブジェクト名
  */
-void GameObject::RemoveChild(const std::string& name)
+std::unique_ptr<GameObject> GameObject::RemoveChild(const std::string& name)
 {
 	auto it = std::ranges::find_if(m_children, [&](std::unique_ptr<GameObject>& child)
 		{
@@ -160,7 +202,9 @@ void GameObject::RemoveChild(const std::string& name)
 
 	if (it != m_children.end())
 	{
+		std::unique_ptr<GameObject> temp = std::move(*it);
 		m_children.erase(it);
+		return temp;
 	}
 }
 

@@ -42,9 +42,7 @@ private:
 public:
 
 	// コンストラクタ
-	EditGuiManager(
-		ISceneEditer*		pSceneEditer,
-		IJsonDataManager*	pJsonDataManager);
+	EditGuiManager();
 
 	// デストラクタ
 	~EditGuiManager();
@@ -54,7 +52,7 @@ public:
 
 	// 更新
 	void Update(
-		std::vector<std::unique_ptr<GameObject>>& gameObjects,
+		ISceneEditer* sceneEditer,
 		ID3D11ShaderResourceView* srv);
 
 	// 取得/設定

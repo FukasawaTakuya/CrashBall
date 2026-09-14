@@ -80,5 +80,5 @@ void ScriptableObjectManager::SaveData()
 		object.second->SaveData();
 	}
 
-	m_jsonManager->SaveGameObject();
+	m_jsonManager->SaveGameObjectData();
 }
