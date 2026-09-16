@@ -25,6 +25,7 @@ void InputSystem::Update()
 
 	m_mouseTracker->Update(mouse);
 	m_keyboardTracker->Update(keyboard);
+	m_gamePadTracker->Update(m_gamePad.get()->GetState(0));
 
 	m_prevMousePos = m_mousePos;
 	m_mousePos = SimpleMath::Vector2(static_cast<float>(mouse.x), static_cast<float>(mouse.y));

@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "Scene.h"
 
+#include "Game/Engine/Time.h"
 #include "Game/Factory/GameObjectFactory.h"
 #include "Game/Component/Camera/TargetCameraController.h"
+#include "Game/Json/IJsonDataManager.h"
 
 /**
  * \brief コンストラクタ
@@ -19,6 +21,8 @@ Scene::Scene(
 {
 	std::unordered_map<int, GameObject*> objects;
 	std::unordered_map<int, Component*> components;
+
+	Time::SetTimeScale(1.0f);
 
 	for (auto& data : m_jsonManager->GetGameObjectData())
 	{
@@ -98,17 +102,13 @@ Scene::Scene(
 
 GameObject* Scene::CreateNewGameObject()
 {
+	// ゲームオブジェクトの生成
 	auto newGameObject = std::make_unique<GameObject>();
+	// ポインタを取得
 	GameObject* ptr = newGameObject.get();
+	// コンテナに追加
 	m_gameObjects.push_back(std::move(newGameObject));
-
-	//m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
-
-	//ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
-	//newObj->SetData(data);
-
-	//newObj->SetID(GameObejctIDGenerator::GetID());
-
+	// マップに追加
 	AddMap(ptr);
 	return ptr;
 }
@@ -200,11 +200,11 @@ std::pair<TagMapIt, TagMapIt> Scene::FindGameObjectsWithTag(const ObjectTag& tag
 	std::pair<TagMapIt, TagMapIt> range = m_objTagMap.equal_range(tag);
 	return range;
 }
-
-void Scene::ChangeScene(SceneID nextSceneID)
-{
-	//m_pSceneChanger->RequestChangeScene(nextSceneID);
-}
+//
+//void Scene::ChangeScene(SceneID nextSceneID)
+//{
+//	//m_pSceneChanger->RequestChangeScene(nextSceneID);
+//}
 
 /**
  * \brief マップに追加

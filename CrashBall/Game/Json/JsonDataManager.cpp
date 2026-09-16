@@ -128,5 +128,5 @@ void JsonDataManager::DeleteGameObjectData(const std::string& objName)
 void JsonDataManager::AddGameObjectData(const std::string& objName)
 {
 	m_gameObjectData.emplace(objName, ordered_json());
-	m_gameObjectFiles.emplace(objName, m_saveFilePath + objName);
+	m_gameObjectFiles.emplace(objName, m_saveFilePath + objName + ".json");
 }

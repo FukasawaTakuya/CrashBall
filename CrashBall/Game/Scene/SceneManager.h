@@ -66,17 +66,17 @@ public:
 	// デストラクタ
 	~SceneManager();
 
-	// シーンの作成
-	template<typename SceneType>
-	requires std::derived_from<SceneType, Scene>
-	void CreateScene(SceneID sceneID)
-	{
-		//// シーンの作成
-		//std::unique_ptr<SceneType> scene
-		//	= std::make_unique<SceneType>(this, m_jsonDataManager);
-		//// コンテナに追加
-		//m_scenes.emplace(sceneID, std::move(scene));
-	}
+	//// シーンの作成
+	//template<typename SceneType>
+	//requires std::derived_from<SceneType, Scene>
+	//void CreateScene(SceneID sceneID)
+	//{
+	//	//// シーンの作成
+	//	//std::unique_ptr<SceneType> scene
+	//	//	= std::make_unique<SceneType>(this, m_jsonDataManager);
+	//	//// コンテナに追加
+	//	//m_scenes.emplace(sceneID, std::move(scene));
+	//}
 
 	// 最初のシーンのセット
 	void SetStartScene(const std::string& sceneName);

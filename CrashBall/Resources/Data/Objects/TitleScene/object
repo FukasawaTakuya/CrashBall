@@ -1,0 +1,15 @@
+{
+    "name": "TitleManager",
+    "tag": "Default",
+    "id": 22,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "TitleManager",
+            "id": 0,
+            "isActive": true,
+            "properties": null
+        }
+    ],
+    "children": null
+}

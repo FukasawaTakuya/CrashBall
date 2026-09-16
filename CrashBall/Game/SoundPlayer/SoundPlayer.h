@@ -29,8 +29,8 @@ private:
 
 	std::unique_ptr<DirectX::SoundEffectInstance> m_currentBgm;	// 現在流れているBGM
 
-	float m_bgmValume = 1.0f;	// BGMのボリューム
-	float m_seValume = 1.0f;	// SEのボリューム
+	float m_bgmValume = 0.2f;	// BGMのボリューム
+	float m_seValume = 0.2f;	// SEのボリューム
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

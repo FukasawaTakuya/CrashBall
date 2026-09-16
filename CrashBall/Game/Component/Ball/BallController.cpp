@@ -158,7 +158,7 @@ void BallController::AddRotate()
 
 	// 角速度を求める
 	SimpleMath::Quaternion quaternion
-		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle);
+		= SimpleMath::Quaternion::CreateFromAxisAngle(horizontalDirection, forwardAngle * Time::GetTimeScale());
 	m_angularVelocity = quaternion;
 }
 

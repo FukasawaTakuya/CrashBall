@@ -552,9 +552,6 @@
     <ClInclude Include="Game\ScriptableObject\Scriptable.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\ISceneChanger.h">
-      <Filter>Game\Scene\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Scene\TitleScene\TitleScene.h">
       <Filter>Game\Scene\TitleScene</Filter>
     </ClInclude>
@@ -606,6 +603,21 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
       <Filter>Game\Component\Default\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\TitleManager.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Scene\Interface\ISceneChanger.h">
+      <Filter>Game\Scene\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\GameManager.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\Easing.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\GameTimer.h">
+      <Filter>Game\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -906,6 +918,10 @@
     <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
     <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp" />
+    <ClCompile Include="Game\Component\TitleManager.cpp" />
+    <ClCompile Include="Game\Component\GameManager.cpp" />
+    <ClCompile Include="Game\Common\Easing.cpp" />
+    <ClCompile Include="Game\Component\GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

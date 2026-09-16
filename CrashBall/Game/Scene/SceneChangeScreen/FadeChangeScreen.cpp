@@ -55,7 +55,7 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
 	// フェードイン処理
 	if (m_isFadeIn)
 	{
-		m_alpha -= Time::GetElapsedTime();
+		m_alpha -= Time::GetUnscaleElapsedTime();
 
 		if (m_alpha <= 0.0f)
 		{
@@ -69,7 +69,7 @@ void FadeChangeScreen::Update(const GameContext& gameContext)
 	// フェードアウト処理
 	if (m_isFadeOut && !m_isFadeIn)
 	{
-		m_alpha += Time::GetElapsedTime();
+		m_alpha += Time::GetUnscaleElapsedTime();
 
 		if (m_alpha >= 1.0f)
 		{

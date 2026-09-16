@@ -15,6 +15,7 @@
 #include "Game/Common/Utility.h"
 
 #include "Game/Factory/ComponentFactory.h"
+#include "Game/IDGenerator/ComponentIDGenerator.h"
 
 using namespace DirectX;
 
@@ -79,6 +80,10 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 			ImGui::Separator();
 
+			int id = comp->GetID();
+			ImGui::InputInt("id", &id);
+			comp->SetID(id);
+
 			if (ImGui::TreeNodeEx(comp->GetCompName().c_str(), flag))
 			{
 				ImGui::SameLine();
@@ -114,6 +119,7 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 						auto ptr = comp.get();
 						selectedObject->AddComponent(std::move(comp));
 						ptr->Awake();
+						ptr->SetID(ComponentIDGenerator::GetID());
 						isOpenComponents = false;
 						break;
 					}
@@ -125,7 +131,6 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 		ImGui::EndChild();
 
 	}
-
 	ImGui::End();
 }
 

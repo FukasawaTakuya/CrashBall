@@ -53,9 +53,17 @@ void PlayerMoveState::Update(const GameContext& gameContext)
     // プレイヤーステータス操作コンポーネント
     PlayerStatusController* playerStatusController = m_stateContext.playerStatusController;
 
+    SimpleMath::Vector3 moveValue = SimpleMath::Vector3(
+        Input::GetGamePad().thumbSticks.leftX,
+        0.0f,
+        Input::GetGamePad().thumbSticks.leftY
+    );
+
     // 地上にいる場合
     if (m_stateContext.ballController->GetIsGround())
     {
+        rigidbody->Accel(playerController->GetCamera()->GetRight() * moveValue.x * playerController->GetAcceleration());
+        rigidbody->Accel(playerController->GetCamera()->GetForward() * moveValue.z * playerController->GetAcceleration());
         // 入力に応じて加速
         if (Input::GetKeyDown(Keyboard::D)) {
             rigidbody->Accel( playerController->GetCamera()->GetRight()   * playerController->GetAcceleration());
@@ -72,7 +80,7 @@ void PlayerMoveState::Update(const GameContext& gameContext)
     }
 
     // スペースキーが押されたとき攻撃が可能なら攻撃ステートに遷移
-    if (Input::GetKeyTrigger(DirectX::Keyboard::Space) &&
+    if ((Input::GetKeyTrigger(DirectX::Keyboard::Space) || Input::GetGamePadTracker()->a == GamePad::ButtonStateTracker::ButtonState::PRESSED)&&
         playerStatusController->GetCanAttack())
     {
         // ステートの遷移

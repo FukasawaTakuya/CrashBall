@@ -41,6 +41,20 @@ namespace Time
 		else return 0.0f;
 	}
 
+	inline float GetTimeScale()
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を返す
+		if (time != nullptr)
+		{
+			return time->GetTimeScale();
+		}
+		// なければ1.0f
+		else return 1.0f;
+
+	}
+
 	// タイムスケールの設定
 	inline void SetTimeScale(float timeScale)
 	{
@@ -52,4 +66,17 @@ namespace Time
 			return time->SetTimeScale(timeScale);
 		}
 	}
+
+	inline void GeratoTimeScale(float value)
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を設定する
+		if (time != nullptr)
+		{
+			return time->GeratoTimeScale(value);
+		}
+
+	}
+
 }

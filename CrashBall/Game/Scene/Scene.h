@@ -9,7 +9,7 @@
 #pragma once
 #include <string>
 
-#include "Interface/ISceneChanger.h"
+#include "Game/Scene/Interface/ISceneChanger.h"
 #include "Game/Json/IJsonDataManager.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
@@ -26,7 +26,7 @@ using TagMapIt = std::unordered_multimap<ObjectTag, GameObject*>::const_iterator
  */
 class Scene {
 
-	// データメンバの宣言 -----------------------------------------------
+	// データメンバの宣言 ----------------------------------------------- 
 protected:
 
 	std::string m_sceneName = "scene";
@@ -164,7 +164,7 @@ public:
 private:
 
 	// シーンの変更
-	void ChangeScene(SceneID nextSceneID);
+	//void ChangeScene(SceneID nextSceneID);
 
 	// マップに追加
 	void AddMap(GameObject* gameObject);

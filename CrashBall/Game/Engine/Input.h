@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include <GamePad.h>
+
 #include "Game/ServiceLocator/ServiceLocator.h"
 #include "Game/ServiceLocator/IInputService.h"
 #include "ImGui/imgui.h"
@@ -54,7 +56,6 @@ namespace Input
 		}
 		// なければfalse
 		else return false;
-
 	}
 
 	// マウスボタンの状態を取得
@@ -140,5 +141,31 @@ namespace Input
 		}
 		// なければ0
 		else return 0;
+	}
+
+	// ゲームパッドの取得
+	inline DirectX::GamePad::State GetGamePad()
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば返す
+		if (input != nullptr)
+		{
+			return input->GetGamePad();
+		}
+		else return DirectX::GamePad::State();
+	}
+
+	// ゲームパッドの取得
+	inline DirectX::GamePad::ButtonStateTracker* GetGamePadTracker()
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば返す
+		if (input != nullptr)
+		{
+			return input->GetGamePadTracker();
+		}
+		else return nullptr;
 	}
 }

@@ -28,6 +28,8 @@ public:
 	// 操作
 public:
 
+	virtual void GeratoTimeScale(float value) = 0;
+
 	// 取得/設定
 public:
 
@@ -36,6 +38,9 @@ public:
 
 	// 経過時間の取得(スケーリング無し)
 	virtual float GetUnscaleElapsedTime() const = 0;
+
+	// 
+	virtual float GetTimeScale() const = 0;
 
 	// タイムスケールの設定
 	virtual void SetTimeScale(float timeScale) = 0;

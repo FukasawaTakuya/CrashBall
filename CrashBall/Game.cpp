@@ -219,7 +219,7 @@ void Game::Update(DX::StepTimer const& timer)
         {
             m_debugCamera->Update(m_gameContext);
         }
-        m_sceneManager->Update();
+        //m_sceneManager->Update();
     }
     else
     {
@@ -227,10 +227,10 @@ void Game::Update(DX::StepTimer const& timer)
         m_sceneManager->Update();
     }
 
-    // BGMの再生
-    m_soundPlayer->PlayBgm(m_soundManager.get());
-    // SEの再生
-    m_soundPlayer->PlaySe(m_soundManager.get());
+    //// BGMの再生
+    //m_soundPlayer->PlayBgm(m_soundManager.get());
+    //// SEの再生
+    //m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();

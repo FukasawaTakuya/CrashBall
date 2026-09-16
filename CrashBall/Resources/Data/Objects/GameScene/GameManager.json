@@ -1,0 +1,26 @@
+{
+    "name": "GameManager",
+    "tag": "Default",
+    "id": 24,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "GameManager",
+            "id": 69,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "pEnemyController",
+                    "type": "Componet",
+                    "data": 38
+                },
+                {
+                    "name": "pGameTimer",
+                    "type": "Componet",
+                    "data": 72
+                }
+            ]
+        }
+    ],
+    "children": null
+}

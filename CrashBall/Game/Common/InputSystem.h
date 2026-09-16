@@ -19,6 +19,9 @@ private:
 	std::unique_ptr<DirectX::Mouse::ButtonStateTracker>			m_mouseTracker;			// マウスのトラッカー
 	std::unique_ptr<DirectX::Keyboard::KeyboardStateTracker>	m_keyboardTracker;		// キーボードのトラッカー
 
+	std::unique_ptr<DirectX::GamePad> m_gamePad;							// ゲームパッド
+	std::unique_ptr<DirectX::GamePad::ButtonStateTracker> m_gamePadTracker;	// ゲームパッドのトラッカー
+
 	DirectX::SimpleMath::Vector2 m_mousePos;		// マウス座標
 	DirectX::SimpleMath::Vector2 m_prevMousePos;	// 前フレームのマウス座標
 
@@ -30,6 +33,8 @@ public:
 	InputSystem() 
 		: m_mouseTracker	{ std::make_unique<DirectX::Mouse::ButtonStateTracker>()		}
 		, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>()	}
+		, m_gamePad			{ std::make_unique<DirectX::GamePad>()							}
+		, m_gamePadTracker  { std::make_unique<DirectX::GamePad::ButtonStateTracker>()		}
 	{}
 
 public:
@@ -151,5 +156,15 @@ public:
 		{
 			return false;
 		}
+	}
+
+	DirectX::GamePad::State GetGamePad() override
+	{
+		return m_gamePad.get()->GetState(0);
+	}
+
+	DirectX::GamePad::ButtonStateTracker* GetGamePadTracker() override
+	{
+		return m_gamePadTracker.get();
 	}
 };

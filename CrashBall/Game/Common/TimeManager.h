@@ -39,6 +39,13 @@ public:
 	// ‘€ì
 public:
 
+	void GeratoTimeScale(float value) override
+	{
+		m_timeScale += value;
+
+		m_timeScale = std::clamp(m_timeScale, 0.0f, 1.0f);
+	}
+
 	// æ“¾/İ’è
 public:
 
@@ -50,6 +57,11 @@ public:
 	float GetUnscaleElapsedTime() const override
 	{
 		return m_elapsedTime;
+	}
+
+	float GetTimeScale() const override
+	{
+		return m_timeScale;
 	}
 
 	void SetTimeScale(float timeScale) override

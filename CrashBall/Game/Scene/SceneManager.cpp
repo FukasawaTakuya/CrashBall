@@ -55,6 +55,7 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 		// シーン変更
 		m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[sceneName].get());
 		m_currentScene->Start(*m_gameContext);
+		m_changeScreen->StartFadeIn();
 	}
 }
 
@@ -82,6 +83,12 @@ void SceneManager::Update()
 			// シーン変更
 			m_currentScene->Finalize();
 			m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[m_requestSceneName].get());
+			
+			CreateDeviceResources();
+
+			m_currentScene->Start(*m_gameContext);
+
+			m_requestSceneName = "";
 
 			// フェードイン開始
 			m_changeScreen->StartFadeIn();
@@ -89,7 +96,7 @@ void SceneManager::Update()
 	}
 
 	// シーン遷移スクリーンの更新
-	//m_changeScreen->Update(*m_gameContext);
+	m_changeScreen->Update(*m_gameContext);
 
 	m_currentScene->Update(*m_gameContext);
 }
@@ -102,7 +109,7 @@ void SceneManager::Render()
 {
 	m_currentScene->Render(*m_renderContext);
 
-	//m_changeScreen->Render(*m_renderContext);
+	m_changeScreen->Render(*m_renderContext);
 }
 
 /**
@@ -170,29 +177,21 @@ void SceneManager::SaveData()
  */
 void SceneManager::RequestChangeScene(const std::string& sceneName)
 {
+	// フェードインが終わっていなければリターン
+	if (m_changeScreen->GetIsFadeIn()) return;
+	
+	if (m_requestSceneName != "") return;
+
+
 	auto it = m_jsonManagers.find(sceneName);
 	// シーンが未登録でないとき
 	if (it != m_jsonManagers.end())
 	{
 		// シーン変更
-		m_currentScene->Finalize();
-		m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[sceneName].get());
-
+		m_requestSceneName = sceneName;
+		// 
+		m_changeScreen->StartFadeOut();
 	}
-
-	//// フェードインが終わっていなければリターン
-	//if (m_changeScreen->GetIsFadeIn()) return;
-
-	//if (m_requestSceneName != "") return;
-
-	//auto it = m_jsonManagers.find(sceneName);
-	//// シーンが未登録でないとき
-	//if (it != m_jsonManagers.end())
-	//{
-	//	// フェードアウト開始
-	//	m_changeScreen->StartFadeOut();
-	//}
-
 }
 
 /**
@@ -201,13 +200,16 @@ void SceneManager::RequestChangeScene(const std::string& sceneName)
  */
 void SceneManager::CreateNewGameObject()
 {
+	// ゲームオブジェクトの生成
 	GameObject* newObj = m_currentScene->CreateNewGameObject();
-	//m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
+	// ゲームオブジェクトデータの追加
+	m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
 
-	//ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
-	//newObj->SetData(data);
-
-	//newObj->SetID(GameObejctIDGenerator::GetID());
+	// ゲームオブジェクトにデータを設定
+	ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
+	newObj->SetData(data);
+	// IDを設定
+	newObj->SetID(GameObejctIDGenerator::GetID());
 }
 
 void SceneManager::DeleteGameObject(GameObject* obj)

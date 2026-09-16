@@ -200,6 +200,7 @@
     </ClInclude>
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
+    <ClInclude Include="Game\Common\Easing.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
@@ -251,12 +252,24 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Enemy\EnemyController.h" />
+    <ClInclude Include="Game\Component\GameManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\GameTimer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Player\PlayerController.h" />
     <ClInclude Include="Game\Component\Player\PlayerStatusController.h" />
     <ClInclude Include="Game\Component\Stage\IFloorMeshGetter.h" />
     <ClInclude Include="Game\Component\Stage\IPaintConsumer.h" />
     <ClInclude Include="Game\Component\Stage\IWallMeshGetter.h" />
     <ClInclude Include="Game\Component\Stage\StageController.h" />
+    <ClInclude Include="Game\Component\TitleManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\UI\AttackGaugeController.h" />
     <ClInclude Include="Game\Component\UI\EnemyHpGaugeController.h" />
     <ClInclude Include="Game\Component\UI\FloorMeshGaugeController.h" />
@@ -411,15 +424,12 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\GameScene\GameScene.h" />
+    <ClInclude Include="Game\Scene\Interface\ISceneChanger.h" />
     <ClInclude Include="Game\Scene\Interface\ISceneEditer.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\Interface\ISceneManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\ISceneChanger.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -516,6 +526,7 @@
     <ClCompile Include="Game\CollisionManager\CollisionManager.cpp" />
     <ClCompile Include="Game\CollisionManager\IsCollisionTable.cpp" />
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
+    <ClCompile Include="Game\Common\Easing.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\Ball\BallController.cpp" />
@@ -539,9 +550,12 @@
     <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp" />
     <ClCompile Include="Game\Component\Enemy\EnemyController.cpp" />
+    <ClCompile Include="Game\Component\GameManager.cpp" />
+    <ClCompile Include="Game\Component\GameTimer.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp" />
     <ClCompile Include="Game\Component\Stage\StageController.cpp" />
+    <ClCompile Include="Game\Component\TitleManager.cpp" />
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />

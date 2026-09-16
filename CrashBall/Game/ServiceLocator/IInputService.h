@@ -9,6 +9,7 @@
 #pragma once
 #include <Keyboard.h>
 #include <SimpleMath.h>
+#include <GamePad.h>
 
 #include "Game/ServiceLocator/Service.h"
 
@@ -68,6 +69,11 @@ public:
 
 	// ホイール値の取得
 	virtual int GetWheelValue() = 0;
+
+	virtual DirectX::GamePad::State GetGamePad() = 0;
+
+	virtual DirectX::GamePad::ButtonStateTracker* GetGamePadTracker() = 0;
+
 
 
 	// 内部実装
