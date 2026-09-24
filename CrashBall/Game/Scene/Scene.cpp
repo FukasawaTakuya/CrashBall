@@ -9,19 +9,17 @@
 /**
  * \brief コンストラクタ
  * 
- * \param pSceneManager
  * \param jsonDataManager
  */
-Scene::Scene(
-	ISceneChanger* pSceneManager,
-	IJsonDataManager* jsonDataManager)
-	: m_pSceneChanger{ pSceneManager }
-	, m_jsonManager{ jsonDataManager }
+Scene::Scene(IJsonDataManager* jsonDataManager)
+	: m_jsonManager{ jsonDataManager }
 	, m_collisionManager(std::make_unique<CollisionManager>())
 {
+	// ID検索用マップ
 	std::unordered_map<int, GameObject*> objects;
 	std::unordered_map<int, Component*> components;
 
+	// タイムスケールをデフォルト値に
 	Time::SetTimeScale(1.0f);
 
 	for (auto& data : m_jsonManager->GetGameObjectData())
@@ -42,9 +40,13 @@ Scene::Scene(
 			m_collisionManager->RegistCollider(col);
 		}
 
+		// ID検索用マップに登録
 		objects.emplace(obj->GetID(), obj.get());
+
+		// 検索用マップに登録
 		AddMap(obj.get());
 
+		// コンテナに追加
 		m_gameObjects.push_back(std::move(obj));
 	}
 

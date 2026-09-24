@@ -35,5 +35,6 @@ namespace ComponentFactory
 	// コンポーネント生成関数の登録
 	void RegistComponentFunc(const std::string& compName, CreataFunc func);
 
-	const std::vector<std::string>& GetCompNames();
+	// コンポーネント名リストの取得
+	const std::vector<std::string>& GetCompNameList();
 };

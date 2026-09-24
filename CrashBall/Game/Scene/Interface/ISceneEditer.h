@@ -13,7 +13,6 @@
 
 class GameObject;
 
-
 /**
  * \brief シーン編集機能のインタフェース
  */
@@ -32,7 +31,7 @@ public:
 	// 操作
 public:
 
-	// 初期化
+	// 開始処理
 	virtual void Start() = 0;
 
 	// パラメータの書き込み
@@ -41,6 +40,7 @@ public:
 	// 新しいゲームオブジェクトの生成
 	virtual void CreateNewGameObject() = 0;
 
+	// ゲームオブジェクトの削除
 	virtual void DeleteGameObject(GameObject* obj) = 0;
 
 	// 取得/設定

@@ -27,14 +27,14 @@ class Camera;
  * \brief シーン管理
  */
 class SceneManager 
-	: public ISceneChanger
-	, public ISceneEditer
-	, public ISceneManager
+	: public ISceneEditer	// シーン編集機能
+	, public ISceneManager	// グローバルアクセス用インターフェース
 {
 	
 	// データメンバの宣言 -----------------------------------------------
 private:
 
+	// 現在のシーン名
 	std::string m_currentSceneName;
 
 	// リクエストシーン名
@@ -47,9 +47,14 @@ private:
 	const RenderContext* m_renderContext;		// 描画用のコンテキスト
 	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
 
+	// jsonDataManagerのコンテナ
 	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
 
+	// 現在のシーン
 	std::unique_ptr<Scene> m_currentScene;
+
+	// シーン名リスト
+	std::vector<std::string> m_sceneNameList;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -59,8 +64,7 @@ public:
 	SceneManager(
 		const GameContext*		gameContext,
 		const RenderContext*	renderContext,
-		const ResourceContext*	resourceContext,
-		IJsonDataManager* jsonDataManager
+		const ResourceContext*	resourceContext
 	);
 
 	// デストラクタ

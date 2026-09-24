@@ -18,13 +18,11 @@
  * \param gameContext ゲーム用のコンテキスト
  * \param renderContext 描画用のコンテキスト
  * \param resourceContext リソース用のコンテキスト
- * \param jsonDataManager json管理 
  */
 SceneManager::SceneManager(
 	const GameContext*		gameContext,
 	const RenderContext*	renderContext,
-	const ResourceContext*	resourceContext,
-	IJsonDataManager* jsonDataManager)
+	const ResourceContext*	resourceContext)
 	: m_gameContext(gameContext)
 	, m_renderContext(renderContext)
 	, m_resourceContext(resourceContext)
@@ -39,6 +37,7 @@ SceneManager::SceneManager(
  */
 SceneManager::~SceneManager()
 {
+
 }
 
 /**
@@ -53,7 +52,7 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 	if (it != m_jsonManagers.end())
 	{
 		// シーン変更
-		m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[sceneName].get());
+		m_currentScene = std::make_unique<Scene>(m_jsonManagers[sceneName].get());
 		m_currentScene->Start(*m_gameContext);
 		m_changeScreen->StartFadeIn();
 	}
@@ -82,13 +81,17 @@ void SceneManager::Update()
 		{
 			// シーン変更
 			m_currentScene->Finalize();
-			m_currentScene = std::make_unique<Scene>(this, m_jsonManagers[m_requestSceneName].get());
+			m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
 			
+			// リソースの作成
 			CreateDeviceResources();
 
+			// 開始処理
 			m_currentScene->Start(*m_gameContext);
 
+			// 現シーン名の変更
 			m_currentSceneName = m_requestSceneName;
+			// リクエストシーンのリセット
 			m_requestSceneName = "";
 
 			// フェードイン開始
@@ -153,12 +156,17 @@ void SceneManager::LoadData()
 
 		jsonManager->SetSaveFilePath(path + "/");
 
+		// 指定パス内のファイルを読み込み
 		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
 		{
+			// ゲームオブジェクトデータの読み込み
 			jsonManager->LoadGameObjectData(entity.path().string());
 		}
 
+		// jsonマネージャーのコンテナに追加
 		m_jsonManagers.emplace(scene, std::move(jsonManager));
+		// シーン名リストに追加
+		m_sceneNameList.push_back(sceneName);
 	}
 }
 
@@ -190,7 +198,7 @@ void SceneManager::RequestChangeScene(const std::string& sceneName)
 	{
 		// シーン変更
 		m_requestSceneName = sceneName;
-		// 
+		// フェードアウト開始
 		m_changeScreen->StartFadeOut();
 	}
 }

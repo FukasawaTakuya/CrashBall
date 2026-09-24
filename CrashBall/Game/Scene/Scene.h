@@ -33,8 +33,6 @@ protected:
 
 	ICamera* m_camera = nullptr;
 
-	ISceneChanger* m_pSceneChanger;
-
 	IJsonDataManager* m_jsonManager;
 
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;		// GameObjectのコンテナ
@@ -48,9 +46,7 @@ protected:
 public:
 
 	// コンストラクタ
-	Scene(
-		ISceneChanger* pSceneManager,
-		IJsonDataManager* jsonDataManager);
+	Scene(IJsonDataManager* jsonDataManager);
 
 	// デストラクタ
 	virtual ~Scene() = default;

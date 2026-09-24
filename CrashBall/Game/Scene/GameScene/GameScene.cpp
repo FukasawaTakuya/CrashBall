@@ -25,7 +25,7 @@ using namespace DirectX;
 GameScene::GameScene(
     ISceneChanger* pSceneManager,
     IJsonDataManager* jsonDataManager)
-	: Scene(pSceneManager, jsonDataManager)
+	: Scene(jsonDataManager)
  //   , m_stage           (GameObjectFactory::Create<Stage>(jsonDataManager->GetJsonData("stage")))
  //   , m_player          (GameObjectFactory::Create<Player>(jsonDataManager->GetJsonData("player")))
 	//, m_enemy           (GameObjectFactory::Create<Enemy>(jsonDataManager->GetJsonData("enemy")))

@@ -19,32 +19,31 @@
 
 using namespace DirectX;
 
-using DrawEnumFunc = void(*)(const std::string&, void*);
-std::unordered_map<std::type_index, DrawEnumFunc> ObjectInspectorGui::s_drawEnum = {};
-
 /**
  * \brief コンストラクタ
  * 
  */
 ObjectInspectorGui::ObjectInspectorGui()
 {
-	m_drawProperty.emplace(PropertyType::Bool, DrawBool);
-	m_drawProperty.emplace(PropertyType::Int, DrawInt);
-	m_drawProperty.emplace(PropertyType::Float, DrawFloat);
-	m_drawProperty.emplace(PropertyType::Vector2, DrawVector2);
-	m_drawProperty.emplace(PropertyType::Vector3, DrawVector3);
-	m_drawProperty.emplace(PropertyType::Quaternion, DrawQuaternion);
-	m_drawProperty.emplace(PropertyType::Color, DrawColor);
-	m_drawProperty.emplace(PropertyType::Slider, DrawSlider);
-	m_drawProperty.emplace(PropertyType::String, DrawString);
-	m_drawProperty.emplace(PropertyType::Enum, DrawEnum);
-	m_drawProperty.emplace(PropertyType::GameObject, DrawGameObject);
-	m_drawProperty.emplace(PropertyType::Component, DrawComponent);
+	using namespace std::placeholders;
 
-	ObjectInspectorGui::s_drawEnum.emplace(typeid(Origin), DrawEnumList<Origin>);
-	ObjectInspectorGui::s_drawEnum.emplace(typeid(FillOrigin), DrawEnumList<FillOrigin>);
-	ObjectInspectorGui::s_drawEnum.emplace(typeid(DX11::SpriteEffects), DrawEnumList<DX11::SpriteEffects>);
-	ObjectInspectorGui::s_drawEnum.emplace(typeid(ObjectTag), DrawEnumList<ObjectTag>);
+	m_drawProperty.emplace(PropertyType::Bool,		std::bind(&ObjectInspectorGui::DrawBool,		this, _1));
+	m_drawProperty.emplace(PropertyType::Int,		std::bind(&ObjectInspectorGui::DrawInt,			this, _1));
+	m_drawProperty.emplace(PropertyType::Float,		std::bind(&ObjectInspectorGui::DrawFloat,		this, _1));
+	m_drawProperty.emplace(PropertyType::Vector2,	std::bind(&ObjectInspectorGui::DrawVector2,		this, _1));
+	m_drawProperty.emplace(PropertyType::Vector3,	std::bind(&ObjectInspectorGui::DrawVector3,		this, _1));
+	m_drawProperty.emplace(PropertyType::Quaternion,std::bind(&ObjectInspectorGui::DrawQuaternion,	this, _1));
+	m_drawProperty.emplace(PropertyType::Color,		std::bind(&ObjectInspectorGui::DrawColor,		this, _1));
+	m_drawProperty.emplace(PropertyType::Slider,	std::bind(&ObjectInspectorGui::DrawSlider,		this, _1));
+	m_drawProperty.emplace(PropertyType::String,	std::bind(&ObjectInspectorGui::DrawString,		this, _1));
+	m_drawProperty.emplace(PropertyType::Enum,		std::bind(&ObjectInspectorGui::DrawEnum,		this, _1));
+	m_drawProperty.emplace(PropertyType::GameObject,std::bind(&ObjectInspectorGui::DrawGameObject,	this, _1));
+	m_drawProperty.emplace(PropertyType::Component, std::bind(&ObjectInspectorGui::DrawComponent,	this, _1));
+
+	m_drawEnum.emplace(typeid(Origin),				std::bind(&ObjectInspectorGui::DrawEnumList<Origin>,		this, _1, _2));
+	m_drawEnum.emplace(typeid(FillOrigin),			std::bind(&ObjectInspectorGui::DrawEnumList<FillOrigin>,	this, _1, _2));
+	m_drawEnum.emplace(typeid(DX11::SpriteEffects), std::bind(&ObjectInspectorGui::DrawEnumList<SpriteEffects>, this, _1, _2));
+	m_drawEnum.emplace(typeid(ObjectTag),			std::bind(&ObjectInspectorGui::DrawEnumList<ObjectTag>,		this, _1, _2));
 }
 
 /**
@@ -69,7 +68,7 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 		ImGui::Checkbox(" ", &selectedObject->m_isActice);
 		ImGui::SameLine();
 		ImGui::InputText("Name", &selectedObject->m_name);
-		s_drawEnum[typeid(ObjectTag)]("Tag", &selectedObject->m_tag);
+		m_drawEnum[typeid(ObjectTag)]("Tag", &selectedObject->m_tag);
 
 		std::string objName = "##" + selectedObject->GetName();
 		ImGui::BeginChild(objName.c_str());
@@ -84,43 +83,47 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 			{
 				ImGui::SameLine();
 				ImGui::Checkbox(" ", &comp->m_isActive);
-
-				int id = comp->GetID();
-				ImGui::InputInt("id", &id);
-				comp->SetID(id);
-
 				DrawProperty(comp.get());
 				ImGui::TreePop();
 			}
 		}
 
+		// コンポーネントリスト開閉フラグ
 		static bool isOpenComponents = false;
+
+		// ボタンが押されたとき
 		if (ImGui::Button("Add Component"))
 		{
+			// フラグをオンに
 			isOpenComponents = !isOpenComponents;
 		}
 
+		// コンポーネントリスト開閉がオンなら
 		if (isOpenComponents)
 		{
-			const auto& componentNameList = ComponentFactory::GetCompNames();
-
+			// コンポーネントリスト表示
 			if(ImGui::BeginChild("Components"))
 			{
-				for (auto& compName : componentNameList)
+				for (auto& compName : ComponentFactory::GetCompNameList())
 				{
 					ImGui::Selectable(compName.c_str());
 
+					// 選択された場合
 					if (ImGui::IsItemClicked())
 					{
+						// コンポーネントの作成
 						auto comp = ComponentFactory::CreataFromJson(
 							compName,
-							selectedObject
-						);
+							selectedObject);
 
 						auto ptr = comp.get();
+						// コンポーネントのアタッチ
 						selectedObject->AddComponent(std::move(comp));
-						ptr->Awake();
+						// IDの設定
 						ptr->SetID(ComponentIDGenerator::GetID());
+						// アタッチ時の処理
+						ptr->Awake();
+						// フラグを下げる
 						isOpenComponents = false;
 						break;
 					}
@@ -291,7 +294,7 @@ void ObjectInspectorGui::DrawString(const PropertyInfo& property)
  */
 void ObjectInspectorGui::DrawEnum(const PropertyInfo& property)
 {
-	s_drawEnum[property.propTypeId](property.name, property.data);
+	m_drawEnum[property.propTypeId](property.name, property.data);
 }
 
 /**
@@ -302,18 +305,18 @@ void ObjectInspectorGui::DrawEnum(const PropertyInfo& property)
 void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 {
 	GameObject* gameObject = *static_cast<GameObject**>(property.data);
-	std::string s;
+	std::string objName;
 	if (gameObject != nullptr)
 	{
-		s = gameObject->GetName();
+		objName = gameObject->GetName();
 	}
 	else
 	{
-		s = "nullPtr(GameObject)";
+		objName = "nullPtr(GameObject)";
 	}
 	ImGui::InputText(
 		property.name.c_str(),
-		&s);
+		&objName);
 
 	if (ImGui::BeginDragDropTarget())
 	{
@@ -333,18 +336,18 @@ void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 {
 	Component* component = *static_cast<Component**>(property.data);
-	std::string s;
+	std::string compName;
 	if (component != nullptr)
 	{
-		s = component->GetGameObject()->GetName() + "::" + component->GetCompName();
+		compName = component->GetGameObject()->GetName() + "::" + component->GetCompName();
 	}
 	else
 	{
-		s = "nullPtr(Component)";
+		compName = "nullPtr(Component)";
 	}
 	ImGui::InputText(
 		property.name.c_str(),
-		&s);
+		&compName);
 
 	if (ImGui::BeginDragDropTarget())
 	{

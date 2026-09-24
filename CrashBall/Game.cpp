@@ -47,10 +47,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateDeviceResources();
     m_deviceResources->CreateWindowSizeDependentResources();
 
-    m_jsonDataManager   = std::make_unique<JsonDataManager>();
-    m_sceneExporter = std::make_unique<SceneExporter>();
-    m_sceneLoader = std::make_unique<SceneLoader>();
-
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
     m_scriptableObjectManager   = std::make_unique<ScriptableObjectManager>();
@@ -95,8 +91,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager = std::make_unique<SceneManager>(
         &m_gameContext,
         &m_renderContext,
-        &m_resourceContext,
-        m_jsonDataManager.get()
+        &m_resourceContext
     );
 
     m_editGuiManager = std::make_unique<EditGuiManager>();
@@ -219,6 +214,7 @@ void Game::Update(DX::StepTimer const& timer)
         {
             m_debugCamera->Update(m_gameContext);
         }
+        m_sceneManager->Update();
     }
     else
     {

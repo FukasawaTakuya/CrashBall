@@ -35,10 +35,10 @@ void SceneLoader::LoadScene(Scene* scene)
 
 	for (auto& object : sceneData["Objects"])
 	{
-		auto obj = GameObjectFactory::CreateObjectFromJson(
-			object,
-			objectLoadPath.string()
-		);
+		//auto obj = GameObjectFactory::CreateObjectFromJson(
+		//	object,
+		//	objectLoadPath.string()
+		//);
 
 		// TODO:JsonManagerにファイルパスとjsonを保管
 		//scene->AddObject(std::move(obj));

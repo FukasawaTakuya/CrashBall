@@ -58,10 +58,6 @@ private:
 
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;  // スプライトバッチ
 
-    std::unique_ptr<JsonDataManager> m_jsonDataManager; // Jsonデータ管理
-    std::unique_ptr<SceneExporter>   m_sceneExporter;   // シーンエクスポーター
-    std::unique_ptr<SceneLoader>     m_sceneLoader;     // シーンローダー
-
     std::unique_ptr<SceneManager>   m_sceneManager;     // シーン管理
 
     std::unique_ptr<InputSystem>                m_inputSystem;                  // 入力システム

@@ -21,11 +21,11 @@
  */
 class  ObjectInspectorGui {
 
-	using DrawPropertyFunc = void(*)(const PropertyInfo&);
-	using DrawEnumFunc = void(*)(const std::string&, void*);
+	using DrawPropertyFunc = const std::function<void(const PropertyInfo&)>;
+	using DrawEnumFunc = const std::function<void(const std::string&, void*)>;
 
 	// 列挙型表示関数テーブル
-	static std::unordered_map<std::type_index, DrawEnumFunc> s_drawEnum;
+	std::unordered_map<std::type_index, DrawEnumFunc> m_drawEnum;
 
 	// データメンバの宣言 -----------------------------------------------
 private:
@@ -59,37 +59,37 @@ private:
 	void DrawProperty(Component* comp); 
 
 	// Bool型のプロパティ表示
-	static void DrawBool(const PropertyInfo& property);
+	void DrawBool(const PropertyInfo& property);
 	// Int型のプロパティ表示
-	static void DrawInt(const PropertyInfo& property);
+	void DrawInt(const PropertyInfo& property);
 	// Float型のプロパティ表示
-	static void DrawFloat(const PropertyInfo& property);
+	void DrawFloat(const PropertyInfo& property);
 	// Vector2型のプロパティ表示
-	static void DrawVector2(const PropertyInfo& property);
+	void DrawVector2(const PropertyInfo& property);
 	// Vector3型のプロパティ表示
-	static void DrawVector3(const PropertyInfo& property);
+	void DrawVector3(const PropertyInfo& property);
 	// Quarternion型のプロパティ表示
-	static void DrawQuaternion(const PropertyInfo& property);
+	void DrawQuaternion(const PropertyInfo& property);
 	// Color型のプロパティ表示
-	static void DrawColor(const PropertyInfo& property);
+	void DrawColor(const PropertyInfo& property);
 	// Slider型のプロパティ表示
-	static void DrawSlider(const PropertyInfo& property);
+	void DrawSlider(const PropertyInfo& property);
 	// String型のプロパティ表示
-	static void DrawString(const PropertyInfo& property);
+	void DrawString(const PropertyInfo& property);
 	// 列挙型のプロパティ表示
-	static void DrawEnum(const PropertyInfo& property);
+	void DrawEnum(const PropertyInfo& property);
 	// GameObject型のプロパティ表示
-	static void DrawGameObject(const PropertyInfo& property);
+	void DrawGameObject(const PropertyInfo& property);
 	// Comonent型のプロパティ表示
-	static void DrawComponent(const PropertyInfo& property);
+	void DrawComponent(const PropertyInfo& property);
 
-	// 列挙型の表示
 	template<typename Enum>
-	static void DrawEnumList(const std::string& name, void* value);
+	void DrawEnumList(const std::string& name, void* value);
 };
 
+// 列挙型の表示
 template<typename Enum>
-inline void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
+void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
 {
 	static std::array<const char*, magic_enum::enum_count<Enum>()> enumNames[magic_enum::enum_count<Enum>()]
 		= { Utility::StringViewToCharArray<magic_enum::enum_count<Enum>()>(magic_enum::enum_names<Enum>()) };

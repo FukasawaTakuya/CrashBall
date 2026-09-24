@@ -7,7 +7,6 @@
  *********************************************************************/
 #pragma once
 
-
 #include "Interface/IEditModeChanger.h"
 
 #include "ObjectListGui.h"

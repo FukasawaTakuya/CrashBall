@@ -1,10 +1,17 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   ComponentFactory.cpp
+ * \brief  コンポーネントのファクトリー
+ *
+ * \author 深沢拓矢
+ * \date   July 2026
+ *********************************************************************/
+
+#include "pch.h"
 #include "Game/Component/Default/Component.h"
 #include "ComponentFactory.h"
 
 namespace
 {
-
 	// コンポネント生成関数テーブルの取得
 	std::unordered_map<std::string, ComponentFactory::CreataFunc>& GetTable()
 	{
@@ -44,10 +51,15 @@ void ComponentFactory::RegistComponentFunc(
 	CreataFunc func)
 {
 	GetTable().emplace(compName, func);
-	GetCompNameList().push_back(compName);
+	::GetCompNameList().push_back(compName);
 }
 
-const std::vector<std::string>& ComponentFactory::GetCompNames()
+/**
+ * \brief コンポーネント名リストの取得
+ * 
+ * \return コンポーネント名リスト
+ */
+const std::vector<std::string>& ComponentFactory::GetCompNameList()
 {
-	return GetCompNameList();
+	return ::GetCompNameList();
 }
