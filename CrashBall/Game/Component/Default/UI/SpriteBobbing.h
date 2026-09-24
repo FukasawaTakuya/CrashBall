@@ -65,6 +65,8 @@ public:
 	// 操作
 public:
 
+	void Update(const GameContext& gameContext);
+
 	// 浮遊
 	void Bobbing();
 

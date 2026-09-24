@@ -110,3 +110,12 @@ void EditGuiManager::Update(
     m_gameViewRenderer->Update(srv);
     m_editButton->Update(sceneEditer);
 }
+
+/**
+ * \brief リセット
+ * 
+ */
+void EditGuiManager::Reset()
+{
+    m_objectListGui->Reset();
+}

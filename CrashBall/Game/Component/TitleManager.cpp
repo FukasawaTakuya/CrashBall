@@ -21,7 +21,8 @@ void TitleManager::Start(const GameContext& gameContext)
 
 void TitleManager::Update(const GameContext& gameContext)
 {
-	if (Input::GetGamePadTracker()->a == GamePad::ButtonStateTracker::ButtonState::PRESSED)
+	if (Input::GetGamePadTracker()->a == GamePad::ButtonStateTracker::ButtonState::PRESSED || 
+		Input::GetKeyTrigger(Keyboard::Space))
 	{
 		SceneMamegement::RequestChangeScene("GameScene");
 	}

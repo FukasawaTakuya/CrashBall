@@ -13,7 +13,7 @@
                     "name": "localPosition",
                     "type": "Vector2",
                     "data": {
-                        "x": 1200.0,
+                        "x": 1204.0,
                         "y": 750.0
                     }
                 },
@@ -61,7 +61,7 @@
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.5,
+                        "x": 1.7000000476837158,
                         "y": 1.5
                     }
                 },
@@ -95,7 +95,7 @@
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "ゲームスタート"
+                    "data": "ゲームスタート:A"
                 },
                 {
                     "name": "color",

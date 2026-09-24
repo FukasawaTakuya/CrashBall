@@ -20,13 +20,10 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	std::string m_saveFilePath;
+	std::string m_saveFilePath;	// 保存ファイルバス
 
 	std::unordered_map<std::string, std::string> m_gameObjectFiles;	// ファイル名
 	std::unordered_map<std::string, ordered_json> m_gameObjectData;	// Jsonデータ
-
-	ordered_json m_playManagerData;
-	std::string m_playManagerFile;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -42,10 +39,7 @@ public:
 public:
 
 	// ゲームオブジェクトの読み込み
-	void LoadGameObject(const std::string& filepath);
-
-	// プレイマネージャーの読み込み
-	void LoadPlayManager(const std::string& filepath);
+	void LoadGameObjectData(const std::string& filepath);
 
 	// ゲームオブジェクトの保存
 	void SaveGameObjectData() override;

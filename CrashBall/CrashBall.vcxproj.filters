@@ -619,6 +619,9 @@
     <ClInclude Include="Game\Component\GameTimer.h">
       <Filter>Game\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\ResultPanel.h">
+      <Filter>Game\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -916,12 +919,27 @@
       <Filter>Game\Json\Exporter</Filter>
     </ClCompile>
     <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
-    <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
-    <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp" />
-    <ClCompile Include="Game\Component\TitleManager.cpp" />
-    <ClCompile Include="Game\Component\GameManager.cpp" />
-    <ClCompile Include="Game\Common\Easing.cpp" />
-    <ClCompile Include="Game\Component\GameTimer.cpp" />
+    <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp">
+      <Filter>Game\Component\Default\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\GameManager.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\TitleManager.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\GameTimer.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\ResultPanel.cpp">
+      <Filter>Game\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ScriptableObject\GameColor.cpp">
+      <Filter>Game\ScriptableObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\Easing.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

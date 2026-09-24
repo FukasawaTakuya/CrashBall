@@ -36,7 +36,7 @@ JsonDataManager::~JsonDataManager()
  * 
  * \param filepath ファイルパス
  */
-void JsonDataManager::LoadGameObject(const std::string& filepath)
+void JsonDataManager::LoadGameObjectData(const std::string& filepath)
 {
 	std::ifstream ifs(filepath);
 
@@ -57,37 +57,21 @@ void JsonDataManager::LoadGameObject(const std::string& filepath)
 }
 
 /**
- * \brief プレイマネージャーの読み込み
- * 
- * \param filepath ファイルパス
- */
-void JsonDataManager::LoadPlayManager(const std::string& filepath)
-{
-	std::ifstream ifs(filepath);
-
-	if (!ifs.is_open())
-	{
-		return;
-	}
-
-	json data;
-
-	ifs >> data;
-
-	m_playManagerData = data;
-	m_playManagerFile = filepath;
-}
-
-/**
  * \brief ゲームオブジェクトの保存
  * 
  */
 void JsonDataManager::SaveGameObjectData()
 {
-	for (auto& file : m_gameObjectFiles)
+	//for (auto& file : m_gameObjectFiles)
+	//{
+	//	std::ofstream ofs(file.second);
+	//	ofs << m_gameObjectData[file.first].dump(4);
+	//}
+
+	for (auto& data : m_gameObjectData)
 	{
-		std::ofstream ofs(file.second);
-		ofs << m_gameObjectData[file.first].dump(4);
+		std::ofstream ofs(m_saveFilePath + data.second["name"].get<std::string>() + ".json");
+		ofs << data.second.dump(4);
 	}
 }
 

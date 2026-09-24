@@ -44,6 +44,8 @@ public:
 	// 更新 
 	void Update(ISceneEditer* sceneEditer);
 
+	void Reset();
+
 	// 取得/設定
 public:
 

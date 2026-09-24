@@ -53,10 +53,30 @@ void to_json(ordered_json& j, const PropertyInfo& property)
 		j["data"] = *static_cast<int*>(property.data);
 		break;
 	case PropertyType::GameObject:
-		j["data"] = (*static_cast<GameObject**>(property.data))->GetID();
+	{
+		GameObject* obj = *static_cast<GameObject**>(property.data);
+		if (obj != nullptr)
+		{
+			j["data"] = obj->GetID();
+		}
+		else
+		{
+			j["data"] = -99;
+		}
+	}
 		break;
 	case PropertyType::Component:
-		j["data"] = (*static_cast<Component**>(property.data))->GetID();
+	{
+		Component* comp = *static_cast<Component**>(property.data);
+		if (comp != nullptr)
+		{
+			j["data"] = comp->GetID();
+		}
+		else
+		{
+			j["data"] = -99;
+		}
+	}
 		break;
 	default:
 		break;

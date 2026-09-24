@@ -40,12 +40,14 @@ void TextRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 	for (auto& renderCommand : m_renderCommad)
 	{
 		if (renderCommand.pSpriteFont == nullptr) continue;
+		if (renderCommand.color.w == 0.0f)
+			int x = 0;
 
 		renderCommand.pSpriteFont->DrawString(
 			spriteBatch,
 			renderCommand.text.c_str(),
 			renderCommand.position * Screen::GetScreenRate(),
-			renderCommand.color,
+			renderCommand.color.ToVector4(),
 			renderCommand.rotate,
 			renderCommand.origin,
 			renderCommand.scale * Screen::GetScreenRate(),

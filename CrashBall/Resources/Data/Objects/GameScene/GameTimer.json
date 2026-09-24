@@ -13,7 +13,7 @@
                     "name": "localPosition",
                     "type": "Vector2",
                     "data": {
-                        "x": 1686.0,
+                        "x": 1685.0,
                         "y": 556.0
                     }
                 },
@@ -45,16 +45,16 @@
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "Time:8.8"
+                    "data": "Time:119.2"
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 1.0,
-                        "g": 1.0,
-                        "r": 1.0
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
                     }
                 },
                 {
@@ -82,7 +82,7 @@
                 {
                     "name": "gameTime",
                     "type": "Float",
-                    "data": 10.0
+                    "data": 120.0
                 }
             ]
         },
@@ -94,24 +94,24 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": "Gauge"
+                    "data": "Button"
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
-                        "a": 0.5607843399047852,
-                        "b": 0.0,
-                        "g": 0.0,
-                        "r": 0.0
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
                     }
                 },
                 {
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 0.5,
-                        "y": 4.0
+                        "x": 1.0,
+                        "y": 1.0
                     }
                 },
                 {

@@ -262,6 +262,10 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Player\PlayerController.h" />
     <ClInclude Include="Game\Component\Player\PlayerStatusController.h" />
+    <ClInclude Include="Game\Component\ResultPanel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Stage\IFloorMeshGetter.h" />
     <ClInclude Include="Game\Component\Stage\IPaintConsumer.h" />
     <ClInclude Include="Game\Component\Stage\IWallMeshGetter.h" />
@@ -554,6 +558,7 @@
     <ClCompile Include="Game\Component\GameTimer.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp" />
+    <ClCompile Include="Game\Component\ResultPanel.cpp" />
     <ClCompile Include="Game\Component\Stage\StageController.cpp" />
     <ClCompile Include="Game\Component\TitleManager.cpp" />
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />

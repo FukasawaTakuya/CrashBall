@@ -55,6 +55,8 @@ public:
 		ISceneEditer* sceneEditer,
 		ID3D11ShaderResourceView* srv);
 
+	void Reset();
+
 	// 取得/設定
 public:
 
@@ -84,6 +86,8 @@ public:
 		// オフなら編集モードフラグもオフにする
 		if (flag == false)
 			m_editMode = false;
+
+		m_objectListGui->Reset();
 	}
 
 	// 編集モードフラグの設定

@@ -53,7 +53,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_inputSystem               = std::make_unique<InputSystem>();
     m_timeManager               = std::make_unique<TimeManager>();
-    m_scriptableObjectManager    = std::make_unique<ScriptableObjectManager>();
+    m_scriptableObjectManager   = std::make_unique<ScriptableObjectManager>();
 
     m_modelManager              = std::make_unique<ModelManager>();
     m_spriteManager             = std::make_unique<SpriteManager>();
@@ -115,7 +115,7 @@ void Game::Initialize(HWND window, int width, int height)
     // スプライト
     m_spriteManager->RegisterFile("UI", L"Resources/Sprite/UI.dds");
     m_spriteManager->RegisterFile("Gauge", L"Resources/Sprite/Gauge.dds");
-    m_spriteManager->RegisterFile("Title", L"Resources/Sprite/Title.dds");
+    m_spriteManager->RegisterFile("Title", L"Resources/Sprite/Title2.dds");
     m_spriteManager->RegisterFile("Screen", L"Resources/Sprite/Screen.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
@@ -135,7 +135,7 @@ void Game::Initialize(HWND window, int width, int height)
     // シーンデータの読み込み
     m_sceneManager->LoadData();
 
-    m_sceneManager->SetStartScene("GameScene");
+    m_sceneManager->SetStartScene("TitleScene");
 
     // デバイス依存のリソースの作成
     CreateDeviceDependentResources();
@@ -219,7 +219,6 @@ void Game::Update(DX::StepTimer const& timer)
         {
             m_debugCamera->Update(m_gameContext);
         }
-        //m_sceneManager->Update();
     }
     else
     {
@@ -227,10 +226,10 @@ void Game::Update(DX::StepTimer const& timer)
         m_sceneManager->Update();
     }
 
-    //// BGMの再生
-    //m_soundPlayer->PlayBgm(m_soundManager.get());
-    //// SEの再生
-    //m_soundPlayer->PlaySe(m_soundManager.get());
+    // BGMの再生
+    m_soundPlayer->PlayBgm(m_soundManager.get());
+    // SEの再生
+    m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();

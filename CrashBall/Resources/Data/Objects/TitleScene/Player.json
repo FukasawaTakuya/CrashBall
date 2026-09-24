@@ -22,9 +22,9 @@
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": 0.011047035455703735,
+                        "x": 0.01104703638702631,
                         "y": 1.954553246498108,
-                        "z": 0.40055617690086365
+                        "z": 0.40055614709854126
                     }
                 },
                 {
@@ -117,7 +117,7 @@
                 {
                     "name": "pFloorMeshGetter",
                     "type": "Componet",
-                    "data": 0
+                    "data": 71
                 }
             ]
         },
@@ -149,17 +149,17 @@
                 {
                     "name": "pEnemyTransform",
                     "type": "Componet",
-                    "data": 0
+                    "data": 71
                 },
                 {
                     "name": "pCameraController",
                     "type": "Componet",
-                    "data": 0
+                    "data": 71
                 },
                 {
                     "name": "pStageController",
                     "type": "Componet",
-                    "data": 0
+                    "data": 71
                 }
             ]
         },

@@ -60,6 +60,10 @@ Scene::Scene(
 				{
 					*static_cast<IGameObject**>(prop.data) = it->second;
 				}
+				else
+				{
+					*static_cast<IGameObject**>(prop.data) = nullptr;
+				}
 			}
 			else if (prop.propType == PropertyType::Component)
 			{
@@ -67,6 +71,10 @@ Scene::Scene(
 				if (it != components.end())
 				{
 					*static_cast<Component**>(prop.data) = it->second;
+				}
+				else
+				{
+					*static_cast<Component**>(prop.data) = nullptr;
 				}
 			}
 		}

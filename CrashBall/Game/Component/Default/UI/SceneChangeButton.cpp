@@ -3,6 +3,8 @@
 
 #include "Game/Engine/SceneManegement.h"
 
+RegisterComponent(SceneChangeButton)
+
 SceneChangeButton::SceneChangeButton(IGameObject* gameObject)
 	: ButtonController(gameObject)
 {

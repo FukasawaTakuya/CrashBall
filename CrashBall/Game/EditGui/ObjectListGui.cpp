@@ -75,6 +75,15 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
 }
 
 /**
+ * \brief リセット
+ * 
+ */
+void ObjectListGui::Reset()
+{
+    m_selectedObject = nullptr;
+}
+
+/**
  * \brief オブジェクトの表示
  *
  * \param object ゲームオブジェクト

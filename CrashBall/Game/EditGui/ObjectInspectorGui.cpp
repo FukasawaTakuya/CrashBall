@@ -69,10 +69,10 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 		ImGui::Checkbox(" ", &selectedObject->m_isActice);
 		ImGui::SameLine();
 		ImGui::InputText("Name", &selectedObject->m_name);
-		ImGui::InputInt("ID", &selectedObject->m_id);
 		s_drawEnum[typeid(ObjectTag)]("Tag", &selectedObject->m_tag);
 
-		ImGui::BeginChild(selectedObject->GetName().c_str());
+		std::string objName = "##" + selectedObject->GetName();
+		ImGui::BeginChild(objName.c_str());
 
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
@@ -80,14 +80,15 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 
 			ImGui::Separator();
 
-			int id = comp->GetID();
-			ImGui::InputInt("id", &id);
-			comp->SetID(id);
-
 			if (ImGui::TreeNodeEx(comp->GetCompName().c_str(), flag))
 			{
 				ImGui::SameLine();
 				ImGui::Checkbox(" ", &comp->m_isActive);
+
+				int id = comp->GetID();
+				ImGui::InputInt("id", &id);
+				comp->SetID(id);
+
 				DrawProperty(comp.get());
 				ImGui::TreePop();
 			}
@@ -275,6 +276,7 @@ void ObjectInspectorGui::DrawString(const PropertyInfo& property)
 		ImGui::InputText(
 			property.name.c_str(),
 			&s);
+		*static_cast<std::wstring*>(property.data) = Utility::ConvertToWideChar(s);
 	}
 	else if (typeid(std::string) == property.propTypeId)
 		ImGui::InputText(

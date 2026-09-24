@@ -57,6 +57,11 @@ SpriteBobbing::~SpriteBobbing()
 {
 }
 
+void SpriteBobbing::Update(const GameContext& gameContext)
+{
+	Bobbing();
+}
+
 /**
  * \brief 浮遊
  * 

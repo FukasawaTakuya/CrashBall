@@ -3,6 +3,7 @@
 #include "Game/Component/Default/Component.h"
 #include "Enemy/EnemyController.h"
 #include "GameTimer.h"
+#include "ResultPanel.h"
 
 /**
  * @brief
@@ -15,11 +16,13 @@ private:
 
 	EnemyController* m_pEnemyController = nullptr;
 	GameTimer* m_pGameTimer = nullptr;
+	ResultPanel* m_pResultPanel = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pEnemyController, PropertyType::Component)
 		AddProperty(m_pGameTimer, PropertyType::Component)
+		AddProperty(m_pResultPanel, PropertyType::Component)
 	EndProperty()
 
 		// コンポーネント名の設定

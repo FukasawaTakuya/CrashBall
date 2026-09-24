@@ -88,6 +88,7 @@ void SceneManager::Update()
 
 			m_currentScene->Start(*m_gameContext);
 
+			m_currentSceneName = m_requestSceneName;
 			m_requestSceneName = "";
 
 			// フェードイン開始
@@ -154,7 +155,7 @@ void SceneManager::LoadData()
 
 		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
 		{
-			jsonManager->LoadGameObject(entity.path().string());
+			jsonManager->LoadGameObjectData(entity.path().string());
 		}
 
 		m_jsonManagers.emplace(scene, std::move(jsonManager));

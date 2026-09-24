@@ -19,6 +19,7 @@
 ScriptableObjectManager::ScriptableObjectManager()
 	: m_jsonManager(std::make_unique<JsonDataManager>())
 {
+	m_jsonManager->SetSaveFilePath("Resources/Data/ScriptableObjects/");
 }
 
 
@@ -43,8 +44,7 @@ void ScriptableObjectManager::LoadScriptableObject()
 	// jsonデータの読み込み
 	for (auto& entity : std::filesystem::recursive_directory_iterator(filepath))
 	{
-		std::string s = entity.path().string();
-		m_jsonManager->LoadGameObject(s);
+		m_jsonManager->LoadGameObjectData(entity.path().string());
 	}
 
 	// オブジェクトの生成

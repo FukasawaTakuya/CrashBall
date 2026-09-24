@@ -45,7 +45,7 @@
                 {
                     "name": "text",
                     "type": "String",
-                    "data": "Enemy:3面"
+                    "data": "Enemy:1面"
                 },
                 {
                     "name": "color",
