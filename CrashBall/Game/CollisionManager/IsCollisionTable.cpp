@@ -15,18 +15,20 @@
  */
 IsCollisionTable::IsCollisionTable()
 {
+	using namespace std::placeholders;
+
 	// 関数テーブルの登録
 	m_isCollisionTable[ToInt(ColliderType::Sphere)]
 		[ToInt(ColliderType::Sphere)]
-		= SphereVsSphere;
+		= std::bind(&IsCollisionTable::SphereVsSphere, this, _1, _2);
 
 	m_isCollisionTable[ToInt(ColliderType::Sphere)]
 		[ToInt(ColliderType::Mesh)]
-		= SphereVsMesh;
+		= std::bind(&IsCollisionTable::SphereVsMesh, this, _1, _2);
 
 	m_isCollisionTable[ToInt(ColliderType::Mesh)]
 		[ToInt(ColliderType::Sphere)]
-		= SphereVsMesh;
+		= std::bind(&IsCollisionTable::SphereVsMesh, this, _1, _2);
 
 	//m_isCollisionTable[ToInt(ColliderType::Mesh)]
 	//	[ToInt(ColliderType::Mesh)]

@@ -16,8 +16,7 @@
  */
 class  ResolveCollisionTable {
 
-	// 関数ポインタ
-	using Func = void(*)(Collider*, Collider*);
+	using ResolveCollisionFunc = std::function<void(Collider*, Collider*)>;
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -25,7 +24,7 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	Func m_table[TYPE_COUNT][TYPE_COUNT]{};	// 衝突判定関数のテーブル
+	ResolveCollisionFunc m_table[TYPE_COUNT][TYPE_COUNT]{};	// 衝突判定関数のテーブル
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -52,12 +51,12 @@ private:
 	int ToInt(ColliderType type) { return static_cast<int>(type); }
 
 	// 球対球
-	static void SphereVsSphere(Collider* col1, Collider* col2);
+	void SphereVsSphere(Collider* col1, Collider* col2);
 
 	// 球対メッシュ
-	static void SphereVsMesh(Collider* col1, Collider* col2);
+	void SphereVsMesh(Collider* col1, Collider* col2);
 
 	// メッシュ対メッシュ
-	static void MeshVsMesh(Collider* col1, Collider* col2);
+	void MeshVsMesh(Collider* col1, Collider* col2);
 };
 

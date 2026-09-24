@@ -15,18 +15,20 @@
  */
 ResolveCollisionTable::ResolveCollisionTable()
 {
+	using namespace std::placeholders;
+
 	// 衝突解決関数テーブルの登録
 	m_table[ToInt(ColliderType::Sphere)]
 		[ToInt(ColliderType::Sphere)]
-		= SphereVsSphere;
+		= std::bind(&ResolveCollisionTable::SphereVsSphere, this, _1, _2);
 
 	m_table[ToInt(ColliderType::Sphere)]
 		[ToInt(ColliderType::Mesh)]
-		= SphereVsMesh;
+		= std::bind(&ResolveCollisionTable::SphereVsMesh, this, _1, _2);
 
 	m_table[ToInt(ColliderType::Mesh)]
 		[ToInt(ColliderType::Sphere)]
-		= SphereVsMesh;
+		= std::bind(&ResolveCollisionTable::SphereVsMesh, this, _1, _2);
 
 	//m_table[ToInt(ColliderType::Mesh)]
 	//	[ToInt(ColliderType::Mesh)]
