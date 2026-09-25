@@ -6,6 +6,9 @@
 #include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/Json/IJsonDataManager.h"
 
+#include "Game/IDGenerator/GameObejctIDGenerator.h"
+#include "Game/Camera/GameCamera.h"
+
 /**
  * \brief コンストラクタ
  * 
@@ -104,6 +107,13 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		}
 	}
 
+	if (m_camera == nullptr)
+	{
+		auto m_camera = CreateNewGameObject();
+		m_camera->AddComponent<Transform>();
+		m_camera->AddComponent<GameCameraController>();
+	}
+
 	for (auto& obj : objects)
 	{
 		obj.second->Awake();
@@ -120,26 +130,44 @@ GameObject* Scene::CreateNewGameObject()
 	m_gameObjects.push_back(std::move(newGameObject));
 	// マップに追加
 	AddMap(ptr);
+
+	// ゲームオブジェクトデータの追加
+	ordered_json* data = m_jsonManager->AddGameObjectData(ptr->GetName());
+	// ゲームオブジェクトにデータを設定
+	ptr->SetData(data);
+	// IDを設定
+	ptr->SetID(GameObejctIDGenerator::GetID());
+
 	return ptr;
 }
 
 void Scene::DeleteGameObject(GameObject* obj)
 {
+	// マップから削除
 	DeleteMap(obj);
 
+	// 子オブジェクトをマップから削除
 	for (auto& child : obj->GetChildren())
 	{
 		DeleteMap(child.get());
 	}
 
-	auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& gameObject)
-		{
-			return gameObject->GetName() == obj->GetName();
-		});
-
-	if (it != m_gameObjects.end())
+	// 親がいる場合
+	if (obj->GetParent() != nullptr)
 	{
-		m_gameObjects.erase(it);
+		obj->GetParent()->RemoveChild(obj->GetName());
+	}
+	else
+	{
+		auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& gameObject)
+			{
+				return gameObject->GetName() == obj->GetName();
+			});
+
+		if (it != m_gameObjects.end())
+		{
+			m_gameObjects.erase(it);
+		}
 	}
 }
 

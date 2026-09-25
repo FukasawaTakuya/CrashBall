@@ -34,6 +34,8 @@ CollisionManager::~CollisionManager()
  */
 void CollisionManager::Update()
 {
+	if (m_colliders.empty()) return;
+
 	for (size_t i = 0; i < m_colliders.size() - 1; i++)
 	{
 		Collider* col1 = m_colliders[i];

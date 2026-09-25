@@ -23,6 +23,8 @@ public:
 	// 取得/設定
 public:
 
+	virtual ordered_json* GetGameObjectData(const std::string& objName) = 0;
+
 	virtual std::unordered_map<std::string, ordered_json>& GetGameObjectData() = 0;
 
 	// ゲームオブジェクトデータの保存
@@ -32,7 +34,7 @@ public:
 	virtual void DeleteGameObjectData(const std::string& objName) = 0;
 
 	// ゲームオブジェクトデータの追加
-	virtual void AddGameObjectData(const std::string& objName) = 0;
+	virtual ordered_json* AddGameObjectData(const std::string& objName) = 0;
 
 	// 内部実装
 private:

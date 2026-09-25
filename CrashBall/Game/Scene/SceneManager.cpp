@@ -184,6 +184,32 @@ void SceneManager::SaveData()
 }
 
 /**
+ * \brief 新しいシーンの作成
+ * 
+ * \param newSceneName 新しいシーン名
+ */
+void SceneManager::CreateNewScene(const std::string& newSceneName)
+{
+	// シーン名リストに追加
+	m_sceneNameList.push_back(newSceneName);
+
+	// jsonDataManagerの追加
+	auto newJsonManager = std::make_unique<JsonDataManager>();
+	JsonDataManager* jsonManagerPtr = newJsonManager.get();
+	m_jsonManagers.emplace(newSceneName, std::make_unique<JsonDataManager>());
+
+	// フォルダの作成
+	std::string path = "Resources/Data/Objects/" + newSceneName;
+	std::filesystem::create_directory(path + "/");
+
+	// 保存パスの設定
+	jsonManagerPtr->SetSaveFilePath(path);
+
+	// シーンの変更
+	RequestChangeScene(newSceneName);
+}
+
+/**
  * \brief シーンの変更
  * 
  * \param sceneName
@@ -215,14 +241,6 @@ void SceneManager::CreateNewGameObject()
 {
 	// ゲームオブジェクトの生成
 	GameObject* newObj = m_currentScene->CreateNewGameObject();
-	// ゲームオブジェクトデータの追加
-	m_jsonManagers[m_currentSceneName]->AddGameObjectData(newObj->GetName());
-
-	// ゲームオブジェクトにデータを設定
-	ordered_json* data = m_jsonManagers[m_currentSceneName]->GetGameObjectData(newObj->GetName());
-	newObj->SetData(data);
-	// IDを設定
-	newObj->SetID(GameObejctIDGenerator::GetID());
 }
 
 void SceneManager::DeleteGameObject(GameObject* obj)

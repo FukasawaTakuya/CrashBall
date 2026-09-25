@@ -120,6 +120,7 @@ void GameObject::Render(const RenderContext& renderContext)
 void GameObject::SaveData()
 {
 	*m_data = *this;
+	std::string s = (*m_data)["name"];
 	for (auto& child : m_children)
 	{
 		child->SaveData();

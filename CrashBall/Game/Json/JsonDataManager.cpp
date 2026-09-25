@@ -62,15 +62,25 @@ void JsonDataManager::LoadGameObjectData(const std::string& filepath)
  */
 void JsonDataManager::SaveGameObjectData()
 {
-	//for (auto& file : m_gameObjectFiles)
-	//{
-	//	std::ofstream ofs(file.second);
-	//	ofs << m_gameObjectData[file.first].dump(4);
-	//}
-
 	for (auto& data : m_gameObjectData)
 	{
-		std::ofstream ofs(m_saveFilePath + data.second["name"].get<std::string>() + ".json");
+		std::string objName = data.second["name"].get<std::string>();
+
+		// オブジェクト名が変更されていたら
+		if (data.first != objName)
+		{
+			// 抽出
+			auto node = m_gameObjectData.extract(data.first);
+			// キーも変更
+			node.key() = objName;
+
+			// 挿入し直す
+			m_gameObjectData.insert(std::move(node));
+
+			continue;
+		}
+
+		std::ofstream ofs(m_saveFilePath + objName + ".json");
 		ofs << data.second.dump(4);
 	}
 }
@@ -109,8 +119,11 @@ void JsonDataManager::DeleteGameObjectData(const std::string& objName)
  * 
  * \param objName オブジェクト名
  */
-void JsonDataManager::AddGameObjectData(const std::string& objName)
+ordered_json* JsonDataManager::AddGameObjectData(const std::string& objName)
 {
 	m_gameObjectData.emplace(objName, ordered_json());
-	m_gameObjectFiles.emplace(objName, m_saveFilePath + objName + ".json");
+
+	auto& it = m_gameObjectData[objName];
+
+	return &it;
 }

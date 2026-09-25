@@ -11,6 +11,8 @@ class  SceneSelect {
 	// データメンバの宣言 -----------------------------------------------
 private:
 	
+	bool m_isCreateScene = false;
+	std::string m_newSceneName;
 
 
 	// メンバ関数の宣言 -------------------------------------------------

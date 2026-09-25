@@ -43,6 +43,9 @@ public:
 	// ゲームオブジェクトの削除
 	virtual void DeleteGameObject(GameObject* obj) = 0;
 
+	// 新しいシーンの作成
+	virtual void CreateNewScene(const std::string& newSceneName) = 0;
+
 	// 取得/設定
 public:
 

@@ -117,7 +117,7 @@ void EditGuiManager::ConstantLayout(ImGuiID dockspace)
     ImGui::DockBuilderSplitNode(
         subLBottom,
         ImGuiDir_Up,
-        0.08f,
+        0.15f,
         &subLTop,
         &subLBottom
     );

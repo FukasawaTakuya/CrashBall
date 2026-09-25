@@ -51,5 +51,20 @@ void SceneSelect::Update(ISceneEditer* sceneEditer)
 		ImGui::EndCombo();
 	}
 
+	if (ImGui::Button("CreateNewScene"))
+	{
+		m_isCreateScene = !m_isCreateScene;
+	}
+
+	if (m_isCreateScene)
+	{
+
+		ImGui::InputText("newSceneName", &m_newSceneName);
+		if (ImGui::IsItemDeactivatedAfterEdit())
+		{
+			sceneEditer->CreateNewScene(m_newSceneName);
+		}
+	}
+
 	ImGui::End();
 }

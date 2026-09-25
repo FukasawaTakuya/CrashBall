@@ -161,6 +161,9 @@
     <Filter Include="Game\IDGenerator">
       <UniqueIdentifier>{479b967a-5015-4864-ad13-4482461515e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX">
+      <UniqueIdentifier>{52b0d9ad-30eb-4ead-a5db-b2a373571847}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -624,6 +627,9 @@
     </ClInclude>
     <ClInclude Include="Game\EditGui\SceneSelect.h">
       <Filter>Game\EditGui</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\ReadData.h">
+      <Filter>DX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

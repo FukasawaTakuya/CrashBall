@@ -182,6 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
+    <ClInclude Include="DX\ReadData.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\DebugCamera.h">
       <SubType>

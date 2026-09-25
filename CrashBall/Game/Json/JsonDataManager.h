@@ -48,13 +48,13 @@ public:
 	void DeleteGameObjectData(const std::string& objName) override;
 
 	// ゲームオブジェクトの追加
-	void AddGameObjectData(const std::string& objName) override;
+	ordered_json* AddGameObjectData(const std::string& objName) override;
 
 	// 取得/設定
 public:
 
 	// ゲームオブジェクトデータの取得
-	ordered_json* GetGameObjectData(const std::string& objName)
+	ordered_json* GetGameObjectData(const std::string& objName) override
 	{
 		auto it = m_gameObjectData.find(objName);
 		if (it != m_gameObjectData.end())
