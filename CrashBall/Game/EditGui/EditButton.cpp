@@ -64,27 +64,10 @@ void EditButton::Update(ISceneEditer* sceneEditer)
         // セーブボタン
         if (ImGui::Button("Save"))
         {
-            //sceneEditer->SaveParam();
-            //for (auto& obj : *Scriptable::GetScriptableObejctList())
-            //{
-            //    //obj.second->SaveParam();
-            //}
-
-            //m_pJsonDataManager->SaveFile();
+            sceneEditer->SaveData();
         }
 
         ImGui::SameLine(0.0f, 10.0f);
-
-        // ロードボタン
-        if (ImGui::Button("Load"))
-        {
-            //m_pJsonDataManager->ReloadFile();
-            //sceneEditer->ReloadParam();
-            //for (auto& obj : *Scriptable::GetScriptableObejctList())
-            //{
-            //    //obj.second->ReloadParam();
-            //}
-        }
     }
 
     ImGui::End();

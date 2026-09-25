@@ -307,6 +307,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\EditGui\SceneSelect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Engine\Input.h" />
     <ClInclude Include="Game\Engine\SceneManegement.h" />
     <ClInclude Include="Game\Engine\Time.h" />
@@ -569,6 +573,7 @@
     <ClCompile Include="Game\EditGui\GameViewRenderer.cpp" />
     <ClCompile Include="Game\EditGui\ObjectInspectorGui.cpp" />
     <ClCompile Include="Game\EditGui\ObjectListGui.cpp" />
+    <ClCompile Include="Game\EditGui\SceneSelect.cpp" />
     <ClCompile Include="Game\Factory\ComponentFactory.cpp" />
     <ClCompile Include="Game\Factory\GameObjectFactory.cpp" />
     <ClCompile Include="Game\GameObject\Ball.cpp" />

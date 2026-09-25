@@ -7,7 +7,6 @@
  *********************************************************************/
 
 #pragma once
-#include "Interface/ISceneChanger.h"
 #include "Interface/ISceneEditer.h"
 #include "Interface/ISceneManager.h"
 
@@ -15,6 +14,8 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
+
+#include "Game/EditGui/EditGuiManager.h"
 
 #include "Game/Scene/SceneChangeScreen/FadeChangeScreen.h"
 
@@ -43,9 +44,11 @@ private:
 	// シーン遷移スクリーン
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
 
-	const GameContext* m_gameContext;			// ゲーム用のコンテキスト
-	const RenderContext* m_renderContext;		// 描画用のコンテキスト
-	const ResourceContext* m_resourceContext;	// リソース用のコンテキスト
+	const GameContext* m_pGameContext;			// ゲーム用のコンテキスト
+	const RenderContext* m_pRenderContext;		// 描画用のコンテキスト
+	const ResourceContext* m_pResourceContext;	// リソース用のコンテキスト
+
+	EditGuiManager* m_pEditGuiManager;			// エディタGUI管理
 
 	// jsonDataManagerのコンテナ
 	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
@@ -62,9 +65,10 @@ public:
 
 	// コンストラクタ
 	SceneManager(
-		const GameContext*		gameContext,
-		const RenderContext*	renderContext,
-		const ResourceContext*	resourceContext
+		const GameContext*		pGameContext,
+		const RenderContext*	pRenderContext,
+		const ResourceContext*	pResourceContext,
+		EditGuiManager*			pEditGuiManager
 	);
 
 	// デストラクタ
@@ -115,8 +119,18 @@ public:
 	// ゲームオブジェクトの削除
 	void DeleteGameObject(GameObject* obj) override;
 
+	// ゲームオブジェクトの検索
+	GameObject* FindGameObject(const std::string& objectName) const override;
+
+	// ゲームオブジェクトのタグでの検索
+	GameObject* FindGameObjectWithTag(ObjectTag tag) const override;
+
+	// ゲームオブジェクトのタグでの検索
+	std::pair<TagMapIt, TagMapIt> FindGameObjectsWithTag(ObjectTag tag) const override;
+
 	// 取得/設定
 public:
+
 	// カメラの取得
 	ICamera* GetCamera() const
 	{
@@ -135,16 +149,18 @@ public:
 		return m_currentScene.get();
 	}
 
-	// ゲームオブジェクトの検索
-	GameObject* FindGameObject(const std::string& objectName) const override;
+	// 現在のシーン名の取得
+	const std::string& GetCurrrentSceneName() override
+	{
+		return m_currentSceneName;
+	}
 
-	// ゲームオブジェクトのタグでの検索
-	GameObject* FindGameObjectWithTag(ObjectTag tag) const override;
-
-	// ゲームオブジェクトのタグでの検索
-	std::pair<TagMapIt, TagMapIt> FindGameObjectsWithTag(ObjectTag tag) const override;
+	// シーン名リストの取得
+	std::vector<std::string>& GetSceneNameList() override
+	{
+		return m_sceneNameList;
+	}
 
 	// 内部実装
 private:
-
 };

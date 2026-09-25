@@ -20,13 +20,15 @@
  * \param resourceContext リソース用のコンテキスト
  */
 SceneManager::SceneManager(
-	const GameContext*		gameContext,
-	const RenderContext*	renderContext,
-	const ResourceContext*	resourceContext)
-	: m_gameContext(gameContext)
-	, m_renderContext(renderContext)
-	, m_resourceContext(resourceContext)
-	, m_changeScreen(std::make_unique<FadeChangeScreen>())
+	const GameContext*		pGameContext,
+	const RenderContext*	pRenderContext,
+	const ResourceContext*	pResourceContext,
+	EditGuiManager*			pEditGuiManager)
+	: m_pGameContext	(pGameContext)
+	, m_pRenderContext	(pRenderContext)
+	, m_pResourceContext(pResourceContext)
+	, m_pEditGuiManager	(pEditGuiManager)
+	, m_changeScreen	(std::make_unique<FadeChangeScreen>())
 {
 	m_changeScreen->Awake();
 }
@@ -53,7 +55,7 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 	{
 		// シーン変更
 		m_currentScene = std::make_unique<Scene>(m_jsonManagers[sceneName].get());
-		m_currentScene->Start(*m_gameContext);
+		m_currentScene->Start(*m_pGameContext);
 		m_changeScreen->StartFadeIn();
 	}
 }
@@ -64,7 +66,7 @@ void SceneManager::SetStartScene(const std::string& sceneName)
  */
 void SceneManager::Start()
 {
-	m_currentScene->Start(*m_gameContext);
+	m_currentScene->Start(*m_pGameContext);
 }
 
 /**
@@ -79,6 +81,8 @@ void SceneManager::Update()
 		// フェードアウトが完了したら
 		if (!m_changeScreen->GetIsFadeOut())
 		{
+			m_pEditGuiManager->Reset();
+
 			// シーン変更
 			m_currentScene->Finalize();
 			m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
@@ -87,7 +91,7 @@ void SceneManager::Update()
 			CreateDeviceResources();
 
 			// 開始処理
-			m_currentScene->Start(*m_gameContext);
+			m_currentScene->Start(*m_pGameContext);
 
 			// 現シーン名の変更
 			m_currentSceneName = m_requestSceneName;
@@ -100,9 +104,9 @@ void SceneManager::Update()
 	}
 
 	// シーン遷移スクリーンの更新
-	m_changeScreen->Update(*m_gameContext);
+	m_changeScreen->Update(*m_pGameContext);
 
-	m_currentScene->Update(*m_gameContext);
+	m_currentScene->Update(*m_pGameContext);
 }
 
 /**
@@ -111,9 +115,9 @@ void SceneManager::Update()
  */
 void SceneManager::Render()
 {
-	m_currentScene->Render(*m_renderContext);
+	m_currentScene->Render(*m_pRenderContext);
 
-	m_changeScreen->Render(*m_renderContext);
+	m_changeScreen->Render(*m_pRenderContext);
 }
 
 /**
@@ -123,9 +127,9 @@ void SceneManager::Render()
 void SceneManager::CreateDeviceResources()
 {
 	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_resourceContext->spriteManager);
+	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_pResourceContext->spriteManager);
 
-	m_currentScene->CreateDeviceResources(*m_resourceContext);
+	m_currentScene->CreateDeviceResources(*m_pResourceContext);
 }
 
 /**

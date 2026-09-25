@@ -18,6 +18,7 @@
 
 #include "Game/Scene/Interface/ISceneEditer.h"
 #include "Game/Json/IJsonDataManager.h"
+#include "SceneSelect.h"
 
 /**
  * \brief エディタGUI管理
@@ -32,6 +33,7 @@ private:
 	std::unique_ptr<ObjectInspectorGui> m_objectInspectorGui;	// インスペクター
 	std::unique_ptr<GameViewRenderer>   m_gameViewRenderer;		// ゲームビュー
 	std::unique_ptr<EditButton>			m_editButton;			// 編集ボタン
+	std::unique_ptr<SceneSelect>		m_sceneSelect;			// シーン選択
 
 	bool m_isActive = false;	// 有効フラグ
 	bool m_editMode = false;	// 編集モード
@@ -97,5 +99,8 @@ public:
 
 	// 内部実装
 private:
+
+	// レイアウト固定
+	void ConstantLayout(ImGuiID dockspace);
 
 };

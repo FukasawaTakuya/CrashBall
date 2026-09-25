@@ -46,8 +46,14 @@ public:
 	// 取得/設定
 public:
 
+	// 現在のシーン名の取得
+	virtual const std::string& GetCurrrentSceneName() = 0;
+
 	// ゲームオブジェクトの取得
 	virtual std::vector<std::unique_ptr<GameObject>>& GetGameObjects() = 0;
+
+	// シーン名リストの取得
+	virtual std::vector<std::string>& GetSceneNameList() = 0;
 
 	// 内部実装
 private:

@@ -91,12 +91,24 @@ private:
 template<typename Enum>
 void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
 {
-	static std::array<const char*, magic_enum::enum_count<Enum>()> enumNames[magic_enum::enum_count<Enum>()]
-		= { Utility::StringViewToCharArray<magic_enum::enum_count<Enum>()>(magic_enum::enum_names<Enum>()) };
-
-	int currentEnum = *static_cast<int*>(value);
-	if (ImGui::Combo(name.c_str(), &currentEnum, enumNames->data(), magic_enum::enum_names<Enum>().size()))
+	auto names = magic_enum::enum_names<Enum>();
+	std::string current = names[*static_cast<int*>(value)].data();
+	if (ImGui::BeginCombo(name.c_str(), current.c_str()))
 	{
-		*static_cast<int*>(value) = currentEnum;
+		for (int i = 0; i < names.size(); i++)
+		{
+			bool isSelected = i == *static_cast<int*>(value);
+			if (ImGui::Selectable(names[i].data(), &isSelected))
+			{
+				*static_cast<int*>(value) = i;
+			}
+
+			if (isSelected)
+			{
+				ImGui::SetItemDefaultFocus();
+			}
+		}
+
+		ImGui::EndCombo();
 	}
 }

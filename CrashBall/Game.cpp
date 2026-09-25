@@ -84,6 +84,8 @@ void Game::Initialize(HWND window, int width, int height)
         m_textManager.get()
     };
 
+    m_editGuiManager = std::make_unique<EditGuiManager>();
+
     m_debugCamera = std::make_unique<DebugCamera>();
     m_debugCamera->Awake();
     m_debugCamera->Start(m_gameContext);
@@ -91,10 +93,9 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager = std::make_unique<SceneManager>(
         &m_gameContext,
         &m_renderContext,
-        &m_resourceContext
+        &m_resourceContext,
+        m_editGuiManager.get()
     );
-
-    m_editGuiManager = std::make_unique<EditGuiManager>();
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
@@ -208,13 +209,12 @@ void Game::Update(DX::StepTimer const& timer)
     }
 
     // 編集モードならデバッグカメラ更新
-    if (m_editGuiManager->GetIsActive())
+    if (m_editGuiManager->GetEditMode())
     {
         if (m_inputSystem->CheckHoverScreen())
         {
             m_debugCamera->Update(m_gameContext);
         }
-        m_sceneManager->Update();
     }
     else
     {
@@ -243,13 +243,6 @@ void Game::Update(DX::StepTimer const& timer)
     {
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
     }
-
-    if (m_inputSystem->GetKeyTrigger(Keyboard::R))
-    {
-       // m_sceneExporter->ExportScene(m_sceneManager->GetCurrentScene());
-        m_sceneManager->SaveData();
-        m_scriptableObjectManager->SaveData();
-    }
 }
 #pragma endregion
 
@@ -274,7 +267,7 @@ void Game::Render()
     SimpleMath::Matrix view;
 
     // 編集モードならデバッグカメラからビュー取得
-    if (m_editGuiManager->GetIsActive())
+    if (m_editGuiManager->GetEditMode())
     {
         view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
     }
@@ -307,15 +300,12 @@ void Game::Render()
     m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view);
-
     // スプライト関連描画開始
     m_spriteBatch->Begin(SpriteSortMode_FrontToBack);
-
     // スプライトの描画
     m_spriteRendererManager->Render(m_spriteBatch.get());
     // テキストの描画
     m_textRendererManager->Render(m_spriteBatch.get());
-
     // スプライト関連描画終了
     m_spriteBatch->End();
 

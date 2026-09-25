@@ -22,6 +22,7 @@ EditGuiManager::EditGuiManager()
     m_objectInspectorGui    = std::make_unique<ObjectInspectorGui>();
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
     m_editButton            = std::make_unique<EditButton>(this);
+    m_sceneSelect           = std::make_unique<SceneSelect>();
 }
 
 /**
@@ -46,61 +47,9 @@ void EditGuiManager::Update(
 {
     if (!m_isActive) return;
 
-    // -------------------- レイアウトの設定 -------------------- //
-
     ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
-    ImGuiViewport* viewport = ImGui::GetMainViewport();
 
-    // 描画領域が0以下ならreturn
-    if (viewport->Size.x <= 0.0f || viewport->Size.y <= 0.0f) return;
-
-    ImGui::DockBuilderAddNode(
-        dockspaceID,
-        ImGuiDockNodeFlags_DockSpace
-    );
-
-    ImGui::DockBuilderSetNodeSize(
-        dockspaceID,
-        viewport->Size
-    );
-
-    ImGuiID rightR = 0;
-    ImGuiID rightL = 0;
-    ImGuiID mainTop = dockspaceID;
-    ImGuiID mainBottom = 0;
-
-    ImGui::DockBuilderSplitNode(
-            dockspaceID,
-            ImGuiDir_Right,
-            0.35f,
-            &rightL,
-            &mainTop
-        );
-
-       ImGui::DockBuilderSplitNode(
-            rightL,
-            ImGuiDir_Right,
-            0.6f,
-            &rightR,
-            &rightL
-        );
-
-        ImGui::DockBuilderSplitNode(
-            mainTop,
-            ImGuiDir_Up,
-            0.7f,
-            &mainTop,
-            &mainBottom
-        );
-
-    ImGui::DockBuilderDockWindow("Inspector", rightR);
-    ImGui::DockBuilderDockWindow("ObjectList", rightL);
-    ImGui::DockBuilderDockWindow("Game", mainTop);
-    ImGui::DockBuilderDockWindow("Buttons", mainBottom);
-
-    ImGui::DockBuilderFinish(dockspaceID);
-
-    // ------------------------------------------------------ //
+    ConstantLayout(dockspaceID);
 
     ImGui::DockSpaceOverViewport(dockspaceID);
 
@@ -109,6 +58,7 @@ void EditGuiManager::Update(
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
     m_gameViewRenderer->Update(srv);
     m_editButton->Update(sceneEditer);
+    m_sceneSelect->Update(sceneEditer);
 }
 
 /**
@@ -118,4 +68,74 @@ void EditGuiManager::Update(
 void EditGuiManager::Reset()
 {
     m_objectListGui->Reset();
+}
+
+/**
+ * \brief レイアウト固定
+ * 
+ * \param dockSpace
+ */
+void EditGuiManager::ConstantLayout(ImGuiID dockspace)
+{
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+    // 描画領域が0以下ならreturn
+    if (viewport->Size.x <= 0.0f || viewport->Size.y <= 0.0f) return;
+
+    ImGui::DockBuilderAddNode(
+        dockspace,
+        ImGuiDockNodeFlags_DockSpace
+    );
+
+    ImGui::DockBuilderSetNodeSize(
+        dockspace,
+        viewport->Size
+    );
+
+    ImGuiID subR;
+    ImGuiID subLTop;
+    ImGuiID subLBottom;
+    ImGuiID mainTop = dockspace;
+    ImGuiID mainBottom;
+
+    ImGui::DockBuilderSplitNode(
+        dockspace,
+        ImGuiDir_Right,
+        0.35f,
+        &subLBottom,
+        &mainTop
+    );
+
+    ImGui::DockBuilderSplitNode(
+        subLBottom,
+        ImGuiDir_Right,
+        0.6f,
+        &subR,
+        &subLBottom
+    );
+
+    ImGui::DockBuilderSplitNode(
+        subLBottom,
+        ImGuiDir_Up,
+        0.08f,
+        &subLTop,
+        &subLBottom
+    );
+
+    ImGui::DockBuilderSplitNode(
+        mainTop,
+        ImGuiDir_Up,
+        0.7f,
+        &mainTop,
+        &mainBottom
+    );
+
+    ImGui::DockBuilderDockWindow("Inspector", subR);
+    ImGui::DockBuilderDockWindow("ObjectList", subLBottom);
+    ImGui::DockBuilderDockWindow("Scene", subLTop);
+    ImGui::DockBuilderDockWindow("Game", mainTop);
+    ImGui::DockBuilderDockWindow("Buttons", mainBottom);
+
+    ImGui::DockBuilderFinish(dockspace);
+
 }

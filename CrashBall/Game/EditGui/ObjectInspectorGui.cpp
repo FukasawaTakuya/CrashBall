@@ -102,34 +102,34 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 		if (isOpenComponents)
 		{
 			// コンポーネントリスト表示
-			if(ImGui::BeginChild("Components"))
+			ImGui::BeginChild("Components");
+
+			for (auto& compName : ComponentFactory::GetCompNameList())
 			{
-				for (auto& compName : ComponentFactory::GetCompNameList())
+				ImGui::Selectable(compName.c_str());
+
+				// 選択された場合
+				if (ImGui::IsItemClicked())
 				{
-					ImGui::Selectable(compName.c_str());
+					// コンポーネントの作成
+					auto comp = ComponentFactory::CreataFromJson(
+						compName,
+						selectedObject);
 
-					// 選択された場合
-					if (ImGui::IsItemClicked())
-					{
-						// コンポーネントの作成
-						auto comp = ComponentFactory::CreataFromJson(
-							compName,
-							selectedObject);
-
-						auto ptr = comp.get();
-						// コンポーネントのアタッチ
-						selectedObject->AddComponent(std::move(comp));
-						// IDの設定
-						ptr->SetID(ComponentIDGenerator::GetID());
-						// アタッチ時の処理
-						ptr->Awake();
-						// フラグを下げる
-						isOpenComponents = false;
-						break;
-					}
+					auto ptr = comp.get();
+					// コンポーネントのアタッチ
+					selectedObject->AddComponent(std::move(comp));
+					// IDの設定
+					ptr->SetID(ComponentIDGenerator::GetID());
+					// アタッチ時の処理
+					ptr->Awake();
+					// フラグを下げる
+					isOpenComponents = false;
+					break;
 				}
-				ImGui::EndChild();
 			}
+
+			ImGui::EndChild();
 		}
 
 		ImGui::EndChild();

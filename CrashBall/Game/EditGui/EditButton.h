@@ -25,7 +25,7 @@ class  EditButton {
 public:
 
 	// コンストラクタ
-	EditButton(IEditModeChanger*	pEditModeChanger);
+	EditButton(IEditModeChanger* pEditModeChanger);
 
 	// デストラクタ
 	~EditButton();
