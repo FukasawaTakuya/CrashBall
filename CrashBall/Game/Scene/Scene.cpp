@@ -109,7 +109,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 
 	if (m_camera == nullptr)
 	{
-		auto camera = CreateNewGameObject();
+		auto camera = CreateNewGameObject("MainCamera");
 		camera->AddComponent<Transform>();
 		m_camera = camera->AddComponent<Camera>();
 
@@ -122,7 +122,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 	}
 }
 
-GameObject* Scene::CreateNewGameObject()
+GameObject* Scene::CreateNewGameObject(const std::string& objName)
 {
 	// ゲームオブジェクトの生成
 	auto newGameObject = std::make_unique<GameObject>();
@@ -133,6 +133,8 @@ GameObject* Scene::CreateNewGameObject()
 	// マップに追加
 	AddMap(ptr);
 
+	// ゲームオブジェクト名を設定
+	ptr->SetName(objName);
 	// ゲームオブジェクトデータの追加
 	ordered_json* data = m_jsonManager->AddGameObjectData(ptr->GetName());
 	// ゲームオブジェクトにデータを設定

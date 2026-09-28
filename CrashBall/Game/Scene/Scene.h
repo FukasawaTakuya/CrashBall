@@ -115,7 +115,7 @@ public:
 	}
 
 	// 新しいゲームオブジェクトの生成
-	GameObject* CreateNewGameObject();
+	GameObject* CreateNewGameObject(const std::string& objName);
 
 	// ゲームオブジェクトの削除
 	void DeleteGameObject(GameObject* obj);

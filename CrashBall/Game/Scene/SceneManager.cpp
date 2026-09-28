@@ -85,6 +85,7 @@ void SceneManager::Update()
 
 			// シーン変更
 			m_currentScene->Finalize();
+
 			m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
 			
 			// リソースの作成
@@ -181,6 +182,13 @@ void SceneManager::LoadData()
 void SceneManager::SaveData()
 {
 	m_currentScene->SaveData();
+
+	ordered_json sceneListData;
+	sceneListData["scenes"] = m_sceneNameList;
+
+	std::ofstream ofs("Resources/Data/Scenes.json");
+
+	ofs << sceneListData.dump(4);
 }
 
 /**
@@ -195,15 +203,15 @@ void SceneManager::CreateNewScene(const std::string& newSceneName)
 
 	// jsonDataManagerの追加
 	auto newJsonManager = std::make_unique<JsonDataManager>();
-	JsonDataManager* jsonManagerPtr = newJsonManager.get();
-	m_jsonManagers.emplace(newSceneName, std::make_unique<JsonDataManager>());
 
 	// フォルダの作成
-	std::string path = "Resources/Data/Objects/" + newSceneName;
-	std::filesystem::create_directory(path + "/");
+	std::string path = "Resources/Data/Objects/" + newSceneName + "/";
+	std::filesystem::create_directory(path);
 
 	// 保存パスの設定
-	jsonManagerPtr->SetSaveFilePath(path);
+	newJsonManager->SetSaveFilePath(path);
+
+	m_jsonManagers.emplace(newSceneName, std::move(newJsonManager));
 
 	// シーンの変更
 	RequestChangeScene(newSceneName);
@@ -236,11 +244,12 @@ void SceneManager::RequestChangeScene(const std::string& sceneName)
 /**
  * \brief 新しいオブジェクトの生成
  * 
+ * \param objName オブジェクト名
  */
-void SceneManager::CreateNewGameObject()
+void SceneManager::CreateNewGameObject(const std::string& objName)
 {
 	// ゲームオブジェクトの生成
-	GameObject* newObj = m_currentScene->CreateNewGameObject();
+	GameObject* newObj = m_currentScene->CreateNewGameObject(objName);
 }
 
 void SceneManager::DeleteGameObject(GameObject* obj)

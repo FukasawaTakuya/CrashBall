@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "ObjectListGui.h"
 
+#include "ImGui/imgui_stdlib.h"
+
 #include "Game/ScriptableObject/Scriptable.h"
 #include "Game/Engine/SceneManegement.h"
 #include "Game/Engine/Input.h"
@@ -57,7 +59,18 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
 
     if (ImGui::Button("New GameObject"))
     {
-        sceneEditer->CreateNewGameObject();
+        m_isCreateObject = true;
+    }
+
+    if (m_isCreateObject)
+    {
+        ImGui::InputText("objectName", &m_newObejctName);
+        if (ImGui::IsItemDeactivatedAfterEdit())
+        {
+            sceneEditer->CreateNewGameObject(m_newObejctName);
+            m_isCreateObject = false;
+            m_newObejctName = "";
+        }
     }
 
     ImGui::EndChild();

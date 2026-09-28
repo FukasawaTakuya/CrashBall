@@ -22,7 +22,6 @@ private:
 
 	std::string m_saveFilePath;	// 保存ファイルバス
 
-	std::unordered_map<std::string, std::string> m_gameObjectFiles;	// ファイル名
 	std::unordered_map<std::string, ordered_json> m_gameObjectData;	// Jsonデータ
 
 	// メンバ関数の宣言 -------------------------------------------------

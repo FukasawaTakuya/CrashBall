@@ -38,7 +38,7 @@ public:
 	virtual void SaveData() = 0;
 
 	// 新しいゲームオブジェクトの生成
-	virtual void CreateNewGameObject() = 0;
+	virtual void CreateNewGameObject(const std::string& objName) = 0;
 
 	// ゲームオブジェクトの削除
 	virtual void DeleteGameObject(GameObject* obj) = 0;

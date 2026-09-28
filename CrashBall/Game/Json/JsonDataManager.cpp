@@ -50,7 +50,6 @@ void JsonDataManager::LoadGameObjectData(const std::string& filepath)
 	ifs >> data;
 
 	m_gameObjectData.emplace(data["name"], data);
-	m_gameObjectFiles.emplace(data["name"], filepath);
 
 	// 最大IDか調べる
 	GameObejctIDGenerator::CheckMaxID(data["id"].get<int>());
@@ -62,16 +61,16 @@ void JsonDataManager::LoadGameObjectData(const std::string& filepath)
  */
 void JsonDataManager::SaveGameObjectData()
 {
-	for (auto& data : m_gameObjectData)
+	for (auto it = m_gameObjectData.begin(); it != m_gameObjectData.end();)
 	{
-		std::string objName = data.second["name"].get<std::string>();
+		std::string objName = it->second["name"].get<std::string>();
 
 		// オブジェクト名が変更されていたら
-		if (data.first != objName)
+		if (it->first != objName)
 		{
 			// 抽出
-			auto node = m_gameObjectData.extract(data.first);
-			// キーも変更
+			auto node = m_gameObjectData.extract(it++);
+			// キーを変更
 			node.key() = objName;
 
 			// 挿入し直す
@@ -81,7 +80,9 @@ void JsonDataManager::SaveGameObjectData()
 		}
 
 		std::ofstream ofs(m_saveFilePath + objName + ".json");
-		ofs << data.second.dump(4);
+		ofs << it->second.dump(4);
+
+		it++;
 	}
 }
 
@@ -99,17 +100,6 @@ void JsonDataManager::DeleteGameObjectData(const std::string& objName)
 		if (it != m_gameObjectData.end())
 		{
 			m_gameObjectData.erase(it);
-		}
-	}
-
-	{
-		auto it = m_gameObjectFiles.find(objName);
-		if (it != m_gameObjectFiles.end())
-		{
-			// ファイルの削除
-			std::remove(it->second.c_str());
-			// ファイルパスの削除
-			m_gameObjectFiles.erase(it);
 		}
 	}
 }

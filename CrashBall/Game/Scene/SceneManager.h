@@ -41,6 +41,9 @@ private:
 	// リクエストシーン名
 	std::string m_requestSceneName;
 
+	// シーン名リスト
+	std::vector<std::string> m_sceneNameList;
+
 	// シーン遷移スクリーン
 	std::unique_ptr<FadeChangeScreen> m_changeScreen;
 
@@ -55,9 +58,6 @@ private:
 
 	// 現在のシーン
 	std::unique_ptr<Scene> m_currentScene;
-
-	// シーン名リスト
-	std::vector<std::string> m_sceneNameList;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -105,7 +105,7 @@ public:
 	void RequestChangeScene(const std::string& sceneName) override;
 
 	// 新しいオブジェクトの生成
-	void CreateNewGameObject() override;
+	void CreateNewGameObject(const std::string& objName = "object") override;
 
 	// ゲームオブジェクトの削除
 	void DeleteGameObject(GameObject* obj) override;
