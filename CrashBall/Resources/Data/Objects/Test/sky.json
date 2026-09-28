@@ -1,20 +1,20 @@
 {
-    "name": "TitleLogo",
+    "name": "sky",
     "tag": "Default",
-    "id": 4,
+    "id": 26,
     "isActive": true,
     "components": [
         {
             "compName": "RectTransform",
-            "id": 16,
+            "id": 73,
             "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector2",
                     "data": {
-                        "x": 480.0,
-                        "y": 285.3531799316406
+                        "x": 0.0,
+                        "y": 0.0
                     }
                 },
                 {
@@ -39,13 +39,13 @@
         },
         {
             "compName": "SpriteRenderer",
-            "id": 17,
+            "id": 74,
             "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": "Title"
+                    "data": "Skybox"
                 },
                 {
                     "name": "color",
@@ -61,8 +61,8 @@
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.5,
-                        "y": 1.5
+                        "x": 1.0,
+                        "y": 1.0
                     }
                 },
                 {
@@ -84,31 +84,6 @@
                     "name": "spriteEffects",
                     "type": "Enum",
                     "data": 0
-                }
-            ]
-        },
-        {
-            "compName": "SpriteBobbing",
-            "id": 18,
-            "isActive": true,
-            "properties": [
-                {
-                    "name": "amplitude",
-                    "type": "Float",
-                    "data": 30.0
-                },
-                {
-                    "name": "frequency",
-                    "type": "Float",
-                    "data": 6.0
-                },
-                {
-                    "name": "initPos",
-                    "type": "Vector2",
-                    "data": {
-                        "x": 480.0,
-                        "y": 300.0
-                    }
                 }
             ]
         }

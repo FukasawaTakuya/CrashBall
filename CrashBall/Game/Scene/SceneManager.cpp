@@ -161,17 +161,22 @@ void SceneManager::LoadData()
 
 		jsonManager->SetSaveFilePath(path + "/");
 
-		// 指定パス内のファイルを読み込み
-		for (auto& entity : std::filesystem::recursive_directory_iterator(path))
+		// ファイルが存在すれば読み込み
+		if (std::filesystem::exists(path))
 		{
-			// ゲームオブジェクトデータの読み込み
-			jsonManager->LoadGameObjectData(entity.path().string());
+			// 指定パス内のファイルを読み込み
+			for (auto& entity : std::filesystem::recursive_directory_iterator(path))
+			{
+				// ゲームオブジェクトデータの読み込み
+				jsonManager->LoadGameObjectData(entity.path().string());
+			}
+
+			// jsonマネージャーのコンテナに追加
+			m_jsonManagers.emplace(scene, std::move(jsonManager));
+			// シーン名リストに追加
+			m_sceneNameList.push_back(sceneName);
 		}
 
-		// jsonマネージャーのコンテナに追加
-		m_jsonManagers.emplace(scene, std::move(jsonManager));
-		// シーン名リストに追加
-		m_sceneNameList.push_back(sceneName);
 	}
 }
 

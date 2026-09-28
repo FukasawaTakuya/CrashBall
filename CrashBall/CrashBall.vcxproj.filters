@@ -164,6 +164,9 @@
     <Filter Include="DX">
       <UniqueIdentifier>{52b0d9ad-30eb-4ead-a5db-b2a373571847}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{441db550-9ac3-4872-9430-2ab28843bb2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -637,6 +640,9 @@
     <ClInclude Include="Game\Common\MyMath.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
+    <ClInclude Include="DX\SkyboxEffect.h">
+      <Filter>DX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -964,6 +970,9 @@
     <ClCompile Include="Game\Common\MyMath.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
+    <ClCompile Include="DX\SkyboxEffect.cpp">
+      <Filter>DX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -980,5 +989,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Shader\SkyboxEffect_Common.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\SkyboxEffect_PS.hlsli">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\SkyboxEffect_VS.hlsli">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

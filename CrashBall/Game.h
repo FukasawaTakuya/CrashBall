@@ -39,6 +39,8 @@
 #include "Game/Json/Exporter/SceneExporter.h"
 #include "Game/Json/Loader/SceneLoader.h"
 
+#include "DX/SkyboxEffect.h"
+
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Game final : public DX::IDeviceNotify
@@ -87,6 +89,12 @@ private:
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト
     ResourceContext m_resourceContext;  // リソース用のコンテキスト
+
+    std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
+    std::unique_ptr<SkyboxEffect> m_effect;
+
+    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
 
 public:
 

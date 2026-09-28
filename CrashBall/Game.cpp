@@ -115,6 +115,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteManager->RegisterFile("Screen", L"Resources/Sprite/Screen.dds");
     m_spriteManager->RegisterFile("AttackIcon", L"Resources/Sprite/AttackIcon.dds");
     m_spriteManager->RegisterFile("Button", L"Resources/Sprite/Button.dds");
+    m_spriteManager->RegisterFile("Skybox", L"Resources/Sprite/lobbycube.dds");
     m_textManager->RegisterFile("default", L"Resources/SpriteFont/makinas.spritefont");
     // サウンド
     m_soundManager->RegisterBgmFile("title", L"Resources/Sound/BGM/Title.wav");
@@ -300,6 +301,14 @@ void Game::Render()
     m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view);
+
+    view._41 = 0.0f;
+    view._42 = 0.0f;
+    view._43 = 0.0f;
+
+    m_effect->SetView(view);
+    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
+
     // スプライト関連描画開始
     m_spriteBatch->Begin(SpriteSortMode_FrontToBack);
     // スプライトの描画
@@ -436,6 +445,20 @@ void Game::CreateDeviceDependentResources()
     m_textRendererManager->Create(device, context);
 
     m_renderTexture->Create(m_deviceResources.get());
+
+    m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
+        false /*invert for being inside the shape*/);
+
+    m_effect = std::make_unique<SkyboxEffect>(device);
+
+    m_sky->CreateInputLayout(m_effect.get(),
+        m_skyInputLayout.ReleaseAndGetAddressOf());
+
+    DX::ThrowIfFailed(
+        CreateDDSTextureFromFile(device, L"Resources/Sprite/skybox2.dds",
+            nullptr, m_cubemap.ReleaseAndGetAddressOf()));
+
+    m_effect->SetTexture(m_cubemap.Get());
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -463,11 +486,17 @@ void Game::CreateWindowSizeDependentResources()
     m_sceneManager->CreateWindowSizeResources(m_proj);
 
     m_renderTexture->Create(m_deviceResources.get());
+
+    m_effect->SetProjection(m_proj);
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
+    m_sky.reset();
+    m_effect.reset();
+    m_skyInputLayout.Reset();
+    m_cubemap.Reset();
 }
 
 void Game::OnDeviceRestored()

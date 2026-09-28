@@ -1,7 +1,7 @@
 {
     "name": "MainCamera",
-    "tag": "Camera",
-    "id": 28,
+    "tag": "Default",
+    "id": 25,
     "isActive": true,
     "components": [
         {
