@@ -39,7 +39,7 @@ private:
 	float m_maxSpeed = 0.0f;		// 最大速度
 
 	const Transform* m_pEnemyTransform = nullptr;				// 敵のトランスフォームコンポーネント
-	const TargetCameraController* m_pCameraController = nullptr;// カメラのポインタ
+	const Camera* m_pCamera = nullptr;// カメラのポインタ
 	StageController* m_pStageController = nullptr;				// 面消費インターフェース
 
 	// プロパティの設定
@@ -49,7 +49,7 @@ private:
 		AddProperty(m_acceleration,			PropertyType::Float)
 		AddProperty(m_maxSpeed,				PropertyType::Float)
 		AddProperty(m_pEnemyTransform,		PropertyType::Component)
-		AddProperty(m_pCameraController,	PropertyType::Component)
+		AddProperty(m_pCamera,	PropertyType::Component)
 		AddProperty(m_pStageController,		PropertyType::Component)
 	EndProperty()
 
@@ -97,9 +97,9 @@ public:
 public:
 
 	// カメラのポインタの取得
-	const ICamera* GetCamera() 
+	const Camera* GetCamera() 
 	{ 
-		return m_pCameraController; 
+		return m_pCamera; 
 	}
 
 	// 敵のトランスフォームの取得
@@ -125,7 +125,7 @@ public:
 	float GetMaxSpeed()			const { return m_maxSpeed; }
 
 	// カメラのポインタのセット
-	void SetCamera(const TargetCameraController* pCamera) { m_pCameraController = pCamera; }
+	void SetCamera(const Camera* pCamera) { m_pCamera = pCamera; }
 
 	// 敵のトランスフォームの設定
 	void SetEnemyTransform(Transform* enemyTransform)

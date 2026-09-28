@@ -33,7 +33,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		// カメラの場合
 		if (obj->GetTag() == ObjectTag::Camera)
 		{
-			m_camera = obj->GetComponent<TargetCameraController>();
+			m_camera = obj->GetComponent<Camera>();
 		}
 
 		// 衝突判定登録

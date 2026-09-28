@@ -63,7 +63,12 @@ void GameCameraController::Update(const GameContext& gameContext)
 {
 	float elapsedTime = Time::GetElapsedTime();
 
-	RotateX(XMConvertToRadians(m_rotateAngleRad * Input::GetGamePad().thumbSticks.rightX) * elapsedTime);
+	float stickValue = Input::GetGamePad().thumbSticks.rightX;
+	if (stickValue != 0.0f)
+	{
+		RotateX(XMConvertToRadians(m_rotateAngleRad * stickValue * elapsedTime));
+	}
+
 
 	// 入力に応じて回転
 	if (Input::GetKeyDown(Keyboard::Right)) {

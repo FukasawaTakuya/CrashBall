@@ -11,6 +11,7 @@
 #include "ICamera.h"
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Component/Camera/Camera.h"
 
 
 /**
@@ -60,6 +61,8 @@ protected:
 
 	// 変更フラグ
 	mutable bool m_isDirty = false;
+
+	Camera* m_camera = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

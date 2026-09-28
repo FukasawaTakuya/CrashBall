@@ -269,7 +269,7 @@ void Game::Render()
     // 編集モードならデバッグカメラからビュー取得
     if (m_editGuiManager->GetEditMode())
     {
-        view = m_debugCamera->GetComponent<DebugCameraController>()->GetView();
+        view = m_debugCamera->GetComponent<Camera>()->GetView();
     }
     else
     {

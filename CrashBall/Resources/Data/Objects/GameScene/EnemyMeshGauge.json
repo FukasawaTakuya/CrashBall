@@ -45,7 +45,7 @@
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.0029575179796665907
+                    "data": 0.0
                 },
                 {
                     "name": "spriteEffects",

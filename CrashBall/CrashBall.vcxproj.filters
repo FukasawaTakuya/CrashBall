@@ -631,6 +631,12 @@
     <ClInclude Include="DX\ReadData.h">
       <Filter>DX</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Camera\Camera.h">
+      <Filter>Game\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Common\MyMath.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -951,6 +957,12 @@
     </ClCompile>
     <ClCompile Include="Game\EditGui\SceneSelect.cpp">
       <Filter>Game\EditGui</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Camera\Camera.cpp">
+      <Filter>Game\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Common\MyMath.cpp">
+      <Filter>Game\Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

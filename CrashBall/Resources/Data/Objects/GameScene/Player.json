@@ -13,18 +13,18 @@
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 0.3667253851890564,
-                        "y": 10.462590217590332,
-                        "z": 4.807798862457275
+                        "x": 7.258191108703613,
+                        "y": 9.686081886291504,
+                        "z": 7.325845718383789
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.3222503066062927,
-                        "y": 1.8188954591751099,
-                        "z": 1.6390409469604492
+                        "x": 0.31525933742523193,
+                        "y": 2.2692465782165527,
+                        "z": -2.69370436668396
                     }
                 },
                 {
@@ -151,11 +151,11 @@
                     "type": "Componet",
                     "data": 33
                 },
-                {
-                    "name": "pCameraController",
-                    "type": "Componet",
-                    "data": 49
-                },
+              {
+                "name": "pCameraController",
+                "type": "Componet",
+                "data": 74
+              },
                 {
                     "name": "pStageController",
                     "type": "Componet",

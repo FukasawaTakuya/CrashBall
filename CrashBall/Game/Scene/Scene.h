@@ -14,7 +14,7 @@
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
-#include "Game/Component/Camera/ICamera.h"
+#include "Game/Component/Camera/Camera.h"
 
 #include "Game/GameObject/GameObject.h"
 #include "Game/CollisionManager/CollisionManager.h"
@@ -31,7 +31,7 @@ protected:
 
 	std::string m_sceneName = "scene";
 
-	ICamera* m_camera = nullptr;
+	Camera* m_camera = nullptr;
 
 	IJsonDataManager* m_jsonManager;
 
@@ -136,7 +136,7 @@ public:
 public:
 
 	// カメラの取得
-	virtual ICamera* GetCamera() const { return m_camera; };
+	virtual Camera* GetCamera() const { return m_camera; };
 
 	// シーン名の取得
 	std::string GetSceneName() const

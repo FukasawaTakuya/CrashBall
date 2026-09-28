@@ -123,7 +123,7 @@ public:
 public:
 
 	// カメラの取得
-	ICamera* GetCamera() const
+	Camera* GetCamera() const
 	{
 		return m_currentScene->GetCamera();
 	}

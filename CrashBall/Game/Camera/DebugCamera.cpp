@@ -17,6 +17,7 @@
 DebugCamera::DebugCamera()
 {
 	AddComponent<Transform>();
+	AddComponent<Camera>();
 	m_cameraController = AddComponent<DebugCameraController>();
 }
 
@@ -44,7 +45,7 @@ void DebugCamera::Start(const GameContext& gameContext)
  */
 void DebugCamera::Update(const GameContext& gameContext)
 {
-	m_cameraController->Update(gameContext);
+	GameObject::Update(gameContext);
 }
 
 /**

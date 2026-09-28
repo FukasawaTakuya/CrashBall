@@ -203,6 +203,7 @@
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h" />
     <ClInclude Include="Game\Common\Easing.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
+    <ClInclude Include="Game\Common\MyMath.h" />
     <ClInclude Include="Game\Common\Random.h">
       <SubType>
       </SubType>
@@ -214,6 +215,10 @@
     </ClInclude>
     <ClInclude Include="Game\Common\Utility.h" />
     <ClInclude Include="Game\Component\Ball\BallController.h" />
+    <ClInclude Include="Game\Component\Camera\Camera.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Camera\DebugCameraController.h">
       <SubType>
       </SubType>
@@ -537,8 +542,10 @@
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp" />
     <ClCompile Include="Game\Common\Easing.cpp" />
     <ClCompile Include="Game\Common\InputSystem.cpp" />
+    <ClCompile Include="Game\Common\MyMath.cpp" />
     <ClCompile Include="Game\Common\Screen.cpp" />
     <ClCompile Include="Game\Component\Ball\BallController.cpp" />
+    <ClCompile Include="Game\Component\Camera\Camera.cpp" />
     <ClCompile Include="Game\Component\Camera\DebugCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TargetCameraController.cpp" />

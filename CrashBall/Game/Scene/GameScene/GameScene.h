@@ -91,10 +91,10 @@ public:
 public:
 
 	// ƒJƒƒ‰‚ÌŽæ“¾
-	ICamera* GetCamera() const override
-	{
-		return m_camera->GetComponent<GameCameraController>();
-	}
+	//ICamera* GetCamera() const override
+	//{
+	//	return m_camera->GetComponent<GameCameraController>();
+	//}
 
 
 	// “à•”ŽÀ‘•

@@ -75,10 +75,10 @@ public:
 	void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj) override;
 
 	// ƒJƒƒ‰‚Ìæ“¾
-	ICamera* GetCamera() const override
-	{
-		return m_camera->GetComponent<TitleCameraController>();
-	}
+	//ICamera* GetCamera() const override
+	//{
+	//	return m_camera->GetComponent<TitleCameraController>();
+	//}
 
 
 	// æ“¾/İ’è

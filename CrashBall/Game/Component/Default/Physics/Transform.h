@@ -40,7 +40,7 @@ private:
 
 	Transform* m_parent = nullptr;	// 親のトランスフォーム
 
-	mutable bool m_isDirty = true;
+	mutable bool m_isDirty = true;	// 変更フラグ
 
 	mutable DirectX::SimpleMath::Matrix m_world;// ワールド行列
 
@@ -59,6 +59,12 @@ public:
 
 	// 操作
 public:
+
+	// 開始処理
+	void Start(const GameContext& gameContext) override;
+
+	// 更新
+	void Update(const GameContext& gameContext) override;
 
 	// 移動
 	void Translate(const DirectX::SimpleMath::Vector3& trans);
@@ -123,25 +129,19 @@ public:
 		return std::max(std::max(m_localScale.x, m_localScale.y), m_localScale.z);
 	}
 
+	// 変更フラグの取得
+	bool GetIsDirty() const
+	{
+		return m_isDirty;
+	}
+
 	// ワールド行列の取得
 	DirectX::SimpleMath::Matrix GetWorld() const
 	{
 		// 変更があればワールド行列を更新
 		if (m_isDirty)
 		{
-			// 拡大行列
-			DirectX::SimpleMath::Matrix scale
-				= DirectX::SimpleMath::Matrix::CreateScale(GetWorldScale());
-			// 回転行列
-			DirectX::SimpleMath::Matrix rotate
-				= DirectX::SimpleMath::Matrix::CreateFromQuaternion(GetWorldRotate());
-			// 移動行列
-			DirectX::SimpleMath::Matrix trans
-				= DirectX::SimpleMath::Matrix::CreateTranslation(GetWorldPosition());
-
-			// ワールド行列
-			m_world = (scale * rotate * trans);
-
+			UpdateWarldMat();
 			m_isDirty = false;
 		}
 
@@ -233,6 +233,9 @@ private:
 	{
 		return m_compName;
 	}
+
+	// ワールド行列の更新 GetWorld内で使うためconst
+	void UpdateWarldMat() const;
 
 	// JsonConvert
 private:

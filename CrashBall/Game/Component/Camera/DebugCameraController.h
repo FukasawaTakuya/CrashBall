@@ -8,19 +8,21 @@
 
 #pragma once
 
-#include "Game/Component/Camera/TargetCameraController.h"
-
+#include "Game/Component/Camera/Camera.h"
 
 /**
  * \brief デバッグ用カメラ操作コンポーネント
  */
-class  DebugCameraController : public TargetCameraController
+class  DebugCameraController : public Component
 {
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// カメラの照準
-	std::unique_ptr<Transform> m_targetTransform;
+	//std::unique_ptr<Transform> m_targetTransform;
+
+	Camera* m_camera;
+	Transform* m_transform;
 
 	// プロパティの設定
 	BeginProperty()
