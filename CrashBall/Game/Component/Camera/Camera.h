@@ -11,8 +11,9 @@ class  Camera : public Component {
 	// メンバ変数の宣言 -------------------------------------------------
 private:
 
-	DirectX::SimpleMath::Vector3 m_right;			// 前方向
-	DirectX::SimpleMath::Vector3 m_forward;			// 右方向
+	DirectX::SimpleMath::Vector3 m_forward;		// 右方向
+	DirectX::SimpleMath::Vector3 m_up;			// 上方向
+	DirectX::SimpleMath::Vector3 m_right;		// 前方向
 
 	DirectX::SimpleMath::Matrix  m_view;			// ビュー行列
 
@@ -64,8 +65,20 @@ public:
 		return m_view;
 	}
 
-	// 前方向(XZ平面)ベクトルの取得
+	// 前方向ベクトルの取得
 	DirectX::SimpleMath::Vector3 GetForward() const
+	{
+		return m_forward;
+	}
+
+	// 右方向ベクトルの取得
+	DirectX::SimpleMath::Vector3 GetRight() const
+	{
+		return m_right;
+	}
+
+	// 前方向(XZ平面)ベクトルの取得
+	DirectX::SimpleMath::Vector3 GetHorizontalForward() const
 	{
 		DirectX::SimpleMath::Vector3 forward = m_forward;
 		forward.y = 0.0f;
@@ -74,7 +87,7 @@ public:
 	}
 
 	// 右方向(XZ平面)ベクトルの取得
-	DirectX::SimpleMath::Vector3 GetRight() const
+	DirectX::SimpleMath::Vector3 GetHorizontalRight() const
 	{
 		DirectX::SimpleMath::Vector3 right = m_right;
 		right.y = 0.0f;

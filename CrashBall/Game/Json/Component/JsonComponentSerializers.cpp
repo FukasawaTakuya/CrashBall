@@ -203,14 +203,6 @@ void to_json(json& j, const Sphere& sphere)
 	};
 }
 
-// TargetCameraから変換
-void to_json(json& j, const TargetCameraController& targetCamera)
-{
-	j = json{
-		{ "offset", targetCamera.m_baseOffset }
-	};
-}
-
 // SliderControllerから変換
 void to_json(json& j, const SliderController& sliderController)
 {

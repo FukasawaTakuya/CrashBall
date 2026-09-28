@@ -62,20 +62,20 @@ void PlayerMoveState::Update(const GameContext& gameContext)
     // 地上にいる場合
     if (m_stateContext.ballController->GetIsGround())
     {
-        rigidbody->Accel(playerController->GetCamera()->GetRight() * moveValue.x * playerController->GetAcceleration());
-        rigidbody->Accel(playerController->GetCamera()->GetForward() * moveValue.z * playerController->GetAcceleration());
+        rigidbody->Accel(playerController->GetCamera()->GetHorizontalRight() * moveValue.x * playerController->GetAcceleration());
+        rigidbody->Accel(playerController->GetCamera()->GetHorizontalForward() * moveValue.z * playerController->GetAcceleration());
         // 入力に応じて加速
         if (Input::GetKeyDown(Keyboard::D)) {
-            rigidbody->Accel( playerController->GetCamera()->GetRight()   * playerController->GetAcceleration());
+            rigidbody->Accel( playerController->GetCamera()->GetHorizontalRight()   * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::A)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetRight()   * playerController->GetAcceleration());
+            rigidbody->Accel(-playerController->GetCamera()->GetHorizontalRight()   * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::W)) {
-            rigidbody->Accel( playerController->GetCamera()->GetForward() * playerController->GetAcceleration());
+            rigidbody->Accel( playerController->GetCamera()->GetHorizontalForward() * playerController->GetAcceleration());
         }
         if (Input::GetKeyDown(Keyboard::S)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetForward() * playerController->GetAcceleration());
+            rigidbody->Accel(-playerController->GetCamera()->GetHorizontalForward() * playerController->GetAcceleration());
         }
     }
 

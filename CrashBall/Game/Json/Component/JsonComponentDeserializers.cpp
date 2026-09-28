@@ -229,12 +229,6 @@ void from_json(const json& j, Sphere& sphere)
 	j.at("radius").get_to(sphere.m_radius);
 }
 
-// TargetCameraへ変換
-void from_json(const json& j, TargetCameraController& targetCamera)
-{
-	j.at("offset").get_to(targetCamera.m_baseOffset);
-}
-
 // SliderControllerへ変換
 void from_json(const json& j, SliderController& sliderController)
 {

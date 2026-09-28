@@ -51,14 +51,14 @@ void DebugCameraController::Update(const GameContext& gameContext)
 		m_transform->Rotate(
 			SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, -deltaMousePos.x / 1000.0f));
 		m_transform->Rotate(
-			SimpleMath::Quaternion::CreateFromAxisAngle(m_camera->GetRight(), deltaMousePos.y / 1000.0f));
+			SimpleMath::Quaternion::CreateFromAxisAngle(m_camera->GetHorizontalRight(), deltaMousePos.y / 1000.0f));
 	}
 	// 中央ボタンが押されているとき
 	else if (Input::GetMouseDown(MouseButton::Middle))
 	{
 		// カメラ移動
 		m_transform->Translate(
-			m_camera->GetRight()	*  deltaMousePos.x / 20.0f +
+			m_camera->GetHorizontalRight()	*  deltaMousePos.x / 20.0f +
 			SimpleMath::Vector3::Up	* -deltaMousePos.y / 20.0f
 		);
 	}

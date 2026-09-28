@@ -88,17 +88,16 @@ void GameCameraController::Update(const GameContext& gameContext)
  */
 void GameCameraController::TargetingTransform()
 {
+	SimpleMath::Vector3 forward = m_camera->GetForward();
+
 	SimpleMath::Vector3 position = m_transform->GetWorldPosition();
 	SimpleMath::Vector3 destination = m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate;
 
 	// 前方方向のみ補間
-	SimpleMath::Vector3 posForward = m_forward * m_forward.Dot(position);
-	SimpleMath::Vector3 desForward = m_forward * m_forward.Dot(destination);
+	SimpleMath::Vector3 posForward = forward * forward.Dot(position);
+	SimpleMath::Vector3 desForward = forward * forward.Dot(destination);
 	position = destination - desForward;
 	posForward = SimpleMath::Vector3::Lerp(posForward, desForward, Time::GetElapsedTime() * 7.0f);
 
 	m_transform->SetWorldPosition(position + posForward);
-
-	m_isDirty = true;
-
 }

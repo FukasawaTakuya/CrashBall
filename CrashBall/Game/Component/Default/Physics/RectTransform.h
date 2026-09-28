@@ -191,7 +191,7 @@ public:
 	}
 
 	// 右端のX座標の取得(World)
-	float GetRight(float width) const
+	float GetHorizontalRight(float width) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 

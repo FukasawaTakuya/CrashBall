@@ -69,7 +69,7 @@ void ButtonController::Update(const GameContext& gameContext)
 
 	// ホバー状態か判定
 	if( mousePos.x >= m_rectTransform->GetLeft(width)	 * Screen::GetScreenRate() &&
-		mousePos.x <= m_rectTransform->GetRight(width)	 * Screen::GetScreenRate() &&
+		mousePos.x <= m_rectTransform->GetHorizontalRight(width)	 * Screen::GetScreenRate() &&
 		mousePos.y >= m_rectTransform->GetTop(height)	 * Screen::GetScreenRate() &&
 		mousePos.y <= m_rectTransform->GetBottom(height) * Screen::GetScreenRate())
 	{

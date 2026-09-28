@@ -18,9 +18,6 @@ class  DebugCameraController : public Component
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// カメラの照準
-	//std::unique_ptr<Transform> m_targetTransform;
-
 	Camera* m_camera;
 	Transform* m_transform;
 

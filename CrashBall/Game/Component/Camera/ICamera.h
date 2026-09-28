@@ -36,10 +36,10 @@ public:
 	virtual DirectX::SimpleMath::Matrix GetView() const = 0;
 
 	// ‘O•ûŒü(XZ•½–Ê)‚ÌŽæ“¾
-	virtual DirectX::SimpleMath::Vector3 GetForward() const = 0;
+	virtual DirectX::SimpleMath::Vector3 GetHorizontalForward() const = 0;
 
 	// ‰E•ûŒü(XZ•½–Ê)‚ÌŽæ“¾
-	virtual DirectX::SimpleMath::Vector3 GetRight() const = 0;
+	virtual DirectX::SimpleMath::Vector3 GetHorizontalRight() const = 0;
 
 
 	// “à•”ŽÀ‘•

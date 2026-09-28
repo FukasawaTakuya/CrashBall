@@ -25,7 +25,7 @@ DirectX::SimpleMath::Quaternion MyMath::NoneRollFromToRotation(
 
 DirectX::SimpleMath::Quaternion MyMath::NoneRollLookAt(const DirectX::SimpleMath::Vector3& direction)
 {
-	float yaw = std::atan2f(direction.x, direction.z);
+	float yaw = std::atan2f(-direction.x, -direction.z);
 
 	// 水平方向の長さ
 	float horizontalLen = std::sqrtf((direction.x * direction.x + direction.z * direction.z));

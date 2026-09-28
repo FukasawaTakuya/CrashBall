@@ -109,9 +109,11 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 
 	if (m_camera == nullptr)
 	{
-		auto m_camera = CreateNewGameObject();
-		m_camera->AddComponent<Transform>();
-		m_camera->AddComponent<GameCameraController>();
+		auto camera = CreateNewGameObject();
+		camera->AddComponent<Transform>();
+		m_camera = camera->AddComponent<Camera>();
+
+		camera->Awake();
 	}
 
 	for (auto& obj : objects)

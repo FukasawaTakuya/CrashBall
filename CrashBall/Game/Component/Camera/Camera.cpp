@@ -49,15 +49,8 @@ void Camera::Update(const GameContext& gameContext)
 void Camera::LookAt(const DirectX::SimpleMath::Vector3& target)
 {
 	SimpleMath::Vector3 dire = XMVector3Normalize(target - m_transform->GetWorldPosition());
-
-	//SimpleMath::Quaternion rotate = SimpleMath::Quaternion::FromToRotation(m_forward, dire);
 	SimpleMath::Quaternion rotation = MyMath::NoneRollLookAt(dire);
-
-	SimpleMath::Quaternion invers = XMQuaternionInverse(m_transform->GetWorldRotate());
-	SimpleMath::Quaternion delta = invers * rotation;
-
-	m_transform->Rotate(delta);
-	m_transform->Rotate(MyMath::NoneRollFromToRotation(m_forward, dire));
+	m_transform->SetRotate(rotation);
 
 	m_forward = dire;
 }
@@ -68,30 +61,13 @@ void Camera::LookAt(const DirectX::SimpleMath::Vector3& target)
  */
 void Camera::UpdateView()
 {
-	m_forward = XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
-
-	SimpleMath::Vector3 up = XMVector3Rotate(SimpleMath::Vector3::Up, m_transform->GetWorldRotate());
-
-	//float dot = up.Dot(m_forward);
-	//if (std::fabs(dot >= 0.99f))
-	//{
-	//	if (dot < 0.0f)
-	//	{
-	//		up = SimpleMath::Vector3::Backward;
-	//	}
-	//	else
-	//	{
-	//		up = SimpleMath::Vector3::Forward;
-	//	}
-	//}
-
-	m_right	= XMVector3Cross(m_forward, up);
-
-	//up = XMVector3Cross(m_right, m_forward);
+	m_forward	= XMVector3Rotate(SimpleMath::Vector3::Forward, m_transform->GetWorldRotate());
+	m_up		= XMVector3Rotate(SimpleMath::Vector3::Up,		m_transform->GetWorldRotate());
+	m_right		= XMVector3Rotate(SimpleMath::Vector3::Right,	m_transform->GetWorldRotate());
 
 	m_view =
 		SimpleMath::Matrix::CreateLookAt(
 			m_transform->GetWorldPosition(), 
 			m_transform->GetWorldPosition() + m_forward, 
-			up);
+			m_up);
 }
