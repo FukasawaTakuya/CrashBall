@@ -82,7 +82,7 @@
                 {
                     "name": "gameTime",
                     "type": "Float",
-                    "data": 120.0
+                    "data": 300.0
                 }
             ]
         },
@@ -110,7 +110,7 @@
                     "name": "spriteScale",
                     "type": "Vector2",
                     "data": {
-                        "x": 1.0,
+                        "x": 1.0700000524520874,
                         "y": 1.0
                     }
                 },

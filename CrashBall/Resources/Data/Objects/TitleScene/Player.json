@@ -154,6 +154,11 @@
                     "name": "pDoom",
                     "type": "Componet",
                     "data": 74
+                },
+                {
+                    "name": "pStageController",
+                    "type": "Componet",
+                    "data": 9
                 }
             ]
         }

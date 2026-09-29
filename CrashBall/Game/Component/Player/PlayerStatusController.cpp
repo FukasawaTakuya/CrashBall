@@ -53,7 +53,7 @@ void PlayerStatusController::Update(const GameContext& gameContext)
 		int playerMeshCount = m_pFloorMeshGetter->GetPlayerMeshCount();
 		int enemyMeshCount = m_pFloorMeshGetter->GetEnemyMeshCount();
 
-		m_attackPower = playerMeshCount - enemyMeshCount;
+		m_attackPower = playerMeshCount - m_attackCost;
 
 		// 攻撃力を最低攻撃力以上に収める
 		m_attackPower = std::max(m_attackPower, m_minAttackPower);

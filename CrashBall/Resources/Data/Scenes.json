@@ -1,7 +1,6 @@
 {
     "scenes": [
         "TitleScene",
-        "GameScene",
-        "Test"
+        "GameScene"
     ]
 }

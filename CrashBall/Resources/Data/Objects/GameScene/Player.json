@@ -107,12 +107,12 @@
                 {
                     "name": "attackCost",
                     "type": "Int",
-                    "data": 20
+                    "data": 50
                 },
                 {
                     "name": "minAttackPower",
                     "type": "Float",
-                    "data": 10.0
+                    "data": 1.0
                 },
                 {
                     "name": "pFloorMeshGetter",

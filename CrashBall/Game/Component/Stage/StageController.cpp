@@ -90,6 +90,11 @@ void StageController::Start(const GameContext& gameContext)
 	{
 		floorMeshColor.second = Colors::White;
 	}
+
+	m_enemyMeshCount = 0;
+	m_playerMeshCount = 0;
+
+	OutputDebugStringA(std::format("{}\n\n", m_floorMesh.size()).c_str());
 }
 
 /**

@@ -79,6 +79,8 @@ void EnemyController::Start(const GameContext& gameContext)
 	m_hp = m_maxHp;
 	// 移動速度を0に設定
 	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+
+	m_prevMeshCount = 0;
 }
 
 /**
@@ -100,6 +102,15 @@ void EnemyController::Update(const GameContext& gameContext)
 		// 加速
 		m_rigidbody->Accel(m_accelDirection * m_acceleration);
 	}
+
+	// 面の数に応じてHP強化
+	if (m_hp > 0)
+	{
+		int currentMeshCount = m_pStageController->GetEnemyMeshCount();
+		m_subHp += currentMeshCount - m_prevMeshCount;
+		m_maxHp += currentMeshCount - m_prevMeshCount;
+		m_prevMeshCount = currentMeshCount;
+	}
 }
 
 /**
@@ -109,7 +120,14 @@ void EnemyController::Update(const GameContext& gameContext)
  */
 void EnemyController::Damage(float damage)
 {
-	m_hp = std::clamp(m_hp - damage, 0.0f, m_maxHp);
+	m_subHp -= damage;
+
+	if (m_subHp < 0)
+	{
+		m_hp += m_subHp;
+		m_subHp = 0;
+		m_hp = std::clamp(m_hp, 0.0f, m_maxHp);
+	}
 }
 
 /**

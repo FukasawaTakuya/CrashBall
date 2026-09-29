@@ -13,6 +13,7 @@
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
 #include "Game/Component/Default/Collider/Doom.h"
+#include "Game/Component/Stage/IFloorMeshGetter.h"
 
 
 /**
@@ -38,6 +39,7 @@ private:
 	float m_directionChageInterval;		// 加速方向を変える間隔
 
 	const Doom* m_pDoom = nullptr;
+	const StageController* m_pStageController = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
@@ -50,6 +52,7 @@ private:
 		AddProperty(m_directionCircleRadius,	PropertyType::Float)
 		AddProperty(m_directionChageInterval,	PropertyType::Float)
 		AddProperty(m_pDoom,					PropertyType::Component)
+		AddProperty(m_pStageController,			PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -68,6 +71,9 @@ private:
 	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
 
 	float m_hp = m_maxHp;	// 体力
+
+	float m_subHp = 0;			// 強化用の体力
+	int m_prevMeshCount = 0;	// 前フレームの塗られた面の数
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -106,7 +112,7 @@ public:
 	DirectX::SimpleMath::Vector3 GetAccelDirection() const { return m_accelDirection; }
 
 	// 体力の取得
-	float GetHp() const { return m_hp; }
+	float GetHp() const { return m_hp + m_subHp; }
 	// 最大体力の取得
 	float GetMaxHP() const { return m_maxHp; }
 
