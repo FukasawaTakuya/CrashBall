@@ -11,6 +11,8 @@
 #include "Game/Common/Screen.h"
 
 #include "Game/Engine/Input.h"
+#include "Game/Engine/Time.h"
+
 
 using namespace DirectX;
 

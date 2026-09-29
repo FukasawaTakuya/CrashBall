@@ -13,7 +13,6 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Renderer/TextRenderer.h"
 
-
 /**
  * @brief ボタン操作コンポーネント
  */
@@ -45,10 +44,10 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
-	EndProperty()
+		EndProperty()
 
-	// コンポーネント名の設定
-	SetCompName("ButtonController")
+		// コンポーネント名の設定
+		SetCompName("ButtonController")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
