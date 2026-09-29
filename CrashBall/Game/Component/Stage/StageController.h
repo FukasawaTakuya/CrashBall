@@ -26,7 +26,6 @@
  */
 class  StageController : 
 	public Component,			// 基底コンポーネント
-	public IWallMeshGetter,		// 壁メッシュ関連情報取得
 	public IFloorMeshGetter,	// 床メッシュ関連情報取得
 	public IPaintConsumer		// ペイント消費
 {
@@ -38,12 +37,10 @@ class  StageController :
 private:
 
 	float m_floorNormalY	= 0.0f;	// 床判定基準になる法線のY成分
-	float m_floorCenterPosY = 0.0f; // 床判定基準になる面の中心のY座標
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_floorNormalY, PropertyType::Float)
-		AddProperty(m_floorCenterPosY, PropertyType::Float)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -58,7 +55,6 @@ private:
 	Mesh* m_meshCollider = nullptr;	// コンポーネントのキャッシュ
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
-	std::vector<Triangle*> m_wallMesh;		// 壁メッシュ
 
 	std::unordered_map<Triangle*, DirectX::SimpleMath::Color> m_floorMeshColor;	// 床メッシュの色情報
 
@@ -101,12 +97,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// 壁メッシュの取得
-	const std::vector<Triangle*>& GetWallMesh() const override
-	{
-		return m_wallMesh;
-	}
 
 	// プレイヤーが塗った面の数の取得
 	int GetPlayerMeshCount() const override

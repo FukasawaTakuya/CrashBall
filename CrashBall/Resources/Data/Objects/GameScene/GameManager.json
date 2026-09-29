@@ -18,11 +18,6 @@
                     "name": "pGameTimer",
                     "type": "Componet",
                     "data": 72
-                },
-                {
-                    "name": "pResultPanel",
-                    "type": "Componet",
-                    "data": -99
                 }
             ]
         }

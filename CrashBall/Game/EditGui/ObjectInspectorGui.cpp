@@ -86,6 +86,12 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 				DrawProperty(comp.get());
 				ImGui::TreePop();
 			}
+
+			if (comp->GetCompName() == "Transform")
+			{
+				//  Transformが編集されたらDirtyフラグを上げるために移動関数を呼ぶ
+				static_cast<Transform*>(comp.get())->Translate(SimpleMath::Vector3::Zero);
+			}
 		}
 
 		// コンポーネントリスト開閉フラグ

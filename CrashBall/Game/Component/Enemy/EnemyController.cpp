@@ -63,9 +63,9 @@ void EnemyController::Awake()
 	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
 	m_ballController = GetGameObject()->GetComponent<BallController>();
 
-	GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
-		Scriptable::GetScriptableObject<GameColor>()->m_enemyColor
-	);
+	//GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
+	//	Scriptable::GetScriptableObject<GameColor>()->m_enemyColor
+	//);
 
 }
 

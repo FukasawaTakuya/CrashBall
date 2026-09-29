@@ -1,28 +1,28 @@
 {
-    "name": "TitleCamera",
-    "tag": "Camera",
-    "id": 3,
+    "name": "Doom",
+    "tag": "Default",
+    "id": 28,
     "isActive": true,
     "components": [
         {
             "compName": "Transform",
-            "id": 14,
+            "id": 73,
             "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "type": "Vector3",
                     "data": {
-                        "x": 0.0012258798815310001,
-                        "y": 19.899999618530273,
-                        "z": 11.999014854431152
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
                     }
                 },
                 {
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.3217505216598511,
+                        "x": -0.0,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -39,36 +39,16 @@
             ]
         },
         {
-            "compName": "TitleCameraController",
-            "id": 15,
+            "compName": "Doom",
+            "id": 74,
             "isActive": true,
             "properties": [
                 {
-                    "name": "baseOffset",
-                    "type": "Vector3",
-                    "data": {
-                        "x": 0.0,
-                        "y": 4.0,
-                        "z": 12.0
-                    }
-                },
-                {
-                    "name": "rotateAngeleRad",
+                    "name": "radius",
                     "type": "Float",
-                    "data": 15.0
-                },
-                {
-                    "name": "targetTransform",
-                    "type": "Componet",
-                    "data": 0
+                    "data": 80.0
                 }
             ]
-        },
-        {
-            "compName": "Camera",
-            "id": 72,
-            "isActive": true,
-            "properties": null
         }
     ],
     "children": null

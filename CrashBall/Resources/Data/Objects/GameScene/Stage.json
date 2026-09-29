@@ -59,11 +59,6 @@
                     "name": "floorNormalY",
                     "type": "Float",
                     "data": 0.10000000149011612
-                },
-                {
-                    "name": "floorCenterPosY",
-                    "type": "Float",
-                    "data": 15.0
                 }
             ]
         }

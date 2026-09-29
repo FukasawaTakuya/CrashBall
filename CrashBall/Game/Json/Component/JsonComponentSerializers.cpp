@@ -249,10 +249,7 @@ void to_json(json& j, const EnemyController& enemyController)
 // StageControllerから変換
 void to_json(json& j, const StageController& stageController)
 {
-	j = json{
-		{ "floorNormalY", stageController.m_floorNormalY },
-		{ "floorCenterPosY", stageController.m_floorCenterPosY }
-	};
+
 }
 
 // TitleCameraControllerから変換

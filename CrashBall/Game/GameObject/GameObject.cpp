@@ -9,6 +9,7 @@
 #include "GameObject.h"
 
 #include "Game/Json/Component/JsonComponentSerializers.h"
+#include "Game/Json/Component/JsonComponentDeserializers.h"
 
 /**
  * \brief コンストラクタ
@@ -120,10 +121,26 @@ void GameObject::Render(const RenderContext& renderContext)
 void GameObject::SaveData()
 {
 	*m_data = *this;
-	std::string s = (*m_data)["name"];
 	for (auto& child : m_children)
 	{
 		child->SaveData();
+	}
+}
+
+/**
+ * \brief データの再読み込み
+ * 
+ */
+void GameObject::ReloadData()
+{
+	if (m_data != nullptr)
+	{
+		m_data->get_to(*this);
+	}
+	Awake();
+	for (auto& child : m_children)
+	{
+		child->ReloadData();
 	}
 }
 

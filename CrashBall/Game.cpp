@@ -302,10 +302,7 @@ void Game::Render()
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view);
 
-    view._41 = 0.0f;
-    view._42 = 0.0f;
-    view._43 = 0.0f;
-
+    // 
     m_effect->SetView(view);
     m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 

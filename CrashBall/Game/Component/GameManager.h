@@ -22,7 +22,6 @@ private:
 	BeginProperty()
 		AddProperty(m_pEnemyController, PropertyType::Component)
 		AddProperty(m_pGameTimer, PropertyType::Component)
-		AddProperty(m_pResultPanel, PropertyType::Component)
 	EndProperty()
 
 		// コンポーネント名の設定

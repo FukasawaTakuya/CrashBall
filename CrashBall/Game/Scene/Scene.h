@@ -114,6 +114,14 @@ public:
 		m_jsonManager->SaveGameObjectData();
 	}
 
+	void ReloadData()
+	{
+		for (auto& obj : m_gameObjects)
+		{
+			obj->ReloadData();
+		}
+	}
+
 	// 新しいゲームオブジェクトの生成
 	GameObject* CreateNewGameObject(const std::string& objName);
 

@@ -97,6 +97,9 @@ public:
 	// データの保存
 	void SaveData();
 
+	// データの再読み込み
+	void ReloadData();
+
 	// コンポーネントの追加
 	template<typename CompType, typename... Args>
 	CompType* AddComponent(Args&&... args)
@@ -247,4 +250,6 @@ private:
 
 private:
 	friend void to_json(ordered_json& j, const GameObject& gameObject);
+	friend void from_json(const ordered_json& j, GameObject& gameObject);
+
 };

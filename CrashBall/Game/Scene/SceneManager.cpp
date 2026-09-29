@@ -197,6 +197,15 @@ void SceneManager::SaveData()
 }
 
 /**
+ * \brief データの再読み込み
+ * 
+ */
+void SceneManager::ReloadData()
+{
+	m_currentScene->ReloadData();
+}
+
+/**
  * \brief 新しいシーンの作成
  * 
  * \param newSceneName 新しいシーン名

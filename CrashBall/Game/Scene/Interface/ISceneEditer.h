@@ -34,8 +34,11 @@ public:
 	// 開始処理
 	virtual void Start() = 0;
 
-	// パラメータの書き込み
+	// データの保存
 	virtual void SaveData() = 0;
+
+	// データの再読み込み
+	virtual void ReloadData() = 0;
 
 	// 新しいゲームオブジェクトの生成
 	virtual void CreateNewGameObject(const std::string& objName) = 0;

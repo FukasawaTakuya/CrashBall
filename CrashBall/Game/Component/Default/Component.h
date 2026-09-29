@@ -41,7 +41,7 @@ struct PropertyInfo
 	std::string name;							// プロパティ名
 	PropertyType propType;						// プロパティタイプ
 	std::type_index propTypeId{typeid(void)};	// プロパティのtypeid
-	void* data;									// プロパティのアドレス
+	void* data = nullptr;						// プロパティのアドレス
 };
 
 // コンポーネントの登録

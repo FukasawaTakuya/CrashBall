@@ -116,10 +116,16 @@ void from_json(const ordered_json& j, Component& component)
 			*static_cast<int*>(prop.data) = propData;
 			break;
 		case PropertyType::GameObject:
-			*static_cast<int*>(prop.data) = propData;
+			if (*static_cast<GameObject**>(prop.data) == nullptr)
+			{
+				*static_cast<int*>(prop.data) = propData;
+			}
 			break;
 		case PropertyType::Component:
-			*static_cast<int*>(prop.data) = propData;
+			if (*static_cast<Component**>(prop.data) == nullptr)
+			{
+				*static_cast<int*>(prop.data) = propData;
+			}
 			break;
 		default:
 			break;
@@ -135,17 +141,20 @@ void from_json(const ordered_json& j, GameObject& gameObject)
 	gameObject.SetTag(j["tag"]);
 	gameObject.SetID(j["id"]);
 	gameObject.SetIsActive(j["isActive"]);
-	//gameObject.SetData(&j);
 
 	for (auto& jsonComp : j["components"])
 	{
-		// コンポーネントの追加
-		for (auto& jsonComp : j["components"])
-		{
-			auto compPtr = gameObject.AddComponent(
-				ComponentFactory::CreataFromJson(jsonComp["compName"], &gameObject)
-			);
+		auto newComp = ComponentFactory::CreataFromJson(jsonComp["compName"], &gameObject);
 
+		Component* compPtr = gameObject.GetComponent(typeid(*newComp));
+
+		if (compPtr == nullptr)
+		{
+			jsonComp.get_to<Component>(*newComp);
+			gameObject.AddComponent(std::move(newComp));
+		}
+		else
+		{
 			jsonComp.get_to<Component>(*compPtr);
 		}
 	}
@@ -267,8 +276,6 @@ void from_json(const json& j, EnemyController& enemyController)
 // StageControllerへ変換
 void from_json(const json& j, StageController& stageController)
 {
-	j.at("floorNormalY").get_to(stageController.m_floorNormalY);
-	j.at("floorCenterPosY").get_to(stageController.m_floorCenterPosY);
 }
 
 // TitleCameraControllerへ変換

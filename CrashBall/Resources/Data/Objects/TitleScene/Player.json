@@ -14,7 +14,7 @@
                     "type": "Vector3",
                     "data": {
                         "x": 0.0012258798815310001,
-                        "y": 10.326594352722168,
+                        "y": 8.800000190734863,
                         "z": -0.0009852153016254306
                     }
                 },
@@ -22,9 +22,9 @@
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": 0.01104703638702631,
+                        "x": 0.011047035455703735,
                         "y": 1.954553246498108,
-                        "z": 0.40055614709854126
+                        "z": 0.40055617690086365
                     }
                 },
                 {
@@ -100,74 +100,62 @@
             ]
         },
         {
-            "compName": "PlayerStatusController",
-            "id": 4,
-            "isActive": false,
+            "compName": "BallController",
+            "id": 6,
+            "isActive": true,
+            "properties": null
+        },
+        {
+            "compName": "EnemyController",
+            "id": 75,
+            "isActive": true,
             "properties": [
                 {
-                    "name": "attackCost",
-                    "type": "Int",
-                    "data": 20
+                    "name": "acceleration",
+                    "type": "Float",
+                    "data": 22.0
                 },
                 {
-                    "name": "minAttackPower",
+                    "name": "avoidDoomDistance",
+                    "type": "Float",
+                    "data": 5.0
+                },
+                {
+                    "name": "avoidDoomWeakForce",
+                    "type": "Float",
+                    "data": 1.5
+                },
+                {
+                    "name": "avoidDoomStrongForce",
+                    "type": "Float",
+                    "data": 8.0
+                },
+                {
+                    "name": "maxHp",
+                    "type": "Float",
+                    "data": 200.0
+                },
+                {
+                    "name": "directionCircleDistance",
+                    "type": "Float",
+                    "data": 4.5
+                },
+                {
+                    "name": "directionCircleRadius",
                     "type": "Float",
                     "data": 10.0
                 },
                 {
-                    "name": "pFloorMeshGetter",
+                    "name": "directionChageInterval",
+                    "type": "Float",
+                    "data": 1.5
+                },
+                {
+                    "name": "pDoom",
                     "type": "Componet",
-                    "data": 71
+                    "data": 74
                 }
             ]
-        },
-        {
-            "compName": "PlayerController",
-            "id": 5,
-            "isActive": false,
-            "properties": [
-                {
-                    "name": "attackSpeed",
-                    "type": "Float",
-                    "data": 60.0
-                },
-                {
-                    "name": "attackDuration",
-                    "type": "Float",
-                    "data": 0.5
-                },
-                {
-                    "name": "acceleration",
-                    "type": "Float",
-                    "data": 35.0
-                },
-                {
-                    "name": "maxSpeed",
-                    "type": "Float",
-                    "data": 40.0
-                },
-                {
-                    "name": "pEnemyTransform",
-                    "type": "Componet",
-                    "data": 71
-                },
-                {
-                    "name": "pCamera",
-                    "type": "Componet",
-                    "data": 71
-                },
-                {
-                    "name": "pStageController",
-                    "type": "Componet",
-                    "data": 71
-                }
-            ]
-        },
-        {
-            "compName": "BallController",
-            "id": 6,
-            "isActive": false,
-            "properties": null
         }
     ],
     "children": null

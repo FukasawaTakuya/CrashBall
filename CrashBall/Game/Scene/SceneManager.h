@@ -98,6 +98,9 @@ public:
 	// データの保存
 	void SaveData() override;
 
+	// データの再読み込み
+	void ReloadData() override;
+
 	// 新しいシーンの作成
 	void CreateNewScene(const std::string& newSceneName) override;
 

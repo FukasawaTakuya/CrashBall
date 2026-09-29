@@ -53,6 +53,7 @@ void EditButton::Update(ISceneEditer* sceneEditer)
     if (ImGui::Button("Edit"))
     {
         m_pEditModeChanger->SetEditMode(true);
+        sceneEditer->ReloadData();
         sceneEditer->Start();
     }
 

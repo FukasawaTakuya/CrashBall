@@ -71,15 +71,10 @@ void StageController::Awake()
 	for (auto& face : m_meshCollider->GetFace())
 	{
 		// 床メッシュ
-		if (face->GetPlane()->GetNormal().y >= m_floorNormalY &&
-			face->GetCenter().y <= m_floorCenterPosY)
+		if (face->GetPlane()->GetNormal().y >= m_floorNormalY)
 		{
 			m_floorMesh.push_back(face.get());
 			m_floorMeshColor.emplace(face.get(), m_gameColor->m_defaultFaceColor);
-		}
-		// 壁メッシュ
-		else {
-			m_wallMesh.push_back(face.get());
 		}
 	}
 }

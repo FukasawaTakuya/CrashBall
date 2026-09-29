@@ -31,9 +31,9 @@
                     "name": "localScale",
                     "type": "Vector3",
                     "data": {
-                        "x": 15.0,
-                        "y": 15.0,
-                        "z": 15.0
+                        "x": 8.0,
+                        "y": 8.0,
+                        "z": 8.0
                     }
                 }
             ]
@@ -46,7 +46,7 @@
                 {
                     "name": "meshData",
                     "type": "String",
-                    "data": "Resources/Models/Stage.json"
+                    "data": "Resources/Models/newStage.json"
                 }
             ]
         },
@@ -58,12 +58,7 @@
                 {
                     "name": "floorNormalY",
                     "type": "Float",
-                    "data": 0.30000001192092896
-                },
-                {
-                    "name": "floorCenterPosY",
-                    "type": "Float",
-                    "data": 15.0
+                    "data": 0.10000000149011612
                 }
             ]
         }
