@@ -76,10 +76,6 @@ void TargetCameraController::RotateX(float angleRad)
 		*= SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, angleRad);
 		
 	m_offset = XMVector3Rotate(m_baseOffset, m_offsetRotate);
-
-	TargetingTransform();
-
-	m_camera->LookAt(m_targetTransform->GetWorldPosition());
 }
 
 /**
@@ -93,10 +89,6 @@ void TargetCameraController::RotateY(float angleRad)
 		*= SimpleMath::Quaternion::CreateFromAxisAngle(m_camera->GetHorizontalRight(), angleRad);
 
 	m_offset = XMVector3Rotate(m_baseOffset, m_offsetRotate);
-
-	TargetingTransform();
-
-	m_camera->LookAt(m_targetTransform->GetWorldPosition());
 }
 
 /**
@@ -116,6 +108,8 @@ void TargetCameraController::Zoom(float value)
 void TargetCameraController::TargetingTransform()
 {
 	SimpleMath::Vector3 position = m_targetTransform->GetWorldPosition() + m_offset * m_zoomRate;
+
+	m_camera->LookAt(m_targetTransform->GetWorldPosition());
 
 	m_transform->SetWorldPosition(position);
 }

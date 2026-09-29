@@ -62,5 +62,5 @@ void TitleCameraController::Update(const GameContext& gameContext)
 {
 	RotateX(XMConvertToRadians(m_rotateAngeleRad) * Time::GetElapsedTime());
 
-	//TargetingTransform();
+	TargetingTransform();
 }

@@ -976,7 +976,9 @@
     <ClCompile Include="DX\SkyboxEffect.cpp">
       <Filter>DX</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\Collider\Doom.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Doom.cpp">
+      <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

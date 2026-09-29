@@ -100,4 +100,6 @@ void GameCameraController::TargetingTransform()
 	posForward = SimpleMath::Vector3::Lerp(posForward, desForward, Time::GetElapsedTime() * 7.0f);
 
 	m_transform->SetWorldPosition(position + posForward);
+
+	m_camera->LookAt(m_targetTransform->GetWorldPosition());
 }
