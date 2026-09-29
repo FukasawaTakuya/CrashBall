@@ -12,6 +12,7 @@
 #include "Game/Component/Ball/BallController.h"
 #include "Game/State/StateMachine.h"
 #include "Game/GameObject/Stage.h"
+#include "Game/Component/Default/Collider/Doom.h"
 
 
 /**
@@ -26,9 +27,9 @@ class  EnemyController : public Component
 private:
 
 	float m_acceleration;			// 加速度
-	float m_avoidWallDistance;		// 壁を検知する距離
-	float m_avoidWallWeakForce;		// 壁回避力(弱)
-	float m_avoidWallStrongForce;	// 壁回避力(強)
+	float m_avoidDoomDistance;		// 壁を検知する距離
+	float m_avoidDoomWeakForce;		// 壁回避力(弱)
+	float m_avoidDoomStrongForce;	// 壁回避力(強)
 	float m_maxHp;					// 最大体力
 
 	// WarnderState
@@ -36,19 +37,19 @@ private:
 	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
 	float m_directionChageInterval;		// 加速方向を変える間隔
 
-	const StageController* m_stageController = nullptr;	// 壁メッシュの取得クラス
+	const Doom* m_pDoom = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_acceleration,				PropertyType::Float)
-		AddProperty(m_avoidWallDistance,		PropertyType::Float)
-		AddProperty(m_avoidWallWeakForce,		PropertyType::Float)
-		AddProperty(m_avoidWallStrongForce,		PropertyType::Float)
+		AddProperty(m_avoidDoomDistance,		PropertyType::Float)
+		AddProperty(m_avoidDoomWeakForce,		PropertyType::Float)
+		AddProperty(m_avoidDoomStrongForce,		PropertyType::Float)
 		AddProperty(m_maxHp,					PropertyType::Float)
 		AddProperty(m_directionCircleDistance,	PropertyType::Float)
 		AddProperty(m_directionCircleRadius,	PropertyType::Float)
 		AddProperty(m_directionChageInterval,	PropertyType::Float)
-		AddProperty(m_stageController,			PropertyType::Component)
+		AddProperty(m_pDoom,					PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -119,9 +120,6 @@ public:
 	// 加速方向の設定
 	void SetAccelDirection(DirectX::SimpleMath::Vector3 direction) { m_accelDirection = direction; }
 
-	// ステージのポインタの設定
-	void SetFloor(StageController* meshGetter) { m_stageController = meshGetter; }
-
 	// 内部実装
 private:
 
@@ -147,18 +145,5 @@ private:
 	friend void from_json(const json& j, EnemyController& enemyController);
 
 public:
-
-	// 演算子オーバーロード
-	void operator=(const EnemyController& other)
-	{
-		m_acceleration				= other.m_acceleration;
-		m_avoidWallDistance			= other.m_avoidWallDistance;
-		m_avoidWallWeakForce		= other.m_avoidWallWeakForce;
-		m_avoidWallStrongForce		= other.m_avoidWallStrongForce;
-		m_maxHp						= other.m_maxHp;
-		m_directionCircleDistance	= other.m_directionCircleDistance;
-		m_directionCircleRadius		= other.m_directionCircleRadius;
-		m_directionChageInterval	= other.m_directionChageInterval;
-	}
 
 };

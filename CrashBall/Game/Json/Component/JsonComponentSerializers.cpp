@@ -244,16 +244,6 @@ void to_json(json& j, const PlayerStatusController& playerStatusController)
 // EnemyControllerから変換
 void to_json(json& j, const EnemyController& enemyController)
 {
-	j = json{
-		{ "acceleration",			 enemyController.m_acceleration },
-		{ "avoidWallDistance",		 enemyController.m_avoidWallDistance },
-		{ "avoidWallWeakForce",		 enemyController.m_avoidWallWeakForce },
-		{ "avoidWallStrongForce",	 enemyController.m_avoidWallStrongForce },
-		{ "maxHp",					 enemyController.m_maxHp },
-		{ "directionCircleDistance", enemyController.m_directionCircleDistance },
-		{ "directionCircleRadius",	 enemyController.m_directionCircleRadius },
-		{ "directionChageInterval",  enemyController.m_directionChageInterval }
-	};
 }
 
 // StageControllerから変換

@@ -98,7 +98,7 @@ public:
 	ColliderType GetType() const { return m_type; }
 
 	// トランスフォームの取得
-	Transform* GetTransform() { return m_transform; }
+	Transform* GetTransform() const { return m_transform; }
 
 	// トランスフォームの取得
 	void SetTransform(Transform* transfrom) { m_transform = transfrom; }
