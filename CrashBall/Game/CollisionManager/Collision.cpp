@@ -235,6 +235,15 @@ bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	return !mesh->GetCollideFace().empty();
 }
 
+bool Collision::IsCollision(Sphere* sphere, Doom* doom)
+{
+	SimpleMath::Vector3 delta =
+		(sphere->GetTransform()->GetWorldPosition() - doom->GetTransform()->GetWorldPosition());
+
+	return (delta.Length() > doom->GetRadius() - sphere->GetRadius()&&
+			delta.Length() < doom->GetRadius() + sphere->GetRadius());
+}
+
 
 /**
  * \brief 球と平面の衝突の解決
@@ -313,6 +322,24 @@ void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
 	SimpleMath::Vector3 vt2 = rigidbody2->GetVelocity() - vn2;
 	rigidbody1->SetVelocity(vn2 + vt1);
 	rigidbody2->SetVelocity(vn1 + vt2);
+}
+
+void Collision::ResolveCollision(Sphere* sphere, Doom* doom)
+{
+	SimpleMath::Vector3 delta =
+		(doom->GetTransform()->GetWorldPosition() - sphere->GetTransform()->GetWorldPosition());
+
+	float limitDistance = doom->GetRadius() - sphere->GetRadius();
+
+	float overlap = delta.Length() - limitDistance;
+
+	SimpleMath::Vector3 direction = XMVector3Normalize(delta);
+	sphere->GetTransform()->Translate(direction * overlap);
+
+	Rigidbody* rigidbody = sphere->GetGameObject()->GetComponent<Rigidbody>();
+	direction *= -1;
+	SimpleMath::Vector3 vn = rigidbody->GetVelocity().Dot(direction) * direction;
+	rigidbody->AddVelocity(-vn);
 }
 
 /**

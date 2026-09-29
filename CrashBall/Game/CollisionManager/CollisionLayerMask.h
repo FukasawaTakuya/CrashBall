@@ -53,7 +53,7 @@ const CollisionLayerMask collisionLayerMask[static_cast<int>(LayerMaskType::Laye
 	CollisionLayerMask { ColliderLayer::None,		ColliderMask::None		},
 	CollisionLayerMask { ColliderLayer::Default,	ColliderMask::Default	},
 	CollisionLayerMask { ColliderLayer::Ball,		ColliderMask::Ball		},
-	CollisionLayerMask { ColliderLayer::Ground,	ColliderMask::Ground	}
+	CollisionLayerMask { ColliderLayer::Ground,		ColliderMask::Ground	}
 };
 
 // OR演算子のオーバーロード

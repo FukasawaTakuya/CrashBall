@@ -30,6 +30,14 @@ ResolveCollisionTable::ResolveCollisionTable()
 		[ToInt(ColliderType::Sphere)]
 		= std::bind(&ResolveCollisionTable::SphereVsMesh, this, _1, _2);
 
+	m_table[ToInt(ColliderType::Sphere)]
+		[ToInt(ColliderType::Doom)]
+		= std::bind(&ResolveCollisionTable::SphereVSDoom, this, _1, _2);
+
+	m_table[ToInt(ColliderType::Doom)]
+		[ToInt(ColliderType::Sphere)]
+		= std::bind(&ResolveCollisionTable::SphereVSDoom, this, _1, _2);
+
 	//m_table[ToInt(ColliderType::Mesh)]
 	//	[ToInt(ColliderType::Mesh)]
 	//	= MeshVsMesh;
@@ -101,4 +109,15 @@ void ResolveCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)
 void ResolveCollisionTable::MeshVsMesh(Collider* col1, Collider* col2)
 {
 	// 実装なし
+}
+
+void ResolveCollisionTable::SphereVSDoom(Collider* col1, Collider* col2)
+{
+	// 球のコライダーにキャスト
+	Sphere* sphere = static_cast<Sphere*>(col1);
+	// メッシュのコライダーにキャスト
+	Doom* doom = static_cast<Doom*>(col2);
+
+	// 衝突の解決
+	Collision::ResolveCollision(sphere, doom);
 }

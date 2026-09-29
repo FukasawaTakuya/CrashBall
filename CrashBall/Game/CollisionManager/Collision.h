@@ -14,6 +14,7 @@
 
 #include "Game/Component/Default/Collider/Sphere.h"
 #include "Game/Component/Default/Collider/Mesh.h"
+#include "Game/Component/Default/Collider/Doom.h"
 
 #include "Game/Geometory/Plane.h"
 #include "Game/Geometory/Triangle.h"
@@ -47,6 +48,8 @@ namespace Collision {
 	// 球とメッシュの衝突判定
 	bool IsCollision(Sphere* sphere, Mesh* mesh);
 
+	// 球とドームの衝突判定
+	bool IsCollision(Sphere* sphere, Doom* doom);
 
 
 	// 球と平面の衝突解決
@@ -57,6 +60,9 @@ namespace Collision {
 
 	// 球と球の衝突解決
 	void ResolveCollision(Sphere* sphere1, Sphere* sphere2);
+
+	// 球とドームの衝突解決
+	void ResolveCollision(Sphere* sphere, Doom* doom);
 }
 
 

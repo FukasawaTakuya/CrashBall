@@ -59,5 +59,8 @@ private:
 
 	// メッシュ対メッシュ
 	bool MeshVsMesh(Collider* col1, Collider* col2);
+
+	// 球対ドーム
+	bool SphereVSDoom(Collider* col1, Collider* col2);
 };
 

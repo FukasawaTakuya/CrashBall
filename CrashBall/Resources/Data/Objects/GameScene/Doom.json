@@ -1,12 +1,12 @@
 {
-    "name": "Stage",
-    "tag": "Stage",
-    "id": 21,
+    "name": "Doom",
+    "tag": "Default",
+    "id": 27,
     "isActive": true,
     "components": [
         {
             "compName": "Transform",
-            "id": 66,
+            "id": 75,
             "isActive": true,
             "properties": [
                 {
@@ -31,39 +31,22 @@
                     "name": "localScale",
                     "type": "Vector3",
                     "data": {
-                        "x": 8.0,
-                        "y": 8.0,
-                        "z": 8.0
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
                     }
                 }
             ]
         },
         {
-            "compName": "Mesh",
-            "id": 67,
+            "compName": "Doom",
+            "id": 76,
             "isActive": true,
             "properties": [
                 {
-                    "name": "meshData",
-                    "type": "String",
-                    "data": "Resources/Models/newStage2.json"
-                }
-            ]
-        },
-        {
-            "compName": "StageController",
-            "id": 68,
-            "isActive": true,
-            "properties": [
-                {
-                    "name": "floorNormalY",
+                    "name": "radius",
                     "type": "Float",
-                    "data": 0.10000000149011612
-                },
-                {
-                    "name": "floorCenterPosY",
-                    "type": "Float",
-                    "data": 15.0
+                    "data": 80.0
                 }
             ]
         }

@@ -47,6 +47,7 @@ void CollisionManager::Update()
 		{
 			Collider* col2 = m_colliders[j];
 
+
 			// マスクの取得
 			auto mask = collisionLayerMask[static_cast<int>(col2->GetLayerMaskType())].mask;
 

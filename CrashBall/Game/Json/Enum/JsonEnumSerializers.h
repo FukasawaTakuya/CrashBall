@@ -32,10 +32,10 @@ NLOHMANN_JSON_SERIALIZE_ENUM(PropertyType, {
 	}
 );
 
-
 NLOHMANN_JSON_SERIALIZE_ENUM(ColliderType, {
 	{ ColliderType::None,	"None"		},
 	{ ColliderType::Sphere,	"Sphere"	},
+	{ ColliderType::Sphere,	"Doom"		},
 	{ ColliderType::Mesh,	"Mesh"		}
 	}
 );

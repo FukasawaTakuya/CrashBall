@@ -232,6 +232,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Collider.h" />
+    <ClInclude Include="Game\Component\Default\Collider\Doom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
@@ -553,6 +557,7 @@
     <ClCompile Include="Game\Component\Camera\TargetCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
+    <ClCompile Include="Game\Component\Default\Collider\Doom.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Default\Component.cpp" />

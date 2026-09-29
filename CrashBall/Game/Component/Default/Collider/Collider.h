@@ -18,6 +18,7 @@ enum class ColliderType
 	None = -1,
 	Sphere,
 	Mesh,
+	Doom,
 	TypeCount,
 };
 
@@ -68,7 +69,7 @@ public:
 	void Awake() override;
 
 	// コライダーの描画
-	virtual void DrawCollider() = 0;
+	virtual void DrawCollider() {};
 
 	// 衝突検知時の処理の実行
 	void OnCollisionEnter(Collider* other);

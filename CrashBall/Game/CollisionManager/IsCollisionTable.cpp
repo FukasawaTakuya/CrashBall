@@ -30,6 +30,14 @@ IsCollisionTable::IsCollisionTable()
 		[ToInt(ColliderType::Sphere)]
 		= std::bind(&IsCollisionTable::SphereVsMesh, this, _1, _2);
 
+	m_isCollisionTable[ToInt(ColliderType::Doom)]
+		[ToInt(ColliderType::Sphere)]
+		= std::bind(&IsCollisionTable::SphereVSDoom, this, _1, _2);
+
+	m_isCollisionTable[ToInt(ColliderType::Sphere)]
+		[ToInt(ColliderType::Doom)]
+		= std::bind(&IsCollisionTable::SphereVSDoom, this, _1, _2);
+
 	//m_isCollisionTable[ToInt(ColliderType::Mesh)]
 	//	[ToInt(ColliderType::Mesh)]
 	//	= MeshVsMesh;
@@ -103,4 +111,12 @@ bool IsCollisionTable::MeshVsMesh(Collider* col1, Collider* col2)
 {
 	// 実装なし
 	return false;
+}
+
+bool IsCollisionTable::SphereVSDoom(Collider* col1, Collider* col2)
+{
+	Sphere* sphere = static_cast<Sphere*>(col1);
+	Doom* doom = static_cast<Doom*>(col2);
+
+	return Collision::IsCollision(sphere, doom);
 }

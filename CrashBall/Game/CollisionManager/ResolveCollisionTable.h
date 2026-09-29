@@ -58,5 +58,8 @@ private:
 
 	// メッシュ対メッシュ
 	void MeshVsMesh(Collider* col1, Collider* col2);
+
+	// 球対ドーム
+	void SphereVSDoom(Collider* col1, Collider* col2);
 };
 

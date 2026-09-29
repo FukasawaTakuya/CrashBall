@@ -34,7 +34,9 @@ void PrimitiveRendererManager::Create(
     // ライティングの有効化
     m_basicEffect->SetLightingEnabled(true);
 
-    //m_basicEffect->EnableDefaultLighting();
+    m_basicEffect->EnableDefaultLighting();
+
+    m_basicEffect->SetSpecularColor({ 0.2f, 0.2f, 0.2f });
 
     // 入力レイアウトの設定
     DX::ThrowIfFailed(
