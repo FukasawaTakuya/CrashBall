@@ -46,7 +46,7 @@
                 {
                     "name": "meshData",
                     "type": "String",
-                    "data": "Resources/Models/newStage2.json"
+                    "data": "Resources/Mesh/newStage.json"
                 }
             ]
         },

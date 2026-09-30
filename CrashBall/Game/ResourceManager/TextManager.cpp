@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "TextManager.h"
+#include "Game/Common/Utility.h"
 
 using namespace DirectX;
 
@@ -28,19 +29,6 @@ TextManager::~TextManager()
 }
 
 /**
- * \brief ファイルの登録
- * 
- * \param key キー
- * \param fileName ファイル名
- */
-void TextManager::RegisterFile(
-	const std::string& key, 
-	const std::wstring& fileName)
-{
-	m_files.emplace(key, fileName);
-}
-
-/**
  * \brief スプライトフォントの作成
  * 
  * \param device デバイス
@@ -49,11 +37,20 @@ void TextManager::CreateSpriteFont(ID3D11Device1* device)
 {
 	m_spriteFonts.clear();
 
-	for (auto& file : m_files)
+	for (auto& file : std::filesystem::directory_iterator("Resources/SpriteFont"))
 	{
-		std::unique_ptr<SpriteFont> spriteFont = std::make_unique<SpriteFont>(device, file.second.c_str());
+		// wstringに変換
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
 
-		m_spriteFonts.emplace(file.first, std::move(spriteFont));
+		// フォントの作成
+		std::unique_ptr<SpriteFont> spriteFont = std::make_unique<SpriteFont>(device, path.c_str());
+
+		// フォント名の抜き出し
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"SpriteFont") + 11;
+		std::wstring key = path.substr(start, end - start);
+		// コンテナに追加
+		m_spriteFonts.emplace(Utility::ConvertToMultiByteChar(key), std::move(spriteFont));
 	}
 }
 

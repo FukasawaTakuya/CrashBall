@@ -21,13 +21,9 @@ public:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	// エイリアス宣言
-	using FileCollection 
-		= std::unordered_map<std::string, std::wstring>;
 	using ModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
 
-	FileCollection	m_files;	// ファイル名
 	ModelCollection	m_models;	// モデルのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -42,9 +38,6 @@ public:
 
 	// 操作
 public:
-
-	// ファイル名を登録
-	void RegisterFile(std::string key, const std::wstring& fileName);
 
 	// モデルの作成
 	void CreateModel(ID3D11Device1* device);

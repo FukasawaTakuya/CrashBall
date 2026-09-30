@@ -9,6 +9,7 @@
 #include "pch.h"
 #include "SpriteManager.h"
 #include <DDSTextureLoader.h>
+#include "Game/Common/Utility.h"
 
 using namespace DirectX;
 
@@ -29,19 +30,6 @@ SpriteManager::~SpriteManager()
 }
 
 /**
- * \brief ファイル名を登録
- * 
- * \param key キー
- * \param fileName ファイル名
- */
-void SpriteManager::RegisterFile(
-	const std::string& key, 
-	const std::wstring& fileName)
-{
-	m_files.emplace(key, fileName);
-}
-
-/**
  * \brief スプライトの生成
  * 
  * \param device デバイス
@@ -50,15 +38,18 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 {
 	m_spriteInfo.clear();
 
-	for (auto& file : m_files)
+	for (auto& file : std::filesystem::directory_iterator("Resources/Sprite"))
 	{
+		// wstringに変換
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
+
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> sprite;
 
 		// スプライトの作成
 		DX::ThrowIfFailed(
 			CreateDDSTextureFromFile(
 				device,
-				file.second.c_str(),
+				path.c_str(),
 				nullptr,
 				sprite.ReleaseAndGetAddressOf()
 			)
@@ -79,8 +70,14 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 
 		texture->Release();
 
+		// スプライト名を抜き出す
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"Sprite") + 7;
+		std::wstring key = path.substr(start, end - start);
 		// コンテナに追加
-		m_spriteInfo.emplace(file.first, SpriteInfo(std::move(sprite), width, height));
+		m_spriteInfo.emplace(
+			Utility::ConvertToMultiByteChar(key), 
+			SpriteInfo(std::move(sprite), width, height));
 	}
 }
 

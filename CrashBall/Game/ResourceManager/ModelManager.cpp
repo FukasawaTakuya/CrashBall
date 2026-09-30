@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "ModelManager.h"
+#include "Game/Common/Utility.h"
 
 using namespace DirectX;
 
@@ -28,19 +29,6 @@ ModelManager::~ModelManager()
 }
 
 /**
- * \brief ファイル名を登録
- * 
- * \param key　キー
- * \param fileName	ファイル名
- */
-void ModelManager::RegisterFile(
-	std::string key, 
-	const std::wstring& fileName)
-{
-	m_files.emplace(key, fileName);
-}
-
-/**
  * \brief モデルの生成
  * 
  * \param device　デバイス
@@ -49,16 +37,22 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 {
 	m_models.clear();
 
-	for (auto& file : m_files) {
-
+	for (auto& file : std::filesystem::directory_iterator("Resources/Models"))
+	{
 		EffectFactory fx(device);
 		// テクスチャのパスを設定
 		fx.SetDirectory(L"Resources/Models");
 
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
+
 		// モデルを作成
-		std::unique_ptr<Model> model = Model::CreateFromSDKMESH(device, file.second.c_str(), fx);
+		std::unique_ptr<Model> model = Model::CreateFromSDKMESH(device, path.c_str(), fx);
+
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"Models") + 7;
+		std::wstring key = path.substr(start, end - start);
 		// コンテナに追加
-		m_models.emplace(file.first, std::move(model));
+		m_models.emplace(Utility::ConvertToMultiByteChar(key), std::move(model));
 	}
 }
 

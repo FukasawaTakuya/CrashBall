@@ -154,10 +154,10 @@ void SceneManager::LoadData()
 		if (std::filesystem::exists(path))
 		{
 			// 指定パス内のファイルを読み込み
-			for (auto& entity : std::filesystem::recursive_directory_iterator(path))
+			for (auto& file : std::filesystem::recursive_directory_iterator(path))
 			{
 				// ゲームオブジェクトデータの読み込み
-				jsonManager->LoadGameObjectData(entity.path().string());
+				jsonManager->LoadGameObjectData(file.path().string());
 			}
 
 			// jsonマネージャーのコンテナに追加

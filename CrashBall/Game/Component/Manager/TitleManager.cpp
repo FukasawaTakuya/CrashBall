@@ -33,7 +33,7 @@ TitleManager::TitleManager(IGameObject* gameObject)
  */
 void TitleManager::Start(const GameContext& gameContext)
 {
-	gameContext.soundManager->RegisterPlayBgmCommand("title");
+	gameContext.soundManager->RegisterPlayBgmCommand("Title");
 	m_changeSceneScreen->SceneIn();
 }
 

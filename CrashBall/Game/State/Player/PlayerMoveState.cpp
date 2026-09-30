@@ -90,7 +90,7 @@ void PlayerMoveState::Update(const GameContext& gameContext)
         // 攻撃フラグを設定
         playerStatusController->SetIsAttack(true);
         // 音の再生
-        gameContext.soundManager->RegisterPlaySeCommand("attack");
+        gameContext.soundManager->RegisterPlaySeCommand("Attack");
     }
 
     // 速度制限

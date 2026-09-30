@@ -37,6 +37,8 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 				m_pStateMachine->ChangeState<PlayerMoveState>();
 				// 攻撃フラグを設定
 				m_stateContext.playerStatusController->SetIsAttack(false);
+
+				m_stateContext.gameContext->soundManager->RegisterPlaySeCommand("Crash");
 			}
 		});
 }

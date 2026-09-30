@@ -58,7 +58,7 @@
                 {
                     "name": "modelKey",
                     "type": "String",
-                    "data": "player"
+                    "data": "Player"
                 },
                 {
                     "name": "diffuseColor",

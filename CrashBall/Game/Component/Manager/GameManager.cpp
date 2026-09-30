@@ -34,7 +34,7 @@ GameManager::GameManager(IGameObject* gameObject)
  */
 void GameManager::Start(const GameContext& gameContext)
 {
-	gameContext.soundManager->RegisterPlayBgmCommand("game");
+	gameContext.soundManager->RegisterPlayBgmCommand("Game");
 	m_changeSceneScreen->SceneIn();
 }
 

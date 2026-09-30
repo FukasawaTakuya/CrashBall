@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "SoundManager.h"
+#include "Game/Common/Utility.h"
 
 using namespace DirectX;
 
@@ -52,22 +53,39 @@ void SoundManager::RegisterSeFile(
  */
 void SoundManager::CreateSound(DirectX::AudioEngine* audioEngine)
 {
-	for (auto& file : m_bgmfile)
+
+	for (auto& file : std::filesystem::directory_iterator("Resources/Sound/BGM"))
 	{
+		// wstringに変換
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
+
 		// BGMの作成
-		std::unique_ptr<SoundEffect> bgm 
-			= std::make_unique<SoundEffect>(audioEngine, file.second.c_str());
+		std::unique_ptr<SoundEffect> bgm
+			= std::make_unique<SoundEffect>(audioEngine, path.c_str());
+
+		// フォント名の抜き出し
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"BGM") + 4;
+		std::wstring key = path.substr(start, end - start);
 		// コンテナに追加
-		m_bgmSounds.emplace(file.first, std::move(bgm));
+		m_bgmSounds.emplace(Utility::ConvertToMultiByteChar(key), std::move(bgm));
 	}
 
-	for (auto& file : m_sefile)
+	for (auto& file : std::filesystem::directory_iterator("Resources/Sound/SE"))
 	{
+		// wstringに変換
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
+
 		// SEの作成
 		std::unique_ptr<SoundEffect> se
-			= std::make_unique<SoundEffect>(audioEngine, file.second.c_str());
+			= std::make_unique<SoundEffect>(audioEngine, path.c_str());
+
+		// フォント名の抜き出し
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"SE") + 3;
+		std::wstring key = path.substr(start, end - start);
 		// コンテナに追加
-		m_seSounds.emplace(file.first, std::move(se));
+		m_seSounds.emplace(Utility::ConvertToMultiByteChar(key), std::move(se));
 	}
 }
 
