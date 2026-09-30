@@ -18,10 +18,7 @@
  */
 class  ButtonController : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	std::function<void()> m_onPushCommand = [](){};			// 押されたときの処理
@@ -44,10 +41,10 @@ private:
 
 	// プロパティの設定
 	BeginProperty()
-		EndProperty()
+	EndProperty()
 
-		// コンポーネント名の設定
-		SetCompName("ButtonController")
+	// コンポーネント名の設定
+	SetCompName("ButtonController")
 
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -58,7 +55,7 @@ public:
 	ButtonController(IGameObject* gameObject);
 
 	// デストラクタ
-	~ButtonController();
+	~ButtonController() = default;
 
 	// 操作
 public:
@@ -66,7 +63,7 @@ public:
 	// アタッチ時の処理
 	virtual void Awake() override;
 
-	// 初期処理
+	// 開始処理
 	virtual void Start(const GameContext& gameContext) override;
 
 	// 更新

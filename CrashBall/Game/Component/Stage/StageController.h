@@ -29,25 +29,7 @@ class  StageController :
 	public IFloorMeshGetter,	// 床メッシュ関連情報取得
 	public IPaintConsumer		// ペイント消費
 {
-
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// パラメータの宣言 -------------------------------------------------
-private:
-
-	float m_floorNormalY	= 0.0f;	// 床判定基準になる法線のY成分
-
-	// プロパティの設定
-	BeginProperty()
-		AddProperty(m_floorNormalY, PropertyType::Float)
-	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("StageController")
-
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	const GameColor* m_gameColor = nullptr;
@@ -64,18 +46,24 @@ private:
 
 	int m_normalMeshCount = 0;	// 何も塗られていない面の数
 
+	float m_floorNormalY = 0.0f;	// 床判定基準になる法線のY成分
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_floorNormalY, PropertyType::Float)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("StageController")
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
-
-	// デフォルトコンストラクタ
-	StageController() = default;
-
 	// コンストラクタ
 	StageController(IGameObject* gameObject);
 
 	// デストラクタ
-	~StageController();
+	~StageController() = default;
 
 	// 操作
 public:
@@ -83,7 +71,7 @@ public:
 	// アタッチ時の処理
 	void Awake();
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新
@@ -139,9 +127,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConverter
-private:
-	friend void from_json(const json& j, StageController& stageController);
-	friend void to_json(json& j, const StageController& stageController);
 };

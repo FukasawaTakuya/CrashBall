@@ -25,15 +25,6 @@ StageController::StageController(IGameObject* gameObject)
 {
 }
 
-
-/**
- * \brief デストラクタ
- * 
- */
-StageController::~StageController()
-{
-}
-
 /**
  * \brief アタッチ時の処理
  * 
@@ -80,8 +71,9 @@ void StageController::Awake()
 }
 
 /**
- * \brief 初期化
+ * \brief 開始処理
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
 void StageController::Start(const GameContext& gameContext)
 {
@@ -100,7 +92,7 @@ void StageController::Start(const GameContext& gameContext)
 /**
  * \brief 更新
  * 
- * \param gameContext
+ * \param gameContext ゲーム用のコンテキスト
  */
 void StageController::Update(const GameContext& gameContext)
 {

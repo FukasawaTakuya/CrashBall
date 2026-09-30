@@ -21,44 +21,7 @@
  */
 class  EnemyController : public Component
 {
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// パラメータの宣言 -------------------------------------------------
-private:
-
-	float m_acceleration;			// 加速度
-	float m_avoidDoomDistance;		// 壁を検知する距離
-	float m_avoidDoomWeakForce;		// 壁回避力(弱)
-	float m_avoidDoomStrongForce;	// 壁回避力(強)
-	float m_maxHp;					// 最大体力
-
-	// WarnderState
-	float m_directionCircleDistance;	// 加速方向を決めるための円との距離
-	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
-	float m_directionChageInterval;		// 加速方向を変える間隔
-
-	const Doom* m_pDoom = nullptr;
-	const StageController* m_pStageController = nullptr;
-
-	// プロパティの設定
-	BeginProperty()
-		AddProperty(m_acceleration,				PropertyType::Float)
-		AddProperty(m_avoidDoomDistance,		PropertyType::Float)
-		AddProperty(m_avoidDoomWeakForce,		PropertyType::Float)
-		AddProperty(m_avoidDoomStrongForce,		PropertyType::Float)
-		AddProperty(m_maxHp,					PropertyType::Float)
-		AddProperty(m_directionCircleDistance,	PropertyType::Float)
-		AddProperty(m_directionCircleRadius,	PropertyType::Float)
-		AddProperty(m_directionChageInterval,	PropertyType::Float)
-		AddProperty(m_pDoom,					PropertyType::Component)
-		AddProperty(m_pStageController,			PropertyType::Component)
-	EndProperty()
-
-	// コンポーネント名の設定
-	SetCompName("EnemyController")
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	std::unique_ptr<StateMachine<EnemyController>> m_stateMachine;	// ステートマシン
@@ -70,25 +33,51 @@ private:
 
 	DirectX::SimpleMath::Vector3 m_accelDirection;	// 加速行方向
 
-	float m_hp = m_maxHp;	// 体力
-
+	float m_maxHp;				// 最大体力
+	float m_hp = m_maxHp;		// 体力
 	float m_subHp = 0;			// 強化用の体力
 	int m_prevMeshCount = 0;	// 前フレームの塗られた面の数
+
+	float m_acceleration;			// 加速度
+	float m_avoidDoomDistance;		// 壁を検知する距離
+	float m_avoidDoomWeakForce;		// 壁回避力(弱)
+	float m_avoidDoomStrongForce;	// 壁回避力(強)
+
+	// WarnderState
+	float m_directionCircleDistance;	// 加速方向を決めるための円との距離
+	float m_directionCircleRadius;		// 加速方向を決めるための円の半径
+	float m_directionChageInterval;		// 加速方向を変える間隔
+
+	const Doom* m_pDoom = nullptr;
+	const StageController* m_pStageController = nullptr;
+
+	// プロパティの設定
+	BeginProperty()
+		AddProperty(m_acceleration, PropertyType::Float)
+		AddProperty(m_avoidDoomDistance, PropertyType::Float)
+		AddProperty(m_avoidDoomWeakForce, PropertyType::Float)
+		AddProperty(m_avoidDoomStrongForce, PropertyType::Float)
+		AddProperty(m_maxHp, PropertyType::Float)
+		AddProperty(m_directionCircleDistance, PropertyType::Float)
+		AddProperty(m_directionCircleRadius, PropertyType::Float)
+		AddProperty(m_directionChageInterval, PropertyType::Float)
+		AddProperty(m_pDoom, PropertyType::Component)
+		AddProperty(m_pStageController, PropertyType::Component)
+	EndProperty()
+
+	// コンポーネント名の設定
+	SetCompName("EnemyController")
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	EnemyController() = default;
-
 	// コンストラクタ
 	EnemyController(IGameObject* gameObject);
 
-	EnemyController(const EnemyController&) = default;
-
 	// デストラクタ
-	~EnemyController();
+	~EnemyController() = default;
 
 	// 操作
 public:
@@ -143,13 +132,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConverter
-private:
-
-	friend void to_json(json& j, const EnemyController& enemyController);
-	friend void from_json(const json& j, EnemyController& enemyController);
-
-public:
-
 };

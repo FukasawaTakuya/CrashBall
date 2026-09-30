@@ -24,21 +24,15 @@ RegisterComponent(DebugCameraController)
 DebugCameraController::DebugCameraController(IGameObject* gameObject)
 	: Component(gameObject)
 {
-	m_camera = GetGameObject()->GetComponent<Camera>();
+	m_camera	= GetGameObject()->GetComponent<Camera>();
 	m_transform = GetGameObject()->GetComponent<Transform>();
 }
 
-/**
- * \brief デストラクタ
- * 
- */
-DebugCameraController::~DebugCameraController()
-{
-}
 
 /**
  * \brief 更新
- * 
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void DebugCameraController::Update(const GameContext& gameContext)
 {
@@ -64,5 +58,4 @@ void DebugCameraController::Update(const GameContext& gameContext)
 	}
 
 	m_camera->Update(gameContext);
-
 }

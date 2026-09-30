@@ -7,7 +7,18 @@ using namespace DirectX;
 RegisterComponent(Camera);
 
 /**
- * \brief 
+ * \brief コンストラクタ
+ *
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+Camera::Camera(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
+
+
+/**
+ * \brief アタッチ時の処理
  * 
  */
 void Camera::Awake()
@@ -42,7 +53,7 @@ void Camera::Update(const GameContext& gameContext)
 }
 
 /**
- * \brief 
+ * \brief ターゲットの方に向ける
  * 
  * \param target
  */

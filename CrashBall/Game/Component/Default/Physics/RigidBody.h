@@ -8,18 +8,15 @@
 
 #pragma once
 
-#include "..\Component.h"
-
+#include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/Physics/Transform.h"
 
 /**
  * \brief 物理演算コンポーネント
  */
 class  Rigidbody : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SimpleMath::Vector3 m_velocity;	// 速度
@@ -33,6 +30,8 @@ private:
 	float m_mass = 1.0f;						// 質量
 
 	bool m_isDynamic = 1.0f;					// 動的か
+
+	Transform* m_transform = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
@@ -50,17 +49,21 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	Rigidbody() = default;
-
 	// コンストラクタ
 	Rigidbody(IGameObject* gameObject);
 
 	// デストラクタ
-	~Rigidbody();
+	~Rigidbody() = default;
+
 
 	// 操作
 public:
+
+	// アタッチ時の処理
+	void Awake() override;
+
+	// 更新
+	void Update(const GameContext& gameContext) override;
 
 	// 加速
 	void Accel(DirectX::SimpleMath::Vector3 accel);
@@ -103,9 +106,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConvert
-private:
-	friend void to_json(nlohmann::json& j, const Rigidbody& transfrom);
-	friend void from_json(const nlohmann::json& j, Rigidbody& rigidbody);
 };

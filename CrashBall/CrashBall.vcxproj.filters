@@ -167,6 +167,12 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{441db550-9ac3-4872-9430-2ab28843bb2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\ChangeSceneScreen">
+      <UniqueIdentifier>{9bcc801c-ebe8-4ca7-b0d0-38d98fa093b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Component\Manager">
+      <UniqueIdentifier>{70433e30-c6ba-425e-bdb7-68fc2fc10fa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -610,14 +616,8 @@
     <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
       <Filter>Game\Component\Default\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\TitleManager.h">
-      <Filter>Game\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Scene\Interface\ISceneChanger.h">
       <Filter>Game\Scene\Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Component\GameManager.h">
-      <Filter>Game\Component</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\Easing.h">
       <Filter>Game\Common</Filter>
@@ -645,6 +645,21 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Doom.h">
       <Filter>Game\Component\Default\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ChangeSceneScreen\SlideChangeScreen.h">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ChangeSceneScreen\ChangeSceneScreen.h">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\ChangeSceneScreen\FadeChageScreen.h">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Manager\GameManager.h">
+      <Filter>Game\Component\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Manager\TitleManager.h">
+      <Filter>Game\Component\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -946,12 +961,6 @@
     <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp">
       <Filter>Game\Component\Default\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\GameManager.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Component\TitleManager.cpp">
-      <Filter>Game\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\GameTimer.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
@@ -978,6 +987,21 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Default\Collider\Doom.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\ChangeSceneScreen\ChangeSceneScreen.cpp">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\ChangeSceneScreen\FadeChageScreen.cpp">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\ChangeSceneScreen\SlideChangeScreen.cpp">
+      <Filter>Game\Component\ChangeSceneScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Manager\GameManager.cpp">
+      <Filter>Game\Component\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Manager\TitleManager.cpp">
+      <Filter>Game\Component\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

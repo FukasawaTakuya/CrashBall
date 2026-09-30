@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "PlayerStatusController.h"
-#include "Game/Component/Default/Collider/Sphere.h"
 
 RegisterComponent(PlayerStatusController)
 
@@ -23,16 +22,9 @@ PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-PlayerStatusController::~PlayerStatusController()
-{
-}
-
-/**
  * \brief 更新
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
 void PlayerStatusController::Update(const GameContext& gameContext)
 {
@@ -53,7 +45,7 @@ void PlayerStatusController::Update(const GameContext& gameContext)
 		int playerMeshCount = m_pFloorMeshGetter->GetPlayerMeshCount();
 		int enemyMeshCount = m_pFloorMeshGetter->GetEnemyMeshCount();
 
-		m_attackPower = playerMeshCount - m_attackCost;
+		m_attackPower = (playerMeshCount - m_attackCost) / m_powerUpRate;
 
 		// 攻撃力を最低攻撃力以上に収める
 		m_attackPower = std::max(m_attackPower, m_minAttackPower);

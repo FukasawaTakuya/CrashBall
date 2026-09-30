@@ -115,6 +115,11 @@
                     "data": 1.0
                 },
                 {
+                    "name": "powerUpRate",
+                    "type": "Float",
+                    "data": 3.0
+                },
+                {
                     "name": "pFloorMeshGetter",
                     "type": "Componet",
                     "data": 68

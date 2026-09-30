@@ -231,6 +231,12 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Component\ChangeSceneScreen\ChangeSceneScreen.h" />
+    <ClInclude Include="Game\Component\ChangeSceneScreen\FadeChageScreen.h" />
+    <ClInclude Include="Game\Component\ChangeSceneScreen\SlideChangeScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Collider\Collider.h" />
     <ClInclude Include="Game\Component\Default\Collider\Doom.h">
       <SubType>
@@ -263,14 +269,12 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Enemy\EnemyController.h" />
-    <ClInclude Include="Game\Component\GameManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Component\GameTimer.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Component\Manager\GameManager.h" />
+    <ClInclude Include="Game\Component\Manager\TitleManager.h" />
     <ClInclude Include="Game\Component\Player\PlayerController.h" />
     <ClInclude Include="Game\Component\Player\PlayerStatusController.h" />
     <ClInclude Include="Game\Component\ResultPanel.h">
@@ -281,10 +285,6 @@
     <ClInclude Include="Game\Component\Stage\IPaintConsumer.h" />
     <ClInclude Include="Game\Component\Stage\IWallMeshGetter.h" />
     <ClInclude Include="Game\Component\Stage\StageController.h" />
-    <ClInclude Include="Game\Component\TitleManager.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Component\UI\AttackGaugeController.h" />
     <ClInclude Include="Game\Component\UI\EnemyHpGaugeController.h" />
     <ClInclude Include="Game\Component\UI\FloorMeshGaugeController.h" />
@@ -556,6 +556,12 @@
     <ClCompile Include="Game\Component\Camera\GameCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TargetCameraController.cpp" />
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp" />
+    <ClCompile Include="Game\Component\ChangeSceneScreen\ChangeSceneScreen.cpp" />
+    <ClCompile Include="Game\Component\ChangeSceneScreen\FadeChageScreen.cpp" />
+    <ClCompile Include="Game\Component\ChangeSceneScreen\SlideChangeScreen.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game\Component\Default\Collider\Collider.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Doom.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
@@ -573,13 +579,13 @@
     <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp" />
     <ClCompile Include="Game\Component\Enemy\EnemyController.cpp" />
-    <ClCompile Include="Game\Component\GameManager.cpp" />
     <ClCompile Include="Game\Component\GameTimer.cpp" />
+    <ClCompile Include="Game\Component\Manager\GameManager.cpp" />
+    <ClCompile Include="Game\Component\Manager\TitleManager.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerStatusController.cpp" />
     <ClCompile Include="Game\Component\ResultPanel.cpp" />
     <ClCompile Include="Game\Component\Stage\StageController.cpp" />
-    <ClCompile Include="Game\Component\TitleManager.cpp" />
     <ClCompile Include="Game\Component\UI\AttackGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />

@@ -69,10 +69,7 @@ const DirectX::SimpleMath::Vector4 SourceBaseRECT[static_cast<int>(FillOrigin::O
  */
 class  SpriteRenderer : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	ID3D11ShaderResourceView* m_pSprite		   = nullptr;							// スプライトのポインタ
@@ -108,14 +105,11 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	SpriteRenderer() = default;
-
 	// コンストラクタ
 	SpriteRenderer(IGameObject* gameObject);
 
 	// デストラクタ
-	~SpriteRenderer();
+	~SpriteRenderer() = default;
 
 	// 操作
 public:

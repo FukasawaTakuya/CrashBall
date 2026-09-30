@@ -29,14 +29,6 @@ ButtonController::ButtonController(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-ButtonController::~ButtonController()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */
@@ -48,9 +40,9 @@ void ButtonController::Awake()
 }
 
 /**
- * \brief 初期処理
- * 
- * \param gameContext
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void ButtonController::Start(const GameContext& gameContext)
 {
@@ -58,7 +50,8 @@ void ButtonController::Start(const GameContext& gameContext)
 
 /**
  * \brief 更新
- * 
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void ButtonController::Update(const GameContext& gameContext)
 {

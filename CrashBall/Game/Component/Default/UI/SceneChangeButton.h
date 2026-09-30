@@ -1,17 +1,25 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   SceneChangeButton.h
+ * \brief  シーン変更ボタン
+ * 
+ * \author 深沢拓矢
+ * \date   September 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/UI/ButtonController.h"
 
 /**
- * @brief 
+ * @brief シーン変更ボタン
  */
 class  SceneChangeButton : public ButtonController {
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
 
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	std::string m_nextSceneName;
@@ -22,7 +30,7 @@ private:
 	EndProperty()
 
 	// コンポーネント名の設定
-	SetCompName("ButtonController")
+	SetCompName("SceneChangeButton")
 
 
 
@@ -34,7 +42,7 @@ public:
 	SceneChangeButton(IGameObject* gameObject);
 
 	// デストラクタ
-	~SceneChangeButton();
+	~SceneChangeButton() = default;
 
 	// 操作
 public:

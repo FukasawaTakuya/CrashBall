@@ -17,14 +17,6 @@ TextRenderer::TextRenderer(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-TextRenderer::~TextRenderer()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */

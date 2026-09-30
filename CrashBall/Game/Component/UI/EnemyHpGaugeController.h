@@ -21,14 +21,14 @@
  */
 class  EnemyHpGaugeController : public Component {
 
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	IGameObject* m_pEnemyHpGauge		= nullptr;	// 敵のHPゲージ
 	IGameObject* m_pEnemyHpGaugeTrack	= nullptr;	// 敵のHPゲージの土台
 	IGameObject* m_pEnemyHpText			= nullptr;	// 敵のHPの表示テキスト
 
-	const EnemyController* m_pEnemyController = nullptr;	// 敵管理コンポーネント
+	const EnemyController* m_pEnemyController = nullptr;	// 敵HP取得用
 
 	SliderController* m_enemyHpGaugeController = nullptr;	// HPゲージの操作コンポーネント
 	TextRenderer* m_enemyHpTextRenderer		   = nullptr;	// テキストの描画コンポーネント
@@ -53,7 +53,7 @@ public:
 	EnemyHpGaugeController(IGameObject* gameObject);
 
 	// デストラクタ
-	~EnemyHpGaugeController();
+	~EnemyHpGaugeController() = default;
 
 	// 操作
 public:
@@ -61,14 +61,11 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新
 	void Update(const GameContext& gameContext) override;
-
-	// 終了処理
-	void Finalize();
 
 	// 取得/設定
 public:

@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   GameTimer.cpp
+ * \brief  ゲームタイマー
+ *
+ * \author 深沢拓矢
+ * \date   September 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "GameTimer.h"
 
@@ -7,15 +15,29 @@ using namespace DirectX;
 
 RegisterComponent(GameTimer)
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ */
+GameTimer::GameTimer(IGameObject* gameObject)
+	: Component(gameObject) 
+{
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
 void GameTimer::Awake()
 {
 	m_timeText = GetGameObject()->GetComponent<TextRenderer>();
 }
 
 /**
- * \brief 初期処理
+ * \brief 開始処理
  *
- * \param gameContext
+ * \param gameContext ゲーム用のコンテキスト
  */
 void GameTimer::Start(const GameContext& gameContext)
 {
@@ -25,7 +47,7 @@ void GameTimer::Start(const GameContext& gameContext)
 /**
  * \brief 更新
  * 
- * \param gameContext
+ * \param gameContext ゲーム用のコンテキスト
  */
 void GameTimer::Update(const GameContext& gameContext)
 {

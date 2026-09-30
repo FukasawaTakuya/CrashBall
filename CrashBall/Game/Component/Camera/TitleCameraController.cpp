@@ -25,15 +25,6 @@ TitleCameraController::TitleCameraController(IGameObject* gameObject)
 {
 }
 
-
-/**
- * \brief デストラクタ
- * 
- */
-TitleCameraController::~TitleCameraController()
-{
-}
-
 /**
  * \brief アタッチ時の処理
  * 
@@ -41,13 +32,12 @@ TitleCameraController::~TitleCameraController()
 void TitleCameraController::Awake()
 {
 	TargetCameraController::Awake();
-
-	m_targetCamera = GetGameObject()->GetComponent<TargetCameraController>();
 }
 
 /**
- * \brief 初期化
- * 
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void TitleCameraController::Start(const GameContext& gameContext)
 {
@@ -56,7 +46,8 @@ void TitleCameraController::Start(const GameContext& gameContext)
 
 /**
  * \brief 更新
- * 
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void TitleCameraController::Update(const GameContext& gameContext)
 {

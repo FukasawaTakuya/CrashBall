@@ -15,17 +15,19 @@
  */
 class  Transform : public Component 
 {
-
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SimpleMath::Vector3 m_localPosition;		// 位置
 	DirectX::SimpleMath::Quaternion m_localRotate;		// 回転
 	DirectX::SimpleMath::Vector3 m_localScale 
 		= DirectX::SimpleMath::Vector3::One;		// スケール
+
+	Transform* m_parent = nullptr;	// 親のトランスフォーム
+
+	mutable bool m_isDirty = true;	// 変更フラグ
+
+	mutable DirectX::SimpleMath::Matrix m_world;// ワールド行列
 
 	// プロパティの設定
 	BeginProperty()
@@ -37,25 +39,15 @@ private:
 	// コンポーネント名の設定
 	SetCompName("Transform")
 
-
-	Transform* m_parent = nullptr;	// 親のトランスフォーム
-
-	mutable bool m_isDirty = true;	// 変更フラグ
-
-	mutable DirectX::SimpleMath::Matrix m_world;// ワールド行列
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
-
-	// デフォルトコンストラクタ
-	Transform() = default;
 
 	// コンストラクタ
 	Transform(IGameObject* gameObject);
 
 	// デストラクタ
-	~Transform();
+	~Transform() = default;
 
 	// 操作
 public:
@@ -236,10 +228,5 @@ private:
 
 	// ワールド行列の更新 GetWorld内で使うためconst
 	void UpdateWarldMat() const;
-
-	// JsonConvert
-private:
-	friend void from_json(const nlohmann::json& j, Transform& transform);
-	friend void to_json(nlohmann::json& j, const Transform& transfrom);
 
 };

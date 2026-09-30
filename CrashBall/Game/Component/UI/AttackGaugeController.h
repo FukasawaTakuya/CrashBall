@@ -24,14 +24,14 @@
  */
 class  AttackGaugeController : public Component {
 	
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	IGameObject* m_pAttackGauge		  = nullptr;	// 攻撃ゲージ
 	IGameObject* m_pAttackPowerText	  = nullptr;	// 攻撃力表示テキスト
 
-	const PlayerStatusController* m_pPlayerStatusController = nullptr;
-	const StageController* m_pStageController = nullptr;
+	const PlayerStatusController*	m_pPlayerStatusController	= nullptr;	// プレイヤー攻撃力表示用
+	const StageController*			m_pStageController			= nullptr;	// 面の数取得用
 
 	TextRenderer*	m_attackPowerTextRenderer	= nullptr;	// 攻撃力表示テキスト描画コンポーネントのキャッシュ
 	SliderController* m_attackGaugeController	= nullptr;	// 攻撃ゲージの操作コンポーネントのキャッシュ
@@ -58,7 +58,7 @@ public:
 	AttackGaugeController(IGameObject* gameObject);
 
 	// デストラクタ
-	~AttackGaugeController();
+	~AttackGaugeController() = default;
 
 	// 操作
 public:
@@ -66,7 +66,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新

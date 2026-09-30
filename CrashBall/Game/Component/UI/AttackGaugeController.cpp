@@ -24,15 +24,10 @@ AttackGaugeController::AttackGaugeController(IGameObject* gameObject)
 {
 }
 
-
 /**
- * \brief デストラクタ
+ * \brief アタッチ時の処理
  * 
  */
-AttackGaugeController::~AttackGaugeController()
-{
-}
-
 void AttackGaugeController::Awake()
 {
 	// コンポーネントのキャッシュの取得
@@ -43,8 +38,9 @@ void AttackGaugeController::Awake()
 }
 
 /**
- * \brief 初期化
+ * \brief 開始処理
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
 void AttackGaugeController::Start(const GameContext& gameContext)
 {
@@ -58,10 +54,9 @@ void AttackGaugeController::Start(const GameContext& gameContext)
  */
 void AttackGaugeController::Update(const GameContext& gameContext)
 {
-	int playerMeshCount = m_pStageController->GetPlayerMeshCount();	// プレイヤーの面の数
-	int playerAttackCost = m_pPlayerStatusController->GetAttacckCost();	// プレイヤーの攻撃コスト
+	int playerMeshCount = m_pStageController->GetPlayerMeshCount();			// プレイヤーの面の数
+	int playerAttackCost = m_pPlayerStatusController->GetAttacckCost();		// プレイヤーの攻撃コスト
 	int playerAttackPower = m_pPlayerStatusController->GetAttackPower();	// プレイヤーの攻撃力
-
 
 	// 切り取り量を求める
 	float fillValue = 

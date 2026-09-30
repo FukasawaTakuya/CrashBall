@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-
 #include "TargetCameraController.h"
 
 
@@ -18,10 +17,11 @@
  */
 class  GameCameraController : public TargetCameraController 
 {
-	friend class ObjectInspectorGui;
-
-	//パラメータの宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
+
+	// ターゲットカメラコンポーネントのキャッシュ
+	TargetCameraController* m_targetCamera = nullptr;
 
 	float m_rotateAngleRad = 0.0f;	// 回転角度
 
@@ -35,25 +35,15 @@ private:
 	// コンポーネント名の設定
 	SetCompName("GameCameraController")
 
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	// ターゲットカメラコンポーネントのキャッシュ
-	TargetCameraController* m_targetCamera = nullptr;		
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
-
-	// デフォルトコンストラクタ
-	GameCameraController() = default;
 
 	// コンストラクタ
 	GameCameraController(IGameObject* gameObejct);
 
 	// デストラクタ
-	~GameCameraController();
+	~GameCameraController() = default;
 
 	// 操作
 public:
@@ -61,7 +51,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新

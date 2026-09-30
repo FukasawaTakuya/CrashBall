@@ -220,8 +220,9 @@ void Game::Update(DX::StepTimer const& timer)
     else
     {
         // シーンの更新
-        m_sceneManager->Update();
+        m_sceneManager->SceneUpdate();
     }
+    m_sceneManager->Update();
 
     //// BGMの再生
     //m_soundPlayer->PlayBgm(m_soundManager.get());

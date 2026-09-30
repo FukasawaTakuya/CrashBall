@@ -25,14 +25,6 @@ SliderController::SliderController(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-SliderController::~SliderController()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  *
  */

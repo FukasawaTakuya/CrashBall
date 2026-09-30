@@ -1,6 +1,6 @@
 ﻿/*****************************************************************//**
- * \file   GameTimer.h
- * \brief  ゲームタイマー
+ * \file   ChangeSceneScreen.h
+ * \brief  シーン変更スクリーン
  * 
  * \author 深沢拓矢
  * \date   September 2026
@@ -9,57 +9,59 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Default/Renderer/TextRenderer.h"
+#include "Game/Component/Default/Renderer/SpriteRenderer.h"
+#include "Game/Common/Easing.h"
 
 /**
- * @brief ゲームタイマー
+ * @brief シーン変更スクリーン
  */
-class  GameTimer : public Component {
+class  ChangeSceneScreen : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
+protected:
+	// コンポーネントのキャッシュ
+	SpriteRenderer* m_spriteRenderer;
+
+	bool m_isIn;	// シーンインフラグ
+	bool m_isOut;	// シーンアウトフラグ
+
+	std::string m_nextScene;	// 遷移するシーン名
+	float m_changeTime;			// 遷移時間
+
 private:
-	float m_timer = 0.0f;	// タイマー
-
-	float m_gameTime = 0.0f;			// ゲーム時間
-	TextRenderer* m_timeText = nullptr;	// 時間表示用のテキスト
-
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_gameTime, PropertyType::Float)
+		AddProperty(m_nextScene, PropertyType::String)
+		AddProperty(m_changeTime, PropertyType::Float)
 	EndProperty()
 
 		// コンポーネント名の設定
-	SetCompName("GameTimer")
+	SetCompName("ChangeSceneScreen")
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	GameTimer(IGameObject* gameObject);
+	ChangeSceneScreen(IGameObject* gameObject);
 
 	// デストラクタ
-	~GameTimer() = default;
+	~ChangeSceneScreen() = default;
 
 	// 操作
 public:
 
-	// 開始処理
-	virtual void Awake() override;
+	// アタッチ時の処理
+	void Awake();
 
 	// 開始処理
-	virtual void Start(const GameContext& gameContext) override;
+	void Start(const GameContext& gameContext) override;
 
-	// 更新
-	virtual void Update(const GameContext& gameContext) override;
+	// シーンに入る
+	virtual void SceneIn() = 0;
 
-	// 取得/設定
-public:
-
-	float GetTimer() const
-	{
-		return m_timer;
-	}
+	// シーンから出る
+	virtual void SceneOut() = 0;
 
 	// 内部実装
 private:

@@ -13,6 +13,12 @@ using namespace DirectX;
 
 RegisterComponent(Doom)
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
+ * \return 
+ */
 Doom::Doom(IGameObject* gameObject)
 	: Collider(gameObject, ColliderType::Doom)
 {

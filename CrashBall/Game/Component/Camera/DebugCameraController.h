@@ -15,11 +15,12 @@
  */
 class  DebugCameraController : public Component
 {
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	Camera* m_camera;
-	Transform* m_transform;
+	// コンポーネントのキャッシュ
+	Camera*		m_camera;
+	Transform*	m_transform;
 
 	// プロパティの設定
 	BeginProperty()
@@ -37,7 +38,7 @@ public:
 	DebugCameraController(IGameObject* gameObject);
 
 	// デストラクタ
-	~DebugCameraController();
+	~DebugCameraController() = default;
 
 	// 操作
 public:

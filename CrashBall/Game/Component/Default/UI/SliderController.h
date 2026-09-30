@@ -17,11 +17,12 @@
  */
 class  SliderController : public Component 
 {
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// プロパティの宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
+
+	float m_targetAmount;	// 目標値
+
+	SpriteRenderer* m_spriteRenderer = nullptr;	// コンポーネントのキャッシュ
 
 	float m_slideSpeed;	// スライド速度
 
@@ -33,25 +34,16 @@ private:
 	// コンポーネント名の設定
 	SetCompName("SliderController")
 
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	float m_targetAmount;	// 目標値
-
-	SpriteRenderer* m_spriteRenderer = nullptr;	// コンポーネントのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	SliderController() = default;
-
 	// コンストラクタ
 	SliderController(IGameObject* gameObject);
 
 	// デストラクタ
-	~SliderController();
+	~SliderController() = default;
 
 	// 更新 
 	void Slide();
@@ -92,10 +84,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConverter
-private:
-
-	friend void from_json(const json& j, SliderController& sliderController);
-	friend void to_json(json& j, const SliderController& sliderController);
 };

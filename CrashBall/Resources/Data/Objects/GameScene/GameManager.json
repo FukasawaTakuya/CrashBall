@@ -18,6 +18,11 @@
                     "name": "pGameTimer",
                     "type": "Componet",
                     "data": 72
+                },
+                {
+                    "name": "changeSceneScreen",
+                    "type": "Componet",
+                    "data": 84
                 }
             ]
         }

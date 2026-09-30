@@ -25,14 +25,6 @@ SpriteRenderer::SpriteRenderer(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-SpriteRenderer::~SpriteRenderer()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */

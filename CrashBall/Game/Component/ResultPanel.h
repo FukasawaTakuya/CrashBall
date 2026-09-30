@@ -1,13 +1,23 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   ResultPanel.h
+ * \brief  リザルトパネル
+ * 
+ * \author 深沢拓矢
+ * \date   September 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 #include "Default/Renderer/TextRenderer.h"
 #include "Default/Renderer/SpriteRenderer.h"
 
 /**
- * @brief
+ * @brief リザルトパネル
  */
 class  ResultPanel : public Component {
+
+	// メンバ変数の宣言 -------------------------------------------------
 
 	float m_alpha = 0.0f;
 	bool m_startResult = false;
@@ -30,7 +40,7 @@ class  ResultPanel : public Component {
 public:
 
 	// コンストラクタ
-	ResultPanel(IGameObject* gameObject) : Component(gameObject) {}
+	ResultPanel(IGameObject* gameObject);
 
 	// デストラクタ
 	~ResultPanel() = default;
@@ -39,13 +49,13 @@ public:
 public:
 
 	// 更新
-	virtual void Awake() override;
+	void Awake() override;
 
 	// 更新
-	virtual void Start(const GameContext& gameContext) override;
+	void Start(const GameContext& gameContext) override;
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) override;
+	void Update(const GameContext& gameContext) override;
 
 	// 内部実装
 private:

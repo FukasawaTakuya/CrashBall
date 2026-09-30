@@ -29,15 +29,6 @@ PlayerController::PlayerController(IGameObject* gameObject)
 {
 }
 
-
-/**
- * \brief デストラクタ
- * 
- */
-PlayerController::~PlayerController()
-{
-}
-
 /**
  * \brief アタッチ時の処理
  * 
@@ -67,8 +58,9 @@ void PlayerController::Awake()
 }
 
 /**
- * \brief 初期化
- * 
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void PlayerController::Start(const GameContext& gameContext)
 {

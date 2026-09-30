@@ -30,13 +30,6 @@ EnemyController::EnemyController(IGameObject* gameObject)
 {
 }
 
-/**
- * \brief デストラクタ
- * 
- */
-EnemyController::~EnemyController()
-{
-}
 
 /**
  * \brief アタッチ時の処理

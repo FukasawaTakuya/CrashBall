@@ -18,10 +18,7 @@ class Sphere
 	: public Collider
 {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	float m_radius;	// 半径
@@ -79,21 +76,5 @@ private:
 	{
 		return m_compName;
 	}
-
-
-	// JsonConverter
-private:
-	friend void from_json(const nlohmann::json& j, Sphere& sphere);
-	friend void to_json(nlohmann::json& j, const Sphere& sphere);
-
-public:
-	
-	// 演算子オーバーロード
-	void operator=(Sphere s)
-	{
-		m_layerMaskType = s.m_layerMaskType;
-		m_radius = s.m_radius;
-	}
-
 };
 

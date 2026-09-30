@@ -8,7 +8,13 @@
             "compName": "TitleManager",
             "id": 71,
             "isActive": true,
-            "properties": null
+            "properties": [
+                {
+                    "name": "changeSceneScreen",
+                    "type": "Componet",
+                    "data": 81
+                }
+            ]
         }
     ],
     "children": null

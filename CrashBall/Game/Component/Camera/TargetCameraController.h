@@ -19,7 +19,7 @@
  */
 class  TargetCameraController : public Component
 {
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 protected:
 
 	DirectX::SimpleMath::Quaternion m_offsetRotate;	// オフセット分の回転
@@ -33,13 +33,10 @@ protected:
 
 	const Transform* m_targetTransform = nullptr;	// ターゲットのトランスフォーム
 
-	// パラメータの宣言 -------------------------------------------------
-protected:
-
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_baseOffset, PropertyType::Vector3)
-		EndProperty()
+	EndProperty()
 
 		// コンポーネント名の設定
 		SetCompName("TargetCameraController")
@@ -49,14 +46,11 @@ protected:
 		// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	TargetCameraController() = default;
-
 	// コンストラクタ
 	TargetCameraController(IGameObject* gameObject);
 
 	// デストラクタ
-	~TargetCameraController();
+	~TargetCameraController() = default;
 
 	// 操作
 public:
@@ -64,7 +58,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新

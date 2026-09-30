@@ -24,14 +24,6 @@ RectTransform::RectTransform(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-RectTransform::~RectTransform()
-{
-}
-
-/**
  * \brief 移動
  * 
  * \param trans 移動ベクトル

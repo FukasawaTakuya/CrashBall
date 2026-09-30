@@ -24,13 +24,6 @@ TargetCameraController::TargetCameraController(
 {
 }
 
-/**
- * \brief デストラクタ
- * 
- */
-TargetCameraController::~TargetCameraController()
-{
-}
 
 /**
  * \brief アタッチ時の処理
@@ -46,8 +39,9 @@ void TargetCameraController::Awake()
 }
 
 /**
- * \brief 初期化
- * 
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void TargetCameraController::Start(const GameContext& gameContext)
 {
@@ -59,7 +53,8 @@ void TargetCameraController::Start(const GameContext& gameContext)
 
 /**
  * \brief 更新
- * 
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void TargetCameraController::Update(const GameContext& gameContext)
 {

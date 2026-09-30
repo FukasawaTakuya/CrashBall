@@ -25,13 +25,6 @@ FloorMeshGaugeController::FloorMeshGaugeController(IGameObject* gameObject)
 {
 }
 
-/**
- * \brief デストラクタ
- * 
- */
-FloorMeshGaugeController::~FloorMeshGaugeController()
-{
-}
 
 /**
  * \brief アタッチ時の処理
@@ -48,8 +41,9 @@ void FloorMeshGaugeController::Awake()
 }
 
 /**
- * \brief 初期化
+ * \brief 開始処理
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
 void FloorMeshGaugeController::Start(const GameContext& gameContext)
 {
@@ -90,10 +84,3 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 	m_enemyTextRenderer->SetText(L"Enemy:{}面", enemyMeshCount);
 }
 
-/**
- * \brief 終了処理
- * 
- */
-void FloorMeshGaugeController::Finalize()
-{
-}

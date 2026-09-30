@@ -63,8 +63,9 @@ void BallController::Awake()
 }
 
 /**
- * \brief 初期化
- * 
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void BallController::Start(const GameContext& gameContext)
 {
@@ -77,12 +78,13 @@ void BallController::Start(const GameContext& gameContext)
  */
 void BallController::Update(const GameContext& gameContext)
 {
-	// 移動
-	Move();
-
-	// 地上なら回転を加算する
+	// 地上なら
 	if (m_isGround)
 	{
+		// 摩擦の適用
+		m_rigidbody->ApplyFriction();
+
+		// 回転を加算する
 		AddRotate();
 	}
 
@@ -103,31 +105,6 @@ void BallController::Render(const RenderContext& renderContext)
 
 	// 描画
 	m_renderer->Render(renderContext);
-}
-
-
-/**
- * \brief 移動
- * 
- */
-void BallController::Move()
-{
-	// 重力の適用
-	m_rigidbody->ApplyGravity();
-
-	// 加速度の適用
-	m_rigidbody->ApplyAccel();
-
-	// 地上なら
-	if (m_isGround)
-		// 摩擦の適用
-		m_rigidbody->ApplyFriction();
-
-	// 速度を加算
-	m_transform->Translate(m_rigidbody->GetVelocity() * Time::GetElapsedTime());
-
-	// 加速度のリセット
-	m_rigidbody->ResetAccel();
 }
 
 

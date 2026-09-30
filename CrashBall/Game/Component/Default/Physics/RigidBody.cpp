@@ -25,11 +25,33 @@ Rigidbody::Rigidbody(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ.
+ * \brief アタッチ時の処理
  * 
  */
-Rigidbody::~Rigidbody()
+void Rigidbody::Awake()
 {
+	m_transform = GetGameObject()->GetComponent<Transform>();
+}
+
+/**
+ * \brief 更新
+ *
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void Rigidbody::Update(const GameContext& gameContext)
+{
+	if (m_isDynamic)
+	{
+		// 重力の適用
+		ApplyGravity();
+		// 加速の適用
+		ApplyAccel();
+		m_transform->Translate(m_velocity * Time::GetElapsedTime());
+
+		// 加速度のリセット
+		ResetAccel();
+
+	}
 }
 
 /**

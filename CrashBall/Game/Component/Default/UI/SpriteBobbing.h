@@ -17,11 +17,11 @@
  */
 class  SpriteBobbing : public Component 
 {
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// パラメータの宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
+
+	float						 m_radian;					// sin波に使う角度
+	RectTransform*				 m_rectTransform = nullptr;	// トランスフォームのキャッシュ
 
 	float						 m_amplitude;	// 揺れの大きさ
 	float						 m_frequency;	// 揺れの速さ(元の位置に戻るまでの秒数)
@@ -37,34 +37,20 @@ private:
 	// コンポーネント名の設定
 	SetCompName("SpriteBobbing")
 
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	float						 m_radian;					// sin波に使う角度
-	RectTransform*				 m_rectTransform = nullptr;	// トランスフォームのキャッシュ
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	SpriteBobbing() = default;
-
 	// コンストラクタ
 	SpriteBobbing(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	SpriteBobbing(
-		IGameObject* gameObject,
-		const SpriteBobbing& other);
-
 	// デストラクタ
-	~SpriteBobbing();
+	~SpriteBobbing() = default;
 
 	// 操作
 public:
 
+	// 更新
 	void Update(const GameContext& gameContext);
 
 	// 浮遊

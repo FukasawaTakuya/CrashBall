@@ -20,10 +20,7 @@
  */
 class  TextRenderer : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SpriteFont* m_pSpriteFont = nullptr;					// スプライトフォント
@@ -56,14 +53,11 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	TextRenderer() = default;
-
 	// コンストラクタ
 	TextRenderer(IGameObject* gameObject);
 
 	// デストラクタ
-	~TextRenderer();
+	~TextRenderer() = default;
 
 	// 操作
 public:
@@ -165,23 +159,5 @@ private:
 	virtual std::string GetCompName() const override
 	{
 		return m_compName;
-	}
-
-
-	// JsonConvert
-private:
-	friend void from_json(const json& j, TextRenderer& textRenderer);
-	friend void to_json(json& j, const TextRenderer& textRenderer);
-
-	// 演算子オーバーロード
-public:
-
-	void operator=(const TextRenderer& other)
-	{
-		m_text	= other.m_text;
-		m_color = other.m_color;
-		m_fontScale = other.m_fontScale;
-		m_layerDepth = other.m_layerDepth;
-		m_fontKey = other.m_fontKey;
 	}
 };

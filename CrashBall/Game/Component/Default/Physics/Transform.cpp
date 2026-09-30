@@ -23,14 +23,6 @@ Transform::Transform(IGameObject* gameObejct)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-Transform::~Transform()
-{
-}
-
-/**
  * \brief 開始処理
  * 
  * \param gameContext　ゲーム用のコンテキスト

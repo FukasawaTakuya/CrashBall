@@ -1,6 +1,6 @@
 ﻿/*****************************************************************//**
- * \file   Doom.h
- * \brief  内側に押し出す球
+ * \file   SlideChangeScreen.h
+ * \brief  スライド遷移スクリーン
  * 
  * \author 深沢拓矢
  * \date   September 2026
@@ -8,54 +8,48 @@
 
 #pragma once
 
-#include "Game/Component/Default/Component.h"
-#include "Game/Component/Default/Collider/Collider.h"
+#include "ChangeSceneScreen.h"
 
 /**
  * @brief
  */
-class  Doom : public Collider {
+class  SlideChangeScreen : public ChangeSceneScreen {
 
 	// メンバ変数の宣言 -------------------------------------------------
-private:
 
-	// 半径
-	float m_radius;
+	Easing<float> m_fillAmount;
 
-	// プロパティの設定
-	BeginProperty()
-		AddProperty(m_radius, PropertyType::Float)
-	EndProperty()
-
-		// コンポーネント名の設定
-	SetCompName("Doom")
+	// コンポーネント名の設定
+	SetCompName("SlideChangeScreen")
 
 		// メンバ関数の宣言 -------------------------------------------------
 		// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Doom(IGameObject* gameObject);
+	SlideChangeScreen(IGameObject* gameObject);
 
 	// デストラクタ
-	~Doom() = default;
+	~SlideChangeScreen() = default;
 
 	// 操作
 public:
 
-	float GetRadius() const
-	{
-		return m_radius;
-	}
+	// アタッチ時の処理
+	void Awake() override;
+	// 開始処理
+	void Start(const GameContext& gameContext) override;
+	// 更新
+	void Update(const GameContext& gameContext) override;
+
+	// シーンに入る
+	void SceneIn() override;
+
+	// シーンから出る
+	void SceneOut() override;
 
 	// 内部実装
 private:
-
-	// プロパティの取得
-	virtual const std::vector<PropertyInfo>& GetProperties() const override
-	{
-		return m_properties;
-	}
 
 	// コンポーネント名の取得
 	virtual std::string GetCompName() const override

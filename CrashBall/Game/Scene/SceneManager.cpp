@@ -28,9 +28,7 @@ SceneManager::SceneManager(
 	, m_pRenderContext	(pRenderContext)
 	, m_pResourceContext(pResourceContext)
 	, m_pEditGuiManager	(pEditGuiManager)
-	, m_changeScreen	(std::make_unique<FadeChangeScreen>())
 {
-	m_changeScreen->Awake();
 }
 
 /**
@@ -56,7 +54,6 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 		// シーン変更
 		m_currentScene = std::make_unique<Scene>(m_jsonManagers[sceneName].get());
 		m_currentScene->Start(*m_pGameContext);
-		m_changeScreen->StartFadeIn();
 	}
 }
 
@@ -78,35 +75,32 @@ void SceneManager::Update()
 	// 変更リクエストがnullじゃないなら変更
 	if (m_requestSceneName  != "")
 	{
-		// フェードアウトが完了したら
-		if (!m_changeScreen->GetIsFadeOut())
-		{
-			m_pEditGuiManager->Reset();
+		m_pEditGuiManager->Reset();
 
-			// シーン変更
-			m_currentScene->Finalize();
+		// シーン変更
+		m_currentScene->Finalize();
 
-			m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
-			
-			// リソースの作成
-			CreateDeviceResources();
+		m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
 
-			// 開始処理
-			m_currentScene->Start(*m_pGameContext);
+		// リソースの作成
+		CreateDeviceResources();
 
-			// 現シーン名の変更
-			m_currentSceneName = m_requestSceneName;
-			// リクエストシーンのリセット
-			m_requestSceneName = "";
+		// 開始処理
+		m_currentScene->Start(*m_pGameContext);
 
-			// フェードイン開始
-			m_changeScreen->StartFadeIn();
-		}
+		// 現シーン名の変更
+		m_currentSceneName = m_requestSceneName;
+		// リクエストシーンのリセット
+		m_requestSceneName = "";
 	}
+}
 
-	// シーン遷移スクリーンの更新
-	m_changeScreen->Update(*m_pGameContext);
-
+/**
+ * \brief シーンの更新
+ *
+ */
+void SceneManager::SceneUpdate()
+{
 	m_currentScene->Update(*m_pGameContext);
 }
 
@@ -117,8 +111,6 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	m_currentScene->Render(*m_pRenderContext);
-
-	m_changeScreen->Render(*m_pRenderContext);
 }
 
 /**
@@ -127,9 +119,6 @@ void SceneManager::Render()
  */
 void SceneManager::CreateDeviceResources()
 {
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSpriteKey("Screen");
-	m_changeScreen->GetComponent<SpriteRenderer>()->SetSprite(m_pResourceContext->spriteManager);
-
 	m_currentScene->CreateDeviceResources(*m_pResourceContext);
 }
 
@@ -176,7 +165,6 @@ void SceneManager::LoadData()
 			// シーン名リストに追加
 			m_sceneNameList.push_back(sceneName);
 		}
-
 	}
 }
 
@@ -238,8 +226,6 @@ void SceneManager::CreateNewScene(const std::string& newSceneName)
  */
 void SceneManager::RequestChangeScene(const std::string& sceneName)
 {
-	// フェードインが終わっていなければリターン
-	if (m_changeScreen->GetIsFadeIn()) return;
 	
 	if (m_requestSceneName != "") return;
 
@@ -250,8 +236,6 @@ void SceneManager::RequestChangeScene(const std::string& sceneName)
 	{
 		// シーン変更
 		m_requestSceneName = sceneName;
-		// フェードアウト開始
-		m_changeScreen->StartFadeOut();
 	}
 }
 

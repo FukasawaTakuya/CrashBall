@@ -22,11 +22,7 @@
  */
 class  BallController : public Component {
 
-public:
-	// コンポーネント名
-	static constexpr char const* COMP_NAME = "BallController";
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SimpleMath::Quaternion m_angularVelocity;	// 角速度
@@ -62,7 +58,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新
@@ -70,9 +66,6 @@ public:
 
 	// 描画
 	void Render(const RenderContext& renderContext) override;
-
-	// 移動
-	void Move();
 
 	// 回転の加算
 	void AddRotate();

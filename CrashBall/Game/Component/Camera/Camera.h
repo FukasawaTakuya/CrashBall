@@ -28,12 +28,12 @@ private:
 		// コンポーネント名の設定
 	SetCompName("Camera")
 
-		// メンバ関数の宣言 -------------------------------------------------
-		// コンストラクタ/デストラクタ
+	// メンバ関数の宣言 -------------------------------------------------
+	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	Camera(IGameObject* gameObject) : Component(gameObject) {};
+	Camera(IGameObject* gameObject);
 
 	// デストラクタ
 	~Camera() = default;
@@ -50,7 +50,7 @@ public:
 	// 更新
 	void Update(const GameContext& gameContext) override;
 
-	//
+	// ターゲットの方に向ける
 	void LookAt(const DirectX::SimpleMath::Vector3& target);
 
 	// ビュー行列の更新

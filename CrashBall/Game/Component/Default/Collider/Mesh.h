@@ -13,17 +13,17 @@
 #include "Game/Geometory/Triangle.h"
 #include "Game/Geometory/Segment.h"
 
-
 /**
  * \brief メッシュコライダー
  */
 class Mesh : public Collider
 {
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// プロパティ
+	// メンバ変数の宣言 -----------------------------------------------
 private:
+
+	std::vector<std::unique_ptr<Triangle>> m_faces;	// 面のコンテナ
+
+	std::vector<Triangle*> m_collideFace;	// 衝突した面
 
 	std::string m_meshData;	// データのファイルパス
 
@@ -35,19 +35,10 @@ private:
 	// コンポーネント名の設定
 	SetCompName("Mesh")
 
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	std::vector<std::unique_ptr<Triangle>> m_faces;	// 面のコンテナ
-
-	std::vector<Triangle*> m_collideFace;	// 衝突した面
 
 	// メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ
 public:
-
-	// デフォルトコンストラクタ
-	Mesh() = default;
 
 	// コンストラクタ
 	Mesh(IGameObject* gameObject);
@@ -105,18 +96,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConvert
-private:
-	friend void from_json(const json& j, Mesh& mesh);
-	friend void to_json(json& j, const Mesh& mesh);
-
-	// 演算子オーバーロード
-public:
-	
-	void operator=(const Mesh& other)
-	{
-		m_meshData = other.m_meshData;
-	}
-
 };

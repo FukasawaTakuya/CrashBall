@@ -8,24 +8,24 @@
 
 #pragma once
 
-#include "../Default/Component.h"
-#include "../Stage/IFloorMeshGetter.h"
+#include "Game/Component/Default/Component.h"
 #include "Game/Component/Stage/StageController.h"
-
 
 /**
  * @brief プレイヤーステータス管理コンポーネント
  */
 class  PlayerStatusController: public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// プロパティの宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	int m_attackCost		= 0;		// 攻撃コスト
-	float m_minAttackPower	= 0.0f;		// 最低攻撃力
+	float m_attackPower = 0;	// 攻撃力
+	bool m_canAttack = false;	// 攻撃可能フラグ
+	bool m_isAttack  = false;	// 攻撃中フラグ
+
+	int m_attackCost		= 0;	// 攻撃コスト
+	float m_minAttackPower	= 0.0f;	// 最低攻撃力
+	float m_powerUpRate		= 1.0f;	// 強化倍率
 
 	const StageController* m_pFloorMeshGetter = nullptr;	// 床メッシュ取得コンポーネント
 
@@ -33,33 +33,22 @@ private:
 	BeginProperty()
 		AddProperty(m_attackCost, PropertyType::Int)
 		AddProperty(m_minAttackPower, PropertyType::Float)
+		AddProperty(m_powerUpRate, PropertyType::Float)
 		AddProperty(m_pFloorMeshGetter, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
 	SetCompName("PlayerStatusController")
 
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	float m_attackPower = 0;	// 攻撃力
-
-	bool m_canAttack = false;	// 攻撃可能かどうか
-
-	bool m_isAttack = false;	// 攻撃中かどうか
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
-
-	PlayerStatusController() = default;
 
 	// コンストラクタ
 	PlayerStatusController(IGameObject* gameObject);
 
 	// デストラクタ
-	~PlayerStatusController();
+	~PlayerStatusController() = default;
 
 	// 操作
 public:
@@ -79,12 +68,7 @@ public:
 	// 攻撃コストを取得
 	int GetAttacckCost() const { return m_attackCost; }
 
-	// 床メッシュ取得コンポーネントを設定 
-	void SetFloorMeshGetter(IFloorMeshGetter* floorMeshGetter)
-	{
-		//m_pFloorMeshGetter = floorMeshGetter;
-	}
-
+	// 攻撃中フラグを設定
 	void SetIsAttack(bool isAttack)
 	{
 		m_isAttack = isAttack;
@@ -103,19 +87,5 @@ private:
 	virtual std::string GetCompName() const override
 	{
 		return m_compName;
-	}
-
-	// JsonConverter
-private:
-
-	friend void from_json(const nlohmann::json& j, PlayerStatusController& playerStatusController);
-	friend void to_json(nlohmann::json& j, const PlayerStatusController& playerStatusController);
-
-public:
-	// 演算子オーバーロード
-	void operator=(const PlayerStatusController& statusController)
-	{
-		m_attackCost = statusController.m_attackCost;
-		m_minAttackPower = statusController.m_minAttackPower;
 	}
 };

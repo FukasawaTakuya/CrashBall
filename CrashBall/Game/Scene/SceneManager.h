@@ -44,9 +44,6 @@ private:
 	// シーン名リスト
 	std::vector<std::string> m_sceneNameList;
 
-	// シーン遷移スクリーン
-	std::unique_ptr<FadeChangeScreen> m_changeScreen;
-
 	const GameContext* m_pGameContext;			// ゲーム用のコンテキスト
 	const RenderContext* m_pRenderContext;		// 描画用のコンテキスト
 	const ResourceContext* m_pResourceContext;	// リソース用のコンテキスト
@@ -82,6 +79,9 @@ public:
 
 	// 更新
 	void Update();
+
+	// シーンの更新
+	void SceneUpdate();
 
 	// 描画
 	void Render();

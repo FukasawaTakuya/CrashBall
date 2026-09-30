@@ -10,8 +10,6 @@
 
 #include "Game/Component/Default/Component.h"
 
-using namespace nlohmann;
-
 // 基準位置
 enum class Origin
 {
@@ -61,10 +59,7 @@ static const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin:
  */
 class  RectTransform : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SimpleMath::Vector2 m_localPosition;	// 位置
@@ -94,14 +89,11 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	RectTransform() = default;
-
 	// コンストラクタ
 	RectTransform(IGameObject* gameObject);
 
 	// デストラクタ
-	~RectTransform();
+	~RectTransform() = default;
 
 	// 操作
 public:
@@ -296,9 +288,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConvert
-private:
-	friend void to_json(json& j, const RectTransform& rectTransfrom);
-	friend void from_json(const json& j, RectTransform& triangle);
 };

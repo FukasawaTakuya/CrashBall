@@ -26,14 +26,6 @@ GameCameraController::GameCameraController(IGameObject* gameObejct)
 }
 
 /**
- * \brief デストラクタ
- * 
- */
-GameCameraController::~GameCameraController()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */
@@ -46,8 +38,9 @@ void GameCameraController::Awake()
 }
 
 /**
- * \brief 初期化
- * 
+ * \brief 開始処理
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void GameCameraController::Start(const GameContext& gameContext)
 {
@@ -57,7 +50,8 @@ void GameCameraController::Start(const GameContext& gameContext)
 
 /**
  * \brief 更新
- * 
+ *
+ * \param gameContext ゲーム用のコンテキスト
  */
 void GameCameraController::Update(const GameContext& gameContext)
 {

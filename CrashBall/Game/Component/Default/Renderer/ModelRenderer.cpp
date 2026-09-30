@@ -25,14 +25,6 @@ ModelRenderer::ModelRenderer(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ.
- * 
- */
-ModelRenderer::~ModelRenderer()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */

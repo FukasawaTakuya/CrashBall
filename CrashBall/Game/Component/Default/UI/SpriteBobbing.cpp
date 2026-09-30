@@ -31,32 +31,12 @@ SpriteBobbing::SpriteBobbing(IGameObject* gameObject)
 	m_initPos = m_rectTransform->GetLocalPosition();
 }
 
-/**
- * \brief コピーコンストラクタ
- * 
- * \param gameObject コンポーネントを所有するゲームオブジェクト
- * \param other コピー元
- */
-SpriteBobbing::SpriteBobbing(
-	IGameObject* gameObject, 
-	const SpriteBobbing& other)
-	: Component(gameObject)
-	, m_amplitude(other.m_amplitude)
-	, m_frequency(other.m_frequency)
-	, m_initPos(other.m_initPos)
-	, m_radian()
-{
-	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
-}
 
 /**
- * \brief デストラクタ
+ * \brief 更新
  * 
+ * \param gameContext ゲーム用のコンテキスト
  */
-SpriteBobbing::~SpriteBobbing()
-{
-}
-
 void SpriteBobbing::Update(const GameContext& gameContext)
 {
 	Bobbing();

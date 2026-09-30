@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ResultPanel.cpp
+ * \brief  リザルトパネル
+ *
+ * \author 深沢拓矢
+ * \date   September 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "ResultPanel.h"
 
@@ -5,28 +13,38 @@
 
 RegisterComponent(ResultPanel)
 
+/**
+ * \brief コンストラクタ
+ * 
+ * \param gameObject
+ */
+ResultPanel::ResultPanel(IGameObject* gameObject)
+	: Component(gameObject)
+{
+}
 
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
 void ResultPanel::Awake()
 {
-	m_backGround = GetGameObject()->GetComponent<SpriteRenderer>();
 }
 
+/**
+ * \brief 開始処理
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
 void ResultPanel::Start(const GameContext& gameContext)
 {
-	m_alpha = 0.0f;
-	m_startResult = false;
 }
 
+/**
+ * \brief 更新
+ * 
+ * \param gameContext
+ */
 void ResultPanel::Update(const GameContext& gameContext)
 {
-	if (m_startResult)
-	{
-		m_alpha += Time::GetUnscaleElapsedTime() * 1.5f;
-
-		m_alpha = std::clamp(m_alpha, 0.0f, 1.0f);
-	}
-
-	m_backGround->SetAlpha(m_alpha);
-	m_buttonText->SetColor({ 1.0f, 1.0f, 1.0f, 0.0f });
-	m_resultText->SetColor({1.0f, 1.0f, 1.0f, 0.0f});
 }

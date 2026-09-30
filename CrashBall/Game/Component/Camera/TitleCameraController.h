@@ -18,9 +18,7 @@
  */
 class  TitleCameraController : public TargetCameraController
 {
-	friend class ObjectInspectorGui;
-
-	// パラメータの宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	// 1秒間の回転量
@@ -37,30 +35,16 @@ private:
 	SetCompName("TitleCameraController")
 
 
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-	// コンポーネントのキャッシュ
-	TargetCameraController* m_targetCamera = nullptr;
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	TitleCameraController() = default;
 
 	// コンストラクタ
 	TitleCameraController(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	TitleCameraController(
-		IGameObject* gameObject,
-		const TitleCameraController& other
-	);
-
 	// デストラクタ
-	~TitleCameraController();
+	~TitleCameraController() = default;
 
 	// 操作
 public:
@@ -68,7 +52,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新

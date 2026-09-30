@@ -20,10 +20,7 @@
  */
 class  ModelRenderer : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
@@ -48,14 +45,11 @@ private:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	ModelRenderer() = default;
-
 	// コンストラクタ
 	ModelRenderer(IGameObject* gameObject);
 
 	// デストラクタ
-	~ModelRenderer();
+	~ModelRenderer() = default;
 
 	// 操作
 public:
@@ -122,12 +116,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConvert
-private:
-
-	friend void from_json(const nlohmann::json& j, ModelRenderer& modelRenderer);
-	friend void to_json(nlohmann::json& j, const ModelRenderer& modelRenderer);
-
-public:
 };

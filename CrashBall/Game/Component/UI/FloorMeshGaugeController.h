@@ -24,7 +24,7 @@
  */
 class  FloorMeshGaugeController : public Component {
 
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	// 管理ゲームオブジェクト
@@ -33,7 +33,7 @@ private:
 	IGameObject* m_pPlayerMeshNumText	= nullptr;	// プレイヤーのメッシュ数表示
 	IGameObject* m_pEnemyMeshNumText	= nullptr;	// 敵のメッシュ数表示
 
-	const StageController* m_pStageController = nullptr;	// ステージ管理コンポーネント
+	const StageController* m_pStageController = nullptr;	// 面の数取得用
 
 	// ゲージのコンポーネントのキャッシュ
 	SliderController* m_playerGaugeController	= nullptr;
@@ -63,7 +63,7 @@ public:
 	FloorMeshGaugeController(IGameObject* gameObject);
 
 	// デストラクタ
-	~FloorMeshGaugeController();
+	~FloorMeshGaugeController() = default;
 
 	// 操作
 public:
@@ -71,14 +71,12 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新
 	void Update(const GameContext& gameContext) override;
 
-	// 終了処理
-	void Finalize();
 
 	// 取得/設定
 public:

@@ -16,19 +16,12 @@
 #include "Game/Component/Stage/IPaintConsumer.h"
 #include "Game/Component/Stage/StageController.h"
 
-class PlayerStateBase;
-
-
 /**
  * \brief プレイヤー操作コンポーネント
  */
 class  PlayerController : public Component {
 
-	// インスペクター編集GUIをフレンド化
-	friend class ObjectInspectorGui;
-
-	// データメンバの宣言 -----------------------------------------------
-	// パラメータの宣言
+	// メンバ変数宣言 -----------------------------------------------
 private:
 
 	// AttackState
@@ -38,9 +31,11 @@ private:
 	float m_acceleration = 0.0f;	// 加速度 
 	float m_maxSpeed = 0.0f;		// 最大速度
 
-	const Transform* m_pEnemyTransform = nullptr;				// 敵のトランスフォームコンポーネント
-	const Camera* m_pCamera = nullptr;// カメラのポインタ
-	StageController* m_pStageController = nullptr;				// 面消費インターフェース
+	const Transform* m_pEnemyTransform	= nullptr;	// 敵のトランスフォームコンポーネント
+	const Camera*	 m_pCamera			= nullptr;	// カメラのポインタ
+	StageController* m_pStageController = nullptr;	// 面消費用
+
+	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
 
 	// プロパティの設定
 	BeginProperty()
@@ -56,30 +51,15 @@ private:
 	// コンポーネント名の設定
 	SetCompName("PlayerController")
 
-private:
-
-	std::unique_ptr<StateMachine<PlayerController>> m_stateMachine;	// ステートマシン
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	PlayerController() = default;
-
 	// コンストラクタ
 	PlayerController(IGameObject* gameObject);
 
-	// コピーコンストラクタ
-	PlayerController(
-		IGameObject* gameObject,
-		const PlayerController& other);
-
-	// ムーブコンストラクタ
-	PlayerController(PlayerController&&) = default;
-
 	// デストラクタ
-	~PlayerController();
+	~PlayerController() = default;
 
 	// 操作
 public:
@@ -87,7 +67,7 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
-	// 初期化
+	// 開始処理
 	void Start(const GameContext& gameContext) override;
 
 	// 更新
@@ -133,15 +113,6 @@ public:
 		m_pEnemyTransform = enemyTransform;
 	}
 
-	// ステージ操作コンポーネントからインターフェースを設定する
-	void SetStageInterface(StageController* stageController)
-	{
-		// 面消費コンポーネントの設定
-		m_pStageController = stageController;
-		// 床メッシュ取得コンポーネントを設定
-		GetGameObject()->GetComponent<PlayerStatusController>()->SetFloorMeshGetter(stageController);
-	}
-
 	// 内部実装
 private:
 
@@ -155,21 +126,5 @@ private:
 	virtual std::string GetCompName() const override
 	{
 		return m_compName;
-	}
-
-	// JsonConvert
-private:
-	friend void to_json(json& j, const PlayerController& playerController);
-	friend void from_json(const json& j, PlayerController& playerController);
-
-public:
-
-	// 演算子オーバーロード
-	void operator=(const PlayerController& other)
-	{
-		m_attackSpeed		= other.m_attackSpeed;
-		m_attackDuration	= other.m_attackDuration;
-		m_acceleration		= other.m_acceleration;
-		m_maxSpeed			= other.m_maxSpeed;
 	}
 };

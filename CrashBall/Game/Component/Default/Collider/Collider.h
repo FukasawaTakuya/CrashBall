@@ -53,9 +53,6 @@ protected:
 	// コンストラクタ/デストラクタ
 public:
 
-	// デフォルトコンストラクタ
-	Collider() = default;
-
 	// コンストラクタ
 	Collider(IGameObject* gameObject, ColliderType type = ColliderType::None);
 

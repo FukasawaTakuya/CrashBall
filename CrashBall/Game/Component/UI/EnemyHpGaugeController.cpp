@@ -26,14 +26,6 @@ EnemyHpGaugeController::EnemyHpGaugeController(IGameObject* gameObject)
 }
 
 /**
- * \brief デストラクタ
- *
- */
-EnemyHpGaugeController::~EnemyHpGaugeController()
-{
-}
-
-/**
  * \brief アタッチ時の処理
  * 
  */
@@ -48,8 +40,9 @@ void EnemyHpGaugeController::Awake()
 }
 
 /**
- * \brief 初期化
+ * \brief 開始処理
  *
+ * \param gameConctext ゲーム用のコンテキスト
  */
 void EnemyHpGaugeController::Start(const GameContext& gameContext)
 {
@@ -79,10 +72,3 @@ void EnemyHpGaugeController::Update(const GameContext& gameContext)
 	m_enemyHpTextRenderer->SetText(L"EnemyHP {} / {}", enemyHp, enemyMaxHp);
 }
 
-/**
- * \brief 終了処理
- *
- */
-void EnemyHpGaugeController::Finalize()
-{
-}
