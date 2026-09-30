@@ -85,6 +85,13 @@ public:
 		m_states.emplace(typeid(State), std::move(state));
 	}
 
+	// ステートのクリア
+	void ClearState()
+	{
+		m_states.clear();
+		m_currentState = nullptr;
+	}
+
 	// 取得/設定
 public:
 

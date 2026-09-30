@@ -21,4 +21,5 @@ struct PlayerStateContext
 	BallController* ballController;
 	PlayerStatusController* playerStatusController;
 	PlayerController* playerController;
+	const GameContext* gameContext;
 };

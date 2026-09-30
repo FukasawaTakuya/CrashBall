@@ -35,23 +35,6 @@ PlayerController::PlayerController(IGameObject* gameObject)
  */
 void PlayerController::Awake()
 {
-	// プレイヤーステート用のコンテキスト
-	PlayerStateContext stateContext
-	{
-		GetGameObject()->GetComponent<Rigidbody>(),
-		GetGameObject()->GetComponent<Transform>(),
-		GetGameObject()->GetComponent<BallController>(),
-		GetGameObject()->GetComponent<PlayerStatusController>(),
-		this
-	};
-
-	// ステートの生成
-	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
-	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
-
-	// 初期のステートのセット
-	m_stateMachine->ChangeState<PlayerMoveState>();
-
 	GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
 		Scriptable::GetScriptableObject<GameColor>()->m_playerColor
 	);
@@ -64,6 +47,25 @@ void PlayerController::Awake()
  */
 void PlayerController::Start(const GameContext& gameContext)
 {
+	m_stateMachine->ClearState();
+
+	// プレイヤーステート用のコンテキスト
+	PlayerStateContext stateContext
+	{
+		GetGameObject()->GetComponent<Rigidbody>(),
+		GetGameObject()->GetComponent<Transform>(),
+		GetGameObject()->GetComponent<BallController>(),
+		GetGameObject()->GetComponent<PlayerStatusController>(),
+		this,
+		&gameContext
+	};
+
+	// ステートの生成
+	m_stateMachine->CreateState<PlayerMoveState>(stateContext);
+	m_stateMachine->CreateState<PlayerAttackState>(stateContext);
+
+	// 初期のステートのセット
+	m_stateMachine->ChangeState<PlayerMoveState>();
 }
 
 /**
