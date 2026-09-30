@@ -11,9 +11,9 @@
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Ball/BallController.h"
 #include "Game/State/StateMachine.h"
-#include "Game/GameObject/Stage.h"
 #include "Game/Component/Default/Collider/Doom.h"
 #include "Game/Component/Stage/IFloorMeshGetter.h"
+#include "Game/Component/Stage/StageController.h"
 
 
 /**

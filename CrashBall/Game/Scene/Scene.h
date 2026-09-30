@@ -7,9 +7,7 @@
  *********************************************************************/
 
 #pragma once
-#include <string>
 
-#include "Game/Scene/Interface/ISceneChanger.h"
 #include "Game/Json/IJsonDataManager.h"
 #include "Game/Context/GameContext.h"
 #include "Game/Context/RenderContext.h"

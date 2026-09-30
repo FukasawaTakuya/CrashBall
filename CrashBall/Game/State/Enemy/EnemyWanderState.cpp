@@ -8,7 +8,6 @@
 
 #include "pch.h"
 #include "EnemyWanderState.h"
-#include "Game/GameObject/Enemy/Enemy.h"
 #include "Game/Common/Random.h"
 #include "Game/Engine/Time.h"
 

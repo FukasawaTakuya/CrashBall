@@ -331,53 +331,16 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Ball.h" />
-    <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\IGameObject.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Object2D.h" />
     <ClInclude Include="Game\GameObject\Object3D.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage.h" />
     <ClInclude Include="Game\GameObject\GameObject.h" />
-    <ClInclude Include="Game\GameObject\Player\Player.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Button.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Object2D.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Panel.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Slider.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\TextObject.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\TitleLogo.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Geometory\Plane.h" />
     <ClInclude Include="Game\Geometory\Segment.h" />
     <ClInclude Include="Game\Geometory\Triangle.h" />
@@ -442,8 +405,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Scene\GameScene\GameScene.h" />
-    <ClInclude Include="Game\Scene\Interface\ISceneChanger.h" />
     <ClInclude Include="Game\Scene\Interface\ISceneEditer.h">
       <SubType>
       </SubType>
@@ -458,7 +419,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\SceneManager.h" />
-    <ClInclude Include="Game\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Game\ScriptableObject\GameColor.h">
       <SubType>
       </SubType>
@@ -597,19 +557,9 @@
     <ClCompile Include="Game\EditGui\SceneSelect.cpp" />
     <ClCompile Include="Game\Factory\ComponentFactory.cpp" />
     <ClCompile Include="Game\Factory\GameObjectFactory.cpp" />
-    <ClCompile Include="Game\GameObject\Ball.cpp" />
-    <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp" />
+    <ClCompile Include="Game\GameObject\Object2D.cpp" />
     <ClCompile Include="Game\GameObject\Object3D.cpp" />
-    <ClCompile Include="Game\GameObject\Stage.cpp" />
     <ClCompile Include="Game\GameObject\GameObject.cpp" />
-    <ClCompile Include="Game\GameObject\Player\Player.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\Button.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\Panel.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp" />
-    <ClCompile Include="Game\GameObject\UIObject\TitleLogo.cpp" />
     <ClCompile Include="Game\Geometory\Plane.cpp" />
     <ClCompile Include="Game\Geometory\Segment.cpp" />
     <ClCompile Include="Game\Geometory\Triangle.cpp" />
@@ -633,11 +583,9 @@
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp" />
-    <ClCompile Include="Game\Scene\GameScene\GameScene.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
     <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
-    <ClCompile Include="Game\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp" />

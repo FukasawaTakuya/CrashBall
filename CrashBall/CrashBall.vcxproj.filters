@@ -29,17 +29,11 @@
     <Filter Include="Game\Common">
       <UniqueIdentifier>{b24820ea-9bdf-4bb6-bb58-a43386d3e661}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\GameObject\Player">
-      <UniqueIdentifier>{354947cc-107b-46c0-a892-008eaa1ac21c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\State">
       <UniqueIdentifier>{f9066145-8684-4407-a536-7a639b9f95f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\State\PlayerState">
       <UniqueIdentifier>{3787f6e5-d405-40fc-b105-d13a8c1f3835}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\Enemy">
-      <UniqueIdentifier>{30491c6b-0a55-47f8-9ed7-a1935ba43089}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\State\EnemyState">
       <UniqueIdentifier>{76140965-af0e-4dd0-9e16-e87cdba8bdd8}</UniqueIdentifier>
@@ -67,9 +61,6 @@
     </Filter>
     <Filter Include="Game\Camera">
       <UniqueIdentifier>{c99422db-8071-42f4-9497-3bbbd18e0b8b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\GameObject\UIObject">
-      <UniqueIdentifier>{0fe180a6-d2e2-415f-b4a8-433f0fc9aa25}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Component\UI">
       <UniqueIdentifier>{19e466e7-e005-4464-93f8-19524655f69c}</UniqueIdentifier>
@@ -143,12 +134,6 @@
     <Filter Include="Game\Json\Loader">
       <UniqueIdentifier>{5527f766-425a-40da-8f4e-8f9d8e456820}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Scene\GameScene">
-      <UniqueIdentifier>{f5b0c816-acc5-4a41-875d-7414fb1ee913}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TitleScene">
-      <UniqueIdentifier>{8e889efb-8db8-4a5c-b8c3-64ccedc40c2b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Scene\Interface">
       <UniqueIdentifier>{917be99d-95a6-4727-9811-67aaf7621b67}</UniqueIdentifier>
     </Filter>
@@ -201,12 +186,6 @@
     <ClInclude Include="Game\CollisionManager\Collision.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Ball.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage.h">
-      <Filter>Game\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\InputSystem.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
@@ -218,9 +197,6 @@
     </ClInclude>
     <ClInclude Include="Game\State\StateMachine.h">
       <Filter>Game\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Player\Player.h">
-      <Filter>Game\GameObject\Player</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\Player\PlayerMoveState.h">
       <Filter>Game\State\PlayerState</Filter>
@@ -236,9 +212,6 @@
     </ClInclude>
     <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h">
       <Filter>Game\CollsionManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Enemy\Enemy.h">
-      <Filter>Game\GameObject\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
       <Filter>Game\State\EnemyState</Filter>
@@ -312,23 +285,11 @@
     <ClInclude Include="Game\Component\Default\Component.h">
       <Filter>Game\Component\Default</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Panel.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\GamePanel.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\Screen.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\TextManager.h">
       <Filter>Game\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\TextObject.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Object2D.h">
-      <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h">
       <Filter>Game\Component\Default\Physics</Filter>
@@ -456,9 +417,6 @@
     <ClInclude Include="Game\Camera\GameCamera.h">
       <Filter>Game\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Button.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Json\JsonDataManager.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
@@ -483,9 +441,6 @@
     <ClInclude Include="Game\Common\Utility.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\Slider.h">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\SliderController.h">
       <Filter>Game\Component\Default\UI</Filter>
     </ClInclude>
@@ -494,9 +449,6 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\SpriteBobbing.h">
       <Filter>Game\Component\Default\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UIObject\TitleLogo.h">
-      <Filter>Game\GameObject\UIObject</Filter>
     </ClInclude>
     <ClInclude Include="Game\EditGui\ObjectListGui.h">
       <Filter>Game\EditGui</Filter>
@@ -564,12 +516,6 @@
     <ClInclude Include="Game\ScriptableObject\Scriptable.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\TitleScene\TitleScene.h">
-      <Filter>Game\Scene\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\GameScene\GameScene.h">
-      <Filter>Game\Scene\GameScene</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Scene\Interface\ISceneEditer.h">
       <Filter>Game\Scene\Interface</Filter>
     </ClInclude>
@@ -616,9 +562,6 @@
     <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
       <Filter>Game\Component\Default\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Scene\Interface\ISceneChanger.h">
-      <Filter>Game\Scene\Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\Easing.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
@@ -661,6 +604,9 @@
     <ClInclude Include="Game\Component\Manager\TitleManager.h">
       <Filter>Game\Component\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Object2D.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -687,23 +633,11 @@
     <ClCompile Include="Game\CollisionManager\Collision.cpp">
       <Filter>Game\CollsionManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Ball.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage.cpp">
-      <Filter>Game\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Common\InputSystem.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Player\Player.cpp">
-      <Filter>Game\GameObject\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp">
       <Filter>Game\State\PlayerState</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Enemy\Enemy.cpp">
-      <Filter>Game\GameObject\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp">
       <Filter>Game\CollsionManager</Filter>
@@ -738,26 +672,14 @@
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp">
       <Filter>Game\Component\Default\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Panel.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Default\Component.cpp">
       <Filter>Game\Component\Default</Filter>
     </ClCompile>
     <ClCompile Include="Game\ResourceManager\TextManager.cpp">
       <Filter>Game\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\GamePanel.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Common\Screen.cpp">
       <Filter>Game\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Object2D.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\TextObject.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp">
       <Filter>Game\Component\Default\Physics</Filter>
@@ -843,9 +765,6 @@
     <ClCompile Include="Game\Camera\GameCamera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Button.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Json\JsonDataManager.cpp">
       <Filter>Game\Json</Filter>
     </ClCompile>
@@ -867,14 +786,8 @@
     <ClCompile Include="Game\Component\Default\UI\SliderController.cpp">
       <Filter>Game\Component\Default\UI</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\Slider.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp">
       <Filter>Game\Component\Default\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UIObject\TitleLogo.cpp">
-      <Filter>Game\GameObject\UIObject</Filter>
     </ClCompile>
     <ClCompile Include="Game\EditGui\ObjectListGui.cpp">
       <Filter>Game\EditGui</Filter>
@@ -932,12 +845,6 @@
     </ClCompile>
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp">
       <Filter>Game\ScriptableObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\TitleScene\TitleScene.cpp">
-      <Filter>Game\Scene\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\GameScene\GameScene.cpp">
-      <Filter>Game\Scene\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="Game\Component\Camera\DebugCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
@@ -1002,6 +909,9 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Manager\TitleManager.cpp">
       <Filter>Game\Component\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Object2D.cpp">
+      <Filter>Game\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
