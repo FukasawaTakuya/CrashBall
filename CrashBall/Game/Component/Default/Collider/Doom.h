@@ -25,6 +25,7 @@ private:
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_radius, PropertyType::Float)
+		AddProperty(m_layerMaskType, PropertyType::Enum)
 	EndProperty()
 
 		// コンポーネント名の設定

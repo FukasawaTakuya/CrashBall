@@ -3,6 +3,7 @@
 
 #include "Game/Json/SimpleMath/JsonSimpleMathConverter.h"
 #include "Game/Common/Utility.h"
+#include "Library/magic_enum.hpp"
 
 using namespace DirectX;
 
@@ -10,7 +11,7 @@ using namespace DirectX;
 void to_json(ordered_json& j, const PropertyInfo& property)
 {
 	j["name"] = property.name;
-	j["type"] = property.propType;
+	j["type"] = magic_enum::enum_name<PropertyType>(property.propType);
 	switch (property.propType)
 	{
 	case PropertyType::Bool:
@@ -100,12 +101,12 @@ void to_json(ordered_json& j, const Component& component)
 // GameObjectから変換
 void to_json(ordered_json& j, const GameObject& gameObject)
 {
-	j["name"] = gameObject.GetName();
-	j["tag"] = gameObject.GetTag();
-	j["id"] = gameObject.GetID();
-	j["isActive"] = gameObject.GetIsActive();
+	j["name"]		= gameObject.GetName();
+	j["tag"]		= magic_enum::enum_name<ObjectTag>(gameObject.GetTag());
+	j["id"]			= gameObject.GetID();
+	j["isActive"]	= gameObject.GetIsActive();
 	j["components"] = nullptr;
-	j["children"] = nullptr;
+	j["children"]	= nullptr;
 
 	for (auto& comp : *gameObject.GetComponentsList())
 	{

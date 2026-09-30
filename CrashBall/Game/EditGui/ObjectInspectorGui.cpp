@@ -16,6 +16,10 @@
 
 #include "Game/Factory/ComponentFactory.h"
 #include "Game/IDGenerator/ComponentIDGenerator.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
+#include "Game/Component/Default/Renderer/SpriteRenderer.h"
+#include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Component/Default/Collider/Collider.h"
 
 using namespace DirectX;
 
@@ -44,6 +48,7 @@ ObjectInspectorGui::ObjectInspectorGui()
 	m_drawEnum.emplace(typeid(FillOrigin),			std::bind(&ObjectInspectorGui::DrawEnumList<FillOrigin>,	this, _1, _2));
 	m_drawEnum.emplace(typeid(DX11::SpriteEffects), std::bind(&ObjectInspectorGui::DrawEnumList<SpriteEffects>, this, _1, _2));
 	m_drawEnum.emplace(typeid(ObjectTag),			std::bind(&ObjectInspectorGui::DrawEnumList<ObjectTag>,		this, _1, _2));
+	m_drawEnum.emplace(typeid(LayerMaskType),		std::bind(&ObjectInspectorGui::DrawEnumList<LayerMaskType>,	this, _1, _2));
 }
 
 /**

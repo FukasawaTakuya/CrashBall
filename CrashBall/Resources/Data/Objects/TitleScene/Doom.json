@@ -47,6 +47,11 @@
                     "name": "radius",
                     "type": "Float",
                     "data": 80.0
+                },
+                {
+                    "name": "layerMaskType",
+                    "type": "Enum",
+                    "data": 1
                 }
             ]
         }

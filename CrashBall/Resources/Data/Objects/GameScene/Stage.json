@@ -47,6 +47,11 @@
                     "name": "meshData",
                     "type": "String",
                     "data": "Resources/Mesh/newStage.json"
+                },
+                {
+                    "name": "layerMaskType",
+                    "type": "Enum",
+                    "data": 3
                 }
             ]
         },

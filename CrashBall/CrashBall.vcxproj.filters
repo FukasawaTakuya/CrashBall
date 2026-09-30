@@ -104,12 +104,6 @@
     <Filter Include="Game\Json\Component">
       <UniqueIdentifier>{898c2dfe-9660-4e6b-b37d-5c0ee3b0d676}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Json\State">
-      <UniqueIdentifier>{9a6ef7c4-9f42-49d3-bc05-3d865ceb7688}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Json\Enum">
-      <UniqueIdentifier>{29c4a1e0-9059-4b04-99ce-a25734d9cb9d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Json\SimpleMath">
       <UniqueIdentifier>{0f59cf85-56de-47d0-b2d5-0c5c2cf50f81}</UniqueIdentifier>
     </Filter>
@@ -131,17 +125,11 @@
     <Filter Include="Game\Factory">
       <UniqueIdentifier>{3f636b08-ec38-4005-8ea5-6b4910680e6a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Json\Loader">
-      <UniqueIdentifier>{5527f766-425a-40da-8f4e-8f9d8e456820}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Scene\Interface">
       <UniqueIdentifier>{917be99d-95a6-4727-9811-67aaf7621b67}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\EditGui\Interface">
       <UniqueIdentifier>{df0cefae-f54b-479c-a2b7-d1b596f2defa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Json\Exporter">
-      <UniqueIdentifier>{75b2052b-a79e-413e-aafd-b6224ead08c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\IDGenerator">
       <UniqueIdentifier>{479b967a-5015-4864-ad13-4482461515e4}</UniqueIdentifier>
@@ -423,9 +411,6 @@
     <ClInclude Include="Game\Json\IJsonDataManager.h">
       <Filter>Game\Json</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\Enum\JsonEnumSerializers.h">
-      <Filter>Game\Json\Enum</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Json\SimpleMath\JsonSimpleMathConverter.h">
       <Filter>Game\Json\SimpleMath</Filter>
     </ClInclude>
@@ -434,9 +419,6 @@
     </ClInclude>
     <ClInclude Include="Game\Json\Component\JsonComponentSerializers.h">
       <Filter>Game\Json\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Json\State\JsonStateSerializers.h">
-      <Filter>Game\Json\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\Common\Utility.h">
       <Filter>Game\Common</Filter>
@@ -504,9 +486,6 @@
     <ClInclude Include="Game\Factory\ComponentFactory.h">
       <Filter>Game\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\Loader\ComponentLoarder.h">
-      <Filter>Game\Json\Loader</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ScriptableObject\ScriptableObjectManager.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
@@ -531,19 +510,9 @@
     <ClInclude Include="Game\EditGui\Interface\IEditModeChanger.h">
       <Filter>Game\EditGui\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\Exporter\SceneExporter.h">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Json\Exporter\GameObjectExporter.h">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Json\Exporter\ComponentExporter.h">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Factory\ComponentRegister.h">
       <Filter>Game\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Json\Loader\SceneLoader.h" />
     <ClInclude Include="Game\IDGenerator\GameObejctIDGenerator.h">
       <Filter>Game\IDGenerator</Filter>
     </ClInclude>
@@ -777,9 +746,6 @@
     <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp">
       <Filter>Game\Json\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\State\JsonStateSerializers.cpp">
-      <Filter>Game\Json\State</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\Default\UI\ButtonController.cpp">
       <Filter>Game\Component\Default\UI</Filter>
     </ClCompile>
@@ -840,9 +806,6 @@
     <ClCompile Include="ImGui\imgui_demo.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\Loader\ComponentLoarder.cpp">
-      <Filter>Game\Json\Loader</Filter>
-    </ClCompile>
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp">
       <Filter>Game\ScriptableObject</Filter>
     </ClCompile>
@@ -855,16 +818,6 @@
     <ClCompile Include="Game\Camera\DebugCamera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Json\Exporter\SceneExporter.cpp">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Json\Exporter\GameObjectExporter.cpp">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Json\Exporter\ComponentExporter.cpp">
-      <Filter>Game\Json\Exporter</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Json\Loader\SceneLoader.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp">
       <Filter>Game\Component\Default\UI</Filter>
     </ClCompile>

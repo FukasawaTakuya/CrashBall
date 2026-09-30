@@ -36,8 +36,6 @@
 #include "Game/RenderTexture/RenderTexture.h"
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
-#include "Game/Json/Exporter/SceneExporter.h"
-#include "Game/Json/Loader/SceneLoader.h"
 
 #include "DX/SkyboxEffect.h"
 

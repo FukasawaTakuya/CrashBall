@@ -23,7 +23,7 @@
                     "type": "Quaternion",
                     "data": {
                         "x": 0.6958561539649963,
-                        "y": 1.0195481777191162,
+                        "y": 1.0195482969284058,
                         "z": 0.5303503274917603
                     }
                 },
@@ -96,6 +96,11 @@
                     "name": "radius",
                     "type": "Float",
                     "data": 20.0
+                },
+                {
+                    "name": "layerMaskType",
+                    "type": "Enum",
+                    "data": 2
                 }
             ]
         },
@@ -152,12 +157,12 @@
                 },
                 {
                     "name": "pDoom",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 76
                 },
                 {
                     "name": "pStageController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 68
                 }
             ]

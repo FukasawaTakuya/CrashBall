@@ -59,7 +59,7 @@
                 },
                 {
                     "name": "targetTransform",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 0
                 }
             ]

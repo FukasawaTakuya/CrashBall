@@ -10,6 +10,8 @@
 #include "GameObjectFactory.h"
 #include "Game/IDGenerator/ComponentIDGenerator.h"
 
+#include "Library/magic_enum.hpp"
+
 #include <fstream>
 
 /**
@@ -54,7 +56,7 @@ std::unique_ptr<GameObject> GameObjectFactory::CreateObjectFromJson(
 	std::unique_ptr<GameObject> obj = std::make_unique<GameObject>();
 
 	obj->SetName(data["name"]);
-	obj->SetTag(data["tag"]);
+	obj->SetTag(magic_enum::enum_cast<ObjectTag>(data["tag"].get<std::string>()).value());
 	obj->SetID(data["id"]);
 	obj->SetIsActive(data["isActive"]);
 	obj->SetData(&data);

@@ -11,7 +11,7 @@
             "properties": [
                 {
                     "name": "changeSceneScreen",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 81
                 }
             ]

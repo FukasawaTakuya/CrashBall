@@ -30,6 +30,7 @@ private:
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_meshData, PropertyType::String)
+		AddProperty(m_layerMaskType, PropertyType::Enum)
 	EndProperty()
 
 	// コンポーネント名の設定

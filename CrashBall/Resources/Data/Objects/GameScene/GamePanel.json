@@ -64,7 +64,7 @@
                 },
                 {
                     "name": "pStageController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -86,12 +86,12 @@
                 },
                 {
                     "name": "pPlayerStatusController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 58
                 },
                 {
                     "name": "pStageController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -118,7 +118,7 @@
                 },
                 {
                     "name": "pEnemyController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 38
                 }
             ]

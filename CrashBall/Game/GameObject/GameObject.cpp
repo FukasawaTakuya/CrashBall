@@ -10,6 +10,7 @@
 
 #include "Game/Json/Component/JsonComponentSerializers.h"
 #include "Game/Json/Component/JsonComponentDeserializers.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 
 /**
  * \brief コンストラクタ
@@ -133,7 +134,7 @@ void GameObject::SaveData()
  */
 void GameObject::ReloadData()
 {
-	if (m_data != nullptr)
+	if (!m_data->empty())
 	{
 		m_data->get_to(*this);
 	}

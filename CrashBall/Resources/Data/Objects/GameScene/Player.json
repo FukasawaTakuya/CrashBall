@@ -47,6 +47,11 @@
                     "name": "radius",
                     "type": "Float",
                     "data": 20.0
+                },
+                {
+                    "name": "layerMaskType",
+                    "type": "Enum",
+                    "data": 2
                 }
             ]
         },
@@ -121,7 +126,7 @@
                 },
                 {
                     "name": "pFloorMeshGetter",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -153,17 +158,17 @@
                 },
                 {
                     "name": "pEnemyTransform",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 33
                 },
                 {
                     "name": "pCamera",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 74
                 },
                 {
                     "name": "pStageController",
-                    "type": "Componet",
+                    "type": "Component",
                     "data": 68
                 }
             ]

@@ -1,14 +1,20 @@
 ﻿#include "pch.h"
 #include "JsonComponentDeserializers.h"
+
 #include "Game/Json/SimpleMath/JsonSimpleMathConverter.h"
+
 #include "Game/Common/Utility.h"
+#include "Library/magic_enum.hpp"
 
 using namespace DirectX;
 
 // PropertyInfoへ変換
 void from_json(const ordered_json& j, PropertyInfo& property)
 {
-	switch (j["type"].get<PropertyType>())
+	PropertyType propType
+		= magic_enum::enum_cast<PropertyType>(j["type"].get<std::string>()).value();
+
+	switch (propType)
 	{
 	case PropertyType::Bool:
 		*static_cast<bool*>(property.data) = j["data"];
@@ -69,7 +75,8 @@ void from_json(const ordered_json& j, Component& component)
 
 	for (int i = 0; i < j["properties"].size(); i++)
 	{
-		PropertyType propType = j["properties"].at(i)["type"];
+		PropertyType propType 
+			= magic_enum::enum_cast<PropertyType>(j["properties"].at(i)["type"].get<std::string>()).value();
 		json propData = j["properties"].at(i)["data"];
 		
 		auto& prop = properties[i];
@@ -138,7 +145,7 @@ void from_json(const ordered_json& j, Component& component)
 void from_json(const ordered_json& j, GameObject& gameObject)
 {
 	gameObject.SetName(j["name"]);
-	gameObject.SetTag(j["tag"]);
+	gameObject.SetTag(magic_enum::enum_cast<ObjectTag>(j["tag"].get<std::string>()).value());
 	gameObject.SetID(j["id"]);
 	gameObject.SetIsActive(j["isActive"]);
 
