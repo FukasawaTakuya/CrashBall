@@ -22,8 +22,18 @@
 
 #include "Game/GameObject/GameObject.h"
 
-namespace Collision {
+// 衝突情報
+struct CollisionInfo
+{
+	bool isCollsion = false;
+	float overlap = 0.0f;
+	DirectX::SimpleMath::Vector3 direction;
+	Collider* col1 = nullptr;
+	Collider* col2 = nullptr;
+};
 
+namespace Geometory
+{
 	// 線分と平面の衝突判定
 	bool IsCollision(Segment* segment, Plane* plane);
 
@@ -35,34 +45,27 @@ namespace Collision {
 
 	// 線分と球の衝突判定
 	bool IsCollision(Segment* segment, Sphere* sphere);
+}
+
+namespace Collision {
 
 	// 球と球の衝突判定
-	bool IsCollision(Sphere* sphere1, Sphere* sphere2);
+	CollisionInfo IsCollision(Sphere* sphere1, Sphere* sphere2);
 
 	// 球と平面の衝突判定
-	bool IsCollision(Sphere* sphere, Plane* plane);
+	CollisionInfo IsCollision(Sphere* sphere, Plane* plane);
 
 	// 球と三角形の衝突判定
-	bool IsCollision(Sphere* sphere, Triangle* triangle);
+	CollisionInfo IsCollision(Sphere* sphere, Triangle* triangle);
 
 	// 球とメッシュの衝突判定
-	bool IsCollision(Sphere* sphere, Mesh* mesh);
+	CollisionInfo IsCollision(Sphere* sphere, Mesh* mesh);
 
 	// 球とドームの衝突判定
-	bool IsCollision(Sphere* sphere, Doom* doom);
+	CollisionInfo IsCollision(Sphere* sphere, Doom* doom);
 
-
-	// 球と平面の衝突解決
-	void ResolveCollision(Sphere* sphere, Plane* plan);
-
-	// 球とメッシュの衝突解決
-	void ResolveCollision(Sphere* sphere, Mesh* mesh);
-
-	// 球と球の衝突解決
-	void ResolveCollision(Sphere* sphere1, Sphere* sphere2);
-
-	// 球とドームの衝突解決
-	void ResolveCollision(Sphere* sphere, Doom* doom);
+	// 衝突解決
+	void ResolveCollision(CollisionInfo collisionInfo);
 }
 
 

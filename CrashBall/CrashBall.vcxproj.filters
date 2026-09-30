@@ -198,9 +198,6 @@
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h">
       <Filter>Game\CollsionManager</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CollisionManager\ResolveCollisionTable.h">
-      <Filter>Game\CollsionManager</Filter>
-    </ClInclude>
     <ClInclude Include="Game\State\Enemy\EnemyWanderState.h">
       <Filter>Game\State\EnemyState</Filter>
     </ClInclude>
@@ -342,9 +339,6 @@
     <ClInclude Include="Game\Component\Camera\GameCameraController.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Camera\ICamera.h">
-      <Filter>Game\Component\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Component\Camera\TargetCameraController.h">
       <Filter>Game\Component\Camera</Filter>
     </ClInclude>
@@ -362,9 +356,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\Object3D.h">
       <Filter>Game\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera\TitleCamera.h">
-      <Filter>Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\Component\Camera\TitleCameraController.h">
       <Filter>Game\Component\Camera</Filter>
@@ -401,9 +392,6 @@
     </ClInclude>
     <ClInclude Include="Game\SoundPlayer\ISoundPlayer.h">
       <Filter>Game\SoundPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Camera\GameCamera.h">
-      <Filter>Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Game\Json\JsonDataManager.h">
       <Filter>Game\Json</Filter>
@@ -608,9 +596,6 @@
     <ClCompile Include="Game\State\Player\PlayerMoveState.cpp">
       <Filter>Game\State\PlayerState</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CollisionManager\ResolveCollisionTable.cpp">
-      <Filter>Game\CollsionManager</Filter>
-    </ClCompile>
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp">
       <Filter>Game\State\EnemyState</Filter>
     </ClCompile>
@@ -727,12 +712,6 @@
     </ClCompile>
     <ClCompile Include="Game\Component\Camera\TitleCameraController.cpp">
       <Filter>Game\Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Camera\TitleCamera.cpp">
-      <Filter>Game\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Camera\GameCamera.cpp">
-      <Filter>Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="Game\Json\JsonDataManager.cpp">
       <Filter>Game\Json</Filter>

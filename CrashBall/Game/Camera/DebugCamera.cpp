@@ -18,7 +18,7 @@ DebugCamera::DebugCamera()
 {
 	AddComponent<Transform>();
 	AddComponent<Camera>();
-	m_cameraController = AddComponent<DebugCameraController>();
+	AddComponent<DebugCameraController>();
 }
 
 /**
@@ -26,41 +26,5 @@ DebugCamera::DebugCamera()
  * 
  */
 DebugCamera::~DebugCamera()
-{
-}
-
-/**
- * \brief 初期化
- * 
- */
-void DebugCamera::Start(const GameContext& gameContext)
-{
-	m_cameraController->Start(gameContext);
-}
-
-/**
- * \brief 更新
- * 
- * \param gameContext
- */
-void DebugCamera::Update(const GameContext& gameContext)
-{
-	GameObject::Update(gameContext);
-}
-
-/**
- * \brief 描画
- * 
- * \param renderContext 描画用のコンテキスト
- */
-void DebugCamera::Render(const RenderContext& renderContext)
-{
-}
-
-/**
- * \brief 終了処理
- * 
- */
-void DebugCamera::Finalize()
 {
 }

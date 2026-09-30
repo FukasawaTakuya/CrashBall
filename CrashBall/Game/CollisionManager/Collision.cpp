@@ -11,27 +11,6 @@
 
 using namespace DirectX;
 
-/**
- * \brief 球と平面の衝突判定
- *
- * \param sphere 球
- * \param plane 平面
- * \return ture 衝突
- */
-bool Collision::IsCollision(Sphere* sphere, Plane* plane)
-{
-	// 球の座標
-	SimpleMath::Vector3 spherePos =
-		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
-
-	// 球と平面の距離を求める
-	float distance = plane->CalcLength(spherePos);
-
-	// 距離が球の半径より小さければture
-	bool r = (distance <= sphere->GetRadius());
-
-	return r;
-}
 
 /**
  * \brief 線分と平面の衝突判定
@@ -40,17 +19,20 @@ bool Collision::IsCollision(Sphere* sphere, Plane* plane)
  * \param plane 平面
  * \return ture 衝突
  */
-bool Collision::IsCollision(Segment* segment, Plane* plane)
+bool Geometory::IsCollision(Segment* segment, Plane* plane)
 {
 	SimpleMath::Vector3 point = plane->GetPoint();
 	SimpleMath::Vector3 normal = plane->GetNormal();
 
 	// 線分と平面が平行ならfalse
 	if (segment->GetVec().Dot(normal) == 0.0f)
+	{
 		return false;
+	}
 
 	SimpleMath::Vector3 v1 = segment->GetPos() - point;
 	SimpleMath::Vector3 v2 = (segment->GetPos() + segment->GetVec()) - point;
+	// 線分が平面を貫通しているか
 	return v1.Dot(normal) * v2.Dot(normal) < 0.0f;
 }
 
@@ -61,7 +43,7 @@ bool Collision::IsCollision(Segment* segment, Plane* plane)
  * \param triangle 三角形
  * \return ture 衝突
  */
-bool Collision::IsCollision(Segment* segment, Triangle* triangle)
+bool Geometory::IsCollision(Segment* segment, Triangle* triangle)
 {
 	// 線分と平面が衝突してないならfalse
 	if (!IsCollision(segment, triangle->GetPlane()))
@@ -77,19 +59,26 @@ bool Collision::IsCollision(Segment* segment, Triangle* triangle)
 	return IsPointInTriangle(point, triangle);
 }
 
-bool Collision::IsCollision(Segment* segment, Mesh* mesh)
+/**
+ * \brief 線分とメッシュの当たり判定
+ * 
+ * \param segment 線分
+ * \param mesh メッシュ
+ * \return 衝突
+ */
+bool Geometory::IsCollision(Segment* segment, Mesh* mesh)
 {
 	// 衝突している面をクリア
 	mesh->ClearCollideFace();
 
 	// メッシュの各面と線分の衝突判定
 	for (auto& face : mesh->GetFace()) {
-		if (Collision::IsCollision(segment, face.get())) {
+		if (Geometory::IsCollision(segment, face.get())) {
 			mesh->SetCollideFace(face.get());
 		}
 	}
 	// 衝突している面があるならtrue
-	return !mesh->GetCollideFace().size();
+	return !mesh->GetCollideFace().empty();
 }
 
 /**
@@ -99,10 +88,10 @@ bool Collision::IsCollision(Segment* segment, Mesh* mesh)
  * \param sphere	球
  * \return ture 衝突
  */
-bool Collision::IsCollision(Segment* segment, Sphere* sphere)
+bool Geometory::IsCollision(Segment* segment, Sphere* sphere)
 {
 	SimpleMath::Vector3 spherePos =
-		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+	sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
 
 	// 線分の始点と球の中心の距離
 	float xa = segment->GetPos().x - spherePos.x;
@@ -123,7 +112,10 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	float d = (b * b) - 4 * a * c;
 
 	// 判別式が負なら衝突していない
-	if (d < 0.0f) return false;
+	if (d < 0.0f)
+	{
+		return false;
+	}
 
 	// 判別式の平方根
 	d = std::sqrt(d);
@@ -139,7 +131,10 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
 	{
 		return true;
 	}
-	else return false;
+	else
+	{
+		return false;
+	}
 }
 
 /**
@@ -149,8 +144,10 @@ bool Collision::IsCollision(Segment* segment, Sphere* sphere)
  * \param sphere2
  * \return ture 衝突
  */
-bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
+CollisionInfo Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 {
+	CollisionInfo collsionInfo;
+
 	Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
 	Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
 
@@ -162,7 +159,68 @@ bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
 
 	// 座標の差の長さが半径の和以下ならtrue
-	return (delta.Length() <= radiusSum);
+	collsionInfo.isCollsion = (delta.Length() <= radiusSum);
+
+	// 衝突している場合
+	if (collsionInfo.isCollsion)
+	{
+		// 各コンポーネントの取得
+		Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
+		Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
+		Rigidbody* rigidbody1 = sphere1->GetGameObject()->GetComponent<Rigidbody>();
+		Rigidbody* rigidbody2 = sphere2->GetGameObject()->GetComponent<Rigidbody>();
+
+		// 座標の差
+		SimpleMath::Vector3 delta = transform1->GetWorldPosition() - transform2->GetWorldPosition();
+		// 球から球への方向
+		SimpleMath::Vector3 direction = XMVector3Normalize(delta);
+
+		// 半径の和
+		float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
+
+		collsionInfo.direction = direction;
+		collsionInfo.overlap = radiusSum - delta.Length();
+
+		collsionInfo.col1 = sphere1;
+		collsionInfo.col2 = sphere2;
+	}
+
+	return collsionInfo;
+}
+
+/**
+ * \brief 球と平面の衝突判定
+ *
+ * \param sphere 球
+ * \param plane 平面
+ * \return ture 衝突
+ */
+CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
+{
+	CollisionInfo collsionInfo;
+	// 球の座標
+	SimpleMath::Vector3 spherePos =
+		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
+
+	// 球と平面の距離を求める
+	float distance = plane->CalcLength(spherePos);
+
+	// 距離が球の半径より小さければture
+	collsionInfo.isCollsion = (distance <= sphere->GetRadius());
+
+	// 衝突している場合
+	if (collsionInfo.isCollsion)
+	{
+		Transform* transform = sphere->GetGameObject()->GetComponent<Transform>();
+
+		// 球と平面の距離を求める
+		float distance = plane->CalcLength(transform->GetWorldPosition());
+
+		collsionInfo.direction = plane->GetNormal();
+		collsionInfo.overlap = sphere->GetRadius() - distance;
+	}
+
+	return collsionInfo;
 }
 
 
@@ -173,10 +231,15 @@ bool Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
  * \param triangle
  * \return ture 衝突
  */
-bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
+CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 {
-	// 球と三角形を含む平面との衝突判定
-	if (!IsCollision(sphere, triangle->GetPlane())) return false;
+	CollisionInfo collsionInfo;
+		// 球と三角形を含む平面との衝突判定
+	if (!IsCollision(sphere, triangle->GetPlane()).isCollsion)
+	{
+		collsionInfo.isCollsion = false;
+		return collsionInfo;
+	}
 
 	// 三角形の各頂点
 	SimpleMath::Vector3* pos = triangle->GetPoint();
@@ -208,9 +271,16 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	// 線分の設定
 	segment.SetSegment(spherePos,
 		-triangle->GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
-
 	// 線分と三角形の衝突判定
-	return IsCollision(&segment, triangle);
+	collsionInfo.isCollsion = Geometory::IsCollision(&segment, triangle);
+
+	// 衝突している場合
+	if (collsionInfo.isCollsion)
+	{
+		collsionInfo = Collision::IsCollision(sphere, triangle->GetPlane());
+	}
+
+	return collsionInfo;
 }
 
 /**
@@ -220,126 +290,137 @@ bool Collision::IsCollision(Sphere* sphere, Triangle* triangle)
  * \param mesh メッシュ
  * \return ture 衝突
  */
-bool Collision::IsCollision(Sphere* sphere, Mesh* mesh)
+CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 {
-	// 衝突している面をクリア
-	mesh->ClearCollideFace();
+	CollisionInfo collsionInfo;
+		// 衝突している面をクリア
+		mesh->ClearCollideFace();
 
 	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {
-		if (Collision::IsCollision(sphere, face.get())) {
+		collsionInfo = Collision::IsCollision(sphere, face.get());
+		if (collsionInfo.isCollsion) {
 			mesh->SetCollideFace(face.get());
 		}
 	}
 	// 衝突している面があるならtrue
-	return !mesh->GetCollideFace().empty();
+	collsionInfo.isCollsion = !mesh->GetCollideFace().empty();
+
+	// 衝突している場合
+	if (collsionInfo.isCollsion)
+	{
+		// 衝突情報を得るために衝突面ともう一度判定
+		collsionInfo = Collision::IsCollision(sphere, mesh->GetCollideFace()[0]);
+
+		collsionInfo.col1 = sphere;
+		collsionInfo.col2 = mesh;
+	}
+
+	return collsionInfo;
 }
 
-bool Collision::IsCollision(Sphere* sphere, Doom* doom)
+/**
+ * \brief 球とドームの衝突判定
+ * 
+ * \param sphere 球
+ * \param doom ドーム
+ * \return 
+ */
+CollisionInfo Collision::IsCollision(Sphere* sphere, Doom* doom)
 {
+	CollisionInfo collsionInfo;
 	SimpleMath::Vector3 delta =
 		(sphere->GetTransform()->GetWorldPosition() - doom->GetTransform()->GetWorldPosition());
 
-	return (delta.Length() > doom->GetRadius() - sphere->GetRadius()&&
-			delta.Length() < doom->GetRadius() + sphere->GetRadius());
-}
+	collsionInfo.isCollsion = (delta.Length() > doom->GetRadius() - sphere->GetRadius()&&
+							   delta.Length() < doom->GetRadius() + sphere->GetRadius());
 
-
-/**
- * \brief 球と平面の衝突の解決
- *
- * \param sphere 球
- * \param plane 平面
- */
-void Collision::ResolveCollision(Sphere* sphere, Plane* plane)
-{
-	Transform* transform = sphere->GetGameObject()->GetComponent<Transform>();
-	Rigidbody* rigidbody = sphere->GetGameObject()->GetComponent<Rigidbody>();
-
-	// 球と平面の距離を求める
-	float distance = plane->CalcLength(transform->GetWorldPosition());
-
-	// 補正距離を求める
-	float overlap = sphere->GetRadius() - distance;
-
-	// 補正方向
-	DirectX::SimpleMath::Vector3 direction = plane->GetNormal();
-	// 位置の補正
-	transform->Translate(direction * overlap);
-
-	// 法線ベクトル
-	SimpleMath::Vector3 vn = rigidbody->GetVelocity().Dot(direction) * direction;
-	// 接線ベクトル
-	SimpleMath::Vector3 vt = rigidbody->GetVelocity() - vn;
-	// 速度の補正
-	rigidbody->SetVelocity(vt);
-}
-
-/**
- * \brief 球とメッシュの衝突解決
- *
- * \param sphere 球
- * \param mesh メッシュ
- */
-void Collision::ResolveCollision(Sphere* sphere, Mesh* mesh)
-{
-	for (auto hitFace : mesh->GetCollideFace())
+	if (collsionInfo.isCollsion)
 	{
-		Collision::ResolveCollision(sphere, hitFace->GetPlane());
+		SimpleMath::Vector3 delta =
+			(doom->GetTransform()->GetWorldPosition() - sphere->GetTransform()->GetWorldPosition());
+
+		// 許容距離
+		float limitDistance = doom->GetRadius() - sphere->GetRadius();
+
+		// 補正距離
+		collsionInfo.overlap = delta.Length() - limitDistance;
+
+		// 補正方向
+		collsionInfo.direction = XMVector3Normalize(delta);
+
+		collsionInfo.col1 = sphere;
+		collsionInfo.col2 = doom;
 	}
+
+	return collsionInfo;
 }
 
+
 /**
- * \brief 球と球の衝突解決.
- *
- * \param sphere1 球１
- * \param sphere2 球２
+ * \brief 衝突解決
+ * 
+ * \param collisionInfo 衝突情報
  */
-void Collision::ResolveCollision(Sphere* sphere1, Sphere* sphere2)
+void Collision::ResolveCollision(CollisionInfo collisionInfo)
 {
 	// 各コンポーネントの取得
-	Transform* transform1 = sphere1->GetGameObject()->GetComponent<Transform>();
-	Transform* transform2 = sphere2->GetGameObject()->GetComponent<Transform>();
-	Rigidbody* rigidbody1 = sphere1->GetGameObject()->GetComponent<Rigidbody>();
-	Rigidbody* rigidbody2 = sphere2->GetGameObject()->GetComponent<Rigidbody>();
+	Transform* transform1 = collisionInfo.col1->GetGameObject()->GetComponent<Transform>();
+	Transform* transform2 = collisionInfo.col2->GetGameObject()->GetComponent<Transform>();
+	Rigidbody* rigidbody1 = collisionInfo.col1->GetGameObject()->GetComponent<Rigidbody>();
+	Rigidbody* rigidbody2 = collisionInfo.col2->GetGameObject()->GetComponent<Rigidbody>();
 
-	// 座標の差
-	SimpleMath::Vector3 delta = transform1->GetWorldPosition() - transform2->GetWorldPosition();
-	// 球から球への方向
-	SimpleMath::Vector3 direction = XMVector3Normalize(delta);
+	float isDynamic1;
+	float isDynamic2;
+	if (rigidbody1 != nullptr)
+	{
+		isDynamic1 = rigidbody1->GetIsDynamic() ? 1.0f : 0.0f;
+	}
+	else
+	{
+		isDynamic1 = 0.0f;
+	}
+	if (rigidbody2 != nullptr)
+	{
+		isDynamic2 = rigidbody2->GetIsDynamic() ? 1.0f : 0.0f;
+	}
+	else
+	{
+		isDynamic2 = 0.0f;
+	}
 
-	// 半径の和
-	float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
+	float dynamicSum = isDynamic1 + isDynamic2;
+
+	SimpleMath::Vector3 direction = collisionInfo.direction;
+	float overlap = collisionInfo.overlap;
 
 	// 座標の補正
-	transform1->Translate(direction * (radiusSum - delta.Length()) / 2.0f);
-	transform2->Translate(-direction * (radiusSum - delta.Length()) / 2.0f);
+	transform1->Translate( direction * overlap * isDynamic1 / dynamicSum);
+	transform2->Translate(-direction * overlap * isDynamic2 / dynamicSum);
 
 	// 速度の補正
-	SimpleMath::Vector3 vn1 = rigidbody1->GetVelocity().Dot(direction) * direction;
-	SimpleMath::Vector3 vn2 = rigidbody2->GetVelocity().Dot(direction) * direction;
-	SimpleMath::Vector3 vt1 = rigidbody1->GetVelocity() - vn1;
-	SimpleMath::Vector3 vt2 = rigidbody2->GetVelocity() - vn2;
-	rigidbody1->SetVelocity(vn2 + vt1);
-	rigidbody2->SetVelocity(vn1 + vt2);
-}
-
-void Collision::ResolveCollision(Sphere* sphere, Doom* doom)
-{
-	SimpleMath::Vector3 delta =
-		(doom->GetTransform()->GetWorldPosition() - sphere->GetTransform()->GetWorldPosition());
-
-	float limitDistance = doom->GetRadius() - sphere->GetRadius();
-
-	float overlap = delta.Length() - limitDistance;
-
-	SimpleMath::Vector3 direction = XMVector3Normalize(delta);
-	sphere->GetTransform()->Translate(direction * overlap);
-
-	Rigidbody* rigidbody = sphere->GetGameObject()->GetComponent<Rigidbody>();
-	direction *= -1;
-	SimpleMath::Vector3 vn = rigidbody->GetVelocity().Dot(direction) * direction;
-	rigidbody->AddVelocity(-vn);
+	SimpleMath::Vector3 vn1;
+	SimpleMath::Vector3 vn2;
+	SimpleMath::Vector3 vt1;
+	SimpleMath::Vector3 vt2;
+	if (rigidbody1 != nullptr)
+	{
+		vn1 = rigidbody1->GetVelocity().Dot(direction) * direction;
+		vt1 = rigidbody1->GetVelocity() - vn1;
+	}
+	if (rigidbody2 != nullptr)
+	{
+		vn2 = rigidbody2->GetVelocity().Dot(direction) * direction;
+		vt2 = rigidbody2->GetVelocity() - vn2;
+	}
+	if (rigidbody1)
+	{
+		rigidbody1->SetVelocity(vn2 + vt1);
+	}
+	if (rigidbody2)
+	{
+		rigidbody2->SetVelocity(vn1 + vt2);
+	}
 }
 
 /**

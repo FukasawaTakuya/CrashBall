@@ -83,6 +83,9 @@ public:
 	// 速度の取得
 	DirectX::SimpleMath::Vector3 GetVelocity() const { return m_velocity; }
 
+	// 動的フラグの取得
+	bool GetIsDynamic() const { return m_isDynamic; }
+
 	// 速度の設定
 	void SetVelocity(DirectX::SimpleMath::Vector3 velo) { m_velocity = velo; }
 

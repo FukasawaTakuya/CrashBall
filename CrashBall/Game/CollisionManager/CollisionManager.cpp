@@ -16,7 +16,6 @@
  */
 CollisionManager::CollisionManager()
 	: m_isCollsionTable			{ std::make_unique<IsCollisionTable>() }
-	, m_resolveCollisionTable	{ std::make_unique<ResolveCollisionTable>() }
 {
 }
 
@@ -53,8 +52,12 @@ void CollisionManager::Update()
 
 			if (layer & mask)
 			{
-				if (m_isCollsionTable->IsCollision(col1, col2))
+				CollisionInfo collsionInfo = m_isCollsionTable->IsCollision(col1, col2);
+				if (collsionInfo.isCollsion)
 				{
+					// 衝突解決
+					Collision::ResolveCollision(collsionInfo);
+
 					// 対象と衝突状態でなければEnter処理
 					if (!col1->IsCollideObject(col2))
 					{
@@ -69,9 +72,6 @@ void CollisionManager::Update()
 					// 衝突中の処理
 					col1->OnCollisionStay(col2);
 					col2->OnCollisionStay(col1);
-
-					// 衝突解決
-					m_resolveCollisionTable->ResolveCollision(col1, col2);
 				}
 				else 
 				{

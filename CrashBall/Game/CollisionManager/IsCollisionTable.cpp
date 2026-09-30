@@ -38,9 +38,17 @@ IsCollisionTable::IsCollisionTable()
 		[ToInt(ColliderType::Doom)]
 		= std::bind(&IsCollisionTable::SphereVSDoom, this, _1, _2);
 
-	//m_isCollisionTable[ToInt(ColliderType::Mesh)]
-	//	[ToInt(ColliderType::Mesh)]
-	//	= MeshVsMesh;
+	m_isCollisionTable[ToInt(ColliderType::Mesh)]
+		[ToInt(ColliderType::Doom)]
+		= std::bind(&IsCollisionTable::MeshVSDoom, this, _1, _2);
+
+	m_isCollisionTable[ToInt(ColliderType::Doom)]
+		[ToInt(ColliderType::Mesh)]
+		= std::bind(&IsCollisionTable::MeshVSDoom, this, _1, _2);
+
+	m_isCollisionTable[ToInt(ColliderType::Mesh)]
+		[ToInt(ColliderType::Mesh)]
+		= std::bind(&IsCollisionTable::MeshVsMesh, this, _1, _2);;
 }
 
 /**
@@ -58,7 +66,7 @@ IsCollisionTable::~IsCollisionTable()
  * \param col2 コライダー2
  * \return 衝突しているかどうか
  */
-bool IsCollisionTable::IsCollision(Collider* col1, Collider* col2)
+CollisionInfo IsCollisionTable::IsCollision(Collider* col1, Collider* col2)
 {
 	// コライダーのタイプが大きい方をcol2にする
 	if(col1->GetType() > col2->GetType())
@@ -67,7 +75,7 @@ bool IsCollisionTable::IsCollision(Collider* col1, Collider* col2)
 	// 関数テーブルに登録されていない組み合わせならリターン
 	if (m_isCollisionTable[ToInt(col1->GetType())][ToInt(col2->GetType())] == nullptr)
 	{
-		return false;
+		return CollisionInfo{};
 	}
 
 	// 関数テーブルから関数を呼び出す
@@ -79,9 +87,9 @@ bool IsCollisionTable::IsCollision(Collider* col1, Collider* col2)
  * 
  * \param col1 コライダー1
  * \param col2 コライダー2
- * \return 衝突しているかどうか
+ * \return 衝突情報
  */
-bool IsCollisionTable::SphereVsSphere(Collider* col1, Collider* col2)
+CollisionInfo IsCollisionTable::SphereVsSphere(Collider* col1, Collider* col2)
 {
 	// 球のコライダーにキャスト
 	Sphere* sphere1 = static_cast<Sphere*>(col1);
@@ -95,9 +103,9 @@ bool IsCollisionTable::SphereVsSphere(Collider* col1, Collider* col2)
  * 
  * \param col1 コライダー1
  * \param col2 コライダー2
- * \return 衝突しているかどうか
+ * \return 衝突情報
  */
-bool IsCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)
+CollisionInfo IsCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)
 {
 	// 球のコライダーにキャスト
 	Sphere* sphere = static_cast<Sphere*>(col1);
@@ -107,16 +115,42 @@ bool IsCollisionTable::SphereVsMesh(Collider* col1, Collider* col2)
 	return Collision::IsCollision(sphere, mesh);
 }
 
-bool IsCollisionTable::MeshVsMesh(Collider* col1, Collider* col2)
+/**
+ * \brief メッシュ対メッシュの衝突判定
+ *
+ * \param col1 コライダー1
+ * \param col2 コライダー2
+ * \return 衝突情報
+ */
+CollisionInfo IsCollisionTable::MeshVsMesh(Collider* col1, Collider* col2)
 {
 	// 実装なし
-	return false;
+	return CollisionInfo{};
 }
 
-bool IsCollisionTable::SphereVSDoom(Collider* col1, Collider* col2)
+/**
+ * \brief 球対ドームの衝突判定
+ *
+ * \param col1 コライダー1
+ * \param col2 コライダー2
+ * \return 衝突情報
+ */
+CollisionInfo IsCollisionTable::SphereVSDoom(Collider* col1, Collider* col2)
 {
 	Sphere* sphere = static_cast<Sphere*>(col1);
 	Doom* doom = static_cast<Doom*>(col2);
 
 	return Collision::IsCollision(sphere, doom);
+}
+
+/**
+ * \brief メッシュ対ドームの衝突判定
+ *
+ * \param col1 コライダー1
+ * \param col2 コライダー2
+ * \return 衝突情報
+ */
+CollisionInfo IsCollisionTable::MeshVSDoom(Collider* col1, Collider* col2)
+{
+	return CollisionInfo();
 }

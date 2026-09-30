@@ -18,11 +18,8 @@
 class  DebugCamera : public GameObject
 {
 
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
-
-	// カメラ操作コンポーネントのキャッシュ
-	DebugCameraController* m_cameraController = nullptr;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -36,19 +33,6 @@ public:
 
 	// 操作
 public:
-
-	// 初期化
-	void Start(const GameContext& gameContext) override;
-
-	// 更新
-	void Update(const GameContext& gameContext) override;
-
-	// 描画
-	void Render(const RenderContext& renderContext) override;
-
-	// 終了処理
-	void Finalize() override;
-
 
 	// 取得/設定
 public:

@@ -16,7 +16,7 @@
  */
 class  IsCollisionTable {
 
-	using IsCollisionFunc = std::function<bool(Collider*, Collider*)>;
+	using IsCollisionFunc = std::function<CollisionInfo(Collider*, Collider*)>;
 
 	// クラス定数の宣言 -------------------------------------------------
 public:
@@ -43,7 +43,7 @@ public:
 public:
 
 	// 衝突判定
-	bool IsCollision(Collider* col1, Collider* col2);
+	CollisionInfo IsCollision(Collider* col1, Collider* col2);
 
 	// 内部実装
 private:
@@ -52,15 +52,18 @@ private:
 	int ToInt(ColliderType type) { return static_cast<int>(type); }
 
 	// 球対球
-	bool SphereVsSphere(Collider* col1, Collider* col2);
+	CollisionInfo SphereVsSphere(Collider* col1, Collider* col2);
 
 	// 球対メッシュ
-	bool SphereVsMesh(Collider* col1, Collider* col2);
+	CollisionInfo SphereVsMesh(Collider* col1, Collider* col2);
 
 	// メッシュ対メッシュ
-	bool MeshVsMesh(Collider* col1, Collider* col2);
+	CollisionInfo MeshVsMesh(Collider* col1, Collider* col2);
 
 	// 球対ドーム
-	bool SphereVSDoom(Collider* col1, Collider* col2);
+	CollisionInfo SphereVSDoom(Collider* col1, Collider* col2);
+
+	// メッシュ対ドーム
+	CollisionInfo MeshVSDoom(Collider* col1, Collider* col2);
 };
 

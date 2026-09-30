@@ -28,6 +28,16 @@ DebugCameraController::DebugCameraController(IGameObject* gameObject)
 	m_transform = GetGameObject()->GetComponent<Transform>();
 }
 
+/**
+ * \brief 開始処理
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void DebugCameraController::Start(const GameContext& gameContext)
+{
+	m_transform->SetWorldPosition({ 0.0f, 20.0f, 20.0f });
+	m_camera->LookAt(SimpleMath::Vector3::Zero);
+}
 
 /**
  * \brief 更新

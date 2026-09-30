@@ -43,6 +43,9 @@ public:
 	// 操作
 public:
 
+	// 開始処理
+	void Start(const GameContext& gameContext) override;
+
 	// 更新
 	void Update(const GameContext& gameContext) override;
 

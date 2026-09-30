@@ -9,7 +9,6 @@
 #pragma once
 
 #include "Game/Component/Default/Component.h"
-#include "Game/Component/Camera/ICamera.h"
 #include "TargetCameraController.h"
 
 

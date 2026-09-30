@@ -10,7 +10,6 @@
 
 #include "Game/GameObject/GameObject.h"
 #include "IsCollisionTable.h"
-#include "ResolveCollisionTable.h"
 
 
  /**
@@ -18,17 +17,12 @@
  */
 class  CollisionManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	std::vector<Collider*> m_colliders;								// コライダー
 
 	std::unique_ptr<IsCollisionTable> m_isCollsionTable;			// 衝突検知関数テーブル
-
-	std::unique_ptr<ResolveCollisionTable> m_resolveCollisionTable;	// 衝突解決関数テーブル
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -48,6 +42,7 @@ public:
 	// 取得/設定
 public:
 
+	// コライダーの登録
 	void RegistCollider(Collider* collider)
 	{
 		m_colliders.push_back(collider);
