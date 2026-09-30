@@ -23,6 +23,9 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 	: PlayerStateBase(stateContext)
 	, m_timer{ 0.0f }
 {
+	// 初期化
+	m_hitStopTimer.Initialize([](float start, float end, float t) { return std::lerp(start, end, t); });
+
 	// 衝突した瞬間の処理
 	m_stateContext.playerController->GetGameObject()->GetComponent<Sphere>()->SetOnCollisionEnterCmd([this](Collider* other)
 		{
@@ -30,15 +33,30 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 			if (other->GetGameObject()->GetTag() == ObjectTag::Enemy &&
 				m_pStateMachine->GetCurrentStateType() == typeid(PlayerAttackState))
 			{
+				EnemyController* enemyController = other->GetGameObject()->GetComponent<EnemyController>();
 				// ダメージ処理
-				other->GetGameObject()->GetComponent<EnemyController>()
-					->Damage(m_stateContext.playerStatusController->GetAttackPower());
-				// 移動ステートに遷移
-				m_pStateMachine->ChangeState<PlayerMoveState>();
+				enemyController->Damage(m_stateContext.playerStatusController->GetAttackPower());
 				// 攻撃フラグを設定
 				m_stateContext.playerStatusController->SetIsAttack(false);
-
+				// 効果音
 				m_stateContext.gameContext->soundManager->RegisterPlaySeCommand("Crash");
+
+				// 敵の体力が残っているならヒットストップ
+				if (enemyController->GetHp() > 0)
+				{
+					// タイマーをセット
+					m_hitStopTimer.Set(Ease::Linear, 0.0f, 0.05f, 0.05f);
+					Time::SetTimeScale(0.0f);
+				}
+				else
+				{
+					// ステート遷移
+					m_pStateMachine->ChangeState<PlayerMoveState>();
+					// 移動速度を0にする
+					m_stateContext.rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
+					// 攻撃フラグを設定
+					m_stateContext.playerStatusController->SetIsAttack(false);
+				}
 			}
 		});
 }
@@ -68,7 +86,7 @@ void PlayerAttackState::OnEnter()
 void PlayerAttackState::Update(const GameContext& gameContext)
 {
 	// 物理演算
-	Rigidbody* rigidbody = m_stateContext.rigitbody;
+	Rigidbody* rigidbody = m_stateContext.rigidbody;
 	// トランスフォーム
 	Transform* transform = m_stateContext.transform;
 	// プレイヤー操作
@@ -83,16 +101,20 @@ void PlayerAttackState::Update(const GameContext& gameContext)
 	rigidbody->SetVelocity(attackDirection * playerController->GetAttackSpeed());
 
 	// タイマーの更新
-	m_timer += Time::GetElapsedTime();
+	m_timer += Time::GetUnscaleElapsedTime();
+
+	m_hitStopTimer.DoEase(Time::GetUnscaleElapsedTime());
 
 	// 攻撃の持続時間を超えた場合、移動ステートに遷移
-	if (m_timer >= playerController->GetAttackDuration()) {
+	if (m_timer >= playerController->GetAttackDuration() && !m_hitStopTimer.IsEase()) {
 		// ステート遷移
 		m_pStateMachine->ChangeState<PlayerMoveState>();
 		// 移動速度を0にする
 		rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 		// 攻撃フラグを設定
 		m_stateContext.playerStatusController->SetIsAttack(false);
+
+		Time::SetTimeScale(1.0f);
 	}
 }
 

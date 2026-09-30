@@ -12,7 +12,7 @@
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": "AttackIcon"
+                    "data": "AttackIconPad"
                 },
                 {
                     "name": "color",

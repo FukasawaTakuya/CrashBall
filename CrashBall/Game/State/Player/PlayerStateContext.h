@@ -16,7 +16,7 @@
 
 struct PlayerStateContext
 {
-	Rigidbody* rigitbody;
+	Rigidbody* rigidbody;
 	Transform* transform;
 	BallController* ballController;
 	PlayerStatusController* playerStatusController;
