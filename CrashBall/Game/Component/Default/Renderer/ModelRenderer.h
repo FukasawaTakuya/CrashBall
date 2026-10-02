@@ -61,7 +61,7 @@ public:
 	void Render(const RenderContext& renderContext) override;
 
 	// リソースの設定
-	void SetResource(const ResourceContext& resourceContext) override
+	void SetDeviceResource(const ResourceContext& resourceContext) override
 	{
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
 

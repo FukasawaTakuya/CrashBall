@@ -121,7 +121,7 @@ public:
 	void Render(const RenderContext& renderContext) override;
 
 	// リソースの設定
-	void SetResource(const ResourceContext& resourceContext) override
+	void SetDeviceResource(const ResourceContext& resourceContext) override
 	{
 		const SpriteInfo* spriteInfo = resourceContext.spriteManager->GetSpriteInfo(m_spriteKey);
 

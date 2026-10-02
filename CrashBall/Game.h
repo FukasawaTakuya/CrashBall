@@ -33,11 +33,12 @@
 
 #include "Game/EditGui/ObjectListGui.h"
 #include "Game/EditGui/ObjectInspectorGui.h"
-#include "Game/RenderTexture/RenderTexture.h"
+#include "Game/RenderTexture/MyRenderTexture.h"
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
 
 #include "DX/SkyboxEffect.h"
+#include "DX/RenderTexture.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -76,7 +77,7 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<RenderTexture>              m_renderTexture;
+    std::unique_ptr<MyRenderTexture>              m_renderTexture;
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
 
@@ -93,6 +94,8 @@ private:
 
     Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
+
+    //std::unique_ptr<DX::RenderTexture> m_renderTexture2;
 
 public:
 
@@ -131,6 +134,12 @@ private:
 
     void Update(DX::StepTimer const& timer);
     void Render();
+
+    // 描画命令の実行
+    void DoRenderCommand(
+        const DirectX::SimpleMath::Matrix& view, 
+        const DirectX::SimpleMath::Matrix& proj, 
+        ID3D11DeviceContext1* context);
 
     void Clear();
 

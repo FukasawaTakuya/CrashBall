@@ -183,6 +183,7 @@
   <ItemGroup>
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="DX\ReadData.h" />
+    <ClInclude Include="DX\RenderTexture.h" />
     <ClInclude Include="DX\SkyboxEffect.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game\Camera\DebugCamera.h">
@@ -358,7 +359,8 @@
     <ClInclude Include="Game\RendererManager\PrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\SpriteRendererManager.h" />
     <ClInclude Include="Game\RendererManager\TextRendererManager.h" />
-    <ClInclude Include="Game\RenderTexture\RenderTexture.h" />
+    <ClInclude Include="Game\RenderTexture\MyRenderTexture.h" />
+    <ClInclude Include="Game\RenderTexture\RenderTextureManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\IModelManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\ISpriteManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\ITextManager.h" />
@@ -401,6 +403,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\ServiceLocator\IInputService.h" />
+    <ClInclude Include="Game\ServiceLocator\IRenderTargetManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\IScriptableObjectManager.h">
       <SubType>
       </SubType>
@@ -468,6 +474,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DeviceResources.cpp" />
+    <ClCompile Include="DX\RenderTexture.cpp" />
     <ClCompile Include="DX\SkyboxEffect.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Game\Camera\DebugCamera.cpp" />
@@ -539,7 +546,8 @@
     <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\SpriteRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\TextRendererManager.cpp" />
-    <ClCompile Include="Game\RenderTexture\RenderTexture.cpp" />
+    <ClCompile Include="Game\RenderTexture\MyRenderTexture.cpp" />
+    <ClCompile Include="Game\RenderTexture\RenderTextureManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
@@ -613,6 +621,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="Shader\SkyboxEffect_VS.hlsli">
       <FileType>Document</FileType>
@@ -620,6 +632,10 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

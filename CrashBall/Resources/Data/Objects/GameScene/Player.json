@@ -122,7 +122,7 @@
                 {
                     "name": "powerUpRate",
                     "type": "Float",
-                    "data": 3.0
+                    "data": 5.0
                 },
                 {
                     "name": "pFloorMeshGetter",

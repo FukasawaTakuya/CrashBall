@@ -250,6 +250,11 @@ void SceneManager::CreateNewGameObject(const std::string& objName)
 	GameObject* newObj = m_currentScene->CreateNewGameObject(objName);
 }
 
+/**
+ * \brief ゲームオブジェクトの削除
+ * 
+ * \param obj ゲームオブジェクト
+ */
 void SceneManager::DeleteGameObject(GameObject* obj)
 {
 	m_jsonManagers[m_currentSceneName]->DeleteGameObjectData(obj->GetName());

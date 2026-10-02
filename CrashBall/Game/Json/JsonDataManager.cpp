@@ -93,12 +93,12 @@ void JsonDataManager::SaveGameObjectData()
  */
 void JsonDataManager::DeleteGameObjectData(const std::string& objName)
 {
-
 	// ゲームオブジェクトデータの削除
 	{
 		auto it = m_gameObjectData.find(objName);
 		if (it != m_gameObjectData.end())
 		{
+			std::filesystem::remove(m_saveFilePath + objName + ".json");
 			m_gameObjectData.erase(it);
 		}
 	}

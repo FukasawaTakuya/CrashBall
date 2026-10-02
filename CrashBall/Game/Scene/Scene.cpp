@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Scene.cpp
+ * \brief  基底シーン
+ *
+ * \author 深沢拓矢
+ * \date   April 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "Scene.h"
 
@@ -154,6 +162,8 @@ void Scene::DeleteGameObject(GameObject* obj)
 	{
 		DeleteMap(child.get());
 	}
+
+
 
 	// 親がいる場合
 	if (obj->GetParent() != nullptr)

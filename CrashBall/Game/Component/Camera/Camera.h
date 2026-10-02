@@ -9,17 +9,17 @@
 class  Camera : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
-private:
+protected:
 
 	DirectX::SimpleMath::Vector3 m_forward;		// 右方向
 	DirectX::SimpleMath::Vector3 m_up;			// 上方向
 	DirectX::SimpleMath::Vector3 m_right;		// 前方向
 
-	DirectX::SimpleMath::Matrix  m_view;			// ビュー行列
+	DirectX::SimpleMath::Matrix  m_view;		// ビュー行列
 
-	DirectX::SimpleMath::Matrix* m_proj = nullptr;	// プロジェクション行列
+	DirectX::SimpleMath::Matrix m_proj;			// プロジェクション行列
 
-	Transform* m_transform = nullptr;				// トランスフォームのキャッシュ
+	Transform* m_transform = nullptr;			// トランスフォームのキャッシュ
 
 	// プロパティの設定
 	BeginProperty()
@@ -93,6 +93,11 @@ public:
 		right.y = 0.0f;
 		right.Normalize();
 		return right;
+	}
+
+	virtual void SetWindowSizeResource(const DirectX::SimpleMath::Matrix& proj) override
+	{
+		m_proj = proj;
 	}
 
 	// 内部実装

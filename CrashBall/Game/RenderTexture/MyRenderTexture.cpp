@@ -7,58 +7,16 @@
  *********************************************************************/
 
 #include "pch.h"
-#include "RenderTexture.h"
+#include "MyRenderTexture.h"
 #include "Game/Common/Screen.h"
 
 /**
  * \brief コンストラクタ
  * 
  */
-RenderTexture::RenderTexture()
+MyRenderTexture::MyRenderTexture(DXGI_FORMAT format)
+    : m_renderTexture(std::make_unique<DX::RenderTexture>(format))
 {
-}
-
-/**
- * \brief 
- * 
- * \param deviceResources デバイスリソース
- */
-void RenderTexture::Create(DX::DeviceResources* deviceResources)
-{
-    RECT rc;
-    GetClientRect(deviceResources->GetWindow(), &rc);
-
-    D3D11_TEXTURE2D_DESC texDesc{};
-    texDesc.Width = rc.right;
-    texDesc.Height = rc.bottom;
-    texDesc.MipLevels = 1;
-    texDesc.ArraySize = 1;
-    texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-    texDesc.SampleDesc.Count = 1;
-    texDesc.Usage = D3D11_USAGE_DEFAULT;
-    texDesc.BindFlags =
-        D3D11_BIND_RENDER_TARGET |
-        D3D11_BIND_SHADER_RESOURCE;
-
-    auto device = deviceResources->GetD3DDevice();
-
-    device->CreateTexture2D(
-        &texDesc,
-        nullptr,
-        m_texture.ReleaseAndGetAddressOf()
-    );
-
-    device->CreateRenderTargetView(
-        m_texture.Get(),
-        nullptr,
-        m_rtv.ReleaseAndGetAddressOf()
-    );
-
-    device->CreateShaderResourceView(
-        m_texture.Get(),
-        nullptr,
-        m_srv.ReleaseAndGetAddressOf()
-    );
 }
 
 /**
@@ -67,11 +25,11 @@ void RenderTexture::Create(DX::DeviceResources* deviceResources)
  * \param context コンテキスト
  * \param dsv 深度ステンシルビュー
  */
-void RenderTexture::Begin(
+void MyRenderTexture::Begin(
     ID3D11DeviceContext1* context,
     ID3D11DepthStencilView* dsv)
 {
-    ID3D11RenderTargetView* rtv = m_rtv.Get();
+    ID3D11RenderTargetView* rtv = m_renderTexture->GetRenderTargetView();
     context->OMSetRenderTargets(
         1,
         &rtv,
@@ -88,7 +46,7 @@ void RenderTexture::Begin(
     };
 
     context->ClearRenderTargetView(
-        m_rtv.Get(),
+        rtv,
         clearColor
     );
 }
@@ -100,7 +58,7 @@ void RenderTexture::Begin(
  * \param dsv 深度ステンシルビュー
  * \param backRtv バックレンダーターゲット
  */
-void RenderTexture::End(
+void MyRenderTexture::End(
     ID3D11DeviceContext1* context,
     ID3D11DepthStencilView* dsv,
     ID3D11RenderTargetView* const backRtv)
@@ -110,4 +68,41 @@ void RenderTexture::End(
         &backRtv,
         dsv
     );
+}
+
+// ====================== RenderTextureのラッパー ======================= //
+
+void MyRenderTexture::SetDevice(ID3D11Device* device)
+{
+    m_renderTexture->SetDevice(device);
+}
+
+void MyRenderTexture::SizeResources(size_t width, size_t height)
+{
+    m_renderTexture->SizeResources(width, height);
+
+    m_viewport.TopLeftX = 0.0f;
+    m_viewport.TopLeftY = 0.0f;
+    m_viewport.Width    = width;
+    m_viewport.Height   = height;
+    m_viewport.MinDepth = 0.0f;
+    m_viewport.MaxDepth = 1.0f;
+}
+
+void MyRenderTexture::ReleaseDevice()
+{
+    m_renderTexture->ReleaseDevice();
+}
+
+void MyRenderTexture::SetWindow(const RECT& rect)
+{
+    m_renderTexture->SetWindow(rect);
+
+    m_viewport.TopLeftX = 0.0f;
+    m_viewport.TopLeftY = 0.0f;
+    m_viewport.Width    = rect.right;
+    m_viewport.Height   = rect.bottom;
+    m_viewport.MinDepth = 0.0f;
+    m_viewport.MaxDepth = 1.0f;
+
 }

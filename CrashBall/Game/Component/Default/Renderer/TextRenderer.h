@@ -69,7 +69,7 @@ public:
 	void Render(const RenderContext& renderContext) override;
 
 	// リソースの設定
-	void SetResource(const ResourceContext& resourceContext) override
+	void SetDeviceResource(const ResourceContext& resourceContext) override
 	{
 		m_pSpriteFont = resourceContext.textManager->GetSpriteFont(m_fontKey);
 

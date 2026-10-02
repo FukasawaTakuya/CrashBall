@@ -432,7 +432,7 @@
     <ClInclude Include="Game\ScriptableObject\ScriptableObject.h">
       <Filter>Game\ScriptableObject</Filter>
     </ClInclude>
-    <ClInclude Include="Game\RenderTexture\RenderTexture.h">
+    <ClInclude Include="Game\RenderTexture\MyRenderTexture.h">
       <Filter>Game\RenderTexture</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\imconfig.h">
@@ -563,6 +563,15 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\Object2D.h">
       <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DX\RenderTexture.h">
+      <Filter>DX</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\RenderTexture\RenderTextureManager.h">
+      <Filter>Game\RenderTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\IRenderTargetManager.h">
+      <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -746,7 +755,7 @@
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp">
       <Filter>Game\ScriptableObject</Filter>
     </ClCompile>
-    <ClCompile Include="Game\RenderTexture\RenderTexture.cpp">
+    <ClCompile Include="Game\RenderTexture\MyRenderTexture.cpp">
       <Filter>Game\RenderTexture</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui_draw.cpp">
@@ -844,6 +853,12 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Object2D.cpp">
       <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DX\RenderTexture.cpp">
+      <Filter>DX</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\RenderTexture\RenderTextureManager.cpp">
+      <Filter>Game\RenderTexture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

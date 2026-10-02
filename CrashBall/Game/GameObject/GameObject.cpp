@@ -154,7 +154,7 @@ void GameObject::SetResource(const ResourceContext& resourceContext)
 {
 	for (auto& comp : m_components)
 	{
-		comp->SetResource(resourceContext);
+		comp->SetDeviceResource(resourceContext);
 	}
 
 	for (auto& childe : m_children)

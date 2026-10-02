@@ -61,7 +61,9 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
-    m_renderTexture             = std::make_unique<RenderTexture>();
+    m_renderTexture             = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
+
+    //m_renderTexture2 = std::make_unique<DX::RenderTexture>(m_deviceResources->GetBackBufferFormat());
 
     // 各コンテキストの初期化
     m_gameContext =
@@ -213,7 +215,7 @@ void Game::Update(DX::StepTimer const& timer)
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager.get(),
-        m_renderTexture->GetRenderTexture()
+        m_renderTexture->GetShaderResourceView()
     );
 
 
@@ -273,11 +275,48 @@ void Game::Render()
     auto rtv = m_deviceResources->GetRenderTargetView();
 
     // エディタが有効ならレンダーテクスチャ生成開始
-    if(m_editGuiManager->GetIsActive())
-        m_renderTexture->Begin(context, m_deviceResources->GetDepthStencilView());
+    if (m_editGuiManager->GetIsActive())
+    {
+        auto defaultRenderTarget = m_deviceResources->GetRenderTargetView();
+        auto defaultDepthStencil = m_deviceResources->GetDepthStencilView();
 
+        auto renderTargetView = m_renderTexture->GetRenderTargetView();
+
+        context->OMSetRenderTargets(1, &renderTargetView, defaultDepthStencil);
+
+        // 描画命令の実行
+        DoRenderCommand(view, m_proj, context);
+
+        context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
+    }
+    else
+    {
+        // 描画命令の実行
+        DoRenderCommand(view, m_proj, context);
+    }
+
+    m_deviceResources->PIXEndEvent();
+
+    //  ImGuiの描画処理
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+    // Show the new frame.
+    m_deviceResources->Present();
+
+}
+
+/**
+ * \brief 描画命令の実行
+ * 
+ */
+void Game::DoRenderCommand(
+    const DirectX::SimpleMath::Matrix& view,
+    const DirectX::SimpleMath::Matrix& proj,
+    ID3D11DeviceContext1* context)
+{
     // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), view, m_proj);
+    m_modelRendererManager->Render(context, m_state.get(), view, proj);
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view);
 
@@ -293,22 +332,6 @@ void Game::Render()
     m_textRendererManager->Render(m_spriteBatch.get());
     // スプライト関連描画終了
     m_spriteBatch->End();
-
-    // レンダーテクスチャ生成終了
-    m_renderTexture->End(
-        context,
-        m_deviceResources->GetDepthStencilView(),
-        m_deviceResources->GetRenderTargetView()
-    );
-
-    m_deviceResources->PIXEndEvent();
-
-    //  ImGuiの描画処理
-    ImGui::Render();
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-
-    // Show the new frame.
-    m_deviceResources->Present();
 
 }
 
@@ -420,7 +443,8 @@ void Game::CreateDeviceDependentResources()
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
 
-    m_renderTexture->Create(m_deviceResources.get());
+    //m_renderTexture->Create(device, m_deviceResources->GetOutputSize());
+    m_renderTexture->SetDevice(device);
 
     m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
         false /*invert for being inside the shape*/);
@@ -435,6 +459,8 @@ void Game::CreateDeviceDependentResources()
             nullptr, m_cubemap.ReleaseAndGetAddressOf()));
 
     m_effect->SetTexture(m_cubemap.Get());
+
+    //m_renderTexture2->SetDevice(device);
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -461,9 +487,12 @@ void Game::CreateWindowSizeDependentResources()
     // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources(m_proj);
 
-    m_renderTexture->Create(m_deviceResources.get());
+    //m_renderTexture->Create(m_deviceResources->GetD3DDevice(), m_deviceResources->GetOutputSize());
+    m_renderTexture->SetWindow(m_deviceResources->GetOutputSize());
 
     m_effect->SetProjection(m_proj);
+
+    //m_renderTexture2->SetWindow(m_deviceResources->GetOutputSize());
 }
 
 void Game::OnDeviceLost()

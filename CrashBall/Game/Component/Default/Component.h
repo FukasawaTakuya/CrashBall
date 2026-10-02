@@ -115,8 +115,11 @@ public:
 	// 描画
 	virtual void Render(const RenderContext& renderContext) {};
 
-	// リソースの設定
-	virtual void SetResource(const ResourceContext& resourceContext) {};
+	// デバイス関連リソースの設定
+	virtual void SetDeviceResource(const ResourceContext& resourceContext) {};
+
+	// ウィンドウサイズ関連リソースの設定
+	virtual void SetWindowSizeResource(const DirectX::SimpleMath::Matrix& proj) {};
 
 	// 取得/設定
 public:

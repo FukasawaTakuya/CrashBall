@@ -14,7 +14,7 @@
 #include "GameViewRenderer.h"
 #include "EditButton.h"
 
-#include "Game/RenderTexture/RenderTexture.h"
+#include "Game/RenderTexture/MyRenderTexture.h"
 
 #include "Game/Scene/Interface/ISceneEditer.h"
 #include "Game/Json/IJsonDataManager.h"

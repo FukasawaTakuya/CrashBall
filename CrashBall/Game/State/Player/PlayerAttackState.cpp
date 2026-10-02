@@ -44,7 +44,7 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 				if (enemyController->GetHp() > 0)
 				{
 					// タイマーをセット
-					m_hitStopTimer.Set(Ease::Linear, 0.0f, 0.05f, 0.05f);
+					m_hitStopTimer.Set(Ease::Linear, 0.0f, 1.0f, 0.05f);
 					Time::SetTimeScale(0.0f);
 				}
 				else
