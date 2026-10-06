@@ -35,16 +35,16 @@ namespace DirectX::SimpleMath
 {
 	
 	// Vector2へ変換
-	void from_json(const json& j, Vector2& vec2);
+	void from_json(const ordered_json& j, Vector2& vec2);
 
 	// Vector3へ変換
-	void from_json(const json& j, Vector3& vec3);
+	void from_json(const ordered_json& j, Vector3& vec3);
 
 	// Quaternionへ変換
-	void from_json(const json& j, Quaternion& q);
+	void from_json(const ordered_json& j, Quaternion& q);
 
 	// Colorへ変換
-	void from_json(const json& j, Color& color);
+	void from_json(const ordered_json& j, Color& color);
 
 	// Vector2へ変換
 	void from_json(const ordered_json& j, Vector2& vec2);

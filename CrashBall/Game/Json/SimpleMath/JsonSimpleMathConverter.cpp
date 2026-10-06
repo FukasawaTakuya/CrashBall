@@ -74,43 +74,13 @@ void DirectX::SimpleMath::to_json(ordered_json& j, const Color& color)
 }
 
 // Vector2へ変換
-void DirectX::SimpleMath::from_json(const json& j, Vector2& vec2)
-{
-	j.at("x").get_to(vec2.x);
-	j.at("y").get_to(vec2.y);
-}
-
-// Vector3へ変換
-void DirectX::SimpleMath::from_json(const json& j, Vector3& vec3)
-{
-	j.at("x").get_to(vec3.x);
-	j.at("y").get_to(vec3.y);
-	j.at("z").get_to(vec3.z);
-}
-
-// Quaternionへ変換
-void DirectX::SimpleMath::from_json(const json& j, Quaternion& q)
-{
-	Vector3 vec3 = j;
-
-	q = Quaternion::CreateFromYawPitchRoll(vec3);
-}
-
-// Colorへ変換
-void DirectX::SimpleMath::from_json(const json& j, Color& color)
-{
-	j.at("r").get_to(color.x);
-	j.at("g").get_to(color.y);
-	j.at("b").get_to(color.z);
-	j.at("a").get_to(color.w);
-}
-
 void DirectX::SimpleMath::from_json(const ordered_json& j, Vector2& vec2)
 {
 	j.at("x").get_to(vec2.x);
 	j.at("y").get_to(vec2.y);
 }
 
+// Vector3へ変換
 void DirectX::SimpleMath::from_json(const ordered_json& j, Vector3& vec3)
 {
 	j.at("x").get_to(vec3.x);
@@ -118,6 +88,7 @@ void DirectX::SimpleMath::from_json(const ordered_json& j, Vector3& vec3)
 	j.at("z").get_to(vec3.z);
 }
 
+// Quaternionへ変換
 void DirectX::SimpleMath::from_json(const ordered_json& j, Quaternion& q)
 {
 	Vector3 vec3 = j;
@@ -125,6 +96,7 @@ void DirectX::SimpleMath::from_json(const ordered_json& j, Quaternion& q)
 	q = Quaternion::CreateFromYawPitchRoll(vec3);
 }
 
+// Colorへ変換
 void DirectX::SimpleMath::from_json(const ordered_json& j, Color& color)
 {
 	j.at("r").get_to(color.x);
