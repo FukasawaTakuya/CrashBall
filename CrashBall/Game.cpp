@@ -283,30 +283,9 @@ void Game::Render()
 
     for (auto& renderTexture : *m_renderTextrueManger->GetRenderTextureList())
     {
-        auto viewport = renderTexture->GetViewPort();
-        auto renderTargetView = renderTexture->GetRenderTargetView();
-        auto depthStencil = renderTexture->GetDepthStencilView();
-
-        context->RSSetViewports(1, &viewport);
-        context->OMSetRenderTargets(1, &renderTargetView, depthStencil);
-
-        float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-
-        context->ClearRenderTargetView(
-            renderTargetView,
-            clearColor
-        );
-
-        context->ClearDepthStencilView(
-            depthStencil,
-            D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
-            1.0f,
-            0
-        );
-
         SimpleMath::Matrix view = renderTexture->GetCamera()->GetView();
         SimpleMath::Matrix proj = renderTexture->GetCamera()->GetProj();
-
+        renderTexture->Begin(context);
         // 描画命令の実行
         // プリミティブの描画
         m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
@@ -317,32 +296,18 @@ void Game::Render()
     context->RSSetViewports(1, &defaultViewport);
     context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
 
-
     // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
     {
-        auto defaultRenderTarget = m_deviceResources->GetRenderTargetView();
-        auto defaultDepthStencil = m_deviceResources->GetDepthStencilView();
-
-        auto viewport = m_gameViewTexture->GetViewPort();
-        auto renderTargetView = m_gameViewTexture->GetRenderTargetView();
-
-        context->RSSetViewports(1, &viewport);
-        context->OMSetRenderTargets(1, &renderTargetView, defaultDepthStencil);
-
-        float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-
-        context->ClearRenderTargetView(
-            renderTargetView,
-            clearColor
-        );
-
         SimpleMath::Matrix view = m_gameViewTexture->GetCamera()->GetView();
         SimpleMath::Matrix proj = m_gameViewTexture->GetCamera()->GetProj();
+
+        m_gameViewTexture->Begin(context);
 
         // 描画命令の実行
         DoRenderCommand(view, proj, context);
 
+        context->RSSetViewports(1, &defaultViewport);
         context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
     }
     else
@@ -352,7 +317,6 @@ void Game::Render()
         // 描画命令の実行
         DoRenderCommand(view, proj, context);
     }
-
 
     m_deviceResources->PIXEndEvent();
 

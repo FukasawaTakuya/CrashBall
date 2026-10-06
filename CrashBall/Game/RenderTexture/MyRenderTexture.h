@@ -48,9 +48,7 @@ public:
 public:
 
 	// 描画開始
-	void Begin(
-		ID3D11DeviceContext1* context,
-		ID3D11DepthStencilView* dsv);
+	void Begin(ID3D11DeviceContext1* context);
 
 	// 描画終了
 	void End(

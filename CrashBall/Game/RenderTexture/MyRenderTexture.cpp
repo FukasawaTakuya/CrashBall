@@ -10,6 +10,8 @@
 #include "MyRenderTexture.h"
 #include "Game/Common/Screen.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -23,17 +25,37 @@ MyRenderTexture::MyRenderTexture(DXGI_FORMAT format)
  * \brief 描画開始
  * 
  * \param context コンテキスト
- * \param dsv 深度ステンシルビュー
  */
-void MyRenderTexture::Begin(
-    ID3D11DeviceContext1* context,
-    ID3D11DepthStencilView* dsv)
+void MyRenderTexture::Begin(ID3D11DeviceContext1* context)
 {
-    ID3D11RenderTargetView* rtv = m_renderTexture->GetRenderTargetView();
+    auto renderTargetView = m_renderTexture->GetRenderTargetView();
+    auto depthStencil     = m_renderTexture->GetDepthStencilView();
+
+    context->RSSetViewports(1, &m_viewport);
+    context->OMSetRenderTargets(1, &renderTargetView, depthStencil);
+
+    float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+    context->ClearRenderTargetView(
+        renderTargetView,
+        clearColor
+    );
+
+    context->ClearDepthStencilView(
+        depthStencil,
+        D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
+        1.0f,
+        0
+    );
+
+    SimpleMath::Matrix view = m_camera->GetView();
+    SimpleMath::Matrix proj = m_camera->GetProj();
+
+
     context->OMSetRenderTargets(
         1,
-        &rtv,
-        dsv
+        &renderTargetView,
+        depthStencil
     );
 }
 
