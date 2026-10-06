@@ -49,6 +49,7 @@ void EditGuiManager::Update(
 
     ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
 
+    // レイアウトの固定
     ConstantLayout(dockspaceID);
 
     ImGui::DockSpaceOverViewport(dockspaceID);

@@ -154,7 +154,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
                 ImGui::AcceptDragDropPayload("DragGameObject"))
             {
                 GameObject* child =
-                    *(GameObject**)payload->Data;
+                    *static_cast<GameObject**>(payload->Data);
                     
                 m_AddChildFunc = [&, child, object](ObjectCollection& objects)
                     {

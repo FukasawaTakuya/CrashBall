@@ -50,6 +50,8 @@ private:
 
 	EditGuiManager* m_pEditGuiManager;			// エディタGUI管理
 
+	MyRenderTexture* m_gameViewTexture;
+
 	// jsonDataManagerのコンテナ
 	std::unordered_map<std::string, std::unique_ptr<JsonDataManager>> m_jsonManagers;
 
@@ -90,7 +92,7 @@ public:
 	void CreateDeviceResources();
 
 	// ウインドウサイズ依存のリソース作成
-	void CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj);
+	void CreateWindowSizeResources();
 
 	// データの読み込み
 	void LoadData();
@@ -153,6 +155,12 @@ public:
 	std::vector<std::string>& GetSceneNameList() override
 	{
 		return m_sceneNameList;
+	}
+
+	// ゲームビュー用レンダーテクスチャの設定
+	void SetGameViewTexture(MyRenderTexture* gameViewTexture)
+	{
+		m_gameViewTexture = gameViewTexture;
 	}
 
 	// 内部実装

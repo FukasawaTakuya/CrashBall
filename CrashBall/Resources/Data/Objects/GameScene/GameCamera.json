@@ -68,7 +68,23 @@
             "compName": "Camera",
             "id": 74,
             "isActive": true,
-            "properties": null
+            "properties": [
+                {
+                    "name": "fov",
+                    "type": "Angle",
+                    "data": 0.7853981852531433
+                },
+                {
+                    "name": "nearclip",
+                    "type": "Float",
+                    "data": 0.10000000149011612
+                },
+                {
+                    "name": "farclip",
+                    "type": "Float",
+                    "data": 200.0
+                }
+            ]
         }
     ],
     "children": null

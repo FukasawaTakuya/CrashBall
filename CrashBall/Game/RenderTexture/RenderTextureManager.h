@@ -22,12 +22,16 @@ private:
 	// レンダーテクスチャリスト
 	std::vector <std::unique_ptr<MyRenderTexture>> m_renderTextureList;
 
+	// レンダーテクスチャ初期化用
+	DXGI_FORMAT m_format;
+	ID3D11Device1* m_device;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	RenderTextureMangaer();
+	RenderTextureMangaer(DXGI_FORMAT format);
 
 	// デストラクタ
 	~RenderTextureMangaer() = default;
@@ -36,10 +40,13 @@ public:
 public:
 
 	// レンダーテクスチャの作成
-	MyRenderTexture* CreateRenderTexture(DXGI_FORMAT format) override;
+	MyRenderTexture* CreateRenderTexture() override;
 
 	// レンダーテクスチャの削除
 	void DeleteRenderTexture(MyRenderTexture* renderTexture) override;
+
+	// CreateWindowSizeDependentResourcesで呼ぶ用
+	void SetWindowSizeDependend(const RECT& rect);
 
 	// 取得/設定
 public:
@@ -49,6 +56,23 @@ public:
 	{
 		return &m_renderTextureList;
 	}
+
+	// フォーマットの設定
+	void SetFormat(DXGI_FORMAT format)
+	{
+		m_format = format;
+	}
+
+	// デバイスの設定
+	void SetDevice(ID3D11Device1* device)
+	{
+		m_device = device;
+		for (auto& renderTexture : m_renderTextureList)
+		{
+			renderTexture->SetDevice(device);
+		}
+	}
+
 
 	// 内部実装
 private:

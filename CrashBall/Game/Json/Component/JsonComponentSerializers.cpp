@@ -23,6 +23,9 @@ void to_json(ordered_json& j, const PropertyInfo& property)
 	case PropertyType::Float:
 		j["data"] = *static_cast<float*>(property.data);
 		break;
+	case PropertyType::Angle:
+		j["data"] = *static_cast<float*>(property.data);
+		break;
 	case PropertyType::Vector2:
 		j["data"] = *static_cast<DirectX::SimpleMath::Vector2*>(property.data);
 		break;

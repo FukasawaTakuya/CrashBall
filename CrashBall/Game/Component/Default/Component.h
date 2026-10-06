@@ -24,6 +24,7 @@ enum class PropertyType
 	Bool,
 	Int,
 	Float,
+	Angle,
 	Vector2,
 	Vector3,
 	Quaternion,
@@ -42,6 +43,7 @@ struct PropertyInfo
 	PropertyType propType;						// プロパティタイプ
 	std::type_index propTypeId{typeid(void)};	// プロパティのtypeid
 	void* data = nullptr;						// プロパティのアドレス
+	float speed = 1.0f;							// GUIの移動量
 };
 
 // コンポーネントの登録
@@ -115,11 +117,14 @@ public:
 	// 描画
 	virtual void Render(const RenderContext& renderContext) {};
 
-	// デバイス関連リソースの設定
+	// 終了処理
+	virtual void Finalize() {};
+
+	// デバイス依存リソースの設定
 	virtual void SetDeviceResource(const ResourceContext& resourceContext) {};
 
-	// ウィンドウサイズ関連リソースの設定
-	virtual void SetWindowSizeResource(const DirectX::SimpleMath::Matrix& proj) {};
+	// ウィンドウサイズ依存リソースの設定
+	virtual void SetWindowSizeResource() {};
 
 	// 取得/設定
 public:

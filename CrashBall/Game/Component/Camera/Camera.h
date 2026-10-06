@@ -1,7 +1,16 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   Camera.h
+ * \brief  カメラ
+ * 
+ * \author 深沢拓矢
+ * \date   September 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Common/Screen.h"
 
 /**
  * @brief カメラ
@@ -21,11 +30,18 @@ protected:
 
 	Transform* m_transform = nullptr;			// トランスフォームのキャッシュ
 
+	float m_fov = DirectX::XMConvertToRadians(45.0f);
+	float m_nearclip = 0.1f;
+	float m_farclip = 200.0f;
+
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_fov, PropertyType::Angle)
+		AddProperty(m_nearclip, PropertyType::Float)
+		AddProperty(m_farclip, PropertyType::Float)
 	EndProperty()
 
-		// コンポーネント名の設定
+	// コンポーネント名の設定
 	SetCompName("Camera")
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -65,6 +81,12 @@ public:
 		return m_view;
 	}
 
+	// プロジェクション行列の取得
+	DirectX::SimpleMath::Matrix GetProj() const
+	{
+		return m_proj;
+	}
+
 	// 前方向ベクトルの取得
 	DirectX::SimpleMath::Vector3 GetForward() const
 	{
@@ -95,9 +117,28 @@ public:
 		return right;
 	}
 
-	virtual void SetWindowSizeResource(const DirectX::SimpleMath::Matrix& proj) override
+	// ビュー行列の設定
+	void SetView(const DirectX::SimpleMath::Matrix& view)
+	{
+		m_view = view;
+	}
+
+
+	// プロジェクション行列の設定
+	void SetProj(const DirectX::SimpleMath::Matrix& proj)
 	{
 		m_proj = proj;
+	}
+
+	// ウィンドウサイズ依存のリソースの設定
+	virtual void SetWindowSizeResource() override
+	{
+		m_proj = DirectX::SimpleMath::Matrix::CreatePerspectiveFieldOfView(
+			m_fov,
+			Screen::GetAccept(),
+			m_nearclip,
+			m_farclip
+		);
 	}
 
 	// 内部実装

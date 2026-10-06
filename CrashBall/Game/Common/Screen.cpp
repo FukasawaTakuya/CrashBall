@@ -29,3 +29,8 @@ float Screen::GetScreenRate()
 {
 	return screenRate;
 }
+
+float Screen::GetAccept()
+{
+	return FULL_WIDTH / FULL_HEIGHT;
+}

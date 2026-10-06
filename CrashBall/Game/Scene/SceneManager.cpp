@@ -12,6 +12,8 @@
 #include <fstream>
 #include "Game/IDGenerator/GameObejctIDGenerator.h"
 
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -53,6 +55,8 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 	{
 		// シーン変更
 		m_currentScene = std::make_unique<Scene>(m_jsonManagers[sceneName].get());
+		m_gameViewTexture->SetCamera(GetCamera());
+		m_currentScene->Awake();
 		m_currentScene->Start(*m_pGameContext);
 	}
 }
@@ -75,16 +79,22 @@ void SceneManager::Update()
 	// 変更リクエストがnullじゃないなら変更
 	if (m_requestSceneName  != "")
 	{
+		// エディターのリセット
 		m_pEditGuiManager->Reset();
 
-		// シーン変更
+		// 終了処理
 		m_currentScene->Finalize();
-
+		// シーン変更
 		m_currentScene = std::make_unique<Scene>(m_jsonManagers[m_requestSceneName].get());
 
 		// リソースの作成
 		CreateDeviceResources();
+		CreateWindowSizeResources();
 
+		m_gameViewTexture->SetCamera(GetCamera());
+
+		// 開始処理
+		m_currentScene->Awake();
 		// 開始処理
 		m_currentScene->Start(*m_pGameContext);
 
@@ -127,9 +137,9 @@ void SceneManager::CreateDeviceResources()
  * 
  * \param proj 射影行列
  */
-void SceneManager::CreateWindowSizeResources(DirectX::SimpleMath::Matrix proj)
+void SceneManager::CreateWindowSizeResources()
 {
-	m_currentScene->CreateWindowSizeResources(proj);
+	m_currentScene->CreateWindowSizeResources();
 }
 
 /**

@@ -19,7 +19,7 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Float",
+                    "type": "Angle",
                     "data": 0.0
                 },
                 {

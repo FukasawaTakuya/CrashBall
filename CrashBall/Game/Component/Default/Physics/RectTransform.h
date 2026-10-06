@@ -76,7 +76,7 @@ private:
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_localPosition, PropertyType::Vector2)
-		AddProperty(m_localRotate, PropertyType::Float)
+		AddProperty(m_localRotate, PropertyType::Angle)
 		AddProperty(m_localScale, PropertyType::Vector2)
 		AddProperty(m_origin, PropertyType::Enum)
 	EndProperty()

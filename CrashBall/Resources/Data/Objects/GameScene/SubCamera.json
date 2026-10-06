@@ -1,12 +1,12 @@
 {
-    "name": "Stage",
-    "tag": "Stage",
-    "id": 21,
+    "name": "SubCamera",
+    "tag": "Default",
+    "id": 32,
     "isActive": true,
     "components": [
         {
             "compName": "Transform",
-            "id": 66,
+            "id": 85,
             "isActive": true,
             "properties": [
                 {
@@ -14,7 +14,7 @@
                     "type": "Vector3",
                     "data": {
                         "x": 0.0,
-                        "y": 0.0,
+                        "y": 100.0,
                         "z": 0.0
                     }
                 },
@@ -22,7 +22,7 @@
                     "name": "localRotate",
                     "type": "Quaternion",
                     "data": {
-                        "x": -0.0,
+                        "x": -1.570796251296997,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -31,39 +31,37 @@
                     "name": "localScale",
                     "type": "Vector3",
                     "data": {
-                        "x": 8.0,
-                        "y": 8.0,
-                        "z": 8.0
+                        "x": 1.0,
+                        "y": 1.0,
+                        "z": 1.0
                     }
                 }
             ]
         },
         {
-            "compName": "Mesh",
-            "id": 67,
+            "compName": "OrthgraphicCamera",
+            "id": 86,
             "isActive": true,
             "properties": [
                 {
-                    "name": "meshData",
-                    "type": "String",
-                    "data": "Resources/Mesh/newStage.json"
+                    "name": "widthView",
+                    "type": "Float",
+                    "data": 160.0
                 },
                 {
-                    "name": "layerMaskType",
-                    "type": "Enum",
-                    "data": 3
-                }
-            ]
-        },
-        {
-            "compName": "StageController",
-            "id": 68,
-            "isActive": true,
-            "properties": [
+                    "name": "heightView",
+                    "type": "Float",
+                    "data": 160.0
+                },
                 {
-                    "name": "floorNormalY",
+                    "name": "nearclip",
                     "type": "Float",
                     "data": 0.10000000149011612
+                },
+                {
+                    "name": "farclip",
+                    "type": "Float",
+                    "data": 200.0
                 }
             ]
         }

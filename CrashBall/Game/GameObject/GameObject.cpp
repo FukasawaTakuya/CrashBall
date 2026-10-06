@@ -116,6 +116,22 @@ void GameObject::Render(const RenderContext& renderContext)
 }
 
 /**
+ * \brief 終了処理
+ * 
+ */
+void GameObject::Finalize()
+{
+	for (auto& comp : m_components)
+	{
+		comp->Finalize();
+	}
+	for (auto& childe : m_children)
+	{
+		childe->Finalize();
+	}
+}
+
+/**
  * \brief データの保存
  * 
  */
@@ -146,11 +162,11 @@ void GameObject::ReloadData()
 }
 
 /**
- * \brief リソースの設定
+ * \brief デバイス依存のリソースの設定
  * 
  * \param resourceContext
  */
-void GameObject::SetResource(const ResourceContext& resourceContext)
+void GameObject::SetDeviceResource(const ResourceContext& resourceContext)
 {
 	for (auto& comp : m_components)
 	{
@@ -159,8 +175,27 @@ void GameObject::SetResource(const ResourceContext& resourceContext)
 
 	for (auto& childe : m_children)
 	{
-		childe->SetResource(resourceContext);
+		childe->SetDeviceResource(resourceContext);
 	}
+}
+
+/**
+ * \brief ウィンドウサイズ依存のリソースの設定
+ * 
+ * \param proj プロジェクション行列
+ */
+void GameObject::SetWindowSizeResource()
+{
+	for (auto& comp : m_components)
+	{
+		comp->SetWindowSizeResource();
+	}
+
+	for (auto& childe : m_children)
+	{
+		childe->SetWindowSizeResource();
+	}
+
 }
 
 /**

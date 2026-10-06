@@ -1,26 +1,59 @@
 {
-    "name": "EnemyMeshGauge",
+    "name": "MiniMap",
     "tag": "Default",
-    "id": 8,
+    "id": 33,
     "isActive": true,
     "components": [
         {
+            "compName": "RectTransform",
+            "id": 87,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 1707.0,
+                        "y": 211.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "type": "Angle",
+                    "data": 0.0
+                },
+                {
+                    "name": "localScale",
+                    "type": "Vector2",
+                    "data": {
+                        "x": 0.8999999761581421,
+                        "y": 0.8999999761581421
+                    }
+                },
+                {
+                    "name": "origin",
+                    "type": "Enum",
+                    "data": 1
+                }
+            ]
+        },
+        {
             "compName": "SpriteRenderer",
-            "id": 28,
+            "id": 88,
             "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",
                     "type": "String",
-                    "data": "Gauge"
+                    "data": ""
                 },
                 {
                     "name": "color",
                     "type": "Color",
                     "data": {
                         "a": 1.0,
-                        "b": 0.7568627595901489,
-                        "g": 0.7137255072593689,
+                        "b": 1.0,
+                        "g": 1.0,
                         "r": 1.0
                     }
                 },
@@ -35,17 +68,17 @@
                 {
                     "name": "layerDepth",
                     "type": "Float",
-                    "data": 0.20000000298023224
+                    "data": 0.0
                 },
                 {
                     "name": "fillOrigin",
                     "type": "Enum",
-                    "data": 5
+                    "data": 3
                 },
                 {
                     "name": "fillAmount",
                     "type": "Slider",
-                    "data": 0.0
+                    "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
@@ -55,47 +88,19 @@
             ]
         },
         {
-            "compName": "RectTransform",
-            "id": 29,
+            "compName": "MiniMap",
+            "id": 89,
             "isActive": true,
             "properties": [
                 {
-                    "name": "localPosition",
-                    "type": "Vector2",
-                    "data": {
-                        "x": 0.0,
-                        "y": 29.0
-                    }
+                    "name": "pSubCamera",
+                    "type": "Component",
+                    "data": 86
                 },
                 {
-                    "name": "localRotate",
-                    "type": "Angle",
-                    "data": 0.0
-                },
-                {
-                    "name": "localScale",
-                    "type": "Vector2",
-                    "data": {
-                        "x": 0.9375,
-                        "y": 0.30000001192092896
-                    }
-                },
-                {
-                    "name": "origin",
-                    "type": "Enum",
-                    "data": 1
-                }
-            ]
-        },
-        {
-            "compName": "SliderController",
-            "id": 30,
-            "isActive": true,
-            "properties": [
-                {
-                    "name": "slideSpeed",
+                    "name": "size",
                     "type": "Float",
-                    "data": 5.0
+                    "data": 400.0
                 }
             ]
         }

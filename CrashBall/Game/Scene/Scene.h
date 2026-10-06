@@ -33,9 +33,9 @@ protected:
 
 	IJsonDataManager* m_jsonManager;
 
-	std::vector<std::unique_ptr<GameObject>> m_gameObjects;		// GameObjectのコンテナ
-	std::unordered_map<std::string, GameObject*> m_objNameMap;	// GameObjectの名前マップ
-	std::unordered_multimap<ObjectTag, GameObject*> m_objTagMap;// GameOBjectのタグマップ
+	std::vector<std::unique_ptr<GameObject>>		m_gameObjects;	// GameObjectのコンテナ
+	std::unordered_map<std::string, GameObject*>	m_objNameMap;	// GameObjectの名前マップ
+	std::unordered_multimap<ObjectTag, GameObject*> m_objTagMap;	// GameOBjectのタグマップ
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
 
@@ -53,72 +53,31 @@ public:
 public:
 
 	// 遷移時の処理
-	virtual void OnEnter(
-		const ResourceContext& resourceContext,
-		const GameContext& gameContext
-	) {};
+	void Awake();
 
-	// 初期化
-	virtual void Start(const GameContext& gameContext)
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->Start(gameContext);
-		}
-	};
+	// 開始処理
+	void Start(const GameContext& gameContext);
 
 	// 更新
-	virtual void Update(const GameContext& gameContext)
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->Update(gameContext);
-		}
-
-		m_collisionManager->Update();
-	};
+	void Update(const GameContext& gameContext);
 	
 	// 描画
-	virtual void Render(const RenderContext& renderContext)
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->Render(renderContext);
-		}
-	};
+	void Render(const RenderContext& renderContext);
 
 	// 終了処理
-	virtual void Finalize(){};
+	void Finalize();
 
 	// デバイス依存のリソース作成
-	virtual void CreateDeviceResources(const ResourceContext& resourceContext)
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->SetResource(resourceContext);
-		}
-	};
+	void CreateDeviceResources(const ResourceContext& resourceContext);
 
 	// ウインドウサイズ依存のリソース作成
-	virtual void CreateWindowSizeResources(const DirectX::SimpleMath::Matrix& proj){};
+	void CreateWindowSizeResources();
 
 	// データの保存
-	void SaveData()
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->SaveData();
-		}
-		m_jsonManager->SaveGameObjectData();
-	}
+	void SaveData();
 
-	void ReloadData()
-	{
-		for (auto& obj : m_gameObjects)
-		{
-			obj->ReloadData();
-		}
-	}
+	// データの再読み込み
+	void ReloadData();
 
 	// 新しいゲームオブジェクトの生成
 	GameObject* CreateNewGameObject(const std::string& objName);

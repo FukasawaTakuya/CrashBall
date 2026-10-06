@@ -64,6 +64,8 @@ private:
 	void DrawInt(const PropertyInfo& property);
 	// Float型のプロパティ表示
 	void DrawFloat(const PropertyInfo& property);
+	// Angle型のプロパティ表示
+	void DrawAngle(const PropertyInfo& property);
 	// Vector2型のプロパティ表示
 	void DrawVector2(const PropertyInfo& property);
 	// Vector3型のプロパティ表示

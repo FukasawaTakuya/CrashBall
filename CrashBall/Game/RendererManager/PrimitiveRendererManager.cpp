@@ -16,7 +16,7 @@ using namespace DirectX;
  * 
  * \param device デバイス
  * \param context コンテキスト
- * \param projMat 射影行列
+ * \param state コモンステート
  */
 void PrimitiveRendererManager::Create(
 	ID3D11Device1* device,
@@ -36,7 +36,7 @@ void PrimitiveRendererManager::Create(
 
     m_basicEffect->EnableDefaultLighting();
 
-    m_basicEffect->SetSpecularColor({ 0.2f, 0.2f, 0.2f });
+    m_basicEffect->SetSpecularColor({ 0.0f, 0.0f, 0.0f });
 
     // 入力レイアウトの設定
     DX::ThrowIfFailed(
@@ -47,8 +47,7 @@ void PrimitiveRendererManager::Create(
 
     // ブレンドステートの設定
     context->OMSetBlendState(state->Opaque(), nullptr, 0xFFFFFFFF);
-    // カリングの設定
-    context->RSSetState(state->CullClockwise());
+
 }
 
 /**
@@ -84,13 +83,19 @@ void PrimitiveRendererManager::ClearRenderCommand()
 void PrimitiveRendererManager::Render(
     ID3D11DeviceContext1* context,
     DirectX::CommonStates* state,
-    const DirectX::SimpleMath::Matrix& view)
+    const DirectX::SimpleMath::Matrix& view,
+    const DirectX::SimpleMath::Matrix& proj)
 {
+    // カリングの設定
+    context->RSSetState(state->CullClockwise());
+
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
 
     // ビュー行列のセット
     m_basicEffect->SetView(view);
+    // プロジェクション行列のセット
+    m_basicEffect->SetProjection(proj);
     // ワールド行列のセット
     m_basicEffect->SetWorld(SimpleMath::Matrix::Identity);
 
@@ -116,10 +121,4 @@ void PrimitiveRendererManager::Render(
 
     // 描画終了
     m_primitiveBatch->End();
-}
-
-void PrimitiveRendererManager::SetProj(DirectX::SimpleMath::Matrix proj)
-{
-    // 射影行列のセット
-    m_basicEffect->SetProjection(proj);
 }

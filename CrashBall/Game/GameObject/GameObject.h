@@ -87,10 +87,13 @@ public:
 	virtual void Render(const RenderContext& renderContext);
 
 	// 終了処理
-	virtual void Finalize() {};
+	virtual void Finalize();
 
-	// リソースの設定
-	virtual void SetResource(const ResourceContext& resourceContext);
+	// デバイス依存のリソースの設定
+	virtual void SetDeviceResource(const ResourceContext& resourceContext);
+
+	// ウィンドウサイズの依存リソースの設定
+	virtual void SetWindowSizeResource();
 
 	// データの保存
 	void SaveData();

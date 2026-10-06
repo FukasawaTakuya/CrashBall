@@ -61,10 +61,6 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
-    m_renderTexture             = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
-
-    //m_renderTexture2 = std::make_unique<DX::RenderTexture>(m_deviceResources->GetBackBufferFormat());
-
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -96,12 +92,20 @@ void Game::Initialize(HWND window, int width, int height)
         &m_resourceContext,
         m_editGuiManager.get()
     );
+
+    m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
+    m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(m_deviceResources->GetBackBufferFormat());
+
+    // ゲームビュー用のレンダーテクスチャの作成
+    m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
+
     
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
     ServiceLocator::Set<IScriptableObjectManager>(m_scriptableObjectManager.get());
     ServiceLocator::Set<ISceneManager>(m_sceneManager.get());
+    ServiceLocator::Set<IRenderTargetManager>(m_renderTextrueManger.get());
 
     // ScriptableObjectの読み込み
     m_scriptableObjectManager->LoadScriptableObject();
@@ -204,10 +208,10 @@ void Game::Update(DX::StepTimer const& timer)
     }
     m_sceneManager->Update();
 
-    // BGMの再生
-    m_soundPlayer->PlayBgm(m_soundManager.get());
-    // SEの再生
-    m_soundPlayer->PlaySe(m_soundManager.get());
+    //// BGMの再生
+    //m_soundPlayer->PlayBgm(m_soundManager.get());
+    //// SEの再生
+    //m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();
@@ -215,7 +219,7 @@ void Game::Update(DX::StepTimer const& timer)
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager.get(),
-        m_renderTexture->GetShaderResourceView()
+        m_gameViewTexture->GetShaderResourceView()
     );
 
 
@@ -272,28 +276,83 @@ void Game::Render()
     );
 #endif // !NDEBUG
 
-    auto rtv = m_deviceResources->GetRenderTargetView();
+    // 元のビューポート
+    auto defaultViewport = m_deviceResources->GetScreenViewport();
+    auto defaultRenderTarget = m_deviceResources->GetRenderTargetView();
+    auto defaultDepthStencil = m_deviceResources->GetDepthStencilView();
 
-    // エディタが有効ならレンダーテクスチャ生成開始
+    for (auto& renderTexture : *m_renderTextrueManger->GetRenderTextureList())
+    {
+        auto viewport = renderTexture->GetViewPort();
+        auto renderTargetView = renderTexture->GetRenderTargetView();
+        auto depthStencil = renderTexture->GetDepthStencilView();
+
+        context->RSSetViewports(1, &viewport);
+        context->OMSetRenderTargets(1, &renderTargetView, depthStencil);
+
+        float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+        context->ClearRenderTargetView(
+            renderTargetView,
+            clearColor
+        );
+
+        context->ClearDepthStencilView(
+            depthStencil,
+            D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
+            1.0f,
+            0
+        );
+
+        SimpleMath::Matrix view = renderTexture->GetCamera()->GetView();
+        SimpleMath::Matrix proj = renderTexture->GetCamera()->GetProj();
+
+        // 描画命令の実行
+        // プリミティブの描画
+        m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
+        // モデルの描画
+        m_modelRendererManager->Render(context, m_state.get(), view, proj);
+    }
+
+    context->RSSetViewports(1, &defaultViewport);
+    context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
+
+
+    // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
     {
         auto defaultRenderTarget = m_deviceResources->GetRenderTargetView();
         auto defaultDepthStencil = m_deviceResources->GetDepthStencilView();
 
-        auto renderTargetView = m_renderTexture->GetRenderTargetView();
+        auto viewport = m_gameViewTexture->GetViewPort();
+        auto renderTargetView = m_gameViewTexture->GetRenderTargetView();
 
+        context->RSSetViewports(1, &viewport);
         context->OMSetRenderTargets(1, &renderTargetView, defaultDepthStencil);
 
+        float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+        context->ClearRenderTargetView(
+            renderTargetView,
+            clearColor
+        );
+
+        SimpleMath::Matrix view = m_gameViewTexture->GetCamera()->GetView();
+        SimpleMath::Matrix proj = m_gameViewTexture->GetCamera()->GetProj();
+
         // 描画命令の実行
-        DoRenderCommand(view, m_proj, context);
+        DoRenderCommand(view, proj, context);
 
         context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
     }
     else
     {
+        SimpleMath::Matrix proj = m_sceneManager->GetCamera()->GetProj();
+        context->RSSetViewports(1, &defaultViewport);
         // 描画命令の実行
-        DoRenderCommand(view, m_proj, context);
+        DoRenderCommand(view, proj, context);
     }
+
 
     m_deviceResources->PIXEndEvent();
 
@@ -315,13 +374,14 @@ void Game::DoRenderCommand(
     const DirectX::SimpleMath::Matrix& proj,
     ID3D11DeviceContext1* context)
 {
+    // プリミティブの描画
+    m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
     // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), view, proj);
-    // プリミティブの描画
-    m_primitiveRendererManager->Render(context, m_state.get(), view);
 
     // 
     m_effect->SetView(view);
+    m_effect->SetProjection(proj);
     m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 
     // スプライト関連描画開始
@@ -443,8 +503,8 @@ void Game::CreateDeviceDependentResources()
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
 
-    //m_renderTexture->Create(device, m_deviceResources->GetOutputSize());
-    m_renderTexture->SetDevice(device);
+    m_gameViewTexture->SetDevice(device);
+    m_renderTextrueManger->SetDevice(device);
 
     m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
         false /*invert for being inside the shape*/);
@@ -459,8 +519,6 @@ void Game::CreateDeviceDependentResources()
             nullptr, m_cubemap.ReleaseAndGetAddressOf()));
 
     m_effect->SetTexture(m_cubemap.Get());
-
-    //m_renderTexture2->SetDevice(device);
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -475,24 +533,19 @@ void Game::CreateWindowSizeDependentResources()
     // 
     Screen::CalcScreenRate(m_deviceResources->IsFullscreen());
 
-    // 射影行列の定義
+    // プロジェクション行列の定義
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
         XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
-        0.01f, 200.0f
+        0.01f, 500.0f
     );
 
-    // 射影行列の設定
-    m_primitiveRendererManager->SetProj(m_proj);
-
     // ウィンドウサイズ依存のリソース作成リソース作成
-    m_sceneManager->CreateWindowSizeResources(m_proj);
+    m_sceneManager->CreateWindowSizeResources();
 
-    //m_renderTexture->Create(m_deviceResources->GetD3DDevice(), m_deviceResources->GetOutputSize());
-    m_renderTexture->SetWindow(m_deviceResources->GetOutputSize());
+    m_gameViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
+    m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
     m_effect->SetProjection(m_proj);
-
-    //m_renderTexture2->SetWindow(m_deviceResources->GetOutputSize());
 }
 
 void Game::OnDeviceLost()

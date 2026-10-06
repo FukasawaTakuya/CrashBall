@@ -67,7 +67,7 @@ void SpriteRenderer::Render(const RenderContext& renderContext)
 
 	// 描画命令の登録
 	renderContext.spriteRendererManager->RegisterRenderCommand(
-		m_pSprite,
+		m_sprite,
 		position,
 		srcRect,
 		m_color,

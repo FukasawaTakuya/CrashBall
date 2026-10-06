@@ -123,9 +123,127 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		camera->Awake();
 	}
 
-	for (auto& obj : objects)
+	//for (auto& obj : objects)
+	//{
+	//	obj.second->Awake();
+	//}
+}
+
+/**
+ * \brief 遷移時の処理
+ * 
+ */
+void Scene::Awake()
+{
+	for (auto& obj : m_gameObjects)
 	{
-		obj.second->Awake();
+		obj->Awake();
+	}
+}
+
+/**
+ * \brief 開始処理
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void Scene::Start(const GameContext& gameContext)
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->Start(gameContext);
+	}
+}
+
+
+/**
+ * \brief 更新
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void Scene::Update(const GameContext& gameContext)
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->Update(gameContext);
+	}
+
+	m_collisionManager->Update();
+}
+
+
+/**
+ * \brief 描画
+ * 
+ * \param renderContext 描画用のコンテキスト
+ */
+void Scene::Render(const RenderContext& renderContext)
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->Render(renderContext);
+	}
+}
+
+/**
+ * \brief 終了処理
+ * 
+ */
+void Scene::Finalize()
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->Finalize();
+	}
+}
+
+/**
+ * \brief デバイス依存のリソース作成
+ * 
+ * \param resourceContext リソース用のコンテキスト
+ */
+void Scene::CreateDeviceResources(const ResourceContext& resourceContext)
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->SetDeviceResource(resourceContext);
+	}
+}
+
+/**
+ * \brief ウインドウサイズ依存のリソース作成
+ * 
+ * \param proj プロジェクション行列
+ */
+void Scene::CreateWindowSizeResources()
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->SetWindowSizeResource();
+	}
+
+}
+
+/**
+ * \brief データの保存
+ * 
+ */
+void Scene::SaveData()
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->SaveData();
+	}
+	m_jsonManager->SaveGameObjectData();
+}
+
+/**
+ * \brief データの再読み込み
+ * 
+ */
+void Scene::ReloadData()
+{
+	for (auto& obj : m_gameObjects)
+	{
+		obj->ReloadData();
 	}
 }
 
@@ -162,8 +280,6 @@ void Scene::DeleteGameObject(GameObject* obj)
 	{
 		DeleteMap(child.get());
 	}
-
-
 
 	// 親がいる場合
 	if (obj->GetParent() != nullptr)

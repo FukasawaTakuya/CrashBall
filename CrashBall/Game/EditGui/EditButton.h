@@ -19,13 +19,14 @@ class  EditButton {
 
 	// メンバ関数の宣言 -------------------------------------------------
 
-	IEditModeChanger*	m_pEditModeChanger   = nullptr;	// 編集モード切り替え
+	IEditModeChanger* m_editModeChanger   = nullptr;	// 編集モード切り替え
+
 	
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	EditButton(IEditModeChanger* pEditModeChanger);
+	EditButton(IEditModeChanger* editModeChanger);
 
 	// デストラクタ
 	~EditButton();

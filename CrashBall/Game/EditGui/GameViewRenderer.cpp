@@ -35,7 +35,7 @@ void GameViewRenderer::Update(ID3D11ShaderResourceView* srv)
         size
     );
 
-    // 描画領域
+    // 描画領域の取得
     ImVec2 leftTop = ImGui::GetItemRectMin();
     ImVec2 rightBottom = ImGui::GetItemRectMax();
 

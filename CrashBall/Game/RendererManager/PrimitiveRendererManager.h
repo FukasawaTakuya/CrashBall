@@ -63,14 +63,12 @@ public:
 	void Render(
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
-		const DirectX::SimpleMath::Matrix& view);
+		const DirectX::SimpleMath::Matrix& view,
+		const DirectX::SimpleMath::Matrix& proj);
 
 
 	// æ“¾/İ’è
 public:
-
-	// Ë‰es—ñ‚Ìİ’è
-	void SetProj(DirectX::SimpleMath::Matrix proj);
 
 	// “à•”À‘•
 private:

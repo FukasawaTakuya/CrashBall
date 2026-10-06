@@ -5,7 +5,8 @@
  * \brief コンストラクタ
  * 
  */
-RenderTextureMangaer::RenderTextureMangaer()
+RenderTextureMangaer::RenderTextureMangaer(DXGI_FORMAT format)
+	: m_format(format)
 {
 }
 
@@ -14,10 +15,10 @@ RenderTextureMangaer::RenderTextureMangaer()
  * 
  * \param format
  */
-MyRenderTexture* RenderTextureMangaer::CreateRenderTexture(DXGI_FORMAT format)
+MyRenderTexture* RenderTextureMangaer::CreateRenderTexture()
 {
-	auto renderTextrue = std::make_unique<MyRenderTexture>(format);
-
+	auto renderTextrue = std::make_unique<MyRenderTexture>(m_format);
+	renderTextrue->SetDevice(m_device);
 	MyRenderTexture* ptr = renderTextrue.get();
 
 	m_renderTextureList.push_back(std::move(renderTextrue));
@@ -41,5 +42,18 @@ void RenderTextureMangaer::DeleteRenderTexture(MyRenderTexture* renderTexture)
 	if (it != m_renderTextureList.end())
 	{
 		m_renderTextureList.erase(it);
+	}
+}
+
+/**
+ * \brief CreateWindowSizeDependentResourcesで呼ぶ用
+ * 
+ * \param rect
+ */
+void RenderTextureMangaer::SetWindowSizeDependend(const RECT& rect)
+{
+	for (auto& renderTargetView : m_renderTextureList)
+	{
+		renderTargetView->SetWindowSizeDependend(rect);
 	}
 }

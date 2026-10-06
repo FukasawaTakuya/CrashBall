@@ -34,6 +34,7 @@ ObjectInspectorGui::ObjectInspectorGui()
 	m_drawProperty.emplace(PropertyType::Bool,		std::bind(&ObjectInspectorGui::DrawBool,		this, _1));
 	m_drawProperty.emplace(PropertyType::Int,		std::bind(&ObjectInspectorGui::DrawInt,			this, _1));
 	m_drawProperty.emplace(PropertyType::Float,		std::bind(&ObjectInspectorGui::DrawFloat,		this, _1));
+	m_drawProperty.emplace(PropertyType::Angle,		std::bind(&ObjectInspectorGui::DrawAngle,		this, _1));
 	m_drawProperty.emplace(PropertyType::Vector2,	std::bind(&ObjectInspectorGui::DrawVector2,		this, _1));
 	m_drawProperty.emplace(PropertyType::Vector3,	std::bind(&ObjectInspectorGui::DrawVector3,		this, _1));
 	m_drawProperty.emplace(PropertyType::Quaternion,std::bind(&ObjectInspectorGui::DrawQuaternion,	this, _1));
@@ -201,6 +202,23 @@ void ObjectInspectorGui::DrawFloat(const PropertyInfo& property)
 		property.name.c_str(),
 		static_cast<float*>(property.data));
 }
+
+/**
+ * \brief Angle型のプロパティ表示
+ *
+ * \param property プロパティ
+ */
+void ObjectInspectorGui::DrawAngle(const PropertyInfo& property)
+{
+	float radian = XMConvertToDegrees(*static_cast<float*>(property.data));
+
+	ImGui::DragFloat(
+		property.name.c_str(),
+		&radian);
+
+	*static_cast<float*>(property.data) = XMConvertToRadians(radian);
+}
+
 
 /**
  * \brief Vector2型のプロパティ表示

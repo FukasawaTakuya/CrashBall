@@ -11,16 +11,18 @@
 
 namespace Screen
 {
-	// フルスクリーン
-	static constexpr float FULL_WIDTH = 1920.0f;
-	static constexpr float FULL_HEIGHT = 1080.0f;
+	// フルスクリーンサイズ
+	const float FULL_WIDTH = 1920.0f;
+	const float FULL_HEIGHT = 1080.0f;
 
-	static constexpr float WIDTH = FULL_WIDTH * 0.8f;
-	static constexpr float HEIGHT = FULL_HEIGHT * 0.8f;
-	static constexpr float CENTER_X = WIDTH / 2.0f;
-	static constexpr float CENTER_Y = HEIGHT / 2.0f;
+	const float WIDTH = FULL_WIDTH * 0.8f;
+	const float HEIGHT = FULL_HEIGHT * 0.8f;
+	const float CENTER_X = WIDTH / 2.0f;
+	const float CENTER_Y = HEIGHT / 2.0f;
 
 	void CalcScreenRate(bool isFullScreen);
 
 	float GetScreenRate();
+
+	float GetAccept();
 }

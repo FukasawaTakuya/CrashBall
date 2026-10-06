@@ -1,5 +1,5 @@
 /*****************************************************************//**
- * \file   RenderTexture.cpp
+ * \file   MyRenderTexture.cpp
  * \brief  レンダーテキスチャ生成クラス
  *
  * \author 深沢拓矢
@@ -35,20 +35,6 @@ void MyRenderTexture::Begin(
         &rtv,
         dsv
     );
-
-    // 塗りつぶしの色
-    float clearColor[4] =
-    {
-        0.2f,
-        0.2f,
-        0.2f,
-        1.0f
-    };
-
-    context->ClearRenderTargetView(
-        rtv,
-        clearColor
-    );
 }
 
 /**
@@ -70,6 +56,23 @@ void MyRenderTexture::End(
     );
 }
 
+/**
+ * \brief CreateWindowSizeDependentResourcesで呼ぶ用
+ * 
+ * \param rect
+ */
+void MyRenderTexture::SetWindowSizeDependend(const RECT& rect)
+{
+    if (m_isWindow)
+    {
+        SetWindow(rect);
+    }
+    else
+    {
+        SizeResources(m_width, m_height);
+    }
+}
+
 // ====================== RenderTextureのラッパー ======================= //
 
 void MyRenderTexture::SetDevice(ID3D11Device* device)
@@ -79,14 +82,19 @@ void MyRenderTexture::SetDevice(ID3D11Device* device)
 
 void MyRenderTexture::SizeResources(size_t width, size_t height)
 {
-    m_renderTexture->SizeResources(width, height);
+    m_width  = width;
+    m_height = height;
+
+    m_renderTexture->SizeResources(m_width, m_height);
 
     m_viewport.TopLeftX = 0.0f;
     m_viewport.TopLeftY = 0.0f;
-    m_viewport.Width    = width;
-    m_viewport.Height   = height;
+    m_viewport.Width    = m_width;
+    m_viewport.Height   = m_height;
     m_viewport.MinDepth = 0.0f;
     m_viewport.MaxDepth = 1.0f;
+
+    m_isWindow = false;
 }
 
 void MyRenderTexture::ReleaseDevice()
@@ -105,4 +113,5 @@ void MyRenderTexture::SetWindow(const RECT& rect)
     m_viewport.MinDepth = 0.0f;
     m_viewport.MaxDepth = 1.0f;
 
+    m_isWindow = true;
 }

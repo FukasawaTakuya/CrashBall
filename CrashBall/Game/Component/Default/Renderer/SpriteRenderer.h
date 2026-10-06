@@ -72,7 +72,7 @@ class  SpriteRenderer : public Component {
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	ID3D11ShaderResourceView* m_pSprite		   = nullptr;							// スプライトのポインタ
+	ID3D11ShaderResourceView* m_sprite		   = nullptr;							// スプライトのポインタ
 	DirectX::SimpleMath::Color m_color		   = { 1.0f, 1.0f, 1.0f, 1.0f };		// 色
 	float m_width							   = 0.0f;								// 横幅
 	float m_height							   = 0.0f;								// 縦幅
@@ -127,7 +127,7 @@ public:
 
 		if (spriteInfo != nullptr)
 		{
-			m_pSprite = spriteInfo->sprite.Get();
+			m_sprite = spriteInfo->sprite.Get();
 			m_width = spriteInfo->width;
 			m_height = spriteInfo->height;
 		}
@@ -162,7 +162,6 @@ public:
 		{
 			return m_height * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 		}
-
 	}
 
 	// 切り取り量を取得
@@ -171,6 +170,7 @@ public:
 		return m_fillAmount;
 	}
 
+	// キーの取得
 	std::string GetSpriteKey() const
 	{
 		return m_spriteKey;
@@ -183,7 +183,7 @@ public:
 
 		if (spriteInfo != nullptr)
 		{
-			m_pSprite = spriteInfo->sprite.Get();
+			m_sprite = spriteInfo->sprite.Get();
 			m_width = spriteInfo->width;
 			m_height = spriteInfo->height;
 		}
@@ -244,9 +244,23 @@ public:
 		m_color.w = std::clamp(alpha, 0.0f, 1.0f);;
 	}
 
+	// キーの設定
 	void SetSpriteKey(const std::string& spriteKey)
 	{
 		m_spriteKey = spriteKey;
+	}
+
+	// サイズの設定
+	void SetSize(float width, float height)
+	{
+		m_width = width;
+		m_height = height;
+	}
+
+	// スプライトの設定
+	void SetSprite(ID3D11ShaderResourceView* sprite)
+	{
+		m_sprite = sprite;
 	}
 
 	// 内部実装

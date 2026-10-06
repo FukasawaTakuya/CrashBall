@@ -25,6 +25,9 @@ void from_json(const ordered_json& j, PropertyInfo& property)
 	case PropertyType::Float:
 		*static_cast<float*>(property.data) = j["data"];
 		break;
+	case PropertyType::Angle:
+		*static_cast<float*>(property.data) = j["data"];
+		break;
 	case PropertyType::Vector2:
 		*static_cast<DirectX::SimpleMath::Vector2*>(property.data) = j["data"];
 		break;
@@ -90,6 +93,9 @@ void from_json(const ordered_json& j, Component& component)
 			*static_cast<int*>(prop.data) = propData;
 			break;
 		case PropertyType::Float:
+			*static_cast<float*>(prop.data) = propData;
+			break;
+		case PropertyType::Angle:
 			*static_cast<float*>(prop.data) = propData;
 			break;
 		case PropertyType::Vector2:

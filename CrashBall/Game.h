@@ -37,6 +37,8 @@
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
 
+#include "Game/RenderTexture/RenderTextureManager.h"
+
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
 
@@ -77,7 +79,8 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<MyRenderTexture>              m_renderTexture;
+    std::unique_ptr<MyRenderTexture>            m_gameViewTexture;
+    std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
 
@@ -94,8 +97,6 @@ private:
 
     Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
-
-    //std::unique_ptr<DX::RenderTexture> m_renderTexture2;
 
 public:
 

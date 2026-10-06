@@ -25,8 +25,8 @@ private:
 	using SoundCollection
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::SoundEffect>>;
 
-	FileCollection	m_bgmfile;	// BGMのファイル名 
-	FileCollection	m_sefile;	// SEのファイル名
+	FileCollection	m_bgmfile;		// BGMのファイル名 
+	FileCollection	m_sefile;		// SEのファイル名
 	SoundCollection	m_bgmSounds;	// BGMのキャッシュ
 	SoundCollection	m_seSounds;		// SEのキャッシュ
 
@@ -51,7 +51,6 @@ public:
 
 	// 音声の作成
 	void CreateSound(DirectX::AudioEngine* audioEngine);
-
 
 	// 取得/設定
 public:
