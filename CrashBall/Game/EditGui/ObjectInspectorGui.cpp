@@ -20,6 +20,7 @@
 #include "Game/Component/Default/Renderer/SpriteRenderer.h"
 #include "Game/Component/Default/Physics/Transform.h"
 #include "Game/Component/Default/Collider/Collider.h"
+#include "Game/Component/Default/Renderer/ModelRenderer.h"
 
 using namespace DirectX;
 
@@ -65,7 +66,9 @@ ObjectInspectorGui::~ObjectInspectorGui()
  * 
  * \param selectedObject 選択中のオブジェクト
  */
-void ObjectInspectorGui::Updata(GameObject* selectedObject)
+void ObjectInspectorGui::Updata(
+	GameObject* selectedObject,
+	const ResourceContext& resourceContext)
 {
 	ImGui::Begin("Inspector");
 
@@ -89,14 +92,8 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
 			{
 				ImGui::SameLine();
 				ImGui::Checkbox(" ", &comp->m_isActive);
-				DrawProperty(comp.get());
+				DrawProperty(comp.get(), resourceContext);
 				ImGui::TreePop();
-			}
-
-			if (comp->GetCompName() == "Transform")
-			{
-				//  Transformが編集されたらDirtyフラグを上げるために移動関数を呼ぶ
-				static_cast<Transform*>(comp.get())->Translate(SimpleMath::Vector3::Zero);
 			}
 		}
 
@@ -155,11 +152,18 @@ void ObjectInspectorGui::Updata(GameObject* selectedObject)
  * 
  * \param comp コンポーネント
  */
-void ObjectInspectorGui::DrawProperty(Component* comp)
+void ObjectInspectorGui::DrawProperty(
+	Component* comp,
+	const ResourceContext& resourceContext)
 {
 	for (auto& property : comp->GetProperties())
 	{
 		m_drawProperty[property.propType](property);
+		if (ImGui::IsItemEdited())
+		{
+			comp->EditedFunc();
+			comp->EditedFunc(resourceContext);
+		}
 	}
 }
 

@@ -214,6 +214,12 @@ public:
 	// 内部実装
 private:
 
+	// 変更されたとき実行する関数
+	void EditedFunc() override
+	{
+		Translate(DirectX::SimpleMath::Vector3::Zero);
+	}
+
 	// プロパティの取得
 	const std::vector<PropertyInfo>& GetProperties() const override
 	{

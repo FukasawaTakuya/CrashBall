@@ -219,7 +219,8 @@ void Game::Update(DX::StepTimer const& timer)
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager.get(),
-        m_gameViewTexture->GetShaderResourceView()
+        m_gameViewTexture->GetShaderResourceView(),
+        m_resourceContext
     );
 
 

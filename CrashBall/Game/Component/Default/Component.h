@@ -106,25 +106,25 @@ public:
 public:
 
 	// アタッチ時の処理
-	virtual void Awake() {};
+	virtual void Awake() {}
 
 	// 初期処理
-	virtual void Start(const GameContext& gameContext) {};
+	virtual void Start(const GameContext& gameContext) {}
 
 	// 更新
-	virtual void Update(const GameContext& gameContext) {};
+	virtual void Update(const GameContext& gameContext) {}
 
 	// 描画
-	virtual void Render(const RenderContext& renderContext) {};
+	virtual void Render(const RenderContext& renderContext) {}
 
 	// 終了処理
-	virtual void Finalize() {};
+	virtual void Finalize() {}
 
 	// デバイス依存リソースの設定
-	virtual void SetDeviceResource(const ResourceContext& resourceContext) {};
+	virtual void SetDeviceResource(const ResourceContext& resourceContext) {}
 
 	// ウィンドウサイズ依存リソースの設定
-	virtual void SetWindowSizeResource() {};
+	virtual void SetWindowSizeResource() {}
 
 	// 取得/設定
 public:
@@ -175,6 +175,9 @@ public:
 	// 内部実装
 private:
 
+	// 編集されたときに実行する関数
+	virtual void EditedFunc()  {}
+	virtual void EditedFunc(const ResourceContext& resourceContext) {}
 
 private:
 

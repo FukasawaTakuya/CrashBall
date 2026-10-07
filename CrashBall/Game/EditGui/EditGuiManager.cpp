@@ -40,10 +40,12 @@ EditGuiManager::~EditGuiManager()
  * \param gameObjects ゲームオブジェクト
  * \param scriptableObjects Scriptableオブジェクト
  * \param srv レンダーテクスチャ
+ * \param resourceContext リソース用のコンテキスト
  */
 void EditGuiManager::Update(
     ISceneEditer* sceneEditer,
-    ID3D11ShaderResourceView* srv)
+    ID3D11ShaderResourceView* srv,
+    const ResourceContext& resourceContext)
 {
     if (!m_isActive) return;
 
@@ -56,7 +58,7 @@ void EditGuiManager::Update(
 
     // 更新
     m_objectListGui->Update(sceneEditer);
-    m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject());
+    m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject(), resourceContext);
     m_gameViewRenderer->Update(srv);
     m_editButton->Update(sceneEditer);
     m_sceneSelect->Update(sceneEditer);

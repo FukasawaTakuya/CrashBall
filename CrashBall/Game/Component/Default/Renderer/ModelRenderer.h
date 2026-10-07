@@ -79,9 +79,6 @@ public:
 			});
 	}
 
-	// アンビエントライトの適用
-	void ApplyAmbientLight(const DirectX::SimpleMath::Color& lightcolor);
-
 	// 取得/設定
 public:
 
@@ -106,10 +103,30 @@ public:
 	void SetDiffuseColor(const DirectX::SimpleMath::Color& color)
 	{
 		m_diffuseColor = color;
+		ApplyDiffuseColor();
+	}
+
+	// アンビエントライトカラーの設定
+	void SetAmbientColor(const DirectX::SimpleMath::Color& color)
+	{
+		m_ambientColor = color;
+		ApplyAmbientLight();
 	}
 
 	// 内部実装
 private:
+
+	// アンビエントライトの適用
+	void ApplyAmbientLight();
+
+	// ディフーズカラーの適用
+	void ApplyDiffuseColor();
+
+	// 変更されたとき実行する関数
+	void EditedFunc(const ResourceContext& resourceContext) override
+	{
+		SetDeviceResource(resourceContext);
+	}
 
 	// プロパティの取得
 	virtual const std::vector<PropertyInfo>& GetProperties() const override

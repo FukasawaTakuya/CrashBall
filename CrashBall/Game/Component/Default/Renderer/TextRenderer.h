@@ -141,6 +141,12 @@ public:
 	// 内部実装
 private:
 
+	// 変更されたとき実行する関数
+	void EditedFunc(const ResourceContext& resourceContext) override
+	{
+		SetDeviceResource(resourceContext);
+	}
+
 	// テキストのサイズを求める
 	void CalcTextSize()
 	{

@@ -47,7 +47,9 @@ public:
 public:
 
 	// 更新
-	void Updata(GameObject* selectedObject);
+	void Updata(
+		GameObject* selectedObject, 
+		const ResourceContext& resourceContext);
 
 	// 取得/設定
 public:
@@ -56,7 +58,8 @@ public:
 private:
 
 	// プロパティの表示
-	void DrawProperty(Component* comp); 
+	void DrawProperty(Component* comp,
+		const ResourceContext& resourceContext);
 
 	// Bool型のプロパティ表示
 	void DrawBool(const PropertyInfo& property);

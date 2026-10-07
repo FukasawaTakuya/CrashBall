@@ -54,7 +54,8 @@ public:
 	// 更新
 	void Update(
 		ISceneEditer* sceneEditer,
-		ID3D11ShaderResourceView* srv);
+		ID3D11ShaderResourceView* srv,
+		const ResourceContext& resourceContext);
 
 	void Reset();
 
