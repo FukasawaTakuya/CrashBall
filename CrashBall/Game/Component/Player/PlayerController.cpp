@@ -35,9 +35,10 @@ PlayerController::PlayerController(IGameObject* gameObject)
  */
 void PlayerController::Awake()
 {
-	GetGameObject()->GetComponent<ModelRenderer>()->SetDiffuseColor(
-		Scriptable::GetScriptableObject<GameColor>()->m_playerColor
-	);
+	ModelRenderer* modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
+
+	modelRenderer->SetDiffuseColor(
+		Scriptable::GetScriptableObject<GameColor>()->m_playerColor);
 }
 
 /**
@@ -54,6 +55,7 @@ void PlayerController::Start(const GameContext& gameContext)
 	{
 		GetGameObject()->GetComponent<Rigidbody>(),
 		GetGameObject()->GetComponent<Transform>(),
+		GetGameObject()->GetComponent<ModelRenderer>(),
 		GetGameObject()->GetComponent<BallController>(),
 		GetGameObject()->GetComponent<PlayerStatusController>(),
 		this,

@@ -106,3 +106,13 @@ bool Collider::IsCollideObject(Collider* collider) const
 {
 	return (m_collideObject.find(collider) != m_collideObject.end());
 }
+
+/**
+ * \brief 衝突しているオブジェクトが存在するか調べる
+ * 
+ * \return 
+ */
+bool Collider::IsNoneCollideObject()
+{
+	return m_collideObject.empty();
+}

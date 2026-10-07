@@ -25,6 +25,11 @@ private:
 
 	Easing<float> m_hitStopTimer;
 
+	bool m_isHit = false;	// ヒットフラグ
+
+	// ターゲットカメラ操作
+	TargetCameraController* m_targetCameraController;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

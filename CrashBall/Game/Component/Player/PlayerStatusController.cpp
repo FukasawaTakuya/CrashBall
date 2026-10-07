@@ -19,6 +19,9 @@ RegisterComponent(PlayerStatusController)
 PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
 	: Component(gameObject)
 {
+	ModelRenderer* modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
+
+	m_defaultAmbient = modelRenderer->GetAmbientColor();
 }
 
 /**
@@ -40,7 +43,7 @@ void PlayerStatusController::Update(const GameContext& gameContext)
 		m_canAttack = false;
 	}
 
-	if (!m_isAttack)
+	if (!m_goAttack)
 	{
 		int playerMeshCount = m_pFloorMeshGetter->GetPlayerMeshCount();
 		int enemyMeshCount = m_pFloorMeshGetter->GetEnemyMeshCount();

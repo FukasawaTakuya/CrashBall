@@ -9,19 +9,20 @@
 #pragma once
 
 #include "PlayerStateBase.h"
-
-class Player;
+#include "Game/Common/Easing.h"
 
 /**
  * \brief プレイヤー移動ステート
  */
 class  PlayerMoveState : public PlayerStateBase {
 
-	// クラス定数の宣言 -------------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	// データメンバの宣言 -----------------------------------------------
-private:
+	Easing<DirectX::SimpleMath::Color> m_ambient;
+
+	// ターゲットカメラ操作
+	TargetCameraController* m_targetCameraController;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

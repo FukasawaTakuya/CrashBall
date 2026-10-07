@@ -37,8 +37,8 @@ protected:
 		AddProperty(m_baseOffset, PropertyType::Vector3)
 	EndProperty()
 
-		// コンポーネント名の設定
-		SetCompName("TargetCameraController")
+	// コンポーネント名の設定
+	SetCompName("TargetCameraController")
 
 
 		// メンバ関数の宣言 -------------------------------------------------
@@ -88,6 +88,12 @@ public:
 	void SetBaseOffset(const DirectX::SimpleMath::Vector3& baseOffset)
 	{
 		m_baseOffset = baseOffset;
+	}
+
+	// 拡大倍率のセット
+	void SetZoomRate(float zoomRate)
+	{
+		m_zoomRate = zoomRate;
 	}
 
 	// 内部実装

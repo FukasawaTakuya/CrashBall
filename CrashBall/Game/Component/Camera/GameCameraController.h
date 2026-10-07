@@ -29,6 +29,7 @@ private:
 	BeginProperty()
 		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngleRad, PropertyType::Float)
+		AddProperty(m_zoomRate, PropertyType::Float)
 		AddProperty(m_targetTransform, PropertyType::Component)
 	EndProperty()
 
@@ -77,11 +78,5 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConverter
-private:
-
-	friend void to_json(nlohmann::json& j, const GameCameraController& gameCameraController);
-	friend void from_json(const json& j, GameCameraController& gameCameraController);
 
 };

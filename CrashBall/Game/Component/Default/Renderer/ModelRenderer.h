@@ -94,6 +94,17 @@ public:
 		return m_modelKey;
 	}
 
+	// ディフーズカラーの取得
+	DirectX::SimpleMath::Color GetDiffuseColor() const
+	{
+		return m_diffuseColor;
+	}
+	// アンビエントカラーの取得
+	DirectX::SimpleMath::Color GetAmbientColor() const
+	{
+		return m_ambientColor;
+	}
+
 	// モデルの設定
 	void SetModel(IModelManager* modelManager)
 	{

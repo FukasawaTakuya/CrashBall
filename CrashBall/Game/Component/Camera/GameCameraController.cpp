@@ -23,6 +23,7 @@ RegisterComponent(GameCameraController)
 GameCameraController::GameCameraController(IGameObject* gameObejct)
 	: TargetCameraController(gameObejct)
 {
+	m_baseTypeid = typeid(TargetCameraController);
 }
 
 /**
@@ -91,7 +92,7 @@ void GameCameraController::TargetingTransform()
 	SimpleMath::Vector3 posForward = forward * forward.Dot(position);
 	SimpleMath::Vector3 desForward = forward * forward.Dot(destination);
 	position = destination - desForward;
-	posForward = SimpleMath::Vector3::Lerp(posForward, desForward, Time::GetElapsedTime() * 7.0f);
+	posForward = SimpleMath::Vector3::Lerp(posForward, desForward, Time::GetUnscaleElapsedTime() * 7.0f);
 
 	m_transform->SetWorldPosition(position + posForward);
 

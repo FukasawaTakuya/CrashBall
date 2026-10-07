@@ -61,12 +61,17 @@ public:
         m_current = std::clamp(m_current, 0.0f, m_time);
         float t = m_easing(m_current / m_time);
         m_value = m_lerp(m_start, m_end, t);
+
+        if (m_current >= m_time)
+        {
+            m_current = m_time;
+        }
     }
 
     // イージング中か
     bool IsEase()
     {
-        return m_value != m_end;
+        return m_current != m_time;
     }
 
     // 現在値の取得

@@ -22,6 +22,9 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 	: PlayerStateBase(stateContext)
 	, m_timer{ 0.0f }
 {
+	m_targetCameraController
+		= stateContext.playerController->GetCamera()->GetGameObject()->GetComponent<TargetCameraController>();
+
 	// 初期化
 	m_hitStopTimer.Initialize([](float start, float end, float t) { return std::lerp(start, end, t); });
 
@@ -39,22 +42,18 @@ PlayerAttackState::PlayerAttackState(const PlayerStateContext& stateContext)
 				m_stateContext.playerStatusController->SetIsAttack(false);
 				// 効果音
 				m_stateContext.gameContext->soundManager->RegisterPlaySeCommand("Crash");
+				// ヒットフラグを上げる
+				m_isHit = true;
 
 				// 敵の体力が残っているならヒットストップ
 				if (enemyController->GetHp() > 0)
 				{
 					// タイマーをセット
-					m_hitStopTimer.Set(Ease::Linear, 0.0f, 1.0f, 0.05f);
+					m_hitStopTimer.Set(Ease::Linear, 0.0f, 1.0f, m_owner->GetHitStopTime());
 					Time::SetTimeScale(0.0f);
-				}
-				else
-				{
-					// ステート遷移
-					m_pStateMachine->ChangeState<PlayerMoveState>();
-					// 移動速度を0にする
-					m_stateContext.rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
-					// 攻撃フラグを設定
-					m_stateContext.playerStatusController->SetIsAttack(false);
+
+					// カメラをズーム
+					m_targetCameraController->SetZoomRate(0.6f);
 				}
 			}
 		});
@@ -75,6 +74,7 @@ PlayerAttackState::~PlayerAttackState()
 void PlayerAttackState::OnEnter()
 {
 	m_timer = 0.0f;
+	m_isHit = false;
 }
 
 /**
@@ -104,12 +104,17 @@ void PlayerAttackState::Update(const GameContext& gameContext)
 
 	m_hitStopTimer.DoEase(Time::GetUnscaleElapsedTime());
 
-	// 攻撃の持続時間を超えた場合、移動ステートに遷移
-	if (m_timer >= playerController->GetAttackDuration() && !m_hitStopTimer.IsEase()) {
+	// 空中でも回転させる
+	if (!m_stateContext.ballController->GetIsGround())
+	{
+		m_stateContext.ballController->AddRotate();
+	}
+
+	if ((!m_hitStopTimer.IsEase() && m_isHit) ||
+		(m_timer >= playerController->GetAttackDuration() && !m_isHit))
+	{		
 		// ステート遷移
 		m_pStateMachine->ChangeState<PlayerMoveState>();
-		// 移動速度を0にする
-		rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 		// 攻撃フラグを設定
 		m_stateContext.playerStatusController->SetIsAttack(false);
 

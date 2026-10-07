@@ -208,7 +208,7 @@ void Game::Update(DX::StepTimer const& timer)
     }
     m_sceneManager->Update();
 
-    //// BGMの再生
+    // BGMの再生
     //m_soundPlayer->PlayBgm(m_soundManager.get());
     //// SEの再生
     //m_soundPlayer->PlaySe(m_soundManager.get());

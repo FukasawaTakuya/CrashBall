@@ -159,6 +159,8 @@ void ObjectInspectorGui::DrawProperty(
 	for (auto& property : comp->GetProperties())
 	{
 		m_drawProperty[property.propType](property);
+
+		// 編集されたら
 		if (ImGui::IsItemEdited())
 		{
 			comp->EditedFunc();

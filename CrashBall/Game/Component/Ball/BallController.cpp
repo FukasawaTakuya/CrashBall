@@ -46,7 +46,8 @@ void BallController::Awake()
 	// 衝突時の処理の登録
 	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 		{
-			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
+			if (other->GetGameObject()->GetTag() == ObjectTag::Stage || 
+				other->GetLayerMaskType() == LayerMaskType::Ball)
 			{
 				SetIsGround(true);
 			}
@@ -55,7 +56,7 @@ void BallController::Awake()
 	// 衝突終了時の処理の登録
 	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
 		{
-			if (other->GetGameObject()->GetTag() == ObjectTag::Stage)
+			if (m_sphereCollider->IsNoneCollideObject())
 			{
 				SetIsGround(false);
 			}

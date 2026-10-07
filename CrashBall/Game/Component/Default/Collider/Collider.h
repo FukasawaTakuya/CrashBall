@@ -86,6 +86,9 @@ public:
 	// 衝突中のオブジェクトか調べる
 	bool IsCollideObject(Collider* collider) const;
 
+	// 衝突しているオブジェクトが存在するか調べる
+	bool IsNoneCollideObject();
+
 	// 取得/設定
 public:
 

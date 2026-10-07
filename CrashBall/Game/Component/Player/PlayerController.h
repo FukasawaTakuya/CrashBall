@@ -25,11 +25,12 @@ class  PlayerController : public Component {
 private:
 
 	// AttackState
-	float m_attackSpeed = 0.0f;		// 攻撃速度
-	float m_attackDuration = 0.0f;	// 攻撃の持続時間
+	float m_attackSpeed;		// 攻撃速度
+	float m_attackDuration;		// 攻撃の持続時間
+	float m_hitStopTime;		// ヒットストップ時間
 	// MoveState
-	float m_acceleration = 0.0f;	// 加速度 
-	float m_maxSpeed = 0.0f;		// 最大速度
+	float m_acceleration;	// 加速度 
+	float m_maxSpeed;		// 最大速度
 
 	const Transform* m_pEnemyTransform	= nullptr;	// 敵のトランスフォームコンポーネント
 	const Camera*	 m_pCamera			= nullptr;	// カメラのポインタ
@@ -41,10 +42,11 @@ private:
 	BeginProperty()
 		AddProperty(m_attackSpeed,			PropertyType::Float)
 		AddProperty(m_attackDuration,		PropertyType::Float)
+		AddProperty(m_hitStopTime,			PropertyType::Float)
 		AddProperty(m_acceleration,			PropertyType::Float)
 		AddProperty(m_maxSpeed,				PropertyType::Float)
 		AddProperty(m_pEnemyTransform,		PropertyType::Component)
-		AddProperty(m_pCamera,	PropertyType::Component)
+		AddProperty(m_pCamera,				PropertyType::Component)
 		AddProperty(m_pStageController,		PropertyType::Component)
 	EndProperty()
 
@@ -94,11 +96,12 @@ public:
 		return m_pStageController;
 	}
 
-	// パラメータの取得
 	// 攻撃速度の取得
 	float GetAttackSpeed()		const { return m_attackSpeed; }
 	// 攻撃持続時間の取得
 	float GetAttackDuration()	const { return m_attackDuration; }
+	// ヒットストップ時間の取得
+	float GetHitStopTime()		const { return m_hitStopTime; }
 	// 移動時の加速度の取得
 	float GetAcceleration()		const { return m_acceleration; }
 	// 最大移動速度の取得

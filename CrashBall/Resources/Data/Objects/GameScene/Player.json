@@ -122,6 +122,15 @@
                 {
                     "name": "pFloorMeshGetter",
                     "data": 68
+                },
+                {
+                    "name": "attackAmbient",
+                    "data": {
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 0.615686297416687,
+                        "r": 0.0
+                    }
                 }
             ]
         },
@@ -136,6 +145,10 @@
                 },
                 {
                     "name": "attackDuration",
+                    "data": 0.5
+                },
+                {
+                    "name": "hitStopTime",
                     "data": 0.5
                 },
                 {

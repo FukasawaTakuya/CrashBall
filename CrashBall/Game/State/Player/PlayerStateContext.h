@@ -18,6 +18,7 @@ struct PlayerStateContext
 {
 	Rigidbody* rigidbody;
 	Transform* transform;
+	ModelRenderer* modelRenderer;
 	BallController* ballController;
 	PlayerStatusController* playerStatusController;
 	PlayerController* playerController;
