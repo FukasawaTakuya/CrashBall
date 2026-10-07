@@ -91,6 +91,7 @@ void PrimitiveRendererManager::Render(
 
     // 深度バッファの設定
     context->OMSetDepthStencilState(state->DepthDefault(), 0);
+    context->OMSetBlendState(state->AlphaBlend(), nullptr, 0XFFFFFFFF);
 
     // ビュー行列のセット
     m_basicEffect->SetView(view);

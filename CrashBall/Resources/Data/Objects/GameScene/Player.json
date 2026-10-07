@@ -109,7 +109,7 @@
             "properties": [
                 {
                     "name": "attackCost",
-                    "data": 50
+                    "data": 40
                 },
                 {
                     "name": "minAttackPower",
@@ -117,7 +117,7 @@
                 },
                 {
                     "name": "powerUpRate",
-                    "data": 5.0
+                    "data": 4.0
                 },
                 {
                     "name": "pFloorMeshGetter",

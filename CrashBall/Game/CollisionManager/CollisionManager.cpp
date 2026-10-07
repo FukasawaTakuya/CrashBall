@@ -55,8 +55,6 @@ void CollisionManager::Update()
 				CollisionInfo collsionInfo = m_isCollsionTable->IsCollision(col1, col2);
 				if (collsionInfo.isCollsion)
 				{
-					// 衝突解決
-					Collision::ResolveCollision(collsionInfo);
 
 					// 対象と衝突状態でなければEnter処理
 					if (!col1->IsCollideObject(col2))
@@ -72,6 +70,9 @@ void CollisionManager::Update()
 					// 衝突中の処理
 					col1->OnCollisionStay(col2);
 					col2->OnCollisionStay(col1);
+
+					// 衝突解決
+					Collision::ResolveCollision(collsionInfo);
 				}
 				else 
 				{

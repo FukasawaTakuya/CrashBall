@@ -80,7 +80,7 @@ void StageController::Start(const GameContext& gameContext)
 	// 色をデフォルトに戻す
 	for (auto& floorMeshColor : m_floorMeshColor)
 	{
-		floorMeshColor.second = Colors::White;
+		floorMeshColor.second = m_gameColor->m_defaultFaceColor;
 	}
 
 	m_enemyMeshCount = 0;

@@ -41,12 +41,9 @@ private:
 	std::unordered_map<Triangle*, DirectX::SimpleMath::Color> m_floorMeshColor;	// 床メッシュの色情報
 
 	int m_playerMeshCount = 0;	// プレイヤーが塗った面の数
-
 	int m_enemyMeshCount = 0;	// 敵が塗ったの面の数
-
 	int m_normalMeshCount = 0;	// 何も塗られていない面の数
-
-	float m_floorNormalY = 0.0f;	// 床判定基準になる法線のY成分
+	float m_floorNormalY = 0.0f;// 床判定基準になる法線のY成分
 
 	// プロパティの設定
 	BeginProperty()

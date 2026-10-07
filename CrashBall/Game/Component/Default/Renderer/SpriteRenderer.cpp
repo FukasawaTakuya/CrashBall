@@ -65,12 +65,19 @@ void SpriteRenderer::Render(const RenderContext& renderContext)
 	position.x -= offset.x * (1.0f - m_fillAmount) * m_spriteScale.x * m_rectTransform->GetWorldScale().x;
 	position.y -= offset.y * (1.0f - m_fillAmount) * m_spriteScale.y * m_rectTransform->GetWorldScale().y;
 
+
+	SimpleMath::Color color;
+	color.x = m_color.x * m_color.w;
+	color.y = m_color.y * m_color.w;
+	color.z = m_color.z * m_color.w;
+	color.w = m_color.w;
+
 	// 描画命令の登録
 	renderContext.spriteRendererManager->RegisterRenderCommand(
 		m_sprite,
 		position,
 		srcRect,
-		m_color,
+		color,
 		m_rectTransform->GetWorldRotate(),
 		m_spriteScale * m_rectTransform->GetWorldScale(),
 		m_rectTransform->GetOrigin(m_width, m_height),
