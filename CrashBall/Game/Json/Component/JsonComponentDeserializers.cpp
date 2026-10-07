@@ -8,67 +8,6 @@
 
 using namespace DirectX;
 
-// PropertyInfoへ変換
-void from_json(const ordered_json& j, PropertyInfo& property)
-{
-	PropertyType propType
-		= magic_enum::enum_cast<PropertyType>(j["type"].get<std::string>()).value();
-
-	switch (propType)
-	{
-	case PropertyType::Bool:
-		*static_cast<bool*>(property.data) = j["data"];
-		break;
-	case PropertyType::Int:
-		*static_cast<int*>(property.data) = j["data"];
-		break;
-	case PropertyType::Float:
-		*static_cast<float*>(property.data) = j["data"];
-		break;
-	case PropertyType::Angle:
-		*static_cast<float*>(property.data) = j["data"];
-		break;
-	case PropertyType::Vector2:
-		*static_cast<DirectX::SimpleMath::Vector2*>(property.data) = j["data"];
-		break;
-	case PropertyType::Vector3:
-		*static_cast<DirectX::SimpleMath::Vector3*>(property.data) = j["data"];
-		break;
-	case PropertyType::Quaternion:
-		*static_cast<DirectX::SimpleMath::Quaternion*>(property.data) = j["data"];
-		break;
-	case PropertyType::Color:
-		*static_cast<DirectX::SimpleMath::Color*>(property.data) = j["data"];
-		break;
-	case PropertyType::Slider:
-		*static_cast<float*>(property.data) = j["data"];
-		break;
-	case PropertyType::String:
-		// wstringの時はマルチバイト文字に変換する]
-		if (typeid(std::wstring) == property.propTypeId)
-		{
-			*static_cast<std::wstring*>(property.data) =
-				Utility::ConvertToWideChar(j["data"]);
-		}
-		else if (typeid(std::string) == property.propTypeId)
-		{
-			*static_cast<std::string*>(property.data) = j["data"];
-		}
-		break;
-	case PropertyType::Enum:
-		*static_cast<int*>(property.data) = j["data"];
-		break;
-	case PropertyType::GameObject:
-		*static_cast<int*>(property.data) = j["data"];
-		break;
-	case PropertyType::Component:
-		*static_cast<int*>(property.data) = j["data"];
-		break;
-	default:
-		break;
-	}
-}
-
 // Componentへ変換
 void from_json(const ordered_json& j, Component& component)
 {
@@ -85,10 +24,6 @@ void from_json(const ordered_json& j, Component& component)
 
 		if(propData != j["properties"].end())
 		{
-			// プロパティタイプ
-			PropertyType propType
-				= magic_enum::enum_cast<PropertyType>((*propData)["type"].get<std::string>()).value();
-
 			switch (prop.propType)
 			{
 			case PropertyType::Bool:

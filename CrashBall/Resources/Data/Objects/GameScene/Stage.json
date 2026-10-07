@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector3",
                     "data": {
                         "x": 0.0,
                         "y": 0.0,
@@ -20,7 +19,6 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Quaternion",
                     "data": {
                         "x": -0.0,
                         "y": 0.0,
@@ -29,7 +27,6 @@
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector3",
                     "data": {
                         "x": 8.0,
                         "y": 8.0,
@@ -45,12 +42,10 @@
             "properties": [
                 {
                     "name": "meshData",
-                    "type": "String",
                     "data": "Resources/Mesh/newStage.json"
                 },
                 {
                     "name": "layerMaskType",
-                    "type": "Enum",
                     "data": 3
                 }
             ]
@@ -62,7 +57,6 @@
             "properties": [
                 {
                     "name": "floorNormalY",
-                    "type": "Float",
                     "data": 0.10000000149011612
                 }
             ]

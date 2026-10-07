@@ -11,17 +11,14 @@
             "properties": [
                 {
                     "name": "pEnemyController",
-                    "type": "Component",
                     "data": 38
                 },
                 {
                     "name": "pGameTimer",
-                    "type": "Component",
                     "data": 72
                 },
                 {
                     "name": "changeSceneScreen",
-                    "type": "Component",
                     "data": 84
                 }
             ]

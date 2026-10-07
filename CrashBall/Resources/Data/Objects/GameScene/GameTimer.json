@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector2",
                     "data": {
                         "x": 1685.0,
                         "y": 556.0
@@ -19,12 +18,10 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Angle",
                     "data": 0.0
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.0,
                         "y": 1.0
@@ -32,7 +29,6 @@
                 },
                 {
                     "name": "origin",
-                    "type": "Enum",
                     "data": 1
                 }
             ]
@@ -44,12 +40,10 @@
             "properties": [
                 {
                     "name": "text",
-                    "type": "String",
                     "data": "Time:108.9"
                 },
                 {
                     "name": "color",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 0.0,
@@ -59,17 +53,14 @@
                 },
                 {
                     "name": "fontScale",
-                    "type": "Float",
                     "data": 1.399999976158142
                 },
                 {
                     "name": "layerDepth",
-                    "type": "Float",
                     "data": 1.0
                 },
                 {
                     "name": "fontKey",
-                    "type": "String",
                     "data": "makinas"
                 }
             ]
@@ -81,7 +72,6 @@
             "properties": [
                 {
                     "name": "gameTime",
-                    "type": "Float",
                     "data": 300.0
                 }
             ]
@@ -93,12 +83,10 @@
             "properties": [
                 {
                     "name": "spriteKey",
-                    "type": "String",
                     "data": "Button"
                 },
                 {
                     "name": "color",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 1.0,
@@ -108,7 +96,6 @@
                 },
                 {
                     "name": "spriteScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.0700000524520874,
                         "y": 1.0
@@ -116,22 +103,18 @@
                 },
                 {
                     "name": "layerDepth",
-                    "type": "Float",
                     "data": 0.0
                 },
                 {
                     "name": "fillOrigin",
-                    "type": "Enum",
                     "data": 3
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Slider",
                     "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
-                    "type": "Enum",
                     "data": 0
                 }
             ]

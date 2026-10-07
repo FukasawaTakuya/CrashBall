@@ -11,12 +11,10 @@
             "properties": [
                 {
                     "name": "spriteKey",
-                    "type": "String",
                     "data": "Gauge"
                 },
                 {
                     "name": "color",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 1.0,
@@ -26,7 +24,6 @@
                 },
                 {
                     "name": "spriteScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.0,
                         "y": 1.0
@@ -34,22 +31,18 @@
                 },
                 {
                     "name": "layerDepth",
-                    "type": "Float",
                     "data": 0.10000000149011612
                 },
                 {
                     "name": "fillOrigin",
-                    "type": "Enum",
                     "data": 3
                 },
                 {
                     "name": "fillAmount",
-                    "type": "Slider",
                     "data": 1.0
                 },
                 {
                     "name": "spriteEffects",
-                    "type": "Enum",
                     "data": 0
                 }
             ]
@@ -61,7 +54,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector2",
                     "data": {
                         "x": 0.0,
                         "y": 29.0
@@ -69,12 +61,10 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Angle",
                     "data": 0.0
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 0.9375,
                         "y": 0.30000001192092896
@@ -82,7 +72,6 @@
                 },
                 {
                     "name": "origin",
-                    "type": "Enum",
                     "data": 1
                 }
             ]

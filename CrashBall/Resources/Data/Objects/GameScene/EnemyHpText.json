@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector2",
                     "data": {
                         "x": 0.0,
                         "y": -65.5
@@ -19,12 +18,10 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Angle",
                     "data": 0.0
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.0,
                         "y": 0.800000011920929
@@ -32,7 +29,6 @@
                 },
                 {
                     "name": "origin",
-                    "type": "Enum",
                     "data": 1
                 }
             ]
@@ -44,12 +40,10 @@
             "properties": [
                 {
                     "name": "text",
-                    "type": "String",
                     "data": "EnemyHP 200 / 200"
                 },
                 {
                     "name": "color",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 0.7568627595901489,
@@ -59,17 +53,14 @@
                 },
                 {
                     "name": "fontScale",
-                    "type": "Float",
                     "data": 0.699999988079071
                 },
                 {
                     "name": "layerDepth",
-                    "type": "Float",
                     "data": 0.0
                 },
                 {
                     "name": "fontKey",
-                    "type": "String",
                     "data": "makinas"
                 }
             ]

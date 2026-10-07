@@ -11,7 +11,6 @@ using namespace DirectX;
 void to_json(ordered_json& j, const PropertyInfo& property)
 {
 	j["name"] = property.name;
-	j["type"] = magic_enum::enum_name<PropertyType>(property.propType);
 	switch (property.propType)
 	{
 	case PropertyType::Bool:

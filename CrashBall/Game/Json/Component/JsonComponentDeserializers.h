@@ -4,9 +4,6 @@
 #include "Game/Component/Default/Component.h"
 #include "Game/GameObject/GameObject.h"
 
-// PropertyInfoへ変換
-void from_json(const ordered_json& j, PropertyInfo& property);
-
 // Componentへ変換
 void from_json(const ordered_json& j, Component& component);
 

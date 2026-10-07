@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector3",
                     "data": {
                         "x": 0.0,
                         "y": 0.0,
@@ -20,7 +19,6 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Quaternion",
                     "data": {
                         "x": -0.0,
                         "y": 0.0,
@@ -29,7 +27,6 @@
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector3",
                     "data": {
                         "x": 1.0,
                         "y": 1.0,
@@ -45,12 +42,10 @@
             "properties": [
                 {
                     "name": "radius",
-                    "type": "Float",
                     "data": 80.0
                 },
                 {
                     "name": "layerMaskType",
-                    "type": "Enum",
                     "data": 1
                 }
             ]

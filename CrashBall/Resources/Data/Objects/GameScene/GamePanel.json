@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector2",
                     "data": {
                         "x": 0.0,
                         "y": 0.0
@@ -19,12 +18,10 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Angle",
                     "data": 0.0
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.0,
                         "y": 1.0
@@ -32,7 +29,6 @@
                 },
                 {
                     "name": "origin",
-                    "type": "Enum",
                     "data": 0
                 }
             ]
@@ -44,27 +40,22 @@
             "properties": [
                 {
                     "name": "pPalyerMeshGauge",
-                    "type": "GameObject",
                     "data": 19
                 },
                 {
                     "name": "pEnemyMeshGauge",
-                    "type": "GameObject",
                     "data": 8
                 },
                 {
                     "name": "pPlayerMeshNumText",
-                    "type": "GameObject",
                     "data": 20
                 },
                 {
                     "name": "pEnemyMeshNumText",
-                    "type": "GameObject",
                     "data": 14
                 },
                 {
                     "name": "pStageController",
-                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -76,22 +67,18 @@
             "properties": [
                 {
                     "name": "pAttackGauge",
-                    "type": "GameObject",
                     "data": 5
                 },
                 {
                     "name": "pAttackPowerText",
-                    "type": "GameObject",
                     "data": 9
                 },
                 {
                     "name": "pPlayerStatusController",
-                    "type": "Component",
                     "data": 58
                 },
                 {
                     "name": "pStageController",
-                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -103,22 +90,18 @@
             "properties": [
                 {
                     "name": "pEnemyHpGauge",
-                    "type": "GameObject",
                     "data": 11
                 },
                 {
                     "name": "pEnemyHpGaugeTrack",
-                    "type": "GameObject",
                     "data": 12
                 },
                 {
                     "name": "pEnemyHpText",
-                    "type": "GameObject",
                     "data": 13
                 },
                 {
                     "name": "pEnemyController",
-                    "type": "Component",
                     "data": 38
                 }
             ]

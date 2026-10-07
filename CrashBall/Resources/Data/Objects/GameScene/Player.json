@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector3",
                     "data": {
                         "x": 0.0,
                         "y": 9.0,
@@ -20,7 +19,6 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Quaternion",
                     "data": {
                         "x": 0.4108057916164398,
                         "y": 2.4619054794311523,
@@ -29,7 +27,6 @@
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector3",
                     "data": {
                         "x": 2.0,
                         "y": 2.0,
@@ -45,12 +42,10 @@
             "properties": [
                 {
                     "name": "radius",
-                    "type": "Float",
                     "data": 0.5
                 },
                 {
                     "name": "layerMaskType",
-                    "type": "Enum",
                     "data": 2
                 }
             ]
@@ -62,17 +57,24 @@
             "properties": [
                 {
                     "name": "modelKey",
-                    "type": "String",
                     "data": "Player"
                 },
                 {
                     "name": "diffuseColor",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 0.9803921580314636,
                         "g": 0.8078431487083435,
                         "r": 0.529411792755127
+                    }
+                },
+                {
+                    "name": "ambientColor",
+                    "data": {
+                        "a": 0.6000000238418579,
+                        "b": 0.6000000238418579,
+                        "g": 0.6000000238418579,
+                        "r": 0.6000000238418579
                     }
                 }
             ]
@@ -84,22 +86,18 @@
             "properties": [
                 {
                     "name": "gravityAcceleration",
-                    "type": "Float",
                     "data": 25.799999237060547
                 },
                 {
                     "name": "friction",
-                    "type": "Float",
                     "data": 1.2000000476837158
                 },
                 {
                     "name": "mass",
-                    "type": "Float",
                     "data": 1.0
                 },
                 {
                     "name": "isDynamic",
-                    "type": "Bool",
                     "data": true
                 }
             ]
@@ -111,22 +109,18 @@
             "properties": [
                 {
                     "name": "attackCost",
-                    "type": "Int",
                     "data": 50
                 },
                 {
                     "name": "minAttackPower",
-                    "type": "Float",
                     "data": 1.0
                 },
                 {
                     "name": "powerUpRate",
-                    "type": "Float",
                     "data": 5.0
                 },
                 {
                     "name": "pFloorMeshGetter",
-                    "type": "Component",
                     "data": 68
                 }
             ]
@@ -138,37 +132,30 @@
             "properties": [
                 {
                     "name": "attackSpeed",
-                    "type": "Float",
                     "data": 60.0
                 },
                 {
                     "name": "attackDuration",
-                    "type": "Float",
                     "data": 0.5
                 },
                 {
                     "name": "acceleration",
-                    "type": "Float",
                     "data": 35.0
                 },
                 {
                     "name": "maxSpeed",
-                    "type": "Float",
                     "data": 40.0
                 },
                 {
                     "name": "pEnemyTransform",
-                    "type": "Component",
                     "data": 33
                 },
                 {
                     "name": "pCamera",
-                    "type": "Component",
                     "data": 74
                 },
                 {
                     "name": "pStageController",
-                    "type": "Component",
                     "data": 68
                 }
             ]

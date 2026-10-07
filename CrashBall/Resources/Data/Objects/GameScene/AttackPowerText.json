@@ -11,7 +11,6 @@
             "properties": [
                 {
                     "name": "localPosition",
-                    "type": "Vector2",
                     "data": {
                         "x": 0.0,
                         "y": 84.0
@@ -19,12 +18,10 @@
                 },
                 {
                     "name": "localRotate",
-                    "type": "Angle",
                     "data": 0.0
                 },
                 {
                     "name": "localScale",
-                    "type": "Vector2",
                     "data": {
                         "x": 1.5,
                         "y": 1.5
@@ -32,7 +29,6 @@
                 },
                 {
                     "name": "origin",
-                    "type": "Enum",
                     "data": 1
                 }
             ]
@@ -44,12 +40,10 @@
             "properties": [
                 {
                     "name": "text",
-                    "type": "String",
                     "data": "Power:10"
                 },
                 {
                     "name": "color",
-                    "type": "Color",
                     "data": {
                         "a": 1.0,
                         "b": 0.32156863808631897,
@@ -59,17 +53,14 @@
                 },
                 {
                     "name": "fontScale",
-                    "type": "Float",
                     "data": 0.3499999940395355
                 },
                 {
                     "name": "layerDepth",
-                    "type": "Float",
                     "data": 0.20000000298023224
                 },
                 {
                     "name": "fontKey",
-                    "type": "String",
                     "data": "makinas"
                 }
             ]
