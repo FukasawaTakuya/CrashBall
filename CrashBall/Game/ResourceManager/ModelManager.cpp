@@ -37,6 +37,28 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 {
 	m_models.clear();
 
+	for (auto& file : std::filesystem::directory_iterator("Resources/Models"))
+	{
+		EffectFactory fx(device);
+		fx.SetDirectory(L"Resources/Models"); // <- ddsのフォルダ
+
+		std::wstring path = Utility::ConvertToWideChar(file.path().string());
+
+		size_t end = path.rfind(L".");
+		size_t start = path.rfind(L"Models") + 7;
+
+		std::wstring ws = path.substr(end, 8).c_str();
+		if (ws == L".sdkmesh")
+		{
+			// モデルを作成
+			std::unique_ptr<Model> model = Model::CreateFromSDKMESH(device, path.c_str(), fx);
+
+			std::wstring key = path.substr(start, end - start);
+			// コンテナに追加
+			m_models.emplace(Utility::ConvertToMultiByteChar(key), std::move(model));
+		}
+	}
+
 	for (auto& file : std::filesystem::directory_iterator("Resources/CMO"))
 	{
 		EffectFactory fx(device);
@@ -57,7 +79,6 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 			// コンテナに追加
 			m_models.emplace(Utility::ConvertToMultiByteChar(key), std::move(model));
 		}
-
 	}
 }
 

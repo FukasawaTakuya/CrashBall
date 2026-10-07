@@ -76,75 +76,73 @@ void from_json(const ordered_json& j, Component& component)
 	component.SetIsActive(j["isActive"]);
 	auto& properties = component.GetProperties();
 
-	for (auto& propData : j["properties"])
+	for (auto& prop : properties)
 	{
-		// データ名でプロパティを検索
-		auto prop = std::find_if(properties.begin(), properties.end(), [&](const PropertyInfo& p)
+		auto propData = std::find_if(j["properties"].begin(), j["properties"].end(), [&](const ordered_json& j)
 			{
-				return p.name == propData["name"].get<std::string>();
+				return prop.name == j["name"].get<std::string>();
 			});
 
-		// プロパティが存在するなら
-		if (prop != properties.end())
+		if(propData != j["properties"].end())
 		{
 			// プロパティタイプ
 			PropertyType propType
-				= magic_enum::enum_cast<PropertyType>(propData["type"].get<std::string>()).value();
+				= magic_enum::enum_cast<PropertyType>((*propData)["type"].get<std::string>()).value();
 
-			switch (propType)
+			switch (prop.propType)
 			{
 			case PropertyType::Bool:
-				*static_cast<bool*>(prop->data) = propData["data"];
+				*static_cast<bool*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Int:
-				*static_cast<int*>(prop->data) = propData["data"];
+				*static_cast<int*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Float:
-				*static_cast<float*>(prop->data) = propData["data"];
+				*static_cast<float*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Angle:
-				*static_cast<float*>(prop->data) = propData["data"];
+				*static_cast<float*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Vector2:
-				*static_cast<DirectX::SimpleMath::Vector2*>(prop->data) = propData["data"];
+				*static_cast<DirectX::SimpleMath::Vector2*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Vector3:
-				*static_cast<DirectX::SimpleMath::Vector3*>(prop->data) = propData["data"];
+				*static_cast<DirectX::SimpleMath::Vector3*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Quaternion:
-				*static_cast<DirectX::SimpleMath::Quaternion*>(prop->data) = propData["data"];
+				*static_cast<DirectX::SimpleMath::Quaternion*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Color:
-				*static_cast<DirectX::SimpleMath::Color*>(prop->data) = propData["data"];
+				*static_cast<DirectX::SimpleMath::Color*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::Slider:
-				*static_cast<float*>(prop->data) = propData["data"];
+				*static_cast<float*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::String:
 				// wstringの時はマルチバイト文字に変換する
-				if (typeid(std::wstring) == prop->propTypeId)
+				if (typeid(std::wstring) == prop.propTypeId)
 				{
-					*static_cast<std::wstring*>(prop->data) =
-						Utility::ConvertToWideChar(propData["data"]);
+					*static_cast<std::wstring*>(prop.data) =
+						Utility::ConvertToWideChar((*propData)["data"]);
 				}
-				else if (typeid(std::string) == prop->propTypeId)
+				else if (typeid(std::string) == prop.propTypeId)
 				{
-					*static_cast<std::string*>(prop->data) = propData["data"];
+					*static_cast<std::string*>(prop.data) = (*propData)["data"];
 				}
 				break;
 			case PropertyType::Enum:
-				*static_cast<int*>(prop->data) = propData["data"];
+				*static_cast<int*>(prop.data) = (*propData)["data"];
 				break;
 			case PropertyType::GameObject:
-				if (*static_cast<GameObject**>(prop->data) == nullptr)
+				if (*static_cast<GameObject**>(prop.data) == nullptr)
 				{
-					*static_cast<int*>(prop->data) = propData["data"];
+					*static_cast<int*>(prop.data) = (*propData)["data"];
 				}
 				break;
 			case PropertyType::Component:
-				if (*static_cast<Component**>(prop->data) == nullptr)
+				if (*static_cast<Component**>(prop.data) == nullptr)
 				{
-					*static_cast<int*>(prop->data) = propData["data"];
+					*static_cast<int*>(prop.data) = (*propData)["data"];
 				}
 				break;
 			default:

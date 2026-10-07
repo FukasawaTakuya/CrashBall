@@ -48,3 +48,25 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 		renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 }
 
+/**
+ * \brief アンビエントライトの適用
+ * 
+ * \param lightcolor ライトの色
+ */
+void ModelRenderer::ApplyAmbientLight(const DirectX::SimpleMath::Color& lightcolor)
+{
+	m_ambientColor = lightcolor;
+	if (m_pModel != nullptr)
+	{
+		m_pModel->UpdateEffects(
+			[&](DirectX::IEffect* effect) {
+
+				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
+				if (basic)
+				{
+					basic->SetAmbientLightColor({ 0.6f, 0.6f, 0.6f });
+				}
+			});
+	}
+}
+

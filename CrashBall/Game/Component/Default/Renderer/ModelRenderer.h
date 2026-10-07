@@ -27,7 +27,8 @@ private:
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
-	DirectX::SimpleMath::Color m_diffuseColor = {1.0f, 1.0f, 1.0f, 1.0f}; // ディフーズカラー
+	DirectX::SimpleMath::Color m_diffuseColor = { 1.0f, 1.0f, 1.0f, 1.0f }; // ディフーズカラー
+	DirectX::SimpleMath::Color m_ambientColor = { 0.6f, 0.6f, 0.6f, 0.6f }; // アンビエントライトカラー
 
 	std::string m_modelKey;	// モデルのキー
 
@@ -35,6 +36,7 @@ private:
 	BeginProperty()
 		AddProperty(m_modelKey, PropertyType::String)
 		AddProperty(m_diffuseColor, PropertyType::Color)
+		AddProperty(m_ambientColor, PropertyType::Color)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -65,16 +67,20 @@ public:
 	{
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
 
-		//m_pModel->UpdateEffects(
-		//	[&](DirectX::IEffect* effect) {
+		m_pModel->UpdateEffects(
+			[&](DirectX::IEffect* effect) {
 
-		//		DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
-		//		if (basic)
-		//		{
-		//			basic->SetDiffuseColor(m_diffuseColor);
-		//		}
-		//	});
+				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
+				if (basic)
+				{
+					basic->SetAmbientLightColor(m_ambientColor);
+					basic->SetDiffuseColor(m_diffuseColor);
+				}
+			});
 	}
+
+	// アンビエントライトの適用
+	void ApplyAmbientLight(const DirectX::SimpleMath::Color& lightcolor);
 
 	// 取得/設定
 public:

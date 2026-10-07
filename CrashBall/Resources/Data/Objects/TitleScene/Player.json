@@ -31,9 +31,9 @@
                     "name": "localScale",
                     "type": "Vector3",
                     "data": {
-                        "x": 3.0,
-                        "y": 3.0,
-                        "z": 3.0
+                        "x": 2.0,
+                        "y": 2.0,
+                        "z": 2.0
                     }
                 }
             ]
@@ -46,7 +46,7 @@
                 {
                     "name": "radius",
                     "type": "Float",
-                    "data": 0.3
+                    "data": 0.5
                 },
                 {
                     "name": "layerMaskType",
