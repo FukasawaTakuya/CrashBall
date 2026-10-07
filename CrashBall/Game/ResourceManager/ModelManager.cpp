@@ -37,22 +37,27 @@ void ModelManager::CreateModel(ID3D11Device1* device)
 {
 	m_models.clear();
 
-	for (auto& file : std::filesystem::directory_iterator("Resources/Models"))
+	for (auto& file : std::filesystem::directory_iterator("Resources/CMO"))
 	{
 		EffectFactory fx(device);
-		// テクスチャのパスを設定
-		fx.SetDirectory(L"Resources/Models");
+		fx.SetDirectory(L"Resources/CMO"); // <- ddsのフォルダ
 
 		std::wstring path = Utility::ConvertToWideChar(file.path().string());
 
-		// モデルを作成
-		std::unique_ptr<Model> model = Model::CreateFromSDKMESH(device, path.c_str(), fx);
-
 		size_t end = path.rfind(L".");
-		size_t start = path.rfind(L"Models") + 7;
-		std::wstring key = path.substr(start, end - start);
-		// コンテナに追加
-		m_models.emplace(Utility::ConvertToMultiByteChar(key), std::move(model));
+		size_t start = path.rfind(L"CMO") + 4;
+
+		std::wstring ws = path.substr(end, 4).c_str();
+		if (ws == L".cmo")
+		{
+			// モデルを作成
+			std::unique_ptr<Model> model = Model::CreateFromCMO(device, path.c_str(), fx);
+
+			std::wstring key = path.substr(start, end - start);
+			// コンテナに追加
+			m_models.emplace(Utility::ConvertToMultiByteChar(key), std::move(model));
+		}
+
 	}
 }
 

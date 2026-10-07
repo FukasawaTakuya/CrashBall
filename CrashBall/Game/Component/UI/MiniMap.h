@@ -20,6 +20,7 @@ class  MiniMap : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
 
+	Camera* m_pMainCamera = nullptr;
 	Camera* m_pSubCamera = nullptr;		// ミニマップ描画用カメラ
 
 	float m_size;	// ミニマップのサイズ
@@ -29,10 +30,12 @@ class  MiniMap : public Component {
 
 	// コンポーネントのキャッシュ
 	SpriteRenderer* m_spriteRenderer = nullptr;
+	RectTransform* m_rectTransform = nullptr;
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pSubCamera, PropertyType::Component)
+		AddProperty(m_pMainCamera, PropertyType::Component)
 		AddProperty(m_size, PropertyType::Float)
 	EndProperty()
 

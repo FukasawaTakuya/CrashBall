@@ -98,6 +98,11 @@
                     "data": 86
                 },
                 {
+                    "name": "pMainCamera",
+                    "type": "Component",
+                    "data": 74
+                },
+                {
                     "name": "size",
                     "type": "Float",
                     "data": 400.0

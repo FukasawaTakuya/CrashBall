@@ -250,22 +250,8 @@ void Game::Render()
     // TODO: Add your rendering code here.
     context;
 
-    SimpleMath::Matrix view;
-
-    // 編集モードならデバッグカメラからビュー取得
-    if (m_editGuiManager->GetEditMode())
-    {
-        view = m_debugCamera->GetComponent<Camera>()->GetView();
-    }
-    else
-    {
-        // シーンカメラからビュー取得
-        view = m_sceneManager->GetCamera()->GetView();
-    }
-
     // シーン内での描画命令登録
     m_sceneManager->Render();
-
 
 #ifndef NDEBUG
 
@@ -296,10 +282,21 @@ void Game::Render()
     context->RSSetViewports(1, &defaultViewport);
     context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
 
+    SimpleMath::Matrix view;
+    // 編集モードならデバッグカメラからビュー取得
+    if (m_editGuiManager->GetEditMode())
+    {
+        view = m_debugCamera->GetComponent<Camera>()->GetView();
+    }
+    else
+    {
+        // シーンカメラからビュー取得
+        view = m_sceneManager->GetCamera()->GetView();
+    }
+
     // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
     {
-        SimpleMath::Matrix view = m_gameViewTexture->GetCamera()->GetView();
         SimpleMath::Matrix proj = m_gameViewTexture->GetCamera()->GetProj();
 
         m_gameViewTexture->Begin(context);

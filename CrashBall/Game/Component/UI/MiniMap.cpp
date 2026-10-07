@@ -48,6 +48,10 @@ void MiniMap::Awake()
 
 	// カメラの設定
 	m_renderTextrue->SetCamera(m_pSubCamera);
+
+	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
+	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
+
 }
 
 /**
@@ -57,8 +61,6 @@ void MiniMap::Awake()
  */
 void MiniMap::Start(const GameContext& gameContext)
 {
-	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
-
 	m_spriteRenderer->SetSize(m_renderTextrue->GetWidth(), m_renderTextrue->GetHeight());
 	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
 
@@ -74,6 +76,18 @@ void MiniMap::Start(const GameContext& gameContext)
 void MiniMap::Update(const GameContext& gameContext)
 {
 	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
+
+	SimpleMath::Vector3 forward = SimpleMath::Vector3::Forward;
+	float cos = forward.Dot(m_pMainCamera->GetHorizontalForward());
+	if (forward.Cross(m_pMainCamera->GetHorizontalForward()).y > 0.0f)
+	{
+		m_rectTransform->SetLocalRotate(std::acos(cos));
+
+	}
+	else
+	{
+		m_rectTransform->SetLocalRotate(-std::acos(cos));
+	}
 }
 
 /**

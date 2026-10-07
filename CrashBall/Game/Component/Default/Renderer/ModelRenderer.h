@@ -65,15 +65,15 @@ public:
 	{
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
 
-		m_pModel->UpdateEffects(
-			[&](DirectX::IEffect* effect) {
+		//m_pModel->UpdateEffects(
+		//	[&](DirectX::IEffect* effect) {
 
-				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
-				if (basic)
-				{
-					basic->SetDiffuseColor(m_diffuseColor);
-				}
-			});
+		//		DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
+		//		if (basic)
+		//		{
+		//			basic->SetDiffuseColor(m_diffuseColor);
+		//		}
+		//	});
 	}
 
 	// 取得/設定
