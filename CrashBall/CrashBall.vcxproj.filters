@@ -582,6 +582,9 @@
     <ClInclude Include="Game\Component\UI\MiniMap.h">
       <Filter>Game\Component\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Common\InputCommon.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -12,24 +12,14 @@
 #include <GamePad.h>
 
 #include "Game/ServiceLocator/Service.h"
+#include <variant>
 
-enum class MouseButton
-{
-	Right,
-	Middle,
-	Left,
-};
+#include "Game/Common/InputCommon.h"
 
 /**
  * @brief 入力システムクラスのインターフェース
  */
 class  IInputService : public Service{
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -74,9 +64,34 @@ public:
 
 	virtual DirectX::GamePad::ButtonStateTracker* GetGamePadTracker() = 0;
 
+	// パッドのボタンの状態を取得
+	virtual bool GetGamePadState(PadButton padButton) = 0;
+
+	//// ボタンの値の取得
+	//template<typename T>
+	//T GetGamePadValue(PadButton padButton) { return T{}; }
+
+	//template<>
+	//DirectX::SimpleMath::Vector2 GetGamePadValue(PadButton padButton)
+	//{
+	//	return GetGamePadValue(padButton);
+	//}
+
+	//template<>
+	//float GetGamePadValue(PadButton padButton)
+	//{
+	//	return GetTriggerValue(padButton);
+	//}
+
+	// スティックの状態を取得
+	virtual float GetGamePadValue(PadButton padButton) = 0;
+
+	// トリガーの押し込み量を取得
+	virtual float GetTriggerValue(PadButton padButton) = 0;
 
 
 	// 内部実装
 private:
+
 
 };

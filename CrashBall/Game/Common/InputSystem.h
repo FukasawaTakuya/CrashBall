@@ -11,9 +11,12 @@
 #include "Game/ServiceLocator/IInputService.h"
 #include "Game/Common/Screen.h"
 
+/**
+ * \brief 入力システム
+ */
 class InputSystem : public IInputService {
 
-	// データメンバの宣言 -----------------------------------------------
+	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	std::unique_ptr<DirectX::Mouse::ButtonStateTracker>			m_mouseTracker;			// マウスのトラッカー
@@ -47,6 +50,9 @@ public:
 
 	// エディタ上の座標をスクリーン座標に直す
 	void EditToScreenPosition(const RECT& EditPos);
+
+	// スクリーン上にマウスが存在するかチェック
+	bool CheckHoverScreen() const;
 
 public:
 
@@ -145,26 +151,24 @@ public:
 		return DirectX::Mouse::Get().GetState().scrollWheelValue;
 	}
 
-	inline bool CheckHoverScreen()
-	{
-		if (m_mousePos.x > 0.0f && m_mousePos.x < Screen::WIDTH &&
-			m_mousePos.y > 0.0f && m_mousePos.y < Screen::HEIGHT)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 	DirectX::GamePad::State GetGamePad() override
 	{
-		return m_gamePad.get()->GetState(0);
+		return m_gamePad->GetState(0);
 	}
 
 	DirectX::GamePad::ButtonStateTracker* GetGamePadTracker() override
 	{
 		return m_gamePadTracker.get();
 	}
+
+	// パッドの押し込みの取得
+	bool GetGamePadState(PadButton padButton) override;
+
+private:
+
+	// スティックの状態を取得
+	float GetGamePadValue(PadButton padButton) override;
+
+	// トリガーの押し込み量の取得
+	float GetTriggerValue(PadButton padButton) override;
 };

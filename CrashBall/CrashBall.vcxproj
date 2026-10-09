@@ -198,6 +198,7 @@
     </ClInclude>
     <ClInclude Include="Game\CollisionManager\IsCollisionTable.h" />
     <ClInclude Include="Game\Common\Easing.h" />
+    <ClInclude Include="Game\Common\InputCommon.h" />
     <ClInclude Include="Game\Common\InputSystem.h" />
     <ClInclude Include="Game\Common\MyMath.h" />
     <ClInclude Include="Game\Common\Random.h">
