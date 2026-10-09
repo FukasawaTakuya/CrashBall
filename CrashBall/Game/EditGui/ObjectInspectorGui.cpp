@@ -130,7 +130,6 @@ void ObjectInspectorGui::Updata(
 					selectedObject->AddComponent(std::move(comp));
 					// IDの設定
 					ptr->SetID(ComponentIDGenerator::GetID());
-					// アタッチ時の処理
 					ptr->Awake();
 					// フラグを下げる
 					isOpenComponents = false;
@@ -161,7 +160,7 @@ void ObjectInspectorGui::DrawProperty(
 		m_drawProperty[property.propType](property);
 
 		// 編集されたら
-		if (ImGui::IsItemEdited())
+		if (ImGui::IsItemDeactivatedAfterEdit())
 		{
 			comp->EditedFunc();
 			comp->EditedFunc(resourceContext);

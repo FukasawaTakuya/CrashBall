@@ -26,6 +26,8 @@ private:
 	GameTimer*				m_pGameTimer		= nullptr;	// ゲームタイマー
 	ChangeSceneScreen*		m_changeSceneScreen	= nullptr;	// シーン遷移スクリーン
 
+	Easing<float> m_timeScale;
+
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_pEnemyController,  PropertyType::Component)

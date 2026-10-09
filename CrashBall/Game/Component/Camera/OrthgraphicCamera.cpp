@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "SubCamera.h"
+#include "OrthgraphicCamera.h"
 
 RegisterComponent(OrthgraphicCamera)
 

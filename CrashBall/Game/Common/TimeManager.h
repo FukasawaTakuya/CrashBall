@@ -39,7 +39,7 @@ public:
 	// ‘€ì
 public:
 
-	void GeratoTimeScale(float value) override
+	void GenaratoTimeScale(float value) override
 	{
 		m_timeScale += value;
 

@@ -67,14 +67,14 @@ namespace Time
 		}
 	}
 
-	inline void GeratoTimeScale(float value)
+	inline void GenaratoTimeScale(float value)
 	{
 		// 時間管理システム
 		static ITimeService* time = ServiceLocator::Get<ITimeService>();
 		// 時間管理システムが存在すれば数値を設定する
 		if (time != nullptr)
 		{
-			return time->GeratoTimeScale(value);
+			return time->GenaratoTimeScale(value);
 		}
 
 	}

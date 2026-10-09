@@ -91,18 +91,17 @@ void PlayerAttackState::Update(const GameContext& gameContext)
 	// プレイヤー操作
 	PlayerController* playerController = m_stateContext.playerController;
 
-	// 攻撃方向
-	SimpleMath::Vector3 attackDirection 
-		= playerController->GetEnemyTransform()->GetWorldPosition() - transform->GetWorldPosition();
-	attackDirection.Normalize();
+	// 命中していなければ
+	if (!m_isHit)
+	{
+		// 攻撃方向
+		SimpleMath::Vector3 attackDirection
+			= playerController->GetEnemyTransform()->GetWorldPosition() - transform->GetWorldPosition();
+		attackDirection.Normalize();
 
-	// 速度の設定
-	rigidbody->SetVelocity(attackDirection * playerController->GetAttackSpeed());
-
-	// タイマーの更新
-	m_timer += Time::GetUnscaleElapsedTime();
-
-	m_hitStopTimer.DoEase(Time::GetUnscaleElapsedTime());
+		// 速度の設定
+		rigidbody->SetVelocity(attackDirection * playerController->GetAttackSpeed());
+	}
 
 	// 空中でも回転させる
 	if (!m_stateContext.ballController->GetIsGround())
@@ -110,15 +109,20 @@ void PlayerAttackState::Update(const GameContext& gameContext)
 		m_stateContext.ballController->AddRotate();
 	}
 
+	// タイマーの更新
+	m_timer += Time::GetUnscaleElapsedTime();
+	// イージングの実行
+	m_hitStopTimer.DoEase(Time::GetUnscaleElapsedTime());
+
+	// ヒットストップ時間が経過するか攻撃継続時間が経過するか
 	if ((!m_hitStopTimer.IsEase() && m_isHit) ||
 		(m_timer >= playerController->GetAttackDuration() && !m_isHit))
 	{		
-		// ステート遷移
-		m_pStateMachine->ChangeState<PlayerMoveState>();
+		Time::SetTimeScale(1.0f);
 		// 攻撃フラグを設定
 		m_stateContext.playerStatusController->SetIsAttack(false);
-
-		Time::SetTimeScale(1.0f);
+		// ステート遷移
+		m_pStateMachine->ChangeState<PlayerMoveState>();
 	}
 }
 

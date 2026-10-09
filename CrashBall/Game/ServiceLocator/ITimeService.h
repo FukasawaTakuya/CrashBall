@@ -28,7 +28,7 @@ public:
 	// ‘€ì
 public:
 
-	virtual void GeratoTimeScale(float value) = 0;
+	virtual void GenaratoTimeScale(float value) = 0;
 
 	// æ“¾/İ’è
 public:

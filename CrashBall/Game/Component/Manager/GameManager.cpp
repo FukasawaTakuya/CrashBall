@@ -36,6 +36,8 @@ void GameManager::Start(const GameContext& gameContext)
 {
 	gameContext.soundManager->RegisterPlayBgmCommand("Game");
 	m_changeSceneScreen->SceneIn();
+	m_timeScale.Initialize([](float s, float e, float t) {return std::lerp(s, e, t); });
+	m_timeScale.Set(Ease::Linear, 1.0f, 0.0f, 1.0f);
 }
 
 /**
@@ -53,7 +55,9 @@ void GameManager::Update(const GameContext& gameContext)
 
 	if (m_pEnemyController->GetHp() <= 0.0f)
 	{
-		Time::GeratoTimeScale(-Time::GetUnscaleElapsedTime());
+		m_timeScale.DoEase(Time::GetElapsedTime());
+		Time::GenaratoTimeScale(-Time::GetUnscaleElapsedTime());
+		//Time::SetTimeScale(m_timeScale.GetValue());
 
 		if (Time::GetTimeScale() == 0.0f)
 		{

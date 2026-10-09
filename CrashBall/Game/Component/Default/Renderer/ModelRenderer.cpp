@@ -13,7 +13,6 @@ using namespace DirectX;
 
 RegisterComponent(ModelRenderer)
 
-
 /**
  * \brief コンストラクタ.
  * 
@@ -51,7 +50,6 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 /**
  * \brief アンビエントライトの適用
  * 
- * \param lightcolor ライトの色
  */
 void ModelRenderer::ApplyAmbientLight()
 {
@@ -69,6 +67,10 @@ void ModelRenderer::ApplyAmbientLight()
 	}
 }
 
+/**
+ * \brief ディフーズカラーの適用
+ * 
+ */
 void ModelRenderer::ApplyDiffuseColor()
 {
 	if (m_pModel != nullptr)
@@ -83,6 +85,5 @@ void ModelRenderer::ApplyDiffuseColor()
 				}
 			});
 	}
-
 }
 
