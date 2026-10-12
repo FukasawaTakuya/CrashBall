@@ -73,34 +73,22 @@ void PlayerMoveState::Update(const GameContext& gameContext)
     ModelRenderer* modelRenderer = m_stateContext.modelRenderer;
 
     SimpleMath::Vector3 moveValue = SimpleMath::Vector3(
-        Input::GetGamePad().thumbSticks.leftX,
+        Input::GetInputState(InputAction::MoveX).value,
         0.0f,
-        Input::GetGamePad().thumbSticks.leftY
-    );
+        Input::GetInputState(InputAction::MoveY).value
+        );
+
+    moveValue.Normalize();
 
     // 地上にいる場合
     if (m_stateContext.ballController->GetIsGround())
     {
         rigidbody->Accel(playerController->GetCamera()->GetHorizontalRight() * moveValue.x * playerController->GetAcceleration());
         rigidbody->Accel(playerController->GetCamera()->GetHorizontalForward() * moveValue.z * playerController->GetAcceleration());
-        // 入力に応じて加速
-        if (Input::GetKeyDown(Keyboard::D)) {
-            rigidbody->Accel( playerController->GetCamera()->GetHorizontalRight()   * playerController->GetAcceleration());
-        }
-        if (Input::GetKeyDown(Keyboard::A)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetHorizontalRight()   * playerController->GetAcceleration());
-        }
-        if (Input::GetKeyDown(Keyboard::W)) {
-            rigidbody->Accel( playerController->GetCamera()->GetHorizontalForward() * playerController->GetAcceleration());
-        }
-        if (Input::GetKeyDown(Keyboard::S)) {
-            rigidbody->Accel(-playerController->GetCamera()->GetHorizontalForward() * playerController->GetAcceleration());
-        }
     }
 
     // スペースキーが押されたとき攻撃が可能なら攻撃ステートに遷移
-    if ((Input::GetKeyTrigger(DirectX::Keyboard::Space) || 
-        Input::GetGamePadTracker()->a == GamePad::ButtonStateTracker::ButtonState::PRESSED)&&
+    if (Input::GetInputState(InputAction::Attack).isTrigger &&
         playerStatusController->GetCanAttack() && !playerStatusController->GetGoAttack())
     {
         // 面消費

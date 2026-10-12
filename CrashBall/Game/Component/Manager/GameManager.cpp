@@ -47,8 +47,7 @@ void GameManager::Start(const GameContext& gameContext)
  */
 void GameManager::Update(const GameContext& gameContext)
 {
-	if (Input::GetGamePadTracker()->start == GamePad::ButtonStateTracker::ButtonState::PRESSED ||
-		Input::GetKeyTrigger(Keyboard::Escape))
+	if (Input::GetInputState(InputAction::Exit).isTrigger)
 	{
 		m_changeSceneScreen->SceneOut();
 	}

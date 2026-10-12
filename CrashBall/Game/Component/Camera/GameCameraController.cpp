@@ -58,21 +58,12 @@ void GameCameraController::Update(const GameContext& gameContext)
 {
 	float elapsedTime = Time::GetElapsedTime();
 
-	float stickValue = Input::GetGamePad().thumbSticks.rightX;
+	float stickValue = Input::GetInputState(InputAction::CameraRotateX).value;
 	if (stickValue != 0.0f)
 	{
 		RotateX(XMConvertToRadians(m_rotateAngleRad * stickValue * elapsedTime));
 	}
 
-
-	// 入力に応じて回転
-	if (Input::GetKeyDown(Keyboard::Right)) {
-		RotateX(XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
-
-	}
-	else if (Input::GetKeyDown(Keyboard::Left)) {
-		RotateX(-XMConvertToRadians(m_rotateAngleRad) * elapsedTime);
-	}
 	// ターゲットを追尾
 	TargetingTransform();
 }

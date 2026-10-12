@@ -28,17 +28,16 @@ private:
 	DirectX::SimpleMath::Vector2 m_mousePos;		// マウス座標
 	DirectX::SimpleMath::Vector2 m_prevMousePos;	// 前フレームのマウス座標
 
+
+	std::array<InputActionState, static_cast<int>(InputAction::ActionConut)> m_inputStates;	// 入力状態
+	std::vector<InputBinding> m_bindings;	// 入力評価用
+
 		// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
-	InputSystem() 
-		: m_mouseTracker	{ std::make_unique<DirectX::Mouse::ButtonStateTracker>()		}
-		, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>()	}
-		, m_gamePad			{ std::make_unique<DirectX::GamePad>()							}
-		, m_gamePadTracker  { std::make_unique<DirectX::GamePad::ButtonStateTracker>()		}
-	{}
+	InputSystem();
 
 public:
 
@@ -71,6 +70,23 @@ public:
 	bool GetKeyRelease(DirectX::Keyboard::Keys key) override
 	{
 		return m_keyboardTracker->IsKeyReleased(key);
+	}
+
+	// キー入力方向の取得
+	float GetKeyAxis(KeyboadAxis axis)
+	{
+		if (GetKeyDown(axis.plusKey) && !GetKeyDown(axis.minusKey))
+		{
+			return 1.0f;
+		}
+		else if (!GetKeyDown(axis.plusKey) && GetKeyDown(axis.minusKey))
+		{
+			return -1.0f;
+		}
+		else
+		{
+			return 0.0f;
+		}
 	}
 
 	// マウスボタンの状態を取得
@@ -151,24 +167,35 @@ public:
 		return DirectX::Mouse::Get().GetState().scrollWheelValue;
 	}
 
-	DirectX::GamePad::State GetGamePad() override
-	{
-		return m_gamePad->GetState(0);
-	}
+	// ゲームパッドのトリガーを取得
+	bool GetGamePadTrigger(PadButton padButton) override;
 
-	DirectX::GamePad::ButtonStateTracker* GetGamePadTracker() override
-	{
-		return m_gamePadTracker.get();
-	}
+	// ゲームパッドのリリースを取得
+	bool GetGamePadRelease(PadButton padButton) override;
 
-	// パッドの押し込みの取得
-	bool GetGamePadState(PadButton padButton) override;
+	// ゲームパッドの状態を取得
+	bool GetGamePadDown(PadButton padButton) override;
+
+	// ゲームパッドの押し込み量を取得
+	float GetGamePadValue(PadButton padButton) override;
+
+	// 入力の取得
+	InputActionState GetInputState(InputAction action) override
+	{
+		return m_inputStates[static_cast<int>(action)];
+	}
 
 private:
 
-	// スティックの状態を取得
-	float GetGamePadValue(PadButton padButton) override;
+	// キーボードの入力評価
+	void EvaluteBinding(DirectX::Keyboard::Keys key, InputActionState& state);
 
-	// トリガーの押し込み量の取得
-	float GetTriggerValue(PadButton padButton) override;
+	// キー入力方向の評価
+	void EvaluteBinding(KeyboadAxis axis, InputActionState& state);
+
+	// マウス入力の評価
+	void EvaluteBinding(MouseButton mouse, InputActionState& state);
+
+	// ゲームパッド入力の評価
+	void EvaluteBinding(PadButton pad, InputActionState& state);
 };

@@ -47,12 +47,36 @@ enum class PadButton
 	Menu,
 };
 
+enum class InputAction
+{
+	MoveX,
+	MoveY,
+	Attack,
+	Jump,
+	CameraRotateX,
+	CameraRotateY,
+
+	UIMoveX,
+	UIMoveY,
+	Deside,
+	Exit,
+	Back,
+
+	ActionConut,
+};
+
 using BindingVariant
 = std::variant<
 	DirectX::Keyboard::Keys,
 	KeyboadAxis,
 	MouseButton,
 	PadButton>;
+
+struct InputBinding
+{
+	InputAction action;
+	BindingVariant binding;
+};
 
 struct InputActionState
 {
@@ -61,4 +85,13 @@ struct InputActionState
 	bool isRelease = false;
 
 	float value = 0.0f;
+
+	void Reset()
+	{
+		isPresed = false;
+		isTrigger = false;
+		isRelease = false;
+
+		value = 0.0f;
+	}
 };

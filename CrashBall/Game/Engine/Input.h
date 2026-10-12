@@ -143,29 +143,68 @@ namespace Input
 		else return 0;
 	}
 
-	// ゲームパッドの取得
-	inline DirectX::GamePad::State GetGamePad()
+	// ゲームパッドのトリガーを取得
+	inline bool GetGamePadTrigger(PadButton padButton)
 	{
 		// 入力システム
 		static IInputService* input = ServiceLocator::Get<IInputService>();
 		// 入力システムが存在すれば返す
 		if (input != nullptr)
 		{
-			return input->GetGamePad();
+			return input->GetGamePadTrigger(padButton);
 		}
-		else return DirectX::GamePad::State();
+		else return false;
 	}
 
-	// ゲームパッドの取得
-	inline DirectX::GamePad::ButtonStateTracker* GetGamePadTracker()
+	// ゲームパッドのリリースを取得
+	inline bool GetGamePadRelease(PadButton padButton)
 	{
 		// 入力システム
 		static IInputService* input = ServiceLocator::Get<IInputService>();
 		// 入力システムが存在すれば返す
 		if (input != nullptr)
 		{
-			return input->GetGamePadTracker();
+			return input->GetGamePadRelease(padButton);
 		}
-		else return nullptr;
+		else return false;
+	}
+
+	// ゲームパッドの状態を取得
+	inline bool GetGamePadDown(PadButton padButton)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば返す
+		if (input != nullptr)
+		{
+			return input->GetGamePadDown(padButton);
+		}
+		else return false;
+	}
+
+	// ゲームパッドの押し込み量を取得
+	inline float GetGamePadValue(PadButton padButton)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば返す
+		if (input != nullptr)
+		{
+			return input->GetGamePadValue(padButton);
+		}
+		else return 0.0f;
+	}
+
+	// 入力の取得
+	inline InputActionState GetInputState(InputAction inpitAction)
+	{
+		// 入力システム
+		static IInputService* input = ServiceLocator::Get<IInputService>();
+		// 入力システムが存在すれば返す
+		if (input != nullptr)
+		{
+			return input->GetInputState(inpitAction);
+		}
+		else return InputActionState{};
 	}
 }

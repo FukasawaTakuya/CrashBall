@@ -44,14 +44,12 @@ void TitleManager::Start(const GameContext& gameContext)
  */
 void TitleManager::Update(const GameContext& gameContext)
 {
-	if (Input::GetGamePadTracker()->a == GamePad::ButtonStateTracker::ButtonState::PRESSED || 
-		Input::GetKeyTrigger(Keyboard::Space))
+	if (Input::GetInputState(InputAction::Deside).isTrigger)
 	{
 		m_changeSceneScreen->SceneOut();
 	}
 
-	if (Input::GetGamePadTracker()->start == GamePad::ButtonStateTracker::ButtonState::PRESSED ||
-		Input::GetKeyTrigger(Keyboard::Escape))
+	if (Input::GetInputState(InputAction::Exit).isTrigger)
 	{
 		PostQuitMessage(0);
 	}
