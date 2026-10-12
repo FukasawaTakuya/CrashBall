@@ -87,12 +87,6 @@ void InputSystem::Update()
 			{
 				EvaluteBinding(b, state);
 			}, binding.binding);
-
-		if (state.isTrigger)
-		{
-			int x = 0;
-			m_inputStates[static_cast<int>(InputAction::Deside)];
-		}
 	}
 }
 
@@ -302,7 +296,7 @@ bool InputSystem::GetGamePadRelease(PadButton padButton)
  * \param padButton ボタン
  * \return 
  */
-bool InputSystem::GetGamePadState(PadButton padButton)
+bool InputSystem::GetGamePadDown(PadButton padButton)
 {
 	auto state = m_gamePad->GetState(0);
 	switch (padButton)
@@ -405,7 +399,7 @@ float InputSystem::GetGamePadValue(PadButton padButton)
 		m_gamePad->GetState(0).triggers.right;
 		break;
 	default:
-		return GetGamePadState(padButton) ? 1.0f : 0.0f;
+		return GetGamePadDown(padButton) ? 1.0f : 0.0f;
 		break;
 	}
 }
@@ -475,7 +469,7 @@ void InputSystem::EvaluteBinding(MouseButton mouse, InputActionState& state)
  */
 void InputSystem::EvaluteBinding(PadButton pad, InputActionState& state)
 {
-	if (GetGamePadState(pad))
+	if (GetGamePadDown(pad))
 	{
 		state.isPresed = true;
 	}

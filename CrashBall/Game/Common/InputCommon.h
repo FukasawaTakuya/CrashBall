@@ -1,6 +1,7 @@
 #pragma once
 #include "Keyboard.h"
 
+// マウスボタン
 enum class MouseButton
 {
 	Right,
@@ -8,6 +9,7 @@ enum class MouseButton
 	Left,
 };
 
+// キーボードの入力方向
 struct KeyboadAxis
 {
 	DirectX::Keyboard::Keys plusKey;
@@ -21,6 +23,7 @@ struct KeyboadAxis
 	}
 };
 
+// ゲームパッドボタン
 enum class PadButton
 {
 	A,
@@ -47,6 +50,7 @@ enum class PadButton
 	Menu,
 };
 
+// インプットアクション
 enum class InputAction
 {
 	MoveX,
@@ -72,12 +76,14 @@ using BindingVariant
 	MouseButton,
 	PadButton>;
 
+// 入力評価
 struct InputBinding
 {
 	InputAction action;
 	BindingVariant binding;
 };
 
+// 入力状態
 struct InputActionState
 {
 	bool isPresed = false;
