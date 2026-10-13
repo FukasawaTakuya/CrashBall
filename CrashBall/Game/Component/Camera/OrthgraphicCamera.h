@@ -1,11 +1,19 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   OrthgraphicCamera.h
+ * \brief  正投影カメラ
+ * 
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/Camera/Camera.h"
 #include "Game/Common/Screen.h"
 
 /**
- * @brief サブカメラ
+ * @brief 正投影カメラ
  */
 class  OrthgraphicCamera : public Camera {
 

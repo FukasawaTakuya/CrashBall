@@ -1,0 +1,124 @@
+{
+    "name": "ExitButton",
+    "tag": "Default",
+    "id": 35,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "RectTransform",
+            "id": 82,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "data": {
+                        "x": 1387.0,
+                        "y": 959.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "data": 0.0
+                },
+                {
+                    "name": "localScale",
+                    "data": {
+                        "x": 1.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "origin",
+                    "data": 1
+                }
+            ]
+        },
+        {
+            "compName": "SpriteRenderer",
+            "id": 83,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "spriteKey",
+                    "data": "Button"
+                },
+                {
+                    "name": "color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
+                    }
+                },
+                {
+                    "name": "spriteScale",
+                    "data": {
+                        "x": 1.2000000476837158,
+                        "y": 1.2000000476837158
+                    }
+                },
+                {
+                    "name": "layerDepth",
+                    "data": 0.0
+                },
+                {
+                    "name": "fillOrigin",
+                    "data": 3
+                },
+                {
+                    "name": "fillAmount",
+                    "data": 1.0
+                },
+                {
+                    "name": "spriteEffects",
+                    "data": 0
+                }
+            ]
+        },
+        {
+            "compName": "TextRenderer",
+            "id": 85,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "text",
+                    "data": "ゲーム終了"
+                },
+                {
+                    "name": "color",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
+                    }
+                },
+                {
+                    "name": "fontScale",
+                    "data": 1.2000000476837158
+                },
+                {
+                    "name": "layerDepth",
+                    "data": 0.0010000000474974513
+                },
+                {
+                    "name": "fontKey",
+                    "data": "makinas"
+                }
+            ]
+        },
+        {
+            "compName": "SceneChangeButton",
+            "id": 87,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "nextSceneName",
+                    "data": ""
+                }
+            ]
+        }
+    ],
+    "children": null
+}

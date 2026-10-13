@@ -19,21 +19,21 @@
 class  ButtonController : public Component {
 
 	// メンバ変数の宣言 -----------------------------------------------
-private:
+protected:
 
 	std::function<void()> m_onPushCommand = [](){};			// 押されたときの処理
 	std::function<void()> m_onDrugCommand = [](){};			// ドラック中の処理
 
-	std::function<void()> m_onHoverEnterCommand = [](){};	// ホバー時の処理
-	std::function<void()> m_onHoverStayCommand  = [](){};	// ホバー中の処理
-	std::function<void()> m_onHoverExitCommand  = [](){};	// ホバー離脱の処理
+	std::function<void()> m_onFocusEnterCommand = [](){};	// フォーカス時の処理
+	std::function<void()> m_onFocusStayCommand  = [](){};	// フォーカス中の処理
+	std::function<void()> m_onFocusExitCommand  = [](){};	// フォーカス離脱の処理
 
 	bool m_isOnClick	= false;	// クリックされたか
 	bool m_isOnRelease	= false;	// ボタンが離されたか
 	bool m_isPush		= false;	// 押されたか
 
-	bool m_isHover		= false;	// ホバー状態か
-	bool m_prevIsHover  = false;	// 前フレームのホバー状態
+	bool m_isFocus		= false;	// フォーカス状態か
+	bool m_prevIsFocus  = false;	// 前フレームのフォーカス状態
 
 	// コンポーネントのキャッシュ
 	RectTransform*  m_rectTransform  = nullptr;
@@ -84,22 +84,22 @@ public:
 		m_onDrugCommand = onDrugCommand;
 	}
 
-	// ホバー時の処理の設定
-	void SetOnHoverEnterCommand(std::function<void()> onHoverEnterCommand)
+	// フォーカス時の処理の設定
+	void SetOnFocusEnterCommand(std::function<void()> onFocusEnterCommand)
 	{
-		m_onHoverEnterCommand = onHoverEnterCommand;
+		m_onFocusEnterCommand = onFocusEnterCommand;
 	}
 
-	// ホバー中の処理の設定
-	void SetOnHoverStayCommand(std::function<void()> onHoverStayCommand)
+	// フォーカス中の処理の設定
+	void SetOnFocusStayCommand(std::function<void()> onFocusStayCommand)
 	{
-		m_onHoverStayCommand = onHoverStayCommand;
+		m_onFocusStayCommand = onFocusStayCommand;
 	}
 
-	// ホバー離脱時の処理の設定
-	void SetOnHoverExitCommand(std::function<void()> onHoverExitCommand)
+	// フォーカス離脱時の処理の設定
+	void SetOnFocusExitCommand(std::function<void()> onFocusExitCommand)
 	{
-		m_onHoverExitCommand = onHoverExitCommand;
+		m_onFocusExitCommand = onFocusExitCommand;
 	}
 
 	// 描画順の設定
@@ -113,13 +113,13 @@ public:
 private:
 
 	// プロパティの取得
-	virtual const std::vector<PropertyInfo>& GetProperties() const override
+	const std::vector<PropertyInfo>& GetProperties() const override
 	{
 		return m_properties;
 	}
 
 	// コンポーネント名の取得
-	virtual std::string GetCompName() const override
+	std::string GetCompName() const override
 	{
 		return m_compName;
 	}

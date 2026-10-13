@@ -25,20 +25,6 @@ enum class Origin
 	OriginNum,
 };
 
-// 基準位置名のリスト
-static const char* OriginNameList[static_cast<int>(Origin::OriginNum)]
-{
-	"CenterTop",
-	"Center",
-	"CenterBottom",
-	"LeftTop",
-	"LeftCenter",
-	"LeftBottom",
-	"RightTop",
-	"RightCenter",
-	"RightBottom",
-};
-
 // 基準位置を決めるためのオフセット
 static const DirectX::SimpleMath::Vector2 originOffeset[static_cast<int>(Origin::OriginNum)]
 {
@@ -177,17 +163,17 @@ public:
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float leftPos = m_localPosition.x - width * offset.x;
+		float leftPos = GetWorldPosition().x - width * offset.x;
 
 		return leftPos;
 	}
 
 	// 右端のX座標の取得(World)
-	float GetHorizontalRight(float width) const
+	float GetRight(float width) const
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float rightPos = m_localPosition.x + width * (1.0f - offset.x);
+		float rightPos = GetWorldPosition().x + width * (1.0f - offset.x);
 
 		return rightPos;
 	}
@@ -197,7 +183,7 @@ public:
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float toptPos = m_localPosition.y - height * offset.y;
+		float toptPos = GetWorldPosition().y - height * offset.y;
 
 		return toptPos;
 	}
@@ -207,7 +193,7 @@ public:
 	{
 		DirectX::SimpleMath::Vector2 offset = originOffeset[static_cast<int>(m_origin)];
 
-		float bottomtPos = m_localPosition.y + height * (1.0f - offset.y);
+		float bottomtPos = GetWorldPosition().y + height * (1.0f - offset.y);
 
 		return bottomtPos;
 	}

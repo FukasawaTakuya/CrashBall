@@ -2,27 +2,27 @@
  * \file   SceneChangeButton.h
  * \brief  シーン変更ボタン
  * 
- * \author 深沢拓矢
- * \date   September 2026
+ * \author it252184
+ * \date   October 2026
  *********************************************************************/
 
 #pragma once
 
-#include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/UI/ButtonController.h"
+#include "Game/Common/Easing.h"
 
 /**
  * @brief シーン変更ボタン
  */
 class  SceneChangeButton : public ButtonController {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
+	// メンバ変数の宣言 -------------------------------------------------
 
-	// メンバ変数の宣言 -----------------------------------------------
-private:
+	std::string m_nextSceneName;		// 次シーン名
 
-	std::string m_nextSceneName;
+	Easing<DirectX::SimpleMath::Vector2> m_scale;	// スケールのイージング
+	DirectX::SimpleMath::Vector2 m_defaultScale;	// デフォルトスケール
+	float m_easeTime = 0.7f;						// イージングタイム
 
 	// プロパティの設定
 	BeginProperty()
@@ -32,10 +32,8 @@ private:
 	// コンポーネント名の設定
 	SetCompName("SceneChangeButton")
 
-
-
-	// メンバ関数の宣言 -------------------------------------------------
-	// コンストラクタ/デストラクタ
+		// メンバ関数の宣言 -------------------------------------------------
+		// コンストラクタ/デストラクタ
 public:
 
 	// コンストラクタ
@@ -49,14 +47,23 @@ public:
 
 	// アタッチ時の処理
 	void Awake() override;
-
+	// 開始処理
+	void Start(const GameContext& gameContext) override;
 	// 更新
 	void Update(const GameContext& gameContext) override;
-
-	// 取得/設定
-public:
 
 	// 内部実装
 private:
 
+	// プロパティの取得
+	const std::vector<PropertyInfo>& GetProperties() const override
+	{
+		return m_properties;
+	}
+
+	// コンポーネント名の取得
+	std::string GetCompName() const override
+	{
+		return m_compName;
+	}
 };

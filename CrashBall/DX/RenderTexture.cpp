@@ -117,6 +117,8 @@ void RenderTexture::SizeResources(size_t width, size_t height)
         m_shaderResourceView.ReleaseAndGetAddressOf()
     ));
 
+    SetDebugObjectName(m_shaderResourceView.Get(), "RenderTexture SRV");
+
     D3D11_TEXTURE2D_DESC depthDesc = {};
 
     depthDesc.Width = width;
@@ -151,8 +153,6 @@ void RenderTexture::SizeResources(size_t width, size_t height)
         &depthStencilViewDesc,
         m_depthSetncilView.ReleaseAndGetAddressOf()
     ));
-
-    SetDebugObjectName(m_shaderResourceView.Get(), "RenderTexture SRV");
 
     m_width = width;
     m_height = height;

@@ -150,9 +150,12 @@ private:
 	// テキストのサイズを求める
 	void CalcTextSize()
 	{
-		DirectX::SimpleMath::Vector2 textSize = m_pSpriteFont->MeasureString(m_text.c_str());
-		m_width = textSize.x;
-		m_height = textSize.y;
+		if (m_pSpriteFont != nullptr)
+		{
+			DirectX::SimpleMath::Vector2 textSize = m_pSpriteFont->MeasureString(m_text.c_str());
+			m_width = textSize.x;
+			m_height = textSize.y;
+		}
 	}
 
 	// プロパティの取得

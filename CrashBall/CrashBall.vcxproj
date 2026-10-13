@@ -255,10 +255,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\ButtonController.h" />
-    <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Component\Default\UI\SliderController.h">
       <SubType>
       </SubType>
@@ -269,6 +265,10 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Enemy\EnemyController.h" />
     <ClInclude Include="Game\Component\GameTimer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Manager\ButtonManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -288,6 +288,10 @@
     <ClInclude Include="Game\Component\UI\EnemyHpGaugeController.h" />
     <ClInclude Include="Game\Component\UI\FloorMeshGaugeController.h" />
     <ClInclude Include="Game\Component\UI\MiniMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Component\UI\SceneChangeButton.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -527,11 +531,14 @@
     <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\ScriptableComponent.cpp" />
     <ClCompile Include="Game\Component\Default\UI\ButtonController.cpp" />
-    <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SliderController.cpp" />
     <ClCompile Include="Game\Component\Default\UI\SpriteBobbing.cpp" />
     <ClCompile Include="Game\Component\Enemy\EnemyController.cpp" />
     <ClCompile Include="Game\Component\GameTimer.cpp" />
+    <ClCompile Include="Game\Component\Manager\ButtonManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game\Component\Manager\GameManager.cpp" />
     <ClCompile Include="Game\Component\Manager\TitleManager.cpp" />
     <ClCompile Include="Game\Component\Player\PlayerController.cpp" />
@@ -542,6 +549,10 @@
     <ClCompile Include="Game\Component\UI\EnemyHpGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\FloorMeshGaugeController.cpp" />
     <ClCompile Include="Game\Component\UI\MiniMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\SceneChangeButton.cpp">
       <SubType>
       </SubType>
     </ClCompile>

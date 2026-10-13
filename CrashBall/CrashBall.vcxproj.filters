@@ -516,9 +516,6 @@
     <ClInclude Include="Game\Engine\SceneManegement.h">
       <Filter>Game\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Component\Default\UI\SceneChangeButton.h">
-      <Filter>Game\Component\Default\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\Easing.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
@@ -584,6 +581,12 @@
     </ClInclude>
     <ClInclude Include="Game\Common\InputCommon.h">
       <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\UI\SceneChangeButton.h">
+      <Filter>Game\Component\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Component\Manager\ButtonManager.h">
+      <Filter>Game\Component\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -818,9 +821,6 @@
     <ClCompile Include="Game\Camera\DebugCamera.cpp">
       <Filter>Game\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Component\Default\UI\SceneChangeButton.cpp">
-      <Filter>Game\Component\Default\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Component\GameTimer.cpp">
       <Filter>Game\Component</Filter>
     </ClCompile>
@@ -877,6 +877,12 @@
     </ClCompile>
     <ClCompile Include="Game\Component\UI\MiniMap.cpp">
       <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\UI\SceneChangeButton.cpp">
+      <Filter>Game\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Component\Manager\ButtonManager.cpp">
+      <Filter>Game\Component\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

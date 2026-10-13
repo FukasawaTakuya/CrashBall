@@ -1,0 +1,41 @@
+{
+    "name": "Buttons",
+    "tag": "Default",
+    "id": 36,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "RectTransform",
+            "id": 84,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "localPosition",
+                    "data": {
+                        "x": 0.0,
+                        "y": -57.0
+                    }
+                },
+                {
+                    "name": "localRotate",
+                    "data": 0.0
+                },
+                {
+                    "name": "localScale",
+                    "data": {
+                        "x": 1.0,
+                        "y": 1.0
+                    }
+                },
+                {
+                    "name": "origin",
+                    "data": 1
+                }
+            ]
+        }
+    ],
+    "children": [
+        2,
+        35
+    ]
+}

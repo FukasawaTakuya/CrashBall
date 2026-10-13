@@ -12,8 +12,8 @@
                 {
                     "name": "localPosition",
                     "data": {
-                        "x": 1204.0,
-                        "y": 750.0
+                        "x": 1387.0,
+                        "y": 716.0
                     }
                 },
                 {
@@ -54,8 +54,8 @@
                 {
                     "name": "spriteScale",
                     "data": {
-                        "x": 1.7000000476837158,
-                        "y": 1.5
+                        "x": 1.2000000476837158,
+                        "y": 1.2000000476837158
                     }
                 },
                 {
@@ -83,7 +83,7 @@
             "properties": [
                 {
                     "name": "text",
-                    "data": "ゲームスタート:A"
+                    "data": "ゲームスタート"
                 },
                 {
                     "name": "color",
@@ -96,7 +96,7 @@
                 },
                 {
                     "name": "fontScale",
-                    "data": 1.5
+                    "data": 1.2000000476837158
                 },
                 {
                     "name": "layerDepth",
@@ -109,10 +109,15 @@
             ]
         },
         {
-            "compName": "ButtonController",
-            "id": 13,
+            "compName": "SceneChangeButton",
+            "id": 86,
             "isActive": true,
-            "properties": null
+            "properties": [
+                {
+                    "name": "nextSceneName",
+                    "data": "GameScene"
+                }
+            ]
         }
     ],
     "children": null

@@ -109,6 +109,7 @@ void MyRenderTexture::SizeResources(size_t width, size_t height)
 
     m_renderTexture->SizeResources(m_width, m_height);
 
+    // ビューポートの作成
     m_viewport.TopLeftX = 0.0f;
     m_viewport.TopLeftY = 0.0f;
     m_viewport.Width    = m_width;
@@ -128,6 +129,7 @@ void MyRenderTexture::SetWindow(const RECT& rect)
 {
     m_renderTexture->SetWindow(rect);
 
+    // ビューポートの作成
     m_viewport.TopLeftX = 0.0f;
     m_viewport.TopLeftY = 0.0f;
     m_viewport.Width    = rect.right;

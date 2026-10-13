@@ -45,22 +45,23 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> sprite;
 
-		// スプライトの作成
-		DX::ThrowIfFailed(
-			CreateDDSTextureFromFile(
-				device,
-				path.c_str(),
-				nullptr,
-				sprite.ReleaseAndGetAddressOf()
-			)
-		);
 
 		// スプライトのサイズを求める
 		float width;
 		float height;
 
 		ID3D11Resource* resource;
-		sprite->GetResource(&resource);
+
+		// スプライトの作成
+		DX::ThrowIfFailed(
+			CreateDDSTextureFromFile(
+				device,
+				path.c_str(),
+				&resource,
+				sprite.ReleaseAndGetAddressOf()
+			)
+		);
+
 		ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);
 		D3D11_TEXTURE2D_DESC desc;
 		texture->GetDesc(&desc);

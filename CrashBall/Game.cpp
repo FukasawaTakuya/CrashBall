@@ -93,13 +93,12 @@ void Game::Initialize(HWND window, int width, int height)
         m_editGuiManager.get()
     );
 
+    // ゲームビュー用のレンダーテクスチャの作成
     m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
     m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(m_deviceResources->GetBackBufferFormat());
 
-    // ゲームビュー用のレンダーテクスチャの作成
     m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
 
-    
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());

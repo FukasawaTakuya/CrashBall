@@ -61,6 +61,8 @@ public:
 	void Start(const GameContext& gameContext) override;
 	// 更新
 	void Update(const GameContext& gameContext) override;
+	// 描画
+	void Render(const RenderContext& renderContext) override;
 	// 終了処理
 	void Finalize() override;
 
@@ -77,5 +79,14 @@ private:
 	virtual std::string GetCompName() const override
 	{
 		return m_compName;
+	}
+
+	// 編集された時実行する関数
+	void EditedFunc() override
+	{
+		if (m_renderTextrue != nullptr)
+		{
+			m_renderTextrue->SizeResources(m_size, m_size);
+		}
 	}
 };

@@ -49,9 +49,9 @@ void MiniMap::Awake()
 	// カメラの設定
 	m_renderTextrue->SetCamera(m_pSubCamera);
 
+	// コンポーネントのキャッシュの取得
 	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
-
 }
 
 /**
@@ -63,9 +63,6 @@ void MiniMap::Start(const GameContext& gameContext)
 {
 	m_spriteRenderer->SetSize(m_renderTextrue->GetWidth(), m_renderTextrue->GetHeight());
 	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
-
-	m_pSubCamera->GetGameObject()->GetComponent<Transform>()->
-		SetRotate(SimpleMath::Quaternion::CreateFromYawPitchRoll(0.0f, XMConvertToRadians(-90.0f), 0.0f));
 }
 
 /**
@@ -75,19 +72,22 @@ void MiniMap::Start(const GameContext& gameContext)
  */
 void MiniMap::Update(const GameContext& gameContext)
 {
-	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
-
+	// カメラの前方向に合わせて回転
 	SimpleMath::Vector3 forward = SimpleMath::Vector3::Forward;
-	float cos = forward.Dot(m_pMainCamera->GetHorizontalForward());
-	if (forward.Cross(m_pMainCamera->GetHorizontalForward()).y > 0.0f)
-	{
-		m_rectTransform->SetLocalRotate(std::acos(cos));
+	float dot = forward.Dot(m_pMainCamera->GetHorizontalForward());
+	float cross = forward.Cross(m_pMainCamera->GetHorizontalForward()).y;
+	cross = cross > 0.0f ? 1.0f : -1.0f;
+	m_rectTransform->SetLocalRotate(std::acos(dot) * cross);
+}
 
-	}
-	else
-	{
-		m_rectTransform->SetLocalRotate(-std::acos(cos));
-	}
+/**
+ * \brief 描画
+ * 
+ * \param renderContext 描画用のコンテキスト
+ */
+void MiniMap::Render(const RenderContext& renderContext)
+{
+	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
 }
 
 /**
@@ -96,5 +96,6 @@ void MiniMap::Update(const GameContext& gameContext)
  */
 void MiniMap::Finalize()
 {
+	// レンダーテクスチャの削除
 	RenderTexture::DeleteRenderTexture(m_renderTextrue);
 }

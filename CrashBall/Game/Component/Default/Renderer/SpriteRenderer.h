@@ -27,18 +27,6 @@ enum class FillOrigin
 	OriginNum,
 };
 
-// 切り取り基準位置の名前
-static const char* FillOriginName[static_cast<int>(FillOrigin::OriginNum)]
-{
-	"Center",
-	"CenterHorizon",
-	"CenterVertical",
-	"Left",
-	"Top",
-	"Right",
-	"Bottom"
-};
-
 // 切り取りの基準位置を決めるためのオフセット
 const DirectX::SimpleMath::Vector4 FillOriginOffeset[static_cast<int>(FillOrigin::OriginNum)]
 {
@@ -283,10 +271,4 @@ private:
 	{
 		return m_compName;
 	}
-
-	// JsonConvert
-private:
-
-	friend void from_json(const nlohmann::json& j, SpriteRenderer& spriteRenderer);
-	friend void to_json(nlohmann::json& j, const SpriteRenderer& spriteRenderer);
 };

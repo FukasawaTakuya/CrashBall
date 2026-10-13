@@ -57,26 +57,26 @@ void ButtonController::Update(const GameContext& gameContext)
 {
 	SimpleMath::Vector2 mousePos = Input::GetMousePos();
 
-	float width = m_spriteRenderer->GetWidth()  ;
+	float width = m_spriteRenderer->GetWidth();
 	float height = m_spriteRenderer->GetHeight();
 
-	m_prevIsHover = m_isHover;
+	m_prevIsFocus = m_isFocus;
 
-	// ホバー状態か判定
+	// フォーカス状態か判定
 	if( mousePos.x >= m_rectTransform->GetLeft(width)	 * Screen::GetScreenRate() &&
-		mousePos.x <= m_rectTransform->GetHorizontalRight(width)	 * Screen::GetScreenRate() &&
+		mousePos.x <= m_rectTransform->GetRight(width)	 * Screen::GetScreenRate() &&
 		mousePos.y >= m_rectTransform->GetTop(height)	 * Screen::GetScreenRate() &&
 		mousePos.y <= m_rectTransform->GetBottom(height) * Screen::GetScreenRate())
 	{
-		m_isHover = true;
+		m_isFocus = true;
 	}
 	else
 	{
-		m_isHover = false;
+		m_isFocus = false;
 	}
 
 	// クリックされたか判定
-	if (m_isHover && Input::GetMouseTrigger(MouseButton::Left))
+	if (m_isFocus && Input::GetMouseTrigger(MouseButton::Left))
 	{
 		m_isOnClick = true;
 	}
@@ -84,8 +84,8 @@ void ButtonController::Update(const GameContext& gameContext)
 	// キーが離されたか
 	if (Input::GetMouseRelease(MouseButton::Left))
 	{
-		// ホバー時かつクリックされていたらフラグをオンにする
-		if (m_isHover && m_isOnClick)
+		// フォーカス時かつクリックされていたらフラグをオンにする
+		if (m_isFocus && m_isOnClick)
 		{
 			m_isPush = true;
 		}
@@ -106,19 +106,19 @@ void ButtonController::Update(const GameContext& gameContext)
 		m_onDrugCommand();
 	}
 
-	// ホバー中の処理の実行
-	if (m_isHover)
+	// フォーカス中の処理の実行
+	if (m_isFocus)
 	{
-		m_onHoverStayCommand();
+		m_onFocusStayCommand();
 	}
-	// ホバー時の処理の実行
-	if (m_isHover && !m_prevIsHover)
+	// フォーカス時の処理の実行
+	if (m_isFocus && !m_prevIsFocus)
 	{
-		m_onHoverEnterCommand();
+		m_onFocusEnterCommand();
 	}
-	// ホバー離脱時の処理の実行
-	else if (!m_isHover && m_prevIsHover)
+	// フォーカス離脱時の処理の実行
+	else if (!m_isFocus && m_prevIsFocus)
 	{
-		m_onHoverExitCommand();
+		m_onFocusExitCommand();
 	}
 }

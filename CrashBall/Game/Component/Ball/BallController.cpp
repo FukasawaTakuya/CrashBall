@@ -43,24 +43,27 @@ void BallController::Awake()
 	m_sphereCollider = GetGameObject()->GetComponent<Sphere>();
 	m_renderer = GetGameObject()->GetComponent<ModelRenderer>();
 
-	// 衝突時の処理の登録
-	m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
-		{
-			if (other->GetGameObject()->GetTag() == ObjectTag::Stage || 
-				other->GetLayerMaskType() == LayerMaskType::Ball)
+	if (m_sphereCollider != nullptr)
+	{
+		// 衝突時の処理の登録
+		m_sphereCollider->SetOnCollisionEnterCmd([this](Collider* other)
 			{
-				SetIsGround(true);
-			}
-		});
+				if (other->GetGameObject()->GetTag() == ObjectTag::Stage ||
+					other->GetLayerMaskType() == LayerMaskType::Ball)
+				{
+					SetIsGround(true);
+				}
+			});
 
-	// 衝突終了時の処理の登録
-	m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
-		{
-			if (m_sphereCollider->IsNoneCollideObject())
+		// 衝突終了時の処理の登録
+		m_sphereCollider->SetOnCollisionExitCmd([this](Collider* other)
 			{
-				SetIsGround(false);
-			}
-		});
+				if (m_sphereCollider->IsNoneCollideObject())
+				{
+					SetIsGround(false);
+				}
+			});
+	}
 }
 
 /**
