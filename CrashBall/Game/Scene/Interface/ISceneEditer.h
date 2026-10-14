@@ -41,7 +41,7 @@ public:
 	virtual void ReloadData() = 0;
 
 	// 新しいゲームオブジェクトの生成
-	virtual void CreateNewGameObject(const std::string& objName) = 0;
+	virtual GameObject* CreateNewGameObject(const std::string& objName) = 0;
 
 	// ゲームオブジェクトの削除
 	virtual void DeleteGameObject(GameObject* obj) = 0;

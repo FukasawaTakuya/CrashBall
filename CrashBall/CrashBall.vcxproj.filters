@@ -89,9 +89,6 @@
     <Filter Include="Game\RendererManager">
       <UniqueIdentifier>{adad8435-81bf-4d1a-96fd-3dd0b57eedf7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Scene\SceneChangeScreen">
-      <UniqueIdentifier>{af8eb5e6-9bf1-48ac-b1f9-2924b494329e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\RendererManager\Interface">
       <UniqueIdentifier>{d861b575-717c-45f2-bf98-197e732f2abc}</UniqueIdentifier>
     </Filter>
@@ -359,9 +356,6 @@
     </ClInclude>
     <ClInclude Include="Game\Component\Camera\TitleCameraController.h">
       <Filter>Game\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.h">
-      <Filter>Game\Scene\SceneChangeScreen</Filter>
     </ClInclude>
     <ClInclude Include="Game\State\IStateMachine.h">
       <Filter>Game\State</Filter>
@@ -727,9 +721,6 @@
     </ClCompile>
     <ClCompile Include="Game\RendererManager\TextRendererManager.cpp">
       <Filter>Game\RendererManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp">
-      <Filter>Game\Scene\SceneChangeScreen</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Object3D.cpp">
       <Filter>Game\GameObject</Filter>

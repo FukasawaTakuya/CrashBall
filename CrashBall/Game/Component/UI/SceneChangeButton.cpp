@@ -45,7 +45,7 @@ void SceneChangeButton::Awake()
 
 	m_onPushCommand = [this]()
 		{
-			SceneMamegement::RequestChangeScene(m_nextSceneName);
+			m_changeScreen->SceneOut(m_nextSceneName);
 		};
 
 	m_scale.Set(Ease::OutCubic, m_rectTransform->GetLocalScale(), m_defaultScale, 0.0f);

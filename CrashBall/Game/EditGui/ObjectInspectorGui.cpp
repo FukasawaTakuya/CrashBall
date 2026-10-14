@@ -160,7 +160,7 @@ void ObjectInspectorGui::DrawProperty(
 		m_drawProperty[property.propType](property);
 
 		// 編集されたら
-		if (ImGui::IsItemDeactivatedAfterEdit())
+		if (ImGui::IsItemEdited())
 		{
 			comp->EditedFunc();
 			comp->EditedFunc(resourceContext);

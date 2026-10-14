@@ -404,10 +404,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Scene\Scene.h" />
-    <ClInclude Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Scene\SceneManager.h" />
     <ClInclude Include="Game\ScriptableObject\GameColor.h">
       <SubType>
@@ -586,7 +582,6 @@
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp" />
     <ClCompile Include="Game\Scene\Scene.cpp" />
-    <ClCompile Include="Game\Scene\SceneChangeScreen\FadeChangeScreen.cpp" />
     <ClCompile Include="Game\Scene\SceneManager.cpp" />
     <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />

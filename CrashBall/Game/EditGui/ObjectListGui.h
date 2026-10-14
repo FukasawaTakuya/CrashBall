@@ -29,7 +29,8 @@ private:
 	// 子オブジェクト生成関数
 	std::function<void(ObjectCollection&)> m_AddChildFunc = [](ObjectCollection&) {};
 
-	bool m_isCreateObject = false;
+	bool m_isCreate2dObject = false;
+	bool m_isCreate3dObject = false;
 	std::string m_newObejctName;
 
 	// メンバ関数の宣言 -------------------------------------------------

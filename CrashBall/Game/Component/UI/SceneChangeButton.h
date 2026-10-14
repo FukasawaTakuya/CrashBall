@@ -10,6 +10,7 @@
 
 #include "Game/Component/Default/UI/ButtonController.h"
 #include "Game/Common/Easing.h"
+#include "Game/Component/ChangeSceneScreen/ChangeSceneScreen.h"
 
 /**
  * @brief シーン変更ボタン
@@ -20,12 +21,19 @@ class  SceneChangeButton : public ButtonController {
 
 	std::string m_nextSceneName;		// 次シーン名
 
+	ChangeSceneScreen* m_changeScreen = nullptr;
+
 	Easing<DirectX::SimpleMath::Vector2> m_scale;	// スケールのイージング
 	DirectX::SimpleMath::Vector2 m_defaultScale;	// デフォルトスケール
 	float m_easeTime = 0.7f;						// イージングタイム
 
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_changeScreen, PropertyType::Component)
+		AddProperty(m_topButton,	 PropertyType::Component)
+		AddProperty(m_bottomButton,  PropertyType::Component)
+		AddProperty(m_rightButton,	 PropertyType::Component)
+		AddProperty(m_leftButton,	 PropertyType::Component)
 		AddProperty(m_nextSceneName, PropertyType::String)
 	EndProperty()
 

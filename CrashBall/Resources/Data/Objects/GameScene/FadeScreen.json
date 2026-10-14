@@ -36,7 +36,7 @@
         {
             "compName": "SpriteRenderer",
             "id": 83,
-            "isActive": true,
+            "isActive": false,
             "properties": [
                 {
                     "name": "spriteKey",
@@ -81,10 +81,6 @@
             "id": 84,
             "isActive": true,
             "properties": [
-                {
-                    "name": "nextScene",
-                    "data": "TitleScene"
-                },
                 {
                     "name": "changeTime",
                     "data": 0.5

@@ -57,39 +57,45 @@ void ButtonController::Update(const GameContext& gameContext)
 {
 	SimpleMath::Vector2 mousePos = Input::GetMousePos();
 
-	float width = m_spriteRenderer->GetWidth();
-	float height = m_spriteRenderer->GetHeight();
+	//float width = m_spriteRenderer->GetWidth();
+	//float height = m_spriteRenderer->GetHeight();
 
-	m_prevIsFocus = m_isFocus;
+	//// フォーカス状態か判定
+	//if( mousePos.x >= m_rectTransform->GetLeft(width)	 * Screen::GetScreenRate() &&
+	//	mousePos.x <= m_rectTransform->GetRight(width)	 * Screen::GetScreenRate() &&
+	//	mousePos.y >= m_rectTransform->GetTop(height)	 * Screen::GetScreenRate() &&
+	//	mousePos.y <= m_rectTransform->GetBottom(height) * Screen::GetScreenRate())
+	//{
+	//	m_isHover = true;
+	//}
+	//else
+	//{
+	//	m_isHover = false;
+	//}
 
-	// フォーカス状態か判定
-	if( mousePos.x >= m_rectTransform->GetLeft(width)	 * Screen::GetScreenRate() &&
-		mousePos.x <= m_rectTransform->GetRight(width)	 * Screen::GetScreenRate() &&
-		mousePos.y >= m_rectTransform->GetTop(height)	 * Screen::GetScreenRate() &&
-		mousePos.y <= m_rectTransform->GetBottom(height) * Screen::GetScreenRate())
-	{
-		m_isFocus = true;
-	}
-	else
-	{
-		m_isFocus = false;
-	}
-
-	// クリックされたか判定
-	if (m_isFocus && Input::GetMouseTrigger(MouseButton::Left))
-	{
-		m_isOnClick = true;
-	}
+	//// クリックされたか判定
+	//if (m_isHover && Input::GetMouseDown(MouseButton::Left))
+	//{
+	//	m_isOnClick = true;
+	//}
 
 	// キーが離されたか
-	if (Input::GetMouseRelease(MouseButton::Left))
+	//if (Input::GetMouseRelease(MouseButton::Left))
+	//{
+	//	// フォーカス時かつクリックされていたらフラグをオンにする
+	//	if (m_isHover && m_isOnClick)
+	//	{
+	//		m_isPush = true;
+	//	}
+	//	m_isOnClick = false;
+	//}
+
+	if (Input::GetInputState(InputAction::Deside).isTrigger)
 	{
-		// フォーカス時かつクリックされていたらフラグをオンにする
-		if (m_isFocus && m_isOnClick)
+		if (m_isFocus)
 		{
 			m_isPush = true;
 		}
-		m_isOnClick = false;
 	}
 
 	// 押されたときの処理の実行
@@ -121,4 +127,6 @@ void ButtonController::Update(const GameContext& gameContext)
 	{
 		m_onFocusExitCommand();
 	}
+
+	m_prevIsFocus = m_isFocus;
 }

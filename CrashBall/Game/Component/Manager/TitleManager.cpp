@@ -46,7 +46,7 @@ void TitleManager::Update(const GameContext& gameContext)
 {
 	if (Input::GetInputState(InputAction::Deside).isTrigger)
 	{
-		m_changeSceneScreen->SceneOut();
+		m_changeSceneScreen->SceneOut("GameScene");
 	}
 
 	if (Input::GetInputState(InputAction::Exit).isTrigger)

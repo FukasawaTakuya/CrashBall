@@ -254,10 +254,10 @@ void SceneManager::RequestChangeScene(const std::string& sceneName)
  * 
  * \param objName オブジェクト名
  */
-void SceneManager::CreateNewGameObject(const std::string& objName)
+GameObject* SceneManager::CreateNewGameObject(const std::string& objName)
 {
 	// ゲームオブジェクトの生成
-	GameObject* newObj = m_currentScene->CreateNewGameObject(objName);
+	return m_currentScene->CreateNewGameObject(objName);
 }
 
 /**

@@ -47,7 +47,7 @@ public:
 	void SceneIn() override;
 
 	// シーンから出る
-	void SceneOut() override;
+	void SceneOut(const std::string& nextScene) override;
 
 	// 内部実装
 private:

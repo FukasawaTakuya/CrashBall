@@ -110,7 +110,7 @@ public:
 	void RequestChangeScene(const std::string& sceneName) override;
 
 	// 新しいオブジェクトの生成
-	void CreateNewGameObject(const std::string& objName = "object") override;
+	GameObject* CreateNewGameObject(const std::string& objName = "object") override;
 
 	// ゲームオブジェクトの削除
 	void DeleteGameObject(GameObject* obj) override;

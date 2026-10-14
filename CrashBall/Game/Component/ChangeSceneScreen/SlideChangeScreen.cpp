@@ -89,11 +89,12 @@ void SlideChangeScreen::SceneIn()
  * \brief シーンから出る
  *
  */
-void SlideChangeScreen::SceneOut()
+void SlideChangeScreen::SceneOut(const std::string& nextScene)
 {
 	if (!m_isIn && !m_isOut)
 	{
 		m_isOut = true;
 		m_fillAmount.Set(Ease::OutCubic, 0.0f, 1.0f, 0.5f);
+		m_nextScene = nextScene;
 	}
 }

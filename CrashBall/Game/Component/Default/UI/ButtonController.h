@@ -32,15 +32,26 @@ protected:
 	bool m_isOnRelease	= false;	// ボタンが離されたか
 	bool m_isPush		= false;	// 押されたか
 
-	bool m_isFocus		= false;	// フォーカス状態か
+	bool m_isHover		= false;
 	bool m_prevIsFocus  = false;	// 前フレームのフォーカス状態
+
+	bool m_isFocus = false;	// フォーカス状態か
 
 	// コンポーネントのキャッシュ
 	RectTransform*  m_rectTransform  = nullptr;
 	SpriteRenderer* m_spriteRenderer = nullptr;
 
+	ButtonController* m_topButton	 = nullptr;
+	ButtonController* m_bottomButton = nullptr;
+	ButtonController* m_rightButton  = nullptr;
+	ButtonController* m_leftButton   = nullptr;
+
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_topButton,	PropertyType::Component)
+		AddProperty(m_bottomButton, PropertyType::Component)
+		AddProperty(m_rightButton,	PropertyType::Component)
+		AddProperty(m_leftButton,	PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -71,6 +82,29 @@ public:
 
 	// 取得/設定
 public:
+
+	// 関連ボタンの取得
+	ButtonController* GetTopButton() const
+	{
+		return m_topButton;
+	}
+	ButtonController* GetBottomButton() const
+	{
+		return m_bottomButton;
+	}
+	ButtonController* GetRightButton() const
+	{
+		return m_rightButton;
+	}
+	ButtonController* GetLeftButton() const
+	{
+		return m_leftButton;
+	}
+
+	void SetIsFocus(bool isFocus)
+	{
+		m_isFocus = isFocus;
+	}
 
 	// 押された処理の設定
 	void SetOnPushCommand(std::function<void()> onPushCommand)

@@ -1,6 +1,15 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   ButtonManager.h
+ * \brief  
+ * 
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/UI/ButtonController.h"
 
 /**
  * @brief
@@ -9,8 +18,20 @@ class  ButtonManager : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
 
+	// 初期ボタン
+	ButtonController* m_firstButton = nullptr;
+
+	// 現在ボタン
+	ButtonController* m_currentButton = nullptr;
+
+	// 移動先ボタン
+	ButtonController* m_nextButton = nullptr;
+
+
+
 	// プロパティの設定
 	BeginProperty()
+		AddProperty(m_firstButton, PropertyType::Component)
 	EndProperty()
 
 	// コンポーネント名の設定

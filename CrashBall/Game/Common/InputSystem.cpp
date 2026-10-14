@@ -381,22 +381,22 @@ float InputSystem::GetGamePadValue(PadButton padButton)
 	switch (padButton)
 	{
 	case PadButton::LeftStickX:
-		m_gamePad->GetState(0).thumbSticks.leftX;
+		return m_gamePad->GetState(0).thumbSticks.leftX;
 		break;
 	case PadButton::LeftStickY:
-		m_gamePad->GetState(0).thumbSticks.leftY;
+		return m_gamePad->GetState(0).thumbSticks.leftY;
 		break;
 	case PadButton::RightStickX:
-		m_gamePad->GetState(0).thumbSticks.rightX;
+		return m_gamePad->GetState(0).thumbSticks.rightX;
 		break;
 	case PadButton::RightStickY:
-		m_gamePad->GetState(0).thumbSticks.rightY;
+		return m_gamePad->GetState(0).thumbSticks.rightY;
 		break;
 	case PadButton::LeftTrigger:
-		m_gamePad->GetState(0).triggers.left;
+		return m_gamePad->GetState(0).triggers.left;
 		break;
 	case PadButton::RightTrigger:
-		m_gamePad->GetState(0).triggers.right;
+		return m_gamePad->GetState(0).triggers.right;
 		break;
 	default:
 		return GetGamePadDown(padButton) ? 1.0f : 0.0f;

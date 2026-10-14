@@ -70,7 +70,14 @@ void FadeChageScreen::Update(const GameContext& gameContext)
 		else if (m_isOut)
 		{
 			m_isOut = false;
-			SceneMamegement::RequestChangeScene(m_nextScene);
+			if (m_nextScene == "Exit")
+			{
+				PostQuitMessage(0);
+			}
+			else
+			{
+				SceneMamegement::RequestChangeScene(m_nextScene);
+			}
 		}
 	}
 
@@ -93,11 +100,12 @@ void FadeChageScreen::SceneIn()
  * \brief シーンから出る
  * 
  */
-void FadeChageScreen::SceneOut()
+void FadeChageScreen::SceneOut(const std::string& nextScene)
 {
 	if (!m_isIn && !m_isOut)
 	{
 		m_isOut = true;
 		m_alpha.Set(Ease::Linear, 0.0f, 1.0f, m_changeTime);
+		m_nextScene = nextScene;
 	}
 }

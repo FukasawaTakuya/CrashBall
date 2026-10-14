@@ -14,6 +14,7 @@
 #include "Game/ScriptableObject/Scriptable.h"
 #include "Game/Engine/SceneManegement.h"
 #include "Game/Engine/Input.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 
 /**
  * \brief コンストラクタ
@@ -57,18 +58,31 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
         DrawObjectGui(scriptable.second.get());
     }
 
-    if (ImGui::Button("New GameObject"))
+    if (ImGui::Button("New 2DGameObject"))
     {
-        m_isCreateObject = true;
+        m_isCreate2dObject = !m_isCreate3dObject;
+    }
+    if (ImGui::Button("New 3DGameObject"))
+    {
+        m_isCreate3dObject = !m_isCreate2dObject;
     }
 
-    if (m_isCreateObject)
+    if (m_isCreate3dObject || m_isCreate2dObject)
     {
         ImGui::InputText("objectName", &m_newObejctName);
         if (ImGui::IsItemDeactivatedAfterEdit())
         {
-            sceneEditer->CreateNewGameObject(m_newObejctName);
-            m_isCreateObject = false;
+            GameObject* obj = sceneEditer->CreateNewGameObject(m_newObejctName);
+            if (m_isCreate3dObject)
+            {
+                obj->AddComponent<Transform>();
+                m_isCreate3dObject = false;
+            }
+            else if (m_isCreate2dObject)
+            {
+                obj->AddComponent<RectTransform>();
+                m_isCreate2dObject = false;
+            }
             m_newObejctName = "";
         }
     }

@@ -12,7 +12,7 @@
                 {
                     "name": "localPosition",
                     "data": {
-                        "x": 1387.0,
+                        "x": 1386.0,
                         "y": 716.0
                     }
                 },
@@ -113,6 +113,26 @@
             "id": 86,
             "isActive": true,
             "properties": [
+                {
+                    "name": "changeScreen",
+                    "data": 81
+                },
+                {
+                    "name": "topButton",
+                    "data": null
+                },
+                {
+                    "name": "bottomButton",
+                    "data": 87
+                },
+                {
+                    "name": "rightButton",
+                    "data": null
+                },
+                {
+                    "name": "leftButton",
+                    "data": null
+                },
                 {
                     "name": "nextSceneName",
                     "data": "GameScene"

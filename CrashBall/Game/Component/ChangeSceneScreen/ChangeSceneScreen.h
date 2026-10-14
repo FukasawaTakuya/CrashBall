@@ -31,7 +31,6 @@ protected:
 private:
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_nextScene, PropertyType::String)
 		AddProperty(m_changeTime, PropertyType::Float)
 	EndProperty()
 
@@ -61,7 +60,7 @@ public:
 	virtual void SceneIn() = 0;
 
 	// シーンから出る
-	virtual void SceneOut() = 0;
+	virtual void SceneOut(const std::string& nextScene) = 0;
 
 	// 内部実装
 private:

@@ -12,8 +12,8 @@
                 {
                     "name": "localPosition",
                     "data": {
-                        "x": 1387.0,
-                        "y": 959.0
+                        "x": 1386.0,
+                        "y": 931.0
                     }
                 },
                 {
@@ -114,8 +114,28 @@
             "isActive": true,
             "properties": [
                 {
+                    "name": "changeScreen",
+                    "data": 81
+                },
+                {
+                    "name": "topButton",
+                    "data": 86
+                },
+                {
+                    "name": "bottomButton",
+                    "data": null
+                },
+                {
+                    "name": "rightButton",
+                    "data": null
+                },
+                {
+                    "name": "leftButton",
+                    "data": null
+                },
+                {
                     "name": "nextSceneName",
-                    "data": ""
+                    "data": "Exit"
                 }
             ]
         }

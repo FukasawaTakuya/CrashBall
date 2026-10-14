@@ -32,6 +32,17 @@
                     "data": 1
                 }
             ]
+        },
+        {
+            "compName": "ButtonManager",
+            "id": 88,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "firstButton",
+                    "data": 86
+                }
+            ]
         }
     ],
     "children": [

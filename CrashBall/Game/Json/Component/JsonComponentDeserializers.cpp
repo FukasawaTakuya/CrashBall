@@ -17,6 +17,7 @@ void from_json(const ordered_json& j, Component& component)
 
 	for (auto& prop : properties)
 	{
+		// プロパティ名からデータを検索
 		auto propData = std::find_if(j["properties"].begin(), j["properties"].end(), [&](const ordered_json& j)
 			{
 				return prop.name == j["name"].get<std::string>();
@@ -24,6 +25,8 @@ void from_json(const ordered_json& j, Component& component)
 
 		if(propData != j["properties"].end())
 		{
+			if ((*propData)["data"].is_null()) continue;
+
 			switch (prop.propType)
 			{
 			case PropertyType::Bool:

@@ -82,10 +82,6 @@
             "isActive": true,
             "properties": [
                 {
-                    "name": "nextScene",
-                    "data": "GameScene"
-                },
-                {
                     "name": "changeTime",
                     "data": 1.0
                 }

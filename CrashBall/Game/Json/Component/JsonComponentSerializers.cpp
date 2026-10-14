@@ -64,7 +64,7 @@ void to_json(ordered_json& j, const PropertyInfo& property)
 		}
 		else
 		{
-			j["data"] = -99;
+			j["data"] = nullptr;
 		}
 	}
 		break;
@@ -77,7 +77,7 @@ void to_json(ordered_json& j, const PropertyInfo& property)
 		}
 		else
 		{
-			j["data"] = -99;
+			j["data"] = nullptr;
 		}
 	}
 		break;

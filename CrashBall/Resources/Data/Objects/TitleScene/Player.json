@@ -6,23 +6,23 @@
     "components": [
         {
             "compName": "Transform",
-            "id": 0,
+            "id": 90,
             "isActive": true,
             "properties": [
                 {
                     "name": "localPosition",
                     "data": {
-                        "x": -19.999000549316406,
-                        "y": 6.599999904632568,
+                        "x": -17.999000549316406,
+                        "y": 7.599999904632568,
                         "z": -0.0009852153016254306
                     }
                 },
                 {
                     "name": "localRotate",
                     "data": {
-                        "x": 0.01104703638702631,
+                        "x": 0.011047035455703735,
                         "y": 1.954553246498108,
-                        "z": 0.40055614709854126
+                        "z": 0.40055617690086365
                     }
                 },
                 {
@@ -63,9 +63,9 @@
                     "name": "diffuseColor",
                     "data": {
                         "a": 1.0,
-                        "b": 1.0,
-                        "g": 1.0,
-                        "r": 1.0
+                        "b": 0.9803922176361084,
+                        "g": 0.8078432083129883,
+                        "r": 0.529411792755127
                     }
                 },
                 {
@@ -135,7 +135,7 @@
                 },
                 {
                     "name": "directionCircleDistance",
-                    "data": 4.5
+                    "data": 10.0
                 },
                 {
                     "name": "directionCircleRadius",
@@ -143,7 +143,7 @@
                 },
                 {
                     "name": "directionChageInterval",
-                    "data": 1.5
+                    "data": 2.5
                 },
                 {
                     "name": "pDoom",

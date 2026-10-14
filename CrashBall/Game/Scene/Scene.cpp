@@ -65,6 +65,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 	{
 		for (auto& prop : comp.second->GetProperties())
 		{
+			if (*static_cast<int*>(prop.data) == 0) continue;
 			if (prop.propType == PropertyType::GameObject)
 			{
 				auto it = objects.find(*static_cast<int*>(prop.data));
@@ -122,11 +123,6 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 
 		camera->Awake();
 	}
-
-	//for (auto& obj : objects)
-	//{
-	//	obj.second->Awake();
-	//}
 }
 
 /**
