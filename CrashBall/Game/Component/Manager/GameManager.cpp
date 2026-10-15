@@ -34,7 +34,7 @@ GameManager::GameManager(IGameObject* gameObject)
  */
 void GameManager::Start(const GameContext& gameContext)
 {
-	gameContext.soundManager->RegisterPlayBgmCommand("Title");
+	gameContext.soundManager->RegisterPlayBgmCommand("Game");
 	m_changeSceneScreen->SceneIn();
 	m_timeScale.Initialize([](float s, float e, float t) {return std::lerp(s, e, t); });
 	m_timeScale.Set(Ease::Linear, 1.0f, 0.0f, 1.0f);

@@ -63,3 +63,8 @@ const std::vector<std::string>& ComponentFactory::GetCompNameList()
 {
 	return ::GetCompNameList();
 }
+
+void ComponentFactory::SortComponentList()
+{
+	std::sort(::GetCompNameList().begin(), ::GetCompNameList().end());
+}

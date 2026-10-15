@@ -37,4 +37,6 @@ namespace ComponentFactory
 
 	// コンポーネント名リストの取得
 	const std::vector<std::string>& GetCompNameList();
+
+	void SortComponentList();
 };

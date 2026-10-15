@@ -326,6 +326,7 @@ void Game::Render()
     // Show the new frame.
     m_deviceResources->Present();
 
+    ComponentFactory::SortComponentList();
 }
 
 /**
