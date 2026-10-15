@@ -51,6 +51,7 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
         DrawObjectGui(object.get());
     }
 
+    // スクリプタブルオブジェクト表示
     ImGui::SeparatorText("ScriptableObject");
 
     for (auto& scriptable : *Scriptable::GetScriptableObejctList())
@@ -58,6 +59,7 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
         DrawObjectGui(scriptable.second.get());
     }
 
+    // 新オブジェクト生成ボタン表示
     if (ImGui::Button("New 2DGameObject"))
     {
         m_isCreate2dObject = !m_isCreate3dObject;
@@ -67,6 +69,7 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
         m_isCreate3dObject = !m_isCreate2dObject;
     }
 
+    // 新オブジェクト生成
     if (m_isCreate3dObject || m_isCreate2dObject)
     {
         ImGui::InputText("objectName", &m_newObejctName);
@@ -91,9 +94,11 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
 
     ImGui::End();
 
+    // 親子関係追加関数実行
     m_AddChildFunc(sceneEditer->GetGameObjects());
     m_AddChildFunc = [](ObjectCollection&) {};
 
+    // オブジェクト削除
     if (Input::GetKeyTrigger(DirectX::Keyboard::Delete))
     {
         sceneEditer->DeleteGameObject(m_selectedObject);

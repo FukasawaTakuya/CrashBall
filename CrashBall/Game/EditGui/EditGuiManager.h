@@ -38,6 +38,9 @@ private:
 	bool m_isActive = false;	// 有効フラグ
 	bool m_editMode = false;	// 編集モード
 
+	MyRenderTexture* m_gameViewTexture  = nullptr;
+	MyRenderTexture* m_debugViewTexture = nullptr;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -54,7 +57,6 @@ public:
 	// 更新
 	void Update(
 		ISceneEditer* sceneEditer,
-		ID3D11ShaderResourceView* srv,
 		const ResourceContext& resourceContext);
 
 	void Reset();
@@ -96,6 +98,15 @@ public:
 	void SetEditMode(bool flag) override
 	{
 		m_editMode = flag;
+	}
+
+	// レンダーテクスチャの設定
+	void SetRenderTexture(
+		MyRenderTexture* gameViewTexture,
+		MyRenderTexture* debugViewTexture)
+	{
+		m_gameViewTexture  = gameViewTexture;
+		m_debugViewTexture = debugViewTexture;
 	}
 
 	// 内部実装

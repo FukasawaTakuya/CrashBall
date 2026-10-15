@@ -82,6 +82,7 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_editGuiManager = std::make_unique<EditGuiManager>();
 
+    // デバッグ用カメラ
     m_debugCamera = std::make_unique<DebugCamera>();
     m_debugCamera->Awake();
     m_debugCamera->Start(m_gameContext);
@@ -93,11 +94,17 @@ void Game::Initialize(HWND window, int width, int height)
         m_editGuiManager.get()
     );
 
+    m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(
+        m_deviceResources->GetBackBufferFormat()
+    );
     // ゲームビュー用のレンダーテクスチャの作成
     m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
-    m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(m_deviceResources->GetBackBufferFormat());
+    // デバッグビュー用のレンダーテクスチャの作成
+    m_debugViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
+    m_debugViewTexture->SetCamera(m_debugCamera->GetComponent<Camera>());
 
     m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
+    m_editGuiManager->SetRenderTexture(m_gameViewTexture.get(), m_debugViewTexture.get());
 
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
@@ -186,21 +193,21 @@ void Game::Update(DX::StepTimer const& timer)
 
     // 入力の更新
     m_inputSystem->Update();
-    // 編集モードならマウス座標を直す
+    // エディタが有効ならマウス座標ゲームビュー上にを直す
     if (m_editGuiManager->GetIsActive())
     {
         m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
     }
 
     // 編集モードならデバッグカメラ更新
-    if (m_editGuiManager->GetEditMode())
+    if (m_editGuiManager->GetIsActive())
     {
         if (m_inputSystem->CheckHoverScreen())
         {
             m_debugCamera->Update(m_gameContext);
         }
     }
-    else
+    if (!m_editGuiManager->GetEditMode())
     {
         // シーンの更新
         m_sceneManager->SceneUpdate();
@@ -218,14 +225,12 @@ void Game::Update(DX::StepTimer const& timer)
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager.get(),
-        m_gameViewTexture->GetShaderResourceView(),
         m_resourceContext
     );
 
 
-    // 編集モードの切り替え
-    if (m_inputSystem->GetKeyTrigger(Keyboard::E) &&
-        m_inputSystem->GetKeyDown(Keyboard::LeftShift))
+    // エディタ有効フラグの切り替え
+    if (m_inputSystem->GetKeyTrigger(Keyboard::F4))
     {
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
     }
@@ -278,46 +283,38 @@ void Game::Render()
         SimpleMath::Matrix proj = renderTexture->GetCamera()->GetProj();
         renderTexture->Begin(context);
         // 描画命令の実行
-        // プリミティブの描画
-        m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
-        // モデルの描画
-        m_modelRendererManager->Render(context, m_state.get(), view, proj);
+        DoRenderCommandNoneSprite(view, proj, context);
     }
 
     context->RSSetViewports(1, &defaultViewport);
     context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
 
-    SimpleMath::Matrix view;
-    // 編集モードならデバッグカメラからビュー取得
-    if (m_editGuiManager->GetEditMode())
-    {
-        view = m_debugCamera->GetComponent<Camera>()->GetView();
-    }
-    else
-    {
-        // シーンカメラからビュー取得
-        view = m_sceneManager->GetCamera()->GetView();
-    }
+    SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
+    SimpleMath::Matrix gameProj = m_gameViewTexture->GetCamera()->GetProj();
+
+    SimpleMath::Matrix debugView = m_debugCamera->GetComponent<Camera>()->GetView();
+    SimpleMath::Matrix debugProj = m_gameViewTexture->GetCamera()->GetProj();
 
     // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
     {
-        SimpleMath::Matrix proj = m_gameViewTexture->GetCamera()->GetProj();
-
+        // ゲームビューをレンダーターゲットに設定
         m_gameViewTexture->Begin(context);
-
         // 描画命令の実行
-        DoRenderCommand(view, proj, context);
+        DoRenderCommand(gameView, gameProj, context);
+        // デバッグビューをレンダーターゲットに設定
+        m_debugViewTexture->Begin(context);
+        // 描画命令の実行
+        DoRenderCommandNoneSprite(debugView, debugProj, context);
 
         context->RSSetViewports(1, &defaultViewport);
         context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
     }
     else
     {
-        SimpleMath::Matrix proj = m_sceneManager->GetCamera()->GetProj();
         context->RSSetViewports(1, &defaultViewport);
         // 描画命令の実行
-        DoRenderCommand(view, proj, context);
+        DoRenderCommand(gameView, gameProj, context);
     }
 
     m_deviceResources->PIXEndEvent();
@@ -332,23 +329,18 @@ void Game::Render()
 }
 
 /**
- * \brief 描画命令の実行
- * 
+ * \brief描画命令の実行
+ *
+ * \param view ビュー行列
+ * \param proj プロジェクション行列
+ * \param context コンテキスト
  */
 void Game::DoRenderCommand(
     const DirectX::SimpleMath::Matrix& view,
     const DirectX::SimpleMath::Matrix& proj,
     ID3D11DeviceContext1* context)
 {
-    // プリミティブの描画
-    m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
-    // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), view, proj);
-
-    // 
-    m_effect->SetView(view);
-    m_effect->SetProjection(proj);
-    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
+    DoRenderCommandNoneSprite(view, proj, context);
 
     // スプライト関連描画開始
     m_spriteBatch->Begin(SpriteSortMode_FrontToBack);
@@ -358,7 +350,29 @@ void Game::DoRenderCommand(
     m_textRendererManager->Render(m_spriteBatch.get());
     // スプライト関連描画終了
     m_spriteBatch->End();
+}
 
+/**
+ * \brief スプライト抜きの描画命令の実行
+ * 
+ * \param view ビュー行列
+ * \param proj プロジェクション行列
+ * \param context コンテキスト
+ */
+void Game::DoRenderCommandNoneSprite(
+    const DirectX::SimpleMath::Matrix& view,
+    const DirectX::SimpleMath::Matrix& proj,
+    ID3D11DeviceContext1* context)
+{
+    // プリミティブの描画
+    m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
+    // モデルの描画
+    m_modelRendererManager->Render(context, m_state.get(), view, proj);
+
+    // スカイボックスの描画
+    m_effect->SetView(view);
+    m_effect->SetProjection(proj);
+    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 }
 
 // Helper method to clear the back buffers.
@@ -469,7 +483,9 @@ void Game::CreateDeviceDependentResources()
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
 
+    // レンダーターゲットテクスチャの設定
     m_gameViewTexture->SetDevice(device);
+    m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
 
     m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
@@ -508,7 +524,9 @@ void Game::CreateWindowSizeDependentResources()
     // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources();
 
+    // レンダーターゲットテクスチャの設定
     m_gameViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
+    m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
     m_effect->SetProjection(m_proj);

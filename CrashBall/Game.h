@@ -79,7 +79,8 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<MyRenderTexture>            m_gameViewTexture;
+    std::unique_ptr<MyRenderTexture>            m_gameViewTexture;       // ゲームビュー用レンダーテクスチャ
+    std::unique_ptr<MyRenderTexture>            m_debugViewTexture;      // デバッグビュー用レンダーテクスチャ
     std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
@@ -141,6 +142,13 @@ private:
         const DirectX::SimpleMath::Matrix& view, 
         const DirectX::SimpleMath::Matrix& proj, 
         ID3D11DeviceContext1* context);
+
+    // スプライト抜きの描画命令の実行
+    void DoRenderCommandNoneSprite(
+        const DirectX::SimpleMath::Matrix& view,
+        const DirectX::SimpleMath::Matrix& proj,
+        ID3D11DeviceContext1* context);
+
 
     void Clear();
 

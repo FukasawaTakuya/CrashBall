@@ -44,7 +44,6 @@ EditGuiManager::~EditGuiManager()
  */
 void EditGuiManager::Update(
     ISceneEditer* sceneEditer,
-    ID3D11ShaderResourceView* srv,
     const ResourceContext& resourceContext)
 {
     if (!m_isActive) return;
@@ -59,7 +58,7 @@ void EditGuiManager::Update(
     // 更新
     m_objectListGui->Update(sceneEditer);
     m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject(), resourceContext);
-    m_gameViewRenderer->Update(srv);
+    m_gameViewRenderer->Update(m_gameViewTexture->GetShaderResourceView(), m_debugViewTexture->GetShaderResourceView());
     m_editButton->Update(sceneEditer);
     m_sceneSelect->Update(sceneEditer);
 }
@@ -136,7 +135,8 @@ void EditGuiManager::ConstantLayout(ImGuiID dockspace)
     ImGui::DockBuilderDockWindow("Inspector", subR);
     ImGui::DockBuilderDockWindow("ObjectList", subLBottom);
     ImGui::DockBuilderDockWindow("Scene", subLTop);
-    ImGui::DockBuilderDockWindow("Game", mainTop);
+    ImGui::DockBuilderDockWindow("GameView", mainTop);
+    ImGui::DockBuilderDockWindow("DebugView", mainTop);
     ImGui::DockBuilderDockWindow("Buttons", mainBottom);
 
     ImGui::DockBuilderFinish(dockspace);

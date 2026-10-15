@@ -29,7 +29,9 @@ public:
 public:
 
 	// 更新
-	void Update(ID3D11ShaderResourceView* srv);
+	void Update(
+		ID3D11ShaderResourceView* gameSrv,
+		ID3D11ShaderResourceView* debugSrv);
 
 	// 取得/設定
 public:
