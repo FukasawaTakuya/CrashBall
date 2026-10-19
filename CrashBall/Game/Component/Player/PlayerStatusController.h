@@ -58,6 +58,9 @@ public:
 	// 操作
 public:
 
+	// アタッチ時の処理
+	void Awake() override;
+
 	// 更新
 	void Update(const GameContext& gameContext) override;
 

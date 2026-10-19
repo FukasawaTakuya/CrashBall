@@ -16,7 +16,7 @@ RegisterComponent(ResultPanel)
 /**
  * \brief コンストラクタ
  * 
- * \param gameObject
+ * \param gameObject コンポーネントを所有するゲームオブジェクト
  */
 ResultPanel::ResultPanel(IGameObject* gameObject)
 	: Component(gameObject)

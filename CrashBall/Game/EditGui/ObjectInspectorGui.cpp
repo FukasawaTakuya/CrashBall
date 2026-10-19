@@ -316,9 +316,11 @@ void ObjectInspectorGui::DrawString(const PropertyInfo& property)
 		*static_cast<std::wstring*>(property.data) = Utility::ConvertToWideChar(s);
 	}
 	else if (typeid(std::string) == property.propTypeId)
+	{
 		ImGui::InputText(
 			property.name.c_str(),
 			static_cast<std::string*>(property.data));
+	}
 }
 
 /**
@@ -338,6 +340,7 @@ void ObjectInspectorGui::DrawEnum(const PropertyInfo& property)
  */
 void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 {
+	// ゲームオブジェクト情報の表示
 	GameObject* gameObject = *static_cast<GameObject**>(property.data);
 	std::string objName;
 	if (gameObject != nullptr)
@@ -352,10 +355,12 @@ void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
 		property.name.c_str(),
 		&objName);
 
+	// ドロップされたとき
 	if (ImGui::BeginDragDropTarget())
 	{
-		if (const ImGuiPayload* payload =
-			ImGui::AcceptDragDropPayload("DragGameObject"))
+		const ImGuiPayload* payload =
+			ImGui::AcceptDragDropPayload("DragGameObject");
+		if (payload != nullptr)
 		{
 			*static_cast<GameObject**>(property.data) = *(GameObject**)payload->Data;
 		}
@@ -369,6 +374,7 @@ void ObjectInspectorGui::DrawGameObject(const PropertyInfo& property)
  */
 void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 {
+	// コンポーネント情報の表示
 	Component* component = *static_cast<Component**>(property.data);
 	std::string compName;
 	if (component != nullptr)
@@ -383,11 +389,15 @@ void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 		property.name.c_str(),
 		&compName);
 
+
+	// ドロップされたとき
 	if (ImGui::BeginDragDropTarget())
 	{
-		if (const ImGuiPayload* payload =
-			ImGui::AcceptDragDropPayload("DragGameObject"))
+		const ImGuiPayload* payload =
+			ImGui::AcceptDragDropPayload("DragGameObject");
+		if (payload != nullptr)
 		{
+			// コンポーネントを検索して見つかれば割り当てる
 			*static_cast<Component**>(property.data) 
 			 = (*(GameObject**)payload->Data)->GetComponent(property.propTypeId);
 		}

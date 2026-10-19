@@ -103,6 +103,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_debugViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
     m_debugViewTexture->SetCamera(m_debugCamera->GetComponent<Camera>());
 
+    // レンダーテクスチャを設定
     m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
     m_editGuiManager->SetRenderTexture(m_gameViewTexture.get(), m_debugViewTexture.get());
 
@@ -123,12 +124,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager->LoadData();
 
     m_sceneManager->SetStartScene("TitleScene");
-
-    // デバイス依存のリソースの作成
-    CreateDeviceDependentResources();
-
-    // ウインドウサイズ依存のリソースの作成
-    CreateWindowSizeDependentResources();
 
     //  ImGuiの初期化処理
     {
@@ -156,6 +151,19 @@ void Game::Initialize(HWND window, int width, int height)
             io.Fonts->GetGlyphRangesJapanese()
         );
     }
+
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+    //  ImGuiの描画処理
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+    // デバイス依存のリソースの作成
+    CreateDeviceDependentResources();
+
+    // ウインドウサイズ依存のリソースの作成
+    CreateWindowSizeDependentResources();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -214,31 +222,36 @@ void Game::Update(DX::StepTimer const& timer)
     }
     m_sceneManager->Update();
 
-    // BGMの再生
-    m_soundPlayer->PlayBgm(m_soundManager.get());
-    // SEの再生
-    m_soundPlayer->PlaySe(m_soundManager.get());
+    //// BGMの再生
+    //m_soundPlayer->PlayBgm(m_soundManager.get());
+    //// SEの再生
+    //m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();
-
-    // エディタの更新
-    m_editGuiManager->Update(
-        m_sceneManager.get(),
-        m_resourceContext
-    );
-
 
     // エディタ有効フラグの切り替え
     if (m_inputSystem->GetKeyTrigger(Keyboard::F4))
     {
         m_editGuiManager->SetIsActive(!m_editGuiManager->GetIsActive());
+        m_editGuiManager->RegisterConstantLayout();
     }
 
     if (m_inputSystem->GetKeyTrigger(Keyboard::R))
     {
         m_scriptableObjectManager->SaveData();
     }
+
+    if (m_inputSystem->GetKeyTrigger(Keyboard::T))
+    {
+        m_modelManager->CreateModel(m_deviceResources->GetD3DDevice());
+    }
+
+    // エディタの更新
+    m_editGuiManager->Update(
+        m_sceneManager.get(),
+        m_resourceContext
+    );
 }
 #pragma endregion
 
@@ -489,6 +502,8 @@ void Game::CreateDeviceDependentResources()
     m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
 
+
+    // ========= Skybox ========= //
     m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
         false /*invert for being inside the shape*/);
 
@@ -516,12 +531,6 @@ void Game::CreateWindowSizeDependentResources()
     // 
     Screen::CalcScreenRate(m_deviceResources->IsFullscreen());
 
-    // プロジェクション行列の定義
-    m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
-        XMConvertToRadians(45), static_cast<float>(w) / static_cast<float>(h),
-        0.01f, 500.0f
-    );
-
     // ウィンドウサイズ依存のリソース作成リソース作成
     m_sceneManager->CreateWindowSizeResources();
 
@@ -530,7 +539,10 @@ void Game::CreateWindowSizeDependentResources()
     m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
-    m_effect->SetProjection(m_proj);
+    // スカイボックス
+    m_effect->SetProjection(m_sceneManager->GetCamera()->GetProj());
+
+    m_editGuiManager->RegisterConstantLayout();
 }
 
 void Game::OnDeviceLost()

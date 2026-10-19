@@ -119,6 +119,9 @@ void RenderTexture::SizeResources(size_t width, size_t height)
 
     SetDebugObjectName(m_shaderResourceView.Get(), "RenderTexture SRV");
 
+
+    // 深度ステンシルビュー
+
     D3D11_TEXTURE2D_DESC depthDesc = {};
 
     depthDesc.Width = width;

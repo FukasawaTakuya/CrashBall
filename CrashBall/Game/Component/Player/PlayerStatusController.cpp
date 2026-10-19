@@ -19,6 +19,14 @@ RegisterComponent(PlayerStatusController)
 PlayerStatusController::PlayerStatusController(IGameObject* gameObject)
 	: Component(gameObject)
 {
+}
+
+/**
+ * \brief アタッチ時の処理
+ * 
+ */
+void PlayerStatusController::Awake()
+{
 	ModelRenderer* modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
 
 	m_defaultAmbient = modelRenderer->GetAmbientColor();

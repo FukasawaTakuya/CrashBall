@@ -1,3 +1,12 @@
+//--------------------------------------------------------------------------------------
+// SkyboxEffect.cpp
+//
+// A sky box effect for DirectX 11.
+//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+//--------------------------------------------------------------------------------------
+
 #include "pch.h"
 #include "SkyboxEffect.h"
 #include "ReadData.h"

@@ -1,3 +1,12 @@
+//--------------------------------------------------------------------------------------
+// SkyboxEffect.h
+//
+// A sky box effect for DirectX 11.
+//
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+//--------------------------------------------------------------------------------------
+
 #pragma once
 
 #include <vector>

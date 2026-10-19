@@ -51,7 +51,8 @@ void EditGuiManager::Update(
     ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
 
     // レイアウトの固定
-    ConstantLayout(dockspaceID);
+    m_constantLayoutFunc();
+    m_constantLayoutFunc = []() {};
 
     ImGui::DockSpaceOverViewport(dockspaceID);
 
@@ -73,35 +74,49 @@ void EditGuiManager::Reset()
 }
 
 /**
+ * \brief レイアウト固定関数を登録
+ * 
+ */
+void EditGuiManager::RegisterConstantLayout()
+{
+    m_constantLayoutFunc =
+        std::bind(&EditGuiManager::ConstantLayout, this);
+}
+
+/**
  * \brief レイアウト固定
  * 
  * \param dockSpace
  */
-void EditGuiManager::ConstantLayout(ImGuiID dockspace)
+void EditGuiManager::ConstantLayout()
 {
+    if (!m_isActive) return;
+
+    ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
+
     ImGuiViewport* viewport = ImGui::GetMainViewport();
 
     // 描画領域が0以下ならreturn
     if (viewport->Size.x <= 0.0f || viewport->Size.y <= 0.0f) return;
 
     ImGui::DockBuilderAddNode(
-        dockspace,
+        dockspaceID,
         ImGuiDockNodeFlags_DockSpace
     );
 
     ImGui::DockBuilderSetNodeSize(
-        dockspace,
+        dockspaceID,
         viewport->Size
     );
 
     ImGuiID subR;
     ImGuiID subLTop;
     ImGuiID subLBottom;
-    ImGuiID mainTop = dockspace;
+    ImGuiID mainTop = dockspaceID;
     ImGuiID mainBottom;
 
     ImGui::DockBuilderSplitNode(
-        dockspace,
+        dockspaceID,
         ImGuiDir_Right,
         0.35f,
         &subLBottom,
@@ -139,6 +154,5 @@ void EditGuiManager::ConstantLayout(ImGuiID dockspace)
     ImGui::DockBuilderDockWindow("DebugView", mainTop);
     ImGui::DockBuilderDockWindow("Buttons", mainBottom);
 
-    ImGui::DockBuilderFinish(dockspace);
-
+    ImGui::DockBuilderFinish(dockspaceID);
 }

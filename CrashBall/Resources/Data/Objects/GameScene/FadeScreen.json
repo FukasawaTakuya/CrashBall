@@ -36,7 +36,7 @@
         {
             "compName": "SpriteRenderer",
             "id": 83,
-            "isActive": false,
+            "isActive": true,
             "properties": [
                 {
                     "name": "spriteKey",

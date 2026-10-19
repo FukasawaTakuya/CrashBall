@@ -57,8 +57,6 @@ private:
     
     std::unique_ptr<DirectX::CommonStates> m_state; // コモンステート
 
-    DirectX::SimpleMath::Matrix m_proj; // 射影行列
-
     std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;  // スプライトバッチ
 
     std::unique_ptr<SceneManager>   m_sceneManager;     // シーン管理
@@ -81,7 +79,7 @@ private:
 
     std::unique_ptr<MyRenderTexture>            m_gameViewTexture;       // ゲームビュー用レンダーテクスチャ
     std::unique_ptr<MyRenderTexture>            m_debugViewTexture;      // デバッグビュー用レンダーテクスチャ
-    std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;
+    std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;   // レンダーテクスチャ管理
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
 
@@ -93,9 +91,9 @@ private:
     RenderContext   m_renderContext;    // 描画用のコンテキスト
     ResourceContext m_resourceContext;  // リソース用のコンテキスト
 
+    // スカイボックス関連
     std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
     std::unique_ptr<SkyboxEffect> m_effect;
-
     Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
 

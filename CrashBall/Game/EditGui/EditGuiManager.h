@@ -41,6 +41,8 @@ private:
 	MyRenderTexture* m_gameViewTexture  = nullptr;
 	MyRenderTexture* m_debugViewTexture = nullptr;
 
+	std::function<void(void)> m_constantLayoutFunc = []() {};	// レイアウト固定関数
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -109,10 +111,13 @@ public:
 		m_debugViewTexture = debugViewTexture;
 	}
 
+	void RegisterConstantLayout();
+
+
 	// 内部実装
 private:
 
 	// レイアウト固定
-	void ConstantLayout(ImGuiID dockspace);
+	void ConstantLayout();
 
 };

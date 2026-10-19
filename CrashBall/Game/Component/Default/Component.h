@@ -41,7 +41,7 @@ struct PropertyInfo
 {
 	std::string name;							// プロパティ名
 	PropertyType propType;						// プロパティタイプ
-	std::type_index propTypeId{typeid(void)};	// プロパティのtypeid
+	std::type_index propTypeId{ typeid(void) };	// プロパティのtypeid
 	void* data = nullptr;						// プロパティのアドレス
 	float speed = 1.0f;							// GUIの移動量
 };
