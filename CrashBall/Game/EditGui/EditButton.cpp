@@ -34,8 +34,12 @@ EditButton::~EditButton()
 /**
  * \brief 更新
  * 
+ * \param sceneEditer シーンエディタ
+ * \param scriptableObjectManager スクリプタブルオブジェクト要のマネージャー
  */
-void EditButton::Update(ISceneEditer* sceneEditer)
+void EditButton::Update(
+    ISceneEditer* sceneEditer,
+    ScriptableObjectManager* scriptableObjectManager)
 {
     ImGui::Begin("Buttons");
 
@@ -66,6 +70,7 @@ void EditButton::Update(ISceneEditer* sceneEditer)
         if (ImGui::Button("Save"))
         {
             sceneEditer->SaveData();
+            scriptableObjectManager->SaveData();
         }
 
         ImGui::SameLine(0.0f, 10.0f);

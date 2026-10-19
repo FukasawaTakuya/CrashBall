@@ -43,8 +43,11 @@ public:
 	// 新しいゲームオブジェクトの生成
 	virtual GameObject* CreateNewGameObject(const std::string& objName) = 0;
 
+	// ゲームオブジェクトの追加
+	virtual void AddGameObject(std::unique_ptr<GameObject>&& obj) = 0;
+
 	// ゲームオブジェクトの削除
-	virtual void DeleteGameObject(GameObject* obj) = 0;
+	virtual void RemoveGameObject(GameObject* obj) = 0;
 
 	// 新しいシーンの作成
 	virtual void CreateNewScene(const std::string& newSceneName) = 0;
@@ -55,8 +58,8 @@ public:
 	// 現在のシーン名の取得
 	virtual const std::string& GetCurrrentSceneName() = 0;
 
-	// ゲームオブジェクトの取得
-	virtual std::vector<std::unique_ptr<GameObject>>& GetGameObjects() = 0;
+	// ワールドオブジェクトの取得
+	virtual GameObject* GetWorldObject() = 0;
 
 	// シーン名リストの取得
 	virtual std::vector<std::string>& GetSceneNameList() = 0;

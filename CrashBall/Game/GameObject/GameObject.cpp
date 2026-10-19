@@ -137,7 +137,11 @@ void GameObject::Finalize()
  */
 void GameObject::SaveData()
 {
-	*m_data = *this;
+	if (m_data != nullptr)
+	{
+		*m_data = *this;
+	}
+
 	for (auto& child : m_children)
 	{
 		child->SaveData();
@@ -150,11 +154,15 @@ void GameObject::SaveData()
  */
 void GameObject::ReloadData()
 {
-	if (!m_data->empty())
+	if (m_data != nullptr)
 	{
-		m_data->get_to(*this);
+		if (!m_data->empty())
+		{
+			m_data->get_to(*this);
+		}
+		Awake();
 	}
-	Awake();
+
 	for (auto& child : m_children)
 	{
 		child->ReloadData();
@@ -273,6 +281,21 @@ GameObject* GameObject::FindChild(const std::string& name)
 	auto it = std::ranges::find_if(m_children, [&](std::unique_ptr<GameObject>& child)
 		{
 			return child->GetName() == name;
+		});
+	return it->get();
+}
+
+/**
+ * \brief 子オブジェクトの検索
+ * 
+ * \param id オブジェクトのID
+ * \return 子オブジェクトのポインタ
+ */
+GameObject* GameObject::FindChild(int id)
+{
+	auto it = std::ranges::find_if(m_children, [&](std::unique_ptr<GameObject>& child)
+		{
+			return child->GetID() == id;
 		});
 	return it->get();
 }

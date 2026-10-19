@@ -194,9 +194,19 @@ public:
 	// 実行中の親の設定
 	void SetParentInRunTime(Transform* parent)
 	{
-		m_parent = parent;
 		if (parent != nullptr)
 		{
+			// 既に親がいた時
+			if (m_parent != nullptr)
+			{
+				// ワールドに直す
+				m_localPosition += parent->GetWorldPosition();
+				m_localRotate *= parent->GetWorldRotate();
+				m_localScale = m_localScale * parent->GetWorldScale();
+			}
+			m_parent = parent;
+
+			// ローカルに直す
 			m_localPosition -= parent->GetWorldPosition();
 			DirectX::SimpleMath::Quaternion inverseRotate;
 			parent->GetWorldRotate().Inverse(inverseRotate);

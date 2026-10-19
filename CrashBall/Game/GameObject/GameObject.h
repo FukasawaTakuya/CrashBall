@@ -150,6 +150,9 @@ public:
 	// 子オブジェクトの検索
 	GameObject* FindChild(const std::string& name);
 
+	// 子オブジェクトの検索
+	GameObject* FindChild(int id);
+
 	// 取得/設定
 public:
 

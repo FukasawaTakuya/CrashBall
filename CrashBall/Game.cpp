@@ -237,19 +237,10 @@ void Game::Update(DX::StepTimer const& timer)
         m_editGuiManager->RegisterConstantLayout();
     }
 
-    if (m_inputSystem->GetKeyTrigger(Keyboard::R))
-    {
-        m_scriptableObjectManager->SaveData();
-    }
-
-    if (m_inputSystem->GetKeyTrigger(Keyboard::T))
-    {
-        m_modelManager->CreateModel(m_deviceResources->GetD3DDevice());
-    }
-
     // エディタの更新
     m_editGuiManager->Update(
         m_sceneManager.get(),
+        m_scriptableObjectManager.get(),
         m_resourceContext
     );
 }

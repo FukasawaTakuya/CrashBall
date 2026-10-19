@@ -13,12 +13,12 @@
 #include "ObjectInspectorGui.h"
 #include "GameViewRenderer.h"
 #include "EditButton.h"
+#include "SceneSelect.h"
 
 #include "Game/RenderTexture/MyRenderTexture.h"
 
 #include "Game/Scene/Interface/ISceneEditer.h"
-#include "Game/Json/IJsonDataManager.h"
-#include "SceneSelect.h"
+#include "Game/ScriptableObject/ScriptableObjectManager.h"
 
 /**
  * \brief エディタGUI管理
@@ -59,6 +59,7 @@ public:
 	// 更新
 	void Update(
 		ISceneEditer* sceneEditer,
+		ScriptableObjectManager* scriptableObjectManager,
 		const ResourceContext& resourceContext);
 
 	void Reset();

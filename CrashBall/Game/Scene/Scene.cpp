@@ -32,6 +32,10 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 	// タイムスケールをデフォルト値に
 	Time::SetTimeScale(1.0f);
 
+	// ワールドオブジェクトの作成
+	m_worldObject = std::make_unique<GameObject>();
+	m_worldObject->SetName("WorldObject");
+
 	for (auto& data : m_jsonManager->GetGameObjectData())
 	{
 		// オブジェクトの生成
@@ -56,19 +60,24 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		// 検索用マップに登録
 		AddMap(obj.get());
 
-		// コンテナに追加
-		m_gameObjects.push_back(std::move(obj));
+		// ワールドオブジェクトの子に設定
+		m_worldObject->AddChildrenInBuildTime(std::move(obj));
 	}
 
-	// プロパティの読み込み
+	// ゲームオブジェクトとコンポーネントの設定
 	for (auto& comp : components)
 	{
 		for (auto& prop : comp.second->GetProperties())
 		{
+			// データが0の時は無視
 			if (*static_cast<int*>(prop.data) == 0) continue;
+
 			if (prop.propType == PropertyType::GameObject)
 			{
+				// ID検索
 				auto it = objects.find(*static_cast<int*>(prop.data));
+
+				// 見つかれば設定
 				if (it != objects.end())
 				{
 					*static_cast<IGameObject**>(prop.data) = it->second;
@@ -80,7 +89,9 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 			}
 			else if (prop.propType == PropertyType::Component)
 			{
+				// ID検索
 				auto it = components.find(*static_cast<int*>(prop.data));
+				// 見つかれば設定
 				if (it != components.end())
 				{
 					*static_cast<Component**>(prop.data) = it->second;
@@ -101,16 +112,13 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 
 		for (auto& child : jsonObj["children"])
 		{
-			auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& g)
-				{
-					return child == g->GetID();
-				});
-
-			if (it != m_gameObjects.end())
+			// ID検索
+			auto find = objects.find(child.get<int>());
+			// 見つかれば設定
+			if (find != objects.end())
 			{
-				obj.second->AddChildrenInBuildTime(std::move(*it));
-				// オブジェクトリストから削除
-				m_gameObjects.erase(it);
+				auto temp = m_worldObject->RemoveChild(find->second->GetName());
+				obj.second->AddChildrenInBuildTime(std::move(temp));
 			}
 		}
 	}
@@ -131,10 +139,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
  */
 void Scene::Awake()
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->Awake();
-	}
+	m_worldObject->Awake();
 }
 
 /**
@@ -144,10 +149,7 @@ void Scene::Awake()
  */
 void Scene::Start(const GameContext& gameContext)
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->Start(gameContext);
-	}
+	m_worldObject->Start(gameContext);
 }
 
 
@@ -157,11 +159,7 @@ void Scene::Start(const GameContext& gameContext)
  */
 void Scene::Update(const GameContext& gameContext)
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->Update(gameContext);
-	}
-
+	m_worldObject->Update(gameContext);
 	m_collisionManager->Update();
 }
 
@@ -173,10 +171,7 @@ void Scene::Update(const GameContext& gameContext)
  */
 void Scene::Render(const RenderContext& renderContext)
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->Render(renderContext);
-	}
+	m_worldObject->Render(renderContext);
 }
 
 /**
@@ -185,10 +180,7 @@ void Scene::Render(const RenderContext& renderContext)
  */
 void Scene::Finalize()
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->Finalize();
-	}
+	m_worldObject->Finalize();
 }
 
 /**
@@ -198,10 +190,7 @@ void Scene::Finalize()
  */
 void Scene::CreateDeviceResources(const ResourceContext& resourceContext)
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->SetDeviceResource(resourceContext);
-	}
+	m_worldObject->SetDeviceResource(resourceContext);
 }
 
 /**
@@ -211,11 +200,7 @@ void Scene::CreateDeviceResources(const ResourceContext& resourceContext)
  */
 void Scene::CreateWindowSizeResources()
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->SetWindowSizeResource();
-	}
-
+	m_worldObject->SetWindowSizeResource();
 }
 
 /**
@@ -224,10 +209,7 @@ void Scene::CreateWindowSizeResources()
  */
 void Scene::SaveData()
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->SaveData();
-	}
+	m_worldObject->SaveData();
 	m_jsonManager->SaveGameObjectData();
 }
 
@@ -237,10 +219,7 @@ void Scene::SaveData()
  */
 void Scene::ReloadData()
 {
-	for (auto& obj : m_gameObjects)
-	{
-		obj->ReloadData();
-	}
+	m_worldObject->ReloadData();
 }
 
 GameObject* Scene::CreateNewGameObject(const std::string& objName)
@@ -249,8 +228,8 @@ GameObject* Scene::CreateNewGameObject(const std::string& objName)
 	auto newGameObject = std::make_unique<GameObject>();
 	// ポインタを取得
 	GameObject* ptr = newGameObject.get();
-	// コンテナに追加
-	m_gameObjects.push_back(std::move(newGameObject));
+	// ワールドオブジェクトの子に設定
+	m_worldObject->AddChildrenInRunTime(std::move(newGameObject));
 	// マップに追加
 	AddMap(ptr);
 
@@ -266,8 +245,30 @@ GameObject* Scene::CreateNewGameObject(const std::string& objName)
 	return ptr;
 }
 
-void Scene::DeleteGameObject(GameObject* obj)
+/**
+ * \brief ゲームオブジェクトの追加
+ * 
+ * \param obj ゲームオブジェクト
+ */
+void Scene::AddGameObject(std::unique_ptr<GameObject>&& obj)
 {
+	m_worldObject->AddChildrenInRunTime(std::move(obj));
+}
+
+/**
+ * \brief ゲームオブジェクトの削除
+ * 
+ * \param obj ゲームオブジェクト
+ */
+void Scene::RemoveGameObject(GameObject* obj)
+{
+	GameObject* parent = obj->GetParent();
+	// 親がいないならリターン
+	if (parent == nullptr)
+	{
+		return;
+	}
+
 	// マップから削除
 	DeleteMap(obj);
 
@@ -277,31 +278,25 @@ void Scene::DeleteGameObject(GameObject* obj)
 		DeleteMap(child.get());
 	}
 
-	// 親がいる場合
-	if (obj->GetParent() != nullptr)
-	{
-		obj->GetParent()->RemoveChild(obj->GetName());
-	}
-	else
-	{
-		auto it = std::ranges::find_if(m_gameObjects, [&](std::unique_ptr<GameObject>& gameObject)
-			{
-				return gameObject->GetName() == obj->GetName();
-			});
+	// 親から子を削除
+	parent->RemoveChild(obj->GetName());
 
-		if (it != m_gameObjects.end())
-		{
-			m_gameObjects.erase(it);
-		}
-	}
 }
 
+/**
+ * \brief マップから削除
+ * 
+ * \param obj ゲームオブジェクトのポインタ
+ */
 void Scene::DeleteMap(GameObject* obj)
 {
+	// オブジェクト名マップから削除
 	if (FindGameObject(obj->GetName()) != nullptr)
 	{
 		m_objNameMap.erase(obj->GetName());
 	} 
+
+	// オブジェクトタグマップから削除
 	auto range = FindGameObjectsWithTag(obj->GetTag());
 	for (auto it = range.first; it != range.second; it++)
 	{
@@ -363,11 +358,6 @@ std::pair<TagMapIt, TagMapIt> Scene::FindGameObjectsWithTag(const ObjectTag& tag
 	std::pair<TagMapIt, TagMapIt> range = m_objTagMap.equal_range(tag);
 	return range;
 }
-//
-//void Scene::ChangeScene(SceneID nextSceneID)
-//{
-//	//m_pSceneChanger->RequestChangeScene(nextSceneID);
-//}
 
 /**
  * \brief マップに追加

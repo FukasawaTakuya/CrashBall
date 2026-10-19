@@ -11,6 +11,7 @@
 #include "Game/Json/IJsonDataManager.h"
 #include "Game/GameObject/GameObject.h"
 #include "Interface/IEditModeChanger.h"
+#include "Game/ScriptableObject/ScriptableObjectManager.h"
 
 /**
  * \brief 編集ボタン
@@ -35,7 +36,9 @@ public:
 public:
 
 	// 更新
-	void Update(ISceneEditer* sceneEditer);
+	void Update(
+		ISceneEditer* sceneEditer,
+		ScriptableObjectManager* scriptableObjectManager);
 
 	// 取得/設定
 public:

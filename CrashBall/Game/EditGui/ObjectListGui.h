@@ -18,8 +18,6 @@
  */
 class  ObjectListGui {
 
-	using ObjectCollection = std::vector<std::unique_ptr<GameObject>>;
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -27,7 +25,7 @@ private:
 	GameObject* m_selectedObject = nullptr;
 
 	// 子オブジェクト生成関数
-	std::function<void(ObjectCollection&)> m_AddChildFunc = [](ObjectCollection&) {};
+	std::function<void(GameObject*)> m_AddChildFunc = [](GameObject*) {};
 
 	bool m_isCreate2dObject = false;
 	bool m_isCreate3dObject = false;

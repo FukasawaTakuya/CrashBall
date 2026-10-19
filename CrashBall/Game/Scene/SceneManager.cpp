@@ -262,13 +262,27 @@ GameObject* SceneManager::CreateNewGameObject(const std::string& objName)
 
 /**
  * \brief ゲームオブジェクトの削除
+ *
+ * \param obj ゲームオブジェクト
+ */
+void SceneManager::AddGameObject(std::unique_ptr<GameObject>&& obj)
+{
+	m_currentScene->AddGameObject(std::move(obj));
+}
+
+/**
+ * \brief ゲームオブジェクトの削除
  * 
  * \param obj ゲームオブジェクト
  */
-void SceneManager::DeleteGameObject(GameObject* obj)
+void SceneManager::RemoveGameObject(GameObject* obj)
 {
-	m_jsonManagers[m_currentSceneName]->DeleteGameObjectData(obj->GetName());
-	m_currentScene->DeleteGameObject(obj);
+	// 親がいるなら削除処理
+	if (obj != nullptr && obj->GetParent() != nullptr)
+	{
+		m_jsonManagers[m_currentSceneName]->DeleteGameObjectData(obj->GetName());
+		m_currentScene->RemoveGameObject(obj);
+	}
 }
 
 /**

@@ -38,12 +38,12 @@ EditGuiManager::~EditGuiManager()
  * \brief 更新
  * 
  * \param gameObjects ゲームオブジェクト
- * \param scriptableObjects Scriptableオブジェクト
- * \param srv レンダーテクスチャ
+ * \param scriptableObjectManager スクリプタブルオブジェクト用のマネージャー
  * \param resourceContext リソース用のコンテキスト
  */
 void EditGuiManager::Update(
     ISceneEditer* sceneEditer,
+    ScriptableObjectManager* scriptableObjectManager,
     const ResourceContext& resourceContext)
 {
     if (!m_isActive) return;
@@ -58,10 +58,38 @@ void EditGuiManager::Update(
 
     // 更新
     m_objectListGui->Update(sceneEditer);
-    m_objectInspectorGui->Updata(m_objectListGui->GetSelectedObject(), resourceContext);
-    m_gameViewRenderer->Update(m_gameViewTexture->GetShaderResourceView(), m_debugViewTexture->GetShaderResourceView());
-    m_editButton->Update(sceneEditer);
+
+    m_objectInspectorGui->Updata(
+        m_objectListGui->GetSelectedObject(), 
+        resourceContext);
+
+    m_gameViewRenderer->Update(
+        m_gameViewTexture->GetShaderResourceView(), 
+        m_debugViewTexture->GetShaderResourceView());
+
+    m_editButton->Update(
+        sceneEditer,
+        scriptableObjectManager);
+
     m_sceneSelect->Update(sceneEditer);
+
+
+    if (ImGui::BeginDragDropTarget())
+    {
+        const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DropGameObject");
+
+        if (payload != nullptr)
+        {
+            GameObject* dropObj = *static_cast<GameObject**>(payload->Data);
+
+            GameObject* parent = dropObj->GetParent();
+            if (parent != nullptr)
+            {
+                auto temp = dropObj->GetParent()->RemoveChild(dropObj->GetName());
+                sceneEditer->AddGameObject(std::move(temp));
+            }
+        }
+    }
 }
 
 /**

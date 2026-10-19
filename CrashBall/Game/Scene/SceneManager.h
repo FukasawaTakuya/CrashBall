@@ -112,8 +112,11 @@ public:
 	// 新しいオブジェクトの生成
 	GameObject* CreateNewGameObject(const std::string& objName = "object") override;
 
+	// ゲームオブジェクトの追加
+	void AddGameObject(std::unique_ptr<GameObject>&& obj) override;
+
 	// ゲームオブジェクトの削除
-	void DeleteGameObject(GameObject* obj) override;
+	void RemoveGameObject(GameObject* obj) override;
 
 	// ゲームオブジェクトの検索
 	GameObject* FindGameObject(const std::string& objectName) const override;
@@ -133,10 +136,10 @@ public:
 		return m_currentScene->GetCamera();
 	}
 
-	// ゲームオブジェクトの取得
-	std::vector<std::unique_ptr<GameObject>>& GetGameObjects() override
+	// ワールドオブジェクトの取得
+	GameObject* GetWorldObject() override
 	{
-		return m_currentScene->GetObjects();
+		return m_currentScene->GetWorldObject();
 	}
 
 	// 現在のシーンの取得

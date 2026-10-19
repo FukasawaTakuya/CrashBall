@@ -31,13 +31,14 @@ protected:
 
 	Camera* m_camera = nullptr;
 
-	IJsonDataManager* m_jsonManager;
+	IJsonDataManager* m_jsonManager;	// Json管理
 
-	std::vector<std::unique_ptr<GameObject>>		m_gameObjects;	// GameObjectのコンテナ
+	std::unique_ptr<GameObject> m_worldObject;						// ワールドオブジェクト
 	std::unordered_map<std::string, GameObject*>	m_objNameMap;	// GameObjectの名前マップ
 	std::unordered_multimap<ObjectTag, GameObject*> m_objTagMap;	// GameOBjectのタグマップ
 
 	std::unique_ptr<CollisionManager> m_collisionManager;	// 衝突管理オブジェクト
+
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -82,8 +83,11 @@ public:
 	// 新しいゲームオブジェクトの生成
 	GameObject* CreateNewGameObject(const std::string& objName);
 
+	// ゲームオブジェクトの追加
+	void AddGameObject(std::unique_ptr<GameObject>&& obj);
+
 	// ゲームオブジェクトの削除
-	void DeleteGameObject(GameObject* obj);
+	void RemoveGameObject(GameObject* obj);
 
 	// マップから削除
 	void DeleteMap(GameObject* obj);
@@ -109,10 +113,10 @@ public:
 		return m_sceneName;
 	}
 
-	// ゲームオブジェクトのコンテナの取得
-	std::vector<std::unique_ptr<GameObject>>& GetObjects()
+	// ワールドオブジェクトの取得
+	GameObject* GetWorldObject() const
 	{
-		return m_gameObjects;
+		return m_worldObject.get();
 	}
 
 	// シーン名の設定
@@ -123,9 +127,6 @@ public:
 
 	// 内部実装
 private:
-
-	// シーンの変更
-	//void ChangeScene(SceneID nextSceneID);
 
 	// マップに追加
 	void AddMap(GameObject* gameObject);
