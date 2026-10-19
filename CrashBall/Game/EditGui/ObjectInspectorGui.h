@@ -24,14 +24,16 @@ class  ObjectInspectorGui {
 	using DrawPropertyFunc = const std::function<void(const PropertyInfo&)>;
 	using DrawEnumFunc = const std::function<void(const std::string&, void*)>;
 
-	// 列挙型表示関数テーブル
-	std::unordered_map<std::type_index, DrawEnumFunc> m_drawEnum;
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	// プロパティ表示関数テーブル
 	std::unordered_map<PropertyType, DrawPropertyFunc> m_drawProperty;
+
+	// 列挙型表示関数テーブル
+	std::unordered_map<std::type_index, DrawEnumFunc> m_drawEnum;
+
+	std::function<void(Component*)> m_removeCompFunc = [](Component*) {};
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

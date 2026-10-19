@@ -91,8 +91,8 @@ void ObjectListGui::Update(ISceneEditer* sceneEditer)
     ImGui::End();
 
     // 親子関係追加関数実行
-    m_AddChildFunc(sceneEditer->GetWorldObject());
-    m_AddChildFunc = [](GameObject*) {};
+    m_AddChildFunc();
+    m_AddChildFunc = [](void) {};
 
     // オブジェクト削除
     if (Input::GetKeyTrigger(DirectX::Keyboard::Delete))
@@ -173,7 +173,7 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
                 GameObject* child =
                     *static_cast<GameObject**>(payload->Data);
                     
-                m_AddChildFunc = [&, child, object](GameObject* worldObject)
+                m_AddChildFunc = [&, child, object](void)
                     {
                         GameObject* parent = child->GetParent();
                         // 親がいないならリターン

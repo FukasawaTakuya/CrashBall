@@ -89,9 +89,6 @@ public:
 	// ゲームオブジェクトの削除
 	void RemoveGameObject(GameObject* obj);
 
-	// マップから削除
-	void DeleteMap(GameObject* obj);
-
 	// ゲームオブジェクトの検索
 	GameObject* FindGameObject(const std::string& objectName) const;
 
@@ -130,5 +127,8 @@ private:
 
 	// マップに追加
 	void AddMap(GameObject* gameObject);
+
+	// マップから削除
+	void RemoveMap(GameObject* obj);
 
 };

@@ -118,7 +118,8 @@ public:
 	// 最大のスケールを取得
 	float GetMaxScale() const
 	{
-		return std::max(std::max(m_localScale.x, m_localScale.y), m_localScale.z);
+		DirectX::SimpleMath::Vector3 scale = GetWorldScale();
+		return std::max(std::max(scale.x, scale.y), scale.z);
 	}
 
 	// 変更フラグの取得
@@ -194,18 +195,21 @@ public:
 	// 実行中の親の設定
 	void SetParentInRunTime(Transform* parent)
 	{
+		m_isDirty = true;
+
+		// 既に親がいた時
+		if (m_parent != nullptr)
+		{
+			// ワールドに直す
+			m_localPosition += m_parent->GetWorldPosition();
+			m_localRotate *= m_parent->GetWorldRotate();
+			m_localScale *= m_parent->GetWorldScale();
+		}
+
+		m_parent = parent;
+
 		if (parent != nullptr)
 		{
-			// 既に親がいた時
-			if (m_parent != nullptr)
-			{
-				// ワールドに直す
-				m_localPosition += parent->GetWorldPosition();
-				m_localRotate *= parent->GetWorldRotate();
-				m_localScale = m_localScale * parent->GetWorldScale();
-			}
-			m_parent = parent;
-
 			// ローカルに直す
 			m_localPosition -= parent->GetWorldPosition();
 			DirectX::SimpleMath::Quaternion inverseRotate;

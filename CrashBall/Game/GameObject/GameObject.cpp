@@ -299,3 +299,24 @@ GameObject* GameObject::FindChild(int id)
 		});
 	return it->get();
 }
+
+/**
+ * \brief コンポーネントの削除
+ * 
+ * \param comp コンポーネント
+ */
+void GameObject::RemoveComponent(Component* comp)
+{
+	// ID検索
+	auto it = std::ranges::find_if(m_components, [&](std::unique_ptr<Component>& c)
+		{
+			return c->GetID() == comp->GetID();
+		});
+
+	// 見つかれば削除
+	if (it != m_components.end())
+	{
+		m_componentsMap.erase(m_componentsMap.find(typeid(*comp)));
+		m_components.erase(it);
+	}
+}

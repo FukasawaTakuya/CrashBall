@@ -252,6 +252,9 @@ private:
 		return &m_components;
 	}
 
+	// コンポーネントの削除
+	void RemoveComponent(Component* comp);
+
 private:
 	friend void to_json(ordered_json& j, const GameObject& gameObject);
 	friend void from_json(const ordered_json& j, GameObject& gameObject);

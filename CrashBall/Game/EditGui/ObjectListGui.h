@@ -25,7 +25,7 @@ private:
 	GameObject* m_selectedObject = nullptr;
 
 	// 子オブジェクト生成関数
-	std::function<void(GameObject*)> m_AddChildFunc = [](GameObject*) {};
+	std::function<void(void)> m_AddChildFunc = [](void) {};
 
 	bool m_isCreate2dObject = false;
 	bool m_isCreate3dObject = false;

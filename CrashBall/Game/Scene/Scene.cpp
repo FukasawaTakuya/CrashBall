@@ -127,6 +127,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 	{
 		auto camera = CreateNewGameObject("MainCamera");
 		camera->AddComponent<Transform>();
+		camera->SetTag(ObjectTag::Camera);
 		m_camera = camera->AddComponent<Camera>();
 
 		camera->Awake();
@@ -270,42 +271,17 @@ void Scene::RemoveGameObject(GameObject* obj)
 	}
 
 	// マップから削除
-	DeleteMap(obj);
+	RemoveMap(obj);
 
 	// 子オブジェクトをマップから削除
 	for (auto& child : obj->GetChildren())
 	{
-		DeleteMap(child.get());
+		RemoveMap(child.get());
 	}
 
 	// 親から子を削除
 	parent->RemoveChild(obj->GetName());
 
-}
-
-/**
- * \brief マップから削除
- * 
- * \param obj ゲームオブジェクトのポインタ
- */
-void Scene::DeleteMap(GameObject* obj)
-{
-	// オブジェクト名マップから削除
-	if (FindGameObject(obj->GetName()) != nullptr)
-	{
-		m_objNameMap.erase(obj->GetName());
-	} 
-
-	// オブジェクトタグマップから削除
-	auto range = FindGameObjectsWithTag(obj->GetTag());
-	for (auto it = range.first; it != range.second; it++)
-	{
-		if (it->second->GetName() == obj->GetName())
-		{
-			m_objTagMap.erase(it);
-			break;
-		}
-	}
 }
 
 /**
@@ -368,4 +344,29 @@ void Scene::AddMap(GameObject* gameObject)
 {
 	m_objNameMap.emplace(gameObject->GetName(), gameObject);
 	m_objTagMap.emplace(gameObject->GetTag(), gameObject);
+}
+
+/**
+ * \brief マップから削除
+ *
+ * \param obj ゲームオブジェクトのポインタ
+ */
+void Scene::RemoveMap(GameObject* obj)
+{
+	// オブジェクト名マップから削除
+	if (FindGameObject(obj->GetName()) != nullptr)
+	{
+		m_objNameMap.erase(obj->GetName());
+	}
+
+	// オブジェクトタグマップから削除
+	auto range = FindGameObjectsWithTag(obj->GetTag());
+	for (auto it = range.first; it != range.second; it++)
+	{
+		if (it->second->GetName() == obj->GetName())
+		{
+			m_objTagMap.erase(it);
+			break;
+		}
+	}
 }

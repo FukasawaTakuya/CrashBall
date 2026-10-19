@@ -72,24 +72,6 @@ void EditGuiManager::Update(
         scriptableObjectManager);
 
     m_sceneSelect->Update(sceneEditer);
-
-
-    if (ImGui::BeginDragDropTarget())
-    {
-        const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("DropGameObject");
-
-        if (payload != nullptr)
-        {
-            GameObject* dropObj = *static_cast<GameObject**>(payload->Data);
-
-            GameObject* parent = dropObj->GetParent();
-            if (parent != nullptr)
-            {
-                auto temp = dropObj->GetParent()->RemoveChild(dropObj->GetName());
-                sceneEditer->AddGameObject(std::move(temp));
-            }
-        }
-    }
 }
 
 /**
