@@ -39,7 +39,8 @@ void ModelRendererManager::ClearRenderCommand()
  * 
  * \param context コンテキスト
  * \param state コモンステート
- * \param camera カメラのポインタ
+ * \param view ビュー行列
+ * \param proj プロジェクション行列
  */
 void ModelRendererManager::Render(
 	ID3D11DeviceContext1* context,

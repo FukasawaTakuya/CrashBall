@@ -15,9 +15,6 @@
   */
 class  PrimitiveRendererManager : public IPrimitiveRendererManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

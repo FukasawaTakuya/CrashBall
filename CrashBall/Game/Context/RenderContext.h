@@ -12,6 +12,7 @@
 #include "Game/RendererManager/Interface/IPrimitiveRendererManager.h"
 #include "Game/RendererManager/Interface/ISpriteRendererManager.h"
 #include "Game/RendererManager/Interface/ITextRendererManager.h"
+#include "Game/RendererManager/SkyboxRenderManager.h"
 
 /**
  * @brief 描画用のコンテキスト
@@ -22,5 +23,5 @@ struct  RenderContext {
 	IPrimitiveRendererManager*	primitiveRendererManager;	// プリミティブ描画管理
 	ISpriteRendererManager*		spriteRendererManager;		// スプライト描画管理
 	ITextRendererManager*		textRendererManager;		// テキスト描画管理
-
+	ISkyboxRenderManager*		skyboxRenderManager;		// スカイボックス描画管理
 };

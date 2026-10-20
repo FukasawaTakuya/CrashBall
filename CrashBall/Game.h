@@ -17,6 +17,7 @@
 #include "Game/RendererManager/ModelRendererManager.h"
 #include "Game/RendererManager/SpriteRendererManager.h"
 #include "Game/RendererManager/TextRendererManager.h"
+#include "Game/RendererManager/SkyboxRenderManager.h"
 
 #include "Game/ResourceManager/ModelManager.h"
 #include "Game/ResourceManager/SpriteManager.h"
@@ -74,6 +75,7 @@ private:
     std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理
     std::unique_ptr<SpriteRendererManager>      m_spriteRendererManager;        // スプライト描画管理
     std::unique_ptr<TextRendererManager>        m_textRendererManager;          // テキスト描画管理
+    std::unique_ptr<SkyboxRenderManager>        m_skyboxRenderManager;          // スカイボックス描画管理
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
@@ -90,12 +92,6 @@ private:
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト
     ResourceContext m_resourceContext;  // リソース用のコンテキスト
-
-    // スカイボックス関連
-    std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
-    std::unique_ptr<SkyboxEffect> m_effect;
-    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
 
 public:
 

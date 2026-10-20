@@ -24,12 +24,6 @@ struct PrimitiveRenderCommand
  */
 class  IPrimitiveRendererManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -46,8 +40,7 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
 		D3D10_PRIMITIVE_TOPOLOGY topology,
-		const std::vector<DirectX::VertexPositionNormalColor>& vertices
-	) = 0;
+		const std::vector<DirectX::VertexPositionNormalColor>& vertices) = 0;
 
 	// 取得/設定
 public:

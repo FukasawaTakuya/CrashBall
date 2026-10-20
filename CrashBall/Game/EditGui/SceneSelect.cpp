@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   SceneSelect.cpp
+ * \brief  シーン選択
+ *
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "SceneSelect.h"
 
@@ -31,6 +39,7 @@ void SceneSelect::Update(ISceneEditer* sceneEditer)
 {
 	ImGui::Begin("Scene");
 
+	// シーン一覧
 	if (ImGui::BeginCombo("Scene", sceneEditer->GetCurrrentSceneName().c_str()))
 	{
 		for (auto sceneName : sceneEditer->GetSceneNameList())
@@ -58,7 +67,6 @@ void SceneSelect::Update(ISceneEditer* sceneEditer)
 
 	if (m_isCreateScene)
 	{
-
 		ImGui::InputText("newSceneName", &m_newSceneName);
 		if (ImGui::IsItemDeactivatedAfterEdit())
 		{

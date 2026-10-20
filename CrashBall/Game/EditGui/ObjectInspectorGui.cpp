@@ -74,14 +74,18 @@ void ObjectInspectorGui::Updata(
 
 	if (selectedObject != nullptr)
 	{
+		// アクティブフラグ
 		ImGui::Checkbox(" ", &selectedObject->m_isActice);
 		ImGui::SameLine();
+		// オブジェクト名
 		ImGui::InputText("Name", &selectedObject->m_name);
+		// タグ
 		m_drawEnum[typeid(ObjectTag)]("Tag", &selectedObject->m_tag);
 
 		std::string objName = "##" + selectedObject->GetName();
 		ImGui::BeginChild(objName.c_str());
 
+		// コンポーネント表示
 		for (auto& comp : *selectedObject->GetComponentsList())
 		{
 			ImGuiBackendFlags flag = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_FramePadding;
@@ -91,11 +95,26 @@ void ObjectInspectorGui::Updata(
 			if (ImGui::TreeNodeEx(comp->GetCompName().c_str(), flag))
 			{
 				ImGui::SameLine();
+				// アクティブフラグ
 				ImGui::Checkbox(" ", &comp->m_isActive);
+
+				ImGui::SameLine();
+
+				// コンポーネント削除
+				if (ImGui::Button("remove"))
+				{
+					m_removeCompFunc = [&]() { selectedObject->RemoveComponent(comp.get()); };
+				}
+
+				// プロパティ表示
 				DrawProperty(comp.get(), resourceContext);
 				ImGui::TreePop();
 			}
 		}
+
+		// コンポーネント削除
+		m_removeCompFunc();
+		m_removeCompFunc = []() {};
 
 		// コンポーネントリスト開閉フラグ
 		static bool isOpenComponents = false;

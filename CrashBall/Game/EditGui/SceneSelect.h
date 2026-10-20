@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   SceneSelect.h
+ * \brief  シーン選択
+ * 
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/Scene/Interface/ISceneEditer.h"
@@ -13,7 +21,6 @@ private:
 	
 	bool m_isCreateScene = false;
 	std::string m_newSceneName;
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

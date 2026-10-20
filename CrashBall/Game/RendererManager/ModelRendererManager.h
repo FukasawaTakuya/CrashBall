@@ -15,9 +15,6 @@
  */
 class  ModelRendererManager : public IModelRendererManager {
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
@@ -51,9 +48,7 @@ public:
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
 		const DirectX::SimpleMath::Matrix& view,
-		const DirectX::SimpleMath::Matrix& proj
-		);
-
+		const DirectX::SimpleMath::Matrix& proj);
 
 	// 取得/設定
 public:

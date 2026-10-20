@@ -58,6 +58,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
     m_modelRendererManager      = std::make_unique<ModelRendererManager>();
     m_textRendererManager       = std::make_unique<TextRendererManager>();
+    m_skyboxRenderManager       = std::make_unique<SkyboxRenderManager>();
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
@@ -71,13 +72,15 @@ void Game::Initialize(HWND window, int width, int height)
         m_modelRendererManager.get(),
         m_primitiveRendererManager.get(),
         m_spriteRendererManager.get(),
-        m_textRendererManager.get()
+        m_textRendererManager.get(),
+        m_skyboxRenderManager.get()
     };
     m_resourceContext =
     {
         m_modelManager.get(),
         m_spriteManager.get(),
-        m_textManager.get()
+        m_textManager.get(),
+        m_skyboxRenderManager.get()
     };
 
     m_editGuiManager = std::make_unique<EditGuiManager>();
@@ -373,11 +376,8 @@ void Game::DoRenderCommandNoneSprite(
     m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
     // モデルの描画
     m_modelRendererManager->Render(context, m_state.get(), view, proj);
-
     // スカイボックスの描画
-    m_effect->SetView(view);
-    m_effect->SetProjection(proj);
-    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
+    m_skyboxRenderManager->Render(context, view, proj);
 }
 
 // Helper method to clear the back buffers.
@@ -405,6 +405,7 @@ void Game::Clear()
     m_primitiveRendererManager->ClearRenderCommand();
     m_spriteRendererManager->ClearRenderCommand();
     m_textRendererManager->ClearnRenderCommand();
+    m_skyboxRenderManager->ClearRenderCommand();
 }
 #pragma endregion
 
@@ -479,6 +480,7 @@ void Game::CreateDeviceDependentResources()
     m_spriteManager->CreateSprite(device);
     m_modelManager->CreateModel(device);
     m_textManager->CreateSpriteFont(device);
+    m_skyboxRenderManager->CreateSkybox(device, context);
     
     // デバイス依存のリソース作成
     m_sceneManager->CreateDeviceResources();
@@ -492,22 +494,6 @@ void Game::CreateDeviceDependentResources()
     m_gameViewTexture->SetDevice(device);
     m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
-
-
-    // ========= Skybox ========= //
-    m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
-        false /*invert for being inside the shape*/);
-
-    m_effect = std::make_unique<SkyboxEffect>(device);
-
-    m_sky->CreateInputLayout(m_effect.get(),
-        m_skyInputLayout.ReleaseAndGetAddressOf());
-
-    DX::ThrowIfFailed(
-        CreateDDSTextureFromFile(device, L"Resources/Sprite/skybox.dds",
-            nullptr, m_cubemap.ReleaseAndGetAddressOf()));
-
-    m_effect->SetTexture(m_cubemap.Get());
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -530,19 +516,11 @@ void Game::CreateWindowSizeDependentResources()
     m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
-    // スカイボックス
-    m_effect->SetProjection(m_sceneManager->GetCamera()->GetProj());
-
     m_editGuiManager->RegisterConstantLayout();
 }
 
 void Game::OnDeviceLost()
 {
-    // TODO: Add Direct3D resource cleanup here.
-    m_sky.reset();
-    m_effect.reset();
-    m_skyInputLayout.Reset();
-    m_cubemap.Reset();
 }
 
 void Game::OnDeviceRestored()

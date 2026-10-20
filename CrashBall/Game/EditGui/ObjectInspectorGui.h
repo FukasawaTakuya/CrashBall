@@ -33,7 +33,7 @@ private:
 	// 列挙型表示関数テーブル
 	std::unordered_map<std::type_index, DrawEnumFunc> m_drawEnum;
 
-	std::function<void(Component*)> m_removeCompFunc = [](Component*) {};
+	std::function<void()> m_removeCompFunc = []() {};
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

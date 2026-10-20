@@ -15,9 +15,6 @@
  */
 class  TextRendererManager : public ITextRendererManager{
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 

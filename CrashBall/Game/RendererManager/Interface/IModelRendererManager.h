@@ -18,19 +18,10 @@ struct ModelRenderCommand
 	DirectX::SimpleMath::Matrix world;	// ワールド行列
 };
 
-
 /**
  * \brief モデル描画管理クラスのインターフェース
  */
 class  IModelRendererManager {
-
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
-	// データメンバの宣言 -----------------------------------------------
-private:
-
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -51,8 +42,7 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
 		DirectX::Model* model,
-		const DirectX::SimpleMath::Matrix& world
-	) = 0;
+		const DirectX::SimpleMath::Matrix& world) = 0;
 
 	// 内部実装
 private:

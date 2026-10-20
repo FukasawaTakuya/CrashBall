@@ -1,0 +1,24 @@
+{
+    "name": "Skybox",
+    "tag": "Default",
+    "id": 37,
+    "isActive": true,
+    "components": [
+        {
+            "compName": "Skybox",
+            "id": 91,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "skyboxKey",
+                    "data": "skybox"
+                },
+                {
+                    "name": "pMainCamera",
+                    "data": 72
+                }
+            ]
+        }
+    ],
+    "children": null
+}
