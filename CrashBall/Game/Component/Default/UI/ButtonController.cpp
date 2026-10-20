@@ -37,6 +37,9 @@ void ButtonController::Awake()
 	// キャッシュの取得
 	m_rectTransform = GetGameObject()->GetComponent<RectTransform>();
 	m_spriteRenderer = GetGameObject()->GetComponent<SpriteRenderer>();
+
+	m_prevIsFocus = false;
+	m_isFocus = false;
 }
 
 /**

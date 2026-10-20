@@ -2,6 +2,7 @@
 
 #include "Game/Component/Default/Collider/Collider.h"
 #include "Plane.h"
+#include "Game/Component/Default/Collider/Sphere.h"
 
 using namespace nlohmann;
 
@@ -18,6 +19,8 @@ private:
 	std::unique_ptr<Plane> m_plane;				// 平面情報
 
 	DirectX::SimpleMath::Vector3 m_initPoint[3];// 初期頂点
+
+	float m_boundingSphereRadius;	// 境界球の半径
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -68,11 +71,21 @@ public:
 		return center;
 	}
 
+	float GetBoundingSphereRadius() const
+	{
+		return m_boundingSphereRadius;
+	}
+
 	// 三角形の設定
 	void SetTriangle(
 		DirectX::SimpleMath::Vector3 point1,
 		DirectX::SimpleMath::Vector3 point2,
 		DirectX::SimpleMath::Vector3 point3);
+
+private:
+
+	// 境界球の半径を求める
+	void CalcBoundingSphereRadius();
 
 public:
 	// Jsonから三角形への変換

@@ -52,8 +52,11 @@ void DebugCameraController::Update(const GameContext& gameContext)
 	// 左ボタンが押されているとき
 	if (Input::GetMouseDown(MouseButton::Left))
 	{
+		// 横回転
 		m_transform->Rotate(
 			SimpleMath::Quaternion::CreateFromAxisAngle(SimpleMath::Vector3::Down, -deltaMousePos.x / 1000.0f));
+
+		// 縦回転
 		m_transform->Rotate(
 			SimpleMath::Quaternion::CreateFromAxisAngle(m_camera->GetHorizontalRight(), deltaMousePos.y / 1000.0f));
 	}
@@ -63,8 +66,13 @@ void DebugCameraController::Update(const GameContext& gameContext)
 		// カメラ移動
 		m_transform->Translate(
 			m_camera->GetHorizontalRight()	*  deltaMousePos.x / 20.0f +
-			SimpleMath::Vector3::Up	* -deltaMousePos.y / 20.0f
-		);
+			SimpleMath::Vector3::Up	* -deltaMousePos.y / 20.0f);
+	}
+
+	float value = Input::GetWheelValue();
+	if (value != 0.0f)
+	{
+		m_transform->Translate(m_camera->GetForward() * value * 0.1f);
 	}
 
 	m_camera->Update(gameContext);

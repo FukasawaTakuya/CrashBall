@@ -30,9 +30,9 @@ protected:
 
 	Transform* m_transform = nullptr;			// トランスフォームのキャッシュ
 
-	float m_fov = DirectX::XMConvertToRadians(45.0f);
-	float m_nearclip = 0.1f;
-	float m_farclip = 200.0f;
+	float m_fov;		// 画角
+	float m_nearclip;	// 二アークリップ
+	float m_farclip;	// ファークリップ
 
 	// プロパティの設定
 	BeginProperty()
@@ -137,8 +137,7 @@ public:
 			m_fov,
 			Screen::GetAccept(),
 			m_nearclip,
-			m_farclip
-		);
+			m_farclip);
 	}
 
 	// 内部実装

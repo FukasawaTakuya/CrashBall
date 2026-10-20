@@ -53,6 +53,11 @@ public:
 	// スクリーン上にマウスが存在するかチェック
 	bool CheckHoverScreen() const;
 
+	void ResetWheelValue()
+	{
+		DirectX::Mouse::Get().ResetScrollWheelValue();
+	}
+
 public:
 
 	// キーの状態を取得

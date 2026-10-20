@@ -45,6 +45,7 @@ bool Geometory::IsCollision(Segment* segment, Plane* plane)
  */
 bool Geometory::IsCollision(Segment* segment, Triangle* triangle)
 {
+
 	// 線分と平面が衝突してないならfalse
 	if (!IsCollision(segment, triangle->GetPlane()))
 	{
@@ -223,7 +224,6 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
 	return collsionInfo;
 }
 
-
 /**
  * \brief 球と三角形の衝突判定.
  *
@@ -234,7 +234,16 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
 CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 {
 	CollisionInfo collsionInfo;
-		// 球と三角形を含む平面との衝突判定
+
+	// 境界球との当たり判定
+	float distance = (triangle->GetCenter() - sphere->GetTransform()->GetWorldPosition()).Length();
+	if (distance >= sphere->GetRadius() + triangle->GetBoundingSphereRadius())
+	{
+		collsionInfo.isCollsion = false;
+		return collsionInfo;
+	}
+	
+	// 球と三角形を含む平面との衝突判定
 	if (!IsCollision(sphere, triangle->GetPlane()).isCollsion)
 	{
 		collsionInfo.isCollsion = false;
@@ -293,8 +302,8 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 {
 	CollisionInfo collsionInfo;
-		// 衝突している面をクリア
-		mesh->ClearCollideFace();
+	// 衝突している面をクリア
+	mesh->ClearCollideFace();
 
 	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {

@@ -35,6 +35,7 @@ Triangle::Triangle(
 	m_initPoint[1] = m_point[1];
 	m_initPoint[2] = m_point[2];
 
+	CalcBoundingSphereRadius();
 }
 
 /**
@@ -83,6 +84,8 @@ void Triangle::Scale(DirectX::SimpleMath::Vector3& scale)
 	m_point[2] *= scale;
 
 	m_plane->SetPlane(m_point[0], m_point[1], m_point[2]);
+
+	CalcBoundingSphereRadius();
 }
 
 /**
@@ -105,5 +108,24 @@ void Triangle::SetTriangle(
 	m_initPoint[1] = point2;
 	m_initPoint[2] = point3;
 
-	m_plane->SetPlane(point1, point2, point3);
+	CalcBoundingSphereRadius();
+}
+
+/**
+ * \brief 境界球の半径を求める
+ * 
+ */
+void Triangle::CalcBoundingSphereRadius()
+{
+	SimpleMath::Vector3 center = GetCenter();
+
+	SimpleMath::Vector3 v0 = m_point[0] - center;
+	SimpleMath::Vector3 v1 = m_point[1] - center;
+	SimpleMath::Vector3 v2 = m_point[2] - center;
+
+	m_boundingSphereRadius
+		= std::sqrtf(
+			std::max(std::max(v0.LengthSquared(),
+				v1.LengthSquared()),
+				v2.LengthSquared()));
 }

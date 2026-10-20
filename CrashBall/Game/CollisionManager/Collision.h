@@ -74,6 +74,3 @@ bool IsPointInTriangle(DirectX::SimpleMath::Vector3 point, Triangle* triangle);
 // ’¼ü‚Æ•½–Ê‚ÌŒğ“_‚ğ‹‚ß‚é
 DirectX::SimpleMath::Vector3 CalcIntersection(Segment* segment, Plane* plane);
 
-DirectX::SimpleMath::Vector4 ConvertVector4(DirectX::SimpleMath::Vector3 v3);
-DirectX::SimpleMath::Vector3 ConvertVector3(DirectX::SimpleMath::Vector4 v3);
-

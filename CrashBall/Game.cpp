@@ -225,10 +225,10 @@ void Game::Update(DX::StepTimer const& timer)
     }
     m_sceneManager->Update();
 
-    //// BGMの再生
-    //m_soundPlayer->PlayBgm(m_soundManager.get());
-    //// SEの再生
-    //m_soundPlayer->PlaySe(m_soundManager.get());
+    // BGMの再生
+    m_soundPlayer->PlayBgm(m_soundManager.get());
+    // SEの再生
+    m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();
@@ -244,8 +244,9 @@ void Game::Update(DX::StepTimer const& timer)
     m_editGuiManager->Update(
         m_sceneManager.get(),
         m_scriptableObjectManager.get(),
-        m_resourceContext
-    );
+        m_resourceContext);
+
+    m_inputSystem->ResetWheelValue();
 }
 #pragma endregion
 

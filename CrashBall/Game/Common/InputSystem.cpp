@@ -70,7 +70,6 @@ void InputSystem::Update()
 	m_prevMousePos = m_mousePos;
 	m_mousePos = SimpleMath::Vector2(static_cast<float>(mouse.x), static_cast<float>(mouse.y));
 
-	Mouse::Get().ResetScrollWheelValue();
 
 	for (auto& state : m_inputStates)
 	{

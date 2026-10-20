@@ -70,6 +70,10 @@ void SkyboxRenderManager::CreateSkybox(
 	ID3D11Device1* device,
 	ID3D11DeviceContext1* context)
 {
+	m_sky.reset();
+	m_effect.reset();
+	m_skyInputLayout.Reset();
+
 	m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
 		false /*invert for being inside the shape*/);
 

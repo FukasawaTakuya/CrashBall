@@ -75,6 +75,8 @@ void MiniMap::Update(const GameContext& gameContext)
 	// カメラの前方向に合わせて回転
 	SimpleMath::Vector3 forward = SimpleMath::Vector3::Forward;
 	float dot = forward.Dot(m_pMainCamera->GetHorizontalForward());
+
+	// 180度を越えたら回転方向を反転
 	float cross = forward.Cross(m_pMainCamera->GetHorizontalForward()).y;
 	cross = cross > 0.0f ? 1.0f : -1.0f;
 	m_rectTransform->SetLocalRotate(std::acos(dot) * cross);
