@@ -12,6 +12,7 @@
 #include "Game/Engine/Time.h"
 #include "Game/Factory/GameObjectFactory.h"
 #include "Game/Component/Camera/TargetCameraController.h"
+#include "Game/Component/Default/Skybox/Skybox.h"
 #include "Game/Json/IJsonDataManager.h"
 
 #include "Game/IDGenerator/GameObejctIDGenerator.h"
@@ -127,6 +128,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 	{
 		auto camera = CreateNewGameObject("MainCamera");
 		camera->AddComponent<Transform>();
+		camera->AddComponent<Skybox>();
 		camera->SetTag(ObjectTag::Camera);
 		m_camera = camera->AddComponent<Camera>();
 

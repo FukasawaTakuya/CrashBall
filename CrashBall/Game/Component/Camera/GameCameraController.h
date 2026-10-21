@@ -11,7 +11,6 @@
 #include "Game/Component/Default/Component.h"
 #include "TargetCameraController.h"
 
-
 /**
  * @brief ゲームカメラ操作コンポーネント
  */
@@ -24,11 +23,13 @@ private:
 	TargetCameraController* m_targetCamera = nullptr;
 
 	float m_rotateAngleRad = 0.0f;	// 回転角度
+	float m_lerpSpeed;				// 補間速度
 
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_baseOffset, PropertyType::Vector3)
 		AddProperty(m_rotateAngleRad, PropertyType::Float)
+		AddProperty(m_lerpSpeed, PropertyType::Float)
 		AddProperty(m_zoomRate, PropertyType::Float)
 		AddProperty(m_targetTransform, PropertyType::Component)
 	EndProperty()

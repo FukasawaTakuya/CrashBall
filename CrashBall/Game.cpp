@@ -199,6 +199,10 @@ void Game::Update(DX::StepTimer const& timer)
     // TODO: Add your game logic here.
     elapsedTime;
 
+    //ImGui::Begin("StyleEditor");
+    //ImGui::ShowStyleEditor();
+    //ImGui::End();
+
     // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
 
@@ -226,9 +230,9 @@ void Game::Update(DX::StepTimer const& timer)
     m_sceneManager->Update();
 
     // BGMの再生
-    m_soundPlayer->PlayBgm(m_soundManager.get());
-    // SEの再生
-    m_soundPlayer->PlaySe(m_soundManager.get());
+    //m_soundPlayer->PlayBgm(m_soundManager.get());
+    //// SEの再生
+    //m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();

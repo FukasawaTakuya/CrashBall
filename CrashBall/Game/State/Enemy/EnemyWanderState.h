@@ -25,7 +25,7 @@ private:
 	// データメンバの宣言 -----------------------------------------------
 private:
 
-	float m_directionCircleRadian = 0.0f;						// 加速方向を決めるための円の角度
+	float m_directionCircleRadian = 0.0f;	// 加速方向を決めるための円の角度
 
 	float m_timer = 0.0f;					// 加速方向決定用のタイマー
 

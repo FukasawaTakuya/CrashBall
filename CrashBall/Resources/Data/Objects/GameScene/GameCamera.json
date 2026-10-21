@@ -53,6 +53,10 @@
                     "data": 60.0
                 },
                 {
+                    "name": "lerpSpeed",
+                    "data": 7.0
+                },
+                {
                     "name": "zoomRate",
                     "data": 1.0
                 },

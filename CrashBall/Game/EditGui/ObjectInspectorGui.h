@@ -33,7 +33,11 @@ private:
 	// 列挙型表示関数テーブル
 	std::unordered_map<std::type_index, DrawEnumFunc> m_drawEnum;
 
+	// コンポーネント削除処理格納用
 	std::function<void()> m_removeCompFunc = []() {};
+
+	// コンポーネントリスト開閉フラグ
+	bool m_isOpenComponents = false;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -98,8 +102,11 @@ private:
 template<typename Enum>
 void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
 {
+	// 列挙型名配列
 	auto names = magic_enum::enum_names<Enum>();
+	// 現在の列挙型名
 	std::string current = names[*static_cast<int*>(value)].data();
+	// コンポボックス
 	if (ImGui::BeginCombo(name.c_str(), current.c_str()))
 	{
 		for (int i = 0; i < names.size(); i++)
@@ -109,13 +116,7 @@ void ObjectInspectorGui::DrawEnumList(const std::string& name, void* value)
 			{
 				*static_cast<int*>(value) = i;
 			}
-
-			if (isSelected)
-			{
-				ImGui::SetItemDefaultFocus();
-			}
 		}
-
 		ImGui::EndCombo();
 	}
 }

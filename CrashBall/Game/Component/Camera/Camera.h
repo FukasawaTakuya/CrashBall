@@ -30,9 +30,9 @@ protected:
 
 	Transform* m_transform = nullptr;			// トランスフォームのキャッシュ
 
-	float m_fov;		// 画角
-	float m_nearclip;	// 二アークリップ
-	float m_farclip;	// ファークリップ
+	float m_fov = DirectX::XM_PIDIV4;	// 画角
+	float m_nearclip = 0.1f;			// 二アークリップ
+	float m_farclip = 200.0f;			// ファークリップ
 
 	// プロパティの設定
 	BeginProperty()

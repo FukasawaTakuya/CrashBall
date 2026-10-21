@@ -67,8 +67,11 @@ void Camera::Update(const GameContext& gameContext)
  */
 void Camera::LookAt(const DirectX::SimpleMath::Vector3& target)
 {
+	// ターゲット方向
 	SimpleMath::Vector3 dire = XMVector3Normalize(target - m_transform->GetWorldPosition());
+	// ロールなしのクオータニオンを求める
 	SimpleMath::Quaternion rotation = MyMath::NoneRollLookAt(dire);
+	// 回転
 	m_transform->SetRotate(rotation);
 
 	m_forward = dire;

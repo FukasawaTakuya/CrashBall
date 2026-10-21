@@ -112,22 +112,19 @@ void ObjectInspectorGui::Updata(
 			}
 		}
 
-		// コンポーネント削除
+		// コンポーネント削除関数実行
 		m_removeCompFunc();
 		m_removeCompFunc = []() {};
-
-		// コンポーネントリスト開閉フラグ
-		static bool isOpenComponents = false;
 
 		// ボタンが押されたとき
 		if (ImGui::Button("Add Component"))
 		{
 			// フラグをオンに
-			isOpenComponents = !isOpenComponents;
+			m_isOpenComponents = !m_isOpenComponents;
 		}
 
 		// コンポーネントリスト開閉がオンなら
-		if (isOpenComponents)
+		if (m_isOpenComponents)
 		{
 			// コンポーネントリスト表示
 			ImGui::BeginChild("Components");
@@ -151,7 +148,7 @@ void ObjectInspectorGui::Updata(
 					ptr->SetID(ComponentIDGenerator::GetID());
 					ptr->Awake();
 					// フラグを下げる
-					isOpenComponents = false;
+					m_isOpenComponents = false;
 					break;
 				}
 			}
@@ -169,6 +166,7 @@ void ObjectInspectorGui::Updata(
  * \brief プロパティの表示
  * 
  * \param comp コンポーネント
+ * \param resourceContext リソース用のコンテキスト
  */
 void ObjectInspectorGui::DrawProperty(
 	Component* comp,
@@ -178,7 +176,7 @@ void ObjectInspectorGui::DrawProperty(
 	{
 		m_drawProperty[property.propType](property);
 
-		// 編集されたら
+		// 編集されたら専用関数実行
 		if (ImGui::IsItemEdited())
 		{
 			comp->EditedFunc();
@@ -407,7 +405,6 @@ void ObjectInspectorGui::DrawComponent(const PropertyInfo& property)
 	ImGui::InputText(
 		property.name.c_str(),
 		&compName);
-
 
 	// ドロップされたとき
 	if (ImGui::BeginDragDropTarget())

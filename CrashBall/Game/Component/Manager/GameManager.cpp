@@ -34,8 +34,11 @@ GameManager::GameManager(IGameObject* gameObject)
  */
 void GameManager::Start(const GameContext& gameContext)
 {
+	// BGMの登録
 	gameContext.soundManager->RegisterPlayBgmCommand("Game");
+	// スクリーン開始
 	m_changeSceneScreen->SceneIn();
+	// イージングの初期化
 	m_timeScale.Initialize([](float s, float e, float t) {return std::lerp(s, e, t); });
 	m_timeScale.Set(Ease::Linear, 1.0f, 0.0f, 1.0f);
 }
@@ -52,20 +55,21 @@ void GameManager::Update(const GameContext& gameContext)
 		m_changeSceneScreen->SceneOut("TitleScene");
 	}
 
+	// 敵の体力がなくなった時
 	if (m_pEnemyController->GetHp() <= 0.0f)
 	{
 		m_timeScale.DoEase(Time::GetElapsedTime());
 		Time::GenaratoTimeScale(-Time::GetUnscaleElapsedTime());
-		//Time::SetTimeScale(m_timeScale.GetValue());
 
 		if (Time::GetTimeScale() == 0.0f)
 		{
-			m_changeSceneScreen->SceneOut("TitelScene");
+			m_changeSceneScreen->SceneOut("TitleScene");
 		}
 	}
 
-	if (m_pGameTimer->GetTimer() <= 0.0f)
+	// タイマーが０になった時
+	if (m_pGameTimer->GetTimer() == 0.0f)
 	{
-		m_changeSceneScreen->SceneOut("TitelScene");
+		m_changeSceneScreen->SceneOut("TitleScene");
 	}
 }

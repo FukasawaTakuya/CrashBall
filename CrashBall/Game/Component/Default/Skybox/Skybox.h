@@ -20,7 +20,7 @@ class  Skybox : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
 
-	std::string m_skyboxKey;
+	std::string m_skyboxKey = "skybox";
 
 	// プロパティの設定
 	BeginProperty()

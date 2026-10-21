@@ -69,14 +69,13 @@ void PlayerMoveState::Update(const GameContext& gameContext)
     PlayerController* playerController = m_stateContext.playerController;
     // プレイヤーステータス操作コンポーネント
     PlayerStatusController* playerStatusController = m_stateContext.playerStatusController;
-    // 
+    // モデル描画コンポーネント
     ModelRenderer* modelRenderer = m_stateContext.modelRenderer;
 
     SimpleMath::Vector3 moveValue = SimpleMath::Vector3(
         Input::GetInputState(InputAction::MoveX).value,
         0.0f,
-        Input::GetInputState(InputAction::MoveY).value
-        );
+        Input::GetInputState(InputAction::MoveY).value);
 
     moveValue.Normalize();
 
@@ -104,6 +103,7 @@ void PlayerMoveState::Update(const GameContext& gameContext)
         playerStatusController->SetGoAttack(true);
     }
 
+    // アンビエントカラーの設定
     m_ambient.DoEase(Time::GetElapsedTime());
     modelRenderer->SetAmbientColor(m_ambient.GetValue());
 

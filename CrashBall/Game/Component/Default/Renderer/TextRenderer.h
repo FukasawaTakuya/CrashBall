@@ -8,9 +8,8 @@
 
 #pragma once
 
-#include "..\Component.h"
-#include "Game/Context/RenderContext.h"
-#include "..\Physics\RectTransform.h"
+#include "Game/Component/Default/Component.h"
+#include "Game/Component/Default/Physics/RectTransform.h"
 
 #include "Game/Context/RenderContext.h"
 #include "Game/Context/ResourceContext.h"
