@@ -39,7 +39,7 @@ void MyModel::Draw(
 	ConstantVS cbufVS{};
 	cbufVS.worldViewProj = world * view * proj;
 	XMStoreFloat4x4(&cbufVS.worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
-	cbufVS.lightDirection = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	cbufVS.lightDirection = XMFLOAT4(0.0f, -1.0f, 1.0f, 1.0f);
 	// 書き込み
 	context->Map(m_constantVS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 	memcpy(subResource.pData, &cbufVS, sizeof(ConstantVS));
