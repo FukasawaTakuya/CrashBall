@@ -18,6 +18,79 @@ void MyModel::Draw(
 	DirectX::CommonStates* states, 
 	ID3D11DeviceContext1* context)
 {
+	// =========== IA =========== //
+
+	// 頂点バッファの設定
+	ID3D11Buffer* vBuffers[] = { m_vertexBuffer.Get() };
+	UINT strides[] = { sizeof(Vertex) };
+	UINT offset[] = { 0 };
+	context->IASetVertexBuffers(0, 1, vBuffers, strides, offset);
+	// インデックスバッファの設定
+	context->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+	// トポロジーの設定
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	// 入力レイアウトの設定
+	context->IASetInputLayout(m_inputLayout.Get());
+
+	//  ==== 定数バッファの更新 ==== //
+	D3D11_MAPPED_SUBRESOURCE subResource;
+
+	// 頂点シェーダ
+	ConstantVS cbufVS{};
+	cbufVS.worldViewProj = world * view * proj;
+	XMStoreFloat4x4(&cbufVS.worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
+	cbufVS.lightDirection = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	// 書き込み
+	context->Map(m_constantVS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+	memcpy(subResource.pData, &cbufVS, sizeof(ConstantVS));
+	context->Unmap(m_constantVS.Get(), 0);
+
+	// ==== 頂点シェーダの設定 ==== //
+	ID3D11Buffer* constantVS = m_constantVS.Get();
+	context->VSSetConstantBuffers(0, 1, &constantVS);
+	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
+
+	// ==== ピクセルシェーダの設定 ==== //
+	context->PSSetShader(m_pixeShader.Get(), nullptr, 0);
+	// サンプラーをシェーダに渡す
+	auto sampler = states->LinearClamp();
+	context->PSSetSamplers(0, 1, &sampler);
+
+	// ==== RS ==== //
+	context->RSSetState(states->CullNone());
+
+	// ==== OM ==== //
+	// 深度ステンシルステートの設定
+	context->OMSetDepthStencilState(states->DepthDefault(), 0);
+	// ブレンドステートの設定
+	context->OMSetBlendState(states->Opaque(), nullptr, 0xffffffff);
+
+	for (auto& submesh : m_submeshList)
+	{
+		// ==== 定数バッファの設定 ==== //
+		ConstantPS cbufPS;
+		MaterialData mat = m_materialDataList[submesh.materialIndex];
+		cbufPS.baseColor = mat.baseColor;
+		cbufPS.textureIndex.x = mat.textureIndex;
+		// 書き込み
+		context->Map(m_constantPS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		memcpy(subResource.pData, &cbufPS, sizeof(ConstantPS));
+		context->Unmap(m_constantPS.Get(), 0);
+
+		ID3D11Buffer* constantPS = m_constantPS.Get();
+		context->PSSetConstantBuffers(1, 1, &constantPS);
+
+		if (mat.textureIndex >= 0)
+		{
+			// テクスチャをシェーダに渡す
+			auto srv = m_textureList[mat.textureIndex].Get();
+			context->PSSetShaderResources(0, 1, &srv);
+		}
+
+		// 描画
+		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
+	}
+
 }
 
 /**
@@ -108,7 +181,7 @@ void MyModel::Create(
 	{
 		D3D11_BUFFER_DESC desc{};
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = indexList.size();
+		desc.ByteWidth = sizeof(uint32_t) * indexList.size();
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		desc.CPUAccessFlags = 0;
 		desc.MiscFlags = 0;
@@ -149,12 +222,32 @@ void MyModel::Create(
 	DX::ThrowIfFailed(
 		device->CreatePixelShader(ps_data.data(), ps_data.size(), nullptr, m_pixeShader.ReleaseAndGetAddressOf()));
 
+	// 定数バッファの作成
+	{
+		D3D11_BUFFER_DESC desc = {};
+		desc.Usage = D3D11_USAGE_DYNAMIC;
+		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;    
+		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;  
+		desc.MiscFlags = 0;
+		desc.StructureByteStride = 0;
+
+		// 頂点シェーダー用
+		desc.ByteWidth = sizeof(ConstantVS);
+		DX::ThrowIfFailed(
+			device->CreateBuffer(&desc, nullptr, m_constantVS.ReleaseAndGetAddressOf()));
+
+		// ピクセルシェーダー用
+		desc.ByteWidth = sizeof(ConstantPS);
+		DX::ThrowIfFailed(
+			device->CreateBuffer(&desc, nullptr, m_constantPS.ReleaseAndGetAddressOf()));
+	}
+
 	// 入力レイアウトの作成
 	D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
 	{
-		{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
 	};
 
 	DX::ThrowIfFailed(
