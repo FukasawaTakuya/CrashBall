@@ -251,6 +251,11 @@ void Game::Update(DX::StepTimer const& timer)
         m_resourceContext);
 
     m_inputSystem->ResetWheelValue();
+
+    if (m_inputSystem->GetKeyTrigger(Keyboard::Enter))
+    {
+        model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
+    }
 }
 #pragma endregion
 

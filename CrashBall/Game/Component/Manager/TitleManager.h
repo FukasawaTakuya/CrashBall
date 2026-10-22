@@ -21,8 +21,6 @@ class  TitleManager : public Component {
 	// シーン遷移スクリーン
 	ChangeSceneScreen* m_changeSceneScreen = nullptr;
 
-	MyModel model;
-
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_changeSceneScreen, PropertyType::Component)

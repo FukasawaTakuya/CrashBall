@@ -1,4 +1,4 @@
-/*****************************************************************//**
+﻿/*****************************************************************//**
  * \file   MyModel.h
  * \brief  モデルクラス
  * 
@@ -19,9 +19,9 @@ struct ModelHeader
 
 struct Vertex
 {
-	float position[3];
-	float normal[3];
-	float uv[2];
+	DirectX::XMFLOAT3 position;
+	DirectX::XMFLOAT3 normal;
+	DirectX::XMFLOAT2 uv;
 };
 
 struct Submesh
@@ -33,10 +33,9 @@ struct Submesh
 
 struct MaterialData
 {
-	float baseColor[4];		// 基本色
-	int textureIndex;	// テクスチャのインデックス
+	DirectX::XMFLOAT4 baseColor;		// 基本色
+	int textureIndex;					// テクスチャのインデックス
 };
-
 
  /**
   * \brief 
@@ -52,7 +51,13 @@ private:
 	std::vector<Submesh> m_submeshList;				// サブメッシュリスト
 	std::vector<MaterialData> m_materialDataList;	// マテリアルリスト
 	// テクスチャリスト
-	std::vector< Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
+	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
+
+	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;	// 頂点シェーダー
+	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixeShader;		// ピクセルシェーダー
+
+	// 入力レイアウト
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -74,7 +79,9 @@ public:
 		DirectX::CommonStates* states,
 		ID3D11DeviceContext1* context);
 
-	void Create(const std::string& filepath);
+	void Create(
+		ID3D11Device1* device,
+		const std::string& filepath);
 
 	// 取得/設定
 public:

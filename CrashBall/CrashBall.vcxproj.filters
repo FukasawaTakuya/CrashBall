@@ -918,12 +918,21 @@
     <None Include="Shader\SkyboxEffect_Common.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\Basic.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SkyboxEffect_PS.hlsli">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\SkyboxEffect_VS.hlsli">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Basic_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Basic_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
