@@ -20,5 +20,5 @@ float4 main(PSInput pin) : SV_TARGET
     = Texture.Sample(samplaer, pin.Texcoord) * useTex
     + baseColor * (1 - useTex);
 
-	return pout;
+    return pout;
 }

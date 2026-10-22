@@ -68,7 +68,7 @@ void MyModel::Draw(
 	for (auto& submesh : m_submeshList)
 	{
 		// ==== 定数バッファの設定 ==== //
-		ConstantPS cbufPS;
+		ConstantPS cbufPS{};
 		MaterialData mat = m_materialDataList[submesh.materialIndex];
 		cbufPS.baseColor = mat.baseColor;
 		cbufPS.textureIndex.x = mat.textureIndex;
@@ -80,17 +80,17 @@ void MyModel::Draw(
 		ID3D11Buffer* constantPS = m_constantPS.Get();
 		context->PSSetConstantBuffers(1, 1, &constantPS);
 
+		// テクスチャをシェーダに渡す
+		ID3D11ShaderResourceView* srv = nullptr;
 		if (mat.textureIndex >= 0)
 		{
-			// テクスチャをシェーダに渡す
-			auto srv = m_textureList[mat.textureIndex].Get();
-			context->PSSetShaderResources(0, 1, &srv);
+			srv = m_textureList[mat.textureIndex].Get();
 		}
+		context->PSSetShaderResources(0, 1, &srv);
 
 		// 描画
 		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
 	}
-
 }
 
 /**
@@ -120,25 +120,25 @@ void MyModel::Create(
 	std::vector<Vertex> vertexList(header.vertexCount);
 	ifs.read(
 		reinterpret_cast<char*>(vertexList.data()),
-		sizeof(Vertex) * header.vertexCount);
+		sizeof(Vertex) * vertexList.size());
 
 	// インデックスの読み込み
 	std::vector<uint32_t> indexList(header.indexCount);
 	ifs.read(
 		reinterpret_cast<char*>(indexList.data()),
-		header.indexCount);
+		sizeof(uint32_t) * indexList.size());
 
 	// サブメッシュの読み込み
 	m_submeshList.resize(header.submeshCount);
 	ifs.read(
 		reinterpret_cast<char*>(m_submeshList.data()),
-			sizeof(Submesh) * header.submeshCount);
+			sizeof(Submesh) * m_submeshList.size());
 
 	// マテリアルの読み込み
 	m_materialDataList.resize(header.materialCount);
 	ifs.read(
 		reinterpret_cast<char*>(m_materialDataList.data()),
-		sizeof(MaterialData) * header.materialCount);
+		sizeof(MaterialData) * m_materialDataList.size());
 
 	// テクスチャの読み込み
 	std::vector<std::vector<uint8_t>> textureList;
@@ -153,7 +153,7 @@ void MyModel::Create(
 		std::vector<uint8_t> texture(size);
 		ifs.read(
 			reinterpret_cast<char*>(texture.data()),
-			size);
+			sizeof(uint8_t) * texture.size());
 
 		textureList.push_back(texture);
 	}
