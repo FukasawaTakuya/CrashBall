@@ -89,8 +89,7 @@ void EditGuiManager::Reset()
  */
 void EditGuiManager::RegisterConstantLayout()
 {
-    m_constantLayoutFunc =
-        std::bind(&EditGuiManager::ConstantLayout, this);
+    m_constantLayoutFunc = [this]() { ConstantLayout(); };
 }
 
 /**
@@ -130,32 +129,28 @@ void EditGuiManager::ConstantLayout()
         ImGuiDir_Right,
         0.35f,
         &subLBottom,
-        &mainTop
-    );
+        &mainTop);
 
     ImGui::DockBuilderSplitNode(
         subLBottom,
         ImGuiDir_Right,
         0.6f,
         &subR,
-        &subLBottom
-    );
+        &subLBottom);
 
     ImGui::DockBuilderSplitNode(
         subLBottom,
         ImGuiDir_Up,
         0.15f,
         &subLTop,
-        &subLBottom
-    );
+        &subLBottom);
 
     ImGui::DockBuilderSplitNode(
         mainTop,
         ImGuiDir_Up,
         0.7f,
         &mainTop,
-        &mainBottom
-    );
+        &mainBottom);
 
     ImGui::DockBuilderDockWindow("Inspector", subR);
     ImGui::DockBuilderDockWindow("ObjectList", subLBottom);

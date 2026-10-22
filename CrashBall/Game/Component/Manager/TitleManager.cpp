@@ -35,6 +35,8 @@ void TitleManager::Start(const GameContext& gameContext)
 {
 	gameContext.soundManager->RegisterPlayBgmCommand("Title");
 	m_changeSceneScreen->SceneIn();
+
+	model.Create("Resources/MyModel/obj.fmodel");
 }
 
 /**

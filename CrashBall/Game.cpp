@@ -521,6 +521,7 @@ void Game::CreateWindowSizeDependentResources()
     m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
+    // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();
 }
 

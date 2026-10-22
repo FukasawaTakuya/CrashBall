@@ -11,6 +11,8 @@
 #include "Game/Component/Default/Component.h"
 #include "Game/Component/ChangeSceneScreen/ChangeSceneScreen.h"
 
+#include "Game/MyModel/MyModel.h"
+
 /**
  * @brief タイトルマネージャ
  */
@@ -18,6 +20,8 @@ class  TitleManager : public Component {
 
 	// シーン遷移スクリーン
 	ChangeSceneScreen* m_changeSceneScreen = nullptr;
+
+	MyModel model;
 
 	// プロパティの設定
 	BeginProperty()

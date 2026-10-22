@@ -146,6 +146,9 @@
     <Filter Include="Game\Component\Default\Skybox">
       <UniqueIdentifier>{3b845fd5-9db3-4b6f-8be3-07ea51c6da98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\MyModel">
+      <UniqueIdentifier>{61394a4c-07fe-4dbe-86a2-9155ac0e9c29}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -591,11 +594,13 @@
     <ClInclude Include="Game\RendererManager\SkyboxRenderManager.h">
       <Filter>Game\RendererManager</Filter>
     </ClInclude>
+    <ClInclude Include="Game\MyModel\MyModel.h">
+      <Filter>Game\MyModel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="DeviceResources.cpp">
       <Filter>Common</Filter>
     </ClCompile>
@@ -889,6 +894,10 @@
     </ClCompile>
     <ClCompile Include="Game\RendererManager\SkyboxRenderManager.cpp">
       <Filter>Game\RendererManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MyModel\MyModel.cpp" />
+    <ClCompile Include="Main.cpp">
+      <Filter>Game\MyModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

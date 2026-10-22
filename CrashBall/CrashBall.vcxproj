@@ -370,6 +370,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Json\SimpleMath\JsonSimpleMathConverter.h" />
+    <ClInclude Include="Game\MyModel\MyModel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\RendererManager\Interface\IModelRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\IPrimitiveRendererManager.h" />
     <ClInclude Include="Game\RendererManager\Interface\ISpriteRendererManager.h" />
@@ -584,6 +588,7 @@
     <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp" />
     <ClCompile Include="Game\Json\JsonDataManager.cpp" />
     <ClCompile Include="Game\Json\SimpleMath\JsonSimpleMathConverter.cpp" />
+    <ClCompile Include="Game\MyModel\MyModel.cpp" />
     <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\PrimitiveRendererManager.cpp" />
     <ClCompile Include="Game\RendererManager\SkyboxRenderManager.cpp" />
