@@ -37,6 +37,7 @@ struct MaterialData
 	int textureIndex;					// テクスチャのインデックス
 };
 
+
 // 頂点シェーダ用定数バッファ
 struct ConstantVS
 {
@@ -66,8 +67,10 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantVS;	// 頂点シェーダ用定数バッファ
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantPS;	// ピクセルシェーダ用定数バッファ
 
-	std::vector<Submesh> m_submeshList;				// サブメッシュリスト
-	std::vector<MaterialData> m_materialDataList;	// マテリアルリスト
+	std::vector<Vertex>			m_vertexList;		// 頂点リスト
+	std::vector<uint32_t>		m_indexList;		// インデックスリスト
+	std::vector<Submesh>		m_submeshList;		// サブメッシュリスト
+	std::vector<MaterialData>	m_materialDataList;	// マテリアルリスト
 	// テクスチャリスト
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
 
@@ -90,6 +93,7 @@ public:
 	// 操作
 public:
 
+	// 描画
 	void Draw(
 		const DirectX::SimpleMath::Matrix& world,
 		const DirectX::SimpleMath::Matrix& view,
@@ -97,6 +101,7 @@ public:
 		DirectX::CommonStates* states,
 		ID3D11DeviceContext1* context);
 
+	// 作成
 	void Create(
 		ID3D11Device1* device,
 		const std::string& filepath);

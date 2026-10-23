@@ -16,7 +16,7 @@ float4 main(PSInput pin) : SV_TARGET
     // テクスチャを使うか
     float useTex = step(0, materialIndex.x);
     
-    // 元の色
+    // ベースカラー
     float4 pout 
     = Texture.Sample(samplaer, pin.Texcoord) * useTex
     + baseColor * (1 - useTex);

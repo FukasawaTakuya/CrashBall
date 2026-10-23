@@ -15,16 +15,16 @@
  */
 class  ModelManager : public IModelManager{
 
-	// クラス定数の宣言 -------------------------------------------------
-public:
-
 	// データメンバの宣言 -----------------------------------------------
 private:
 
 	using ModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
+	using MyModelCollection 
+		= std::unordered_map<std::string, std::unique_ptr<MyModel>>;
 
 	ModelCollection	m_models;	// モデルのキャッシュ
+	MyModelCollection	m_myModels;	// モデルのキャッシュ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -47,6 +47,9 @@ public:
 
 	// モデルの取得
 	DirectX::Model* GetModel(const std::string& key) override;
+
+	// モデルの取得
+	MyModel* GetMyModel(const std::string& key) override;
 
 	// 内部実装
 private:

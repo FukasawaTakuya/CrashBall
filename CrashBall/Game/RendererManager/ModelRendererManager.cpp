@@ -25,6 +25,13 @@ void ModelRendererManager::RegisterRenderCommand(
 	m_renderCommand.emplace_back(model, world);
 }
 
+void ModelRendererManager::RegisterRenderCommand(
+	MyModel* model, 
+	const DirectX::SimpleMath::Matrix& world)
+{
+	m_myrenderCommand.emplace_back(model, world);
+}
+
 /**
  * \brief 描画命令のクリア
  * 
@@ -32,6 +39,7 @@ void ModelRendererManager::RegisterRenderCommand(
 void ModelRendererManager::ClearRenderCommand()
 {
 	m_renderCommand.clear();
+	m_myrenderCommand.clear();
 }
 
 /**
@@ -54,5 +62,12 @@ void ModelRendererManager::Render(
 		if (renderCommand.pModel == nullptr) return;
 
 		renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
+	}
+
+	for (auto& renderCommand : m_myrenderCommand)
+	{
+		if (renderCommand.pModel == nullptr) return;
+
+		renderCommand.pModel->Draw(renderCommand.world, view, proj, state, context);
 	}
 }

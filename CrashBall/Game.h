@@ -43,8 +43,6 @@
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
 
-#include "Game/MyModel/MyModel.h"
-
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
 class Game final : public DX::IDeviceNotify
@@ -94,8 +92,6 @@ private:
     GameContext     m_gameContext;      // ゲームプレイ用のコンテキスト
     RenderContext   m_renderContext;    // 描画用のコンテキスト
     ResourceContext m_resourceContext;  // リソース用のコンテキスト
-
-    MyModel model;
 
 public:
 

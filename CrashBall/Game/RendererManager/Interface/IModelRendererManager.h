@@ -10,11 +10,18 @@
 
 #include <Model.h>
 #include <SimpleMath.h>
+#include "Game/MyModel/MyModel.h"
 
 // 描画命令の登録用
 struct ModelRenderCommand
 {
 	DirectX::Model* pModel;				// モデルのポインタ
+	DirectX::SimpleMath::Matrix world;	// ワールド行列
+};
+// 描画命令の登録用
+struct MyModelRenderCommand
+{
+	MyModel* pModel;				// モデルのポインタ
 	DirectX::SimpleMath::Matrix world;	// ワールド行列
 };
 
@@ -42,6 +49,11 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
 		DirectX::Model* model,
+		const DirectX::SimpleMath::Matrix& world) = 0;
+
+	// 描画命令の登録
+	virtual void RegisterRenderCommand(
+		MyModel* model,
 		const DirectX::SimpleMath::Matrix& world) = 0;
 
 	// 内部実装

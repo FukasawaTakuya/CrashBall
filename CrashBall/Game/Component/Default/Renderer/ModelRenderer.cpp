@@ -43,8 +43,11 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 	if (m_pModel == nullptr) return;
 
 	// 描画命令の登録
-	if(m_pModel != nullptr)
-		renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
+	//if(m_pModel != nullptr)
+	//	renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
+
+	if(m_pMyModel != nullptr)
+		renderContext.modelRendererManager->RegisterRenderCommand(m_pMyModel, m_transform->GetWorld());
 }
 
 /**

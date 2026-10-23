@@ -24,6 +24,7 @@ class  ModelRenderer : public Component {
 private:
 
 	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
+	MyModel* m_pMyModel = nullptr;	// モデルのポインタ
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
@@ -66,6 +67,7 @@ public:
 	void SetDeviceResource(const ResourceContext& resourceContext) override
 	{
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
+		m_pMyModel = resourceContext.modelManager->GetMyModel(m_modelKey);
 
 		if (m_pModel != nullptr)
 		{

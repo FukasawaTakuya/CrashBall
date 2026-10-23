@@ -9,6 +9,7 @@
 #pragma once
 #include <string>
 #include <Model.h>
+#include "Game/MyModel/MyModel.h"
 
 /**
  * @brief モデル管理クラスのインターフェース
@@ -30,4 +31,6 @@ public:
 
 	// モデルの取得
 	virtual DirectX::Model* GetModel(const std::string& key) = 0;
+
+	virtual MyModel* GetMyModel(const std::string& key) = 0;
 };

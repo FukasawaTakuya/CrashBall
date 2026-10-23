@@ -19,6 +19,7 @@ class  ModelRendererManager : public IModelRendererManager {
 private:
 
 	std::vector<ModelRenderCommand> m_renderCommand;	// •`‰æ–½—ßƒRƒ“ƒeƒi
+	std::vector<MyModelRenderCommand> m_myrenderCommand;	// •`‰æ–½—ßƒRƒ“ƒeƒi
 
 
 	// ƒƒ“ƒoŠÖ”‚ÌéŒ¾ -------------------------------------------------
@@ -37,8 +38,11 @@ public:
 	// •`‰æ–½—ß‚Ì“o˜^
 	void RegisterRenderCommand(
 		DirectX::Model* model,
-		const DirectX::SimpleMath::Matrix& world
-	) override;
+		const DirectX::SimpleMath::Matrix& world) override;
+
+	void RegisterRenderCommand(
+		MyModel* model,
+		const DirectX::SimpleMath::Matrix& world) override;
 
 	// •`‰æ–½—ß‚ÌƒNƒŠƒA
 	void ClearRenderCommand();

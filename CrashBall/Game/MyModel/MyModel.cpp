@@ -7,10 +7,23 @@
 
 using namespace DirectX;
 
+/**
+ * \brief コンストラクタ
+ * 
+ */
 MyModel::MyModel()
 {
 }
 
+/**
+ * \brief 描画
+ * 
+ * \param world
+ * \param view
+ * \param proj
+ * \param states
+ * \param context
+ */
 void MyModel::Draw(
 	const DirectX::SimpleMath::Matrix& world, 
 	const DirectX::SimpleMath::Matrix& view, 
@@ -45,9 +58,10 @@ void MyModel::Draw(
 	memcpy(subResource.pData, &cbufVS, sizeof(ConstantVS));
 	context->Unmap(m_constantVS.Get(), 0);
 
-	// ==== 頂点シェーダの設定 ==== //
 	ID3D11Buffer* constantVS = m_constantVS.Get();
 	context->VSSetConstantBuffers(0, 1, &constantVS);
+
+	// ==== 頂点シェーダの設定 ==== //
 	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
 
 	// ==== ピクセルシェーダの設定 ==== //
@@ -63,7 +77,7 @@ void MyModel::Draw(
 	// 深度ステンシルステートの設定
 	context->OMSetDepthStencilState(states->DepthDefault(), 0);
 	// ブレンドステートの設定
-	context->OMSetBlendState(states->Opaque(), nullptr, 0xffffffff);
+	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
 
 	for (auto& submesh : m_submeshList)
 	{
@@ -76,7 +90,6 @@ void MyModel::Draw(
 		context->Map(m_constantPS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
 		memcpy(subResource.pData, &cbufPS, sizeof(ConstantPS));
 		context->Unmap(m_constantPS.Get(), 0);
-
 		ID3D11Buffer* constantPS = m_constantPS.Get();
 		context->PSSetConstantBuffers(1, 1, &constantPS);
 
@@ -117,16 +130,16 @@ void MyModel::Create(
 		sizeof(ModelHeader));
 
 	// 頂点の読み込み
-	std::vector<Vertex> vertexList(header.vertexCount);
+	m_vertexList.resize(header.vertexCount);
 	ifs.read(
-		reinterpret_cast<char*>(vertexList.data()),
-		sizeof(Vertex) * vertexList.size());
+		reinterpret_cast<char*>(m_vertexList.data()),
+		sizeof(Vertex) * m_vertexList.size());
 
 	// インデックスの読み込み
-	std::vector<uint32_t> indexList(header.indexCount);
+	m_indexList.resize(header.indexCount);
 	ifs.read(
-		reinterpret_cast<char*>(indexList.data()),
-		sizeof(uint32_t) * indexList.size());
+		reinterpret_cast<char*>(m_indexList.data()),
+		sizeof(uint32_t) * m_indexList.size());
 
 	// サブメッシュの読み込み
 	m_submeshList.resize(header.submeshCount);
@@ -141,11 +154,11 @@ void MyModel::Create(
 		sizeof(MaterialData) * m_materialDataList.size());
 
 	// テクスチャの読み込み
-	std::vector<std::vector<uint8_t>> textureList;
+	std::vector<std::vector<uint8_t>> textureBinaryList;
 	for (int i = 0; i < header.textureCount; i++)
 	{
+		// テクスチャサイズ
 		uint64_t size;
-
 		ifs.read(
 			reinterpret_cast<char*>(&size),
 			sizeof(uint64_t));
@@ -155,21 +168,21 @@ void MyModel::Create(
 			reinterpret_cast<char*>(texture.data()),
 			sizeof(uint8_t) * texture.size());
 
-		textureList.push_back(texture);
+		textureBinaryList.push_back(texture);
 	}
 
 	// 頂点バッファの作成
 	{
 		D3D11_BUFFER_DESC desc{};
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = sizeof(Vertex) * vertexList.size();
+		desc.ByteWidth = sizeof(Vertex) * m_vertexList.size();
 		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		desc.CPUAccessFlags = 0;
 		desc.MiscFlags = 0;
 		desc.StructureByteStride = 0;
 
 		D3D11_SUBRESOURCE_DATA initData{};
-		initData.pSysMem = vertexList.data();
+		initData.pSysMem = m_vertexList.data();
 		initData.SysMemPitch = 0;
 		initData.SysMemSlicePitch = 0;
 
@@ -181,14 +194,14 @@ void MyModel::Create(
 	{
 		D3D11_BUFFER_DESC desc{};
 		desc.Usage = D3D11_USAGE_DEFAULT;
-		desc.ByteWidth = sizeof(uint32_t) * indexList.size();
+		desc.ByteWidth = sizeof(uint32_t) * m_indexList.size();
 		desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		desc.CPUAccessFlags = 0;
 		desc.MiscFlags = 0;
 		desc.StructureByteStride = 0;
 
 		D3D11_SUBRESOURCE_DATA initData{};
-		initData.pSysMem = indexList.data();
+		initData.pSysMem = m_indexList.data();
 		initData.SysMemPitch = 0;
 		initData.SysMemSlicePitch = 0;
 
@@ -197,7 +210,7 @@ void MyModel::Create(
 	}
 
 	// テクスチャの作成
-	for (auto& texData : textureList)
+	for (auto& texData : textureBinaryList)
 	{
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> texture;
 

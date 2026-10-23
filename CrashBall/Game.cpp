@@ -255,6 +255,10 @@ void Game::Update(DX::StepTimer const& timer)
     if (m_inputSystem->GetKeyTrigger(Keyboard::Enter))
     {
         //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
+        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
+        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
+        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
+        //m_modelManager->CreateModel(m_deviceResources->GetD3DDevice());
     }
 }
 #pragma endregion
@@ -388,18 +392,6 @@ void Game::DoRenderCommandNoneSprite(
     m_modelRendererManager->Render(context, m_state.get(), view, proj);
     // スカイボックスの描画
     m_skyboxRenderManager->Render(context, view, proj);
-
-    SimpleMath::Matrix world = SimpleMath::Matrix::Identity;
-
-    world *= SimpleMath::Matrix::CreateScale(4.0f);
-    world *= SimpleMath::Matrix::CreateTranslation(SimpleMath::Vector3::Up * 10.0f);
-
-    model.Draw(
-        world,
-        view,
-        proj,
-        m_state.get(),
-        context);
 }
 
 // Helper method to clear the back buffers.
@@ -492,8 +484,6 @@ void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
     auto context = m_deviceResources->GetD3DDeviceContext();
-
-    model.Create(device, "Resources/MyModel/obj.fmodel");
 
     // コモンステートの作成
     m_state = std::make_unique<DirectX::CommonStates>(device);
