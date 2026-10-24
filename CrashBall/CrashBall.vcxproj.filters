@@ -149,6 +149,9 @@
     <Filter Include="Game\MyModel">
       <UniqueIdentifier>{61394a4c-07fe-4dbe-86a2-9155ac0e9c29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Shader">
+      <UniqueIdentifier>{378c669a-ee76-4015-b535-aca8a022ee11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -597,6 +600,9 @@
     <ClInclude Include="Game\MyModel\MyModel.h">
       <Filter>Game\MyModel</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Shader\Shader.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -898,6 +904,9 @@
     <ClCompile Include="Game\MyModel\MyModel.cpp" />
     <ClCompile Include="Main.cpp">
       <Filter>Game\MyModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Shader\Shader.cpp">
+      <Filter>Game\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

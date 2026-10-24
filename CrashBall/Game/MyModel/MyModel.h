@@ -41,9 +41,10 @@ struct MaterialData
 // 頂点シェーダ用定数バッファ
 struct ConstantVS
 {
-	DirectX::XMFLOAT4X4 worldViewProj;			// world*view*proj
+	DirectX::XMFLOAT4X4 world;			// world*view*proj
+	DirectX::XMFLOAT4X4 view;			// world*view*proj
+	DirectX::XMFLOAT4X4 proj;			// world*view*proj
 	DirectX::XMFLOAT4X4 worldInvertTranspose;	// ワールド逆転置行列
-	DirectX::XMFLOAT4 lightDirection;			// ライト方向
 };
 
 // ピクセルシェーダ用定数バッファ
@@ -51,6 +52,7 @@ struct ConstantPS
 {
 	DirectX::XMFLOAT4 baseColor;		// 基本色
 	DirectX::XMFLOAT4 textureIndex;		// テクスチャのインデックス
+	DirectX::XMFLOAT4 lightDirection;			// ライト方向
 };
 
  /**
@@ -64,9 +66,6 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_vertexBuffer;	// 頂点バッファ
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_indexBuffer;		// インデックス
 
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantVS;	// 頂点シェーダ用定数バッファ
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantPS;	// ピクセルシェーダ用定数バッファ
-
 	std::vector<Vertex>			m_vertexList;		// 頂点リスト
 	std::vector<uint32_t>		m_indexList;		// インデックスリスト
 	std::vector<Submesh>		m_submeshList;		// サブメッシュリスト
@@ -76,6 +75,11 @@ private:
 
 	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;	// 頂点シェーダー
 	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixeShader;		// ピクセルシェーダー
+
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantVS;	// 頂点シェーダ用定数バッファ
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantPS;	// ピクセルシェーダ用定数バッファ
+
+	Microsoft::WRL::ComPtr<ID3DBlob> m_blob;
 
 	// 入力レイアウト
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
