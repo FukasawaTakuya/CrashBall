@@ -53,50 +53,29 @@ void MyModel::Draw(
 	context->OMSetDepthStencilState(states->DepthDefault(), 0);
 	// ブレンドステートの設定
 	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
-
-	//  ==== 定数バッファの更新 ==== //
-	D3D11_MAPPED_SUBRESOURCE subResource;
-
+	 
 	// 頂点シェーダ
-	ConstantVS cbufVS{};
-	cbufVS.world = world;
-	cbufVS.view = view;
-	cbufVS.proj = proj;
-	// ワールド行列の逆転置行列
-	XMStoreFloat4x4(&cbufVS.worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
-	// 書き込み
-	context->Map(m_constantVS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-	memcpy(subResource.pData, &cbufVS, sizeof(ConstantVS));
-	context->Unmap(m_constantVS.Get(), 0);
+	auto vscb = m_vertexShader->GetConstatntBufferInfo("ConstBuffer");
+	if (vscb != nullptr)
+	{
+		vscb->SetVariable("World", world);
+		vscb->SetVariable("View", view);
+		vscb->SetVariable("Proj", proj);
 
-	ID3D11Buffer* constantVS = m_constantVS.Get();
-	context->VSSetConstantBuffers(0, 1, &constantVS);
-
-	// ==== 頂点シェーダの設定 ==== //
-	context->VSSetShader(m_vertexShader.Get(), nullptr, 0);
-
-	// ==== ピクセルシェーダの設定 ==== //
-	context->PSSetShader(m_pixeShader.Get(), nullptr, 0);
+		XMFLOAT4X4 worldInvertTranspose;
+		XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
+		vscb->SetVariable("WorldInvertTranspose", worldInvertTranspose);
+	}
+	m_vertexShader->UpdateSubResources(context);
+	m_vertexShader->Bind(context);
+	 
+	// ピクセルシェーダ
 	// サンプラーをシェーダに渡す
 	auto sampler = states->LinearClamp();
 	context->PSSetSamplers(0, 1, &sampler);
-
-
 	for (auto& submesh : m_submeshList)
 	{
-		// ==== 定数バッファの設定 ==== //
-		ConstantPS cbufPS{};
 		MaterialData mat = m_materialDataList[submesh.materialIndex];
-		cbufPS.baseColor = mat.baseColor;
-		cbufPS.textureIndex.x = mat.textureIndex;
-		cbufPS.lightDirection = XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f);
-		// 書き込み
-		context->Map(m_constantPS.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-		memcpy(subResource.pData, &cbufPS, sizeof(ConstantPS));
-		context->Unmap(m_constantPS.Get(), 0);
-		ID3D11Buffer* constantPS = m_constantPS.Get();
-		context->PSSetConstantBuffers(1, 1, &constantPS);
-
 		// テクスチャをシェーダに渡す
 		ID3D11ShaderResourceView* srv = nullptr;
 		if (mat.textureIndex >= 0)
@@ -105,12 +84,22 @@ void MyModel::Draw(
 		}
 		context->PSSetShaderResources(0, 1, &srv);
 
+		auto pscb = m_pixelShader->GetConstatntBufferInfo("ConstBuffer");
+		if (pscb != nullptr)
+		{
+			pscb->SetVariable("BaseColor", mat.baseColor);
+			pscb->SetVariable("MaterialIndex", mat.textureIndex);
+			pscb->SetVariable("LightDirection", XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f));
+		}
+		m_pixelShader->UpdateSubResources(context);
+		m_pixelShader->Bind(context);
+
 		// 描画
 		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
 	}
 }
 
-#include "Game/Shader/Shader.h"
+
 /**
  * \brief モデルの作成
  * 
@@ -127,9 +116,6 @@ void MyModel::Create(
 		OutputDebugStringA("ファイルが開けませんでした\n");
 		return;
 	}
-
-	Shader shader;
-	shader.Create<ID3D11VertexShader>(L"Resources/Shader/Basic_VS.cso", device);
 
 	// ヘッダーの読み込み
 	ModelHeader header;
@@ -233,67 +219,13 @@ void MyModel::Create(
 		m_textureList.push_back(std::move(texture));
 	}
 
-	// 頂点シェーダの作成
-	//std::vector<uint8_t> vs_data = DX::ReadData(L"Resources/Shader/Basic_VS.cso");
-	HRESULT hr = D3DReadFileToBlob(
-		L"Resources/Shader/Basic_VS.cso",
-		m_blob.GetAddressOf()
-	);
+	// ==================== 別に分ける ======================== //
 
-	if (SUCCEEDED(hr))
-	{
-		DX::ThrowIfFailed(
-			device->CreateVertexShader(
-				m_blob->GetBufferPointer(), 
-				m_blob->GetBufferSize(), 
-				nullptr, 
-				m_vertexShader.ReleaseAndGetAddressOf()));
+	m_vertexShader = std::make_unique<Shader>();
+	m_pixelShader = std::make_unique<Shader>();
 
-		//using Microsoft::WRL::ComPtr;
-
-		//// shaderBlob は読み込み済みの CSO の ID3DBlob
-		//ComPtr<ID3D11ShaderReflection> reflection;
-
-		//HRESULT hr = D3DReflect(
-		//	m_blob->GetBufferPointer(),
-		//	m_blob->GetBufferSize(),
-		//	IID_ID3D11ShaderReflection,
-		//	reinterpret_cast<void**>(reflection.GetAddressOf()));
-
-		//D3D11_SHADER_DESC shaderDesc{};
-		//reflection->GetDesc(&shaderDesc);
-
-		//for (int i = 0; shaderDesc.ConstantBuffers; i++)
-		//{
-		//	auto desc = reflection->GetConstantBufferByIndex(i);
-		//}
-	}
-
-
-	// ピクセルシェーダの作成
-	std::vector<uint8_t> ps_data = DX::ReadData(L"Resources/Shader/Basic_PS.cso");
-	DX::ThrowIfFailed(
-		device->CreatePixelShader(ps_data.data(), ps_data.size(), nullptr, m_pixeShader.ReleaseAndGetAddressOf()));
-
-	// 定数バッファの作成
-	{
-		D3D11_BUFFER_DESC desc = {};
-		desc.Usage = D3D11_USAGE_DYNAMIC;
-		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;    
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;  
-		desc.MiscFlags = 0;
-		desc.StructureByteStride = 0;
-
-		// 頂点シェーダー用
-		desc.ByteWidth = sizeof(ConstantVS);
-		DX::ThrowIfFailed(
-			device->CreateBuffer(&desc, nullptr, m_constantVS.ReleaseAndGetAddressOf()));
-
-		// ピクセルシェーダー用
-		desc.ByteWidth = sizeof(ConstantPS);
-		DX::ThrowIfFailed(
-			device->CreateBuffer(&desc, nullptr, m_constantPS.ReleaseAndGetAddressOf()));
-	}
+	m_vertexShader->Create<ID3D11VertexShader>(L"Resources/Shader/Basic_VS.cso", device);
+	m_pixelShader->Create<ID3D11PixelShader>(L"Resources/Shader/Basic_PS.cso", device);
 
 	// 入力レイアウトの作成
 	D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
@@ -307,7 +239,7 @@ void MyModel::Create(
 		device->CreateInputLayout(
 			inputDesc,
 			_countof(inputDesc),
-			m_blob->GetBufferPointer(),
-			m_blob->GetBufferSize(),
+			m_vertexShader->GetBlob()->GetBufferPointer(),
+			m_vertexShader->GetBlob()->GetBufferSize(),
 			m_inputLayout.ReleaseAndGetAddressOf()));
 }

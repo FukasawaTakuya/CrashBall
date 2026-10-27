@@ -8,6 +8,8 @@
 
 #pragma once
 
+#include "Game/Shader/Shader.h"	
+
 struct ModelHeader
 {
 	uint32_t vertexCount = 0;	// 頂点数
@@ -37,24 +39,6 @@ struct MaterialData
 	int textureIndex;					// テクスチャのインデックス
 };
 
-
-// 頂点シェーダ用定数バッファ
-struct ConstantVS
-{
-	DirectX::XMFLOAT4X4 world;			// world*view*proj
-	DirectX::XMFLOAT4X4 view;			// world*view*proj
-	DirectX::XMFLOAT4X4 proj;			// world*view*proj
-	DirectX::XMFLOAT4X4 worldInvertTranspose;	// ワールド逆転置行列
-};
-
-// ピクセルシェーダ用定数バッファ
-struct ConstantPS
-{
-	DirectX::XMFLOAT4 baseColor;		// 基本色
-	DirectX::XMFLOAT4 textureIndex;		// テクスチャのインデックス
-	DirectX::XMFLOAT4 lightDirection;			// ライト方向
-};
-
  /**
   * \brief 自作モデルクラス
   */
@@ -73,8 +57,8 @@ private:
 	// テクスチャリスト
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
 
-	Microsoft::WRL::ComPtr<ID3D11VertexShader> m_vertexShader;	// 頂点シェーダー
-	Microsoft::WRL::ComPtr<ID3D11PixelShader> m_pixeShader;		// ピクセルシェーダー
+	std::unique_ptr<Shader> m_vertexShader;
+	std::unique_ptr<Shader> m_pixelShader;
 
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantVS;	// 頂点シェーダ用定数バッファ
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantPS;	// ピクセルシェーダ用定数バッファ

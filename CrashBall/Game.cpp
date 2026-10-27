@@ -289,8 +289,7 @@ void Game::Render()
     // FPS表示
     m_textRendererManager->DebugRender(
         SimpleMath::Vector2::Zero,
-        L"FPS: {}", m_timer.GetFramesPerSecond()
-    );
+        L"FPS: {}", m_timer.GetFramesPerSecond());
 #endif // !NDEBUG
 
     // 元のビューポート
