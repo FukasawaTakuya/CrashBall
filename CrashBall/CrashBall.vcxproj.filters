@@ -603,9 +603,6 @@
     <ClInclude Include="Game\Shader\Shader.h">
       <Filter>Game\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Shader\ConstantBufferInfo.h">
-      <Filter>Game\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ResourceManager\ShaderManager.h">
       <Filter>Game\ResourceManager</Filter>
     </ClInclude>

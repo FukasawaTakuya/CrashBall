@@ -61,6 +61,13 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 						1,
 						&constantBuffer.buffer);
 				}
+				for (auto& shaderTextrueInfo : m_shaderTextrueInfo)
+				{
+					context->PSSetShaderResources(
+						shaderTextrueInfo.registerSlot,
+						1,
+						&shaderTextrueInfo.texture);
+				}
 				// シェーダのセット
 				context->PSSetShader(shader, nullptr, 0);
 			}
@@ -75,6 +82,7 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 void Shader::SetShader(const ShaderInfo* shaderInfo)
 {
 	m_constantBuffer.clear();
+	m_constantInfoMap.clear();
 
 	// シェーダのポインタを格納
 	std::visit([&](auto& shader)
@@ -89,6 +97,18 @@ void Shader::SetShader(const ShaderInfo* shaderInfo)
 	{
 		// 定数バッファはポインタを格納し定数バッファ情報はコピー
 		m_constantBuffer.emplace_back(cb.buffer.Get(), cb.info);
+		// 格納した定数バッファをマップに登録
+		auto& cbInfo = m_constantBuffer.back();
+		m_constantInfoMap.emplace(cbInfo.info.name, &cbInfo.info);
+	}
+
+	for (auto& st : shaderInfo->shaderTetureInfo)
+	{
+		m_shaderTextrueInfo.push_back(st);
+		// マップに登録
+		auto& stInfo = m_shaderTextrueInfo.back();
+		m_shaderTextureInfoMap.emplace(stInfo.name, &stInfo);
+
 	}
 
 	// 入力レイアウトのポインタを格納

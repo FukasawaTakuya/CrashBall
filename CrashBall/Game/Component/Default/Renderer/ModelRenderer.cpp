@@ -48,22 +48,3 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 			m_pixelShader.get(),
 			m_transform->GetWorld());
 }
-
-/**
- * \brief アンビエントライトの適用
- * 
- */
-void ModelRenderer::ApplyAmbientLight()
-{
-	
-}
-
-/**
- * \brief ディフーズカラーの適用
- * 
- */
-void ModelRenderer::ApplyDiffuseColor()
-{
-	
-}
-

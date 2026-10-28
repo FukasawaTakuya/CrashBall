@@ -86,7 +86,7 @@ void MyModel::Draw(
 		{
 			srv = m_textureList[mat.textureIndex].Get();
 		}
-		context->PSSetShaderResources(0, 1, &srv);
+		pixelShader->GetShaderTextrueInfo("Texture")->texture = srv;
 
 		// 定数バッファの設定
 		auto psConstatnBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");

@@ -107,46 +107,47 @@ void ShaderManager::CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* d
 	D3D11_SHADER_DESC shaderDesc;
 	DX::ThrowIfFailed(reflection->GetDesc(&shaderDesc));
 
-	for (int i = 0; i < shaderDesc.ConstantBuffers; i++)
+	for (int i = 0; i < shaderDesc.BoundResources; i++)
 	{
-		auto refcb = reflection->GetConstantBufferByIndex(i);
-
-		// 定数バッファの情報
-		D3D11_SHADER_BUFFER_DESC cbDesc{};
-		if (FAILED(refcb->GetDesc(&cbDesc)))
-		{
-			continue;
-		}
-
 		// バインド情報
 		D3D11_SHADER_INPUT_BIND_DESC bindDesc{};
-		if (FAILED(reflection->GetResourceBindingDescByName(
-			cbDesc.Name, &bindDesc)))
+		if (FAILED(reflection->GetResourceBindingDesc(i, &bindDesc)))
 		{
 			continue;
 		}
 
+		// 定数バッファの場合
 		if (bindDesc.Type == D3D_SIT_CBUFFER)
 		{
+			auto refcb = reflection->GetConstantBufferByName(bindDesc.Name);
+			// 定数バッファの情報
+			D3D11_SHADER_BUFFER_DESC shaderBufferDesc{};
+			if (FAILED(refcb->GetDesc(&shaderBufferDesc)))
+			{
+				continue;
+			}
 			ConstantBufferResource constantBuffer;
 
 			// 定数バッファ情報を取得
-			constantBuffer.info.name = cbDesc.Name;
-			constantBuffer.info.size = cbDesc.Size;
+			if (shaderBufferDesc.Name != nullptr)
+			{
+				constantBuffer.info.name = shaderBufferDesc.Name;
+			}
+			constantBuffer.info.size = shaderBufferDesc.Size;
 			constantBuffer.info.registerSlot = bindDesc.BindPoint;
 			constantBuffer.info.data.resize(constantBuffer.info.size, std::byte{ 0 });
 
 			// 定数バッファの作成
 			D3D11_BUFFER_DESC bufDesc = {};
 			bufDesc.Usage = D3D11_USAGE_DYNAMIC;
-			bufDesc.ByteWidth = cbDesc.Size;
+			bufDesc.ByteWidth = shaderBufferDesc.Size;
 			bufDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 			bufDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 			bufDesc.MiscFlags = 0;
 			bufDesc.StructureByteStride = 0;
 			device->CreateBuffer(&bufDesc, nullptr, constantBuffer.buffer.ReleaseAndGetAddressOf());
 
-			for (int j = 0; j < cbDesc.Variables; j++)
+			for (int j = 0; j < shaderBufferDesc.Variables; j++)
 			{
 				// 変数情報
 				auto variable = refcb->GetVariableByIndex(j);
@@ -163,6 +164,19 @@ void ShaderManager::CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* d
 			}
 
 			shaderInfo.constantBuffer.push_back(std::move(constantBuffer));
+		}
+		// テクスチャの場合
+		else if (bindDesc.Type == D3D_SIT_TEXTURE)
+		{
+			// テクスチャ情報を取得
+			ShaderTextrueInfo shaderTextureInfo;
+			if (bindDesc.Name != nullptr)
+			{
+				shaderTextureInfo.name = bindDesc.Name;
+			}
+			shaderTextureInfo.registerSlot = bindDesc.BindPoint;
+
+			shaderInfo.shaderTetureInfo.push_back(shaderTextureInfo);
 		}
 	}
 }

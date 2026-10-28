@@ -457,10 +457,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Shader\ConstantBufferInfo.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Game\Shader\Shader.h">
       <SubType>
       </SubType>

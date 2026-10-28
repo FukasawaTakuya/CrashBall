@@ -20,7 +20,7 @@
                 {
                     "name": "localRotate",
                     "data": {
-                        "x": -0.32175055146217346,
+                        "x": -0.3217505216598511,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -74,6 +74,17 @@
                 {
                     "name": "farclip",
                     "data": 200.0
+                }
+            ]
+        },
+        {
+            "compName": "Skybox",
+            "id": 92,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "skyboxKey",
+                    "data": "skybox"
                 }
             ]
         }

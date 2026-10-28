@@ -23,6 +23,7 @@ struct ShaderVariableInfo
 	uint32_t offset;
 };
 
+// 定数バッファ情報
 struct ConstantBufferInfo
 {
 	std::string name;		// 名前
@@ -60,13 +61,22 @@ struct ConstantBufferInfo
 	}
 };
 
+// シェーダテクスチャ情報
+struct ShaderTextrueInfo
+{
+	std::string name;
+	ID3D11ShaderResourceView* texture;
+	uint32_t registerSlot;
+};
+
+// 定数バッファに関するものをまとめた構造体
 struct ConstantBufferResource
 {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
 	ConstantBufferInfo info;
 };
 
-// ComPtrを扱うバリアント
+// シェーダの本体を扱うバリアント
 using ShaderVariantCom = std::variant<
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>,
 	Microsoft::WRL::ComPtr<ID3D11PixelShader>>;
@@ -77,9 +87,9 @@ struct ShaderInfo
 	ShaderVariantCom					shader;				// シェーダ本体
 	Microsoft::WRL::ComPtr<ID3DBlob>	blob;				// バイナリ情報
 	std::vector<ConstantBufferResource>	constantBuffer;		// 定数バッファ
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;// 入力レイアウト
+	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;	// 入力レイアウト
 };
-
 
  /**
   * \brief シェーダ管理クラスのインターフェース

@@ -25,13 +25,14 @@ class  ModelRenderer : public Component {
 private:
 
 	MyModel* m_pModel		= nullptr;	// モデルのポインタ
-
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
+	std::string m_modelKey;				// モデルのキー
 
-	std::string m_modelKey;	// モデルのキー
+	DirectX::SimpleMath::Color m_diffuseColor;	// ディフーズ色
+	DirectX::SimpleMath::Color m_ambientColor;	// アンビエント色
 
-	std::unique_ptr<Shader> m_vertexShader;	// 頂点シェーダ
-	std::unique_ptr<Shader> m_pixelShader;	// ピクセルシェーダ
+	std::unique_ptr<Shader> m_vertexShader;		// 頂点シェーダ
+	std::unique_ptr<Shader> m_pixelShader;		// ピクセルシェーダ
 	std::string m_vertexShaderKey = "Basic_VS";	// 頂点シェーダのキー
 	std::string m_pixelShaderKey  = "Basic_PS";	// ピクセルシェーダのキー
 
@@ -40,6 +41,8 @@ private:
 		AddProperty(m_modelKey,			PropertyType::String)
 		AddProperty(m_vertexShaderKey,	PropertyType::String)
 		AddProperty(m_pixelShaderKey,	PropertyType::String)
+		AddProperty(m_diffuseColor,	PropertyType::Color)
+		AddProperty(m_ambientColor,	PropertyType::Color)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -90,34 +93,28 @@ public:
 	// ディフーズカラーの取得
 	DirectX::SimpleMath::Color GetDiffuseColor() const
 	{
-		return DirectX::SimpleMath::Color{ 1,1,1,1 };
+		return m_diffuseColor;
 	}
 	// アンビエントカラーの取得
 	DirectX::SimpleMath::Color GetAmbientColor() const
 	{
-		return DirectX::SimpleMath::Color{ 1,1,1,1 };
+		return m_ambientColor;
 	}
 
 	// ディフーズカラーの設定
 	void SetDiffuseColor(const DirectX::SimpleMath::Color& color)
 	{
-		ApplyDiffuseColor();
+		m_diffuseColor = color;
 	}
 
 	// アンビエントライトカラーの設定
 	void SetAmbientColor(const DirectX::SimpleMath::Color& color)
 	{
-		ApplyAmbientLight();
+		m_ambientColor = color;
 	}
 
 	// 内部実装
 private:
-
-	// アンビエントライトの適用
-	void ApplyAmbientLight();
-
-	// ディフーズカラーの適用
-	void ApplyDiffuseColor();
 
 	// 変更されたとき実行する関数
 	void EditedFunc(const ResourceContext& resourceContext) override
