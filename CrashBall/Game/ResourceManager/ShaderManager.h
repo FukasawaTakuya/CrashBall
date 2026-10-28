@@ -1,9 +1,17 @@
+/*****************************************************************//**
+ * \file   ShaderManager.h
+ * \brief  シェーダ管理クラス
+ * 
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
 #pragma once
 
 #include "Game/ResourceManager/Interface/IShaderManager.h"
 
  /**
-  * \brief シェーダ管理
+  * \brief シェーダ管理クラス
   */
 class  ShaderManager : public IShaderManager {
 
@@ -48,4 +56,7 @@ private:
 
 	// 定数バッファの作成
 	void CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* device);
+
+	// 入力レイアウトの作成
+	void CreateInputLayout(ShaderInfo& shaderInfo, ID3D11Device1* device);
 };

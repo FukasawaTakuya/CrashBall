@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   ShaderManager.cpp
+ * \brief  シェーダ管理クラス
+ *
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
 #include "pch.h"
 #include "ShaderManager.h"
 #include "Game/Common/Utility.h"
@@ -13,6 +21,7 @@ ShaderManager::ShaderManager()
 /**
  * \brief シェーダの作成
  * 
+ * \param device デバイス
  */
 void ShaderManager::CreateShader(ID3D11Device1* device)
 {
@@ -68,29 +77,20 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 		// 定数バッファの作成
 		CreateConstatBuffer(shaderInfo, device);
 
-		if (type == L"VS")
-		{
-			// 入力レイアウトの作成
-			D3D11_INPUT_ELEMENT_DESC inputDesc[] =
-			{
-				{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-				{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-				{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
-			};
-			DX::ThrowIfFailed(
-				device->CreateInputLayout(
-					inputDesc,
-					_countof(inputDesc),
-					shaderInfo.blob->GetBufferPointer(),
-					shaderInfo.blob->GetBufferSize(),
-					shaderInfo.inputLayout.ReleaseAndGetAddressOf()));
-		}
+		// 入力レイアウトの作成
+		CreateInputLayout(shaderInfo, device);
 
 		// コンテナに格納
 		m_shaders.emplace(key, std::move(shaderInfo));
 	}
 }
 
+/**
+ * \brief 定数バッファの作成
+ * 
+ * \param shaderInfo シェーダ情報
+ * \param device デバイス
+ */
 void ShaderManager::CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* device)
 {
 	Microsoft::WRL::ComPtr<ID3D11ShaderReflection> reflection;
@@ -165,5 +165,105 @@ void ShaderManager::CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* d
 			shaderInfo.constantBuffer.push_back(std::move(constantBuffer));
 		}
 	}
+}
+
+/**
+ * \brief 入力レイアウトの作成
+ * 
+ * \param shaderInfo シェーダ情報
+ * \param device デバイス
+ */
+void ShaderManager::CreateInputLayout(ShaderInfo& shaderInfo, ID3D11Device1* device)
+{
+	Microsoft::WRL::ComPtr<ID3D11ShaderReflection> reflection;
+
+	// リフレクション
+	DX::ThrowIfFailed(
+		D3DReflect(
+			shaderInfo.blob->GetBufferPointer(),
+			shaderInfo.blob->GetBufferSize(),
+			IID_ID3D11ShaderReflection,
+			reinterpret_cast<void**>(reflection.GetAddressOf())));
+
+	// シェーダ情報
+	D3D11_SHADER_DESC shaderDesc;
+	DX::ThrowIfFailed(reflection->GetDesc(&shaderDesc));
+
+	std::vector<D3D11_INPUT_ELEMENT_DESC> inputDesc(shaderDesc.InputParameters);
+	for (int i = 0; i < shaderDesc.InputParameters; i++)
+	{
+		// パラメータ情報
+		D3D11_SIGNATURE_PARAMETER_DESC paramDesc{};
+		reflection->GetInputParameterDesc(i, &paramDesc);
+
+		inputDesc[i].SemanticName = paramDesc.SemanticName;
+		inputDesc[i].SemanticIndex = paramDesc.SemanticIndex;
+		inputDesc[i].InputSlot = 0;
+		inputDesc[i].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+		inputDesc[i].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		inputDesc[i].InstanceDataStepRate = 0;
+
+		// 要素数
+		UINT componentCount = 0;
+		if (paramDesc.Mask & 0x1) componentCount++;
+		if (paramDesc.Mask & 0x2) componentCount++;
+		if (paramDesc.Mask & 0x4) componentCount++;
+		if (paramDesc.Mask & 0x8) componentCount++;
+
+		// 要素数とデータ型をもとにフォーマットを求める
+		switch (paramDesc.ComponentType)
+		{
+		case D3D_REGISTER_COMPONENT_FLOAT32:
+			switch (componentCount)
+			{
+			case 1: inputDesc[i].Format = DXGI_FORMAT_R32_FLOAT;
+				break;
+			case 2: inputDesc[i].Format = DXGI_FORMAT_R32G32_FLOAT;
+				break;
+			case 3: inputDesc[i].Format = DXGI_FORMAT_R32G32B32_FLOAT;
+				break;
+			case 4: inputDesc[i].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+				break;
+			}
+			break;
+
+		case D3D_REGISTER_COMPONENT_SINT32:
+			switch (componentCount)
+			{
+			case 1: inputDesc[i].Format = DXGI_FORMAT_R32_SINT;
+				break;
+			case 2: inputDesc[i].Format = DXGI_FORMAT_R32G32_SINT;
+				break;
+			case 3: inputDesc[i].Format = DXGI_FORMAT_R32G32B32_SINT;
+				break;
+			case 4: inputDesc[i].Format = DXGI_FORMAT_R32G32B32A32_SINT;
+				break;
+			}
+			break;
+
+		case D3D_REGISTER_COMPONENT_UINT32:
+			switch (componentCount)
+			{
+			case 1: inputDesc[i].Format = DXGI_FORMAT_R32_UINT;
+				break;
+			case 2: inputDesc[i].Format = DXGI_FORMAT_R32G32_UINT;
+				break;
+			case 3: inputDesc[i].Format = DXGI_FORMAT_R32G32B32_UINT;
+				break;
+			case 4: inputDesc[i].Format = DXGI_FORMAT_R32G32B32A32_UINT;
+				break;
+			}
+			break;
+		}
+	}
+
+	// 入力レイアウトの作成
+	DX::ThrowIfFailed(
+		device->CreateInputLayout(
+			inputDesc.data(),
+			inputDesc.size(),
+			shaderInfo.blob->GetBufferPointer(),
+			shaderInfo.blob->GetBufferSize(),
+			shaderInfo.inputLayout.ReleaseAndGetAddressOf()));
 }
 
