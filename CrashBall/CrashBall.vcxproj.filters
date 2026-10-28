@@ -907,7 +907,6 @@
     <ClCompile Include="Game\RendererManager\SkyboxRenderManager.cpp">
       <Filter>Game\RendererManager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\MyModel\MyModel.cpp" />
     <ClCompile Include="Main.cpp">
       <Filter>Game\MyModel</Filter>
     </ClCompile>
@@ -916,6 +915,9 @@
     </ClCompile>
     <ClCompile Include="Game\ResourceManager\ShaderManager.cpp">
       <Filter>Game\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MyModel\MyModel.cpp">
+      <Filter>Game\MyModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

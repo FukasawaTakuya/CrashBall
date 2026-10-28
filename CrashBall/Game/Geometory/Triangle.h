@@ -44,7 +44,7 @@ public:
 	);
 
 	// スケーリング
-	void Scale(DirectX::SimpleMath::Vector3& scale);
+	void Scale(const DirectX::SimpleMath::Vector3& scale);
 
 	// 取得/設定
 public:
@@ -56,10 +56,10 @@ public:
 	}
 
 	// 平面情報の取得
-	Plane* GetPlane() { return m_plane.get(); }
+	Plane* GetPlane() const { return m_plane.get(); }
 
 	//　中心の取得
-	DirectX::SimpleMath::Vector3 GetCenter()
+	DirectX::SimpleMath::Vector3 GetCenter() const
 	{
 		DirectX::SimpleMath::Vector3 center
 		{

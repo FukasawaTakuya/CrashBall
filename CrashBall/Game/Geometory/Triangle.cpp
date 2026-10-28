@@ -77,7 +77,7 @@ void Triangle::Rotate(
  * 
  * \param scale スケール
  */
-void Triangle::Scale(DirectX::SimpleMath::Vector3& scale)
+void Triangle::Scale(const DirectX::SimpleMath::Vector3& scale)
 {
 	m_point[0] *= scale;
 	m_point[1] *= scale;

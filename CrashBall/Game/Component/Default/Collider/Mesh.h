@@ -12,6 +12,7 @@
 #include "Game/Component/Default/Collider/Collider.h"
 #include "Game/Geometory/Triangle.h"
 #include "Game/Geometory/Segment.h"
+#include "Game/Component/Default/Renderer/ModelRenderer.h"
 
 /**
  * \brief メッシュコライダー
@@ -27,6 +28,11 @@ private:
 
 	std::string m_meshData;	// データのファイルパス
 
+	ModelRenderer* m_modelRenderer;	// モデル描画
+
+	std::vector<float> m_boundingRadius;// 境界球の半径
+	std::vector<int> m_collideFaceIndex;// 衝突面のインデックス
+
 	// プロパティの設定
 	BeginProperty()
 		AddProperty(m_meshData, PropertyType::String)
@@ -35,9 +41,7 @@ private:
 
 	// コンポーネント名の設定
 	SetCompName("Mesh")
-
-
-	// メンバ関数の宣言 -------------------------------------------------
+			// メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ
 public:
 
@@ -83,6 +87,9 @@ public:
 	// 衝突した面の設定
 	void SetCollideFace(Triangle* face) { m_collideFace.emplace_back(face); }
 
+	// 三角ポリゴンの取得
+	Triangle GetTriangle(int index);
+
 	// 内部実装
 private:
 
@@ -97,4 +104,7 @@ private:
 	{
 		return m_compName;
 	}
+
+	// 境界球の半径を求める
+	void CalcBoudingRadius();
 };

@@ -196,7 +196,7 @@ CollisionInfo Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
  * \param plane 平面
  * \return ture 衝突
  */
-CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
+CollisionInfo Collision::IsCollision(Sphere* sphere, Plane& plane)
 {
 	CollisionInfo collsionInfo;
 	// 球の座標
@@ -204,7 +204,7 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
 		sphere->GetGameObject()->GetComponent<Transform>()->GetWorldPosition();
 
 	// 球と平面の距離を求める
-	float distance = plane->CalcLength(spherePos);
+	float distance = plane.CalcLength(spherePos);
 
 	// 距離が球の半径より小さければture
 	collsionInfo.isCollsion = (distance <= sphere->GetRadius());
@@ -215,9 +215,9 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
 		Transform* transform = sphere->GetGameObject()->GetComponent<Transform>();
 
 		// 球と平面の距離を求める
-		float distance = plane->CalcLength(transform->GetWorldPosition());
+		float distance = plane.CalcLength(transform->GetWorldPosition());
 
-		collsionInfo.direction = plane->GetNormal();
+		collsionInfo.direction = plane.GetNormal();
 		collsionInfo.overlap = sphere->GetRadius() - distance;
 	}
 
@@ -231,27 +231,27 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane* plane)
  * \param triangle
  * \return ture 衝突
  */
-CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle* triangle)
+CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle& triangle)
 {
 	CollisionInfo collsionInfo;
 
 	// 境界球との当たり判定
-	float distance = (triangle->GetCenter() - sphere->GetTransform()->GetWorldPosition()).Length();
-	if (distance >= sphere->GetRadius() + triangle->GetBoundingSphereRadius())
+	float distance = (triangle.GetCenter() - sphere->GetTransform()->GetWorldPosition()).Length();
+	if (distance >= sphere->GetRadius() + triangle.GetBoundingSphereRadius())
 	{
 		collsionInfo.isCollsion = false;
 		return collsionInfo;
 	}
 	
 	// 球と三角形を含む平面との衝突判定
-	if (!IsCollision(sphere, triangle->GetPlane()).isCollsion)
+	if (!IsCollision(sphere, *triangle.GetPlane()).isCollsion)
 	{
 		collsionInfo.isCollsion = false;
 		return collsionInfo;
 	}
 
 	// 三角形の各頂点
-	SimpleMath::Vector3* pos = triangle->GetPoint();
+	SimpleMath::Vector3* pos = triangle.GetPoint();
 	// 三角形に沿うベクトル
 	SimpleMath::Vector3 vec[3];
 	vec[0] = pos[1] - pos[0];
@@ -279,14 +279,14 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle* triangle)
 	Segment segment;
 	// 線分の設定
 	segment.SetSegment(spherePos,
-		-triangle->GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
+		-triangle.GetPlane()->GetNormal() * sphere->GetRadius() * 1.5f);
 	// 線分と三角形の衝突判定
-	collsionInfo.isCollsion = Geometory::IsCollision(&segment, triangle);
+	collsionInfo.isCollsion = Geometory::IsCollision(&segment,	&triangle);
 
 	// 衝突している場合
 	if (collsionInfo.isCollsion)
 	{
-		collsionInfo = Collision::IsCollision(sphere, triangle->GetPlane());
+		collsionInfo = Collision::IsCollision(sphere, *triangle.GetPlane());
 	}
 
 	return collsionInfo;
@@ -307,7 +307,7 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 
 	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {
-		collsionInfo = Collision::IsCollision(sphere, face.get());
+		collsionInfo = Collision::IsCollision(sphere, *face.get());
 		if (collsionInfo.isCollsion) {
 			mesh->SetCollideFace(face.get());
 		}
@@ -319,7 +319,7 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	if (collsionInfo.isCollsion)
 	{
 		// 衝突情報を得るために衝突面ともう一度判定
-		collsionInfo = Collision::IsCollision(sphere, mesh->GetCollideFace()[0]);
+		collsionInfo = Collision::IsCollision(sphere, *mesh->GetCollideFace()[0]);
 
 		collsionInfo.col1 = sphere;
 		collsionInfo.col2 = mesh;

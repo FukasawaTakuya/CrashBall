@@ -53,10 +53,10 @@ namespace Collision {
 	CollisionInfo IsCollision(Sphere* sphere1, Sphere* sphere2);
 
 	// 球と平面の衝突判定
-	CollisionInfo IsCollision(Sphere* sphere, Plane* plane);
+	CollisionInfo IsCollision(Sphere* sphere, Plane& plane);
 
 	// 球と三角形の衝突判定
-	CollisionInfo IsCollision(Sphere* sphere, Triangle* triangle);
+	CollisionInfo IsCollision(Sphere* sphere, Triangle& triangle);
 
 	// 球とメッシュの衝突判定
 	CollisionInfo IsCollision(Sphere* sphere, Mesh* mesh);

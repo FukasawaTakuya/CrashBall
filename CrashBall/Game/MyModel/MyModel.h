@@ -88,6 +88,24 @@ public:
 	// 取得/設定
 public:
 
+	// インデックスリストの取得
+	const std::vector<uint32_t>& GetIndexList() const
+	{
+		return m_indexList;
+	}
+
+	// 頂点リストの取得
+	const std::vector<Vertex>& GetVertexList() const
+	{
+		return m_vertexList;
+	}
+
+	// 頂点の取得
+	const Vertex& GetVertex(int index) const
+	{
+		return m_vertexList[index];
+	}
+
 	// 内部実装
 private:
 

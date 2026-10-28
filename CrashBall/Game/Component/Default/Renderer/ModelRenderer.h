@@ -25,7 +25,7 @@ class  ModelRenderer : public Component {
 private:
 
 	MyModel* m_pModel		= nullptr;	// モデルのポインタ
-	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
+	Transform* m_transform	= nullptr;	// トランスフォームのキャッシュ
 	std::string m_modelKey;				// モデルのキー
 
 	DirectX::SimpleMath::Color m_diffuseColor;	// ディフーズ色
@@ -99,6 +99,12 @@ public:
 	DirectX::SimpleMath::Color GetAmbientColor() const
 	{
 		return m_ambientColor;
+	}
+
+	// モデルの取得
+	const MyModel* GetModel() const
+	{
+		return m_pModel;
 	}
 
 	// ディフーズカラーの設定
