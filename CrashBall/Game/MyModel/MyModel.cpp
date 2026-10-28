@@ -25,10 +25,12 @@ MyModel::MyModel()
  * \param context
  */
 void MyModel::Draw(
-	const DirectX::SimpleMath::Matrix& world, 
-	const DirectX::SimpleMath::Matrix& view, 
-	const DirectX::SimpleMath::Matrix& proj, 
-	DirectX::CommonStates* states, 
+	const DirectX::SimpleMath::Matrix& world,
+	const DirectX::SimpleMath::Matrix& view,
+	const DirectX::SimpleMath::Matrix& proj,
+	Shader* vertexShader,
+	Shader* pixelShader,
+	DirectX::CommonStates* states,
 	ID3D11DeviceContext1* context)
 {
 	// =========== IA =========== //
@@ -43,7 +45,7 @@ void MyModel::Draw(
 	// トポロジーの設定
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	// 入力レイアウトの設定
-	context->IASetInputLayout(m_inputLayout.Get());
+	context->IASetInputLayout(vertexShader->GetInputLayOut());
 
 	// ==== RS ==== //
 	context->RSSetState(states->CullNone());
@@ -55,7 +57,7 @@ void MyModel::Draw(
 	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
 	 
 	// 頂点シェーダ
-	auto vscb = m_vertexShader->GetConstatntBufferInfo("ConstBuffer");
+	auto vscb = vertexShader->GetConstatntBufferInfo("ConstBuffer");
 	if (vscb != nullptr)
 	{
 		vscb->SetVariable("World", world);
@@ -66,8 +68,8 @@ void MyModel::Draw(
 		XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
 		vscb->SetVariable("WorldInvertTranspose", worldInvertTranspose);
 	}
-	m_vertexShader->UpdateSubResources(context);
-	m_vertexShader->Bind(context);
+	vertexShader->UpdateSubResources(context);
+	vertexShader->Bind(context);
 	 
 	// ピクセルシェーダ
 	// サンプラーをシェーダに渡す
@@ -84,15 +86,15 @@ void MyModel::Draw(
 		}
 		context->PSSetShaderResources(0, 1, &srv);
 
-		auto pscb = m_pixelShader->GetConstatntBufferInfo("ConstBuffer");
+		auto pscb = pixelShader->GetConstatntBufferInfo("ConstBuffer");
 		if (pscb != nullptr)
 		{
 			pscb->SetVariable("BaseColor", mat.baseColor);
 			pscb->SetVariable("MaterialIndex", mat.textureIndex);
 			pscb->SetVariable("LightDirection", XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f));
 		}
-		m_pixelShader->UpdateSubResources(context);
-		m_pixelShader->Bind(context);
+		pixelShader->UpdateSubResources(context);
+		pixelShader->Bind(context);
 
 		// 描画
 		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
@@ -221,25 +223,25 @@ void MyModel::Create(
 
 	// ==================== 別に分ける ======================== //
 
-	m_vertexShader = std::make_unique<Shader>();
-	m_pixelShader = std::make_unique<Shader>();
+	//m_vertexShader = std::make_unique<Shader>();
+	//m_pixelShader = std::make_unique<Shader>();
 
-	m_vertexShader->Create<ID3D11VertexShader>(L"Resources/Shader/Basic_VS.cso", device);
-	m_pixelShader->Create<ID3D11PixelShader>(L"Resources/Shader/Basic_PS.cso", device);
+	//m_vertexShader->Create<ID3D11VertexShader>(L"Resources/Shader/Basic_VS.cso", device);
+	//m_pixelShader->Create<ID3D11PixelShader>(L"Resources/Shader/Basic_PS.cso", device);
 
-	// 入力レイアウトの作成
-	D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
-	{
-		{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	};
+	//// 入力レイアウトの作成
+	//D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
+	//{
+	//	{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+	//	{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+	//	{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
+	//};
 
-	DX::ThrowIfFailed(
-		device->CreateInputLayout(
-			inputDesc,
-			_countof(inputDesc),
-			m_vertexShader->GetBlob()->GetBufferPointer(),
-			m_vertexShader->GetBlob()->GetBufferSize(),
-			m_inputLayout.ReleaseAndGetAddressOf()));
+	//DX::ThrowIfFailed(
+	//	device->CreateInputLayout(
+	//		inputDesc,
+	//		_countof(inputDesc),
+	//		m_vertexShader->GetBlob()->GetBufferPointer(),
+	//		m_vertexShader->GetBlob()->GetBufferSize(),
+	//		m_inputLayout.ReleaseAndGetAddressOf()));
 }

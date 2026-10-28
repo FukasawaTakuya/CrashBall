@@ -11,6 +11,7 @@
 #include "Game/ResourceManager/Interface/IModelManager.h"
 #include "Game/ResourceManager/Interface/ISpriteManager.h"
 #include "Game/ResourceManager/Interface/ITextManager.h"
+#include "Game/ResourceManager/Interface/IShaderManager.h"
 #include "Game/RendererManager/SkyboxRenderManager.h"
 
 /**
@@ -20,5 +21,6 @@ struct  ResourceContext {
 	IModelManager* modelManager;	// モデル管理クラス
 	ISpriteManager* spriteManager;	// スプライト管理クラス
 	ITextManager* textManager;		// テキスト管理クラス
+	IShaderManager* shaderManager;	// シェーダ管理クラス
 	ISkyboxManager* skyboxManager;	// スカイボックス管理クラス
 };

@@ -14,6 +14,7 @@
 #include "Game/Context/ResourceContext.h"
 #include "Game/Component/Default/Physics/Transform.h"
 
+#include "Game/Shader/Shader.h"
 
  /**
  * @brief モデル描画コンポーネント
@@ -24,7 +25,7 @@ class  ModelRenderer : public Component {
 private:
 
 	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
-	MyModel* m_pMyModel = nullptr;	// モデルのポインタ
+	MyModel* m_pMyModel		= nullptr;	// モデルのポインタ
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
 
@@ -32,6 +33,10 @@ private:
 	DirectX::SimpleMath::Color m_ambientColor = { 0.6f, 0.6f, 0.6f, 0.6f }; // アンビエントライトカラー
 
 	std::string m_modelKey;	// モデルのキー
+
+	std::unique_ptr<Shader> m_vertexShader;	// 頂点シェーダ
+	std::unique_ptr<Shader> m_pixelShader;	// ピクセルシェーダ
+	std::string m_shaderKey;			// シェーダのキー
 
 	// プロパティの設定
 	BeginProperty()
@@ -82,6 +87,11 @@ public:
 					}
 				});
 		}
+
+		m_vertexShader = std::make_unique<Shader>();
+		m_pixelShader = std::make_unique<Shader>();
+		m_vertexShader->SetShader(resourceContext.shaderManager->GetShaderInfo("Basic_VS"));
+		m_pixelShader->SetShader(resourceContext.shaderManager->GetShaderInfo("Basic_PS"));
 	}
 
 	// 取得/設定

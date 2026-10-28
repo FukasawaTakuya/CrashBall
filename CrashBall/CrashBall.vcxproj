@@ -395,10 +395,18 @@
     </ClInclude>
     <ClInclude Include="Game\RenderTexture\RenderTextureManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\IModelManager.h" />
+    <ClInclude Include="Game\ResourceManager\Interface\IShaderManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ResourceManager\Interface\ISpriteManager.h" />
     <ClInclude Include="Game\ResourceManager\Interface\ITextManager.h" />
     <ClInclude Include="Game\ResourceManager\ModelManager.h" />
     <ClInclude Include="Game\ResourceManager\ResourceManager.h" />
+    <ClInclude Include="Game\ResourceManager\ShaderManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\ResourceManager\SoundManager.h">
       <SubType>
       </SubType>
@@ -446,6 +454,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\ServiceLocator\ServiceLocator.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Shader\ConstantBufferInfo.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -604,6 +616,7 @@
     <ClCompile Include="Game\RenderTexture\RenderTextureManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ModelManager.cpp" />
     <ClCompile Include="Game\ResourceManager\ResourceManager.cpp" />
+    <ClCompile Include="Game\ResourceManager\ShaderManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SoundManager.cpp" />
     <ClCompile Include="Game\ResourceManager\SpriteManager.cpp" />
     <ClCompile Include="Game\ResourceManager\TextManager.cpp" />

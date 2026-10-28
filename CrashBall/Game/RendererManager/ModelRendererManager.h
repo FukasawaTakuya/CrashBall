@@ -42,6 +42,8 @@ public:
 
 	void RegisterRenderCommand(
 		MyModel* model,
+		Shader* vertexShader,
+		Shader* pixelShader,
 		const DirectX::SimpleMath::Matrix& world) override;
 
 	// •`‰æ–½—ß‚ÌƒNƒŠƒA

@@ -58,6 +58,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_spriteRendererManager     = std::make_unique<SpriteRendererManager>();
     m_modelRendererManager      = std::make_unique<ModelRendererManager>();
     m_textRendererManager       = std::make_unique<TextRendererManager>();
+    m_shaderManager             = std::make_unique<ShaderManager>();
     m_skyboxRenderManager       = std::make_unique<SkyboxRenderManager>();
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
@@ -80,6 +81,7 @@ void Game::Initialize(HWND window, int width, int height)
         m_modelManager.get(),
         m_spriteManager.get(),
         m_textManager.get(),
+        m_shaderManager.get(),
         m_skyboxRenderManager.get()
     };
 
@@ -493,6 +495,7 @@ void Game::CreateDeviceDependentResources()
     m_spriteManager->CreateSprite(device);
     m_modelManager->CreateModel(device);
     m_textManager->CreateSpriteFont(device);
+    m_shaderManager->CreateShader(device);
     m_skyboxRenderManager->CreateSkybox(device, context);
     
     // デバイス依存のリソース作成

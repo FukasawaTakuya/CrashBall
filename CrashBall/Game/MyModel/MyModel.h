@@ -57,12 +57,6 @@ private:
 	// テクスチャリスト
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
 
-	std::unique_ptr<Shader> m_vertexShader;
-	std::unique_ptr<Shader> m_pixelShader;
-
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantVS;	// 頂点シェーダ用定数バッファ
-	Microsoft::WRL::ComPtr<ID3D11Buffer> m_constantPS;	// ピクセルシェーダ用定数バッファ
-
 	Microsoft::WRL::ComPtr<ID3DBlob> m_blob;
 
 	// 入力レイアウト
@@ -86,6 +80,8 @@ public:
 		const DirectX::SimpleMath::Matrix& world,
 		const DirectX::SimpleMath::Matrix& view,
 		const DirectX::SimpleMath::Matrix& proj,
+		Shader* vertexShader,
+		Shader* pixelShader,
 		DirectX::CommonStates* states,
 		ID3D11DeviceContext1* context);
 

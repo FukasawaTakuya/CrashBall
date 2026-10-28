@@ -603,6 +603,15 @@
     <ClInclude Include="Game\Shader\Shader.h">
       <Filter>Game\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Shader\ConstantBufferInfo.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\ShaderManager.h">
+      <Filter>Game\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ResourceManager\Interface\IShaderManager.h">
+      <Filter>Game\ResourceManager\Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -907,6 +916,9 @@
     </ClCompile>
     <ClCompile Include="Game\Shader\Shader.cpp">
       <Filter>Game\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ResourceManager\ShaderManager.cpp">
+      <Filter>Game\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

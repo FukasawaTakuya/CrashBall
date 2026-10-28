@@ -47,7 +47,12 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 	//	renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
 
 	if(m_pMyModel != nullptr)
-		renderContext.modelRendererManager->RegisterRenderCommand(m_pMyModel, m_transform->GetWorld());
+		renderContext.modelRendererManager->
+		RegisterRenderCommand(
+			m_pMyModel, 
+			m_vertexShader.get(),
+			m_pixelShader.get(),
+			m_transform->GetWorld());
 }
 
 /**

@@ -19,17 +19,26 @@ using namespace DirectX;
  */
 void ModelRendererManager::RegisterRenderCommand(
 	DirectX::Model* model,
-	const DirectX::SimpleMath::Matrix& world
-)
+	const DirectX::SimpleMath::Matrix& world)
 {
 	m_renderCommand.emplace_back(model, world);
 }
 
+/**
+ * \brief 描画命令の登録
+ * 
+ * \param model モデル
+ * \param vertexShader 頂点シェーダ
+ * \param pixelShader　ピクセルシェーダ
+ * \param world ワールド行列
+ */
 void ModelRendererManager::RegisterRenderCommand(
-	MyModel* model, 
+	MyModel* model,
+	Shader* vertexShader,
+	Shader* pixelShader,
 	const DirectX::SimpleMath::Matrix& world)
 {
-	m_myrenderCommand.emplace_back(model, world);
+	m_myrenderCommand.emplace_back(model,vertexShader, pixelShader, world);
 }
 
 /**
@@ -57,17 +66,24 @@ void ModelRendererManager::Render(
 	const DirectX::SimpleMath::Matrix& proj
 )
 {
-	for (auto& renderCommand : m_renderCommand)
-	{
-		if (renderCommand.pModel == nullptr) return;
+	//for (auto& renderCommand : m_renderCommand)
+	//{
+	//	if (renderCommand.pModel == nullptr) return;
 
-		renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
-	}
+	//	renderCommand.pModel->Draw(context, *state, renderCommand.world, view, proj);
+	//}
 
 	for (auto& renderCommand : m_myrenderCommand)
 	{
 		if (renderCommand.pModel == nullptr) return;
 
-		renderCommand.pModel->Draw(renderCommand.world, view, proj, state, context);
+		renderCommand.pModel->Draw(
+			renderCommand.world, 
+			view, 
+			proj, 
+			renderCommand.vertexShader,
+			renderCommand.pixelShader,
+			state, 
+			context);
 	}
 }

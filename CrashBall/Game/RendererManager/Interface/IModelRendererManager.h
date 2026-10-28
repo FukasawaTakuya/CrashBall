@@ -11,6 +11,7 @@
 #include <Model.h>
 #include <SimpleMath.h>
 #include "Game/MyModel/MyModel.h"
+#include "Game/Shader/Shader.h"
 
 // 描画命令の登録用
 struct ModelRenderCommand
@@ -21,7 +22,9 @@ struct ModelRenderCommand
 // 描画命令の登録用
 struct MyModelRenderCommand
 {
-	MyModel* pModel;				// モデルのポインタ
+	MyModel* pModel;					// モデルのポインタ
+	Shader* vertexShader;				// 頂点シェーダ
+	Shader* pixelShader;				// ピクセルシェーダ
 	DirectX::SimpleMath::Matrix world;	// ワールド行列
 };
 
@@ -54,6 +57,8 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
 		MyModel* model,
+		Shader* vertexShader,
+		Shader* pixelShader,
 		const DirectX::SimpleMath::Matrix& world) = 0;
 
 	// 内部実装

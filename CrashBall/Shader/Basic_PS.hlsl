@@ -1,7 +1,7 @@
 #include "Basic.hlsli"
 
 // マテリアル情報
-cbuffer ConstBuffer : register(b1)
+cbuffer ConstBuffer : register(b0)
 {
     float4 BaseColor;
     float4 MaterialIndex;

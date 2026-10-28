@@ -23,8 +23,8 @@ private:
 	using MyModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<MyModel>>;
 
-	ModelCollection	m_models;	// モデルのキャッシュ
-	MyModelCollection	m_myModels;	// モデルのキャッシュ
+	ModelCollection	m_models;	// モデルのコンテナ
+	MyModelCollection	m_myModels;	// モデルのコンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ

@@ -42,6 +42,7 @@
 
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
+#include "Game/ResourceManager/ShaderManager.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -70,6 +71,7 @@ private:
     std::unique_ptr<SpriteManager>              m_spriteManager;                // スプライト管理
     std::unique_ptr<SoundManager>               m_soundManager;                 // サウンド管理
     std::unique_ptr<TextManager>                m_textManager;                  // テキスト管理
+    std::unique_ptr<ShaderManager>              m_shaderManager;                // シェーダ管理
 
     std::unique_ptr<ModelRendererManager>       m_modelRendererManager;         // モデル描画管理
     std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理
