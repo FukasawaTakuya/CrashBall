@@ -19,8 +19,6 @@ class  ModelRendererManager : public IModelRendererManager {
 private:
 
 	std::vector<ModelRenderCommand> m_renderCommand;	// 描画命令コンテナ
-	std::vector<MyModelRenderCommand> m_myrenderCommand;	// 描画命令コンテナ
-
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -36,10 +34,6 @@ public:
 public:
 
 	// 描画命令の登録
-	void RegisterRenderCommand(
-		DirectX::Model* model,
-		const DirectX::SimpleMath::Matrix& world) override;
-
 	void RegisterRenderCommand(
 		MyModel* model,
 		Shader* vertexShader,

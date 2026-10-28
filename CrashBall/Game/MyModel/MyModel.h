@@ -57,11 +57,6 @@ private:
 	// テクスチャリスト
 	std::vector<Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>> m_textureList;
 
-	Microsoft::WRL::ComPtr<ID3DBlob> m_blob;
-
-	// 入力レイアウト
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> m_inputLayout;
-
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:

@@ -16,12 +16,6 @@
 // 描画命令の登録用
 struct ModelRenderCommand
 {
-	DirectX::Model* pModel;				// モデルのポインタ
-	DirectX::SimpleMath::Matrix world;	// ワールド行列
-};
-// 描画命令の登録用
-struct MyModelRenderCommand
-{
 	MyModel* pModel;					// モデルのポインタ
 	Shader* vertexShader;				// 頂点シェーダ
 	Shader* pixelShader;				// ピクセルシェーダ
@@ -48,11 +42,6 @@ public:
 
 	// 取得/設定
 public:
-
-	// 描画命令の登録
-	virtual void RegisterRenderCommand(
-		DirectX::Model* model,
-		const DirectX::SimpleMath::Matrix& world) = 0;
 
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(

@@ -19,12 +19,9 @@ class  ModelManager : public IModelManager{
 private:
 
 	using ModelCollection 
-		= std::unordered_map<std::string, std::unique_ptr<DirectX::Model>>;
-	using MyModelCollection 
 		= std::unordered_map<std::string, std::unique_ptr<MyModel>>;
 
 	ModelCollection	m_models;	// モデルのコンテナ
-	MyModelCollection	m_myModels;	// モデルのコンテナ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -46,10 +43,7 @@ public:
 public:
 
 	// モデルの取得
-	DirectX::Model* GetModel(const std::string& key) override;
-
-	// モデルの取得
-	MyModel* GetMyModel(const std::string& key) override;
+	MyModel* GetModel(const std::string& key) override;
 
 	// 内部実装
 private:

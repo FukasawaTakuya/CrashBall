@@ -41,24 +41,10 @@ public:
 	// 操作
 public:
 
-	// 作成
-	template<typename T>
-	void Create(const std::wstring& filePath, ID3D11Device1* device)
-	{
-		// シェーダ
-		//Microsoft::WRL::ComPtr<T> comptr;
-		//m_shader = std::move(comptr);
-
-		//// バイナリ読み込み
-		//D3DReadFileToBlob(
-		//	filePath.c_str(),
-		//	m_blob.ReleaseAndGetAddressOf());
-
-		//Create(device);
-	}
-
+	// サブリソースの更新
 	void UpdateSubResources(ID3D11DeviceContext1* conetxt);
 
+	// コンテキストにシェーダを渡す
 	void Bind(ID3D11DeviceContext1* context);
 
 	// 取得/設定
@@ -88,5 +74,4 @@ public:
 
 	// 内部実装
 private:
-	//void Create(ID3D11Device1* device);
 };

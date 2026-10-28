@@ -12,10 +12,6 @@
                 {
                     "name": "skyboxKey",
                     "data": "skybox"
-                },
-                {
-                    "name": "pMainCamera",
-                    "data": 72
                 }
             ]
         }

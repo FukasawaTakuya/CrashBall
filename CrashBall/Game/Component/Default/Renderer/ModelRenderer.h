@@ -24,25 +24,22 @@ class  ModelRenderer : public Component {
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	DirectX::Model* m_pModel = nullptr;	// モデルのポインタ
-	MyModel* m_pMyModel		= nullptr;	// モデルのポインタ
+	MyModel* m_pModel		= nullptr;	// モデルのポインタ
 
 	Transform* m_transform = nullptr;	// トランスフォームのキャッシュ
-
-	DirectX::SimpleMath::Color m_diffuseColor = { 1.0f, 1.0f, 1.0f, 1.0f }; // ディフーズカラー
-	DirectX::SimpleMath::Color m_ambientColor = { 0.6f, 0.6f, 0.6f, 0.6f }; // アンビエントライトカラー
 
 	std::string m_modelKey;	// モデルのキー
 
 	std::unique_ptr<Shader> m_vertexShader;	// 頂点シェーダ
 	std::unique_ptr<Shader> m_pixelShader;	// ピクセルシェーダ
-	std::string m_shaderKey;			// シェーダのキー
+	std::string m_vertexShaderKey = "Basic_VS";	// 頂点シェーダのキー
+	std::string m_pixelShaderKey  = "Basic_PS";	// ピクセルシェーダのキー
 
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_modelKey, PropertyType::String)
-		AddProperty(m_diffuseColor, PropertyType::Color)
-		AddProperty(m_ambientColor, PropertyType::Color)
+		AddProperty(m_modelKey,			PropertyType::String)
+		AddProperty(m_vertexShaderKey,	PropertyType::String)
+		AddProperty(m_pixelShaderKey,	PropertyType::String)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -71,37 +68,18 @@ public:
 	// リソースの設定
 	void SetDeviceResource(const ResourceContext& resourceContext) override
 	{
+		// モデルの設定
 		m_pModel = resourceContext.modelManager->GetModel(m_modelKey);
-		m_pMyModel = resourceContext.modelManager->GetMyModel(m_modelKey);
 
-		if (m_pModel != nullptr)
-		{
-			m_pModel->UpdateEffects(
-				[&](DirectX::IEffect* effect) {
-
-					DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
-					if (basic)
-					{
-						basic->SetAmbientLightColor(m_ambientColor);
-						basic->SetDiffuseColor(m_diffuseColor);
-					}
-				});
-		}
-
+		// シェーダの設定
 		m_vertexShader = std::make_unique<Shader>();
 		m_pixelShader = std::make_unique<Shader>();
-		m_vertexShader->SetShader(resourceContext.shaderManager->GetShaderInfo("Basic_VS"));
-		m_pixelShader->SetShader(resourceContext.shaderManager->GetShaderInfo("Basic_PS"));
+		m_vertexShader->SetShader(resourceContext.shaderManager->GetShaderInfo(m_vertexShaderKey));
+		m_pixelShader->SetShader(resourceContext.shaderManager->GetShaderInfo(m_pixelShaderKey));
 	}
 
 	// 取得/設定
 public:
-
-	// モデルの取得 
-	DirectX::Model* GetModel() const
-	{
-		return m_pModel;
-	}
 	
 	// モデルのキーの取得
 	std::string GetModelKey() const
@@ -112,30 +90,23 @@ public:
 	// ディフーズカラーの取得
 	DirectX::SimpleMath::Color GetDiffuseColor() const
 	{
-		return m_diffuseColor;
+		return DirectX::SimpleMath::Color{ 1,1,1,1 };
 	}
 	// アンビエントカラーの取得
 	DirectX::SimpleMath::Color GetAmbientColor() const
 	{
-		return m_ambientColor;
-	}
-
-	// モデルの設定
-	void SetModel(IModelManager* modelManager)
-	{
+		return DirectX::SimpleMath::Color{ 1,1,1,1 };
 	}
 
 	// ディフーズカラーの設定
 	void SetDiffuseColor(const DirectX::SimpleMath::Color& color)
 	{
-		m_diffuseColor = color;
 		ApplyDiffuseColor();
 	}
 
 	// アンビエントライトカラーの設定
 	void SetAmbientColor(const DirectX::SimpleMath::Color& color)
 	{
-		m_ambientColor = color;
 		ApplyAmbientLight();
 	}
 

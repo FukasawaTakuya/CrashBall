@@ -30,7 +30,5 @@ public:
 public:
 
 	// ƒ‚ƒfƒ‹‚ÌŽæ“¾
-	virtual DirectX::Model* GetModel(const std::string& key) = 0;
-
-	virtual MyModel* GetMyModel(const std::string& key) = 0;
+	virtual MyModel* GetModel(const std::string& key) = 0;
 };

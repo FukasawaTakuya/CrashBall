@@ -40,16 +40,10 @@ void ModelRenderer::Awake()
  */
 void ModelRenderer::Render(const RenderContext& renderContext)
 {
-	if (m_pModel == nullptr) return;
-
-	// 描画命令の登録
-	//if(m_pModel != nullptr)
-	//	renderContext.modelRendererManager->RegisterRenderCommand(m_pModel, m_transform->GetWorld());
-
-	if(m_pMyModel != nullptr)
+	if(m_pModel != nullptr)
 		renderContext.modelRendererManager->
 		RegisterRenderCommand(
-			m_pMyModel, 
+			m_pModel, 
 			m_vertexShader.get(),
 			m_pixelShader.get(),
 			m_transform->GetWorld());
@@ -61,18 +55,7 @@ void ModelRenderer::Render(const RenderContext& renderContext)
  */
 void ModelRenderer::ApplyAmbientLight()
 {
-	if (m_pModel != nullptr)
-	{
-		m_pModel->UpdateEffects(
-			[&](DirectX::IEffect* effect) {
-
-				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
-				if (basic)
-				{
-					basic->SetAmbientLightColor(m_ambientColor);
-				}
-			});
-	}
+	
 }
 
 /**
@@ -81,17 +64,6 @@ void ModelRenderer::ApplyAmbientLight()
  */
 void ModelRenderer::ApplyDiffuseColor()
 {
-	if (m_pModel != nullptr)
-	{
-		m_pModel->UpdateEffects(
-			[&](DirectX::IEffect* effect) {
-
-				DirectX::BasicEffect* basic = dynamic_cast<DirectX::BasicEffect*>(effect);
-				if (basic)
-				{
-					basic->SetDiffuseColor(m_diffuseColor);
-				}
-			});
-	}
+	
 }
 

@@ -4,7 +4,7 @@
 cbuffer ConstBuffer : register(b0)
 {
     float4 BaseColor;
-    float4 MaterialIndex;
+    float4 TextureIndex;
     float4 LightDirection;
 }
 
@@ -15,7 +15,7 @@ SamplerState samplaer : register(s0);
 float4 main(PSInput pin) : SV_TARGET
 {
     // テクスチャを使うか
-    float useTex = step(0, MaterialIndex.x);
+    float useTex = step(0, TextureIndex.x);
     
     // ベースカラー
     float4 pout 
@@ -30,7 +30,6 @@ float4 main(PSInput pin) : SV_TARGET
     // ライトの計算
     pout *= float4(LightColor, 1.0f);
     //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, Dot));
-
-    
+        
     return pout;
 }

@@ -18,11 +18,13 @@ MyModel::MyModel()
 /**
  * \brief 描画
  * 
- * \param world
- * \param view
- * \param proj
- * \param states
- * \param context
+ * \param world ワールド行列
+ * \param view ビュー行列
+ * \param proj プロジェクション行列
+ * \param states コモンステート
+ * \param vertexShader 頂点シェーダ
+ * \param pixelShader ピクセルシェーダ
+ * \param context デバイスコンテキスト
  */
 void MyModel::Draw(
 	const DirectX::SimpleMath::Matrix& world,
@@ -56,22 +58,22 @@ void MyModel::Draw(
 	// ブレンドステートの設定
 	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
 	 
-	// 頂点シェーダ
-	auto vscb = vertexShader->GetConstatntBufferInfo("ConstBuffer");
-	if (vscb != nullptr)
+	// ==== VS ==== //
+	auto vsConstantBuffer = vertexShader->GetConstatntBufferInfo("ConstBuffer");
+	if (vsConstantBuffer != nullptr)
 	{
-		vscb->SetVariable("World", world);
-		vscb->SetVariable("View", view);
-		vscb->SetVariable("Proj", proj);
+		vsConstantBuffer->SetVariable("World", world);
+		vsConstantBuffer->SetVariable("View", view);
+		vsConstantBuffer->SetVariable("Proj", proj);
 
 		XMFLOAT4X4 worldInvertTranspose;
 		XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
-		vscb->SetVariable("WorldInvertTranspose", worldInvertTranspose);
+		vsConstantBuffer->SetVariable("WorldInvertTranspose", worldInvertTranspose);
 	}
 	vertexShader->UpdateSubResources(context);
 	vertexShader->Bind(context);
 	 
-	// ピクセルシェーダ
+	// ==== PS ==== //
 	// サンプラーをシェーダに渡す
 	auto sampler = states->LinearClamp();
 	context->PSSetSamplers(0, 1, &sampler);
@@ -86,12 +88,13 @@ void MyModel::Draw(
 		}
 		context->PSSetShaderResources(0, 1, &srv);
 
-		auto pscb = pixelShader->GetConstatntBufferInfo("ConstBuffer");
-		if (pscb != nullptr)
+		// 定数バッファの設定
+		auto psConstatnBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");
+		if (psConstatnBuffer != nullptr)
 		{
-			pscb->SetVariable("BaseColor", mat.baseColor);
-			pscb->SetVariable("MaterialIndex", mat.textureIndex);
-			pscb->SetVariable("LightDirection", XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f));
+			psConstatnBuffer->SetVariable("BaseColor", mat.baseColor);
+			psConstatnBuffer->SetVariable("TextureIndex", mat.textureIndex);
+			psConstatnBuffer->SetVariable("LightDirection", XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f));
 		}
 		pixelShader->UpdateSubResources(context);
 		pixelShader->Bind(context);
