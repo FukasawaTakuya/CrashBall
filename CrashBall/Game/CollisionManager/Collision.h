@@ -22,12 +22,17 @@
 
 #include "Game/GameObject/GameObject.h"
 
+struct ResolveInfo
+{
+	float overlap = 0.0f;
+	DirectX::SimpleMath::Vector3 direction;
+};
+
 // Õ“Ëî•ñ
 struct CollisionInfo
 {
 	bool isCollsion = false;
-	float overlap = 0.0f;
-	DirectX::SimpleMath::Vector3 direction;
+	std::vector<ResolveInfo> resolve;
 	Collider* col1 = nullptr;
 	Collider* col2 = nullptr;
 };

@@ -30,7 +30,6 @@ private:
 
 	ModelRenderer* m_modelRenderer;	// モデル描画
 
-	std::vector<float> m_boundingRadius;// 境界球の半径
 	std::vector<int> m_collideFaceIndex;// 衝突面のインデックス
 
 	// プロパティの設定
@@ -57,6 +56,9 @@ public:
 	// アタッチ時の処理
 	void Awake() override;
 
+	// 開始処理
+	void Start(const GameContext& gameContext) override;
+
 	// コライダーの描画
 	void DrawCollider() override {}
 
@@ -66,8 +68,18 @@ public:
 	// 回転
 	void Rotate();
 
+	// 衝突インデックスを追加
+	void AddColliderFaceIndex(int index)
+	{
+		m_collideFaceIndex.push_back(index);
+	}
+
 	// 衝突した面のクリア
-	void ClearCollideFace() { m_collideFace.clear(); }
+	void ClearCollideFace() 
+	{ 
+		m_collideFace.clear(); 
+		m_collideFaceIndex.clear();
+	}
 
 	// 取得/設定
 public:
@@ -87,8 +99,11 @@ public:
 	// 衝突した面の設定
 	void SetCollideFace(Triangle* face) { m_collideFace.emplace_back(face); }
 
-	// 三角ポリゴンの取得
-	Triangle GetTriangle(int index);
+	// 衝突した面のインデックスを取得
+	const std::vector<int>& GetCollideFaceIndex() const
+	{
+		return m_collideFaceIndex;
+	}
 
 	// 内部実装
 private:
@@ -105,6 +120,6 @@ private:
 		return m_compName;
 	}
 
-	// 境界球の半径を求める
-	void CalcBoudingRadius();
+	// メッシュの生成
+	void CreateMesh();
 };

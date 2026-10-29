@@ -56,8 +56,8 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 		// シーン変更
 		m_currentScene = std::make_unique<Scene>(m_jsonManagers[sceneName].get());
 		m_gameViewTexture->SetCamera(GetCamera());
+		// リソースの作成
 		m_currentScene->Awake();
-		m_currentScene->Start(*m_pGameContext);
 	}
 }
 

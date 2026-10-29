@@ -179,8 +179,10 @@ CollisionInfo Collision::IsCollision(Sphere* sphere1, Sphere* sphere2)
 		// 半径の和
 		float radiusSum = sphere1->GetRadius() + sphere2->GetRadius();
 
-		collsionInfo.direction = direction;
-		collsionInfo.overlap = radiusSum - delta.Length();
+		ResolveInfo resolve;
+		resolve.direction = direction;
+		resolve.overlap = radiusSum - delta.Length();
+		collsionInfo.resolve.push_back(resolve);
 
 		collsionInfo.col1 = sphere1;
 		collsionInfo.col2 = sphere2;
@@ -217,8 +219,10 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Plane& plane)
 		// 球と平面の距離を求める
 		float distance = plane.CalcLength(transform->GetWorldPosition());
 
-		collsionInfo.direction = plane.GetNormal();
-		collsionInfo.overlap = sphere->GetRadius() - distance;
+		ResolveInfo resolve;
+		resolve.direction = plane.GetNormal();
+		resolve.overlap = sphere->GetRadius() - distance;
+		collsionInfo.resolve.push_back(resolve);
 	}
 
 	return collsionInfo;
@@ -307,23 +311,16 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 
 	// メッシュの各面と球の衝突判定
 	for (auto& face : mesh->GetFace()) {
-		collsionInfo = Collision::IsCollision(sphere, *face.get());
-		if (collsionInfo.isCollsion) {
+		CollisionInfo triangleCollsionInfo = Collision::IsCollision(sphere, *face.get());
+		if (triangleCollsionInfo.isCollsion) {
 			mesh->SetCollideFace(face.get());
+			collsionInfo.resolve.push_back(triangleCollsionInfo.resolve.front());
+			collsionInfo.col1 = sphere;
+			collsionInfo.col2 = mesh;
 		}
 	}
 	// 衝突している面があるならtrue
 	collsionInfo.isCollsion = !mesh->GetCollideFace().empty();
-
-	// 衝突している場合
-	if (collsionInfo.isCollsion)
-	{
-		// 衝突情報を得るために衝突面ともう一度判定
-		collsionInfo = Collision::IsCollision(sphere, *mesh->GetCollideFace()[0]);
-
-		collsionInfo.col1 = sphere;
-		collsionInfo.col2 = mesh;
-	}
 
 	return collsionInfo;
 }
@@ -352,11 +349,12 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Doom* doom)
 		// 許容距離
 		float limitDistance = doom->GetRadius() - sphere->GetRadius();
 
+		ResolveInfo resolve;
 		// 補正距離
-		collsionInfo.overlap = delta.Length() - limitDistance;
-
+		resolve.overlap = delta.Length() - limitDistance;
 		// 補正方向
-		collsionInfo.direction = XMVector3Normalize(delta);
+		resolve.direction = XMVector3Normalize(delta);
+		collsionInfo.resolve.push_back(resolve);
 
 		collsionInfo.col1 = sphere;
 		collsionInfo.col2 = doom;
@@ -400,35 +398,38 @@ void Collision::ResolveCollision(CollisionInfo collisionInfo)
 
 	float dynamicSum = isDynamic1 + isDynamic2;
 
-	SimpleMath::Vector3 direction = collisionInfo.direction;
-	float overlap = collisionInfo.overlap;
+	for (auto& resolve : collisionInfo.resolve)
+	{
+		SimpleMath::Vector3 direction = resolve.direction;
+		float overlap = resolve.overlap;
 
-	// 座標の補正
-	transform1->Translate( direction * overlap * isDynamic1 / dynamicSum);
-	transform2->Translate(-direction * overlap * isDynamic2 / dynamicSum);
+		// 座標の補正
+		transform1->Translate(direction * overlap * isDynamic1 / dynamicSum);
+		transform2->Translate(-direction * overlap * isDynamic2 / dynamicSum);
 
-	// 速度の補正
-	SimpleMath::Vector3 vn1;
-	SimpleMath::Vector3 vn2;
-	SimpleMath::Vector3 vt1;
-	SimpleMath::Vector3 vt2;
-	if (rigidbody1 != nullptr)
-	{
-		vn1 = rigidbody1->GetVelocity().Dot(direction) * direction;
-		vt1 = rigidbody1->GetVelocity() - vn1;
-	}
-	if (rigidbody2 != nullptr)
-	{
-		vn2 = rigidbody2->GetVelocity().Dot(direction) * direction;
-		vt2 = rigidbody2->GetVelocity() - vn2;
-	}
-	if (rigidbody1)
-	{
-		rigidbody1->SetVelocity(vn2 + vt1);
-	}
-	if (rigidbody2)
-	{
-		rigidbody2->SetVelocity(vn1 + vt2);
+		// 速度の補正
+		SimpleMath::Vector3 vn1;
+		SimpleMath::Vector3 vn2;
+		SimpleMath::Vector3 vt1;
+		SimpleMath::Vector3 vt2;
+		if (rigidbody1 != nullptr)
+		{
+			vn1 = rigidbody1->GetVelocity().Dot(direction) * direction;
+			vt1 = rigidbody1->GetVelocity() - vn1;
+		}
+		if (rigidbody2 != nullptr)
+		{
+			vn2 = rigidbody2->GetVelocity().Dot(direction) * direction;
+			vt2 = rigidbody2->GetVelocity() - vn2;
+		}
+		if (rigidbody1)
+		{
+			rigidbody1->SetVelocity(vn2 + vt1);
+		}
+		if (rigidbody2)
+		{
+			rigidbody2->SetVelocity(vn1 + vt2);
+		}
 	}
 }
 

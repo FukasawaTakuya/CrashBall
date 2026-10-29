@@ -170,6 +170,8 @@ void Game::Initialize(HWND window, int width, int height)
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
 
+    m_sceneManager->Start();
+
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
     /*
@@ -232,9 +234,9 @@ void Game::Update(DX::StepTimer const& timer)
     m_sceneManager->Update();
 
     // BGMの再生
-    //m_soundPlayer->PlayBgm(m_soundManager.get());
-    //// SEの再生
-    //m_soundPlayer->PlaySe(m_soundManager.get());
+    m_soundPlayer->PlayBgm(m_soundManager.get());
+    // SEの再生
+    m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();

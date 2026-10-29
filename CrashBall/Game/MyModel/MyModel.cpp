@@ -50,7 +50,7 @@ void MyModel::Draw(
 	context->IASetInputLayout(vertexShader->GetInputLayOut());
 
 	// ==== RS ==== //
-	context->RSSetState(states->CullNone());
+	context->RSSetState(states->CullClockwise());
 
 	// ==== OM ==== //
 	// 深度ステンシルステートの設定
@@ -89,12 +89,12 @@ void MyModel::Draw(
 		pixelShader->GetShaderTextrueInfo("Texture")->texture = srv;
 
 		// 定数バッファの設定
-		auto psConstatnBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");
-		if (psConstatnBuffer != nullptr)
+		auto psConstantBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");
+		if (psConstantBuffer != nullptr)
 		{
-			psConstatnBuffer->SetVariable("BaseColor", mat.baseColor);
-			psConstatnBuffer->SetVariable("TextureIndex", mat.textureIndex);
-			psConstatnBuffer->SetVariable("LightDirection", XMFLOAT4(0.0f, -1.0f, 0.5f, 1.0f));
+			psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
+			psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
+			psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(1.0f, -1.0f, 1.0f, 1.0f));
 		}
 		pixelShader->UpdateSubResources(context);
 		pixelShader->Bind(context);
@@ -223,28 +223,4 @@ void MyModel::Create(
 
 		m_textureList.push_back(std::move(texture));
 	}
-
-	// ==================== 別に分ける ======================== //
-
-	//m_vertexShader = std::make_unique<Shader>();
-	//m_pixelShader = std::make_unique<Shader>();
-
-	//m_vertexShader->Create<ID3D11VertexShader>(L"Resources/Shader/Basic_VS.cso", device);
-	//m_pixelShader->Create<ID3D11PixelShader>(L"Resources/Shader/Basic_PS.cso", device);
-
-	//// 入力レイアウトの作成
-	//D3D11_INPUT_ELEMENT_DESC inputDesc[] = 
-	//{
-	//	{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	//	{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	//	{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
-	//};
-
-	//DX::ThrowIfFailed(
-	//	device->CreateInputLayout(
-	//		inputDesc,
-	//		_countof(inputDesc),
-	//		m_vertexShader->GetBlob()->GetBufferPointer(),
-	//		m_vertexShader->GetBlob()->GetBufferSize(),
-	//		m_inputLayout.ReleaseAndGetAddressOf()));
 }

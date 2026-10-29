@@ -66,6 +66,24 @@
                 {
                     "name": "pixelShaderKey",
                     "data": "Basic_PS"
+                },
+                {
+                    "name": "diffuseColor",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.9803921580314636,
+                        "g": 0.8078431487083435,
+                        "r": 0.529411792755127
+                    }
+                },
+                {
+                    "name": "ambientColor",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
+                    }
                 }
             ]
         },

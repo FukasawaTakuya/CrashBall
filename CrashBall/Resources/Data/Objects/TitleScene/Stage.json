@@ -42,7 +42,7 @@
             "properties": [
                 {
                     "name": "meshData",
-                    "data": "Resources/Mesh/newStage.json"
+                    "data": "Resources/Mesh/GPTStage.json"
                 },
                 {
                     "name": "layerMaskType",
@@ -53,11 +53,48 @@
         {
             "compName": "StageController",
             "id": 9,
-            "isActive": true,
+            "isActive": false,
             "properties": [
                 {
                     "name": "floorNormalY",
                     "data": 0.10000000149011612
+                }
+            ]
+        },
+        {
+            "compName": "ModelRenderer",
+            "id": 93,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "modelKey",
+                    "data": "GPTStage2"
+                },
+                {
+                    "name": "vertexShaderKey",
+                    "data": "Basic_VS"
+                },
+                {
+                    "name": "pixelShaderKey",
+                    "data": "Basic_PS"
+                },
+                {
+                    "name": "diffuseColor",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
+                    }
+                },
+                {
+                    "name": "ambientColor",
+                    "data": {
+                        "a": 1.0,
+                        "b": 0.0,
+                        "g": 0.0,
+                        "r": 0.0
+                    }
                 }
             ]
         }
