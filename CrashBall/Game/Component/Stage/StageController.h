@@ -8,18 +8,17 @@
 
 #pragma once
 
-#include "../Default/Component.h"
 #include "IWallMeshGetter.h"
 #include "IFloorMeshGetter.h"
 #include "IPaintConsumer.h"
 
+#include "Game/Component/Default/Component.h"
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Physics/Transform.h"
+
 #include "Game/ScriptableObject/ScriptableObject.h"
-
 #include "Game/ScriptableObject/GameColor.h"
-
 
 /**
  * \brief ステージ操作コンポーネント
@@ -124,4 +123,12 @@ private:
 	{
 		return m_compName;
 	}
+
+
+	bool CalculateUV(
+		const DirectX::SimpleMath::Vector3& p,
+		const Vertex& a,
+		const Vertex& b,
+		const Vertex& c,
+		DirectX::SimpleMath::Vector2& outUV);
 };

@@ -38,15 +38,13 @@ void MyRenderTexture::Begin(ID3D11DeviceContext1* context)
 
     context->ClearRenderTargetView(
         renderTargetView,
-        clearColor
-    );
+        clearColor);
 
     context->ClearDepthStencilView(
         depthStencil,
         D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
         1.0f,
-        0
-    );
+        0);
 
     SimpleMath::Matrix view = m_camera->GetView();
     SimpleMath::Matrix proj = m_camera->GetProj();
@@ -55,8 +53,7 @@ void MyRenderTexture::Begin(ID3D11DeviceContext1* context)
     context->OMSetRenderTargets(
         1,
         &renderTargetView,
-        depthStencil
-    );
+        depthStencil);
 }
 
 /**

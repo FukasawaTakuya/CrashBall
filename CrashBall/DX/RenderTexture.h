@@ -49,6 +49,7 @@ namespace DX
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      m_renderTargetView;
         Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_shaderResourceView;
         Microsoft::WRL::ComPtr<ID3D11Texture2D>             m_depthStencilTexture;
+        Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_depthStencilShaderResourceView;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      m_depthSetncilView;
 
         DXGI_FORMAT                                         m_format;

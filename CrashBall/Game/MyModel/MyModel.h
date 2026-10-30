@@ -21,9 +21,9 @@ struct ModelHeader
 
 struct Vertex
 {
-	DirectX::XMFLOAT3 position;	// ポジション
-	DirectX::XMFLOAT3 normal;	// 法線
-	DirectX::XMFLOAT2 uv;		// UV座標
+	DirectX::SimpleMath::Vector3 position;	// ポジション
+	DirectX::SimpleMath::Vector3 normal;	// 法線
+	DirectX::SimpleMath::Vector2 uv;		// UV座標
 };
 
 struct Submesh

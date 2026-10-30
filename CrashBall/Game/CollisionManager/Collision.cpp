@@ -310,6 +310,7 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	mesh->ClearCollideFace();
 
 	// メッシュの各面と球の衝突判定
+	int index = 0;
 	for (auto& face : mesh->GetFace()) {
 		CollisionInfo triangleCollsionInfo = Collision::IsCollision(sphere, *face.get());
 		if (triangleCollsionInfo.isCollsion) {
@@ -317,7 +318,9 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 			collsionInfo.resolve.push_back(triangleCollsionInfo.resolve.front());
 			collsionInfo.col1 = sphere;
 			collsionInfo.col2 = mesh;
+			mesh->AddColliderFaceIndex(index);
 		}
+		index++;
 	}
 	// 衝突している面があるならtrue
 	collsionInfo.isCollsion = !mesh->GetCollideFace().empty();

@@ -197,3 +197,30 @@ void StageController::PaintFace(
 		m_floorMeshColor[face] = color;
 	}
 }
+
+bool StageController::CalculateUV(
+	const DirectX::SimpleMath::Vector3& p, 
+	const Vertex& a, 
+	const Vertex& b, 
+	const Vertex& c, 
+	DirectX::SimpleMath::Vector2& outUV)
+{
+	//α＝{ (By - Cy)(Px - Cx) + (Cx - Bx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
+	//β＝{ (Cy - Ay)(Px - Cx) + (Ax - Cx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
+	//γ＝１−αーβ
+
+	float denominator = (b.position.y - c.position.y) * (a.position.x - c.position.x) 
+					+ (c.position.x - b.position.x) * (a.position.y - c.position.y);
+
+	float alpha = ((b.position.y - c.position.y) * (p.x - c.position.x) + (c.position.x - b.position.x) * (p.y - c.position.y))
+		/ denominator;
+
+	float beta = ((c.position.y - a.position.y) * (p.x - c.position.x) + (a.position.x - c.position.x) * (p.y - c.position.y))
+		/ denominator;
+
+	float gamma = 1.0f - alpha - beta;
+
+	outUV = a.uv * alpha + b.uv * beta + c.uv * gamma;
+
+	return true;
+}

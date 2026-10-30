@@ -233,10 +233,10 @@ void Game::Update(DX::StepTimer const& timer)
     }
     m_sceneManager->Update();
 
-    // BGMの再生
-    m_soundPlayer->PlayBgm(m_soundManager.get());
-    // SEの再生
-    m_soundPlayer->PlaySe(m_soundManager.get());
+    //// BGMの再生
+    //m_soundPlayer->PlayBgm(m_soundManager.get());
+    //// SEの再生
+    //m_soundPlayer->PlaySe(m_soundManager.get());
 
     // サウンドの更新
     m_soundPlayer->Update();
@@ -255,15 +255,6 @@ void Game::Update(DX::StepTimer const& timer)
         m_resourceContext);
 
     m_inputSystem->ResetWheelValue();
-
-    if (m_inputSystem->GetKeyTrigger(Keyboard::Enter))
-    {
-        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
-        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
-        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
-        //model.Create(m_deviceResources->GetD3DDevice(), "Resources/MyModel/obj.fmodel");
-        //m_modelManager->CreateModel(m_deviceResources->GetD3DDevice());
-    }
 }
 #pragma endregion
 
@@ -298,9 +289,12 @@ void Game::Render()
 
     // 元のビューポート
     auto defaultViewport = m_deviceResources->GetScreenViewport();
+    // 元のレンダーターゲット
     auto defaultRenderTarget = m_deviceResources->GetRenderTargetView();
+    // 元の深度ステンシル
     auto defaultDepthStencil = m_deviceResources->GetDepthStencilView();
 
+    // レンダーテクスチャに描画
     for (auto& renderTexture : *m_renderTextrueManger->GetRenderTextureList())
     {
         SimpleMath::Matrix view = renderTexture->GetCamera()->GetView();
@@ -309,9 +303,6 @@ void Game::Render()
         // 描画命令の実行
         DoRenderCommandNoneSprite(view, proj, context);
     }
-
-    context->RSSetViewports(1, &defaultViewport);
-    context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
 
     SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
     SimpleMath::Matrix gameProj = m_gameViewTexture->GetCamera()->GetProj();
@@ -337,6 +328,7 @@ void Game::Render()
     else
     {
         context->RSSetViewports(1, &defaultViewport);
+        context->OMSetRenderTargets(1, &defaultRenderTarget, defaultDepthStencil);
         // 描画命令の実行
         DoRenderCommand(gameView, gameProj, context);
     }
