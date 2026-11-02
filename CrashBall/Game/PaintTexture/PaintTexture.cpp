@@ -11,6 +11,11 @@
 
 using namespace DirectX;
 
+/**
+ * \brief ペイントテクスチャ
+ * 
+ * \param format
+ */
 PaintTexture::PaintTexture(DXGI_FORMAT format)
 	: MyRenderTexture(format)
 {

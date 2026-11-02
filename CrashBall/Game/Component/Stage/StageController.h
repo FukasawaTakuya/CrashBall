@@ -129,11 +129,19 @@ private:
 		return m_compName;
 	}
 
+	// 面を塗る
+	void PaintFace(const DirectX::SimpleMath::Color& color);
 
-	bool CalculateUV(
+	// 衝突点からUV座標を求める
+	DirectX::SimpleMath::Vector2 CalcUV(
 		const DirectX::SimpleMath::Vector3& p,
 		const Vertex& a,
 		const Vertex& b,
-		const Vertex& c,
-		DirectX::SimpleMath::Vector2& outUV);
+		const Vertex& c);
+
+	DirectX::SimpleMath::Vector2 ToXZ(
+		const DirectX::SimpleMath::Vector3& axisX,
+		const DirectX::SimpleMath::Vector3& axisY,
+		const DirectX::SimpleMath::Vector3& origin,
+		const DirectX::SimpleMath::Vector3& point);
 };

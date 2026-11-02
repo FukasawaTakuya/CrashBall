@@ -77,49 +77,14 @@ void StageController::Start(const GameContext& gameContext)
 			// 衝突オブジェクトがプレイヤーの時の処理
 			if (other->GetGameObject()->GetTag() == ObjectTag::Player)
 			{
-				//for (auto& hitface : m_meshCollider->GetCollideFace())
-				//{
-				//	PaintFace(hitface, m_gameColor->m_playerColor);
-				//}
-
-				auto& faces = m_meshCollider->GetFace();
-				auto& indexList = m_model->GetIndexList();
-				for (auto& index : m_meshCollider->GetCollideFaceIndex())
-				{
-					const Vertex v0 = m_model->GetVertex(indexList[index] * 3 + 0);
-					const Vertex v1 = m_model->GetVertex(indexList[index] * 3 + 1);
-					const Vertex v2 = m_model->GetVertex(indexList[index] * 3 + 2);
-
-					auto collisionPos = faces[index]->GetCollisionPos();
-
-					SimpleMath::Vector2 uv;
-					CalculateUV(collisionPos, v0, v1, v2, uv);
-					Paint::Paint(uv, m_gameColor->m_playerColor);
-
-					//OutputDebugStringA(std::format("fx:{} fy:{} fz:{}\n", collisionPos.x, collisionPos.y, collisionPos.z).c_str());
-					//OutputDebugStringA(std::format("uvx:{} uvy:{}\n", uv.x, uv.y).c_str());
-				}
+				PaintFace(m_gameColor->m_playerColor);
 			}
 			// 衝突オブジェクトが敵の時の処理
 			else if (other->GetGameObject()->GetTag() == ObjectTag::Enemy)
 			{
-				auto& faces = m_meshCollider->GetFace();
-				auto& indexList = m_model->GetIndexList();
-				for (auto& index : m_meshCollider->GetCollideFaceIndex())
-				{
-					const Vertex v0 = m_model->GetVertex(indexList[index] * 3 + 0);
-					const Vertex v1 = m_model->GetVertex(indexList[index] * 3 + 1);
-					const Vertex v2 = m_model->GetVertex(indexList[index] * 3 + 2);
-
-					auto collisionPos = faces[index]->GetCollisionPos();
-
-					SimpleMath::Vector2 uv;
-					CalculateUV(collisionPos, v0, v1, v2, uv);
-					Paint::Paint(uv, m_gameColor->m_enemyColor);
-				}
+				PaintFace(m_gameColor->m_enemyColor);
 			}
 		});
-
 }
 
 /**
@@ -164,48 +129,6 @@ void StageController::Update(const GameContext& gameContext)
  */
 void StageController::Render(const RenderContext& renderContext)
 {
-	auto& primitiveRenderer = renderContext.primitiveRendererManager;
-
-	// 描画
-	for (auto& face : m_meshCollider->GetCollideFace())
-	{
-		// 面の色
-		DirectX::SimpleMath::Color faceColor = {1.0f, 0.0f, 0.0f, 1.0f};
-
-		// 面の色情報が登録されているなら
-		//auto it = m_floorMeshColor.find(face.get());
-		//if (it != m_floorMeshColor.end())
-		//{
-		//	faceColor = it->second;
-		//}
-
-		// 頂点
-		//std::vector<DirectX::VertexPositionNormalColor> pos
-		//{
-		//	VertexPositionNormalColor(face->GetPoint()[0], face->GetPlane()->GetNormal(), faceColor),
-		//	VertexPositionNormalColor(face->GetPoint()[1], face->GetPlane()->GetNormal(), faceColor),
-		//	VertexPositionNormalColor(face->GetPoint()[2], face->GetPlane()->GetNormal(), faceColor)
-		//};
-
-		//// 描画命令登録
-		//primitiveRenderer->RegisterRenderCommand(
-		//	D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
-		//	pos);
-
-		auto colPos = face->GetCollisionPos();
-
-		std::vector<DirectX::VertexPositionNormalColor> pos2
-		{
-			VertexPositionNormalColor(colPos, face->GetPlane()->GetNormal(), faceColor),
-			VertexPositionNormalColor(colPos + face->GetPlane()->GetNormal() * 4, face->GetPlane()->GetNormal(), faceColor),
-		};
-
-		primitiveRenderer->RegisterRenderCommand(
-			D3D11_PRIMITIVE_TOPOLOGY_LINELIST,
-			pos2);
-		//OutputDebugStringA(std::format("x:{} y:{} z:{}\n\n", colPos.x, colPos.y, colPos.z).c_str());
-
-	}
 }
 
 
@@ -256,64 +179,97 @@ void StageController::PaintFace(
 	}
 }
 
-bool StageController::CalculateUV(
+/**
+ * \brief 面を塗る
+ * 
+ * \param color 色
+ */
+void StageController::PaintFace(const DirectX::SimpleMath::Color& color)
+{
+	auto& faces = m_meshCollider->GetFace();
+	auto& indexList = m_model->GetIndexList();
+	for (auto& index : m_meshCollider->GetCollideFaceIndex())
+	{
+		const Vertex v0 = m_model->GetVertex(indexList[index] * 3 + 0);
+		const Vertex v1 = m_model->GetVertex(indexList[index] * 3 + 1);
+		const Vertex v2 = m_model->GetVertex(indexList[index] * 3 + 2);
+
+		auto collisionPos = faces[index]->GetCollisionPos();
+
+		SimpleMath::Vector2 uv = CalcUV(collisionPos, v0, v1, v2);
+		Paint::Paint(uv, color);
+	}
+}
+
+/**
+ * \brief 衝突点からUV座標を求める
+ * 
+ * \param p 衝突点
+ * \param a 三角形の頂点
+ * \param b 三角形の頂点
+ * \param c 三角形の頂点
+ * \return 
+ */
+DirectX::SimpleMath::Vector2 StageController::CalcUV(
 	const DirectX::SimpleMath::Vector3& p, 
 	const Vertex& a, 
 	const Vertex& b, 
-	const Vertex& c, 
-	DirectX::SimpleMath::Vector2& outUV)
+	const Vertex& c)
 {
+	SimpleMath::Vector2 outUV;
+
+	// XZ平面に直す
+	SimpleMath::Vector3 axisX = XMVector3Normalize(b.position - a.position);
+	SimpleMath::Vector3 axisY = a.normal.Cross(axisX);
+
+	SimpleMath::Vector2 xza = ToXZ(axisX, axisY, a.position, a.position);
+	SimpleMath::Vector2 xzb = ToXZ(axisX, axisY, a.position, b.position);
+	SimpleMath::Vector2 xzc = ToXZ(axisX, axisY, a.position, c.position);
+	SimpleMath::Vector2 xzp = ToXZ(axisX, axisY, a.position, p / m_transform->GetWorldScale());
+
 	// それぞれの頂点から衝突点への係数を求める
 	//α＝{ (By - Cy)(Px - Cx) + (Cx - Bx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
 	//β＝{ (Cy - Ay)(Px - Cx) + (Ax - Cx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
 	//γ＝１−αーβ
-	//float denominator = (b.position.y - c.position.y) * (a.position.x - c.position.x) 
-	//				+ (c.position.x - b.position.x) * (a.position.y - c.position.y);
+	float denominator = (xzb.y - xzc.y) * (xza.x - xzc.x) 
+					+ (xzc.x - xzb.x) * (xza.y - xzc.y);
 
-	//if (denominator == 0.0f) return false;
+	if (denominator == 0.0f) return outUV;
 
-	//float alpha = ((b.position.y - c.position.y) * (p.x - c.position.x) + (c.position.x - b.position.x) * (p.y - c.position.y))
-	//	/ denominator;
+	float alpha = ((xzb.y - xzc.y) * (xzp.x - xzc.x) + (xzc.x - xzb.x) * (xzp.y - xzc.y))
+		/ denominator;
 
-	//float beta = ((c.position.y - a.position.y) * (p.x - c.position.x) + (a.position.x - c.position.x) * (p.y - c.position.y))
-	//	/ denominator;
+	float beta = ((xzc.y - xza.y) * (xzp.x - xzc.x) + (xza.x - xzc.x) * (xzp.y - xzc.y))
+		/ denominator;
 
-	//float gamma = 1.0f - alpha - beta;
+	float gamma = 1.0f - alpha - beta;
 
-	//outUV = a.uv * alpha + b.uv * beta + c.uv * gamma;
+	outUV = a.uv * alpha + b.uv * beta + c.uv * gamma;
 
-	// 三角形の辺と接触位置へのベクトル
-	SimpleMath::Vector3 v0 = (b.position - a.position) * m_transform->GetWorldScale();
-	SimpleMath::Vector3 v1 = (c.position - a.position) * m_transform->GetWorldScale();
-	SimpleMath::Vector3 v2 = p - a.position * m_transform->GetWorldScale();
+	return outUV;
+}
+/**
+ * \brief XZ平面に直す
+ * 
+ * \param axisX X軸
+ * \param axisY Y軸
+ * \param origin 原点
+ * \param point 直したい点
+ * \return 
+ */
+DirectX::SimpleMath::Vector2 StageController::ToXZ(
+	const DirectX::SimpleMath::Vector3& axisX, 
+	const DirectX::SimpleMath::Vector3& axisY, 
+	const DirectX::SimpleMath::Vector3& origin, 
+	const DirectX::SimpleMath::Vector3& point)
+{
+	SimpleMath::Vector3 vec = point - origin;
 
-	// 内積
-	float d00 = v0.Dot(v0);
-	float d01 = v0.Dot(v1);
-	float d11 = v1.Dot(v1);
-	float d20 = v2.Dot(v0);
-	float d21 = v2.Dot(v1);
+	SimpleMath::Vector2 xz =
+	{
+		axisX.Dot(vec),
+		axisY.Dot(vec)
+	};
 
-	float denom = d00 * d11 - d01 * d01;
-
-	// 退化した三角形を除外
-	if (std::abs(denom) < 1e-8f)
-		return false;
-
-	// 重心座標
-	float wB = (d11 * d20 - d01 * d21) / denom;
-	float wC = (d00 * d21 - d01 * d20) / denom;
-	float wA = 1.0f - wB - wC;
-
-	// 三角形の外側なら失敗
-	constexpr float epsilon = 1e-4f;
-
-	if (wA < -epsilon || wB < -epsilon ||
-		wC < -epsilon)
-		return false;
-
-	// UVを補間
-	outUV = a.uv * wA + b.uv * wB + c.uv * wC;
-
-	return true;
+	return xz;
 }
