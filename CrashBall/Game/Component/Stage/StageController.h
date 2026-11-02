@@ -34,6 +34,11 @@ private:
 	const GameColor* m_gameColor = nullptr;
 	
 	Mesh* m_meshCollider = nullptr;	// コンポーネントのキャッシュ
+	Transform* m_transform = nullptr;
+	ModelRenderer* m_modelRenderer;
+
+	const MyModel* m_model = nullptr;
+	ShaderTextrueInfo* m_paintTextureInfo;
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 

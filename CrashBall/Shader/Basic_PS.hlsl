@@ -32,5 +32,5 @@ float4 main(PSInput pin) : SV_TARGET
     pout *= float4(LightColor, 1.0f);
         
     return pout;
-    return float4(normalize(pin.Normal) * 0.5f + 0.5f, 1.0f);
+    return float4(pin.Texcoord,0.0f, 1.0f);
 }

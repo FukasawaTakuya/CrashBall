@@ -107,6 +107,17 @@ public:
 		return m_pModel;
 	}
 
+	// 頂点シェーダの取得
+	const Shader* GetVertexShader() const
+	{
+		return m_vertexShader.get();
+	}
+	// ピクセルシェーダの取得
+	Shader* GetPixelShader() const
+	{
+		return m_pixelShader.get();
+	}
+
 	// ディフーズカラーの設定
 	void SetDiffuseColor(const DirectX::SimpleMath::Color& color)
 	{

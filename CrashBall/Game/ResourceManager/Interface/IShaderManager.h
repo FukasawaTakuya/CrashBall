@@ -65,7 +65,7 @@ struct ConstantBufferInfo
 struct ShaderTextrueInfo
 {
 	std::string name;
-	ID3D11ShaderResourceView* texture;
+	ID3D11ShaderResourceView* texture = nullptr;
 	uint32_t registerSlot;
 };
 

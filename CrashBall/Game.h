@@ -43,6 +43,7 @@
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
 #include "Game/ResourceManager/ShaderManager.h"
+#include "Game/PaintTexture/PaintTexture.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -84,6 +85,8 @@ private:
     std::unique_ptr<MyRenderTexture>            m_gameViewTexture;       // ゲームビュー用レンダーテクスチャ
     std::unique_ptr<MyRenderTexture>            m_debugViewTexture;      // デバッグビュー用レンダーテクスチャ
     std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;   // レンダーテクスチャ管理
+
+    std::unique_ptr<PaintTexture>               m_paintTextrue; // ペイントテクスチャ
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
 

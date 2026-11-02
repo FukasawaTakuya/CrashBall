@@ -56,8 +56,16 @@ bool Geometory::IsCollision(Segment* segment, Triangle* triangle)
 	SimpleMath::Vector3 point
 		= CalcIntersection(segment, triangle->GetPlane());
 
+	bool ret = IsPointInTriangle(point, triangle);
+
+	// 衝突しているなら衝突点を設定
+	if (ret)
+	{
+		triangle->SetCollisionPos(point);
+	}
+
 	// 交点が三角形内にあるならtrue
-	return IsPointInTriangle(point, triangle);
+	return ret;
 }
 
 /**
@@ -70,7 +78,7 @@ bool Geometory::IsCollision(Segment* segment, Triangle* triangle)
 bool Geometory::IsCollision(Segment* segment, Mesh* mesh)
 {
 	// 衝突している面をクリア
-	mesh->ClearCollideFace();
+	//mesh->ClearCollideFace();
 
 	// メッシュの各面と線分の衝突判定
 	for (auto& face : mesh->GetFace()) {
@@ -290,7 +298,13 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle& triangle)
 	// 衝突している場合
 	if (collsionInfo.isCollsion)
 	{
+		// 球と三角形を含む平面との衝突判定
 		collsionInfo = Collision::IsCollision(sphere, *triangle.GetPlane());
+		// 衝突しているなら衝突点を設定
+		if (collsionInfo.isCollsion)
+		{
+			collsionInfo.resolve.back().collisionPosition = triangle.GetCollisionPos();
+		}
 	}
 
 	return collsionInfo;
@@ -314,11 +328,17 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	for (auto& face : mesh->GetFace()) {
 		CollisionInfo triangleCollsionInfo = Collision::IsCollision(sphere, *face.get());
 		if (triangleCollsionInfo.isCollsion) {
-			mesh->SetCollideFace(face.get());
 			collsionInfo.resolve.push_back(triangleCollsionInfo.resolve.front());
 			collsionInfo.col1 = sphere;
 			collsionInfo.col2 = mesh;
+
+			//Segment reNormal;
+			//reNormal.SetSegment(sphere->GetTransform()->GetWorldPosition(), -face->GetPlane()->GetNormal());
+			//SimpleMath::Vector3 inter = CalcIntersection(&reNormal, face->GetPlane());
+			//face->SetCollisionPos(inter);
+
 			mesh->AddColliderFaceIndex(index);
+			mesh->SetCollideFace(face.get());
 		}
 		index++;
 	}

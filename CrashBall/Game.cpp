@@ -112,12 +112,16 @@ void Game::Initialize(HWND window, int width, int height)
     m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
     m_editGuiManager->SetRenderTexture(m_gameViewTexture.get(), m_debugViewTexture.get());
 
+    // ペイントテクスチャの作成
+    m_paintTextrue = std::make_unique<PaintTexture>(m_deviceResources->GetBackBufferFormat());
+
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
     ServiceLocator::Set<IInputService>(m_inputSystem.get());
     ServiceLocator::Set<IScriptableObjectManager>(m_scriptableObjectManager.get());
     ServiceLocator::Set<ISceneManager>(m_sceneManager.get());
     ServiceLocator::Set<IRenderTargetManager>(m_renderTextrueManger.get());
+    ServiceLocator::Set<IPaintTexture>(m_paintTextrue.get());
 
     // ScriptableObjectの読み込み
     m_scriptableObjectManager->LoadScriptableObject();
@@ -303,6 +307,22 @@ void Game::Render()
         // 描画命令の実行
         DoRenderCommandNoneSprite(view, proj, context);
     }
+
+    // ペイントテクスチャの描画
+    m_paintTextrue->Draw(context, m_spriteBatch.get());
+
+    RECT rect{ 0, 0, 4096, 4096 };
+    SimpleMath::Vector2 origin{ 0,0 };
+    m_spriteRendererManager->RegisterRenderCommand(
+        m_paintTextrue->GetShaderResourceView(),
+        SimpleMath::Vector2(400.0f, 400.0f),
+        rect,
+        SimpleMath::Color(1, 1, 1, 1),
+        0.0f,
+        0.1f,
+        origin,
+        SpriteEffects_None,
+        1.0f);
 
     SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
     SimpleMath::Matrix gameProj = m_gameViewTexture->GetCamera()->GetProj();
@@ -504,6 +524,10 @@ void Game::CreateDeviceDependentResources()
     m_gameViewTexture->SetDevice(device);
     m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
+    m_paintTextrue->SetDevice(device);
+
+    auto inkSprite = m_spriteManager->GetSpriteInfo("Ink");
+    m_paintTextrue->SetInkSpirte(inkSprite->sprite.Get(), inkSprite->width, inkSprite->height);
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -525,6 +549,9 @@ void Game::CreateWindowSizeDependentResources()
     m_gameViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
+
+    // ペイントテクスチャの設定
+    m_paintTextrue->SizeResources(4096.0f, 4096.0f);
 
     // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();

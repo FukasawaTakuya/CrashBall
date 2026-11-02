@@ -75,15 +75,21 @@ public:
 	// シェーダに渡すテクスチャ情報の取得
 	ShaderTextrueInfo* GetShaderTextrueInfo(const std::string& name)
 	{
-		auto it = m_shaderTextureInfoMap.find(name);
-		if (it != m_shaderTextureInfoMap.end())
+		//auto it = m_shaderTextureInfoMap.find(name);
+		//if (it != m_shaderTextureInfoMap.end())
+		//{
+		//	return it->second;
+		//}
+		//else
+		//{
+		//	return nullptr;
+		//}
+		for (auto& info : m_shaderTextrueInfo)
 		{
-			return it->second;
+			if (info.name == name)
+				return &info;
 		}
-		else
-		{
-			return nullptr;
-		}
+		return nullptr;
 	}
 
 	// 入力レイアウトの取得

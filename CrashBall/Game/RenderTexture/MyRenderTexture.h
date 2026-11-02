@@ -17,7 +17,7 @@
 class  MyRenderTexture {
 
 	// メンバ変数の宣言 -----------------------------------------------
-private:
+protected:
 
 	// レンダーテクスチャ
 	std::unique_ptr<DX::RenderTexture> m_renderTexture;

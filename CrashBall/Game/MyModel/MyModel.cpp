@@ -86,7 +86,11 @@ void MyModel::Draw(
 		{
 			srv = m_textureList[mat.textureIndex].Get();
 		}
-		pixelShader->GetShaderTextrueInfo("Texture")->texture = srv;
+		auto texInfo = pixelShader->GetShaderTextrueInfo("Texture");
+		if (texInfo != nullptr)
+		{
+			texInfo->texture = srv;
+		}
 
 		// 定数バッファの設定
 		auto psConstantBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");

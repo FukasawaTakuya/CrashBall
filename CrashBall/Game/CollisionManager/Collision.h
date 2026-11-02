@@ -26,6 +26,7 @@ struct ResolveInfo
 {
 	float overlap = 0.0f;
 	DirectX::SimpleMath::Vector3 direction;
+	DirectX::SimpleMath::Vector3 collisionPosition;
 };
 
 // Õ“Ëî•ñ

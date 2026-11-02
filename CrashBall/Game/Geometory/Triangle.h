@@ -22,6 +22,8 @@ private:
 
 	float m_boundingSphereRadius;	// 境界球の半径
 
+	DirectX::SimpleMath::Vector3 m_collisionPos;	// 衝突点
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -76,11 +78,22 @@ public:
 		return m_boundingSphereRadius;
 	}
 
+	DirectX::SimpleMath::Vector3 GetCollisionPos() const
+	{
+		return m_collisionPos;
+	}
+
 	// 三角形の設定
 	void SetTriangle(
 		DirectX::SimpleMath::Vector3 point1,
 		DirectX::SimpleMath::Vector3 point2,
 		DirectX::SimpleMath::Vector3 point3);
+
+	// 衝突点の設定
+	void SetCollisionPos(const DirectX::SimpleMath::Vector3& colPos)
+	{
+		m_collisionPos = colPos;
+	}
 
 private:
 

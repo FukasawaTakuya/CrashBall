@@ -122,6 +122,5 @@ void Mesh::CreateMesh()
 		t.SetTriangle(vertex0.position, vertex1.position, vertex2.position);
 
 		m_faces.push_back(std::make_unique<Triangle>(t, scale));
-
 	}
 }

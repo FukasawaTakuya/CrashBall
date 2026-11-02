@@ -53,7 +53,7 @@
         {
             "compName": "StageController",
             "id": 9,
-            "isActive": false,
+            "isActive": true,
             "properties": [
                 {
                     "name": "floorNormalY",
@@ -76,7 +76,7 @@
                 },
                 {
                     "name": "pixelShaderKey",
-                    "data": "Basic_PS"
+                    "data": "Stage_PS"
                 },
                 {
                     "name": "diffuseColor",

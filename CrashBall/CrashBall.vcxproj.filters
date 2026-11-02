@@ -152,6 +152,9 @@
     <Filter Include="Game\Shader">
       <UniqueIdentifier>{378c669a-ee76-4015-b535-aca8a022ee11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\PaintTexture">
+      <UniqueIdentifier>{6fdb1b3c-b1c9-42be-aed5-f0c1f18856f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -609,6 +612,15 @@
     <ClInclude Include="Game\ResourceManager\Interface\IShaderManager.h">
       <Filter>Game\ResourceManager\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="Game\PaintTexture\PaintTexture.h">
+      <Filter>Game\PaintTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ServiceLocator\IPaintTexture.h">
+      <Filter>Game\ServiceLocator</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PaintTexture\Paint.h">
+      <Filter>Game\PaintTexture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -919,6 +931,9 @@
     <ClCompile Include="Game\MyModel\MyModel.cpp">
       <Filter>Game\MyModel</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PaintTexture\PaintTexture.cpp">
+      <Filter>Game\PaintTexture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -953,6 +968,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Basic_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Stage_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
