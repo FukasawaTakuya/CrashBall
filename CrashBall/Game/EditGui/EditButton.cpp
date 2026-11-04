@@ -11,6 +11,8 @@
 #include "ImGui/imgui.h"
 #include "Game/ScriptableObject/Scriptable.h"
 
+#include "Game/Engine/Time.h"
+
 /**
  * \brief コンストラクタ
  * 
@@ -61,11 +63,11 @@ void EditButton::Update(
         sceneEditer->Start();
     }
 
-    ImGui::SameLine(0.0f, 40.0f);
 
     // 編集モードなら
     if (m_editModeChanger->GetEditMode())
     {
+        ImGui::SameLine(0.0f, 40.0f);
         // セーブボタン
         if (ImGui::Button("Save"))
         {
@@ -73,8 +75,11 @@ void EditButton::Update(
             scriptableObjectManager->SaveData();
         }
 
-        ImGui::SameLine(0.0f, 10.0f);
+        //ImGui::SameLine(0.0f, 10.0f);
     }
+
+    std::string s = std::format("FPS:{}", Time::GetFPS());
+    ImGui::Text(s.c_str());
 
     ImGui::End();
 }

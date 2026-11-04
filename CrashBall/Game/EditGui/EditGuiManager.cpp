@@ -12,6 +12,10 @@
 #include "ImGui/imgui_internal.h"
 #include "Game/Common/Screen.h"
 
+#include "Game/Engine/Input.h"
+
+using namespace DirectX;
+
 /**
  * \brief コンストラクタ
  * 
@@ -23,6 +27,8 @@ EditGuiManager::EditGuiManager()
     m_gameViewRenderer      = std::make_unique<GameViewRenderer>();
     m_editButton            = std::make_unique<EditButton>(this);
     m_sceneSelect           = std::make_unique<SceneSelect>();
+
+    m_isLayoutDefault = true;
 }
 
 /**
@@ -72,6 +78,13 @@ void EditGuiManager::Update(
         scriptableObjectManager);
 
     m_sceneSelect->Update(sceneEditer);
+
+    // レイアウトの変更
+    if (Input::GetKeyTrigger(Keyboard::Keys::F3))
+    {
+        m_isLayoutDefault = !m_isLayoutDefault;
+        RegisterConstantLayout();
+    }
 }
 
 /**
@@ -89,7 +102,14 @@ void EditGuiManager::Reset()
  */
 void EditGuiManager::RegisterConstantLayout()
 {
-    m_constantLayoutFunc = [this]() { ConstantLayout(); };
+    if (m_isLayoutDefault)
+    {
+        m_constantLayoutFunc = [this]() { ConstantLayout(); };
+    }
+    else
+    {
+        m_constantLayoutFunc = [this]() { ConstantLayout2By3(); };
+    }
 }
 
 /**
@@ -158,6 +178,79 @@ void EditGuiManager::ConstantLayout()
     ImGui::DockBuilderDockWindow("GameView", mainTop);
     ImGui::DockBuilderDockWindow("DebugView", mainTop);
     ImGui::DockBuilderDockWindow("Buttons", mainBottom);
+
+    ImGui::DockBuilderFinish(dockspaceID);
+}
+
+void EditGuiManager::ConstantLayout2By3()
+{
+    if (!m_isActive) return;
+
+    ImGuiID dockspaceID = ImGui::GetID("My Dockspace");
+
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+    // 描画領域が0以下ならreturn
+    if (viewport->Size.x <= 0.0f || viewport->Size.y <= 0.0f) return;
+
+    ImGui::DockBuilderAddNode(
+        dockspaceID,
+        ImGuiDockNodeFlags_DockSpace
+    );
+
+    ImGui::DockBuilderSetNodeSize(
+        dockspaceID,
+        viewport->Size
+    );
+
+    ImGuiID subR;
+    ImGuiID subM;
+    ImGuiID subLTop;
+    ImGuiID subLBottom;
+    ImGuiID mainTop = dockspaceID;
+    ImGuiID mainBottom;
+
+    ImGui::DockBuilderSplitNode(
+        dockspaceID,
+        ImGuiDir_Right,
+        0.55f,
+        &subLBottom,
+        &mainTop);
+
+    ImGui::DockBuilderSplitNode(
+        subLBottom,
+        ImGuiDir_Right,
+        0.65f,
+        &subR,
+        &subLBottom);
+
+    ImGui::DockBuilderSplitNode(
+        subR,
+        ImGuiDir_Right,
+        0.7f,
+        &subR,
+        &subM);
+
+    ImGui::DockBuilderSplitNode(
+        subLBottom,
+        ImGuiDir_Up,
+        0.15f,
+        &subLTop,
+        &subLBottom);
+
+    ImGui::DockBuilderSplitNode(
+        mainTop,
+        ImGuiDir_Up,
+        0.5f,
+        &mainTop,
+        &mainBottom);
+
+    ImGui::DockBuilderDockWindow("Inspector", subR);
+    ImGui::DockBuilderDockWindow("ObjectList", subLBottom);
+    ImGui::DockBuilderDockWindow("Scene", subLTop);
+    ImGui::DockBuilderDockWindow("GameView", mainTop);
+    ImGui::DockBuilderDockWindow("DebugView", mainBottom);
+    ImGui::DockBuilderDockWindow("Buttons", subM);
 
     ImGui::DockBuilderFinish(dockspaceID);
 }

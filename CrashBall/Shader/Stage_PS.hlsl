@@ -24,9 +24,13 @@ float4 main(PSInput pin) : SV_TARGET
     = (Texture.Sample(samplaer, pin.Texcoord) + (1 - useTex))
     + BaseColor;
     
+    // ペイントカラー
     float4 paint = PaintTexture.Sample(samplaer, pin.Texcoord);
-    float isPaint = step(0.5f, paint.a);
-    pout = paint * isPaint + float4(1, 1, 1, 1) * (1 - isPaint) * pout;
+        
+    pout.r = paint.r + pout.r * (1 - paint.a);
+    pout.g = paint.g + pout.g * (1 - paint.a);
+    pout.b = paint.b + pout.b * (1 - paint.a);
+    pout.a = paint.a + pout.a * (1 - paint.a);
     
     float3 lightdire = -normalize(LightDirection);
     float Dot = dot(lightdire, pin.Normal);

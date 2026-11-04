@@ -27,6 +27,9 @@ public:
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::SimpleMath::Color& color) = 0;
 
+	// ペイントのクリア
+	virtual void ClearPaint() = 0;
+
 	// 取得/設定
 public:
 

@@ -25,6 +25,7 @@ private:
 
 	float m_timeScale = 1.0f;
 
+	int m_fps;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -64,6 +65,11 @@ public:
 		return m_timeScale;
 	}
 
+	int GetFPS() const override
+	{
+		return m_fps;
+	}
+
 	void SetTimeScale(float timeScale) override
 	{
 		m_timeScale = timeScale;
@@ -72,6 +78,11 @@ public:
 	void SetElapsedTime(float elapsedTime)
 	{
 		m_elapsedTime = elapsedTime;
+	}
+
+	void SetFPS(int fps)
+	{
+		m_fps = fps;
 	}
 
 	// 内部実装

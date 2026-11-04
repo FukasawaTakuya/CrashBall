@@ -256,24 +256,24 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle& triangle)
 	}
 	
 	// 球と三角形を含む平面との衝突判定
-	if (!IsCollision(sphere, *triangle.GetPlane()).isCollsion)
+	collsionInfo = IsCollision(sphere, *triangle.GetPlane());
+	if (!collsionInfo.isCollsion)
 	{
-		collsionInfo.isCollsion = false;
 		return collsionInfo;
 	}
 
-	// 三角形の各頂点
-	SimpleMath::Vector3* pos = triangle.GetPoint();
-	// 三角形に沿うベクトル
-	SimpleMath::Vector3 vec[3];
-	vec[0] = pos[1] - pos[0];
-	vec[1] = pos[2] - pos[1];
-	vec[2] = pos[0] - pos[2];
-	// 三角形の各辺
-	Segment segments[3];
-	for (int i = 0; i < 3; i++) {
-		segments[i].SetSegment(pos[i], vec[i]);
-	}
+	//// 三角形の各頂点
+	//SimpleMath::Vector3* pos = triangle.GetPoint();
+	//// 三角形に沿うベクトル
+	//SimpleMath::Vector3 vec[3];
+	//vec[0] = pos[1] - pos[0];
+	//vec[1] = pos[2] - pos[1];
+	//vec[2] = pos[0] - pos[2];
+	//// 三角形の各辺
+	//Segment segments[3];
+	//for (int i = 0; i < 3; i++) {
+	//	segments[i].SetSegment(pos[i], vec[i]);
+	//}
 
 	// 有効にすると衝突解決時にガタつくためコメントアウト
 	// 各辺と球の衝突判定
@@ -295,18 +295,6 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Triangle& triangle)
 	// 線分と三角形の衝突判定
 	collsionInfo.isCollsion = Geometory::IsCollision(&segment,	&triangle);
 
-	// 衝突している場合
-	if (collsionInfo.isCollsion)
-	{
-		// 球と三角形を含む平面との衝突判定
-		collsionInfo = Collision::IsCollision(sphere, *triangle.GetPlane());
-		// 衝突しているなら衝突点を設定
-		if (collsionInfo.isCollsion)
-		{
-			collsionInfo.resolve.back().collisionPosition = triangle.GetCollisionPos();
-		}
-	}
-
 	return collsionInfo;
 }
 
@@ -323,20 +311,17 @@ CollisionInfo Collision::IsCollision(Sphere* sphere, Mesh* mesh)
 	// 衝突している面をクリア
 	mesh->ClearCollideFace();
 
-	// メッシュの各面と球の衝突判定
 	int index = 0;
 	for (auto& face : mesh->GetFace()) {
+		// メッシュの各面と球の衝突判定
 		CollisionInfo triangleCollsionInfo = Collision::IsCollision(sphere, *face.get());
 		if (triangleCollsionInfo.isCollsion) {
+			// 衝突解決情報の追加
 			collsionInfo.resolve.push_back(triangleCollsionInfo.resolve.front());
 			collsionInfo.col1 = sphere;
 			collsionInfo.col2 = mesh;
 
-			//Segment reNormal;
-			//reNormal.SetSegment(sphere->GetTransform()->GetWorldPosition(), -face->GetPlane()->GetNormal());
-			//SimpleMath::Vector3 inter = CalcIntersection(&reNormal, face->GetPlane());
-			//face->SetCollisionPos(inter);
-
+			// 衝突面の追加
 			mesh->AddColliderFaceIndex(index);
 			mesh->SetCollideFace(face.get());
 		}

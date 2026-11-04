@@ -25,9 +25,12 @@ class  PaintTexture :
 	public MyRenderTexture,
 	public IPaintTexture
 {
+private:
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:
+
+	ID3D11DeviceContext1* m_context;
 
 	std::vector<PaintCommand> m_paintCommands;
 
@@ -53,12 +56,18 @@ public:
 		const DirectX::SimpleMath::Vector2& position,
 		const DirectX::SimpleMath::Color& color) override;
 
+	// ペイントのクリア
+	void ClearPaint() override;
+
 	// 描画
-	void Draw(ID3D11DeviceContext1* context, DirectX::SpriteBatch* spriteBatch);
+	void Draw(
+		DirectX::SpriteBatch* spriteBatch,
+		DirectX::CommonStates* states);
 
 	// 取得/設定
 public:
 
+	// ペイントテクスチャの取得
 	ID3D11ShaderResourceView* GetPaintTexture() const override
 	{
 		return GetShaderResourceView();
@@ -72,6 +81,12 @@ public:
 		m_inkSprite = sprite;
 		m_inkSpriteWidth = width;
 		m_inkSpriteHeight = height;
+	}
+
+	// コンテキストの設定
+	void SetContext(ID3D11DeviceContext1* context)
+	{
+		m_context = context;
 	}
 
 	// 内部実装

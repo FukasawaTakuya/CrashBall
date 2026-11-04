@@ -52,7 +52,6 @@ namespace Time
 		}
 		// なければ1.0f
 		else return 1.0f;
-
 	}
 
 	// タイムスケールの設定
@@ -76,7 +75,20 @@ namespace Time
 		{
 			return time->GenaratoTimeScale(value);
 		}
+	}
 
+	// FPSの取得
+	inline float GetFPS()
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を返す
+		if (time != nullptr)
+		{
+			return time->GetFPS();
+		}
+		// なければ1.0f
+		else return 0.0f;
 	}
 
 }

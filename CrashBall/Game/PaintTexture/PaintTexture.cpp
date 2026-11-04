@@ -34,37 +34,59 @@ void PaintTexture::RegisterRenderCommnad(
 	m_paintCommands.emplace_back(position, color);
 }
 
-bool init = false;
+/**
+ * \brief ペイントのクリア
+ * 
+ */
+void PaintTexture::ClearPaint()
+{
+	float clearColor[]
+	{
+		0.0f, 0.0f, 0.0f, 0.0f
+	};
 
-void PaintTexture::Draw(ID3D11DeviceContext1* context, DirectX::SpriteBatch* spriteBatch)
+	m_context->ClearRenderTargetView(
+		m_renderTexture->GetRenderTargetView(),
+		clearColor);
+
+	m_paintCommands.clear();
+}
+
+/**
+ * \brief 描画
+ * 
+ * \param spriteBatch
+ * \param states
+ */
+void PaintTexture::Draw(
+	DirectX::SpriteBatch* spriteBatch,
+	DirectX::CommonStates* states)
 {
 	auto renderTargetView = m_renderTexture->GetRenderTargetView();
 
-	context->RSSetViewports(1, &m_viewport);
-    context->OMSetRenderTargets(1, &renderTargetView, nullptr);
+	// レンダーターゲットの設定
+    m_context->OMSetRenderTargets(1, &renderTargetView, nullptr);
+	// ビューポートの設定
+	m_context->RSSetViewports(1, &m_viewport);
 
-	spriteBatch->Begin();
-
+	// 描画領域
 	RECT inkRect(0, 0, m_inkSpriteWidth, m_inkSpriteHeight);
+
+	spriteBatch->Begin(SpriteSortMode_Deferred);
+
 	for (auto& paintCommand : m_paintCommands)
 	{
-		auto pos = paintCommand.position * 4096.0f;
 		spriteBatch->Draw(
 			m_inkSprite,
-			paintCommand.position * 4096.0f,
+			paintCommand.position * m_width,
 			&inkRect,
 			paintCommand.color,
 			0.0f,
-			SimpleMath::Vector2(200.0f, 200.0f),
-			SimpleMath::Vector2(0.025f, 0.025f));
+			SimpleMath::Vector2(m_inkSpriteWidth / 2.0f, m_inkSpriteHeight / 2.0f),
+			SimpleMath::Vector2(0.02f, 0.02f));
 	}
 
 	spriteBatch->End();
 
 	m_paintCommands.clear();
-
-	context->OMSetRenderTargets(
-		0,
-		nullptr,
-		nullptr);
 }

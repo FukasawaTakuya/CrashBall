@@ -60,27 +60,30 @@ void StageController::Awake()
 void StageController::Start(const GameContext& gameContext)
 {
 	// 色をデフォルトに戻す
-	for (auto& floorMeshColor : m_floorMeshColor)
-	{
-		floorMeshColor.second = m_gameColor->m_defaultFaceColor;
-	}
+	//for (auto& floorMeshColor : m_floorMeshColor)
+	//{
+	//	floorMeshColor.second = m_gameColor->m_defaultFaceColor;
+	//}
+
+	Paint::ClearPaint();
 
 	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
 	m_paintTextureInfo = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
 
-	m_enemyMeshCount = 0;
-	m_playerMeshCount = 0;
+	//m_enemyMeshCount = 0;
+	//m_playerMeshCount = 0;
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
 		{
+			ObjectTag tag = other->GetGameObject()->GetTag();
 			// 衝突オブジェクトがプレイヤーの時の処理
-			if (other->GetGameObject()->GetTag() == ObjectTag::Player)
+			if (tag == ObjectTag::Player)
 			{
 				PaintFace(m_gameColor->m_playerColor);
 			}
 			// 衝突オブジェクトが敵の時の処理
-			else if (other->GetGameObject()->GetTag() == ObjectTag::Enemy)
+			else if (tag == ObjectTag::Enemy)
 			{
 				PaintFace(m_gameColor->m_enemyColor);
 			}
@@ -95,27 +98,20 @@ void StageController::Start(const GameContext& gameContext)
 void StageController::Update(const GameContext& gameContext)
 {
 	// プレイヤーが塗った面を数える
-	m_playerMeshCount =
-		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-			[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-			{
-				return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
-			});
+	//m_playerMeshCount =
+	//	std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
+	//		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
+	//		{
+	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
+	//		});
 
-	// 敵が塗った面を数える
-	m_enemyMeshCount =
-		std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-			[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-			{
-				return XMVector4Equal(floorMeshColor.second, m_gameColor->m_enemyColor);
-			});
-
-	auto& faces = m_meshCollider->GetFace();
-	for (auto& index : m_meshCollider->GetCollideFaceIndex())
-	{
-		auto colPos = faces[index]->GetCollisionPos();
-		//OutputDebugStringA(std::format("rx:{} ry:{} rz:{}\n\n", colPos.x, colPos.y, colPos.z).c_str());
-	}
+	//// 敵が塗った面を数える
+	//m_enemyMeshCount =
+	//	std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
+	//		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
+	//		{
+	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_enemyColor);
+	//		});
 
 	if(m_paintTextureInfo)
 		m_paintTextureInfo->texture = Paint::GetPaintTexture();
@@ -139,26 +135,26 @@ void StageController::Render(const RenderContext& renderContext)
  */
 void StageController::ConsumePaint(int consumePaintNum)
 {
-	std::vector<std::pair<Triangle*, SimpleMath::Color>> playerFaceColor;
+	//std::vector<std::pair<Triangle*, SimpleMath::Color>> playerFaceColor;
 
-	// プレイヤーの面を取り出す
-	std::copy_if(m_floorMeshColor.begin(), m_floorMeshColor.end(), std::back_inserter(playerFaceColor),
-		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor) {
-			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
-		});
+	//// プレイヤーの面を取り出す
+	//std::copy_if(m_floorMeshColor.begin(), m_floorMeshColor.end(), std::back_inserter(playerFaceColor),
+	//	[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor) {
+	//		return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
+	//	});
 
-	// プレイヤーの面の数が消費するプレイヤーの面の数より少なければreturn
-	if (playerFaceColor.size() < consumePaintNum)
-	{
-		return;
-	}
+	//// プレイヤーの面の数が消費するプレイヤーの面の数より少なければreturn
+	//if (playerFaceColor.size() < consumePaintNum)
+	//{
+	//	return;
+	//}
 
-	// プレイヤーの面を定数枚デフォルトの色に戻す
-	std::for_each_n(playerFaceColor.begin(), consumePaintNum,
-		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-		{
-			PaintFace(floorMeshColor.first, m_gameColor->m_defaultFaceColor);
-		});
+	//// プレイヤーの面を定数枚デフォルトの色に戻す
+	//std::for_each_n(playerFaceColor.begin(), consumePaintNum,
+	//	[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
+	//	{
+	//		PaintFace(floorMeshColor.first, m_gameColor->m_defaultFaceColor);
+	//	});
 }
 
 /**
@@ -190,11 +186,11 @@ void StageController::PaintFace(const DirectX::SimpleMath::Color& color)
 	auto& indexList = m_model->GetIndexList();
 	for (auto& index : m_meshCollider->GetCollideFaceIndex())
 	{
-		const Vertex v0 = m_model->GetVertex(indexList[index] * 3 + 0);
-		const Vertex v1 = m_model->GetVertex(indexList[index] * 3 + 1);
-		const Vertex v2 = m_model->GetVertex(indexList[index] * 3 + 2);
+		const Vertex& v0 = m_model->GetVertex(indexList[index] * 3 + 0);
+		const Vertex& v1 = m_model->GetVertex(indexList[index] * 3 + 1);
+		const Vertex& v2 = m_model->GetVertex(indexList[index] * 3 + 2);
 
-		auto collisionPos = faces[index]->GetCollisionPos();
+		SimpleMath::Vector3 collisionPos = faces[index]->GetCollisionPos();
 
 		SimpleMath::Vector2 uv = CalcUV(collisionPos, v0, v1, v2);
 		Paint::Paint(uv, color);

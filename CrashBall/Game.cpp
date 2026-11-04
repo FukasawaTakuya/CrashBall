@@ -213,6 +213,7 @@ void Game::Update(DX::StepTimer const& timer)
 
     // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
+    m_timeManager->SetFPS(m_timer.GetFramesPerSecond());
 
     // 入力の更新
     m_inputSystem->Update();
@@ -309,20 +310,7 @@ void Game::Render()
     }
 
     // ペイントテクスチャの描画
-    m_paintTextrue->Draw(context, m_spriteBatch.get());
-
-    RECT rect{ 0, 0, 4096, 4096 };
-    SimpleMath::Vector2 origin{ 0,0 };
-    m_spriteRendererManager->RegisterRenderCommand(
-        m_paintTextrue->GetShaderResourceView(),
-        SimpleMath::Vector2(400.0f, 400.0f),
-        rect,
-        SimpleMath::Color(1, 1, 1, 1),
-        0.0f,
-        0.1f,
-        origin,
-        SpriteEffects_None,
-        1.0f);
+    m_paintTextrue->Draw(m_spriteBatch.get(), m_state.get());
 
     SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
     SimpleMath::Matrix gameProj = m_gameViewTexture->GetCamera()->GetProj();
@@ -419,7 +407,7 @@ void Game::Clear()
     auto renderTarget = m_deviceResources->GetRenderTargetView();
     auto depthStencil = m_deviceResources->GetDepthStencilView();
 
-    context->ClearRenderTargetView(renderTarget, Colors::Gray);
+    context->ClearRenderTargetView(renderTarget, Colors::White);
     context->ClearDepthStencilView(depthStencil, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
     context->OMSetRenderTargets(1, &renderTarget, depthStencil);
 
@@ -524,10 +512,12 @@ void Game::CreateDeviceDependentResources()
     m_gameViewTexture->SetDevice(device);
     m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
-    m_paintTextrue->SetDevice(device);
 
+    // ペイントテクスチャの設定
     auto inkSprite = m_spriteManager->GetSpriteInfo("Ink");
     m_paintTextrue->SetInkSpirte(inkSprite->sprite.Get(), inkSprite->width, inkSprite->height);
+    m_paintTextrue->SetDevice(device);
+    m_paintTextrue->SetContext(context);
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.

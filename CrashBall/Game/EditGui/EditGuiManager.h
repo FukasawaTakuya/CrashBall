@@ -43,6 +43,8 @@ private:
 
 	std::function<void(void)> m_constantLayoutFunc = []() {};	// レイアウト固定関数
 
+	bool m_isLayoutDefault;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -120,5 +122,6 @@ private:
 
 	// レイアウト固定
 	void ConstantLayout();
+	void ConstantLayout2By3();
 
 };

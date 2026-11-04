@@ -22,7 +22,6 @@ class  EditButton {
 
 	IEditModeChanger* m_editModeChanger   = nullptr;	// 編集モード切り替え
 
-	
 	// コンストラクタ/デストラクタ
 public:
 

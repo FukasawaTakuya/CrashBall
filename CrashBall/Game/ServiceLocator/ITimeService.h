@@ -39,8 +39,11 @@ public:
 	// 経過時間の取得(スケーリング無し)
 	virtual float GetUnscaleElapsedTime() const = 0;
 
-	// 
+	// タイムスケールの取得
 	virtual float GetTimeScale() const = 0;
+
+	// FPSの取得
+	virtual int GetFPS() const = 0;
 
 	// タイムスケールの設定
 	virtual void SetTimeScale(float timeScale) = 0;
