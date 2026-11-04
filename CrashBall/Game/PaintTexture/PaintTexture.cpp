@@ -83,7 +83,7 @@ void PaintTexture::Draw(
 			paintCommand.color,
 			0.0f,
 			SimpleMath::Vector2(m_inkSpriteWidth / 2.0f, m_inkSpriteHeight / 2.0f),
-			SimpleMath::Vector2(0.02f, 0.02f));
+			SimpleMath::Vector2(0.06f, 0.06f));
 	}
 
 	spriteBatch->End();

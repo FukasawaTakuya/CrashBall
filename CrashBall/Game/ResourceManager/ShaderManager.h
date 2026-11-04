@@ -54,8 +54,20 @@ public:
 	// 内部実装
 private:
 
+	// シェーダーリソースの作成
+	void CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* device);
+
 	// 定数バッファの作成
-	void CreateConstatBuffer(ShaderInfo& shaderInfo, ID3D11Device1* device);
+	void CreateConstantBuffer(
+		ShaderInfo& shaderInfo, 
+		ID3D11Device1* device, 
+		ID3D11ShaderReflection* reflection,
+		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
+
+	// シェーダーテクスチャの作成
+	void CreateShaderTexture(
+		ShaderInfo& shaderInfo,
+		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
 
 	// 入力レイアウトの作成
 	void CreateInputLayout(ShaderInfo& shaderInfo, ID3D11Device1* device);

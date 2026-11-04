@@ -155,6 +155,7 @@ void StageController::ConsumePaint(int consumePaintNum)
 	//	{
 	//		PaintFace(floorMeshColor.first, m_gameColor->m_defaultFaceColor);
 	//	});
+
 }
 
 /**
@@ -186,13 +187,18 @@ void StageController::PaintFace(const DirectX::SimpleMath::Color& color)
 	auto& indexList = m_model->GetIndexList();
 	for (auto& index : m_meshCollider->GetCollideFaceIndex())
 	{
+		// 衝突面の頂点情報
 		const Vertex& v0 = m_model->GetVertex(indexList[index] * 3 + 0);
 		const Vertex& v1 = m_model->GetVertex(indexList[index] * 3 + 1);
 		const Vertex& v2 = m_model->GetVertex(indexList[index] * 3 + 2);
 
+		// 衝突点
 		SimpleMath::Vector3 collisionPos = faces[index]->GetCollisionPos();
 
+		// 衝突点からUV座標を求める
 		SimpleMath::Vector2 uv = CalcUV(collisionPos, v0, v1, v2);
+
+		// 塗り
 		Paint::Paint(uv, color);
 	}
 }
@@ -215,18 +221,16 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
 	SimpleMath::Vector2 outUV;
 
 	// XZ平面に直す
+	// 基準の軸
 	SimpleMath::Vector3 axisX = XMVector3Normalize(b.position - a.position);
 	SimpleMath::Vector3 axisY = a.normal.Cross(axisX);
-
+	// XZ平面上の各点
 	SimpleMath::Vector2 xza = ToXZ(axisX, axisY, a.position, a.position);
 	SimpleMath::Vector2 xzb = ToXZ(axisX, axisY, a.position, b.position);
 	SimpleMath::Vector2 xzc = ToXZ(axisX, axisY, a.position, c.position);
 	SimpleMath::Vector2 xzp = ToXZ(axisX, axisY, a.position, p / m_transform->GetWorldScale());
 
 	// それぞれの頂点から衝突点への係数を求める
-	//α＝{ (By - Cy)(Px - Cx) + (Cx - Bx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
-	//β＝{ (Cy - Ay)(Px - Cx) + (Ax - Cx)(Py - Cy) } / {(By - Cy)(Ax - Cx) + (Cx - Bx)(Ay - Cy)}
-	//γ＝１−αーβ
 	float denominator = (xzb.y - xzc.y) * (xza.x - xzc.x) 
 					+ (xzc.x - xzb.x) * (xza.y - xzc.y);
 
@@ -244,6 +248,7 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
 
 	return outUV;
 }
+
 /**
  * \brief XZ平面に直す
  * 
