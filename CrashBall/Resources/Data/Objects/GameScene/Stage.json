@@ -68,7 +68,7 @@
             "properties": [
                 {
                     "name": "modelKey",
-                    "data": "GPTStage2"
+                    "data": "Stage"
                 },
                 {
                     "name": "vertexShaderKey",
