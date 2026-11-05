@@ -106,6 +106,9 @@ void MyModel::Draw(
 		// 描画
 		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
 	}
+
+	vertexShader->ReleaseBind(context);
+	pixelShader->ReleaseBind(context);
 }
 
 

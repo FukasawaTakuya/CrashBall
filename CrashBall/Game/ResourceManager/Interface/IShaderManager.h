@@ -72,22 +72,23 @@ struct ShaderTextrueInfo
 // 定数バッファに関するものをまとめた構造体
 struct ConstantBufferResource
 {
-	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
-	ConstantBufferInfo info;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;	// 定数バッファ本体
+	ConstantBufferInfo info;						// 定数バッファ情報
 };
 
 // シェーダの本体を扱うバリアント
 using ShaderVariantCom = std::variant<
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>,
-	Microsoft::WRL::ComPtr<ID3D11PixelShader>>;
+	Microsoft::WRL::ComPtr<ID3D11PixelShader>,
+	Microsoft::WRL::ComPtr<ID3D11ComputeShader>>;
 
 // シェーダ情報
 struct ShaderInfo
 {
 	ShaderVariantCom					shader;				// シェーダ本体
 	Microsoft::WRL::ComPtr<ID3DBlob>	blob;				// バイナリ情報
-	std::vector<ConstantBufferResource>	constantBuffer;		// 定数バッファ
-	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報
+	std::vector<ConstantBufferResource>	constantBuffer;		// 定数バッファリスト
+	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報リスト
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;	// 入力レイアウト
 };
 

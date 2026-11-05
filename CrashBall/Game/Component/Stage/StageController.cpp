@@ -220,26 +220,26 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
 {
 	SimpleMath::Vector2 outUV;
 
-	// XZ平面に直す
+	// ローカル座標に直す
 	// 基準の軸
 	SimpleMath::Vector3 axisX = XMVector3Normalize(b.position - a.position);
 	SimpleMath::Vector3 axisY = a.normal.Cross(axisX);
-	// XZ平面上の各点
-	SimpleMath::Vector2 xza = ToXZ(axisX, axisY, a.position, a.position);
-	SimpleMath::Vector2 xzb = ToXZ(axisX, axisY, a.position, b.position);
-	SimpleMath::Vector2 xzc = ToXZ(axisX, axisY, a.position, c.position);
-	SimpleMath::Vector2 xzp = ToXZ(axisX, axisY, a.position, p / m_transform->GetWorldScale());
+	// ローカル座標の各点
+	SimpleMath::Vector2 localA = ToLocal(axisX, axisY, a.position, a.position);
+	SimpleMath::Vector2 localB = ToLocal(axisX, axisY, a.position, b.position);
+	SimpleMath::Vector2 localC = ToLocal(axisX, axisY, a.position, c.position);
+	SimpleMath::Vector2 localP = ToLocal(axisX, axisY, a.position, p / m_transform->GetWorldScale());
 
 	// それぞれの頂点から衝突点への係数を求める
-	float denominator = (xzb.y - xzc.y) * (xza.x - xzc.x) 
-					+ (xzc.x - xzb.x) * (xza.y - xzc.y);
+	float denominator = (localB.y - localC.y) * (localA.x - localC.x) 
+					+ (localC.x - localB.x) * (localA.y - localC.y);
 
 	if (denominator == 0.0f) return outUV;
 
-	float alpha = ((xzb.y - xzc.y) * (xzp.x - xzc.x) + (xzc.x - xzb.x) * (xzp.y - xzc.y))
+	float alpha = ((localB.y - localC.y) * (localP.x - localC.x) + (localC.x - localB.x) * (localP.y - localC.y))
 		/ denominator;
 
-	float beta = ((xzc.y - xza.y) * (xzp.x - xzc.x) + (xza.x - xzc.x) * (xzp.y - xzc.y))
+	float beta = ((localC.y - localA.y) * (localP.x - localC.x) + (localA.x - localC.x) * (localP.y - localC.y))
 		/ denominator;
 
 	float gamma = 1.0f - alpha - beta;
@@ -258,7 +258,7 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
  * \param point 直したい点
  * \return 
  */
-DirectX::SimpleMath::Vector2 StageController::ToXZ(
+DirectX::SimpleMath::Vector2 StageController::ToLocal(
 	const DirectX::SimpleMath::Vector3& axisX, 
 	const DirectX::SimpleMath::Vector3& axisY, 
 	const DirectX::SimpleMath::Vector3& origin, 
@@ -266,11 +266,11 @@ DirectX::SimpleMath::Vector2 StageController::ToXZ(
 {
 	SimpleMath::Vector3 vec = point - origin;
 
-	SimpleMath::Vector2 xz =
+	SimpleMath::Vector2 local =
 	{
 		axisX.Dot(vec),
 		axisY.Dot(vec)
 	};
 
-	return xz;
+	return local;
 }

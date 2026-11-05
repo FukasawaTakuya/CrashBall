@@ -1,3 +1,11 @@
+/*****************************************************************//**
+ * \file   Shader.h
+ * \brief  シェーダー操作クラス
+ * 
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
 #pragma once
 #include "d3d11shader.h"
 #include <d3dcompiler.h>
@@ -5,11 +13,14 @@
 
 #include "Game/ResourceManager/Interface/IShaderManager.h"
 
+// シェーダーのポインタを保持するバリアント
 using ShaderVariant = std::variant<
 	ID3D11VertexShader*,
-	ID3D11PixelShader*>;
+	ID3D11PixelShader*,
+	ID3D11ComputeShader*>;
 
-struct ConstatBufferPtr
+// 定数バッファのポインタを保持する定数バッファ関連構造体
+struct ConstantBufferPtr
 {
 	ID3D11Buffer* buffer;
 	ConstantBufferInfo info;
@@ -25,14 +36,9 @@ private:
 
 	ShaderVariant m_shader;								// シェーダー
 	ID3DBlob* m_blob;									// バイナリ情報
-	std::vector<ConstatBufferPtr> m_constantBuffer;		// 定数バッファ
+	std::vector<ConstantBufferPtr> m_constantBuffer;		// 定数バッファ
 	std::vector<ShaderTextrueInfo> m_shaderTextrueInfo;	// シェーダに渡すテクスチャ情報
 	ID3D11InputLayout* m_inputLayout;					// 入力レイアウト
-
-	// コンスタントバッファのマップ
-	std::unordered_map<std::string, ConstantBufferInfo*> m_constantInfoMap;
-	// シェーダに渡すテクスチャ情報のマップ
-	std::unordered_map<std::string, ShaderTextrueInfo*> m_shaderTextureInfoMap;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -53,6 +59,9 @@ public:
 	// コンテキストにシェーダを渡す
 	void Bind(ID3D11DeviceContext1* context);
 
+	// リリース解除
+	void ReleaseBind(ID3D11DeviceContext1* context);
+
 	// 取得/設定
 public:
 
@@ -62,10 +71,15 @@ public:
 	// 定数バッファ情報の取得
 	ConstantBufferInfo* GetConstatntBufferInfo(const std::string& name)
 	{
-		auto it = m_constantInfoMap.find(name);
-		if (it != m_constantInfoMap.end())
+		auto it = std::ranges::find_if(m_constantBuffer,
+			[&](ConstantBufferPtr& cbuffer)
+			{
+				return name == cbuffer.info.name;
+			});
+
+		if (it != m_constantBuffer.end())
 		{
-			return it->second;
+			return &it->info;
 		}
 		else
 		{
@@ -75,21 +89,20 @@ public:
 	// シェーダに渡すテクスチャ情報の取得
 	ShaderTextrueInfo* GetShaderTextrueInfo(const std::string& name)
 	{
-		//auto it = m_shaderTextureInfoMap.find(name);
-		//if (it != m_shaderTextureInfoMap.end())
-		//{
-		//	return it->second;
-		//}
-		//else
-		//{
-		//	return nullptr;
-		//}
-		for (auto& info : m_shaderTextrueInfo)
+		auto it = std::ranges::find_if(m_shaderTextrueInfo,
+			[&](ShaderTextrueInfo& info)
+			{
+				return name == info.name;
+			});
+
+		if (it != m_shaderTextrueInfo.end())
 		{
-			if (info.name == name)
-				return &info;
+			return it._Ptr;
 		}
-		return nullptr;
+		else
+		{
+			return nullptr;
+		}
 	}
 
 	// 入力レイアウトの取得

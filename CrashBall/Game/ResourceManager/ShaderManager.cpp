@@ -38,12 +38,13 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 			shaderInfo.blob.ReleaseAndGetAddressOf());
 
 		size_t pos = path.rfind(L".") - 2;
-
 		std::wstring type = path.substr(pos, 2).c_str();
-		if (type == L"VS")
+		if		(type == L"VS")
 			shaderInfo.shader = Microsoft::WRL::ComPtr<ID3D11VertexShader>();
 		else if (type == L"PS")
 			shaderInfo.shader = Microsoft::WRL::ComPtr<ID3D11PixelShader>();
+		else if (type == L"CS")
+			shaderInfo.shader = Microsoft::WRL::ComPtr<ID3D11ComputeShader>();
 
 		// シェーダの作成
 		std::visit([&](auto& shader)
@@ -66,6 +67,14 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 						nullptr,
 						shader.ReleaseAndGetAddressOf());
 				}
+				if constexpr (std::is_same_v<T, Microsoft::WRL::ComPtr<ID3D11ComputeShader>>)
+				{
+					device->CreateComputeShader(
+						shaderInfo.blob->GetBufferPointer(),
+						shaderInfo.blob->GetBufferSize(),
+						nullptr,
+						shader.ReleaseAndGetAddressOf());
+				}
 			}, shaderInfo.shader);
 
 
@@ -74,7 +83,7 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 		size_t start = file.path().string().rfind("Shader") + 7;
 		std::string key = file.path().string().substr(start, end - start);
 
-		// 定数バッファの作成
+		// シェーダーリソースの作成
 		CreateShaderResource(shaderInfo, device);
 
 		// 入力レイアウトの作成
@@ -86,7 +95,7 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 }
 
 /**
- * \brief 定数バッファの作成
+ * \brief シェーダーリソースの作成
  * 
  * \param shaderInfo シェーダ情報
  * \param device デバイス
@@ -118,11 +127,20 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 
 		switch (bindDesc.Type)
 		{
+		// コンスタントバッファ
 		case D3D_SIT_CBUFFER:
 			CreateConstantBuffer(shaderInfo, device, reflection.Get(), bindDesc);
 			break;
+		// シェーダーテクスチャ
 		case D3D_SIT_TEXTURE:
 			CreateShaderTexture(shaderInfo, bindDesc);
+			break;
+		//
+		case D3D_SIT_STRUCTURED:
+			break;
+		case D3D_SIT_UAV_RWSTRUCTURED:
+			break;
+		case D3D_SIT_UAV_RWTYPED:
 			break;
 		default:
 			break;
