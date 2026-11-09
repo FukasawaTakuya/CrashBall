@@ -58,6 +58,9 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 						shaderInfo.blob->GetBufferSize(),
 						nullptr,
 						shader.ReleaseAndGetAddressOf());
+
+					// 入力レイアウトの作成
+					CreateInputLayout(shaderInfo, device);
 				}
 				if constexpr (std::is_same_v<T, Microsoft::WRL::ComPtr<ID3D11PixelShader>>)
 				{
@@ -66,6 +69,9 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 						shaderInfo.blob->GetBufferSize(),
 						nullptr,
 						shader.ReleaseAndGetAddressOf());
+
+					// 入力レイアウトの作成
+					CreateInputLayout(shaderInfo, device);
 				}
 				if constexpr (std::is_same_v<T, Microsoft::WRL::ComPtr<ID3D11ComputeShader>>)
 				{
@@ -85,9 +91,6 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 
 		// シェーダーリソースの作成
 		CreateShaderResource(shaderInfo, device);
-
-		// 入力レイアウトの作成
-		CreateInputLayout(shaderInfo, device);
 
 		// コンテナに格納
 		m_shaders.emplace(key, std::move(shaderInfo));
@@ -112,13 +115,14 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 			IID_ID3D11ShaderReflection,
 			reinterpret_cast<void**>(reflection.GetAddressOf())));
 
+
 	// シェーダ情報
 	D3D11_SHADER_DESC shaderDesc;
 	DX::ThrowIfFailed(reflection->GetDesc(&shaderDesc));
 
 	for (int i = 0; i < shaderDesc.BoundResources; i++)
 	{
-		// バインド情報
+		// リソースの型情報
 		D3D11_SHADER_INPUT_BIND_DESC bindDesc{};
 		if (FAILED(reflection->GetResourceBindingDesc(i, &bindDesc)))
 		{
@@ -127,19 +131,22 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 
 		switch (bindDesc.Type)
 		{
-		// コンスタントバッファ
+			// コンスタントバッファ
 		case D3D_SIT_CBUFFER:
 			CreateConstantBuffer(shaderInfo, device, reflection.Get(), bindDesc);
 			break;
-		// シェーダーテクスチャ
+			// シェーダーテクスチャ
 		case D3D_SIT_TEXTURE:
 			CreateShaderTexture(shaderInfo, bindDesc);
 			break;
-		//
+			// 読み取り専用の構造体バッファ
 		case D3D_SIT_STRUCTURED:
 			break;
+			// 読み書き可能な構造体バッファ
 		case D3D_SIT_UAV_RWSTRUCTURED:
+			CreateRWStructuredResource(shaderInfo, reflection.Get(), bindDesc);
 			break;
+			// 読み書き可能なテクスチャ
 		case D3D_SIT_UAV_RWTYPED:
 			break;
 		default:
@@ -150,27 +157,28 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 
 /**
  * \brief 定数バッファの作成
- * 
+ *
  * \param shaderInfo シェーダー情報の格納先
  * \param device デバイス
  * \param reflection リフレクション
- * \param bindDesc バインド情報
+ * \param bindDesc リソースの型情報
  */
 void ShaderManager::CreateConstantBuffer(
-	ShaderInfo& shaderInfo, 
-	ID3D11Device1* device, 
+	ShaderInfo& shaderInfo,
+	ID3D11Device1* device,
 	ID3D11ShaderReflection* reflection,
 	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)
 {
 	// 定数バッファのリフレクション
-	auto refcb = reflection->GetConstantBufferByName(bindDesc.Name);
+	ID3D11ShaderReflectionConstantBuffer* refcb 
+		= reflection->GetConstantBufferByName(bindDesc.Name);
 	// 定数バッファの情報
 	D3D11_SHADER_BUFFER_DESC shaderBufferDesc{};
 	if (FAILED(refcb->GetDesc(&shaderBufferDesc)))
 	{
 		return;
 	}
-	
+
 	ConstantBufferResource constantBuffer;
 	// 定数バッファ情報を取得
 	if (shaderBufferDesc.Name != nullptr)
@@ -209,14 +217,13 @@ void ShaderManager::CreateConstantBuffer(
 	}
 
 	shaderInfo.constantBuffer.push_back(std::move(constantBuffer));
-
 }
 
 /**
  * \brief シェーダーテクスチャの作成
- * 
+ *
  * \param shaderInfo シェーダー情報の格納先
- * \param bindDesc バインド情報
+ * \param bindDesc リソースの型情報
  */
 void ShaderManager::CreateShaderTexture(
 	ShaderInfo& shaderInfo,
@@ -231,6 +238,44 @@ void ShaderManager::CreateShaderTexture(
 	shaderTextureInfo.registerSlot = bindDesc.BindPoint;
 
 	shaderInfo.shaderTetureInfo.push_back(shaderTextureInfo);
+}
+
+/**
+ * \brief UAVの作成
+ *
+ * \param shaderInfo シェーダー情報の格納先
+ * \param reflection リフレクション情報
+ * \param bindDesc リソースの型情報
+ */
+void ShaderManager::CreateRWStructuredResource(
+	ShaderInfo& shaderInfo, 
+	ID3D11ShaderReflection* reflection, 
+	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)
+{
+	// UAVリフレクション情報
+	ID3D11ShaderReflectionVariable* shaderVariable = reflection->GetVariableByName(bindDesc.Name);
+	ID3D11ShaderReflectionType* shaderType = shaderVariable->GetType();
+
+	// 構造体取得用
+	D3D11_SHADER_TYPE_DESC typeDesc{};
+	shaderType->GetDesc(&typeDesc);
+
+	// 構造体の場合
+	if (typeDesc.Members > 0)
+	{
+		for (int i = 0; i < typeDesc.Members; i++)
+		{
+			ID3D11ShaderReflectionType* varialbleType = shaderType->GetMemberTypeByIndex(i);
+			// 変数情報取得
+			D3D11_SHADER_TYPE_DESC variableTypeDesc{};
+			varialbleType->GetDesc(&variableTypeDesc);
+		}
+	}
+	// 基本型の場合
+	else
+	{
+
+	}
 }
 
 /**

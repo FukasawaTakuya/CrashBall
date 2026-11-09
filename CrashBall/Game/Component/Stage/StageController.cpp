@@ -39,6 +39,25 @@ void StageController::Awake()
 
 	m_gameColor = Scriptable::GetScriptableObject<GameColor>();
 
+	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
+	m_paintTextureInfo = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+
+	// 衝突中の処理の登録
+	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
+		{
+			ObjectTag tag = other->GetGameObject()->GetTag();
+			// 衝突オブジェクトがプレイヤーの時の処理
+			if (tag == ObjectTag::Player)
+			{
+				PaintFace(m_gameColor->m_playerColor);
+			}
+			// 衝突オブジェクトが敵の時の処理
+			else if (tag == ObjectTag::Enemy)
+			{
+				PaintFace(m_gameColor->m_enemyColor);
+			}
+		});
+
 
 	// 床メッシュと壁メッシュに分ける
 	for (auto& face : m_meshCollider->GetFace())
@@ -67,27 +86,9 @@ void StageController::Start(const GameContext& gameContext)
 
 	Paint::ClearPaint();
 
-	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
-	m_paintTextureInfo = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
-
 	//m_enemyMeshCount = 0;
 	//m_playerMeshCount = 0;
 
-	// 衝突中の処理の登録
-	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
-		{
-			ObjectTag tag = other->GetGameObject()->GetTag();
-			// 衝突オブジェクトがプレイヤーの時の処理
-			if (tag == ObjectTag::Player)
-			{
-				PaintFace(m_gameColor->m_playerColor);
-			}
-			// 衝突オブジェクトが敵の時の処理
-			else if (tag == ObjectTag::Enemy)
-			{
-				PaintFace(m_gameColor->m_enemyColor);
-			}
-		});
 }
 
 /**
@@ -220,15 +221,15 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
 {
 	SimpleMath::Vector2 outUV;
 
-	// ローカル座標に直す
+	// 2D座標に直す
 	// 基準の軸
 	SimpleMath::Vector3 axisX = XMVector3Normalize(b.position - a.position);
 	SimpleMath::Vector3 axisY = a.normal.Cross(axisX);
 	// ローカル座標の各点
-	SimpleMath::Vector2 localA = ToLocal(axisX, axisY, a.position, a.position);
-	SimpleMath::Vector2 localB = ToLocal(axisX, axisY, a.position, b.position);
-	SimpleMath::Vector2 localC = ToLocal(axisX, axisY, a.position, c.position);
-	SimpleMath::Vector2 localP = ToLocal(axisX, axisY, a.position, p / m_transform->GetWorldScale());
+	SimpleMath::Vector2 localA = To2DPosition(axisX, axisY, a.position, a.position);
+	SimpleMath::Vector2 localB = To2DPosition(axisX, axisY, a.position, b.position);
+	SimpleMath::Vector2 localC = To2DPosition(axisX, axisY, a.position, c.position);
+	SimpleMath::Vector2 localP = To2DPosition(axisX, axisY, a.position, p / m_transform->GetWorldScale());
 
 	// それぞれの頂点から衝突点への係数を求める
 	float denominator = (localB.y - localC.y) * (localA.x - localC.x) 
@@ -250,7 +251,7 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
 }
 
 /**
- * \brief XZ平面に直す
+ * \brief 2D座標に直す
  * 
  * \param axisX X軸
  * \param axisY Y軸
@@ -258,19 +259,20 @@ DirectX::SimpleMath::Vector2 StageController::CalcUV(
  * \param point 直したい点
  * \return 
  */
-DirectX::SimpleMath::Vector2 StageController::ToLocal(
+DirectX::SimpleMath::Vector2 StageController::To2DPosition(
 	const DirectX::SimpleMath::Vector3& axisX, 
 	const DirectX::SimpleMath::Vector3& axisY, 
 	const DirectX::SimpleMath::Vector3& origin, 
 	const DirectX::SimpleMath::Vector3& point)
 {
+	// 原点から目標へのベクトル
 	SimpleMath::Vector3 vec = point - origin;
 
-	SimpleMath::Vector2 local =
+	SimpleMath::Vector2 pos =
 	{
 		axisX.Dot(vec),
 		axisY.Dot(vec)
 	};
 
-	return local;
+	return pos;
 }

@@ -174,6 +174,7 @@ void Game::Initialize(HWND window, int width, int height)
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
 
+    m_sceneManager->Awake();
     m_sceneManager->Start();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
@@ -541,7 +542,7 @@ void Game::CreateWindowSizeDependentResources()
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
     // ペイントテクスチャの設定
-    m_paintTextrue->SizeResources(2048.0f, 2048.0f);
+    m_paintTextrue->SizeResources(2048.0f * 1.2f, 2048.0f * 1.2f);
 
     // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();

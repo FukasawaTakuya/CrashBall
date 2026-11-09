@@ -69,6 +69,12 @@ private:
 		ShaderInfo& shaderInfo,
 		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
 
+	// UAVの作成
+	void CreateRWStructuredResource(
+		ShaderInfo& shaderInfo,
+		ID3D11ShaderReflection* reflection,
+		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
+
 	// 入力レイアウトの作成
 	void CreateInputLayout(ShaderInfo& shaderInfo, ID3D11Device1* device);
 };

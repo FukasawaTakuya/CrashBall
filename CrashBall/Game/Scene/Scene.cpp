@@ -132,7 +132,7 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		camera->SetTag(ObjectTag::Camera);
 		m_camera = camera->AddComponent<Camera>();
 
-		camera->Awake();
+		//camera->Awake();
 	}
 }
 

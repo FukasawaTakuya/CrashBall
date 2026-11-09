@@ -109,6 +109,8 @@ void Mesh::Rotate()
  */
 void Mesh::CreateMesh()
 {
+	m_faces.clear();
+
 	auto& indexList = m_modelRenderer->GetModel()->GetIndexList();
 	auto& vertexList = m_modelRenderer->GetModel()->GetVertexList();
 	SimpleMath::Vector3 scale = m_transform->GetWorldScale();

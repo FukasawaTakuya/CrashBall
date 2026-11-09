@@ -55,8 +55,8 @@ void PaintTexture::ClearPaint()
 /**
  * \brief 描画
  * 
- * \param spriteBatch
- * \param states
+ * \param spriteBatch スプライトバッチ
+ * \param states コモンステート
  */
 void PaintTexture::Draw(
 	DirectX::SpriteBatch* spriteBatch,

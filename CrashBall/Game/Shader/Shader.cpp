@@ -34,7 +34,7 @@ void Shader::UpdateSubResources(ID3D11DeviceContext1* context)
 }
 
 /**
- * \brief コンテキストにシェーダを渡す
+ * \brief バインド
  * 
  * \param context デバイスコンテキスト
  */
@@ -100,7 +100,10 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 {
 	std::visit([&](const auto& shader)
 		{
+			// シェーダーの型
 			using shaderType = std::decay_t<decltype(shader)>;
+
+			// バインド解除用のポインタ
 			ID3D11Buffer* nullBuffer = nullptr;
 			ID3D11ShaderResourceView* nullSrv = nullptr;
 
@@ -159,6 +162,7 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 void Shader::SetShader(const ShaderInfo* shaderInfo)
 {
 	m_constantBuffer.clear();
+	m_shaderTextrueInfo.clear();
 
 	// シェーダのポインタを格納
 	std::visit([&](auto& shader)

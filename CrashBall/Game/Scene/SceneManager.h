@@ -67,14 +67,16 @@ public:
 		const GameContext*		pGameContext,
 		const RenderContext*	pRenderContext,
 		const ResourceContext*	pResourceContext,
-		EditGuiManager*			pEditGuiManager
-	);
+		EditGuiManager*			pEditGuiManager);
 
 	// デストラクタ
 	~SceneManager();
 
 	// 最初のシーンのセット
 	void SetStartScene(const std::string& sceneName);
+
+	// 
+	void Awake() override;
 
 	// 初期化
 	void Start() override;

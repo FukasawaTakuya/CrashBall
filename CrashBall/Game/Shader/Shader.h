@@ -36,7 +36,7 @@ private:
 
 	ShaderVariant m_shader;								// シェーダー
 	ID3DBlob* m_blob;									// バイナリ情報
-	std::vector<ConstantBufferPtr> m_constantBuffer;		// 定数バッファ
+	std::vector<ConstantBufferPtr> m_constantBuffer;	// 定数バッファ
 	std::vector<ShaderTextrueInfo> m_shaderTextrueInfo;	// シェーダに渡すテクスチャ情報
 	ID3D11InputLayout* m_inputLayout;					// 入力レイアウト
 
@@ -56,10 +56,10 @@ public:
 	// サブリソースの更新
 	void UpdateSubResources(ID3D11DeviceContext1* conetxt);
 
-	// コンテキストにシェーダを渡す
+	// バインド
 	void Bind(ID3D11DeviceContext1* context);
 
-	// リリース解除
+	// バインド解除
 	void ReleaseBind(ID3D11DeviceContext1* context);
 
 	// 取得/設定
@@ -86,6 +86,7 @@ public:
 			return nullptr;
 		}
 	}
+
 	// シェーダに渡すテクスチャ情報の取得
 	ShaderTextrueInfo* GetShaderTextrueInfo(const std::string& name)
 	{

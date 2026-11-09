@@ -31,6 +31,9 @@ public:
 	// 操作
 public:
 
+	// 
+	virtual void Awake() = 0;
+
 	// 開始処理
 	virtual void Start() = 0;
 

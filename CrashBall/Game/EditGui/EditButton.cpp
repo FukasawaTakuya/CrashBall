@@ -50,6 +50,7 @@ void EditButton::Update(
     // プレイモード切り替え
     if (ImGui::Button("Play"))
     {
+        sceneEditer->Awake();
         m_editModeChanger->SetEditMode(false);
     }
 
@@ -60,6 +61,7 @@ void EditButton::Update(
     {
         m_editModeChanger->SetEditMode(true);
         sceneEditer->ReloadData();
+        sceneEditer->Awake();
         sceneEditer->Start();
     }
 

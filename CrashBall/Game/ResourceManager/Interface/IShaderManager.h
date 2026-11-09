@@ -69,11 +69,25 @@ struct ShaderTextrueInfo
 	uint32_t registerSlot;
 };
 
+// アンオーダーアクセスビュー情報
+struct UnorderedAccessViewInfo : public ConstantBufferInfo
+{
+
+};
+
 // 定数バッファに関するものをまとめた構造体
 struct ConstantBufferResource
 {
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;	// 定数バッファ本体
 	ConstantBufferInfo info;						// 定数バッファ情報
+};
+
+// UAVに関するものをまとめた構造体
+struct RWStructuredResource
+{
+	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
+	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
+	UnorderedAccessViewInfo info;							// UAV情報
 };
 
 // シェーダの本体を扱うバリアント
@@ -90,6 +104,7 @@ struct ShaderInfo
 	std::vector<ConstantBufferResource>	constantBuffer;		// 定数バッファリスト
 	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報リスト
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;	// 入力レイアウト
+	int dispath;	// コンピュートシェーダーのディスパッチ
 };
 
  /**

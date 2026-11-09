@@ -10,7 +10,7 @@ cbuffer ConstBuffer : register(b0)
 
 Texture2D Texture : register(t0);
 
-SamplerState samplaer : register(s0);
+SamplerState Sampler : register(s0);
 
 float4 main(PSInput pin) : SV_TARGET
 {
@@ -19,7 +19,7 @@ float4 main(PSInput pin) : SV_TARGET
     
     // ベースカラー
     float4 pout 
-    = (Texture.Sample(samplaer, pin.Texcoord) + (1 - useTex))
+    = (Texture.Sample(Sampler, pin.Texcoord) + (1 - useTex))
     + BaseColor;
 
     float3 lightdire = -normalize(LightDirection);

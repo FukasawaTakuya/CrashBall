@@ -139,7 +139,7 @@ private:
 		const Vertex& b,
 		const Vertex& c);
 
-	DirectX::SimpleMath::Vector2 ToLocal(
+	DirectX::SimpleMath::Vector2 To2DPosition(
 		const DirectX::SimpleMath::Vector3& axisX,
 		const DirectX::SimpleMath::Vector3& axisY,
 		const DirectX::SimpleMath::Vector3& origin,
