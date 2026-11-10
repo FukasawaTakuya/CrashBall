@@ -100,8 +100,8 @@ void Game::Initialize(HWND window, int width, int height)
     );
 
     m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(
-        m_deviceResources->GetBackBufferFormat()
-    );
+        m_deviceResources->GetBackBufferFormat());
+
     // ゲームビュー用のレンダーテクスチャの作成
     m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
     // デバッグビュー用のレンダーテクスチャの作成
@@ -157,8 +157,7 @@ void Game::Initialize(HWND window, int width, int height)
             "C:/Windows/Fonts/meiryo.ttc",
             20.0f,
             nullptr,
-            io.Fonts->GetGlyphRangesJapanese()
-        );
+            io.Fonts->GetGlyphRangesJapanese());
     }
 
     ImGui_ImplDX11_NewFrame();
@@ -176,6 +175,9 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_sceneManager->Awake();
     m_sceneManager->Start();
+
+    // コンポーネントリストのソート
+    ComponentFactory::SortComponentList();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -350,8 +352,6 @@ void Game::Render()
 
     // Show the new frame.
     m_deviceResources->Present();
-
-    ComponentFactory::SortComponentList();
 }
 
 /**

@@ -621,6 +621,9 @@
     <ClInclude Include="Game\PaintTexture\Paint.h">
       <Filter>Game\PaintTexture</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Shader\ShaderResources.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

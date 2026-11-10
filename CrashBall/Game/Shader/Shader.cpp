@@ -177,15 +177,11 @@ void Shader::SetShader(const ShaderInfo* shaderInfo)
 	{
 		// 定数バッファはポインタを格納し定数バッファ情報はコピー
 		m_constantBuffer.emplace_back(cb.buffer.Get(), cb.info);
-		// 格納した定数バッファをマップに登録
-		auto& cbInfo = m_constantBuffer.back();
 	}
 
 	for (auto& st : shaderInfo->shaderTetureInfo)
 	{
 		m_shaderTextrueInfo.emplace_back(st);
-		// マップに登録
-		auto& stInfo = m_shaderTextrueInfo.back();
 	}
 
 	// 入力レイアウトのポインタを格納

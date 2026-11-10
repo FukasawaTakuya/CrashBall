@@ -58,17 +58,20 @@ void StageController::Awake()
 			}
 		});
 
+	//auto csShader = m_modelRenderer->ComputeShader("name");
+	// csShader->CreateUAV("name", count);
+
 
 	// 床メッシュと壁メッシュに分ける
-	for (auto& face : m_meshCollider->GetFace())
-	{
-		// 床メッシュ
-		if (face->GetPlane()->GetNormal().y >= m_floorNormalY)
-		{
-			m_floorMesh.push_back(face.get());
-			m_floorMeshColor.emplace(face.get(), m_gameColor->m_defaultFaceColor);
-		}
-	}
+	//for (auto& face : m_meshCollider->GetFace())
+	//{
+	//	// 床メッシュ
+	//	if (face->GetPlane()->GetNormal().y >= m_floorNormalY)
+	//	{
+	//		m_floorMesh.push_back(face.get());
+	//		m_floorMeshColor.emplace(face.get(), m_gameColor->m_defaultFaceColor);
+	//	}
+	//}
 }
 
 /**

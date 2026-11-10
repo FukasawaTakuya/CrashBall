@@ -98,6 +98,22 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 }
 
 /**
+ *\brief UAVの作成命令の実行
+ * 
+ * \param device デバイス
+ */
+void ShaderManager::DoUavCreateCmd(ID3D11Device1* device)
+{
+	for (auto& shader : m_shaders)
+	{
+		for (auto& rwStructured : shader.second.rwStructuredResource)
+		{
+			rwStructured.DoUavCreateCmd(device);
+		}
+	}
+}
+
+/**
  * \brief シェーダーリソースの作成
  * 
  * \param shaderInfo シェーダ情報
@@ -252,29 +268,60 @@ void ShaderManager::CreateRWStructuredResource(
 	ID3D11ShaderReflection* reflection, 
 	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)
 {
-	// UAVリフレクション情報
-	ID3D11ShaderReflectionVariable* shaderVariable = reflection->GetVariableByName(bindDesc.Name);
-	ID3D11ShaderReflectionType* shaderType = shaderVariable->GetType();
+	RWStructuredResource rwResource;
+	rwResource.info.name			= bindDesc.Name;
+	rwResource.info.registerSlot	= bindDesc.BindPoint;
+	rwResource.info.size			= bindDesc.NumSamples;
+	rwResource.info.data.resize(bindDesc.NumSamples, std::byte{ 0 });
 
-	// 構造体取得用
-	D3D11_SHADER_TYPE_DESC typeDesc{};
-	shaderType->GetDesc(&typeDesc);
+	// 定数バッファのリフレクション
+	ID3D11ShaderReflectionConstantBuffer* refcb
+		= reflection->GetConstantBufferByName(bindDesc.Name);
+	// 定数バッファの情報
+	D3D11_SHADER_BUFFER_DESC shaderBufferDesc{};
+	if (FAILED(refcb->GetDesc(&shaderBufferDesc)))
+	{
+		return;
+	}
+
+	// UAVリフレクション情報
+	ID3D11ShaderReflectionVariable* shaderVariable = refcb->GetVariableByIndex(0);
+	ID3D11ShaderReflectionType* shaderVariableType = shaderVariable->GetType();
+
+	// StructuredBufferの要素型を取得
+	D3D11_SHADER_TYPE_DESC elementDesc{};
+	shaderVariableType->GetDesc(&elementDesc);
 
 	// 構造体の場合
-	if (typeDesc.Members > 0)
+	if (elementDesc.Members > 0)
 	{
-		for (int i = 0; i < typeDesc.Members; i++)
+		for (int i = 0; i < elementDesc.Members; i++)
 		{
-			ID3D11ShaderReflectionType* varialbleType = shaderType->GetMemberTypeByIndex(i);
-			// 変数情報取得
-			D3D11_SHADER_TYPE_DESC variableTypeDesc{};
-			varialbleType->GetDesc(&variableTypeDesc);
-		}
-	}
-	// 基本型の場合
-	else
-	{
+			ID3D11ShaderReflectionType* memberType = shaderVariableType->GetMemberTypeByIndex(i);
+			// メンバーの情報を取得
+			D3D11_SHADER_TYPE_DESC memberDesc{};
+			memberType->GetDesc(&memberDesc);
 
+			ShaderVariableInfo shaderVariableInfo{};
+
+			shaderVariableInfo.name = shaderVariableType->GetMemberTypeName(i);
+			shaderVariableInfo.offset = memberDesc.Offset;
+
+			if(i == elementDesc.Members - 1)
+			{
+				shaderVariableInfo.size = bindDesc.NumSamples - memberDesc.Offset;
+			}
+			else
+			{
+				// 次のメンバーの情報を取得
+				ID3D11ShaderReflectionType* nextMemberType = shaderVariableType->GetMemberTypeByIndex(i + 1);
+				D3D11_SHADER_TYPE_DESC nextMemberDesc{};
+				nextMemberType->GetDesc(&nextMemberDesc);
+				shaderVariableInfo.size = nextMemberDesc.Offset - memberDesc.Offset;
+			}
+
+			rwResource.info.variables.push_back(shaderVariableInfo);
+		}
 	}
 }
 

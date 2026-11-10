@@ -19,7 +19,6 @@ VSOutput main(VSInput vin)
 
     // 法線変換
     vout.Normal = normalize(mul((float3x3)WorldInvertTranspose, vin.Normal));
-    //vout.Normal = vin.Normal;
     
     // UV座標
     vout.Texcoord = vin.Texcoord;

@@ -25,8 +25,8 @@ float4 main(PSInput pin) : SV_TARGET
     float3 lightdire = -normalize(LightDirection);
     float Dot = dot(lightdire, pin.Normal);
     
-    //float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
-    float3 LightColor = float3(1, 1, 1) * lerp(0.5, 1.0f, step(-0.4f, Dot));
+    float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
+    //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 1.0f, step(-0.4f, Dot));
 
     // ライトの計算
     pout *= float4(LightColor, 1.0f);

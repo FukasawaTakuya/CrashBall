@@ -473,6 +473,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Shader\ShaderResources.h" />
     <ClInclude Include="Game\SoundPlayer\ISoundManager.h" />
     <ClInclude Include="Game\SoundPlayer\ISoundPlayer.h" />
     <ClInclude Include="Game\SoundPlayer\SoundPlayer.h">

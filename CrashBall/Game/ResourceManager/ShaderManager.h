@@ -51,6 +51,9 @@ public:
 		}
 	}
 
+	// UAVの作成命令の実行
+	void DoUavCreateCmd(ID3D11Device1* device);
+
 	// 内部実装
 private:
 
