@@ -72,8 +72,8 @@ private:
 		ShaderInfo& shaderInfo,
 		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
 
-	// UAVの作成
-	void CreateRWStructuredResource(
+	// UAV情報の作成
+	void CreateRWStructuredInfo(
 		ShaderInfo& shaderInfo,
 		ID3D11ShaderReflection* reflection,
 		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);

@@ -160,7 +160,7 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 			break;
 			// 読み書き可能な構造体バッファ
 		case D3D_SIT_UAV_RWSTRUCTURED:
-			CreateRWStructuredResource(shaderInfo, reflection.Get(), bindDesc);
+			CreateRWStructuredInfo(shaderInfo, reflection.Get(), bindDesc);
 			break;
 			// 読み書き可能なテクスチャ
 		case D3D_SIT_UAV_RWTYPED:
@@ -263,7 +263,7 @@ void ShaderManager::CreateShaderTexture(
  * \param reflection リフレクション情報
  * \param bindDesc リソースの型情報
  */
-void ShaderManager::CreateRWStructuredResource(
+void ShaderManager::CreateRWStructuredInfo(
 	ShaderInfo& shaderInfo, 
 	ID3D11ShaderReflection* reflection, 
 	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)

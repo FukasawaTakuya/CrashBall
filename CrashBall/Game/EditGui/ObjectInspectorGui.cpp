@@ -30,27 +30,25 @@ using namespace DirectX;
  */
 ObjectInspectorGui::ObjectInspectorGui()
 {
-	using namespace std::placeholders;
+	m_drawProperty.emplace(PropertyType::Bool,		 [&](const PropertyInfo& propertyInfo) { DrawBool(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Int,		 [&](const PropertyInfo& propertyInfo) { DrawInt(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Float,		 [&](const PropertyInfo& propertyInfo) { DrawFloat(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Angle,		 [&](const PropertyInfo& propertyInfo) { DrawAngle(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Vector2,	 [&](const PropertyInfo& propertyInfo) { DrawVector2(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Vector3,	 [&](const PropertyInfo& propertyInfo) { DrawVector3(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Quaternion, [&](const PropertyInfo& propertyInfo) { DrawQuaternion(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Color,		 [&](const PropertyInfo& propertyInfo) { DrawColor(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Slider,	 [&](const PropertyInfo& propertyInfo) { DrawSlider(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::String,	 [&](const PropertyInfo& propertyInfo) { DrawString(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Enum,		 [&](const PropertyInfo& propertyInfo) { DrawEnum(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::GameObject, [&](const PropertyInfo& propertyInfo) { DrawGameObject(propertyInfo); });
+	m_drawProperty.emplace(PropertyType::Component,  [&](const PropertyInfo& propertyInfo) { DrawComponent(propertyInfo); });
 
-	m_drawProperty.emplace(PropertyType::Bool,		std::bind(&ObjectInspectorGui::DrawBool,		this, _1));
-	m_drawProperty.emplace(PropertyType::Int,		std::bind(&ObjectInspectorGui::DrawInt,			this, _1));
-	m_drawProperty.emplace(PropertyType::Float,		std::bind(&ObjectInspectorGui::DrawFloat,		this, _1));
-	m_drawProperty.emplace(PropertyType::Angle,		std::bind(&ObjectInspectorGui::DrawAngle,		this, _1));
-	m_drawProperty.emplace(PropertyType::Vector2,	std::bind(&ObjectInspectorGui::DrawVector2,		this, _1));
-	m_drawProperty.emplace(PropertyType::Vector3,	std::bind(&ObjectInspectorGui::DrawVector3,		this, _1));
-	m_drawProperty.emplace(PropertyType::Quaternion,std::bind(&ObjectInspectorGui::DrawQuaternion,	this, _1));
-	m_drawProperty.emplace(PropertyType::Color,		std::bind(&ObjectInspectorGui::DrawColor,		this, _1));
-	m_drawProperty.emplace(PropertyType::Slider,	std::bind(&ObjectInspectorGui::DrawSlider,		this, _1));
-	m_drawProperty.emplace(PropertyType::String,	std::bind(&ObjectInspectorGui::DrawString,		this, _1));
-	m_drawProperty.emplace(PropertyType::Enum,		std::bind(&ObjectInspectorGui::DrawEnum,		this, _1));
-	m_drawProperty.emplace(PropertyType::GameObject,std::bind(&ObjectInspectorGui::DrawGameObject,	this, _1));
-	m_drawProperty.emplace(PropertyType::Component, std::bind(&ObjectInspectorGui::DrawComponent,	this, _1));
-
-	m_drawEnum.emplace(typeid(Origin),				std::bind(&ObjectInspectorGui::DrawEnumList<Origin>,		this, _1, _2));
-	m_drawEnum.emplace(typeid(FillOrigin),			std::bind(&ObjectInspectorGui::DrawEnumList<FillOrigin>,	this, _1, _2));
-	m_drawEnum.emplace(typeid(DX11::SpriteEffects), std::bind(&ObjectInspectorGui::DrawEnumList<SpriteEffects>, this, _1, _2));
-	m_drawEnum.emplace(typeid(ObjectTag),			std::bind(&ObjectInspectorGui::DrawEnumList<ObjectTag>,		this, _1, _2));
-	m_drawEnum.emplace(typeid(LayerMaskType),		std::bind(&ObjectInspectorGui::DrawEnumList<LayerMaskType>,	this, _1, _2));
+	m_drawEnum.emplace(typeid(Origin),				[&](const std::string& name, void* value) { DrawEnumList<Origin>(name, value); });
+	m_drawEnum.emplace(typeid(FillOrigin),			[&](const std::string& name, void* value) { DrawEnumList<FillOrigin>(name, value); });
+	m_drawEnum.emplace(typeid(DX11::SpriteEffects), [&](const std::string& name, void* value) { DrawEnumList<DX11::SpriteEffects>(name, value); });
+	m_drawEnum.emplace(typeid(ObjectTag),			[&](const std::string& name, void* value) { DrawEnumList<ObjectTag>(name, value); });
+	m_drawEnum.emplace(typeid(LayerMaskType),		[&](const std::string& name, void* value) { DrawEnumList<LayerMaskType>(name, value); });
 }
 
 /**

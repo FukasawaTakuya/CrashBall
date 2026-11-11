@@ -22,23 +22,38 @@ using ShaderVariant = std::variant<
 // 定数バッファのポインタを保持する定数バッファ関連構造体
 struct ConstantBufferPtr
 {
-	ID3D11Buffer* buffer;
-	ConstantBufferInfo info;
+	ID3D11Buffer* buffer = nullptr;	// 定数バッファのポインタ
+	ConstantBufferInfo info;// 定数バッファ情報
+};
+
+// UAVのポインタを保持するUAV関連構造体
+struct RWStructuredBufferPtr
+{
+	ID3D11UnorderedAccessView* uav;	// UAVのポインタ
+	ID3D11Buffer* buffer;			// バッファのポインタ
+	UnorderedAccessViewInfo info;	// UAV情報
+	ID3D11Buffer* stagingBuffer[3];	// ステージングバッファのポインタ
+	uint32_t uavCount;				// UAV数
+	void* cpudata;					// CPU側のデータ格納先
+	std::function<void(int)> setUavCreateCmd;	// UAV作成命令の設定命令
+
+	int frameCount = 0;							// ステージングバッファ用の経過フレーム数
 };
 
  /**
-  * \brief シェーダ
+  * \brief シェーダー操作クラス
   */
 class  Shader {
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
-	ShaderVariant m_shader;								// シェーダー
-	ID3DBlob* m_blob;									// バイナリ情報
-	std::vector<ConstantBufferPtr> m_constantBuffer;	// 定数バッファ
-	std::vector<ShaderTextrueInfo> m_shaderTextrueInfo;	// シェーダに渡すテクスチャ情報
-	ID3D11InputLayout* m_inputLayout;					// 入力レイアウト
+	ShaderVariant m_shader;										// シェーダー
+	ID3DBlob* m_blob;											// バイナリ情報
+	std::vector<ConstantBufferPtr> m_constantBuffer;			// 定数バッファ
+	std::vector<ShaderTextrueInfo> m_shaderTextrueInfo;			// シェーダに渡すテクスチャ情報
+	std::vector<RWStructuredBufferPtr> m_rwStructuredBuffer;	// UAV情報
+	ID3D11InputLayout* m_inputLayout;							// 入力レイアウト
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -61,6 +76,9 @@ public:
 
 	// バインド解除
 	void ReleaseBind(ID3D11DeviceContext1* context);
+
+	// UAVの作成
+	void CreateUAV(const std::string& uavName, int uavCount);
 
 	// 取得/設定
 public:
@@ -113,7 +131,7 @@ public:
 	}
 
 	// シェーダの設定
-	void SetShader(const ShaderInfo* shaderInfo);
+	void SetShader(ShaderInfo* shaderInfo);
 
 	// 内部実装
 private:

@@ -636,6 +636,7 @@
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp" />
     <ClCompile Include="Game\Shader\Shader.cpp" />
+    <ClCompile Include="Game\Shader\ShaderResources.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />
     <ClCompile Include="Game\State\Enemy\EnemyWanderState.cpp" />
     <ClCompile Include="Game\State\Player\PlayerAttackState.cpp" />

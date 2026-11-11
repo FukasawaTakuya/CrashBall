@@ -95,7 +95,8 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
 	UnorderedAccessViewInfo info;							// UAV情報
-	ID3D11Buffer* stagingBuffer[3];							// ステージングバッファ
+	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
+	void* cpudata;	// CPU側のデータ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
@@ -106,36 +107,10 @@ private:
 public:
 
 	// UAV作成命令の実行
-	void DoUavCreateCmd(ID3D11Device1* device)
-	{
-		createUAVCmd(device);
-		createUAVCmd = [](ID3D11Device1*) {};
-	}
+	void DoUavCreateCmd(ID3D11Device1* device);
 
 	// UAV作成命令の設定
-	void SetUAVCreateCmd(int uavCount)
-	{
-		this->uavCount = uavCount;
-		createUAVCmd = [&](ID3D11Device1* device)
-			{
-				// バッファの作成
-				D3D11_BUFFER_DESC bufDesc = {};
-				bufDesc.Usage = D3D11_USAGE_DEFAULT;
-				bufDesc.ByteWidth = info.size * uavCount;
-				bufDesc.BindFlags = D3D11_BIND_UNORDERED_ACCESS;
-				bufDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-				bufDesc.StructureByteStride = info.size;
-				device->CreateBuffer(&bufDesc, nullptr, buffer.ReleaseAndGetAddressOf());
-				// UAVの作成
-				D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
-				uavDesc.Format = DXGI_FORMAT_UNKNOWN;
-				uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
-				uavDesc.Buffer.FirstElement = 0;
-				uavDesc.Buffer.NumElements = uavCount;
-
-				device->CreateUnorderedAccessView(buffer.Get(), &uavDesc, uav.ReleaseAndGetAddressOf());
-			};
-	}
+	void SetUAVCreateCmd(int uavCount);
 };
 
 // シェーダの本体を扱うバリアント
