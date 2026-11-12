@@ -89,6 +89,9 @@ struct ConstantBufferResource
 	ConstantBufferInfo info;						// 定数バッファ情報
 };
 
+
+struct RWStructuredBufferPtr;
+
 // UAVに関するものをまとめた構造体
 struct RWStructuredResource
 {
@@ -96,7 +99,6 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
 	UnorderedAccessViewInfo info;							// UAV情報
 	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
-	void* cpudata;	// CPU側のデータ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
@@ -110,7 +112,7 @@ public:
 	void DoUavCreateCmd(ID3D11Device1* device);
 
 	// UAV作成命令の設定
-	void SetUAVCreateCmd(int uavCount);
+	void SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr);
 };
 
 // シェーダの本体を扱うバリアント
@@ -128,6 +130,16 @@ struct ShaderInfo
 	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報リスト
 	std::vector<RWStructuredResource> rwStructuredResource;	// UAV情報
 	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;	// 入力レイアウト
+
 	int dispath;	// コンピュートシェーダーのディスパッチ
+
+private:
+
+	std::function<void(ID3D11DeviceContext1*)> dispatchCmd	// ディスパッチ命令
+		= [](ID3D11DeviceContext1*) {};
+
+public:
+
+	void SetDispatchCmd();
 };
 

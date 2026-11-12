@@ -16,6 +16,7 @@
 #include "Game/Component/Default/Collider/Mesh.h"
 #include "Game/Component/Default/Renderer/ModelRenderer.h"
 #include "Game/Component/Default/Physics/Transform.h"
+#include "Game/Component/Default/Other/ComputShaderController.h"
 
 #include "Game/ScriptableObject/ScriptableObject.h"
 #include "Game/ScriptableObject/GameColor.h"
@@ -31,14 +32,30 @@ class  StageController :
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
+	// ゲームカラー
 	const GameColor* m_gameColor = nullptr;
 	
-	Mesh* m_meshCollider = nullptr;	// コンポーネントのキャッシュ
+	// コンポーネントのキャッシュ
+	Mesh* m_meshCollider = nullptr;	
 	Transform* m_transform = nullptr;
 	ModelRenderer* m_modelRenderer;
 
+	// モデル
 	const MyModel* m_model = nullptr;
-	ShaderTextrueInfo* m_paintTextureInfo;
+
+	// ステージシェーダーに渡すテクスチャ情報
+	ShaderTextrueInfo* m_paintTextureInfoInStage;
+	// コンピュートシェーダーに渡すテクスチャ情報
+	ShaderTextrueInfo* m_paintTextureInfoInCompute;
+
+	// コンピュートシェーダーに渡す色情報
+	DirectX::SimpleMath::Color m_colors[8];
+
+	// コンピュートシェーダーからデータを書き込む
+	uint32_t m_pixelCount[8] = {0,0,0,0,0,0,0,0};
+
+	// コンピュートシェーダー操作クラス
+	ComputShaderController* m_computShaderController;
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 

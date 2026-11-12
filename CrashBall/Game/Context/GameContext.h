@@ -9,6 +9,7 @@
 #pragma once
 
 #include "Game/SoundPlayer/ISoundPlayer.h"
+#include "Game/Shader/IComputShaderDispatcher.h"
 
 class IObjectListGui;
 
@@ -17,4 +18,5 @@ class IObjectListGui;
  */
 struct  GameContext {
 	ISoundPlayer* soundManager = nullptr;	// サウンド再生 
+	IComputShaderDispatcher* computShaderDispathcer = nullptr;	// コンピュートシェーダーディスパッチ
 };

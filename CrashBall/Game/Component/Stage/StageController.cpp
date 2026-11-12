@@ -32,15 +32,33 @@ StageController::StageController(IGameObject* gameObject)
  */
 void StageController::Awake()
 {
-	// キャッシュの取得
-	m_transform = GetGameObject()->GetComponent<Transform>();
-	m_meshCollider = GetGameObject()->GetComponent<Mesh>();
-	m_modelRenderer = GetGameObject()->GetComponent<ModelRenderer>();
+	// コンポーネントのキャッシュの取得
+	m_transform					= GetGameObject()->GetComponent<Transform>();
+	m_meshCollider				= GetGameObject()->GetComponent<Mesh>();
+	m_modelRenderer				= GetGameObject()->GetComponent<ModelRenderer>();
+	m_computShaderController	= GetGameObject()->GetComponent<ComputShaderController>();
 
+	// ゲームカラーの取得
 	m_gameColor = Scriptable::GetScriptableObject<GameColor>();
 
+	m_colors[0] = m_gameColor->m_playerColor;
+	m_colors[1] = m_gameColor->m_enemyColor;
+
+	// モデルの取得
 	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
-	m_paintTextureInfo = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+
+	// コンピュートシェーダーの取得と設定
+	auto csShader = m_computShaderController->GetShader();
+	// UAVの設定
+	csShader->CreateUAV("outPutPaintArea", 8);
+	// UAVの書き込み先を設定
+	csShader->SetCpuData("outPutPaintArea", m_pixelCount);
+	// 定数バッファの設定
+	csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor",m_pixelCount);
+
+	// シェーダーテクスチャ情報の取得
+	m_paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+	m_paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
@@ -57,10 +75,6 @@ void StageController::Awake()
 				PaintFace(m_gameColor->m_enemyColor);
 			}
 		});
-
-	//auto csShader = m_modelRenderer->ComputeShader("name");
-	// csShader->CreateUAV("name", count);
-
 
 	// 床メッシュと壁メッシュに分ける
 	//for (auto& face : m_meshCollider->GetFace())
@@ -117,8 +131,11 @@ void StageController::Update(const GameContext& gameContext)
 	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_enemyColor);
 	//		});
 
-	if(m_paintTextureInfo)
-		m_paintTextureInfo->texture = Paint::GetPaintTexture();
+	// テクスチャをシェーダーに渡す
+	m_paintTextureInfoInStage->texture = Paint::GetPaintTexture();
+	m_paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
+
+	OutputDebugStringA(std::format("player : {}, enemy : {}\n\n", m_pixelCount[0], m_pixelCount[1]).c_str());
 }
 
 

@@ -323,6 +323,8 @@ void ShaderManager::CreateRWStructuredInfo(
 			rwResource.info.variables.push_back(shaderVariableInfo);
 		}
 	}
+
+	shaderInfo.rwStructuredResource.push_back(rwResource);
 }
 
 /**

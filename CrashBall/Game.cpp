@@ -61,12 +61,15 @@ void Game::Initialize(HWND window, int width, int height)
     m_shaderManager             = std::make_unique<ShaderManager>();
     m_skyboxRenderManager       = std::make_unique<SkyboxRenderManager>();
 
+    m_computShaderDispatcher    = std::make_unique<ComputShaderDispatcher>();
+
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
     // 各コンテキストの初期化
     m_gameContext =
     {
-        m_soundPlayer.get()
+        m_soundPlayer.get(),
+        m_computShaderDispatcher.get()
     };
     m_renderContext =
     {
@@ -226,6 +229,9 @@ void Game::Update(DX::StepTimer const& timer)
         m_inputSystem->EditToScreenPosition(m_editGuiManager->GetGameViewRect());
     }
 
+    // シーン遷移の更新
+    m_sceneManager->Update();
+
     // 編集モードならデバッグカメラ更新
     if (m_editGuiManager->GetIsActive())
     {
@@ -239,7 +245,11 @@ void Game::Update(DX::StepTimer const& timer)
         // シーンの更新
         m_sceneManager->SceneUpdate();
     }
-    m_sceneManager->Update();
+
+    // UAVの作成命令の実行
+    m_shaderManager->DoUavCreateCmd(m_deviceResources->GetD3DDevice());
+    // ディスパッチの実行
+    m_computShaderDispatcher->Dispatch(m_deviceResources->GetD3DDeviceContext());
 
     //// BGMの再生
     //m_soundPlayer->PlayBgm(m_soundManager.get());

@@ -8,6 +8,7 @@
 
 #include "pch.h"
 #include "ShaderResources.h"
+#include "Shader.h"
 
 /**
  * \brief UAV作成命令の実行
@@ -26,15 +27,15 @@ void RWStructuredResource::DoUavCreateCmd(ID3D11Device1* device)
  *
  * \param uavCount UAV数
  */
-void RWStructuredResource::SetUAVCreateCmd(int uavCount)
+void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr)
 {
 	this->uavCount = uavCount;
-	createUAVCmd = [&](ID3D11Device1* device)
+	createUAVCmd = [&, rwPtr](ID3D11Device1* device)
 		{
 			// バッファの作成
 			D3D11_BUFFER_DESC bufDesc = {};
 			bufDesc.Usage = D3D11_USAGE_DEFAULT;
-			bufDesc.ByteWidth = info.size * uavCount;
+			bufDesc.ByteWidth = info.size * this->uavCount;
 			bufDesc.BindFlags = D3D11_BIND_UNORDERED_ACCESS;
 			bufDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 			bufDesc.StructureByteStride = info.size;
@@ -44,7 +45,7 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount)
 			uavDesc.Format = DXGI_FORMAT_UNKNOWN;
 			uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
 			uavDesc.Buffer.FirstElement = 0;
-			uavDesc.Buffer.NumElements = uavCount;
+			uavDesc.Buffer.NumElements = this->uavCount;
 
 			device->CreateUnorderedAccessView(buffer.Get(), &uavDesc, uav.ReleaseAndGetAddressOf());
 
@@ -58,5 +59,11 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount)
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[0].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[1].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[2].ReleaseAndGetAddressOf());
+
+			rwPtr->uav = uav.Get();
+			rwPtr->buffer = buffer.Get();
+			rwPtr->stagingBuffer[0] = stagingBuffer[0].Get();
+			rwPtr->stagingBuffer[1] = stagingBuffer[1].Get();
+			rwPtr->stagingBuffer[2] = stagingBuffer[2].Get();
 		};
 }

@@ -97,6 +97,25 @@
                     }
                 }
             ]
+        },
+        {
+            "compName": "ComputShaderController",
+            "id": 94,
+            "isActive": true,
+            "properties": [
+                {
+                    "name": "computShaderKey",
+                    "data": "CalcArea_CS"
+                },
+                {
+                    "name": "groupNum",
+                    "data": {
+                        "x": 512.0,
+                        "y": 512.0,
+                        "z": 1.0
+                    }
+                }
+            ]
         }
     ],
     "children": null

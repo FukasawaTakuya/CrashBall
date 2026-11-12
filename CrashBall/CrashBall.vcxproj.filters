@@ -155,6 +155,9 @@
     <Filter Include="Game\PaintTexture">
       <UniqueIdentifier>{6fdb1b3c-b1c9-42be-aed5-f0c1f18856f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Component\Default\Other">
+      <UniqueIdentifier>{57a9f2bb-fcf6-4e56-88de-53ff31497afe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -624,6 +627,15 @@
     <ClInclude Include="Game\Shader\ShaderResources.h">
       <Filter>Game\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Component\Default\Other\ComputShaderController.h">
+      <Filter>Game\Component\Default\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Shader\ComputShaderDispatcher.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Shader\IComputShaderDispatcher.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -937,7 +949,15 @@
     <ClCompile Include="Game\PaintTexture\PaintTexture.cpp">
       <Filter>Game\PaintTexture</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Shader\ShaderResources.cpp" />
+    <ClCompile Include="Game\Component\Default\Other\ComputShaderController.cpp">
+      <Filter>Game\Component\Default\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Shader\ShaderResources.cpp">
+      <Filter>Game\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Shader\ComputShaderDispatcher.cpp">
+      <Filter>Game\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

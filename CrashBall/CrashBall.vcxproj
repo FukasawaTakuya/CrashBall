@@ -248,6 +248,10 @@
     <ClInclude Include="Game\Component\Default\Collider\Mesh.h" />
     <ClInclude Include="Game\Component\Default\Collider\Sphere.h" />
     <ClInclude Include="Game\Component\Default\Component.h" />
+    <ClInclude Include="Game\Component\Default\Other\ComputShaderController.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
     <ClInclude Include="Game\Component\Default\Physics\Rigidbody.h" />
     <ClInclude Include="Game\Component\Default\Physics\Transform.h" />
@@ -469,6 +473,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Shader\ComputShaderDispatcher.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Shader\IComputShaderDispatcher.h" />
     <ClInclude Include="Game\Shader\Shader.h">
       <SubType>
       </SubType>
@@ -560,6 +569,10 @@
     <ClCompile Include="Game\Component\Default\Collider\Mesh.cpp" />
     <ClCompile Include="Game\Component\Default\Collider\Sphere.cpp" />
     <ClCompile Include="Game\Component\Default\Component.cpp" />
+    <ClCompile Include="Game\Component\Default\Other\ComputShaderController.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\Rigidbody.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\Transform.cpp" />
@@ -635,6 +648,7 @@
     <ClCompile Include="Game\ScriptableObject\GameColor.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObject.cpp" />
     <ClCompile Include="Game\ScriptableObject\ScriptableObjectManager.cpp" />
+    <ClCompile Include="Game\Shader\ComputShaderDispatcher.cpp" />
     <ClCompile Include="Game\Shader\Shader.cpp" />
     <ClCompile Include="Game\Shader\ShaderResources.cpp" />
     <ClCompile Include="Game\SoundPlayer\SoundPlayer.cpp" />

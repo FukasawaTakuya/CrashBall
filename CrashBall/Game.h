@@ -23,8 +23,11 @@
 #include "Game/ResourceManager/SpriteManager.h"
 #include "Game/ResourceManager/SoundManager.h"
 #include "Game/ResourceManager/TextManager.h"
+#include "Game/ResourceManager/ShaderManager.h"
 
 #include "Game/SoundPlayer/SoundPlayer.h"
+
+#include "Game/Shader/ComputShaderDispatcher.h"
 
 #include "Game/ScriptableObject/ScriptableObjectManager.h"
 
@@ -34,16 +37,16 @@
 
 #include "Game/EditGui/ObjectListGui.h"
 #include "Game/EditGui/ObjectInspectorGui.h"
-#include "Game/RenderTexture/MyRenderTexture.h"
 #include "Game/EditGui/GameViewRenderer.h"
 #include "Game/EditGui/EditGuiManager.h"
+
+#include "Game/RenderTexture/MyRenderTexture.h"
+#include "Game/PaintTexture/PaintTexture.h"
 
 #include "Game/RenderTexture/RenderTextureManager.h"
 
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
-#include "Game/ResourceManager/ShaderManager.h"
-#include "Game/PaintTexture/PaintTexture.h"
 
 // A basic game implementation that creates a D3D11 device and
 // provides a game loop.
@@ -73,6 +76,8 @@ private:
     std::unique_ptr<SoundManager>               m_soundManager;                 // サウンド管理
     std::unique_ptr<TextManager>                m_textManager;                  // テキスト管理
     std::unique_ptr<ShaderManager>              m_shaderManager;                // シェーダ管理
+
+    std::unique_ptr<ComputShaderDispatcher>     m_computShaderDispatcher;       // コンピュートシェーダーディスパッチ管理
 
     std::unique_ptr<ModelRendererManager>       m_modelRendererManager;         // モデル描画管理
     std::unique_ptr<PrimitiveRendererManager>   m_primitiveRendererManager;     // プリミティブ描画管理

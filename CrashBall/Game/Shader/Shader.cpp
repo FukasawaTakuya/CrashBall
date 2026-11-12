@@ -111,13 +111,18 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 				// UAVのセット
 				for (auto& rwPtr : m_rwStructuredBuffer)
 				{
+					UINT value[4]{ 0,0,0,0 };
+					context->ClearUnorderedAccessViewUint(
+						rwPtr.uav, value);
+
 					context->CSSetUnorderedAccessViews(
 						rwPtr.info.registerSlot,
 						rwPtr.uavCount,
 						&rwPtr.uav,
 						nullptr);
 
-					context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 2], rwPtr.uav);
+					// ステージングバッファにUAVをコピー
+					context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 2], rwPtr.buffer);
 					rwPtr.frameCount++;
 				}
 			}
@@ -209,12 +214,20 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 				{
 					context->CSSetUnorderedAccessViews(
 						rwPtr.info.registerSlot,
-						rwPtr.uavCount,
+						1,
 						&nullUav,
 						nullptr);
+
+					// CPU側にステージングバッファをコピー
+					D3D11_MAPPED_SUBRESOURCE subResource{};
+					int index = (rwPtr.frameCount + 1) % 3;
+					context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
+					memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size);
+					context->Unmap(rwPtr.stagingBuffer[index], 0);
 				}
 				// シェーダのセット
 				context->CSSetShader(shader, nullptr, 0);
+
 			}
 		}, m_shader);
 }
@@ -237,6 +250,26 @@ void Shader::CreateUAV(const std::string& uavName, int uavCount)
 		// UAV生成命令を設定する
 		it->setUavCreateCmd(uavCount);
 		it->uavCount = uavCount;
+	}
+}
+
+/**
+ * \brief CPU側のUAVデータの格納先の設定
+ * 
+ * \param uavName
+ * \param cpuData
+ */
+void Shader::SetCpuData(const std::string& uavName, void* cpudata)
+{
+	auto it = std::ranges::find_if(m_rwStructuredBuffer, [&](RWStructuredBufferPtr& rwPtr)
+		{
+			return uavName == rwPtr.info.name;
+		});
+
+	if (it != m_rwStructuredBuffer.end())
+	{
+		// データの格納先を設定
+		it->cpudata = cpudata;
 	}
 }
 
@@ -272,7 +305,8 @@ void Shader::SetShader(ShaderInfo* shaderInfo)
 
 	for (auto& rw : shaderInfo->rwStructuredResource)
 	{
-		RWStructuredBufferPtr rwPtr;
+		m_rwStructuredBuffer.push_back(RWStructuredBufferPtr{});
+		RWStructuredBufferPtr& rwPtr = m_rwStructuredBuffer.back();
 
 		rwPtr.buffer = rw.buffer.Get();
 		rwPtr.uav = rw.uav.Get();
@@ -281,7 +315,7 @@ void Shader::SetShader(ShaderInfo* shaderInfo)
 		rwPtr.stagingBuffer[1] = rw.stagingBuffer[1].Get();
 		rwPtr.stagingBuffer[2] = rw.stagingBuffer[2].Get();
 
-		rwPtr.setUavCreateCmd = [&](int count) { rw.SetUAVCreateCmd(count); };
+		rwPtr.setUavCreateCmd = [&](int count) { rw.SetUAVCreateCmd(count, &m_rwStructuredBuffer.back()); };
 	}
 
 	// 入力レイアウトのポインタを格納

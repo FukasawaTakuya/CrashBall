@@ -80,6 +80,9 @@ public:
 	// UAVの作成
 	void CreateUAV(const std::string& uavName, int uavCount);
 
+	// CPU側のUAVデータの格納先の設定
+	void SetCpuData(const std::string& uavName, void* cpudata);
+
 	// 取得/設定
 public:
 
