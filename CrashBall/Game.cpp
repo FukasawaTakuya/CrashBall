@@ -552,7 +552,7 @@ void Game::CreateWindowSizeDependentResources()
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
     // ペイントテクスチャの設定
-    m_paintTextrue->SizeResources(2048.0f * 1.2f, 2048.0f * 1.2f);
+    m_paintTextrue->SizeResources(2048.0f, 2048.0f);
 
     // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();

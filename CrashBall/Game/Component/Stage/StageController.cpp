@@ -43,6 +43,12 @@ void StageController::Awake()
 
 	m_colors[0] = m_gameColor->m_playerColor;
 	m_colors[1] = m_gameColor->m_enemyColor;
+	m_colors[2] = {0,0,0,0};
+	m_colors[3] = {0,0,0,0};
+	m_colors[4] = {0,0,0,0};
+	m_colors[5] = {0,0,0,0};
+	m_colors[6] = {0,0,0,0};
+	m_colors[7] = {0,0,0,0};
 
 	// モデルの取得
 	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
@@ -54,11 +60,15 @@ void StageController::Awake()
 	// UAVの書き込み先を設定
 	csShader->SetCpuData("outPutPaintArea", m_pixelCount);
 	// 定数バッファの設定
-	csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor",m_pixelCount);
+	csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
 
 	// シェーダーテクスチャ情報の取得
-	m_paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
-	m_paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
+	ShaderTextrueInfo* paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+	ShaderTextrueInfo* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
+
+	// テクスチャをシェーダーに渡す
+	paintTextureInfoInStage->texture = Paint::GetPaintTexture();
+	paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
@@ -105,7 +115,6 @@ void StageController::Start(const GameContext& gameContext)
 
 	//m_enemyMeshCount = 0;
 	//m_playerMeshCount = 0;
-
 }
 
 /**
@@ -131,11 +140,10 @@ void StageController::Update(const GameContext& gameContext)
 	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_enemyColor);
 	//		});
 
-	// テクスチャをシェーダーに渡す
-	m_paintTextureInfoInStage->texture = Paint::GetPaintTexture();
-	m_paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
+	//OutputDebugStringA(std::format("player : {}, enemy : {}\n\n", m_pixelCount[0], m_pixelCount[1]).c_str());
 
-	OutputDebugStringA(std::format("player : {}, enemy : {}\n\n", m_pixelCount[0], m_pixelCount[1]).c_str());
+	m_playerMeshCount = m_pixelCount[0];
+	m_enemyMeshCount = m_pixelCount[1];
 }
 
 

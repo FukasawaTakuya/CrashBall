@@ -46,7 +46,6 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* 
 			uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
 			uavDesc.Buffer.FirstElement = 0;
 			uavDesc.Buffer.NumElements = this->uavCount;
-
 			device->CreateUnorderedAccessView(buffer.Get(), &uavDesc, uav.ReleaseAndGetAddressOf());
 
 			// ステージングバッファの作成
@@ -59,11 +58,15 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* 
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[0].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[1].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[2].ReleaseAndGetAddressOf());
+			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[3].ReleaseAndGetAddressOf());
+			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[4].ReleaseAndGetAddressOf());
 
 			rwPtr->uav = uav.Get();
 			rwPtr->buffer = buffer.Get();
 			rwPtr->stagingBuffer[0] = stagingBuffer[0].Get();
 			rwPtr->stagingBuffer[1] = stagingBuffer[1].Get();
 			rwPtr->stagingBuffer[2] = stagingBuffer[2].Get();
+			rwPtr->stagingBuffer[3] = stagingBuffer[3].Get();
+			rwPtr->stagingBuffer[4] = stagingBuffer[4].Get();
 		};
 }

@@ -63,10 +63,12 @@ void FloorMeshGaugeController::Start(const GameContext& gameContext)
  */
 void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
-
 	int playerMeshCount = m_pStageController->GetPlayerMeshCount();	// プレイヤーの面の数
 	int enemyMeshCount = m_pStageController->GetEnemyMeshCount();	// 敵の面の数
-	int totalMeshCount = m_pStageController->GetTotalMeshCount();	// 全体の面の数
+	//int totalMeshCount = m_pStageController->GetTotalMeshCount();	// 全体の面の数
+	int totalMeshCount = playerMeshCount + enemyMeshCount;	// 全体の面の数
+
+	if (totalMeshCount == 0) totalMeshCount = 1;
 
 	// 全体の面に対する塗った面の割合
 	float playerFillAmount = static_cast<float>(playerMeshCount) / static_cast<float>(totalMeshCount);
@@ -80,7 +82,7 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 	m_playerGaugeController->Slide();
 
 	// テキストの設定
-	m_playerTextRenderer->SetText(L"Player:{}面", playerMeshCount);
-	m_enemyTextRenderer->SetText(L"Enemy:{}面", enemyMeshCount);
+	m_playerTextRenderer->SetText(L"Player:{:.1f}%", playerFillAmount * 100);
+	m_enemyTextRenderer->SetText(L"Enemy:{:.1f}%", enemyFillAmount * 100);
 }
 

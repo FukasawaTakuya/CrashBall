@@ -43,11 +43,6 @@ private:
 	// モデル
 	const MyModel* m_model = nullptr;
 
-	// ステージシェーダーに渡すテクスチャ情報
-	ShaderTextrueInfo* m_paintTextureInfoInStage;
-	// コンピュートシェーダーに渡すテクスチャ情報
-	ShaderTextrueInfo* m_paintTextureInfoInCompute;
-
 	// コンピュートシェーダーに渡す色情報
 	DirectX::SimpleMath::Color m_colors[8];
 
@@ -125,7 +120,7 @@ public:
 	// 面の合計の取得
 	int GetTotalMeshCount() const override
 	{
-		return m_floorMeshColor.size();
+		return 2048 * 2048;
 	}
 
 	// 内部実装

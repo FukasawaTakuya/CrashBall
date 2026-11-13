@@ -90,7 +90,7 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 				context->PSSetShader(shader, nullptr, 0);
 			}
 			// コンピュートシェーダーの時
-			if constexpr (std::is_same_v<shaderType, ID3D11ComputeShader>)
+			if constexpr (std::is_same_v<shaderType, ID3D11ComputeShader*>)
 			{
 				// 定数バッファのセット
 				for (auto& constantBuffer : m_constantBuffer)
@@ -111,20 +111,20 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 				// UAVのセット
 				for (auto& rwPtr : m_rwStructuredBuffer)
 				{
+					// UAVのリセット
 					UINT value[4]{ 0,0,0,0 };
 					context->ClearUnorderedAccessViewUint(
 						rwPtr.uav, value);
 
+					ID3D11UnorderedAccessView* uavs[] = { rwPtr.uav };
 					context->CSSetUnorderedAccessViews(
 						rwPtr.info.registerSlot,
-						rwPtr.uavCount,
+						_countof(uavs),
 						&rwPtr.uav,
 						nullptr);
-
-					// ステージングバッファにUAVをコピー
-					context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 2], rwPtr.buffer);
-					rwPtr.frameCount++;
 				}
+
+				context->CSSetShader(shader, nullptr, 0);
 			}
 		}, m_shader);
 }
@@ -217,19 +217,35 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 						1,
 						&nullUav,
 						nullptr);
-
-					// CPU側にステージングバッファをコピー
-					D3D11_MAPPED_SUBRESOURCE subResource{};
-					int index = (rwPtr.frameCount + 1) % 3;
-					context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
-					memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size);
-					context->Unmap(rwPtr.stagingBuffer[index], 0);
-				}
+					}
 				// シェーダのセット
 				context->CSSetShader(shader, nullptr, 0);
 
 			}
 		}, m_shader);
+}
+
+/**
+ * \brief UAVをCPUにコピー
+ * 
+ * \param context デバイスコンテキスト
+ */
+void Shader::CopyResource(ID3D11DeviceContext1* context)
+{
+	for (auto& rwPtr : m_rwStructuredBuffer)
+	{
+		// ステージングバッファにUAVをコピー
+		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 5], rwPtr.buffer);
+
+		// CPU側にステージングバッファをコピー
+		D3D11_MAPPED_SUBRESOURCE subResource{};
+		int index = (rwPtr.frameCount + 1) % 5;
+		context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
+		memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size * rwPtr.uavCount);
+		context->Unmap(rwPtr.stagingBuffer[index], 0);
+
+		rwPtr.frameCount++;
+	}
 }
 
 /**
@@ -314,6 +330,8 @@ void Shader::SetShader(ShaderInfo* shaderInfo)
 		rwPtr.stagingBuffer[0] = rw.stagingBuffer[0].Get();
 		rwPtr.stagingBuffer[1] = rw.stagingBuffer[1].Get();
 		rwPtr.stagingBuffer[2] = rw.stagingBuffer[2].Get();
+		rwPtr.stagingBuffer[3] = rw.stagingBuffer[3].Get();
+		rwPtr.stagingBuffer[4] = rw.stagingBuffer[4].Get();
 
 		rwPtr.setUavCreateCmd = [&](int count) { rw.SetUAVCreateCmd(count, &m_rwStructuredBuffer.back()); };
 	}

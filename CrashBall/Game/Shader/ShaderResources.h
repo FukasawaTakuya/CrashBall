@@ -98,7 +98,7 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
 	UnorderedAccessViewInfo info;							// UAV情報
-	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
+	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[5];	// ステージングバッファ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令

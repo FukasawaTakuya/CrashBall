@@ -38,6 +38,8 @@ void ComputShaderDispatcher::Dispatch(ID3D11DeviceContext1* context)
 			dispathCmd.groupNum.y,
 			dispathCmd.groupNum.z);
 		dispathCmd.shader->ReleaseBind(context);
+
+		dispathCmd.shader->CopyResource(context);
 	}
 
 	m_dispatchCommandList.clear();
