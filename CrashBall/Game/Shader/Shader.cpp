@@ -108,7 +108,7 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 						1,
 						&shaderTextrueInfo.texture);
 				}
-				// UAVのセット
+				// 書き込み可能構造化バッファのセット
 				for (auto& rwPtr : m_rwStructuredBuffer)
 				{
 					// UAVのリセット
@@ -122,7 +122,16 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 						&rwPtr.uav,
 						nullptr);
 				}
-
+				// 書き込み可能シェーダーテクスチャのセット
+				for (auto& rwTexPtr : m_rwStructuredTexture)
+				{
+					context->CSSetUnorderedAccessViews(
+						rwTexPtr.registerSlot,
+						1,
+						&rwTexPtr.uav,
+						nullptr);
+				}
+				// シェーダのセット
 				context->CSSetShader(shader, nullptr, 0);
 			}
 		}, m_shader);
@@ -216,7 +225,16 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 						1,
 						&nullUav,
 						nullptr);
-					}
+				}
+				// 書き込み可能シェーダーテクスチャのセット
+				for (auto& rwTexPtr : m_rwStructuredTexture)
+				{
+					context->CSSetUnorderedAccessViews(
+						rwTexPtr.registerSlot,
+						1,
+						&nullUav,
+						nullptr);
+				}
 				// シェーダのセット
 				context->CSSetShader(shader, nullptr, 0);
 			}
@@ -233,11 +251,11 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
 	for (auto& rwPtr : m_rwStructuredBuffer)
 	{
 		// ステージングバッファにUAVをコピー
-		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 5], rwPtr.buffer);
+		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 3], rwPtr.buffer);
 
 		// CPU側にステージングバッファをコピー
 		D3D11_MAPPED_SUBRESOURCE subResource{};
-		int index = (rwPtr.frameCount - 1) % 5;
+		int index = (rwPtr.frameCount - 1) % 3;
 		index = std::max(index, 0);
 		context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
 		memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size * rwPtr.uavCount);
@@ -253,7 +271,7 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
  * \param uavName UAV名
  * \param uavCount UAVの数
  */
-void Shader::CreateUAV(const std::string& uavName, int uavCount)
+void Shader::CreateRWStructuredUAV(const std::string& uavName, int uavCount)
 {
 	auto it = std::ranges::find_if(m_rwStructuredBuffer, [&](RWStructuredBufferPtr& rwPtr)
 		{
@@ -262,7 +280,7 @@ void Shader::CreateUAV(const std::string& uavName, int uavCount)
 
 	if (it != m_rwStructuredBuffer.end())
 	{
-		// UAV生成命令を設定する
+		// UAV作成命令の設定命令を実行する
 		it->setUavCreateCmd(uavCount);
 		it->uavCount = uavCount;
 	}
@@ -289,6 +307,26 @@ void Shader::SetCpuData(const std::string& uavName, void* cpudata)
 }
 
 /**
+ * \brief RWTextrueの設定
+ * 
+ * \param rwTexName
+ * \param texture
+ */
+void Shader::CreateRWTextureUAV(const std::string& rwTexName, ID3D11Texture2D* texture)
+{
+	auto it = std::ranges::find_if(m_rwStructuredTexture, [&](RWShaderTextruePtr& rwTexPtr)
+		{
+			return rwTexName == rwTexPtr.name;
+		});
+
+	if (it != m_rwStructuredTexture.end())
+	{
+		// データの格納先を設定
+		it->setUavCrateCmd(texture);
+	}
+}
+
+/**
  * \brief シェーダの設定
  * 
  * \param shaderInfo シェーダ情報
@@ -307,32 +345,40 @@ void Shader::SetShader(ShaderInfo* shaderInfo)
 	// バイナリ情報のポインタを格納
 	m_blob = shaderInfo->blob.Get();
 
+	// 定数バッファ
 	for (auto& cb : shaderInfo->constantBuffer)
 	{
 		// 定数バッファはポインタを格納し定数バッファ情報はコピー
 		m_constantBuffer.emplace_back(cb.buffer.Get(), cb.info);
 	}
 
+	// シェーダーテクスチャ
 	for (auto& st : shaderInfo->shaderTetureInfo)
 	{
 		m_shaderTextrueInfo.emplace_back(st);
 	}
 
+	// 書き換え可能構造化バッファ
 	for (auto& rw : shaderInfo->rwStructuredResource)
 	{
 		m_rwStructuredBuffer.push_back(RWStructuredBufferPtr{});
 		RWStructuredBufferPtr& rwPtr = m_rwStructuredBuffer.back();
 
-		rwPtr.buffer = rw.buffer.Get();
-		rwPtr.uav = rw.uav.Get();
 		rwPtr.info = rw.info;
-		rwPtr.stagingBuffer[0] = rw.stagingBuffer[0].Get();
-		rwPtr.stagingBuffer[1] = rw.stagingBuffer[1].Get();
-		rwPtr.stagingBuffer[2] = rw.stagingBuffer[2].Get();
-		rwPtr.stagingBuffer[3] = rw.stagingBuffer[3].Get();
-		rwPtr.stagingBuffer[4] = rw.stagingBuffer[4].Get();
 
-		rwPtr.setUavCreateCmd = [&](int count) { rw.SetUAVCreateCmd(count, &m_rwStructuredBuffer.back()); };
+		rwPtr.setUavCreateCmd = [&](int count) { rw.SetUAVCreateCmd(count, &rwPtr); };
+	}
+
+	// 書き換え可能シェーダーテクスチャ
+	for (auto& rwTex : shaderInfo->rwShaderTextureInfo)
+	{
+		m_rwStructuredTexture.push_back(RWShaderTextruePtr{});
+		RWShaderTextruePtr& rwTexPtr = m_rwStructuredTexture.back();
+
+		rwTexPtr.name = rwTex.name;
+		rwTexPtr.registerSlot = rwTex.registerSlot;
+
+		rwTexPtr.setUavCrateCmd = [&](ID3D11Texture2D* texture2D) { rwTex.SetUAVCreateCmd(texture2D, &rwTexPtr); };
 	}
 
 	// 入力レイアウトのポインタを格納

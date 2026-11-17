@@ -107,6 +107,10 @@ void ShaderManager::DoUavCreateCmd(ID3D11Device1* device)
 		{
 			rwStructured.DoUavCreateCmd(device);
 		}
+		for (auto& rwTexture : shader.second.rwShaderTextureInfo)
+		{
+			rwTexture.DoUavCreateCmd(device);
+		}
 	}
 }
 
@@ -161,6 +165,7 @@ void ShaderManager::CreateShaderResource(ShaderInfo& shaderInfo, ID3D11Device1* 
 			break;
 			// 読み書き可能なテクスチャ
 		case D3D_SIT_UAV_RWTYPED:
+			CreateRWTextureInfo(shaderInfo, bindDesc);
 			break;
 		default:
 			break;
@@ -243,7 +248,7 @@ void ShaderManager::CreateShaderTexture(
 	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)
 {
 	// テクスチャ情報を取得
-	ShaderTextrueInfo shaderTextureInfo;
+	ShaderTextrueResource shaderTextureInfo;
 	if (bindDesc.Name != nullptr)
 	{
 		shaderTextureInfo.name = bindDesc.Name;
@@ -322,6 +327,28 @@ void ShaderManager::CreateRWStructuredInfo(
 	}
 
 	shaderInfo.rwStructuredResource.push_back(rwResource);
+}
+
+/**
+ * \brief 読み書き可能シェーダーテクスチャの作成
+ * 
+ * \param shaderInfo
+ * \param bindDesc
+ */
+void ShaderManager::CreateRWTextureInfo(
+	ShaderInfo& shaderInfo, 
+	D3D11_SHADER_INPUT_BIND_DESC& bindDesc)
+{
+	// テクスチャ情報を取得
+	RWShaderTextrueResource rwShaderTextureInfo;
+	if (bindDesc.Name != nullptr)
+	{
+		rwShaderTextureInfo.name = bindDesc.Name;
+	}
+	rwShaderTextureInfo.registerSlot = bindDesc.BindPoint;
+
+	shaderInfo.rwShaderTextureInfo.push_back(rwShaderTextureInfo);
+
 }
 
 /**

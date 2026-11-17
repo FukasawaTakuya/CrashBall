@@ -28,6 +28,7 @@ class  PaintTexture :
 private:
 
 	static constexpr float TEXTURE_SIZE = 4096.0f * 2.0f;
+	static constexpr float INKSPRITE_SCALE = 0.06f * 2.0f;
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:
@@ -39,6 +40,8 @@ private:
 	ID3D11ShaderResourceView* m_inkSprite;
 	float m_inkSpriteWidth;
 	float m_inkSpriteHeight;
+
+	std::unique_ptr<MyRenderTexture> m_paintTimeTex;
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -75,6 +78,9 @@ public:
 		return GetShaderResourceView();
 	}
 
+	// レンダーターゲットの取得
+	ID3D11Texture2D* GetRenderTarget() const override { return m_renderTexture->GetRenderTarget(); }
+
 	// スプライトの設定
 	void SetInkSpirte(
 		ID3D11ShaderResourceView* sprite,
@@ -100,4 +106,8 @@ public:
 	// 内部実装
 private:
 
+	// タイムテクスチャに描画
+	void DrawTimeTex(
+		DirectX::SpriteBatch* spriteBatch,
+		DirectX::CommonStates* states);
 };

@@ -131,8 +131,6 @@ Scene::Scene(IJsonDataManager* jsonDataManager)
 		camera->AddComponent<Skybox>();
 		camera->SetTag(ObjectTag::Camera);
 		m_camera = camera->AddComponent<Camera>();
-
-		//camera->Awake();
 	}
 }
 

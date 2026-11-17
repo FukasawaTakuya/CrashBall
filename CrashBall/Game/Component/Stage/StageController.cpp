@@ -56,15 +56,17 @@ void StageController::Awake()
 	// コンピュートシェーダーの取得と設定
 	auto csShader = m_computShaderController->GetShader();
 	// UAVの設定
-	csShader->CreateUAV("outPutPaintArea", 8);
+	csShader->CreateRWStructuredUAV("outPutPaintArea", 8);
 	// UAVの書き込み先を設定
 	csShader->SetCpuData("outPutPaintArea", m_pixelCount);
 	// 定数バッファの設定
 	csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
 
+	csShader->CreateRWTextureUAV("RWPaintTexture", Paint::GetRenderTarget());
+
 	// シェーダーテクスチャ情報の取得
-	ShaderTextrueInfo* paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
-	ShaderTextrueInfo* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
+	ShaderTextrueResource* paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+	ShaderTextrueResource* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
 
 	// テクスチャをシェーダーに渡す
 	paintTextureInfoInStage->texture = Paint::GetPaintTexture();

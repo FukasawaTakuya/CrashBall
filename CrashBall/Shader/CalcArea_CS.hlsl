@@ -1,13 +1,14 @@
 
+static const float toleranceSqrt = 0.001f * 0.001f;
+static const int countSize = 8;
+
 Texture2D PaintTexture : register(t0);
 
 cbuffer Colors : register(b0)
 {
-    float4 gameColor[8];
+    float4 gameColor[countSize];
 };
 
-static const float toleranceSqrt = 0.1f * 0.1f;
-static const int countSize = 8;
 
 struct CSOutput
 {
@@ -15,13 +16,14 @@ struct CSOutput
 };
 
 RWStructuredBuffer<CSOutput> outPutPaintArea : register(u0);
+RWTexture2D<float4> RWPaintTexture : register(u1);
 
 groupshared uint s_count[countSize];
 
 [numthreads(16, 16, 1)]
 void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
 {
-    if(gi < 8)
+    if (gi < countSize)
         s_count[gi] = 0;
     
     GroupMemoryBarrierWithGroupSync();
@@ -43,6 +45,9 @@ void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
     GroupMemoryBarrierWithGroupSync();
 
     // ピクセル数の合算
-    if(gi < 8)
+    if (gi < countSize)
         InterlockedAdd(outPutPaintArea[gi].pixelCount, s_count[gi]);
+    
+    RWPaintTexture[DTid.xy] = float4(1, 0, 0, 1);
+
 }

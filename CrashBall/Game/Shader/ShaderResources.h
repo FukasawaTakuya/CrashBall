@@ -72,14 +72,14 @@ struct ConstantBufferInfo
 };
 
 // シェーダテクスチャ情報
-struct ShaderTextrueInfo
+struct ShaderTextrueResource
 {
 	std::string name;
 	ID3D11ShaderResourceView* texture = nullptr;
 	uint32_t registerSlot;
 };
 
-// UAV情報
+// 書き込み可能構造化バッファ情報
 struct UnorderedAccessViewInfo : public ConstantBufferInfo{};
 
 // 定数バッファに関するものをまとめた構造体
@@ -89,7 +89,7 @@ struct ConstantBufferResource
 	ConstantBufferInfo info;						// 定数バッファ情報
 };
 
-
+// 読み書き可能構造化バッファーのポインタ
 struct RWStructuredBufferPtr;
 
 // 読み書き可能構造化バッファーに関するものをまとめた構造体
@@ -98,7 +98,7 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
 	UnorderedAccessViewInfo info;							// UAV情報
-	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[5];	// ステージングバッファ
+	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
@@ -115,6 +115,32 @@ public:
 	void SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr);
 };
 
+struct RWShaderTextruePtr;
+
+// 書き換え可能シェーダーテクスチャ
+struct RWShaderTextrueResource
+{
+	std::string name;
+	ID3D11Texture2D* texture2D;	// テクスチャのポインタ
+	uint32_t registerSlot;
+
+	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;		// UAV本体
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> stagingtexture[3];	// ステージングテクスチャ
+
+private:
+	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
+		= [](ID3D11Device1*) {};
+
+public:
+
+	// UAV作成命令の実行
+	void DoUavCreateCmd(ID3D11Device1* device);
+
+	// UAV作成命令の設定
+	void SetUAVCreateCmd(ID3D11Texture2D* textrue2D, RWShaderTextruePtr* rwTexPtr);
+};
+
+
 // シェーダの本体を扱うバリアント
 using ShaderVariantCom = std::variant<
 	Microsoft::WRL::ComPtr<ID3D11VertexShader>,
@@ -124,12 +150,13 @@ using ShaderVariantCom = std::variant<
 // シェーダ情報
 struct ShaderInfo
 {
-	ShaderVariantCom					shader;				// シェーダ本体
-	Microsoft::WRL::ComPtr<ID3DBlob>	blob;				// バイナリ情報
-	std::vector<ConstantBufferResource>	constantBuffer;		// 定数バッファリスト
-	std::vector<ShaderTextrueInfo> shaderTetureInfo;		// シェーダに渡すテクスチャ情報リスト
-	std::vector<RWStructuredResource> rwStructuredResource;	// UAV情報
-	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;	// 入力レイアウト
+	ShaderVariantCom					shader;					// シェーダ本体
+	Microsoft::WRL::ComPtr<ID3DBlob>	blob;					// バイナリ情報
+	std::vector<ConstantBufferResource>	constantBuffer;			// 定数バッファリスト
+	std::vector<ShaderTextrueResource>		shaderTetureInfo;		// シェーダーテクスチャリスト
+	std::vector<RWStructuredResource>	rwStructuredResource;	// 書き込み可能構造化バッファリスト
+	std::vector<RWShaderTextrueResource>	rwShaderTextureInfo;		// 書き込み可能シェーダーテクスチャリスト
+	Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayout;		// 入力レイアウト
 
 	int dispath;	// コンピュートシェーダーのディスパッチ
 
@@ -139,8 +166,6 @@ private:
 		= [](ID3D11DeviceContext1*) {};
 
 public:
-
-	void SetDispatchCmd();
 };
 
 

@@ -61,6 +61,10 @@ void SceneManager::SetStartScene(const std::string& sceneName)
 	}
 }
 
+/**
+ * \brief 遷移時の処理
+ *
+ */
 void SceneManager::Awake()
 {
 	m_currentScene->Awake();

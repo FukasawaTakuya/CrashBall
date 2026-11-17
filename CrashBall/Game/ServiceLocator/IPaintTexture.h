@@ -35,6 +35,8 @@ public:
 
 	virtual ID3D11ShaderResourceView* GetPaintTexture() const = 0;
 
+	virtual ID3D11Texture2D* GetRenderTarget() const = 0;
+
 	// 内部実装
 private:
 

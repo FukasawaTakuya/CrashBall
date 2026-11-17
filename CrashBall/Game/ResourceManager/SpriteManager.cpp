@@ -45,7 +45,6 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> sprite;
 
-
 		// スプライトのサイズを求める
 		float width;
 		float height;
@@ -58,8 +57,7 @@ void SpriteManager::CreateSprite(ID3D11Device1* device)
 				device,
 				path.c_str(),
 				&resource,
-				sprite.ReleaseAndGetAddressOf()
-			)
+				sprite.ReleaseAndGetAddressOf())
 		);
 
 		ID3D11Texture2D* texture = static_cast<ID3D11Texture2D*>(resource);

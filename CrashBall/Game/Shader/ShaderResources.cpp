@@ -26,6 +26,7 @@ void RWStructuredResource::DoUavCreateCmd(ID3D11Device1* device)
  * \brief UAV作成命令の設定
  *
  * \param uavCount UAV数
+ * \param rwPtr RWStructuredのポインタを保持する構造体
  */
 void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr)
 {
@@ -53,20 +54,60 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* 
 			bufDesc.BindFlags = 0;
 			bufDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
 			bufDesc.MiscFlags = 0;
-			bufDesc.StructureByteStride = 0;
 
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[0].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[1].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[2].ReleaseAndGetAddressOf());
-			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[3].ReleaseAndGetAddressOf());
-			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[4].ReleaseAndGetAddressOf());
 
+			// ポインタを渡す
 			rwPtr->uav = uav.Get();
 			rwPtr->buffer = buffer.Get();
 			rwPtr->stagingBuffer[0] = stagingBuffer[0].Get();
 			rwPtr->stagingBuffer[1] = stagingBuffer[1].Get();
 			rwPtr->stagingBuffer[2] = stagingBuffer[2].Get();
-			rwPtr->stagingBuffer[3] = stagingBuffer[3].Get();
-			rwPtr->stagingBuffer[4] = stagingBuffer[4].Get();
+		};
+}
+
+void RWShaderTextrueResource::DoUavCreateCmd(ID3D11Device1* device)
+{
+	// 命令の実行
+	createUAVCmd(device);
+	createUAVCmd = [](ID3D11Device1*) {};
+}
+
+/**
+ * \brief UAV作成命令の設定
+ *
+ * \param textrue2D テクスチャ
+ * \param rwTexPtr RWShaderTextrueのポインタを保持する構造体
+ */
+void RWShaderTextrueResource::SetUAVCreateCmd(
+	ID3D11Texture2D* texture2D, 
+	RWShaderTextruePtr* rwTexPtr)
+{
+	this->texture2D = texture2D;
+
+	createUAVCmd =
+		[&, rwTexPtr](ID3D11Device1* device)
+		{
+			D3D11_TEXTURE2D_DESC texDesc{};
+
+			this->texture2D->GetDesc(&texDesc);
+
+			device->CreateUnorderedAccessView(this->texture2D, nullptr, uav.ReleaseAndGetAddressOf());
+
+			texDesc.Usage = D3D11_USAGE_STAGING;
+			texDesc.BindFlags = 0;
+			texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+			texDesc.MiscFlags = 0;
+
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[0].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[1].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[2].ReleaseAndGetAddressOf());
+
+			rwTexPtr->uav = uav.Get();
+			rwTexPtr->stagingtexture[0] = stagingtexture[0].Get();
+			rwTexPtr->stagingtexture[1] = stagingtexture[1].Get();
+			rwTexPtr->stagingtexture[2] = stagingtexture[2].Get();
 		};
 }

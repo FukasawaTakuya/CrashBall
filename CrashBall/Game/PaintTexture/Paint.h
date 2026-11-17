@@ -37,4 +37,16 @@ namespace Paint
 		}
 		else return nullptr;
 	}
+
+	// レンダーターゲットの取得
+	inline ID3D11Texture2D* GetRenderTarget()
+	{
+		IPaintTexture* paintTexture = ServiceLocator::Get<IPaintTexture>();
+		if (paintTexture != nullptr)
+		{
+			return paintTexture->GetRenderTarget();
+		}
+		else return nullptr;
+
+	}
 }

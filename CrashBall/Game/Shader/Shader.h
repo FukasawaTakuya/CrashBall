@@ -25,8 +25,9 @@ private:
 	ShaderVariant m_shader;										// シェーダー
 	ID3DBlob* m_blob;											// バイナリ情報
 	std::vector<ConstantBufferPtr> m_constantBuffer;			// 定数バッファ
-	std::vector<ShaderTextrueInfo> m_shaderTextrueInfo;			// シェーダに渡すテクスチャ情報
-	std::vector<RWStructuredBufferPtr> m_rwStructuredBuffer;	// UAV情報
+	std::vector<ShaderTextrueResource> m_shaderTextrueInfo;			// シェーダに渡すテクスチャ情報
+	std::vector<RWStructuredBufferPtr> m_rwStructuredBuffer;	// 書き込み可能構造化バッファ情報
+	std::vector<RWShaderTextruePtr> m_rwStructuredTexture;		// 書き込み可能シェーダーテクスチャ
 	ID3D11InputLayout* m_inputLayout;							// 入力レイアウト
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -54,11 +55,15 @@ public:
 	// UAVをCPUにコピー
 	void CopyResource(ID3D11DeviceContext1* context);
 
-	// UAVの作成
-	void CreateUAV(const std::string& uavName, int uavCount);
+	// RWStructuredのUAVの作成
+	void CreateRWStructuredUAV(const std::string& uavName, int uavCount);
+
+	// RWTextrueのUAVの作成
+	void CreateRWTextureUAV(const std::string& rwTexName, ID3D11Texture2D* texture);
 
 	// CPU側のUAVデータの格納先の設定
 	void SetCpuData(const std::string& uavName, void* cpudata);
+
 
 	// 取得/設定
 public:
@@ -86,10 +91,10 @@ public:
 	}
 
 	// シェーダに渡すテクスチャ情報の取得
-	ShaderTextrueInfo* GetShaderTextrueInfo(const std::string& name)
+	ShaderTextrueResource* GetShaderTextrueInfo(const std::string& name)
 	{
 		auto it = std::ranges::find_if(m_shaderTextrueInfo,
-			[&](ShaderTextrueInfo& info)
+			[&](ShaderTextrueResource& info)
 			{
 				return name == info.name;
 			});

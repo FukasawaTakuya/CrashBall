@@ -18,10 +18,10 @@ using namespace DirectX;
  * 
  */
 InputSystem::InputSystem()
-	: m_mouseTracker{ std::make_unique<DirectX::Mouse::ButtonStateTracker>() }
-	, m_keyboardTracker{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>() }
-	, m_gamePad{ std::make_unique<DirectX::GamePad>() }
-	, m_gamePadTracker{ std::make_unique<DirectX::GamePad::ButtonStateTracker>() }
+	: m_mouseTracker	{ std::make_unique<DirectX::Mouse::ButtonStateTracker>() }
+	, m_keyboardTracker	{ std::make_unique<DirectX::Keyboard::KeyboardStateTracker>() }
+	, m_gamePad			{ std::make_unique<DirectX::GamePad>() }
+	, m_gamePadTracker	{ std::make_unique<DirectX::GamePad::ButtonStateTracker>() }
 {
 	using Keys = DirectX::Keyboard::Keys;
 
@@ -70,13 +70,13 @@ void InputSystem::Update()
 	m_prevMousePos = m_mousePos;
 	m_mousePos = SimpleMath::Vector2(static_cast<float>(mouse.x), static_cast<float>(mouse.y));
 
-
+	// 入力ステートのリセット
 	for (auto& state : m_inputStates)
 	{
 		state.Reset();
 	}
 
-
+	// 入力評価
 	for (auto& binding : m_bindings)
 	{
 		int index = static_cast<int>(binding.action);
