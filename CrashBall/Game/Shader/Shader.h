@@ -12,33 +12,7 @@
 #include <variant>
 
 #include "Game/ResourceManager/Interface/IShaderManager.h"
-
-// シェーダーのポインタを保持するバリアント
-using ShaderVariant = std::variant<
-	ID3D11VertexShader*,
-	ID3D11PixelShader*,
-	ID3D11ComputeShader*>;
-
-// 定数バッファのポインタを保持する定数バッファ関連構造体
-struct ConstantBufferPtr
-{
-	ID3D11Buffer* buffer = nullptr;	// 定数バッファのポインタ
-	ConstantBufferInfo info;// 定数バッファ情報
-};
-
-// UAVのポインタを保持するUAV関連構造体
-struct RWStructuredBufferPtr
-{
-	ID3D11UnorderedAccessView* uav;	// UAVのポインタ
-	ID3D11Buffer* buffer;			// バッファのポインタ
-	UnorderedAccessViewInfo info;	// UAV情報
-	ID3D11Buffer* stagingBuffer[5];	// ステージングバッファのポインタ
-	uint32_t uavCount;				// UAV数
-	void* cpudata;					// CPU側のデータ格納先
-	std::function<void(int)> setUavCreateCmd;	// UAV作成命令の設定命令
-
-	int frameCount = 0;							// ステージングバッファ用の経過フレーム数
-};
+#include "Game/Shader/ShaderResourcesPtr.h"
 
  /**
   * \brief シェーダー操作クラス

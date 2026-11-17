@@ -65,7 +65,6 @@ void FloorMeshGaugeController::Update(const GameContext& gameContext)
 {
 	int playerMeshCount = m_pStageController->GetPlayerMeshCount();	// プレイヤーの面の数
 	int enemyMeshCount = m_pStageController->GetEnemyMeshCount();	// 敵の面の数
-	//int totalMeshCount = m_pStageController->GetTotalMeshCount();	// 全体の面の数
 	int totalMeshCount = playerMeshCount + enemyMeshCount;	// 全体の面の数
 
 	if (totalMeshCount == 0) totalMeshCount = 1;

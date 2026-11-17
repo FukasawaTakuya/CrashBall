@@ -92,7 +92,7 @@ struct ConstantBufferResource
 
 struct RWStructuredBufferPtr;
 
-// UAVに関するものをまとめた構造体
+// 読み書き可能構造化バッファーに関するものをまとめた構造体
 struct RWStructuredResource
 {
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
@@ -142,4 +142,6 @@ public:
 
 	void SetDispatchCmd();
 };
+
+
 

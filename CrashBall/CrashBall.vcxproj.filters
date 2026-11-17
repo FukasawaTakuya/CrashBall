@@ -636,6 +636,9 @@
     <ClInclude Include="Game\Shader\IComputShaderDispatcher.h">
       <Filter>Game\Shader</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Shader\ShaderResourcesPtr.h">
+      <Filter>Game\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

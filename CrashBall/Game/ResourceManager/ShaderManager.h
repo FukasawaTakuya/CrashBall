@@ -72,7 +72,7 @@ private:
 		ShaderInfo& shaderInfo,
 		D3D11_SHADER_INPUT_BIND_DESC& bindDesc);
 
-	// UAV情報の作成
+	// 読み書き可能構造化バッファー情報の作成
 	void CreateRWStructuredInfo(
 		ShaderInfo& shaderInfo,
 		ID3D11ShaderReflection* reflection,

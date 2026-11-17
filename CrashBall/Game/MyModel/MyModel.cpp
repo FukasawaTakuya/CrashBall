@@ -1,4 +1,12 @@
-﻿#include "pch.h"
+﻿/*****************************************************************//**
+ * \file   MyModel.cpp
+ * \brief  モデルクラス
+ *
+ * \author 深沢拓矢
+ * \date   October 2026
+ *********************************************************************/
+
+#include "pch.h"
 #include "MyModel.h"
 
 #include <fstream>
@@ -35,8 +43,6 @@ void MyModel::Draw(
 	DirectX::CommonStates* states,
 	ID3D11DeviceContext1* context)
 {
-	// =========== IA =========== //
-
 	// 頂点バッファの設定
 	ID3D11Buffer* vBuffers[] = { m_vertexBuffer.Get() };
 	UINT strides[] = { sizeof(Vertex) };
@@ -49,16 +55,15 @@ void MyModel::Draw(
 	// 入力レイアウトの設定
 	context->IASetInputLayout(vertexShader->GetInputLayOut());
 
-	// ==== RS ==== //
+	// カリング
 	context->RSSetState(states->CullClockwise());
 
-	// ==== OM ==== //
 	// 深度ステンシルステートの設定
 	context->OMSetDepthStencilState(states->DepthDefault(), 0);
 	// ブレンドステートの設定
 	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
 	 
-	// ==== VS ==== //
+	// 定数バッファの設定
 	auto vsConstantBuffer = vertexShader->GetConstatntBufferInfo("ConstBuffer");
 	if (vsConstantBuffer != nullptr)
 	{
@@ -73,7 +78,6 @@ void MyModel::Draw(
 	vertexShader->UpdateSubResources(context);
 	vertexShader->Bind(context);
 	 
-	// ==== PS ==== //
 	// サンプラーをシェーダに渡す
 	auto sampler = states->LinearClamp();
 	context->PSSetSamplers(0, 1, &sampler);
@@ -107,6 +111,7 @@ void MyModel::Draw(
 		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
 	}
 
+	// バインドの解除
 	vertexShader->ReleaseBind(context);
 	pixelShader->ReleaseBind(context);
 }

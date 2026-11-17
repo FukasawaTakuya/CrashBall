@@ -83,16 +83,6 @@ void MiniMap::Update(const GameContext& gameContext)
 }
 
 /**
- * \brief 描画
- * 
- * \param renderContext 描画用のコンテキスト
- */
-void MiniMap::Render(const RenderContext& renderContext)
-{
-	m_spriteRenderer->SetSprite(m_renderTextrue->GetShaderResourceView());
-}
-
-/**
  * \brief 終了処理
  * 
  */

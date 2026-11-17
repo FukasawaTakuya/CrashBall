@@ -114,8 +114,7 @@ void RenderTexture::SizeResources(size_t width, size_t height)
     ThrowIfFailed(m_device->CreateShaderResourceView(
         m_renderTarget.Get(),
         &shaderResourceViewDesc,
-        m_shaderResourceView.ReleaseAndGetAddressOf()
-    ));
+        m_shaderResourceView.ReleaseAndGetAddressOf()));
 
     SetDebugObjectName(m_shaderResourceView.Get(), "RenderTexture SRV");
 
@@ -142,8 +141,7 @@ void RenderTexture::SizeResources(size_t width, size_t height)
             &depthDesc,
             nullptr,
             m_depthStencilTexture.ReleaseAndGetAddressOf()
-        )
-    );
+        ));
 
     CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc = {};
 

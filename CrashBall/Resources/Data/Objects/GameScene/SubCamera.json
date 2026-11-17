@@ -20,7 +20,7 @@
                 {
                     "name": "localRotate",
                     "data": {
-                        "x": -1.5707961320877075,
+                        "x": -1.5707956552505493,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -42,11 +42,11 @@
             "properties": [
                 {
                     "name": "widthView",
-                    "data": 160.0
+                    "data": 180.0
                 },
                 {
                     "name": "heightView",
-                    "data": 160.0
+                    "data": 180.0
                 },
                 {
                     "name": "nearclip",

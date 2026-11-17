@@ -176,11 +176,11 @@ void Game::Initialize(HWND window, int width, int height)
     // ウインドウサイズ依存のリソースの作成
     CreateWindowSizeDependentResources();
 
-    m_sceneManager->Awake();
-    m_sceneManager->Start();
-
     // コンポーネントリストのソート
     ComponentFactory::SortComponentList();
+
+    m_sceneManager->Awake();
+    m_sceneManager->Start();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -203,6 +203,7 @@ void Game::Tick()
         });
 
     Render();
+
 }
 
 // Updates the world.
@@ -273,6 +274,7 @@ void Game::Update(DX::StepTimer const& timer)
         m_resourceContext);
 
     m_inputSystem->ResetWheelValue();
+
 }
 #pragma endregion
 
@@ -552,7 +554,7 @@ void Game::CreateWindowSizeDependentResources()
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
 
     // ペイントテクスチャの設定
-    m_paintTextrue->SizeResources(2048.0f, 2048.0f);
+    m_paintTextrue->SetSize();
 
     // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();

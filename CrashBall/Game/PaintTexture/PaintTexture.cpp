@@ -83,10 +83,19 @@ void PaintTexture::Draw(
 			paintCommand.color,
 			0.0f,
 			SimpleMath::Vector2(m_inkSpriteWidth / 2.0f, m_inkSpriteHeight / 2.0f),
-			0.04f);
+			0.12f);
 	}
 
 	spriteBatch->End();
 
 	m_paintCommands.clear();
+}
+
+/**
+ * \brief サイズの設定
+ * 
+ */
+void PaintTexture::SetSize()
+{
+	MyRenderTexture::SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
 }

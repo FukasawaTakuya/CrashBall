@@ -27,6 +27,8 @@ class  PaintTexture :
 {
 private:
 
+	static constexpr float TEXTURE_SIZE = 4096.0f * 2.0f;
+
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
@@ -88,6 +90,12 @@ public:
 	{
 		m_context = context;
 	}
+
+	/**
+	 * \brief サイズの設定
+	 * 
+	 */
+	void SetSize();
 
 	// 内部実装
 private:

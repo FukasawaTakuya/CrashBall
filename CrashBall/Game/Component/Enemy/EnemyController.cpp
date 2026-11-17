@@ -129,8 +129,10 @@ void EnemyController::Damage(float damage)
  */
 void EnemyController::AvoidWall()
 {
-	// 
-	if (m_transform->GetWorldPosition().Length() - m_pDoom->GetRadius() <= m_avoidDoomDistance)
+	SimpleMath::Vector3 pos = m_transform->GetWorldPosition();
+	pos.y = 0.0f;
+	// ドームの外周との距離が指定距離以下なら回避行動
+	if (m_pDoom->GetRadius() - pos.Length() <= m_avoidDoomDistance)
 	{
 		// ドームの中心に向かうベクトル
 		SimpleMath::Vector3 doomDire 

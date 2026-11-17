@@ -69,9 +69,6 @@ void ShaderManager::CreateShader(ID3D11Device1* device)
 						shaderInfo.blob->GetBufferSize(),
 						nullptr,
 						shader.ReleaseAndGetAddressOf());
-
-					// 入力レイアウトの作成
-					CreateInputLayout(shaderInfo, device);
 				}
 				if constexpr (std::is_same_v<T, Microsoft::WRL::ComPtr<ID3D11ComputeShader>>)
 				{
@@ -257,7 +254,7 @@ void ShaderManager::CreateShaderTexture(
 }
 
 /**
- * \brief UAVの作成
+ * \brief 読み書き可能構造化バッファーの作成
  *
  * \param shaderInfo シェーダー情報の格納先
  * \param reflection リフレクション情報

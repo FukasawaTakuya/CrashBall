@@ -116,10 +116,9 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 					context->ClearUnorderedAccessViewUint(
 						rwPtr.uav, value);
 
-					ID3D11UnorderedAccessView* uavs[] = { rwPtr.uav };
 					context->CSSetUnorderedAccessViews(
 						rwPtr.info.registerSlot,
-						_countof(uavs),
+						1,
 						&rwPtr.uav,
 						nullptr);
 				}
@@ -220,7 +219,6 @@ void Shader::ReleaseBind(ID3D11DeviceContext1* context)
 					}
 				// シェーダのセット
 				context->CSSetShader(shader, nullptr, 0);
-
 			}
 		}, m_shader);
 }
@@ -239,7 +237,8 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
 
 		// CPU側にステージングバッファをコピー
 		D3D11_MAPPED_SUBRESOURCE subResource{};
-		int index = (rwPtr.frameCount + 1) % 5;
+		int index = (rwPtr.frameCount - 1) % 5;
+		index = std::max(index, 0);
 		context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
 		memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size * rwPtr.uavCount);
 		context->Unmap(rwPtr.stagingBuffer[index], 0);
