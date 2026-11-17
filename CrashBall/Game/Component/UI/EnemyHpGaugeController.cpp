@@ -9,7 +9,7 @@
 
 #include "pch.h"
 #include "EnemyHpGaugeController.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 #include "Game/Color/GameColor.h"
 
 using namespace DirectX;

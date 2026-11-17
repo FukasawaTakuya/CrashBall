@@ -41,9 +41,6 @@
     <Filter Include="Game\ServiceLocator">
       <UniqueIdentifier>{12c09a80-0442-45f7-b6be-55ca9c8513f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Engine">
-      <UniqueIdentifier>{054a8c06-6a5d-4375-a7e5-576939b23d39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Context">
       <UniqueIdentifier>{54930483-4af3-46bd-817a-10ed53f56fa9}</UniqueIdentifier>
     </Filter>
@@ -158,6 +155,9 @@
     <Filter Include="Game\Component\Default\Other">
       <UniqueIdentifier>{57a9f2bb-fcf6-4e56-88de-53ff31497afe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\FrameWork">
+      <UniqueIdentifier>{054a8c06-6a5d-4375-a7e5-576939b23d39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -228,14 +228,8 @@
     <ClInclude Include="Game\ServiceLocator\ITimeService.h">
       <Filter>Game\ServiceLocator</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Engine\Time.h">
-      <Filter>Game\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ServiceLocator\IInputService.h">
       <Filter>Game\ServiceLocator</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Engine\Input.h">
-      <Filter>Game\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Game\ResourceManager\SpriteManager.h">
       <Filter>Game\ResourceManager</Filter>
@@ -522,9 +516,6 @@
     <ClInclude Include="Game\Scene\Interface\ISceneManager.h">
       <Filter>Game\Scene\Interface</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Engine\SceneManegement.h">
-      <Filter>Game\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Common\Easing.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
@@ -638,6 +629,15 @@
     </ClInclude>
     <ClInclude Include="Game\Shader\ShaderResourcesPtr.h">
       <Filter>Game\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Framework\Input.h">
+      <Filter>Game\FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Framework\SceneManegement.h">
+      <Filter>Game\FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Framework\Time.h">
+      <Filter>Game\FrameWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

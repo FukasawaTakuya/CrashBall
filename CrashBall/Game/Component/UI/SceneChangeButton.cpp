@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SceneChangeButton.h"
-#include "Game/Engine/SceneManegement.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/SceneManegement.h"
+#include "Game/Framework/Time.h"
 
 RegisterComponent(SceneChangeButton)
 

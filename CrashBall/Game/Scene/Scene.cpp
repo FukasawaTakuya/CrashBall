@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "Scene.h"
 
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 #include "Game/Factory/GameObjectFactory.h"
 #include "Game/Component/Camera/TargetCameraController.h"
 #include "Game/Component/Default/Skybox/Skybox.h"

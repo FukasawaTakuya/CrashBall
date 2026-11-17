@@ -9,8 +9,8 @@
 #include "pch.h"
 #include "SlideChangeScreen.h"
 
-#include "Game/Engine/Time.h"
-#include "Game/Engine/SceneManegement.h"
+#include "Game/Framework/Time.h"
+#include "Game/Framework/SceneManegement.h"
 
 RegisterComponent(SlideChangeScreen)
 

@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "ResultPanel.h"
 
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 
 RegisterComponent(ResultPanel)
 

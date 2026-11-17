@@ -10,8 +10,8 @@
 #include "ButtonController.h"
 #include "Game/Common/Screen.h"
 
-#include "Game/Engine/Input.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Input.h"
+#include "Game/Framework/Time.h"
 
 
 using namespace DirectX;

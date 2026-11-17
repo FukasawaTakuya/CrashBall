@@ -10,7 +10,7 @@
 #include "ButtonManager.h"
 
 RegisterComponent(ButtonManager)
-#include "Game/Engine/Input.h"
+#include "Game/Framework/Input.h"
 
 using namespace DirectX;
 

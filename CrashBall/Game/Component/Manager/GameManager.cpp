@@ -9,9 +9,9 @@
 #include "pch.h"
 #include "GameManager.h"
 
-#include "Game/Engine/Input.h"
-#include "Game/Engine/SceneManegement.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Input.h"
+#include "Game/Framework/SceneManegement.h"
+#include "Game/Framework/Time.h"
 
 using namespace DirectX;
 

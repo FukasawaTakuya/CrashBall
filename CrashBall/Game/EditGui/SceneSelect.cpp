@@ -12,7 +12,7 @@
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_stdlib.h"
 
-#include "Game/Engine/SceneManegement.h"
+#include "Game/Framework/SceneManegement.h"
 
 /**
  * \brief コンストラクタ

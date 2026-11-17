@@ -9,7 +9,7 @@
 #include "pch.h"
 #include "GameTimer.h"
 
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 
 using namespace DirectX;
 

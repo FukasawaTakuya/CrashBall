@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ChangeSceneScreen.h"
-#include "Game/Engine/Time.h"
-#include "Game/Engine/SceneManegement.h"
+#include "Game/Framework/Time.h"
+#include "Game/Framework/SceneManegement.h"
 
 using namespace DirectX;
 

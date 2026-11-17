@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "BallController.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 
 using namespace DirectX;
 RegisterComponent(BallController)

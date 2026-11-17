@@ -12,8 +12,8 @@
 #include "ImGui/imgui_stdlib.h"
 
 #include "Game/ScriptableObject/Scriptable.h"
-#include "Game/Engine/SceneManegement.h"
-#include "Game/Engine/Input.h"
+#include "Game/Framework/SceneManegement.h"
+#include "Game/Framework/Input.h"
 #include "Game/Component/Default/Physics/RectTransform.h"
 
 /**

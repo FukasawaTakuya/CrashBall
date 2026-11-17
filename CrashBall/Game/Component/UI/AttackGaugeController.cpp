@@ -8,7 +8,7 @@
 
 #include "pch.h"
 #include "AttackGaugeController.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 #include "Game/ScriptableObject/Scriptable.h"
 
 using namespace DirectX;

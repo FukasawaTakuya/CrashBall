@@ -9,8 +9,8 @@
 #include "pch.h"
 #include "TitleManager.h"
 
-#include "Game/Engine/Input.h"
-#include "Game/Engine/SceneManegement.h"
+#include "Game/Framework/Input.h"
+#include "Game/Framework/SceneManegement.h"
 
 using namespace DirectX;
 

@@ -341,15 +341,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Game\Engine\Input.h" />
-    <ClInclude Include="Game\Engine\SceneManegement.h" />
-    <ClInclude Include="Game\Engine\Time.h" />
     <ClInclude Include="Game\Factory\ComponentFactory.h" />
     <ClInclude Include="Game\Factory\ComponentRegister.h" />
     <ClInclude Include="Game\Factory\GameObjectFactory.h">
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Game\Framework\Input.h" />
+    <ClInclude Include="Game\Framework\SceneManegement.h" />
+    <ClInclude Include="Game\Framework\Time.h" />
     <ClInclude Include="Game\GameObject\IGameObject.h">
       <SubType>
       </SubType>

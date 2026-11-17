@@ -7,7 +7,7 @@
  *********************************************************************/
 #include "pch.h"
 #include "FloorMeshGaugeController.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Time.h"
 #include "Game/Color/GameColor.h"
 
 using namespace DirectX;

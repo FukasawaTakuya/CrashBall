@@ -9,8 +9,8 @@
 #include "pch.h"
 #include "DebugCameraController.h"
 
-#include "Game/Engine/Input.h"
-#include "Game/Engine/Time.h"
+#include "Game/Framework/Input.h"
+#include "Game/Framework/Time.h"
 
 using namespace DirectX;
 
