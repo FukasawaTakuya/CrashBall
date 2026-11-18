@@ -49,6 +49,7 @@ public:
 		{
 			return &it->second;
 		}
+		else return nullptr;
 	}
 
 	// UAVの作成命令の実行

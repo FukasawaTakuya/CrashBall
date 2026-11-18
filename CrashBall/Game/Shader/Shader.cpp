@@ -111,10 +111,13 @@ void Shader::Bind(ID3D11DeviceContext1* context)
 				// 書き込み可能構造化バッファのセット
 				for (auto& rwPtr : m_rwStructuredBuffer)
 				{
-					// UAVのリセット
-					UINT value[4]{ 0,0,0,0 };
-					context->ClearUnorderedAccessViewUint(
-						rwPtr.uav, value);
+					if (rwPtr.uav != nullptr)
+					{
+						// UAVのリセット
+						UINT value[4]{ 0,0,0,0 };
+						context->ClearUnorderedAccessViewUint(
+							rwPtr.uav, value);
+					}
 
 					context->CSSetUnorderedAccessViews(
 						rwPtr.info.registerSlot,
@@ -250,6 +253,8 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
 {
 	for (auto& rwPtr : m_rwStructuredBuffer)
 	{
+		if (rwPtr.uav == nullptr) continue;
+
 		// ステージングバッファにUAVをコピー
 		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 3], rwPtr.buffer);
 
@@ -333,6 +338,8 @@ void Shader::CreateRWTextureUAV(const std::string& rwTexName, ID3D11Texture2D* t
  */
 void Shader::SetShader(ShaderInfo* shaderInfo)
 {
+	if (shaderInfo == nullptr) return;
+
 	m_constantBuffer.clear();
 	m_shaderTextrueInfo.clear();
 

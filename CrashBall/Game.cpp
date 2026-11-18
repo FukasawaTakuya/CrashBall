@@ -221,6 +221,8 @@ void Game::Update(DX::StepTimer const& timer)
     // 経過時間のセット
     m_timeManager->SetElapsedTime(elapsedTime);
     m_timeManager->SetFPS(m_timer.GetFramesPerSecond());
+    m_timeManager->SetTime(m_timer.GetTotalSeconds());
+    m_timeManager->SetFrameCount(m_timer.GetFrameCount());
 
     // 入力の更新
     m_inputSystem->Update();
@@ -307,6 +309,9 @@ void Game::Render()
         L"FPS: {}", m_timer.GetFramesPerSecond());
 #endif // !NDEBUG
 
+    // ペイントテクスチャの描画
+    m_paintTextrue->Draw(m_spriteBatch.get(), m_state.get());
+
     // 元のビューポート
     auto defaultViewport = m_deviceResources->GetScreenViewport();
     // 元のレンダーターゲット
@@ -323,9 +328,6 @@ void Game::Render()
         // 描画命令の実行
         DoRenderCommandNoneSprite(view, proj, context);
     }
-
-    // ペイントテクスチャの描画
-    m_paintTextrue->Draw(m_spriteBatch.get(), m_state.get());
 
     SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
     SimpleMath::Matrix gameProj = m_gameViewTexture->GetCamera()->GetProj();
@@ -381,7 +383,7 @@ void Game::DoRenderCommand(
     DoRenderCommandNoneSprite(view, proj, context);
 
     // スプライト関連描画開始
-    m_spriteBatch->Begin(SpriteSortMode_FrontToBack);
+    m_spriteBatch->Begin(SpriteSortMode_FrontToBack, m_state->AlphaBlend());
     // スプライトの描画
     m_spriteRendererManager->Render(m_spriteBatch.get());
     // テキストの描画
@@ -527,10 +529,12 @@ void Game::CreateDeviceDependentResources()
     m_renderTextrueManger->SetDevice(device);
 
     // ペイントテクスチャの設定
-    auto inkSprite = m_spriteManager->GetSpriteInfo("Ink");
+    auto inkSprite = m_spriteManager->GetSpriteInfo("Ink2");
     m_paintTextrue->SetInkSpirte(inkSprite->sprite.Get(), inkSprite->width, inkSprite->height);
     m_paintTextrue->SetDevice(device);
     m_paintTextrue->SetContext(context);
+    m_paintTextrue->SetShader(m_shaderManager.get());
+    m_paintTextrue->CreateBlendState(m_state.get(), device);
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.

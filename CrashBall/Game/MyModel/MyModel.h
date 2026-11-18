@@ -75,6 +75,7 @@ public:
 		const DirectX::SimpleMath::Matrix& world,
 		const DirectX::SimpleMath::Matrix& view,
 		const DirectX::SimpleMath::Matrix& proj,
+		const DirectX::SimpleMath::Color& difuseColor,
 		Shader* vertexShader,
 		Shader* pixelShader,
 		DirectX::CommonStates* states,

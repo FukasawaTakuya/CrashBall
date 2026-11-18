@@ -31,6 +31,8 @@ void ComputShaderDispatcher::Dispatch(ID3D11DeviceContext1* context)
 {
 	for (auto& dispathCmd : m_dispatchCommandList)
 	{
+		if (dispathCmd.shader == nullptr) continue;
+
 		dispathCmd.shader->UpdateSubResources(context);
 		dispathCmd.shader->Bind(context);
 		context->Dispatch(

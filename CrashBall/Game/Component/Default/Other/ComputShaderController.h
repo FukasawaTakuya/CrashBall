@@ -1,24 +1,39 @@
-﻿#pragma once
+﻿/*****************************************************************//**
+ * \file   ComputShaderController.h
+ * \brief  コンピュートシェーダー操作
+ * 
+ * \author 深沢拓矢
+ * \date   November 2026
+ *********************************************************************/
+
+#pragma once
 
 #include "Game/Component/Default/Component.h"
 
+struct ComputShader
+{
+	std::unique_ptr<Shader> computShader;	// コンピュートシェーダー
+	std::string computShaderKey;
+	DirectX::SimpleMath::Vector3 groupNum;	// スレッドグループ数
+};
+
 /**
- * @brief
+ * @brief コンピュートシェーダー操作
  */
 class  ComputShaderController : public Component {
 
 	// メンバ変数の宣言 -------------------------------------------------
 
-	std::unique_ptr<Shader> m_computShader;	// コンピュートシェーダー
-
-	std::string m_computShaderKey;
-
-	DirectX::SimpleMath::Vector3 m_groupNum;	// スレッドグループ数
+	ComputShader m_shaders[3];
 
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_computShaderKey, PropertyType::String)
-		AddProperty(m_groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[0].computShaderKey, PropertyType::String)
+		AddProperty(m_shaders[0].groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[1].computShaderKey, PropertyType::String)
+		AddProperty(m_shaders[1].groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[2].computShaderKey, PropertyType::String)
+		AddProperty(m_shaders[2].groupNum, PropertyType::Vector3)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -47,17 +62,26 @@ public:
 	// リソースの設定
 	void SetDeviceResource(const ResourceContext& resourceContext) override 
 	{
-		m_computShader = std::make_unique<Shader>();
-		m_computShader->SetShader(resourceContext.shaderManager->GetShaderInfo(m_computShaderKey));
+		for (int i = 0; i < 3; i++)
+		{
+			m_shaders[i].computShader = std::make_unique<Shader>();
+			m_shaders[i].computShader->SetShader(resourceContext.
+				shaderManager->GetShaderInfo(m_shaders[i].computShaderKey));
+		}
 	}
 
 	// 取得/設定
 public:
 
 	// シェーダーの取得
-	Shader* GetShader() const
+	Shader* GetShader(const std::string& shaderName) const
 	{
-		return m_computShader.get();
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_shaders[i].computShaderKey == shaderName)
+				return m_shaders[i].computShader.get();
+		}
+		return nullptr;
 	}
 
 	// 内部実装

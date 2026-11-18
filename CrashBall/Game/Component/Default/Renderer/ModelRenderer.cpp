@@ -44,6 +44,7 @@ void ModelRenderer::Render(const RenderContext& renderContext)
 		renderContext.modelRendererManager->
 		RegisterRenderCommand(
 			m_pModel, 
+			m_diffuseColor,
 			m_vertexShader.get(),
 			m_pixelShader.get(),
 			m_transform->GetWorld());

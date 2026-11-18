@@ -26,6 +26,13 @@ SpriteRendererManager::~SpriteRendererManager()
  */
 void SpriteRendererManager::Render(DirectX::SpriteBatch* spriteBatch)
 {
+	// 描画命令のソート
+	std::ranges::sort(m_renderCommad, 
+		[](SpriteRenderCommand& cmd1, SpriteRenderCommand& cmd2)
+		{
+			return cmd1.layerDepth < cmd2.layerDepth;
+		});
+
 	for (auto& renderCommand : m_renderCommad)
 	{
 		if (renderCommand.pSprite == nullptr) continue;

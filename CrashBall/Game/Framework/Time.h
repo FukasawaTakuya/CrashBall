@@ -13,6 +13,17 @@
 
 namespace Time
 {
+	inline void ResetFrameCount()
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を返す
+		if (time != nullptr)
+		{
+			time->ResetFrameCount();
+		}
+	}
+
 	// スケーリング有りの経過時間の取得
 	inline float GetElapsedTime()
 	{
@@ -89,6 +100,32 @@ namespace Time
 		}
 		// なければ1.0f
 		else return 0.0f;
+	}
+
+	inline float GetTime()
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を返す
+		if (time != nullptr)
+		{
+			return time->GetTime();
+		}
+		// なければ0.0f
+		else return 0.0f;
+	}
+
+	inline uint32_t GetFrameCount()
+	{
+		// 時間管理システム
+		static ITimeService* time = ServiceLocator::Get<ITimeService>();
+		// 時間管理システムが存在すれば数値を返す
+		if (time != nullptr)
+		{
+			return time->GetFrameCount();
+		}
+		// なければ0
+		else return 0;
 	}
 
 }

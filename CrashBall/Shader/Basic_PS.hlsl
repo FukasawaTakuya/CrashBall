@@ -6,6 +6,7 @@ cbuffer ConstBuffer : register(b0)
     float4 BaseColor;
     float4 TextureIndex;
     float4 LightDirection;
+    float4 DiffuseColor;
 }
 
 Texture2D Texture : register(t0);
@@ -21,6 +22,8 @@ float4 main(PSInput pin) : SV_TARGET
     float4 pout 
     = (Texture.Sample(Sampler, pin.Texcoord) + (1 - useTex))
     + BaseColor;
+    
+    pout *= DiffuseColor;
 
     float3 lightdire = -normalize(LightDirection);
     float Dot = dot(lightdire, pin.Normal);

@@ -100,8 +100,8 @@ void EnemyController::Update(const GameContext& gameContext)
 	if (m_hp > 0)
 	{
 		int currentMeshCount = m_pStageController->GetEnemyMeshCount();
-		m_subHp += currentMeshCount - m_prevMeshCount;
-		m_maxHp += currentMeshCount - m_prevMeshCount;
+		m_subHp += ((float)currentMeshCount - (float)m_prevMeshCount) / 1000.0f;
+		m_maxHp += ((float)currentMeshCount - (float)m_prevMeshCount) / 1000.0f;
 		m_prevMeshCount = currentMeshCount;
 	}
 }

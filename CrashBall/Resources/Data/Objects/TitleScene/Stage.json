@@ -20,7 +20,7 @@
                 {
                     "name": "localRotate",
                     "data": {
-                        "x": -0.0,
+                        "x": 0.0,
                         "y": 0.0,
                         "z": 0.0
                     }
@@ -56,8 +56,8 @@
             "isActive": true,
             "properties": [
                 {
-                    "name": "floorNormalY",
-                    "data": 0.10000000149011612
+                    "name": "isCalculate",
+                    "data": false
                 }
             ]
         },
@@ -82,9 +82,9 @@
                     "name": "diffuseColor",
                     "data": {
                         "a": 1.0,
-                        "b": 0.0,
-                        "g": 0.0,
-                        "r": 0.0
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
                     }
                 },
                 {
@@ -94,25 +94,6 @@
                         "b": 0.0,
                         "g": 0.0,
                         "r": 0.0
-                    }
-                }
-            ]
-        },
-        {
-            "compName": "ComputShaderController",
-            "id": 94,
-            "isActive": true,
-            "properties": [
-                {
-                    "name": "computShaderKey",
-                    "data": "CalcArea_CS"
-                },
-                {
-                    "name": "groupNum",
-                    "data": {
-                        "x": 256.0,
-                        "y": 256.0,
-                        "z": 1.0
                     }
                 }
             ]

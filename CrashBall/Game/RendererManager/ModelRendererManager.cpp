@@ -21,11 +21,12 @@ using namespace DirectX;
  */
 void ModelRendererManager::RegisterRenderCommand(
 	MyModel* model,
+	const DirectX::SimpleMath::Color& diffuseColor,
 	Shader* vertexShader,
 	Shader* pixelShader,
 	const DirectX::SimpleMath::Matrix& world)
 {
-	m_renderCommand.emplace_back(model,vertexShader, pixelShader, world);
+	m_renderCommand.emplace_back(model, diffuseColor, vertexShader, pixelShader, world);
 }
 
 /**
@@ -62,6 +63,7 @@ void ModelRendererManager::Render(
 			renderCommand.world, 
 			view, 
 			proj, 
+			renderCommand.diffuseColor,
 			renderCommand.vertexShader,
 			renderCommand.pixelShader,
 			state, 

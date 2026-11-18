@@ -38,6 +38,7 @@ void MyModel::Draw(
 	const DirectX::SimpleMath::Matrix& world,
 	const DirectX::SimpleMath::Matrix& view,
 	const DirectX::SimpleMath::Matrix& proj,
+	const DirectX::SimpleMath::Color& diffuseColor,
 	Shader* vertexShader,
 	Shader* pixelShader,
 	DirectX::CommonStates* states,
@@ -101,6 +102,7 @@ void MyModel::Draw(
 		if (psConstantBuffer != nullptr)
 		{
 			psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
+			psConstantBuffer->SetVariable("DiffuseColor", diffuseColor);
 			psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
 			psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(1.0f, -1.0f, 1.0f, 1.0f));
 		}

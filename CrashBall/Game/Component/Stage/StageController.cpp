@@ -12,6 +12,8 @@
 #include "Game/ScriptableObject/Scriptable.h"
 #include "Game/PaintTexture/Paint.h"
 
+#include "Game/Framework/Time.h"
+
 using namespace DirectX;
 
 RegisterComponent(StageController)
@@ -43,34 +45,53 @@ void StageController::Awake()
 
 	m_colors[0] = m_gameColor->m_playerColor;
 	m_colors[1] = m_gameColor->m_enemyColor;
-	m_colors[2] = {0,0,0,0};
-	m_colors[3] = {0,0,0,0};
-	m_colors[4] = {0,0,0,0};
-	m_colors[5] = {0,0,0,0};
-	m_colors[6] = {0,0,0,0};
-	m_colors[7] = {0,0,0,0};
+	m_colors[2] = { 0,0,0,0 };
+	m_colors[3] = { 0,0,0,0 };
+	m_colors[4] = { 0,0,0,0 };
+	m_colors[5] = { 0,0,0,0 };
+	m_colors[6] = { 0,0,0,0 };
+	m_colors[7] = { 0,0,0,0 };
 
 	// モデルの取得
 	m_model = GetGameObject()->GetComponent<ModelRenderer>()->GetModel();
 
-	// コンピュートシェーダーの取得と設定
-	auto csShader = m_computShaderController->GetShader();
-	// UAVの設定
-	csShader->CreateRWStructuredUAV("outPutPaintArea", 8);
-	// UAVの書き込み先を設定
-	csShader->SetCpuData("outPutPaintArea", m_pixelCount);
-	// 定数バッファの設定
-	csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
+	// 計算フラグ
+	if (m_isCalculate)
+	{
+		// ======= CalcArea_CS =========== //
+		// コンピュートシェーダーの取得
+		auto csShader = m_computShaderController->GetShader("CalcArea_CS");
+		// UAVの設定
+		csShader->CreateRWStructuredUAV("outPutPaintArea", TEAM_NUM);
+		// UAVの書き込み先を設定
+		csShader->SetCpuData("outPutPaintArea", m_pixelCount);
+		// 定数バッファの設定
+		csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
 
-	csShader->CreateRWTextureUAV("RWPaintTexture", Paint::GetRenderTarget());
+		ShaderTextrueResource* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
+		paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
+
+		// ======= CalcPaintHist_CS =========== //
+		// コンピュートシェーダーの取得
+		csShader = m_computShaderController->GetShader("CalcPaintHist_CS");
+		// UAVの設定
+		csShader->CreateRWStructuredUAV("Hist", TEAM_NUM * HIST_NUM);
+		// UAVの書き込み先
+		csShader->SetCpuData("Hist", m_hist);
+		// 定数バッファの設定
+		m_histCBufferInfo = csShader->GetConstatntBufferInfo("HistInfo");
+		m_histCBufferInfo->SetVariable("binWidth", 400);
+		m_histCBufferInfo->SetVariable("nowTime", Time::GetFrameCount());
+
+		paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTimeTex");
+		paintTextureInfoInCompute->texture = Paint::GetPaintTimeTex();
+	}
 
 	// シェーダーテクスチャ情報の取得
 	ShaderTextrueResource* paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
-	ShaderTextrueResource* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
 
 	// テクスチャをシェーダーに渡す
 	paintTextureInfoInStage->texture = Paint::GetPaintTexture();
-	paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
 
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
@@ -79,25 +100,16 @@ void StageController::Awake()
 			// 衝突オブジェクトがプレイヤーの時の処理
 			if (tag == ObjectTag::Player)
 			{
-				PaintFace(m_gameColor->m_playerColor);
+				PaintFace(m_gameColor->m_playerColor, 0);
 			}
 			// 衝突オブジェクトが敵の時の処理
 			else if (tag == ObjectTag::Enemy)
 			{
-				PaintFace(m_gameColor->m_enemyColor);
+				PaintFace(m_gameColor->m_enemyColor, 1);
 			}
 		});
 
-	// 床メッシュと壁メッシュに分ける
-	//for (auto& face : m_meshCollider->GetFace())
-	//{
-	//	// 床メッシュ
-	//	if (face->GetPlane()->GetNormal().y >= m_floorNormalY)
-	//	{
-	//		m_floorMesh.push_back(face.get());
-	//		m_floorMeshColor.emplace(face.get(), m_gameColor->m_defaultFaceColor);
-	//	}
-	//}
+	Time::ResetFrameCount();
 }
 
 /**
@@ -107,16 +119,7 @@ void StageController::Awake()
  */
 void StageController::Start(const GameContext& gameContext)
 {
-	// 色をデフォルトに戻す
-	//for (auto& floorMeshColor : m_floorMeshColor)
-	//{
-	//	floorMeshColor.second = m_gameColor->m_defaultFaceColor;
-	//}
-
 	Paint::ClearPaint();
-
-	//m_enemyMeshCount = 0;
-	//m_playerMeshCount = 0;
 }
 
 /**
@@ -126,26 +129,15 @@ void StageController::Start(const GameContext& gameContext)
  */
 void StageController::Update(const GameContext& gameContext)
 {
-	// プレイヤーが塗った面を数える
-	//m_playerMeshCount =
-	//	std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-	//		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-	//		{
-	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
-	//		});
-
-	//// 敵が塗った面を数える
-	//m_enemyMeshCount =
-	//	std::count_if(m_floorMeshColor.begin(), m_floorMeshColor.end(),
-	//		[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-	//		{
-	//			return XMVector4Equal(floorMeshColor.second, m_gameColor->m_enemyColor);
-	//		});
-
-	//OutputDebugStringA(std::format("player : {}, enemy : {}\n\n", m_pixelCount[0], m_pixelCount[1]).c_str());
-
 	m_playerMeshCount = m_pixelCount[0];
 	m_enemyMeshCount = m_pixelCount[1];
+
+	if (m_isCalculate)
+	{
+		m_histCBufferInfo->SetVariable("nowFrame", Time::GetFrameCount());
+		//int xx = m_hist[0];
+		//xx = Time::GetFrameCount();
+	}
 }
 
 
@@ -212,7 +204,7 @@ void StageController::PaintFace(
  * 
  * \param color 色
  */
-void StageController::PaintFace(const DirectX::SimpleMath::Color& color)
+void StageController::PaintFace(const DirectX::SimpleMath::Color& color, int id)
 {
 	auto& faces = m_meshCollider->GetFace();
 	auto& indexList = m_model->GetIndexList();
@@ -230,7 +222,7 @@ void StageController::PaintFace(const DirectX::SimpleMath::Color& color)
 		SimpleMath::Vector2 uv = CalcUV(collisionPos, v0, v1, v2);
 
 		// 塗り
-		Paint::Paint(uv, color);
+		Paint::Paint(uv, color, id);
 	}
 }
 

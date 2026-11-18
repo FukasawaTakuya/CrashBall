@@ -1,23 +1,27 @@
 
-static const float toleranceSqrt = 0.001f * 0.001f;
+// 許容距離
+static const float toleranceSqrt = 0.01f * 0.01f;
+// カウンター数
 static const int countSize = 8;
 
+// 塗装テクスチャ
 Texture2D PaintTexture : register(t0);
 
+// 判定用の色
 cbuffer Colors : register(b0)
 {
     float4 gameColor[countSize];
 };
-
 
 struct CSOutput
 {
     uint pixelCount;
 };
 
+// 合計計算結果格納先
 RWStructuredBuffer<CSOutput> outPutPaintArea : register(u0);
-RWTexture2D<float4> RWPaintTexture : register(u1);
 
+// 計算結果格納先
 groupshared uint s_count[countSize];
 
 [numthreads(16, 16, 1)]
@@ -47,7 +51,4 @@ void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
     // ピクセル数の合算
     if (gi < countSize)
         InterlockedAdd(outPutPaintArea[gi].pixelCount, s_count[gi]);
-    
-    RWPaintTexture[DTid.xy] = float4(1, 0, 0, 1);
-
 }

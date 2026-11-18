@@ -29,6 +29,11 @@ class  StageController :
 	public IFloorMeshGetter,	// 床メッシュ関連情報取得
 	public IPaintConsumer		// ペイント消費
 {
+
+	static constexpr int TEAM_NUM = 8;
+	static constexpr int HIST_NUM = 16;
+	static constexpr int CONSUM_NUM = 900;
+
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
@@ -44,13 +49,19 @@ private:
 	const MyModel* m_model = nullptr;
 
 	// コンピュートシェーダーに渡す色情報
-	DirectX::SimpleMath::Color m_colors[8];
+	DirectX::SimpleMath::Color m_colors[TEAM_NUM];
 
 	// コンピュートシェーダーからデータを書き込む
-	uint32_t m_pixelCount[8] = {0,0,0,0,0,0,0,0};
+	uint32_t m_pixelCount[TEAM_NUM] = {0,0,0,0,0,0,0,0};
 
 	// コンピュートシェーダー操作クラス
 	ComputShaderController* m_computShaderController;
+
+	// 時間打ち込みヒストグラム
+	uint32_t m_hist[TEAM_NUM * HIST_NUM];
+
+	// ヒストグラム計算バッファの定数バッファのポインタ
+	ConstantBufferInfo* m_histCBufferInfo;
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 
@@ -61,9 +72,11 @@ private:
 	int m_normalMeshCount = 0;	// 何も塗られていない面の数
 	float m_floorNormalY = 0.0f;// 床判定基準になる法線のY成分
 
+	bool m_isCalculate = true;
+
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_floorNormalY, PropertyType::Float)
+		AddProperty(m_isCalculate, PropertyType::Bool)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -142,7 +155,7 @@ private:
 	}
 
 	// 面を塗る
-	void PaintFace(const DirectX::SimpleMath::Color& color);
+	void PaintFace(const DirectX::SimpleMath::Color& color, int id);
 
 	// 衝突点からUV座標を求める
 	DirectX::SimpleMath::Vector2 CalcUV(

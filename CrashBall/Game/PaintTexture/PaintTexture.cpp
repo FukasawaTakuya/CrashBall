@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "PaintTexture.h"
 
+#include "Game/Framework/Time.h"
+
 using namespace DirectX;
 
 /**
@@ -18,8 +20,9 @@ using namespace DirectX;
  */
 PaintTexture::PaintTexture(DXGI_FORMAT format)
 	: MyRenderTexture(format)
+	, m_paintTimeTex(std::make_unique<MyRenderTexture>(DXGI_FORMAT_R16G16_UINT))
+	, m_pixelShader(std::make_unique<Shader>())
 {
-	m_paintTimeTex = std::make_unique<MyRenderTexture>(DXGI_FORMAT_R32_UINT);
 }
 
 /**
@@ -30,9 +33,10 @@ PaintTexture::PaintTexture(DXGI_FORMAT format)
  */
 void PaintTexture::RegisterRenderCommnad(
 	const DirectX::SimpleMath::Vector2& position, 
-	const DirectX::SimpleMath::Color& color)
+	const DirectX::SimpleMath::Color& color,
+	int id)
 {
-	m_paintCommands.emplace_back(position, color);
+	m_paintCommands.emplace_back(position, color, id);
 }
 
 /**
@@ -50,6 +54,10 @@ void PaintTexture::ClearPaint()
 		m_renderTexture->GetRenderTargetView(),
 		clearColor);
 
+	m_context->ClearRenderTargetView(
+		m_paintTimeTex->GetRenderTargetView(),
+		clearColor);
+
 	m_paintCommands.clear();
 }
 
@@ -63,21 +71,38 @@ void PaintTexture::Draw(
 	DirectX::SpriteBatch* spriteBatch,
 	DirectX::CommonStates* states)
 {
-	auto renderTargetView = m_renderTexture->GetRenderTargetView();
+	ID3D11RenderTargetView* renderTargetView[]
+		= { m_renderTexture->GetRenderTargetView(),
+			m_paintTimeTex->GetRenderTargetView(), };
 
 	// レンダーターゲットの設定
-    m_context->OMSetRenderTargets(1, &renderTargetView, nullptr);
+	m_context->OMSetRenderTargets(2, renderTargetView, nullptr);
 	// ビューポートの設定
 	m_context->RSSetViewports(1, &m_viewport);
 
 	// 描画領域
 	RECT inkRect(0, 0, m_inkSpriteWidth, m_inkSpriteHeight);
 
+	// フレーム数
+	m_pixelShader->GetConstatntBufferInfo("TimeTexInfo")->SetVariable("time", Time::GetFrameCount());
+
 	// 描画
-	spriteBatch->Begin(SpriteSortMode_Deferred);
+	spriteBatch->Begin(
+		SpriteSortMode_Immediate,
+		m_paintBlendState.Get(),
+		nullptr,
+		nullptr,
+		nullptr,
+		[&]()
+		{
+			m_pixelShader->Bind(m_context);
+		});
 
 	for (auto& paintCommand : m_paintCommands)
 	{
+		m_pixelShader->GetConstatntBufferInfo("TimeTexInfo")->SetVariable("id", paintCommand.id);
+		m_pixelShader->UpdateSubResources(m_context);
+
 		spriteBatch->Draw(
 			m_inkSprite,
 			paintCommand.position * m_width,
@@ -90,10 +115,29 @@ void PaintTexture::Draw(
 
 	spriteBatch->End();
 
-	//// タイムテクスチャに描画
-	//DrawTimeTex(spriteBatch, states);
-
 	m_paintCommands.clear();
+}
+
+/**
+ * \brief ブレンドステートの作成
+ * 
+ * \param states コモンステート
+ * \param device デバイス
+ */
+void PaintTexture::CreateBlendState(
+	DirectX::CommonStates* states,
+	ID3D11Device1* device)
+{
+	D3D11_BLEND_DESC blendDesc;
+
+	states->AlphaBlend()->GetDesc(&blendDesc);
+
+	blendDesc.IndependentBlendEnable = TRUE;
+
+	blendDesc.RenderTarget[1].BlendEnable = FALSE;
+	blendDesc.RenderTarget[1].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	device->CreateBlendState(&blendDesc, m_paintBlendState.ReleaseAndGetAddressOf());
 }
 
 /**
@@ -103,41 +147,6 @@ void PaintTexture::Draw(
 void PaintTexture::SetSize()
 {
 	MyRenderTexture::SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
+	m_paintTimeTex->SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
 }
 
-/**
- * \brief タイムテキストに描画
- * 
- * \param spriteBatch
- * \param states
- */
-void PaintTexture::DrawTimeTex(
-	DirectX::SpriteBatch* spriteBatch, 
-	DirectX::CommonStates* states)
-{
-	auto renderTargetView = m_paintTimeTex->GetRenderTargetView();
-
-	// レンダーターゲットの設定
-	m_context->OMSetRenderTargets(1, &renderTargetView, nullptr);
-	// ビューポートの設定
-	m_context->RSSetViewports(1, &m_viewport);
-
-	// 描画領域
-	RECT inkRect(0, 0, m_inkSpriteWidth, m_inkSpriteHeight);
-
-	spriteBatch->Begin(SpriteSortMode_Deferred);
-
-	for (auto& paintCommand : m_paintCommands)
-	{
-		spriteBatch->Draw(
-			m_inkSprite,
-			paintCommand.position * m_width,
-			&inkRect,
-			paintCommand.color,
-			0.0f,
-			SimpleMath::Vector2(m_inkSpriteWidth / 2.0f, m_inkSpriteHeight / 2.0f),
-			INKSPRITE_SCALE);
-	}
-
-	spriteBatch->End();
-}

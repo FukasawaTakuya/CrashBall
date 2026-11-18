@@ -33,6 +33,8 @@ public:
 	// 取得/設定
 public:
 
+	virtual void ResetFrameCount() = 0;
+
 	// 経過時間の取得(スケーリング有り)
 	virtual float GetElapsedTime() const = 0;
 
@@ -47,6 +49,11 @@ public:
 
 	// タイムスケールの設定
 	virtual void SetTimeScale(float timeScale) = 0;
+
+	virtual float GetTime() const = 0;
+
+	virtual uint32_t GetFrameCount() const = 0;
+
 
 	// 内部実装
 private:

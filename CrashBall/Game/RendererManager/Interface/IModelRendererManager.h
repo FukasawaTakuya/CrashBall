@@ -16,10 +16,11 @@
 // 描画命令の登録用
 struct ModelRenderCommand
 {
-	MyModel* pModel;					// モデルのポインタ
-	Shader* vertexShader;				// 頂点シェーダ
-	Shader* pixelShader;				// ピクセルシェーダ
-	DirectX::SimpleMath::Matrix world;	// ワールド行列
+	MyModel* pModel;						// モデルのポインタ
+	DirectX::SimpleMath::Color diffuseColor;	// ディヒューズ色
+	Shader* vertexShader;					// 頂点シェーダ
+	Shader* pixelShader;					// ピクセルシェーダ
+	DirectX::SimpleMath::Matrix world;		// ワールド行列
 };
 
 /**
@@ -46,6 +47,7 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommand(
 		MyModel* model,
+		const DirectX::SimpleMath::Color& difuseColor,
 		Shader* vertexShader,
 		Shader* pixelShader,
 		const DirectX::SimpleMath::Matrix& world) = 0;

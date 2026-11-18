@@ -40,7 +40,10 @@ void ComputShaderController::Start(const GameContext& gameContext)
  */
 void ComputShaderController::Update(const GameContext& gameContext)
 {
-	gameContext.computShaderDispathcer->RegisterDispatchCommand(
-		m_computShader.get(),
-		m_groupNum);
+	for (int i = 0; i < 3; i++)
+	{
+		gameContext.computShaderDispathcer->RegisterDispatchCommand(
+			m_shaders[i].computShader.get(),
+			m_shaders[i].groupNum);
+	}
 }

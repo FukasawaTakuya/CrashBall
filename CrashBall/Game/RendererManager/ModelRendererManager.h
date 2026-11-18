@@ -36,6 +36,7 @@ public:
 	// •`‰æ–½—ß‚Ì“o˜^
 	void RegisterRenderCommand(
 		MyModel* model,
+		const DirectX::SimpleMath::Color& diffuseColor,
 		Shader* vertexShader,
 		Shader* pixelShader,
 		const DirectX::SimpleMath::Matrix& world) override;

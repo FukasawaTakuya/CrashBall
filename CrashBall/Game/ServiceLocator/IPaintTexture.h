@@ -25,7 +25,8 @@ public:
 	// 描画命令の登録
 	virtual void RegisterRenderCommnad(
 		const DirectX::SimpleMath::Vector2& position,
-		const DirectX::SimpleMath::Color& color) = 0;
+		const DirectX::SimpleMath::Color& color,
+		int id) = 0;
 
 	// ペイントのクリア
 	virtual void ClearPaint() = 0;
@@ -35,7 +36,12 @@ public:
 
 	virtual ID3D11ShaderResourceView* GetPaintTexture() const = 0;
 
+	virtual ID3D11ShaderResourceView* GetPaintTimeTex() const = 0;
+
 	virtual ID3D11Texture2D* GetRenderTarget() const = 0;
+	
+	virtual ID3D11Texture2D* GetPaintTimeRenderTarget() const = 0;
+
 
 	// 内部実装
 private:

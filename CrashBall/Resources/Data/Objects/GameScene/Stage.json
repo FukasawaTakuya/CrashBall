@@ -56,8 +56,8 @@
             "isActive": true,
             "properties": [
                 {
-                    "name": "floorNormalY",
-                    "data": -1.0
+                    "name": "isCalculate",
+                    "data": true
                 }
             ]
         },
@@ -82,9 +82,9 @@
                     "name": "diffuseColor",
                     "data": {
                         "a": 1.0,
-                        "b": 0.0,
-                        "g": 0.0,
-                        "r": 0.0
+                        "b": 1.0,
+                        "g": 1.0,
+                        "r": 1.0
                     }
                 },
                 {
@@ -104,15 +104,39 @@
             "isActive": true,
             "properties": [
                 {
-                    "name": "computShaderKey",
+                    "name": "shaders[0].computShaderKey",
                     "data": "CalcArea_CS"
                 },
                 {
-                    "name": "groupNum",
+                    "name": "shaders[0].groupNum",
                     "data": {
-                        "x": 512.0,
-                        "y": 512.0,
+                        "x": 256.0,
+                        "y": 256.0,
                         "z": 1.0
+                    }
+                },
+                {
+                    "name": "shaders[1].computShaderKey",
+                    "data": "CalcPaintHist_CS"
+                },
+                {
+                    "name": "shaders[1].groupNum",
+                    "data": {
+                        "x": 256.0,
+                        "y": 256.0,
+                        "z": 1.0
+                    }
+                },
+                {
+                    "name": "shaders[2].computShaderKey",
+                    "data": "test"
+                },
+                {
+                    "name": "shaders[2].groupNum",
+                    "data": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
                     }
                 }
             ]

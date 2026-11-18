@@ -27,6 +27,10 @@ private:
 
 	int m_fps;
 
+	float m_time;
+
+	uint32_t m_framCount;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -45,6 +49,11 @@ public:
 		m_timeScale += value;
 
 		m_timeScale = std::clamp(m_timeScale, 0.0f, 1.0f);
+	}
+
+	void ResetFrameCount() override
+	{
+		m_framCount = 0.0f;
 	}
 
 	// 取得/設定
@@ -70,6 +79,16 @@ public:
 		return m_fps;
 	}
 
+	float GetTime() const override
+	{
+		return m_time;
+	}
+
+	uint32_t GetFrameCount() const override
+	{
+		return m_framCount;
+	}
+
 	void SetTimeScale(float timeScale) override
 	{
 		m_timeScale = timeScale;
@@ -85,6 +104,15 @@ public:
 		m_fps = fps;
 	}
 
+	void SetTime(float time)
+	{
+		m_time = time;
+	}
+
+	void SetFrameCount(uint32_t frameCount)
+	{
+		m_framCount++;
+	}
 	// 内部実装
 private:
 
