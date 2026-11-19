@@ -74,6 +74,8 @@ void EnemyController::Start(const GameContext& gameContext)
 	m_rigidbody->SetVelocity(SimpleMath::Vector3::Zero);
 
 	m_prevMeshCount = 0;
+
+	m_subHp = 0;
 }
 
 /**

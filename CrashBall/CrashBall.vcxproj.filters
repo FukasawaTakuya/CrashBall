@@ -983,6 +983,9 @@
     <None Include="Shader\Basic.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\CalcPaint.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\SkyboxEffect_PS.hlsli">
@@ -1007,6 +1010,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\CalcPaintHist_CS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\PaintErase_CS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

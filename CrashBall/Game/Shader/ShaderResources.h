@@ -90,7 +90,7 @@ struct ConstantBufferResource
 };
 
 // 読み書き可能構造化バッファーのポインタ
-struct RWStructuredBufferPtr;
+struct RWStructuredBufferResourcePtr;
 
 // 読み書き可能構造化バッファーに関するものをまとめた構造体
 struct RWStructuredResource
@@ -101,43 +101,47 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
 
 private:
-	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
+	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成依頼保持用
 		= [](ID3D11Device1*){};	
 
 	int uavCount;	// UAV数
 
 public:
 
-	// UAV作成命令の実行
+	// UAV作成依頼の実行
 	void DoUavCreateCmd(ID3D11Device1* device);
 
-	// UAV作成命令の設定
-	void SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr);
+	// UAV作成依頼の発行
+	void SubmitUAVCreateCmd(int uavCount, RWStructuredBufferResourcePtr* rwPtr);
 };
 
-struct RWShaderTextruePtr;
+struct RWShaderTextrueResourcePtr;
 
 // 書き換え可能シェーダーテクスチャ
 struct RWShaderTextrueResource
 {
 	std::string name;
-	ID3D11Texture2D* texture2D;	// テクスチャのポインタ
+	ID3D11Texture2D* texture2D;								// テクスチャのポインタ
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> texture2DCopy;	// テクスチャコピー用
 	uint32_t registerSlot;
 
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;		// UAV本体
 	Microsoft::WRL::ComPtr<ID3D11Texture2D> stagingtexture[3];	// ステージングテクスチャ
 
 private:
-	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成命令
+	std::function<void(ID3D11Device1*)> createUAVCmd			// UAV作成依頼保持用
 		= [](ID3D11Device1*) {};
 
 public:
 
-	// UAV作成命令の実行
+	// UAV作成依頼の実行
 	void DoUavCreateCmd(ID3D11Device1* device);
 
-	// UAV作成命令の設定
-	void SetUAVCreateCmd(ID3D11Texture2D* textrue2D, RWShaderTextruePtr* rwTexPtr);
+	// UAV作成依頼の発行
+	void SubmitUAVCreateCmd(ID3D11Texture2D* textrue2D, RWShaderTextrueResourcePtr* rwTexPtr);
+
+	// UAV作成依頼の発行
+	void SubmitUAVCreateCmdWithCopy(ID3D11Texture2D* textrue2D, RWShaderTextrueResourcePtr* rwTexPtr);
 };
 
 

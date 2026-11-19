@@ -26,8 +26,8 @@ private:
 	ID3DBlob* m_blob;											// バイナリ情報
 	std::vector<ConstantBufferPtr> m_constantBuffer;			// 定数バッファ
 	std::vector<ShaderTextrueResource> m_shaderTextrueInfo;			// シェーダに渡すテクスチャ情報
-	std::vector<RWStructuredBufferPtr> m_rwStructuredBuffer;	// 書き込み可能構造化バッファ情報
-	std::vector<RWShaderTextruePtr> m_rwStructuredTexture;		// 書き込み可能シェーダーテクスチャ
+	std::vector<RWStructuredBufferResourcePtr> m_rwStructuredBuffer;	// 書き込み可能構造化バッファ情報
+	std::vector<RWShaderTextrueResourcePtr> m_rwStructuredTexture;		// 書き込み可能シェーダーテクスチャ
 	ID3D11InputLayout* m_inputLayout;							// 入力レイアウト
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -60,6 +60,9 @@ public:
 
 	// RWTextrueのUAVの作成
 	void CreateRWTextureUAV(const std::string& rwTexName, ID3D11Texture2D* texture);
+
+	// レンダーターゲットをコピーしてRWTextrueのUAVを作成
+	void CreateRWTextureUAVWithCopy(const std::string& rwTexName, ID3D11Texture2D* texture);
 
 	// CPU側のUAVデータの格納先の設定
 	void SetCpuData(const std::string& uavName, void* cpudata);

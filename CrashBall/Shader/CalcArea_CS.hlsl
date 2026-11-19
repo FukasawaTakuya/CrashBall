@@ -1,8 +1,4 @@
-
-// 許容距離
-static const float toleranceSqrt = 0.01f * 0.01f;
-// カウンター数
-static const int countSize = 8;
+#include "CalcPaint.hlsli"
 
 // 塗装テクスチャ
 Texture2D PaintTexture : register(t0);
@@ -10,9 +6,10 @@ Texture2D PaintTexture : register(t0);
 // 判定用の色
 cbuffer Colors : register(b0)
 {
-    float4 gameColor[countSize];
+    float4 gameColor[TEAM_NUM];
 };
 
+// 出力
 struct CSOutput
 {
     uint pixelCount;
@@ -22,33 +19,33 @@ struct CSOutput
 RWStructuredBuffer<CSOutput> outPutPaintArea : register(u0);
 
 // 計算結果格納先
-groupshared uint s_count[countSize];
+groupshared uint s_count[TEAM_NUM];
 
 [numthreads(16, 16, 1)]
 void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
 {
-    if (gi < countSize)
+    if (gi < TEAM_NUM)
         s_count[gi] = 0;
     
     GroupMemoryBarrierWithGroupSync();
     
     // 色の判定
-    int id = countSize;
+    int id = TEAM_NUM;
     float4 color = PaintTexture.Load(int3(DTid.xy, 0));
     [unroll]
-    for (int i = 0; i < countSize; i++)
+    for (int i = 0; i < TEAM_NUM; i++)
     {
         float delta = gameColor[i] - color;
         int ans = step(dot(delta, delta), toleranceSqrt);
         id = i * ans + id * (1 - ans);
     }
     
-    if (id < countSize)
+    if (id < TEAM_NUM)
         InterlockedAdd(s_count[id], 1);
     
     GroupMemoryBarrierWithGroupSync();
 
     // ピクセル数の合算
-    if (gi < countSize)
+    if (gi < TEAM_NUM)
         InterlockedAdd(outPutPaintArea[gi].pixelCount, s_count[gi]);
 }

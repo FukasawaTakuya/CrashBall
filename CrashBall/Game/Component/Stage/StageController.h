@@ -30,9 +30,9 @@ class  StageController :
 	public IPaintConsumer		// ペイント消費
 {
 
-	static constexpr int TEAM_NUM = 8;
-	static constexpr int HIST_NUM = 16;
-	static constexpr int CONSUM_NUM = 900;
+	static constexpr int TEAM_NUM = 8;			// チーム数
+	static constexpr int BIN_NUM = 32;			// ヒストグラム数
+	static constexpr int CONSUM_NUM = 100000;	// 消費ペイント数
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:
@@ -58,10 +58,12 @@ private:
 	ComputShaderController* m_computShaderController;
 
 	// 時間打ち込みヒストグラム
-	uint32_t m_hist[TEAM_NUM * HIST_NUM];
+	uint32_t m_hist[TEAM_NUM * BIN_NUM];
 
 	// ヒストグラム計算バッファの定数バッファのポインタ
 	ConstantBufferInfo* m_histCBufferInfo;
+
+	uint32_t m_partialCount[1];	
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ
 
@@ -107,7 +109,7 @@ public:
 	void Render(const RenderContext& renderContext) override;
 
 	// ペイント消費
-	void ConsumePaint(int consumePaintNum) override;
+	void ConsumePaint(int id) override;
 
 	// 取得/設定
 public:

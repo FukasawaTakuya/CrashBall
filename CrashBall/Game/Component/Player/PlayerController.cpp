@@ -25,7 +25,7 @@ RegisterComponent(PlayerController)
  */
 PlayerController::PlayerController(IGameObject* gameObject)
 	: Component(gameObject)
-	, m_stateMachine(std::make_unique<StateMachine<PlayerController>>(this))
+	//, m_stateMachine(std::make_unique<StateMachine<PlayerController>>(this))
 {
 }
 
@@ -48,6 +48,8 @@ void PlayerController::Awake()
  */
 void PlayerController::Start(const GameContext& gameContext)
 {
+	m_stateMachine = std::make_unique<StateMachine<PlayerController>>(this);
+
 	m_stateMachine->ClearState();
 
 	// プレイヤーステート用のコンテキスト

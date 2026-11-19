@@ -60,39 +60,61 @@ void StageController::Awake()
 	{
 		// ======= CalcArea_CS =========== //
 		// コンピュートシェーダーの取得
-		auto csShader = m_computShaderController->GetShader("CalcArea_CS");
+		auto cShader = m_computShaderController->GetShader("CalcArea_CS");
 		// UAVの設定
-		csShader->CreateRWStructuredUAV("outPutPaintArea", TEAM_NUM);
+		cShader->CreateRWStructuredUAV("outPutPaintArea", TEAM_NUM);
 		// UAVの書き込み先を設定
-		csShader->SetCpuData("outPutPaintArea", m_pixelCount);
+		cShader->SetCpuData("outPutPaintArea", m_pixelCount);
 		// 定数バッファの設定
-		csShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
+		cShader->GetConstatntBufferInfo("Colors")->SetVariable("gameColor", m_colors);
+		// テクスチャ
+		cShader->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();
 
-		ShaderTextrueResource* paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTexture");
-		paintTextureInfoInCompute->texture = Paint::GetPaintTexture();
+		// =========== PaintErase_CS =========== //
+		cShader = m_computShaderController->GetShader("PaintErase_CS");
+		// ヒストグラム情報
+		auto cbuffer = cShader->GetConstatntBufferInfo("HistInfo");
+		cbuffer->SetVariable("binWidth", 400);
+		cbuffer->SetVariable("nowTime", Time::GetFrameCount());
+		// 削除ピクセル数
+		cShader->GetConstatntBufferInfo("EraseInfo")->SetVariable("EraseNum", CONSUM_NUM);
+		// テクスチャ設定
+		cShader->GetShaderTextrueInfo("PaintTimeTex")->texture = Paint::GetPaintTimeTex();
+		// 書き換えテクスチャ
+		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());
+		cShader->CreateRWTextureUAVWithCopy("PaintTimeTexOut", Paint::GetPaintTimeRenderTarget());
+		// UAV作成
+		cShader->CreateRWStructuredUAV("partialCount", 1);
+		cShader->SetCpuData("partialCount", m_partialCount);
 
 		// ======= CalcPaintHist_CS =========== //
 		// コンピュートシェーダーの取得
-		csShader = m_computShaderController->GetShader("CalcPaintHist_CS");
+		cShader = m_computShaderController->GetShader("CalcPaintHist_CS");
 		// UAVの設定
-		csShader->CreateRWStructuredUAV("Hist", TEAM_NUM * HIST_NUM);
+		cShader->CreateRWStructuredUAV("Hist", TEAM_NUM * BIN_NUM);
 		// UAVの書き込み先
-		csShader->SetCpuData("Hist", m_hist);
-		// 定数バッファの設定
-		m_histCBufferInfo = csShader->GetConstatntBufferInfo("HistInfo");
+		cShader->SetCpuData("Hist", m_hist);
+		// ヒストグラム情報の設定
+		m_histCBufferInfo = cShader->GetConstatntBufferInfo("HistInfo");
 		m_histCBufferInfo->SetVariable("binWidth", 400);
 		m_histCBufferInfo->SetVariable("nowTime", Time::GetFrameCount());
+		// テクスチャ設定
+		cShader->GetShaderTextrueInfo("PaintTimeTex")->texture = Paint::GetPaintTimeTex();
 
-		paintTextureInfoInCompute = csShader->GetShaderTextrueInfo("PaintTimeTex");
-		paintTextureInfoInCompute->texture = Paint::GetPaintTimeTex();
 	}
 
-	// シェーダーテクスチャ情報の取得
-	ShaderTextrueResource* paintTextureInfoInStage   = m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture");
+	m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();
 
-	// テクスチャをシェーダーに渡す
-	paintTextureInfoInStage->texture = Paint::GetPaintTexture();
+	Time::ResetFrameCount();
+}
 
+/**
+ * \brief 開始処理
+ * 
+ * \param gameContext ゲーム用のコンテキスト
+ */
+void StageController::Start(const GameContext& gameContext)
+{
 	// 衝突中の処理の登録
 	m_meshCollider->SetOnCollisionStayCmd([this](Collider* other)
 		{
@@ -109,16 +131,6 @@ void StageController::Awake()
 			}
 		});
 
-	Time::ResetFrameCount();
-}
-
-/**
- * \brief 開始処理
- * 
- * \param gameContext ゲーム用のコンテキスト
- */
-void StageController::Start(const GameContext& gameContext)
-{
 	Paint::ClearPaint();
 }
 
@@ -135,8 +147,8 @@ void StageController::Update(const GameContext& gameContext)
 	if (m_isCalculate)
 	{
 		m_histCBufferInfo->SetVariable("nowFrame", Time::GetFrameCount());
-		//int xx = m_hist[0];
-		//xx = Time::GetFrameCount();
+		int xx = m_hist[0];
+		xx = Time::GetFrameCount();
 	}
 }
 
@@ -156,29 +168,30 @@ void StageController::Render(const RenderContext& renderContext)
  * 
  * \param 消費する面の数
  */
-void StageController::ConsumePaint(int consumePaintNum)
+void StageController::ConsumePaint(int id)
 {
-	//std::vector<std::pair<Triangle*, SimpleMath::Color>> playerFaceColor;
+	int eraseNum = CONSUM_NUM;
+	int partial = 0;
+	int eraseBin;
+	// 消去する便を求める(0を後でidに変える)
+	for (int i = (0 + 1) * BIN_NUM - 1; i >= 0; i--)
+	{
+		eraseNum -= m_hist[i];
+		eraseBin = i;
+		if (eraseNum <= 0)
+		{
+			partial = -eraseNum;
+			break;
+		}
+	}
 
-	//// プレイヤーの面を取り出す
-	//std::copy_if(m_floorMeshColor.begin(), m_floorMeshColor.end(), std::back_inserter(playerFaceColor),
-	//	[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor) {
-	//		return XMVector4Equal(floorMeshColor.second, m_gameColor->m_playerColor);
-	//	});
-
-	//// プレイヤーの面の数が消費するプレイヤーの面の数より少なければreturn
-	//if (playerFaceColor.size() < consumePaintNum)
-	//{
-	//	return;
-	//}
-
-	//// プレイヤーの面を定数枚デフォルトの色に戻す
-	//std::for_each_n(playerFaceColor.begin(), consumePaintNum,
-	//	[&](const std::pair<Triangle*, SimpleMath::Color>& floorMeshColor)
-	//	{
-	//		PaintFace(floorMeshColor.first, m_gameColor->m_defaultFaceColor);
-	//	});
-
+	auto cShader = m_computShaderController->GetShader("PaintErase_CS");
+	// 定数バッファの設定
+	auto cbuffer = cShader->GetConstatntBufferInfo("EraseInfo");
+	cbuffer->SetVariable("EraseBin", eraseBin);
+	cbuffer->SetVariable("PartialNum", partial);
+	// シェーダー更新トリガーを起こす
+	m_computShaderController->EnableUpdateTrigger("PaintErase_CS");
 }
 
 /**

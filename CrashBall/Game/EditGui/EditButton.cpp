@@ -51,6 +51,7 @@ void EditButton::Update(
     if (ImGui::Button("Play"))
     {
         sceneEditer->Awake();
+        sceneEditer->Start();
         m_editModeChanger->SetEditMode(false);
     }
 

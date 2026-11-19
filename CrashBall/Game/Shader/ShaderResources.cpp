@@ -11,7 +11,7 @@
 #include "Shader.h"
 
 /**
- * \brief UAV作成命令の実行
+ * \brief UAV作成依頼の実行
  * 
  * \param device デバイス
  */
@@ -23,12 +23,12 @@ void RWStructuredResource::DoUavCreateCmd(ID3D11Device1* device)
 }
 
 /**
- * \brief UAV作成命令の設定
+ * \brief UAV作成以来の発行
  *
  * \param uavCount UAV数
  * \param rwPtr RWStructuredのポインタを保持する構造体
  */
-void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* rwPtr)
+void RWStructuredResource::SubmitUAVCreateCmd(int uavCount, RWStructuredBufferResourcePtr* rwPtr)
 {
 	this->uavCount = uavCount;
 	createUAVCmd = [&, rwPtr](ID3D11Device1* device)
@@ -68,6 +68,11 @@ void RWStructuredResource::SetUAVCreateCmd(int uavCount, RWStructuredBufferPtr* 
 		};
 }
 
+/**
+ * \brief UAV作成依頼の実行
+ * 
+ * \param device デバイス
+ */
 void RWShaderTextrueResource::DoUavCreateCmd(ID3D11Device1* device)
 {
 	// 命令の実行
@@ -76,26 +81,26 @@ void RWShaderTextrueResource::DoUavCreateCmd(ID3D11Device1* device)
 }
 
 /**
- * \brief UAV作成命令の設定
+ * \brief UAV作成以来の発行
  *
  * \param textrue2D テクスチャ
  * \param rwTexPtr RWShaderTextrueのポインタを保持する構造体
  */
-void RWShaderTextrueResource::SetUAVCreateCmd(
+void RWShaderTextrueResource::SubmitUAVCreateCmd(
 	ID3D11Texture2D* texture2D, 
-	RWShaderTextruePtr* rwTexPtr)
+	RWShaderTextrueResourcePtr* rwTexPtr)
 {
 	this->texture2D = texture2D;
 
 	createUAVCmd =
 		[&, rwTexPtr](ID3D11Device1* device)
 		{
+			// 渡されたレンダーターゲットをそのまま使う
 			D3D11_TEXTURE2D_DESC texDesc{};
-
 			this->texture2D->GetDesc(&texDesc);
-
 			device->CreateUnorderedAccessView(this->texture2D, nullptr, uav.ReleaseAndGetAddressOf());
 
+			// ステージングテクスチャの作成
 			texDesc.Usage = D3D11_USAGE_STAGING;
 			texDesc.BindFlags = 0;
 			texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
@@ -105,6 +110,46 @@ void RWShaderTextrueResource::SetUAVCreateCmd(
 			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[1].ReleaseAndGetAddressOf());
 			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[2].ReleaseAndGetAddressOf());
 
+			// ポインタを渡す
+			rwTexPtr->uav = uav.Get();
+			rwTexPtr->stagingtexture[0] = stagingtexture[0].Get();
+			rwTexPtr->stagingtexture[1] = stagingtexture[1].Get();
+			rwTexPtr->stagingtexture[2] = stagingtexture[2].Get();
+		};
+}
+
+/**
+ * \brief UAV作成命令の設定
+ *
+ * \param textrue2D テクスチャ
+ * \param rwTexPtr RWShaderTextrueのポインタを保持する構造体
+ */
+void RWShaderTextrueResource::SubmitUAVCreateCmdWithCopy(
+	ID3D11Texture2D* texture2D, 
+	RWShaderTextrueResourcePtr* rwTexPtr)
+{
+	this->texture2D = texture2D;
+
+	createUAVCmd =
+		[&, rwTexPtr](ID3D11Device1* device)
+		{
+			// 渡されたデスクから新しくレンダーターゲットを作る
+			D3D11_TEXTURE2D_DESC texDesc{};
+			this->texture2D->GetDesc(&texDesc);
+			device->CreateTexture2D(&texDesc, nullptr, texture2DCopy.ReleaseAndGetAddressOf());
+			device->CreateUnorderedAccessView(texture2DCopy.Get(), nullptr, uav.ReleaseAndGetAddressOf());
+
+			// ステージングテクスチャの作成
+			texDesc.Usage = D3D11_USAGE_STAGING;
+			texDesc.BindFlags = 0;
+			texDesc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+			texDesc.MiscFlags = 0;
+
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[0].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[1].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[2].ReleaseAndGetAddressOf());
+
+			// ポインタを渡す
 			rwTexPtr->uav = uav.Get();
 			rwTexPtr->stagingtexture[0] = stagingtexture[0].Get();
 			rwTexPtr->stagingtexture[1] = stagingtexture[1].Get();

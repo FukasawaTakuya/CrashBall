@@ -116,6 +116,10 @@
                     }
                 },
                 {
+                    "name": "shaders[0].updateEnable",
+                    "data": true
+                },
+                {
                     "name": "shaders[1].computShaderKey",
                     "data": "CalcPaintHist_CS"
                 },
@@ -128,16 +132,24 @@
                     }
                 },
                 {
+                    "name": "shaders[1].updateEnable",
+                    "data": true
+                },
+                {
                     "name": "shaders[2].computShaderKey",
-                    "data": "test"
+                    "data": "PaintErase_CS"
                 },
                 {
                     "name": "shaders[2].groupNum",
                     "data": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
+                        "x": 256.0,
+                        "y": 256.0,
+                        "z": 1.0
                     }
+                },
+                {
+                    "name": "shaders[2].updateEnable",
+                    "data": false
                 }
             ]
         }

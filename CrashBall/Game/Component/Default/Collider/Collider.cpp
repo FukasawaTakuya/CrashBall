@@ -35,6 +35,10 @@ Collider::Collider(
 void Collider::Awake()
 {
 	m_transform = GetGameObject()->GetComponent<Transform>();
+
+	m_onCollisionEnterCmd = { [](Collider*) {} };
+	m_onCollisionStayCmd = { [](Collider*) {} };
+	m_onCollisionExitCmd = { [](Collider*) {} };
 }
 
 /**

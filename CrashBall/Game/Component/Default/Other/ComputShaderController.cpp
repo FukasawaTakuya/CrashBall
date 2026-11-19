@@ -42,8 +42,13 @@ void ComputShaderController::Update(const GameContext& gameContext)
 {
 	for (int i = 0; i < 3; i++)
 	{
-		gameContext.computShaderDispathcer->RegisterDispatchCommand(
-			m_shaders[i].computShader.get(),
-			m_shaders[i].groupNum);
+		if (m_shaders[i].updateEnable || m_shaders[i].updateTrigger)
+		{
+			gameContext.computShaderDispathcer->RegisterDispatchCommand(
+				m_shaders[i].computShader.get(),
+				m_shaders[i].groupNum);
+
+			m_shaders[i].updateTrigger = false;
+		}
 	}
 }

@@ -15,6 +15,8 @@ struct ComputShader
 	std::unique_ptr<Shader> computShader;	// コンピュートシェーダー
 	std::string computShaderKey;
 	DirectX::SimpleMath::Vector3 groupNum;	// スレッドグループ数
+	bool updateEnable = true;				// 毎フレーム更新
+	bool updateTrigger = false;				// 更新トリガー
 };
 
 /**
@@ -30,10 +32,13 @@ class  ComputShaderController : public Component {
 	BeginProperty()
 		AddProperty(m_shaders[0].computShaderKey, PropertyType::String)
 		AddProperty(m_shaders[0].groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[0].updateEnable, PropertyType::Bool)
 		AddProperty(m_shaders[1].computShaderKey, PropertyType::String)
 		AddProperty(m_shaders[1].groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[1].updateEnable, PropertyType::Bool)
 		AddProperty(m_shaders[2].computShaderKey, PropertyType::String)
 		AddProperty(m_shaders[2].groupNum, PropertyType::Vector3)
+		AddProperty(m_shaders[2].updateEnable, PropertyType::Bool)
 	EndProperty()
 
 	// コンポーネント名の設定
@@ -67,6 +72,16 @@ public:
 			m_shaders[i].computShader = std::make_unique<Shader>();
 			m_shaders[i].computShader->SetShader(resourceContext.
 				shaderManager->GetShaderInfo(m_shaders[i].computShaderKey));
+		}
+	}
+
+	// 更新トリガーを起こす
+	void EnableUpdateTrigger(const std::string& shaderName)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (m_shaders[i].computShaderKey == shaderName)
+				m_shaders[i].updateTrigger = true;;
 		}
 	}
 
