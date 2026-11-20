@@ -94,9 +94,6 @@ void StageController::Awake()
 		// 書き換えテクスチャ
 		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());
 		cShader->CreateRWTextureUAV("PaintTimeTex", Paint::GetPaintTimeRenderTarget());
-		// UAV作成
-		cShader->CreateRWStructuredUAV("partialCount", 1);
-		cShader->SetCpuData("partialCount", m_partialCount);
 	}
 
 	m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();

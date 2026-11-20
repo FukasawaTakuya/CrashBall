@@ -4,7 +4,7 @@ RWTexture2D<float4> PaintTexture : register(u0);    // ペイントテクスチ�
 
 RWTexture2D<uint2> PaintTimeTex : register(u1);     // ペイント時間テクスチャ
 
-RWStructuredBuffer<uint> partialCount : register(u2);   // 一部消去ビンカウント用
+//RWStructuredBuffer<uint> partialCount : register(u2);   // 一部消去ビンカウント用
 
 // 消去用定数バッファ
 cbuffer EraseInfo : register(b1)
@@ -13,13 +13,13 @@ cbuffer EraseInfo : register(b1)
     int PartialNum; // 一部消去ピクセル数
 }
 
-//groupshared uint partialCount;
+groupshared uint partialCount;
 
 [numthreads(32, 32, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {   
     // 初期化
-    partialCount[0] = 0;
+    partialCount = 0;
     
     AllMemoryBarrierWithGroupSync();
     
@@ -39,7 +39,7 @@ void main( uint3 DTid : SV_DispatchThreadID )
         else if (bin == EraseBin)
         {
             uint old;
-            InterlockedAdd(partialCount[0], 1, old);
+            InterlockedAdd(partialCount, 1, old);
             erase = (old < PartialNum);
         }
         
