@@ -20,13 +20,15 @@ void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
     uint2 stamp = PaintTimeTex.Load(int3(DTid.xy, 0));
     if(stamp.y > 0 && NowFrame > stamp.y)
     {
-        uint age = AgeBin(stamp.y);
+        uint bin = CalcBin(stamp);
        
-        InterlockedAdd(s_Histcount[age + BIN_NUM * stamp.x], 1);
+        // グループ内のヒストグラムの合算
+        InterlockedAdd(s_Histcount[bin], 1);
     }
 
     GroupMemoryBarrierWithGroupSync();
     
+    // ヒストグラムの合算
     if (gi < BIN_NUM * TEAM_NUM)
         InterlockedAdd(Hist[gi], s_Histcount[gi]);
 }

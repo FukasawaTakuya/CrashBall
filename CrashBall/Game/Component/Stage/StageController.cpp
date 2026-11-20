@@ -90,8 +90,6 @@ void StageController::Awake()
 		auto cbuffer = cShader->GetConstatntBufferInfo("HistInfo");
 		cbuffer->SetVariable("BinWidth", BIN_WIDTH);
 		cbuffer->SetVariable("NowFrame", Time::GetFrameCount());
-		// 削除ピクセル数
-		cShader->GetConstatntBufferInfo("EraseInfo")->SetVariable("EraseNum", CONSUM_NUM);
 		// テクスチャ設定
 		// 書き換えテクスチャ
 		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());

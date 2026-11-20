@@ -14,8 +14,10 @@ cbuffer HistInfo : register(b0)
     uint BinWidth; // ビンの幅
 }
 
-uint AgeBin(int stamp)
+// ビンを求める
+uint CalcBin(uint2 stamp)
 {
-    uint delta = NowFrame - stamp;
-    return min(delta / BinWidth, BIN_NUM - 1);
+    uint delta = NowFrame - stamp.y;
+    uint age = min(delta / BIN_NUM, BIN_NUM - 1);
+    return age + BIN_NUM * stamp.x;
 }

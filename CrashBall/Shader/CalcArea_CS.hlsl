@@ -24,6 +24,7 @@ groupshared uint s_count[TEAM_NUM];
 [numthreads(32, 32, 1)]
 void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
 {
+    // 初期化
     if (gi < TEAM_NUM)
         s_count[gi] = 0;
     
@@ -36,10 +37,13 @@ void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
     for (int i = 0; i < TEAM_NUM; i++)
     {
         float delta = gameColor[i] - color;
+        // 色との距離を判定
         int ans = step(dot(delta, delta), toleranceSqrt);
+        // idを更新
         id = i * ans + id * (1 - ans);
     }
     
+    // グループ内のピクセル数の合算
     if (id < TEAM_NUM)
         InterlockedAdd(s_count[id], 1);
     
