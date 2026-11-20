@@ -21,7 +21,7 @@ RWStructuredBuffer<CSOutput> outPutPaintArea : register(u0);
 // 計算結果格納先
 groupshared uint s_count[TEAM_NUM];
 
-[numthreads(16, 16, 1)]
+[numthreads(32, 32, 1)]
 void main(uint3 DTid : SV_DispatchThreadID, uint gi : SV_GroupIndex)
 {
     if (gi < TEAM_NUM)

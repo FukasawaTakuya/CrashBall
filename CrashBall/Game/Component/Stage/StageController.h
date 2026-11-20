@@ -32,7 +32,8 @@ class  StageController :
 
 	static constexpr int TEAM_NUM = 8;			// チーム数
 	static constexpr int BIN_NUM = 32;			// ヒストグラム数
-	static constexpr int CONSUM_NUM = 100000;	// 消費ペイント数
+	static constexpr int BIN_WIDTH = 400;		// ビンの幅
+	static constexpr int CONSUM_NUM = 50000;	// 消費ペイント数
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:

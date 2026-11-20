@@ -70,23 +70,6 @@ void StageController::Awake()
 		// テクスチャ
 		cShader->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();
 
-		// =========== PaintErase_CS =========== //
-		cShader = m_computShaderController->GetShader("PaintErase_CS");
-		// ヒストグラム情報
-		auto cbuffer = cShader->GetConstatntBufferInfo("HistInfo");
-		cbuffer->SetVariable("binWidth", 400);
-		cbuffer->SetVariable("nowTime", Time::GetFrameCount());
-		// 削除ピクセル数
-		cShader->GetConstatntBufferInfo("EraseInfo")->SetVariable("EraseNum", CONSUM_NUM);
-		// テクスチャ設定
-		cShader->GetShaderTextrueInfo("PaintTimeTex")->texture = Paint::GetPaintTimeTex();
-		// 書き換えテクスチャ
-		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());
-		cShader->CreateRWTextureUAVWithCopy("PaintTimeTexOut", Paint::GetPaintTimeRenderTarget());
-		// UAV作成
-		cShader->CreateRWStructuredUAV("partialCount", 1);
-		cShader->SetCpuData("partialCount", m_partialCount);
-
 		// ======= CalcPaintHist_CS =========== //
 		// コンピュートシェーダーの取得
 		cShader = m_computShaderController->GetShader("CalcPaintHist_CS");
@@ -96,11 +79,26 @@ void StageController::Awake()
 		cShader->SetCpuData("Hist", m_hist);
 		// ヒストグラム情報の設定
 		m_histCBufferInfo = cShader->GetConstatntBufferInfo("HistInfo");
-		m_histCBufferInfo->SetVariable("binWidth", 400);
-		m_histCBufferInfo->SetVariable("nowTime", Time::GetFrameCount());
+		m_histCBufferInfo->SetVariable("BinWidth", BIN_WIDTH);
+		m_histCBufferInfo->SetVariable("NowFrame", Time::GetFrameCount());
 		// テクスチャ設定
 		cShader->GetShaderTextrueInfo("PaintTimeTex")->texture = Paint::GetPaintTimeTex();
 
+		// =========== PaintErase_CS =========== //
+		cShader = m_computShaderController->GetShader("PaintErase_CS");
+		// ヒストグラム情報
+		auto cbuffer = cShader->GetConstatntBufferInfo("HistInfo");
+		cbuffer->SetVariable("BinWidth", BIN_WIDTH);
+		cbuffer->SetVariable("NowFrame", Time::GetFrameCount());
+		// 削除ピクセル数
+		cShader->GetConstatntBufferInfo("EraseInfo")->SetVariable("EraseNum", CONSUM_NUM);
+		// テクスチャ設定
+		// 書き換えテクスチャ
+		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());
+		cShader->CreateRWTextureUAV("PaintTimeTex", Paint::GetPaintTimeRenderTarget());
+		// UAV作成
+		cShader->CreateRWStructuredUAV("partialCount", 1);
+		cShader->SetCpuData("partialCount", m_partialCount);
 	}
 
 	m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();
@@ -146,7 +144,7 @@ void StageController::Update(const GameContext& gameContext)
 
 	if (m_isCalculate)
 	{
-		m_histCBufferInfo->SetVariable("nowFrame", Time::GetFrameCount());
+		m_histCBufferInfo->SetVariable("NowFrame", Time::GetFrameCount());
 		int xx = m_hist[0];
 		xx = Time::GetFrameCount();
 	}
@@ -180,7 +178,7 @@ void StageController::ConsumePaint(int id)
 		eraseBin = i;
 		if (eraseNum <= 0)
 		{
-			partial = -eraseNum;
+			partial = (m_hist[i] + eraseNum);
 			break;
 		}
 	}
@@ -190,6 +188,7 @@ void StageController::ConsumePaint(int id)
 	auto cbuffer = cShader->GetConstatntBufferInfo("EraseInfo");
 	cbuffer->SetVariable("EraseBin", eraseBin);
 	cbuffer->SetVariable("PartialNum", partial);
+	cShader->GetConstatntBufferInfo("HistInfo")->SetVariable("NowFrame", Time::GetFrameCount());
 	// シェーダー更新トリガーを起こす
 	m_computShaderController->EnableUpdateTrigger("PaintErase_CS");
 }

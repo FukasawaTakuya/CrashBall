@@ -10,12 +10,12 @@ static const uint BIN_NUM = 32;
 // 定数バッファ
 cbuffer HistInfo : register(b0)
 {
-    uint nowFrame; // 現フレーム
-    uint binWidth; // ビンの幅
+    uint NowFrame; // 現フレーム
+    uint BinWidth; // ビンの幅
 }
 
 uint AgeBin(int stamp)
 {
-    uint delta = nowFrame - stamp;
-    return min(delta / binWidth, BIN_NUM - 1);
+    uint delta = NowFrame - stamp;
+    return min(delta / BinWidth, BIN_NUM - 1);
 }
