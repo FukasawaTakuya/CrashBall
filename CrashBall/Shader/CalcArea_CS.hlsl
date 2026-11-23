@@ -1,5 +1,8 @@
 #include "CalcPaint.hlsli"
 
+// 許容距離
+static const float toleranceSqrt = 0.01f * 0.01f;
+
 // 塗装テクスチャ
 Texture2D PaintTexture : register(t0);
 

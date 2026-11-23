@@ -31,9 +31,9 @@ class  StageController :
 {
 
 	static constexpr int TEAM_NUM = 8;			// チーム数
-	static constexpr int BIN_NUM = 8;			// ビン数
-	static constexpr int BIN_WIDTH = 144;		// ビンの幅
-	static constexpr int CONSUM_NUM = 30000;	// 消費ペイント数
+	static constexpr int BIN_NUM = 128;			// ビン数
+	static constexpr int BIN_WIDTH = 400;		// ビンの幅
+	static constexpr int CONSUM_NUM = 70000;	// 消費ペイント数
 
 	// メンバ変数の宣言 -----------------------------------------------
 private:
@@ -53,7 +53,7 @@ private:
 	DirectX::SimpleMath::Color m_colors[TEAM_NUM];
 
 	// コンピュートシェーダーからデータを書き込む
-	uint32_t m_pixelCount[TEAM_NUM] = {0,0,0,0,0,0,0,0};
+	uint32_t m_pixelCount[TEAM_NUM] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 	// コンピュートシェーダー操作クラス
 	ComputShaderController* m_computShaderController;
@@ -64,6 +64,7 @@ private:
 	// ヒストグラム計算バッファの定数バッファのポインタ
 	ConstantBufferInfo* m_histCBufferInfo;
 
+	// 消去ピクセルカウント用
 	uint32_t m_partialCount[1];	
 
 	std::vector<Triangle*> m_floorMesh;		// 床メッシュ

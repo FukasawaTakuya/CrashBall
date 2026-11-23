@@ -94,6 +94,9 @@ void StageController::Awake()
 		// 書き換えテクスチャ
 		cShader->CreateRWTextureUAV("PaintTexture", Paint::GetPaintRenderTarget());
 		cShader->CreateRWTextureUAV("PaintTimeTex", Paint::GetPaintTimeRenderTarget());
+		// 構造化バッファ作成
+		cShader->CreateRWStructuredUAV("PartialCount", 1);
+		cShader->SetCpuData("PartialCount", m_partialCount);
 	}
 
 	m_modelRenderer->GetPixelShader()->GetShaderTextrueInfo("PaintTexture")->texture = Paint::GetPaintTexture();
@@ -186,6 +189,8 @@ void StageController::ConsumePaint(int id)
 	cShader->GetConstatntBufferInfo("HistInfo")->SetVariable("NowFrame", Time::GetFrameCount());
 	// シェーダー更新トリガーを起こす
 	m_computShaderController->EnableUpdateTrigger("PaintErase_CS");
+
+	m_partialCount[0] = 0;
 }
 
 /**

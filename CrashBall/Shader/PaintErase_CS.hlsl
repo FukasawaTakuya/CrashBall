@@ -4,26 +4,20 @@ RWTexture2D<float4> PaintTexture : register(u0);    // ペイントテクスチ�
 
 RWTexture2D<uint2> PaintTimeTex : register(u1);     // ペイント時間テクスチャ
 
-//RWStructuredBuffer<uint> partialCount : register(u2);   // 一部消去ビンカウント用
+RWStructuredBuffer<uint> PartialCount : register(u2);   // 一部消去ビンカウント用
 
 // 消去用定数バッファ
 cbuffer EraseInfo : register(b1)
 {
-    int EraseBin;   // 消去処理
-    int PartialNum; // 一部消去ピクセル数
+    uint EraseBin;   // 消去処理
+    uint PartialNum; // 一部消去ピクセル数
+    int pad[2];
 }
-
-groupshared uint partialCount;
 
 [numthreads(32, 32, 1)]
 void main( uint3 DTid : SV_DispatchThreadID )
 {   
-    // 初期化
-    partialCount = 0;
-    
-    AllMemoryBarrierWithGroupSync();
-    
-    uint2 stamp = PaintTimeTex.Load(int3(DTid.xy, 0));
+    uint2 stamp = PaintTimeTex[DTid.xy];
     
     if(stamp.y > 0)
     {
@@ -39,7 +33,7 @@ void main( uint3 DTid : SV_DispatchThreadID )
         else if (bin == EraseBin)
         {
             uint old;
-            InterlockedAdd(partialCount, 1, old);
+            InterlockedAdd(PartialCount[0], 1, old);
             erase = (old < PartialNum);
         }
         

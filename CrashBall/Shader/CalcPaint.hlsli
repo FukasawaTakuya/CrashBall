@@ -1,11 +1,9 @@
 
-// 許容距離
-static const float toleranceSqrt = 0.01f * 0.01f;
 // チーム数
 static const int TEAM_NUM = 8;
 
 // ビン数
-static const uint BIN_NUM = 8;
+static const uint BIN_NUM = 128;
 
 // 定数バッファ
 cbuffer HistInfo : register(b0)
