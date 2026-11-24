@@ -35,11 +35,14 @@ void MyRenderTexture::Begin(ID3D11DeviceContext1* context)
 
     float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
+    if (m_isDepth) renderTargetView = nullptr;
+
     context->OMSetRenderTargets(
         1,
         &renderTargetView,
         depthStencil);
 
+    if(!m_isDepth)
     context->ClearRenderTargetView(
         renderTargetView,
         clearColor);
@@ -66,8 +69,7 @@ void MyRenderTexture::End(
     context->OMSetRenderTargets(
         1,
         &backRtv,
-        dsv
-    );
+        dsv);
 }
 
 /**

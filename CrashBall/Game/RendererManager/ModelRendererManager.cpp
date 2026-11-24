@@ -50,8 +50,10 @@ void ModelRendererManager::Render(
 	ID3D11DeviceContext1* context,
 	DirectX::CommonStates* state,
 	const DirectX::SimpleMath::Matrix& view,
-	const DirectX::SimpleMath::Matrix& proj
-)
+	const DirectX::SimpleMath::Matrix& proj,
+	const DirectX::SimpleMath::Matrix& lightView,
+	const DirectX::SimpleMath::Matrix& lightProj,
+	ID3D11ShaderResourceView* shadowMap)
 {
 	for (auto& renderCommand : m_renderCommand)
 	{
@@ -66,6 +68,9 @@ void ModelRendererManager::Render(
 			renderCommand.diffuseColor,
 			renderCommand.vertexShader,
 			renderCommand.pixelShader,
+			lightView,
+			lightProj,
+			shadowMap,
 			state, 
 			context);
 	}

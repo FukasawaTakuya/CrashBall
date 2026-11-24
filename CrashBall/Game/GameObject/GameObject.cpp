@@ -22,11 +22,6 @@ GameObject::GameObject(ObjectTag tag)
 {
 }
 
-GameObject::GameObject(ordered_json* data)
-	: m_data(data)
-{
-}
-
 /**
  * \brief 開始処理
  * 

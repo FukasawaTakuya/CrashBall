@@ -29,7 +29,6 @@ class  StageController :
 	public IFloorMeshGetter,	// 床メッシュ関連情報取得
 	public IPaintConsumer		// ペイント消費
 {
-
 	static constexpr int TEAM_NUM = 8;			// チーム数
 	static constexpr int BIN_NUM = 128;			// ビン数
 	static constexpr int BIN_WIDTH = 400;		// ビンの幅

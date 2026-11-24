@@ -19,13 +19,13 @@ class  OrthgraphicCamera : public Camera {
 
 	// メンバ変数の宣言 -------------------------------------------------
 
-	float m_widthView;		// 横幅
-	float m_heightView;		// 縦幅
+	float m_width;		// 横幅
+	float m_height;		// 縦幅
 
 	// プロパティの設定
 	BeginProperty()
-		AddProperty(m_widthView,	PropertyType::Float)
-		AddProperty(m_heightView,	PropertyType::Float)
+		AddProperty(m_width,	PropertyType::Float)
+		AddProperty(m_height,	PropertyType::Float)
 		AddProperty(m_nearclip,		PropertyType::Float)
 		AddProperty(m_farclip,		PropertyType::Float)
 	EndProperty()
@@ -50,11 +50,19 @@ public:
 	void SetWindowSizeResource() override
 	{
 		m_proj = DirectX::SimpleMath::Matrix::CreateOrthographic(
-			m_widthView,
-			m_heightView,
+			m_width,
+			m_height,
 			m_nearclip,
-			m_farclip
-		);
+			m_farclip);
+	}
+
+public:
+
+	// WidthとHeightの設定
+	void SetSize(const DirectX::SimpleMath::Vector2& size)
+	{
+		m_width = size.x;
+		m_height = size.y;
 	}
 
 	// 内部実装

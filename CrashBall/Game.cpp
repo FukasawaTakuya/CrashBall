@@ -179,6 +179,9 @@ void Game::Initialize(HWND window, int width, int height)
     // コンポーネントリストのソート
     ComponentFactory::SortComponentList();
 
+    // 
+    m_shadowMapManager = std::make_unique<ShadowMapManager>();
+
     m_sceneManager->Awake();
     m_sceneManager->Start();
 
@@ -358,6 +361,13 @@ void Game::Render()
         DoRenderCommand(gameView, gameProj, context);
     }
 
+    //m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred,
+    //    m_state->NonPremultiplied());
+    //m_spriteBatch->Draw(
+    //    m_shadowMapManager->GetShadowMap(),
+    //    RECT(100.0f, 100.0f, 400.0f, 400.0f));
+    //m_spriteBatch->End();
+
     m_deviceResources->PIXEndEvent();
 
     //  ImGuiの描画処理
@@ -407,7 +417,10 @@ void Game::DoRenderCommandNoneSprite(
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
     // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), view, proj);
+    m_modelRendererManager->Render(context, m_state.get(), view, proj, 
+        m_shadowMapManager->GetView(),
+        m_shadowMapManager->GetProj(),
+        m_shadowMapManager->GetShadowMap());
     // スカイボックスの描画
     m_skyboxRenderManager->Render(context, view, proj);
 }

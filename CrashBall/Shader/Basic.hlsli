@@ -11,6 +11,7 @@ struct VSOutput
     float4 Position     : SV_Position;
     float3 Normal       : NORMAL;
     float2 Texcoord     : TEXCOORD;
+    float4 LightPosition : TEXCOORD2;
 };
 
 struct PSInput
@@ -18,4 +19,5 @@ struct PSInput
     float4 Position     : SV_Position;
     float3 Normal       : NORMAL;
     float2 Texcoord     : TEXCOORD;
+    float4 LightPosition : TEXCOORD2;
 };

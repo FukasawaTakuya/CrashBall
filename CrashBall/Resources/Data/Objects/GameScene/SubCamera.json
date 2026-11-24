@@ -41,11 +41,11 @@
             "isActive": true,
             "properties": [
                 {
-                    "name": "widthView",
+                    "name": "width",
                     "data": 180.0
                 },
                 {
-                    "name": "heightView",
+                    "name": "height",
                     "data": 180.0
                 },
                 {

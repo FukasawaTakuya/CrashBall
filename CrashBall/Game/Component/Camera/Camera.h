@@ -32,7 +32,7 @@ protected:
 
 	float m_fov = DirectX::XM_PIDIV4;	// 画角
 	float m_nearclip = 0.1f;			// 二アークリップ
-	float m_farclip = 200.0f;			// ファークリップ
+	float m_farclip = 500.0f;			// ファークリップ
 
 	// プロパティの設定
 	BeginProperty()

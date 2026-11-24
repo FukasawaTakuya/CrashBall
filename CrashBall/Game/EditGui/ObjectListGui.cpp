@@ -172,12 +172,13 @@ void ObjectListGui::DrawObjectGui(GameObject* object)
             {
                 GameObject* child =
                     *static_cast<GameObject**>(payload->Data);
-                    
+                
+                // 子追加関数を登録
                 m_AddChildFunc = [&, child, object](void)
                     {
                         GameObject* parent = child->GetParent();
-                        // 親がいないならリターン
-                        if (parent == nullptr)
+                        // 親がいないまたはScriptableObjectならリターン
+                        if (parent == nullptr || dynamic_cast<ScriptableObject*>(object) != nullptr)
                         {
                             return;
                         }

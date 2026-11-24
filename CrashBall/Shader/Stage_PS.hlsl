@@ -11,7 +11,9 @@ cbuffer ConstBuffer : register(b0)
 
 Texture2D Texture : register(t0);
 
-Texture2D PaintTexture : register(t1);
+Texture2D<float> ShadowMap : register(t1);
+
+Texture2D PaintTexture : register(t2);
 
 SamplerState Sampler : register(s0);
 
@@ -38,11 +40,23 @@ float4 main(PSInput pin) : SV_TARGET
     float3 lightdire = -normalize(LightDirection);
     float Dot = dot(lightdire, pin.Normal);
     
-    float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
+    //float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
     //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, Dot));
     
-    // ライトの計算
-    pout *= float4(LightColor, 1.0f);
-            
+    // 光源視点の
+    float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
+    
+    float2 shadowUV;
+    shadowUV.x =  lightcoord.x * 0.5f + 0.5f;
+    shadowUV.y = -lightcoord.y * 0.5f + 0.5f;
+    
+    float shadowDepth = ShadowMap.Sample(Sampler, shadowUV).r;
+    float shadow = 1.0f;
+    
+    shadow = lightcoord.z - 0.00025f > shadowDepth ?
+                0.5f : 1.0f;
+    
+    pout.xyz *= shadow;
+    
     return pout;
 }

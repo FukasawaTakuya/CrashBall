@@ -40,6 +40,7 @@ namespace DX
         ID3D11RenderTargetView* GetRenderTargetView() const noexcept { return m_renderTargetView.Get(); }
         ID3D11ShaderResourceView* GetShaderResourceView() const noexcept { return m_shaderResourceView.Get(); }
         ID3D11DepthStencilView* GetDepthStencilView() const noexcept { return m_depthSetncilView.Get(); }
+        ID3D11ShaderResourceView* GetDepthStencilSrv() const noexcept { return m_depthStencilSrv.Get(); }
 
         DXGI_FORMAT GetFormat() const noexcept { return m_format; }
 
@@ -49,7 +50,7 @@ namespace DX
         Microsoft::WRL::ComPtr<ID3D11RenderTargetView>      m_renderTargetView;
         Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_shaderResourceView;
         Microsoft::WRL::ComPtr<ID3D11Texture2D>             m_depthStencilTexture;
-        Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_depthStencilShaderResourceView;
+        Microsoft::WRL::ComPtr<ID3D11ShaderResourceView>    m_depthStencilSrv;
         Microsoft::WRL::ComPtr<ID3D11DepthStencilView>      m_depthSetncilView;
 
         DXGI_FORMAT                                         m_format;

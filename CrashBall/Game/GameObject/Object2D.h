@@ -33,9 +33,6 @@ public:
 	// コンストラクタ
 	Object2D();
 
-
-	Object2D(ordered_json* data);
-
 	// デストラクタ
 	~Object2D();
 

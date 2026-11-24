@@ -65,9 +65,6 @@ public:
 	// コンストラクタ
 	GameObject(ObjectTag tag = ObjectTag::Default);
 
-	// コンストラクタ
-	GameObject(ordered_json* data);
-
 	// デストラクタ
 	~GameObject() = default;
 

@@ -388,6 +388,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Game\Json\SimpleMath\JsonSimpleMathConverter.h" />
+    <ClInclude Include="Game\Light\ShadowMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Game\Light\ShadowMapManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\MyModel\MyModel.h">
       <SubType>
       </SubType>
@@ -641,6 +649,8 @@
     <ClCompile Include="Game\Json\Component\JsonComponentSerializers.cpp" />
     <ClCompile Include="Game\Json\JsonDataManager.cpp" />
     <ClCompile Include="Game\Json\SimpleMath\JsonSimpleMathConverter.cpp" />
+    <ClCompile Include="Game\Light\ShadowMap.cpp" />
+    <ClCompile Include="Game\Light\ShadowMapManager.cpp" />
     <ClCompile Include="Game\MyModel\MyModel.cpp" />
     <ClCompile Include="Game\PaintTexture\PaintTexture.cpp" />
     <ClCompile Include="Game\RendererManager\ModelRendererManager.cpp" />

@@ -14,7 +14,7 @@
 namespace RenderTexture
 {
 	// レンダーテクスチャの作成
-	MyRenderTexture* CreateRenderTexture()
+	inline MyRenderTexture* CreateRenderTexture()
 	{
 		IRenderTargetManager* renderTargetManager = ServiceLocator::Get<IRenderTargetManager>();
 
@@ -29,7 +29,7 @@ namespace RenderTexture
 	}
 
 	// レンダーテクスチャの削除
-	void DeleteRenderTexture(MyRenderTexture* renderTexture)
+	inline void DeleteRenderTexture(MyRenderTexture* renderTexture)
 	{
 		IRenderTargetManager* renderTargetManager = ServiceLocator::Get<IRenderTargetManager>();
 

@@ -45,7 +45,7 @@ private:
 	float m_inkSpriteWidth;
 	float m_inkSpriteHeight;
 
-	std::unique_ptr<MyRenderTexture> m_paintTimeTex;	// ペイント時間打ち込み用テクスチャ
+	std::unique_ptr<MyRenderTexture> m_paintTimeTex;// ペイント時間打ち込み用テクスチャ
 
 	std::unique_ptr<Shader> m_pixelShader;	// ピクセルシェーダー
 

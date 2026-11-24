@@ -45,6 +45,8 @@
 
 #include "Game/RenderTexture/RenderTextureManager.h"
 
+#include "Game/Light/ShadowMapManager.h"
+
 #include "DX/SkyboxEffect.h"
 #include "DX/RenderTexture.h"
 
@@ -92,6 +94,8 @@ private:
     std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;   // レンダーテクスチャ管理
 
     std::unique_ptr<PaintTexture>               m_paintTextrue; // ペイントテクスチャ
+
+    std::unique_ptr<ShadowMapManager> m_shadowMapManager;
 
     std::unique_ptr<DebugCamera> m_debugCamera;	// デバッグカメラ
 

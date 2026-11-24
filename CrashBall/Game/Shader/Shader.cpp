@@ -27,10 +27,14 @@ void Shader::UpdateSubResources(ID3D11DeviceContext1* context)
 	// 定数バッファの更新
 	for (auto& constantBuffer : m_constantBuffer)
 	{
-		D3D11_MAPPED_SUBRESOURCE subResource{};
-		context->Map(constantBuffer.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
-		memcpy(subResource.pData, constantBuffer.info.data.data(), constantBuffer.info.size);
-		context->Unmap(constantBuffer.buffer, 0);
+		if (constantBuffer.info.m_isDirty)
+		{
+			D3D11_MAPPED_SUBRESOURCE subResource{};
+			context->Map(constantBuffer.buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+			memcpy(subResource.pData, constantBuffer.info.data.data(), constantBuffer.info.size);
+			context->Unmap(constantBuffer.buffer, 0);
+			constantBuffer.info.m_isDirty = false;
+		}
 	}
 }
 
@@ -256,12 +260,13 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
 		if (rwPtr.uav == nullptr) continue;
 
 		// ステージングバッファにUAVをコピー
-		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 3], rwPtr.buffer);
+		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 5], rwPtr.buffer);
 
 		// CPU側にステージングバッファをコピー
 		D3D11_MAPPED_SUBRESOURCE subResource{};
-		int index = (rwPtr.frameCount - 1) % 3;
+		int index = (rwPtr.frameCount - 1) % 5;
 		index = std::max(index, 0);
+
 		context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
 		memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size * rwPtr.uavCount);
 		context->Unmap(rwPtr.stagingBuffer[index], 0);

@@ -54,6 +54,8 @@ void PlayerMoveState::OnEnter()
     m_stateContext.playerStatusController->SetGoAttack(false);
 
     m_targetCameraController->SetZoomRate(1.0f);
+
+    Time::SetTimeScale(1.0f);
 }
 
 /**

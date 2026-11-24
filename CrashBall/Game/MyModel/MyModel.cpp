@@ -41,6 +41,9 @@ void MyModel::Draw(
 	const DirectX::SimpleMath::Color& diffuseColor,
 	Shader* vertexShader,
 	Shader* pixelShader,
+	const DirectX::SimpleMath::Matrix& lightView,
+	const DirectX::SimpleMath::Matrix& lightProj,
+	ID3D11ShaderResourceView* shadowMap,
 	DirectX::CommonStates* states,
 	ID3D11DeviceContext1* context)
 {
@@ -76,12 +79,24 @@ void MyModel::Draw(
 		XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
 		vsConstantBuffer->SetVariable("WorldInvertTranspose", worldInvertTranspose);
 	}
+	vsConstantBuffer = vertexShader->GetConstatntBufferInfo("LightBuffer");
+	if (vsConstantBuffer != nullptr)
+	{
+		vsConstantBuffer->SetVariable("LightView", lightView);
+		vsConstantBuffer->SetVariable("LightProj", lightProj);
+	}
+
 	vertexShader->UpdateSubResources(context);
 	vertexShader->Bind(context);
 	 
-	// サンプラーをシェーダに渡す
+	// サンプラーの設定
 	auto sampler = states->LinearClamp();
 	context->PSSetSamplers(0, 1, &sampler);
+	// シャドウマップの設定
+	if (pixelShader->GetShaderTextrueInfo("ShadowMap") != nullptr)
+		pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
+		//context->PSSetShaderResources(1, 1, &shadowMap);
+
 	for (auto& submesh : m_submeshList)
 	{
 		MaterialData mat = m_materialDataList[submesh.materialIndex];

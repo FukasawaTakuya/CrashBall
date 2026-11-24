@@ -49,7 +49,10 @@ public:
 		ID3D11DeviceContext1* context,
 		DirectX::CommonStates* state,
 		const DirectX::SimpleMath::Matrix& view,
-		const DirectX::SimpleMath::Matrix& proj);
+		const DirectX::SimpleMath::Matrix& proj,
+		const DirectX::SimpleMath::Matrix& lightView,
+		const DirectX::SimpleMath::Matrix& lightProj,
+		ID3D11ShaderResourceView* shadowMap);
 
 	// éÊìæ/ê›íË
 public:

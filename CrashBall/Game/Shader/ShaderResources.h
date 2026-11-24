@@ -35,6 +35,8 @@ struct ConstantBufferInfo
 
 	std::vector<std::byte> data;// データ
 
+	bool m_isDirty = false;
+
 	// 定数バッファに値を設定
 	template<typename T>
 	void SetVariable(
@@ -57,6 +59,7 @@ struct ConstantBufferInfo
 				data.data() + vari.offset,
 				&value,
 				sizeof(T));
+			m_isDirty = true;
 			break;
 		}
 	}
@@ -98,7 +101,7 @@ struct RWStructuredResource
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;	// UAV本体
 	Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;			// バッファ本体
 	UnorderedAccessViewInfo info;							// UAV情報
-	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[3];	// ステージングバッファ
+	Microsoft::WRL::ComPtr<ID3D11Buffer> stagingBuffer[5];	// ステージングバッファ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd	// UAV作成依頼保持用
@@ -126,7 +129,7 @@ struct RWShaderTextrueResource
 	uint32_t registerSlot;
 
 	Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> uav;		// UAV本体
-	Microsoft::WRL::ComPtr<ID3D11Texture2D> stagingtexture[3];	// ステージングテクスチャ
+	Microsoft::WRL::ComPtr<ID3D11Texture2D> stagingtexture[5];	// ステージングテクスチャ
 
 private:
 	std::function<void(ID3D11Device1*)> createUAVCmd			// UAV作成依頼保持用

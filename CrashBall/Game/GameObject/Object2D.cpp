@@ -19,13 +19,6 @@ Object2D::Object2D()
 	m_spriteRenderer = AddComponent<SpriteRenderer>();
 }
 
-Object2D::Object2D(ordered_json* data)
-	: GameObject(data)
-{
-	//AddComponent<RectTransform>((*data)["rectTransform"]);
-	//m_spriteRenderer = AddComponent<SpriteRenderer>((*data)["spriteRenderer"]);
-}
-
 /**
  * \brief デストラクタ
  * 

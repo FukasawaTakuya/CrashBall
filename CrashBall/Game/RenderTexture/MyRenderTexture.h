@@ -34,6 +34,10 @@ protected:
 	float m_width;
 	float m_height;
 
+public:
+
+	bool m_isDepth = false;
+
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
 public:
@@ -73,6 +77,7 @@ public:
 	ID3D11RenderTargetView* GetRenderTargetView() const noexcept { return m_renderTexture->GetRenderTargetView(); }
 	ID3D11ShaderResourceView* GetShaderResourceView() const noexcept { return m_renderTexture->GetShaderResourceView(); }
 	ID3D11DepthStencilView* GetDepthStencilView() const noexcept { return m_renderTexture->GetDepthStencilView(); }
+	ID3D11ShaderResourceView* GetDepthStencilSrv() const noexcept { return m_renderTexture->GetDepthStencilSrv(); }
 
 	// 取得/設定
 public:

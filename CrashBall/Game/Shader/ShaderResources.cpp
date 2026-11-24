@@ -58,6 +58,8 @@ void RWStructuredResource::SubmitUAVCreateCmd(int uavCount, RWStructuredBufferRe
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[0].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[1].ReleaseAndGetAddressOf());
 			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[2].ReleaseAndGetAddressOf());
+			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[3].ReleaseAndGetAddressOf());
+			device->CreateBuffer(&bufDesc, nullptr, stagingBuffer[4].ReleaseAndGetAddressOf());
 
 			// ポインタを渡す
 			rwPtr->uav = uav.Get();
@@ -65,6 +67,8 @@ void RWStructuredResource::SubmitUAVCreateCmd(int uavCount, RWStructuredBufferRe
 			rwPtr->stagingBuffer[0] = stagingBuffer[0].Get();
 			rwPtr->stagingBuffer[1] = stagingBuffer[1].Get();
 			rwPtr->stagingBuffer[2] = stagingBuffer[2].Get();
+			rwPtr->stagingBuffer[3] = stagingBuffer[3].Get();
+			rwPtr->stagingBuffer[4] = stagingBuffer[4].Get();
 		};
 }
 
@@ -109,12 +113,16 @@ void RWShaderTextrueResource::SubmitUAVCreateCmd(
 			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[0].ReleaseAndGetAddressOf());
 			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[1].ReleaseAndGetAddressOf());
 			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[2].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[3].ReleaseAndGetAddressOf());
+			device->CreateTexture2D(&texDesc, nullptr, stagingtexture[4].ReleaseAndGetAddressOf());
 
 			// ポインタを渡す
 			rwTexPtr->uav = uav.Get();
 			rwTexPtr->stagingtexture[0] = stagingtexture[0].Get();
 			rwTexPtr->stagingtexture[1] = stagingtexture[1].Get();
 			rwTexPtr->stagingtexture[2] = stagingtexture[2].Get();
+			rwTexPtr->stagingtexture[3] = stagingtexture[3].Get();
+			rwTexPtr->stagingtexture[4] = stagingtexture[4].Get();
 		};
 }
 

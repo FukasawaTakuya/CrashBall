@@ -119,41 +119,47 @@ void RenderTexture::SizeResources(size_t width, size_t height)
     SetDebugObjectName(m_shaderResourceView.Get(), "RenderTexture SRV");
 
 
-    // 深度ステンシルビュー
-
+    // 深度ステンシルバッファ用のデスク
     D3D11_TEXTURE2D_DESC depthDesc = {};
-
     depthDesc.Width = width;
     depthDesc.Height = height;
     depthDesc.MipLevels = 1;
     depthDesc.ArraySize = 1;
-    
-    depthDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    
+    depthDesc.Format = DXGI_FORMAT_R32_TYPELESS;
     depthDesc.SampleDesc.Count = 1;
     depthDesc.SampleDesc.Quality = 0;
-    
     depthDesc.Usage = D3D11_USAGE_DEFAULT;
-    depthDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-    
+    depthDesc.BindFlags =
+        D3D11_BIND_DEPTH_STENCIL |
+        D3D11_BIND_SHADER_RESOURCE;
+
     ThrowIfFailed(
         m_device->CreateTexture2D(
             &depthDesc,
             nullptr,
-            m_depthStencilTexture.ReleaseAndGetAddressOf()
-        ));
+            m_depthStencilTexture.ReleaseAndGetAddressOf()));
 
-    CD3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc = {};
+    // 深度ステンシルビュー
+    D3D11_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+    dsvDesc.Format = DXGI_FORMAT_D32_FLOAT;
+    dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+    dsvDesc.Texture2D.MipSlice = 0;
+    ThrowIfFailed(
+        m_device->CreateDepthStencilView(
+            m_depthStencilTexture.Get(),
+            &dsvDesc,
+        m_depthSetncilView.ReleaseAndGetAddressOf()));
 
-    depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-    depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    depthStencilViewDesc.Texture2D.MipSlice = 0;
-
-    ThrowIfFailed(m_device->CreateDepthStencilView(
+    // 深度ステンシルSRV
+    D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+    srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.Texture2D.MipLevels = 1;
+    ThrowIfFailed(
+        m_device->CreateShaderResourceView(
         m_depthStencilTexture.Get(),
-        &depthStencilViewDesc,
-        m_depthSetncilView.ReleaseAndGetAddressOf()
-    ));
+        &srvDesc,
+        m_depthStencilSrv.ReleaseAndGetAddressOf()));
 
     m_width = width;
     m_height = height;

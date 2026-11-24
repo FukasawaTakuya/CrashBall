@@ -158,6 +158,9 @@
     <Filter Include="Game\FrameWork">
       <UniqueIdentifier>{054a8c06-6a5d-4375-a7e5-576939b23d39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Light">
+      <UniqueIdentifier>{97feb103-5d96-447f-824c-23392b2bdc81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -639,6 +642,12 @@
     <ClInclude Include="Game\Framework\Time.h">
       <Filter>Game\FrameWork</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Light\ShadowMapManager.h">
+      <Filter>Game\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Light\ShadowMap.h">
+      <Filter>Game\Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -960,6 +969,12 @@
     </ClCompile>
     <ClCompile Include="Game\Shader\ComputShaderDispatcher.cpp">
       <Filter>Game\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Light\ShadowMapManager.cpp">
+      <Filter>Game\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Light\ShadowMap.cpp">
+      <Filter>Game\Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

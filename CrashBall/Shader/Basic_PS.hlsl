@@ -13,6 +13,8 @@ Texture2D Texture : register(t0);
 
 SamplerState Sampler : register(s0);
 
+Texture2D<float> ShadowMap : register(t1);
+
 float4 main(PSInput pin) : SV_TARGET
 {
     // テクスチャを使うか
@@ -23,16 +25,25 @@ float4 main(PSInput pin) : SV_TARGET
     = (Texture.Sample(Sampler, pin.Texcoord) + (1 - useTex))
     + BaseColor;
     
+    // ディヒューズ色を適用
     pout *= DiffuseColor;
 
     float3 lightdire = -normalize(LightDirection);
     float Dot = dot(lightdire, pin.Normal);
-    
-    float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
-    //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 1.0f, step(-0.4f, Dot));
-
-    // ライトの計算
-    pout *= float4(LightColor, 1.0f);
         
+    float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
+    
+    float2 shadowUV;
+    shadowUV.x =  lightcoord.x * 0.5f + 0.5f;
+    shadowUV.y = -lightcoord.y * 0.5f + 0.5f;
+    
+    float shadowDepth = ShadowMap.Sample(Sampler, shadowUV).r;
+    float shadow = 1.0f;
+
+    shadow = lightcoord.z - 0.0015f > shadowDepth ?
+                0.5f : 1.0f;
+    
+    pout.xyz *= shadow;
+   
     return pout;
 }

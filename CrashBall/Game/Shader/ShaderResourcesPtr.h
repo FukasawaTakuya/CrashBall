@@ -31,7 +31,7 @@ struct RWStructuredBufferResourcePtr
 	ID3D11UnorderedAccessView* uav;	// UAVのポインタ
 	ID3D11Buffer* buffer;			// バッファのポインタ
 	UnorderedAccessViewInfo info;	// UAV情報
-	ID3D11Buffer* stagingBuffer[3];	// ステージングバッファのポインタ
+	ID3D11Buffer* stagingBuffer[5];	// ステージングバッファのポインタ
 	uint32_t uavCount;				// UAV数
 	void* cpudata;					// CPU側のデータ格納先
 	std::function<void(int)> submitUavCreateCmd;	// 本体のUAV作成命令保持用
@@ -47,7 +47,7 @@ struct RWShaderTextrueResourcePtr
 	uint32_t registerSlot;
 
 	ID3D11UnorderedAccessView* uav;		// UAVのポインタ
-	ID3D11Texture2D* stagingtexture[3];	// ステージングテクスチャのポインタ
+	ID3D11Texture2D* stagingtexture[5];	// ステージングテクスチャのポインタ
 
 	std::function<void(ID3D11Texture2D* texture2D)> submitUavCrateCmd;			// 本体のUAV作成命令保持用
 	std::function<void(ID3D11Texture2D* texture2D)> submitUavCrateCmdWithCopy;	// 本体のUAV作成命令保持用
