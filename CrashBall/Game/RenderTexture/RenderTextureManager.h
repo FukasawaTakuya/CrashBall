@@ -22,8 +22,9 @@ private:
 	// レンダーテクスチャリスト
 	std::vector <std::unique_ptr<MyRenderTexture>> m_renderTextureList;
 
-	// レンダーテクスチャ初期化用
-	DXGI_FORMAT m_format;
+	// 毎フレーム描画しないレンダーテクスチャリスト
+	std::vector <std::unique_ptr<MyRenderTexture>> m_customRenderTextureList;
+
 	ID3D11Device1* m_device;
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -31,7 +32,7 @@ private:
 public:
 
 	// コンストラクタ
-	RenderTextureMangaer(DXGI_FORMAT format);
+	RenderTextureMangaer();
 
 	// デストラクタ
 	~RenderTextureMangaer() = default;
@@ -40,7 +41,10 @@ public:
 public:
 
 	// レンダーテクスチャの作成
-	MyRenderTexture* CreateRenderTexture(bool isDepth) override;
+	MyRenderTexture* CreateRenderTexture(DXGI_FORMAT format, bool isDepth) override;
+
+	// レンダーテクスチャの作成
+	MyRenderTexture* CreateCustomRenderTexture(DXGI_FORMAT format, bool isDepth) override;
 
 	// レンダーテクスチャの削除
 	void DeleteRenderTexture(MyRenderTexture* renderTexture) override;
@@ -57,17 +61,16 @@ public:
 		return &m_renderTextureList;
 	}
 
-	// フォーマットの設定
-	void SetFormat(DXGI_FORMAT format)
-	{
-		m_format = format;
-	}
 
 	// デバイスの設定
 	void SetDevice(ID3D11Device1* device)
 	{
 		m_device = device;
 		for (auto& renderTexture : m_renderTextureList)
+		{
+			renderTexture->SetDevice(device);
+		}
+		for (auto& renderTexture : m_customRenderTextureList)
 		{
 			renderTexture->SetDevice(device);
 		}

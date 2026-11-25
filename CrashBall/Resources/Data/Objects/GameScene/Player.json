@@ -117,7 +117,7 @@
             "properties": [
                 {
                     "name": "attackCost",
-                    "data": 100000
+                    "data": 50000
                 },
                 {
                     "name": "minAttackPower",
@@ -125,7 +125,7 @@
                 },
                 {
                     "name": "powerUpRate",
-                    "data": 10000.0
+                    "data": 50000.0
                 },
                 {
                     "name": "pFloorMeshGetter",
@@ -184,6 +184,12 @@
         {
             "compName": "BallController",
             "id": 60,
+            "isActive": true,
+            "properties": null
+        },
+        {
+            "compName": "MaskRenderer",
+            "id": 96,
             "isActive": true,
             "properties": null
         }

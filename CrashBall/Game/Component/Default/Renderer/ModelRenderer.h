@@ -102,13 +102,13 @@ public:
 	}
 
 	// モデルの取得
-	const MyModel* GetModel() const
+	MyModel* GetModel() const
 	{
 		return m_pModel;
 	}
 
 	// 頂点シェーダの取得
-	const Shader* GetVertexShader() const
+	Shader* GetVertexShader() const
 	{
 		return m_vertexShader.get();
 	}

@@ -52,6 +52,13 @@ public:
 		Shader* pixelShader,
 		const DirectX::SimpleMath::Matrix& world) = 0;
 
+	// ƒ}ƒXƒN‚Ö‚Ì•`‰æ–½—ß‚Ì“o˜^
+	virtual void RegisterMaskRenderCommand(
+		MyModel* model,
+		Shader* vertexShader,
+		Shader* pixelShader,
+		const DirectX::SimpleMath::Matrix& world) = 0;
+
 	// “à•”ŽÀ‘•
 private:
 

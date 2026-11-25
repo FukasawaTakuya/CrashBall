@@ -33,7 +33,7 @@ ShadowMapManager::ShadowMapManager()
 	m_cameraObject->Start(GameContext{});
 
 	// シャドウマップの作成
-	m_shadowMap = RenderTexture::CreateRenderTexture(true);
+	m_shadowMap = RenderTexture::CreateRenderTexture(DXGI_FORMAT_B8G8R8A8_UNORM, true);
 	m_shadowMap->SizeResources(SHADOWMAP_SIZE, SHADOWMAP_SIZE);
 	m_shadowMap->SetCamera(m_camera);
 }

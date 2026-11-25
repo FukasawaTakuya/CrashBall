@@ -20,7 +20,7 @@ class  ShadowMapManager {
 
 private:
 
-	static constexpr float SHADOWMAP_SIZE = 8192.0f;
+	static constexpr float SHADOWMAP_SIZE = 4096.0f;
 	static constexpr float CAMERA_SIZE = 180.0f;
 
 	// メンバ変数の宣言 -----------------------------------------------

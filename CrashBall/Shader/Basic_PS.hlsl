@@ -36,13 +36,16 @@ float4 main(PSInput pin) : SV_TARGET
     
    // float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(NdotL));
     float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, NdotL));
-        
+     
+    // zが光源視点の深度
     float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
     
+    // シャドウマップのuv
     float2 shadowUV;
     shadowUV.x =  lightcoord.x * 0.5f + 0.5f;
     shadowUV.y = -lightcoord.y * 0.5f + 0.5f;
     
+    // シャドウマップの深度
     float shadowDepth = ShadowMap.Sample(Sampler, shadowUV).r;
 
     float bias = 0.001f;

@@ -14,13 +14,28 @@
 namespace RenderTexture
 {
 	// レンダーテクスチャの作成
-	inline MyRenderTexture* CreateRenderTexture(bool isDepth = false)
+	inline MyRenderTexture* CreateRenderTexture(DXGI_FORMAT format = DXGI_FORMAT_B8G8R8A8_UNORM, bool isDepth = false)
 	{
 		IRenderTargetManager* renderTargetManager = ServiceLocator::Get<IRenderTargetManager>();
 
 		if (renderTargetManager != nullptr)
 		{
-			return renderTargetManager->CreateRenderTexture(isDepth);
+			return renderTargetManager->CreateRenderTexture(format, isDepth);
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+
+	// レンダーテクスチャの作成
+	inline MyRenderTexture* CreateCustomRenderTexture(DXGI_FORMAT format = DXGI_FORMAT_B8G8R8A8_UNORM, bool isDepth = false)
+	{
+		IRenderTargetManager* renderTargetManager = ServiceLocator::Get<IRenderTargetManager>();
+
+		if (renderTargetManager != nullptr)
+		{
+			return renderTargetManager->CreateCustomRenderTexture(format, isDepth);
 		}
 		else
 		{

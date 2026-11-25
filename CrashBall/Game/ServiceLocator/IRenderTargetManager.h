@@ -30,7 +30,9 @@ public:
 public:
 
 	// レンダーテクスチャの作成
-	virtual MyRenderTexture* CreateRenderTexture(bool isDepth) = 0;
+	virtual MyRenderTexture* CreateRenderTexture(DXGI_FORMAT format, bool isDepth) = 0;
+
+	virtual MyRenderTexture* CreateCustomRenderTexture(DXGI_FORMAT format, bool isDepth) = 0;
 
 	// レンダーテクスチャの削除
 	virtual void DeleteRenderTexture(MyRenderTexture* renderTexture) = 0;

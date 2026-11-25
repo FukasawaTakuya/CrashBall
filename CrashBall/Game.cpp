@@ -65,6 +65,10 @@ void Game::Initialize(HWND window, int width, int height)
 
     m_soundPlayer               = std::make_unique<SoundPlayer>();
 
+    m_renderTextrueManger       = std::make_unique<RenderTextureMangaer>();
+
+    m_renderTextrueManger->SetDevice(m_deviceResources->GetD3DDevice());
+
     // 各コンテキストの初期化
     m_gameContext =
     {
@@ -99,24 +103,20 @@ void Game::Initialize(HWND window, int width, int height)
         &m_gameContext,
         &m_renderContext,
         &m_resourceContext,
-        m_editGuiManager.get()
-    );
-
-    m_renderTextrueManger = std::make_unique<RenderTextureMangaer>(
-        m_deviceResources->GetBackBufferFormat());
+        m_editGuiManager.get());
 
     // ゲームビュー用のレンダーテクスチャの作成
-    m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat(), false);
+    m_gameViewTexture = m_renderTextrueManger->CreateCustomRenderTexture(DXGI_FORMAT_B8G8R8A8_UNORM, false);
     // デバッグビュー用のレンダーテクスチャの作成
-    m_debugViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat(), false);
+    m_debugViewTexture = m_renderTextrueManger->CreateCustomRenderTexture(DXGI_FORMAT_B8G8R8A8_UNORM, false);
     m_debugViewTexture->SetCamera(m_debugCamera->GetComponent<Camera>());
 
     // レンダーテクスチャを設定
-    m_sceneManager->SetGameViewTexture(m_gameViewTexture.get());
-    m_editGuiManager->SetRenderTexture(m_gameViewTexture.get(), m_debugViewTexture.get());
+    m_sceneManager->SetGameViewTexture(m_gameViewTexture);
+    m_editGuiManager->SetRenderTexture(m_gameViewTexture, m_debugViewTexture);
 
     // ペイントテクスチャの作成
-    m_paintTextrue = std::make_unique<PaintTexture>(m_deviceResources->GetBackBufferFormat());
+    m_paintTextrue = std::make_unique<PaintTexture>(m_renderTextrueManger.get());
 
     // サービスロケーターに設定
     ServiceLocator::Set<ITimeService>(m_timeManager.get());
@@ -125,6 +125,9 @@ void Game::Initialize(HWND window, int width, int height)
     ServiceLocator::Set<ISceneManager>(m_sceneManager.get());
     ServiceLocator::Set<IRenderTargetManager>(m_renderTextrueManger.get());
     ServiceLocator::Set<IPaintTexture>(m_paintTextrue.get());
+
+    // マスクの作成
+    m_modelRendererManager->CreateMask();
 
     // ScriptableObjectの読み込み
     m_scriptableObjectManager->LoadScriptableObject();
@@ -337,6 +340,12 @@ void Game::Render()
     SimpleMath::Matrix debugView = m_debugCamera->GetComponent<Camera>()->GetView();
     SimpleMath::Matrix debugProj = m_gameViewTexture->GetCamera()->GetProj();
 
+    m_modelRendererManager->RenderMask(
+        context,
+        m_state.get(),
+        gameView,
+        gameProj);
+
     // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
     {
@@ -360,13 +369,7 @@ void Game::Render()
         DoRenderCommand(gameView, gameProj, context);
     }
 
-    //m_spriteBatch->Begin(DirectX::SpriteSortMode_Deferred,
-    //    m_state->NonPremultiplied());
-    //m_spriteBatch->Draw(
-    //    m_shadowMapManager->GetShadowMap(),
-    //    RECT(100.0f, 100.0f, 400.0f, 400.0f));
-    //m_spriteBatch->End();
-    //m_deviceResources->PIXEndEvent();
+    m_deviceResources->PIXEndEvent();
 
     //  ImGuiの描画処理
     ImGui::Render();
@@ -418,11 +421,7 @@ void Game::DoRenderCommandNoneSprite(
     if (isDepth)
     {
         // 深度のみの描画
-        m_modelRendererManager->RenderDepth(context, m_state.get(), view, proj,
-            m_shadowMapManager->GetLightDirection(),
-            m_shadowMapManager->GetView(),
-            m_shadowMapManager->GetProj(),
-            m_shadowMapManager->GetShadowMap());
+        m_modelRendererManager->RenderDepth(context, m_state.get(), view, proj);
     }
     else
     {
@@ -432,9 +431,9 @@ void Game::DoRenderCommandNoneSprite(
             m_shadowMapManager->GetView(),
             m_shadowMapManager->GetProj(),
             m_shadowMapManager->GetShadowMap());
+        // スカイボックスの描画
+        m_skyboxRenderManager->Render(context, view, proj);
     }
-    // スカイボックスの描画
-    m_skyboxRenderManager->Render(context, view, proj);
 }
 
 // Helper method to clear the back buffers.
@@ -551,14 +550,11 @@ void Game::CreateDeviceDependentResources()
     m_modelRendererManager->SetShader(m_shaderManager->GetShaderInfo("Depth_PS"));
 
     // レンダーターゲットテクスチャの設定
-    m_gameViewTexture->SetDevice(device);
-    m_debugViewTexture->SetDevice(device);
     m_renderTextrueManger->SetDevice(device);
 
     // ペイントテクスチャの設定
     auto inkSprite = m_spriteManager->GetSpriteInfo("Ink2");
     m_paintTextrue->SetInkSpirte(inkSprite->sprite.Get(), inkSprite->width, inkSprite->height);
-    m_paintTextrue->SetDevice(device);
     m_paintTextrue->SetContext(context);
     m_paintTextrue->SetShader(m_shaderManager.get());
     m_paintTextrue->CreateBlendState(m_state.get(), device);
@@ -580,12 +576,7 @@ void Game::CreateWindowSizeDependentResources()
     m_sceneManager->CreateWindowSizeResources();
 
     // レンダーターゲットテクスチャの設定
-    m_gameViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
-    m_debugViewTexture->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
     m_renderTextrueManger->SetWindowSizeDependend(m_deviceResources->GetOutputSize());
-
-    // ペイントテクスチャの設定
-    m_paintTextrue->SetSize();
 
     // レイアウト固定
     m_editGuiManager->RegisterConstantLayout();

@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "ModelRendererManager.h"
 
+#include "Game/RenderTexture/RenderTexture.h"
+
 using namespace DirectX;
 
 /**
@@ -30,12 +32,33 @@ void ModelRendererManager::RegisterRenderCommand(
 }
 
 /**
+ * \brief マスクへの描画命令の登録
+ *
+ * \param model モデル
+ * \param vertexShader 頂点シェーダ
+ * \param pixelShader　ピクセルシェーダ
+ * \param world ワールド行列
+ */
+void ModelRendererManager::RegisterMaskRenderCommand(
+	MyModel* model,
+	Shader* vertexShader,
+	Shader* pixelShader,
+	const DirectX::SimpleMath::Matrix& world)
+{
+	m_maskRenderCommand.emplace_back(
+		model, 
+		DirectX::SimpleMath::Color{ 1.0f, 1.0f,1.0f, 1.0f }, 
+		vertexShader, pixelShader, world);
+}
+
+/**
  * \brief 描画命令のクリア
  * 
  */
 void ModelRendererManager::ClearRenderCommand()
 {
 	m_renderCommand.clear();
+	m_maskRenderCommand.clear();
 }
 
 /**
@@ -95,11 +118,7 @@ void ModelRendererManager::RenderDepth(
 	ID3D11DeviceContext1* context, 
 	DirectX::CommonStates* state, 
 	const DirectX::SimpleMath::Matrix& view, 
-	const DirectX::SimpleMath::Matrix& proj, 
-	const DirectX::SimpleMath::Vector3& lightDire, 
-	const DirectX::SimpleMath::Matrix& lightView, 
-	const DirectX::SimpleMath::Matrix& lightProj, 
-	ID3D11ShaderResourceView* shadowMap)
+	const DirectX::SimpleMath::Matrix& proj)
 {
 	for (auto& renderCommand : m_renderCommand)
 	{
@@ -114,11 +133,58 @@ void ModelRendererManager::RenderDepth(
 			renderCommand.diffuseColor,
 			renderCommand.vertexShader,
 			nullptr,
-			lightDire,
-			lightView,
-			lightProj,
+			SimpleMath::Vector3::Zero,
+			SimpleMath::Matrix::Identity,
+			SimpleMath::Matrix::Identity,
 			nullptr,
 			state,
 			context);
 	}
+}
+
+/**
+ * \brief マスクの描画
+ *
+ * \param context デバイスコンテキスト
+ * \param state コモンステート
+ * \param view ビュー行列
+ * \param proj プロジェクション行列
+ */
+void ModelRendererManager::RenderMask(
+	ID3D11DeviceContext1* context, 
+	DirectX::CommonStates* state, const 
+	DirectX::SimpleMath::Matrix& view, 
+	const DirectX::SimpleMath::Matrix& proj)
+{
+	m_mask->Begin(context);
+
+	for (auto& renderCommand : m_maskRenderCommand)
+	{
+		if (renderCommand.pModel == nullptr ||
+			renderCommand.vertexShader == nullptr ||
+			renderCommand.pixelShader == nullptr) return;
+
+		renderCommand.pModel->Draw(
+			renderCommand.world,
+			view,
+			proj,
+			renderCommand.diffuseColor,
+			renderCommand.vertexShader,
+			renderCommand.pixelShader,
+			SimpleMath::Vector3::Zero,
+			SimpleMath::Matrix::Identity,
+			SimpleMath::Matrix::Identity,
+			nullptr,
+			state,
+			context);
+	}
+}
+
+/**
+ * \brief マスクの作成
+ * 
+ */
+void ModelRendererManager::CreateMask()
+{
+	m_mask = RenderTexture::CreateCustomRenderTexture(DXGI_FORMAT_R8_UNORM);
 }

@@ -89,9 +89,9 @@ private:
 
     std::unique_ptr<SoundPlayer>                m_soundPlayer;                  // サウンド再生
 
-    std::unique_ptr<MyRenderTexture>            m_gameViewTexture;       // ゲームビュー用レンダーテクスチャ
-    std::unique_ptr<MyRenderTexture>            m_debugViewTexture;      // デバッグビュー用レンダーテクスチャ
     std::unique_ptr<RenderTextureMangaer>       m_renderTextrueManger;   // レンダーテクスチャ管理
+    MyRenderTexture* m_gameViewTexture;       // ゲームビュー用レンダーテクスチャ
+    MyRenderTexture* m_debugViewTexture;      // デバッグビュー用レンダーテクスチャ
 
     std::unique_ptr<PaintTexture>               m_paintTextrue; // ペイントテクスチャ
 

@@ -5,8 +5,7 @@
  * \brief コンストラクタ
  * 
  */
-RenderTextureMangaer::RenderTextureMangaer(DXGI_FORMAT format)
-	: m_format(format)
+RenderTextureMangaer::RenderTextureMangaer()
 {
 }
 
@@ -15,13 +14,29 @@ RenderTextureMangaer::RenderTextureMangaer(DXGI_FORMAT format)
  * 
  * \param format
  */
-MyRenderTexture* RenderTextureMangaer::CreateRenderTexture(bool isDepth)
+MyRenderTexture* RenderTextureMangaer::CreateRenderTexture(DXGI_FORMAT format, bool isDepth)
 {
-	auto renderTextrue = std::make_unique<MyRenderTexture>(m_format, isDepth);
+	auto renderTextrue = std::make_unique<MyRenderTexture>(format, isDepth);
 	renderTextrue->SetDevice(m_device);
 	MyRenderTexture* ptr = renderTextrue.get();
 
 	m_renderTextureList.push_back(std::move(renderTextrue));
+
+	return ptr;
+}
+
+/**
+ * \brief レンダーテクスチャの作成
+ *
+ * \param format
+ */
+MyRenderTexture* RenderTextureMangaer::CreateCustomRenderTexture(DXGI_FORMAT format, bool isDepth)
+{
+	auto renderTextrue = std::make_unique<MyRenderTexture>(format, isDepth);
+	renderTextrue->SetDevice(m_device);
+	MyRenderTexture* ptr = renderTextrue.get();
+
+	m_customRenderTextureList.push_back(std::move(renderTextrue));
 
 	return ptr;
 }
@@ -33,16 +48,33 @@ MyRenderTexture* RenderTextureMangaer::CreateRenderTexture(bool isDepth)
  */
 void RenderTextureMangaer::DeleteRenderTexture(MyRenderTexture* renderTexture)
 {
-	auto it = std::ranges::find_if(m_renderTextureList, [&](const std::unique_ptr<MyRenderTexture>& rt)
-		{
-			return rt.get() == renderTexture;
-		}
-	);
-
-	if (it != m_renderTextureList.end())
+	
 	{
-		m_renderTextureList.erase(it);
+		auto it = std::ranges::find_if(m_renderTextureList, [&](const std::unique_ptr<MyRenderTexture>& rt)
+			{
+				return rt.get() == renderTexture;
+			});
+
+		if (it != m_renderTextureList.end())
+		{
+			m_renderTextureList.erase(it);
+			return;
+		}
 	}
+
+	{
+		auto it = std::ranges::find_if(m_customRenderTextureList, [&](const std::unique_ptr<MyRenderTexture>& rt)
+			{
+				return rt.get() == renderTexture;
+			});
+
+		if (it != m_customRenderTextureList.end())
+		{
+			m_customRenderTextureList.erase(it);
+			return;
+		}
+	}
+
 }
 
 /**
@@ -53,6 +85,10 @@ void RenderTextureMangaer::DeleteRenderTexture(MyRenderTexture* renderTexture)
 void RenderTextureMangaer::SetWindowSizeDependend(const RECT& rect)
 {
 	for (auto& renderTargetView : m_renderTextureList)
+	{
+		renderTargetView->SetWindowSizeDependend(rect);
+	}
+	for (auto& renderTargetView : m_customRenderTextureList)
 	{
 		renderTargetView->SetWindowSizeDependend(rect);
 	}

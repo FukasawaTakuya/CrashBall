@@ -417,7 +417,7 @@ void Shader::SetShader(ShaderInfo* shaderInfo)
 		rwTexPtr.registerSlot = rwTex.registerSlot;
 
 		auto ptr = &rwTex;
-		rwTexPtr.submitUavCrateCmd			= [&, ptr](ID3D11Texture2D* texture2D) { ptr->SubmitUAVCreateCmd(texture2D, &rwTexPtr); };
+		rwTexPtr.submitUavCrateCmd		   = [&, ptr](ID3D11Texture2D* texture2D) { ptr->SubmitUAVCreateCmd(texture2D, &rwTexPtr); };
 		rwTexPtr.submitUavCrateCmdWithCopy = [&, ptr](ID3D11Texture2D* texture2D) { ptr->SubmitUAVCreateCmdWithCopy(texture2D, &rwTexPtr); };
 	}
 

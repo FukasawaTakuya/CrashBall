@@ -12,6 +12,7 @@
 
 #include "Game/ServiceLocator/IPaintTexture.h"
 #include "Game/ResourceManager/ShaderManager.h"
+#include "Game/RenderTexture/RenderTextureManager.h"
 
 struct PaintCommand
 {
@@ -24,13 +25,12 @@ struct PaintCommand
   * \brief ペイントテクスチャ
   */
 class  PaintTexture : 
-	public MyRenderTexture,
 	public IPaintTexture
 {
 private:
 
-	static constexpr float TEXTURE_SIZE = 4096.0f * 2.0f;
-	static constexpr float INKSPRITE_SCALE = 0.08f * 2.0f;
+	static constexpr float TEXTURE_SIZE = 4096.0f;
+	static constexpr float INKSPRITE_SCALE = 0.08f;
 
 	const std::string PIXEL_SHADER_NAME = "PaintTexture_PS";
 
@@ -45,7 +45,8 @@ private:
 	float m_inkSpriteWidth;
 	float m_inkSpriteHeight;
 
-	std::unique_ptr<MyRenderTexture> m_paintTimeTex;// ペイント時間打ち込み用テクスチャ
+	MyRenderTexture* m_paintTexture;// ペイント時間打ち込み用テクスチャ
+	MyRenderTexture* m_paintTimeTex;// ペイント時間打ち込み用テクスチャ
 
 	std::unique_ptr<Shader> m_pixelShader;	// ピクセルシェーダー
 
@@ -56,7 +57,7 @@ private:
 public:
 
 	// コンストラクタ
-	PaintTexture(DXGI_FORMAT format);
+	PaintTexture(RenderTextureMangaer* renderTextureManager);
 
 	// デストラクタ
 	~PaintTexture() = default;
@@ -89,7 +90,7 @@ public:
 	// ペイントテクスチャの取得
 	ID3D11ShaderResourceView* GetPaintTexture() const override
 	{
-		return GetShaderResourceView();
+		return m_paintTexture->GetShaderResourceView();
 	}
 
 	// ペイント時間テクスチャの取得
@@ -99,7 +100,7 @@ public:
 	}
 
 	// レンダーターゲットの取得
-	ID3D11Texture2D* GetRenderTarget() const override { return m_renderTexture->GetRenderTarget(); }
+	ID3D11Texture2D* GetRenderTarget() const override { return m_paintTexture->GetRenderTarget(); }
 
 	// ペイント時間テクスチャのレンダーターゲットの取得
 	ID3D11Texture2D* GetPaintTimeRenderTarget() const override { return m_paintTimeTex->GetRenderTarget(); }
@@ -114,13 +115,6 @@ public:
 		m_inkSpriteHeight = height;
 	}
 
-	// デバイスの設定
-	void SetDevice(ID3D11Device* device)
-	{
-		MyRenderTexture::SetDevice(device);
-		m_paintTimeTex->SetDevice(device);
-	}
-
 	// コンテキストの設定
 	void SetContext(ID3D11DeviceContext1* context)
 	{
@@ -132,9 +126,6 @@ public:
 	{
 		m_pixelShader->SetShader(shaderManager->GetShaderInfo(PIXEL_SHADER_NAME));
 	}
-
-	// サイズの設定
-	void SetSize();
 
 	// 内部実装
 private:

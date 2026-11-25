@@ -267,6 +267,10 @@
     <ClInclude Include="Game\Component\Default\Physics\RectTransform.h" />
     <ClInclude Include="Game\Component\Default\Physics\Rigidbody.h" />
     <ClInclude Include="Game\Component\Default\Physics\Transform.h" />
+    <ClInclude Include="Game\Component\Default\Renderer\MaskRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Game\Component\Default\Renderer\ModelRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Game\Component\Default\Renderer\TextRenderer.h" />
@@ -597,6 +601,10 @@
     <ClCompile Include="Game\Component\Default\Physics\RectTransform.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\Rigidbody.cpp" />
     <ClCompile Include="Game\Component\Default\Physics\Transform.cpp" />
+    <ClCompile Include="Game\Component\Default\Renderer\MaskRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Game\Component\Default\Renderer\ModelRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Game\Component\Default\Renderer\TextRenderer.cpp" />

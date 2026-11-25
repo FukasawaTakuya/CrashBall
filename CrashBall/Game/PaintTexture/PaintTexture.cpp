@@ -18,11 +18,13 @@ using namespace DirectX;
  * 
  * \param format
  */
-PaintTexture::PaintTexture(DXGI_FORMAT format)
-	: MyRenderTexture(format, false)
-	, m_paintTimeTex(std::make_unique<MyRenderTexture>(DXGI_FORMAT_R16G16_UINT, false))
-	, m_pixelShader(std::make_unique<Shader>())
+PaintTexture::PaintTexture(RenderTextureMangaer* renderTextureManager)
+	:  m_pixelShader(std::make_unique<Shader>())
 {
+	m_paintTexture = renderTextureManager->CreateCustomRenderTexture(DXGI_FORMAT_B8G8R8A8_UNORM, false);
+	m_paintTimeTex = renderTextureManager->CreateCustomRenderTexture(DXGI_FORMAT_R16G16_UINT, false);
+	m_paintTimeTex->SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
+	m_paintTexture->SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
 }
 
 /**
@@ -51,7 +53,7 @@ void PaintTexture::ClearPaint()
 	};
 
 	m_context->ClearRenderTargetView(
-		m_renderTexture->GetRenderTargetView(),
+		m_paintTexture->GetRenderTargetView(),
 		clearColor);
 
 	m_context->ClearRenderTargetView(
@@ -72,13 +74,14 @@ void PaintTexture::Draw(
 	DirectX::CommonStates* states)
 {
 	ID3D11RenderTargetView* renderTargetView[]
-		= { m_renderTexture->GetRenderTargetView(),
+		= { m_paintTexture->GetRenderTargetView(),
 			m_paintTimeTex->GetRenderTargetView(), };
 
 	// レンダーターゲットの設定
 	m_context->OMSetRenderTargets(2, renderTargetView, nullptr);
 	// ビューポートの設定
-	m_context->RSSetViewports(1, &m_viewport);
+	auto viewPort = m_paintTexture->GetViewPort();
+	m_context->RSSetViewports(1, &viewPort);
 
 	// 描画領域
 	RECT inkRect(0, 0, m_inkSpriteWidth, m_inkSpriteHeight);
@@ -105,7 +108,7 @@ void PaintTexture::Draw(
 
 		spriteBatch->Draw(
 			m_inkSprite,
-			paintCommand.position * m_width,
+			paintCommand.position * m_paintTexture->GetWidth(),
 			&inkRect,
 			paintCommand.color,
 			0.0f,
@@ -138,15 +141,5 @@ void PaintTexture::CreateBlendState(
 	blendDesc.RenderTarget[1].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	device->CreateBlendState(&blendDesc, m_paintBlendState.ReleaseAndGetAddressOf());
-}
-
-/**
- * \brief サイズの設定
- * 
- */
-void PaintTexture::SetSize()
-{
-	MyRenderTexture::SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
-	m_paintTimeTex->SizeResources(TEXTURE_SIZE, TEXTURE_SIZE);
 }
 
