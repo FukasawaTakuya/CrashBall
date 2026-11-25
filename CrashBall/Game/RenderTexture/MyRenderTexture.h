@@ -34,8 +34,7 @@ protected:
 	float m_width;
 	float m_height;
 
-public:
-
+	// 深度情報のみか
 	bool m_isDepth = false;
 
 	// メンバ関数の宣言 -------------------------------------------------
@@ -43,7 +42,7 @@ public:
 public:
 
 	// コンストラクタ
-	MyRenderTexture(DXGI_FORMAT format);
+	MyRenderTexture(DXGI_FORMAT format, bool isDepth);
 
 	// デストラクタ
 	~MyRenderTexture() = default;
@@ -78,6 +77,8 @@ public:
 	ID3D11ShaderResourceView* GetShaderResourceView() const noexcept { return m_renderTexture->GetShaderResourceView(); }
 	ID3D11DepthStencilView* GetDepthStencilView() const noexcept { return m_renderTexture->GetDepthStencilView(); }
 	ID3D11ShaderResourceView* GetDepthStencilSrv() const noexcept { return m_renderTexture->GetDepthStencilSrv(); }
+
+	bool GetIsDepth() const { return m_isDepth; }
 
 	// 取得/設定
 public:

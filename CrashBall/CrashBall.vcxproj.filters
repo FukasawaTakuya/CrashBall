@@ -1030,5 +1030,8 @@
     <FxCompile Include="Shader\PaintErase_CS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\Depth_PS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

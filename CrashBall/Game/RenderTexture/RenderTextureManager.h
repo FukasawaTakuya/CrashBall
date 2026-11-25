@@ -40,7 +40,7 @@ public:
 public:
 
 	// レンダーテクスチャの作成
-	MyRenderTexture* CreateRenderTexture() override;
+	MyRenderTexture* CreateRenderTexture(bool isDepth) override;
 
 	// レンダーテクスチャの削除
 	void DeleteRenderTexture(MyRenderTexture* renderTexture) override;

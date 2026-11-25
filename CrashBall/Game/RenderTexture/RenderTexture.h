@@ -14,13 +14,13 @@
 namespace RenderTexture
 {
 	// レンダーテクスチャの作成
-	inline MyRenderTexture* CreateRenderTexture()
+	inline MyRenderTexture* CreateRenderTexture(bool isDepth = false)
 	{
 		IRenderTargetManager* renderTargetManager = ServiceLocator::Get<IRenderTargetManager>();
 
 		if (renderTargetManager != nullptr)
 		{
-			return renderTargetManager->CreateRenderTexture();
+			return renderTargetManager->CreateRenderTexture(isDepth);
 		}
 		else
 		{

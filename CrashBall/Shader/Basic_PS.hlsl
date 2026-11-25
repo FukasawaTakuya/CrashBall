@@ -36,7 +36,6 @@ float4 main(PSInput pin) : SV_TARGET
     
    // float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(NdotL));
     float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, NdotL));
-
         
     float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
     
@@ -48,10 +47,7 @@ float4 main(PSInput pin) : SV_TARGET
 
     float bias = 0.001f;
     float shadow;
-    //float shadow = ShadowMap.SampleCmpLevelZero(Sampler, shadowUV, lightcoord.z - bias);
-    //shadow = lerp(0.5f, 1.0f, shadow); 
-    shadow = lightcoord.z - bias > shadowDepth ?
-                0.5f : 1.0f;
+    shadow = lightcoord.z - bias > shadowDepth ? 0.5f : 1.0f;
     
     pout.xyz *= shadow;
    

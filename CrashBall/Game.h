@@ -155,7 +155,8 @@ private:
     void DoRenderCommandNoneSprite(
         const DirectX::SimpleMath::Matrix& view,
         const DirectX::SimpleMath::Matrix& proj,
-        ID3D11DeviceContext1* context);
+        ID3D11DeviceContext1* context,
+        bool isDepth = false);
 
 
     void Clear();

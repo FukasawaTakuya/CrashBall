@@ -19,8 +19,8 @@ using namespace DirectX;
  * \param format
  */
 PaintTexture::PaintTexture(DXGI_FORMAT format)
-	: MyRenderTexture(format)
-	, m_paintTimeTex(std::make_unique<MyRenderTexture>(DXGI_FORMAT_R16G16_UINT))
+	: MyRenderTexture(format, false)
+	, m_paintTimeTex(std::make_unique<MyRenderTexture>(DXGI_FORMAT_R16G16_UINT, false))
 	, m_pixelShader(std::make_unique<Shader>())
 {
 }

@@ -15,9 +15,9 @@ RenderTextureMangaer::RenderTextureMangaer(DXGI_FORMAT format)
  * 
  * \param format
  */
-MyRenderTexture* RenderTextureMangaer::CreateRenderTexture()
+MyRenderTexture* RenderTextureMangaer::CreateRenderTexture(bool isDepth)
 {
-	auto renderTextrue = std::make_unique<MyRenderTexture>(m_format);
+	auto renderTextrue = std::make_unique<MyRenderTexture>(m_format, isDepth);
 	renderTextrue->SetDevice(m_device);
 	MyRenderTexture* ptr = renderTextrue.get();
 

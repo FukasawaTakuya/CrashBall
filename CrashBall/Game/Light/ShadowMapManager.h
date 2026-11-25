@@ -18,16 +18,21 @@
   */
 class  ShadowMapManager {
 
+private:
+
+	static constexpr float SHADOWMAP_SIZE = 8192.0f;
+	static constexpr float CAMERA_SIZE = 180.0f;
+
 	// メンバ変数の宣言 -----------------------------------------------
 private:
 
 	DirectX::SimpleMath::Vector3 m_lightDirection = { 0.5f, -1.0f, 0.5f };	// 平行光源方向
 
 	std::unique_ptr<GameObject> m_cameraObject;	// カメラコンポーネント保持用オブジェクト
-	OrthgraphicCamera* m_camera;// カメラコンポーネント
-	Transform* m_cameraTrans;	// カメラ用のトランスフォーム
+	OrthgraphicCamera* m_camera;				// カメラコンポーネント
+	Transform* m_cameraTrans;					// カメラ用のトランスフォーム
 
-	MyRenderTexture* m_shadowMap;// シャドウマップ
+	MyRenderTexture* m_shadowMap;	// シャドウマップ
 
 	// メンバ関数の宣言 -------------------------------------------------
 	// コンストラクタ/デストラクタ
@@ -46,22 +51,25 @@ public:
 public:
 
 	// シャドウマップの取得
-	ID3D11ShaderResourceView* GetShadowMap()
+	ID3D11ShaderResourceView* GetShadowMap() const
 	{ 
 		return m_shadowMap->GetDepthStencilSrv();
 	}
 
-	DirectX::SimpleMath::Matrix GetView()
+	// ビュー行列の取得
+	DirectX::SimpleMath::Matrix GetView() const
 	{
 		return m_camera->GetView();
 	}
 
-	DirectX::SimpleMath::Matrix GetProj()
+	// プロジェクション行列の取得
+	DirectX::SimpleMath::Matrix GetProj() const
 	{
 		return m_camera->GetProj();
 	}
 
-	DirectX::SimpleMath::Vector3 GetLightDirection()
+	// ライトの方向の取得
+	DirectX::SimpleMath::Vector3 GetLightDirection() const
 	{
 		return m_lightDirection;
 	}

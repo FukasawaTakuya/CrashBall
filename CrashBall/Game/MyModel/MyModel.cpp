@@ -68,70 +68,88 @@ void MyModel::Draw(
 	// ブレンドステートの設定
 	context->OMSetBlendState(states->NonPremultiplied(), nullptr, 0xffffffff);
 	 
-	// 定数バッファの設定
-	auto vsConstantBuffer = vertexShader->GetConstatntBufferInfo("ConstBuffer");
-	if (vsConstantBuffer != nullptr)
+	if (vertexShader != nullptr)
 	{
-		vsConstantBuffer->SetVariable("World", world);
-		vsConstantBuffer->SetVariable("View", view);
-		vsConstantBuffer->SetVariable("Proj", proj);
-
-		XMFLOAT4X4 worldInvertTranspose;
-		XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
-		vsConstantBuffer->SetVariable("WorldInvertTranspose", worldInvertTranspose);
-	}
-	vsConstantBuffer = vertexShader->GetConstatntBufferInfo("LightBuffer");
-	if (vsConstantBuffer != nullptr)
-	{
-		vsConstantBuffer->SetVariable("LightView", lightView);
-		vsConstantBuffer->SetVariable("LightProj", lightProj);
-	}
-
-	vertexShader->UpdateSubResources(context);
-	vertexShader->Bind(context);
-	 
-	// サンプラーの設定
-	auto sampler = states->LinearClamp();
-	context->PSSetSamplers(0, 1, &sampler);
-
-	// シャドウマップの設定
-	if (pixelShader->GetShaderTextrueInfo("ShadowMap") != nullptr)
-		pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
-
-	for (auto& submesh : m_submeshList)
-	{
-		MaterialData mat = m_materialDataList[submesh.materialIndex];
-		// テクスチャをシェーダに渡す
-		ID3D11ShaderResourceView* srv = nullptr;
-		if (mat.textureIndex >= 0)
-		{
-			srv = m_textureList[mat.textureIndex].Get();
-		}
-		auto texInfo = pixelShader->GetShaderTextrueInfo("Texture");
-		if (texInfo != nullptr)
-		{
-			texInfo->texture = srv;
-		}
-
 		// 定数バッファの設定
-		auto psConstantBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");
-		if (psConstantBuffer != nullptr)
+		auto vsConstantBuffer = vertexShader->GetConstatntBufferInfo("ConstBuffer");
+		if (vsConstantBuffer != nullptr)
 		{
-			psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
-			psConstantBuffer->SetVariable("DiffuseColor", diffuseColor);
-			psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
-			psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(lightDire.x, lightDire.y, lightDire.z, 1.0f));
-		}
-		pixelShader->UpdateSubResources(context);
-		pixelShader->Bind(context);
+			vsConstantBuffer->SetVariable("World", world);
+			vsConstantBuffer->SetVariable("View", view);
+			vsConstantBuffer->SetVariable("Proj", proj);
 
-		// 描画
-		context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
+			XMFLOAT4X4 worldInvertTranspose;
+			XMStoreFloat4x4(&worldInvertTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, world)));
+			vsConstantBuffer->SetVariable("WorldInvertTranspose", worldInvertTranspose);
+		}
+		vsConstantBuffer = vertexShader->GetConstatntBufferInfo("LightBuffer");
+		if (vsConstantBuffer != nullptr)
+		{
+			vsConstantBuffer->SetVariable("LightView", lightView);
+			vsConstantBuffer->SetVariable("LightProj", lightProj);
+		}
+
+		vertexShader->UpdateSubResources(context);
+		vertexShader->Bind(context);
+	}
+
+	if (pixelShader != nullptr)
+	{
+		// サンプラーの設定
+		auto sampler = states->LinearClamp();
+		context->PSSetSamplers(0, 1, &sampler);
+
+		// シャドウマップの設定
+		if (pixelShader->GetShaderTextrueInfo("ShadowMap") != nullptr)
+			pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
+
+		for (auto& submesh : m_submeshList)
+		{
+			MaterialData mat = m_materialDataList[submesh.materialIndex];
+			// テクスチャをシェーダに渡す
+			ID3D11ShaderResourceView* srv = nullptr;
+			if (mat.textureIndex >= 0)
+			{
+				srv = m_textureList[mat.textureIndex].Get();
+			}
+			auto texInfo = pixelShader->GetShaderTextrueInfo("Texture");
+			if (texInfo != nullptr)
+			{
+				texInfo->texture = srv;
+			}
+
+			// 定数バッファの設定
+			auto psConstantBuffer = pixelShader->GetConstatntBufferInfo("ConstBuffer");
+			if (psConstantBuffer != nullptr)
+			{
+				psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
+				psConstantBuffer->SetVariable("DiffuseColor", diffuseColor);
+				psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
+				psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(lightDire.x, lightDire.y, lightDire.z, 1.0f));
+			}
+			pixelShader->UpdateSubResources(context);
+			pixelShader->Bind(context);
+
+			// 描画
+			context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
+		}
+	}
+	else
+	{
+		for (auto& submesh : m_submeshList)
+		{
+			context->PSSetShader(nullptr, nullptr, 0);
+			// 描画
+			context->DrawIndexed(submesh.indexCount, submesh.indexStart, 0);
+		}
+
 	}
 
 	// バインドの解除
-	vertexShader->ReleaseBind(context);
-	pixelShader->ReleaseBind(context);
+	if(vertexShader != nullptr)
+		vertexShader->ReleaseBind(context);
+	if(pixelShader != nullptr)
+		pixelShader->ReleaseBind(context);
 }
 
 

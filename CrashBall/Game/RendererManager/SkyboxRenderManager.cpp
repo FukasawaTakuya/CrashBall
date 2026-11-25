@@ -56,6 +56,7 @@ void SkyboxRenderManager::Render(
 		// スカイボックスの描画
 		m_effect->SetView(view);
 		m_effect->SetProjection(proj);
+		m_effect->Apply(context);
 		m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 	}
 }

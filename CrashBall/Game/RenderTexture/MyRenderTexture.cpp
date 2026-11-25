@@ -16,8 +16,9 @@ using namespace DirectX;
  * \brief コンストラクタ
  * 
  */
-MyRenderTexture::MyRenderTexture(DXGI_FORMAT format)
+MyRenderTexture::MyRenderTexture(DXGI_FORMAT format, bool isDepth)
     : m_renderTexture(std::make_unique<DX::RenderTexture>(format))
+    , m_isDepth(isDepth)
 {
 }
 

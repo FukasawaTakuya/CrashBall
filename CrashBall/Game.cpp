@@ -106,9 +106,9 @@ void Game::Initialize(HWND window, int width, int height)
         m_deviceResources->GetBackBufferFormat());
 
     // ゲームビュー用のレンダーテクスチャの作成
-    m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
+    m_gameViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat(), false);
     // デバッグビュー用のレンダーテクスチャの作成
-    m_debugViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat());
+    m_debugViewTexture = std::make_unique<MyRenderTexture>(m_deviceResources->GetBackBufferFormat(), false);
     m_debugViewTexture->SetCamera(m_debugCamera->GetComponent<Camera>());
 
     // レンダーテクスチャを設定
@@ -328,7 +328,7 @@ void Game::Render()
         SimpleMath::Matrix proj = renderTexture->GetCamera()->GetProj();
         renderTexture->Begin(context);
         // 描画命令の実行
-        DoRenderCommandNoneSprite(view, proj, context);
+        DoRenderCommandNoneSprite(view, proj, context, renderTexture->GetIsDepth());
     }
 
     SimpleMath::Matrix gameView = m_sceneManager->GetCamera()->GetView();
@@ -366,8 +366,7 @@ void Game::Render()
     //    m_shadowMapManager->GetShadowMap(),
     //    RECT(100.0f, 100.0f, 400.0f, 400.0f));
     //m_spriteBatch->End();
-
-    m_deviceResources->PIXEndEvent();
+    //m_deviceResources->PIXEndEvent();
 
     //  ImGuiの描画処理
     ImGui::Render();
@@ -411,16 +410,29 @@ void Game::DoRenderCommand(
 void Game::DoRenderCommandNoneSprite(
     const DirectX::SimpleMath::Matrix& view,
     const DirectX::SimpleMath::Matrix& proj,
-    ID3D11DeviceContext1* context)
+    ID3D11DeviceContext1* context,
+    bool isDepth)
 {
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
-    // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), view, proj,
-        m_shadowMapManager->GetLightDirection(),
-        m_shadowMapManager->GetView(),
-        m_shadowMapManager->GetProj(),
-        m_shadowMapManager->GetShadowMap());
+    if (isDepth)
+    {
+        // 深度のみの描画
+        m_modelRendererManager->RenderDepth(context, m_state.get(), view, proj,
+            m_shadowMapManager->GetLightDirection(),
+            m_shadowMapManager->GetView(),
+            m_shadowMapManager->GetProj(),
+            m_shadowMapManager->GetShadowMap());
+    }
+    else
+    {
+        // モデルの描画
+        m_modelRendererManager->Render(context, m_state.get(), view, proj,
+            m_shadowMapManager->GetLightDirection(),
+            m_shadowMapManager->GetView(),
+            m_shadowMapManager->GetProj(),
+            m_shadowMapManager->GetShadowMap());
+    }
     // スカイボックスの描画
     m_skyboxRenderManager->Render(context, view, proj);
 }
@@ -535,6 +547,8 @@ void Game::CreateDeviceDependentResources()
     m_primitiveRendererManager->Create(device, context, m_state.get());
     m_spriteRendererManager->Create(context);
     m_textRendererManager->Create(device, context);
+
+    m_modelRendererManager->SetShader(m_shaderManager->GetShaderInfo("Depth_PS"));
 
     // レンダーターゲットテクスチャの設定
     m_gameViewTexture->SetDevice(device);
