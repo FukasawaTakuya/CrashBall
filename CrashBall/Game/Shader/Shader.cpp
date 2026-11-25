@@ -260,12 +260,11 @@ void Shader::CopyResource(ID3D11DeviceContext1* context)
 		if (rwPtr.uav == nullptr) continue;
 
 		// ステージングバッファにUAVをコピー
-		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 5], rwPtr.buffer);
+		context->CopyResource(rwPtr.stagingBuffer[rwPtr.frameCount % 3], rwPtr.buffer);
 
 		// CPU側にステージングバッファをコピー
 		D3D11_MAPPED_SUBRESOURCE subResource{};
-		int index = (rwPtr.frameCount - 1) % 5;
-		index = std::max(index, 0);
+		int index = (rwPtr.frameCount + 1) % 3;
 
 		context->Map(rwPtr.stagingBuffer[index], 0, D3D11_MAP_READ, 0, &subResource);
 		memcpy(rwPtr.cpudata, subResource.pData, rwPtr.info.size * rwPtr.uavCount);

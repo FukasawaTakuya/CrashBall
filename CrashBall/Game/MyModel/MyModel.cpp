@@ -41,6 +41,7 @@ void MyModel::Draw(
 	const DirectX::SimpleMath::Color& diffuseColor,
 	Shader* vertexShader,
 	Shader* pixelShader,
+	const DirectX::SimpleMath::Vector3& lightDire,
 	const DirectX::SimpleMath::Matrix& lightView,
 	const DirectX::SimpleMath::Matrix& lightProj,
 	ID3D11ShaderResourceView* shadowMap,
@@ -92,10 +93,10 @@ void MyModel::Draw(
 	// サンプラーの設定
 	auto sampler = states->LinearClamp();
 	context->PSSetSamplers(0, 1, &sampler);
+
 	// シャドウマップの設定
 	if (pixelShader->GetShaderTextrueInfo("ShadowMap") != nullptr)
 		pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
-		//context->PSSetShaderResources(1, 1, &shadowMap);
 
 	for (auto& submesh : m_submeshList)
 	{
@@ -119,7 +120,7 @@ void MyModel::Draw(
 			psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
 			psConstantBuffer->SetVariable("DiffuseColor", diffuseColor);
 			psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
-			psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(1.0f, -1.0f, 1.0f, 1.0f));
+			psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(lightDire.x, lightDire.y, lightDire.z, 1.0f));
 		}
 		pixelShader->UpdateSubResources(context);
 		pixelShader->Bind(context);

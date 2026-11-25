@@ -75,6 +75,11 @@ public:
 	// 取得/設定
 public:
 
+	DirectX::SimpleMath::Vector3 GetEye()
+	{
+		return m_transform->GetWorldPosition();
+	}
+
 	// ビュー行列の取得
 	DirectX::SimpleMath::Matrix GetView() const
 	{

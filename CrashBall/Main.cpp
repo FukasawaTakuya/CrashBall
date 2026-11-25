@@ -302,12 +302,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
             else
             {
+                //SetWindowLongPtr(hWnd, GWL_STYLE, WS_POPUP);
+                //SetWindowLongPtr(hWnd, GWL_EXSTYLE, WS_EX_TOPMOST);
+                //SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+                //ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+
                 SetWindowLongPtr(hWnd, GWL_STYLE, WS_POPUP);
                 SetWindowLongPtr(hWnd, GWL_EXSTYLE, WS_EX_TOPMOST);
 
-                SetWindowPos(hWnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+                SetWindowPos(
+                    hWnd,
+                    HWND_TOP,
+                    0,
+                    0,
+                    GetSystemMetrics(SM_CXSCREEN),
+                    GetSystemMetrics(SM_CYSCREEN),
+                    SWP_FRAMECHANGED);
 
-                ShowWindow(hWnd, SW_SHOWMAXIMIZED);
+                ShowWindow(hWnd, SW_SHOW);
             }
 
             s_fullscreen = !s_fullscreen;

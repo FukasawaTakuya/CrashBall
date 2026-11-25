@@ -9,12 +9,16 @@ cbuffer ConstBuffer : register(b0)
     float4 DiffuseColor;
 }
 
+// モデルのテクスチャ
 Texture2D Texture : register(t0);
 
+// シャドウマップ
 Texture2D<float> ShadowMap : register(t1);
 
+// 塗装テクスチャ
 Texture2D PaintTexture : register(t2);
 
+// サンプラー
 SamplerState Sampler : register(s0);
 
 float4 main(PSInput pin) : SV_TARGET
@@ -38,10 +42,10 @@ float4 main(PSInput pin) : SV_TARGET
     pout.a = paint.a + pout.a * (1 - paint.a);
     
     float3 lightdire = -normalize(LightDirection);
-    float Dot = dot(lightdire, pin.Normal);
+    float NdotL = dot(lightdire, pin.Normal);
     
-    //float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(Dot));
-    //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, Dot));
+    float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(NdotL));
+    //float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, NdotL));
     
     // 光源視点の
     float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
@@ -50,11 +54,16 @@ float4 main(PSInput pin) : SV_TARGET
     shadowUV.x =  lightcoord.x * 0.5f + 0.5f;
     shadowUV.y = -lightcoord.y * 0.5f + 0.5f;
     
+    // 
     float shadowDepth = ShadowMap.Sample(Sampler, shadowUV).r;
-    float shadow = 1.0f;
+    float bias = 0.0007f;
+    float shadow;
+    shadow = lightcoord.z - bias > shadowDepth ? 0.5f : 1.0f;
     
-    shadow = lightcoord.z - 0.00025f > shadowDepth ?
-                0.5f : 1.0f;
+    shadow = step(shadowUV.x, 1.0f) * shadow;
+    shadow = step(0.0f, shadowUV.x) * shadow;
+    shadow = step(shadowUV.y, 1.0f) * shadow;
+    shadow = step(0.0f, shadowUV.y) * shadow;
     
     pout.xyz *= shadow;
     

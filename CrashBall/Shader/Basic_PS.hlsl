@@ -9,11 +9,14 @@ cbuffer ConstBuffer : register(b0)
     float4 DiffuseColor;
 }
 
+// モデルのテクスチャ
 Texture2D Texture : register(t0);
 
-SamplerState Sampler : register(s0);
-
+// シャドウマップ
 Texture2D<float> ShadowMap : register(t1);
+
+// サンプラー
+SamplerState Sampler : register(s0);
 
 float4 main(PSInput pin) : SV_TARGET
 {
@@ -29,7 +32,11 @@ float4 main(PSInput pin) : SV_TARGET
     pout *= DiffuseColor;
 
     float3 lightdire = -normalize(LightDirection);
-    float Dot = dot(lightdire, pin.Normal);
+    float NdotL = dot(lightdire, pin.Normal);
+    
+   // float3 LightColor = float3(1, 1, 1) * lerp(0.8, 1.0, saturate(NdotL));
+    float3 LightColor = float3(1, 1, 1) * lerp(0.5, 0.925f, step(-0.4f, NdotL));
+
         
     float3 lightcoord = pin.LightPosition.xyz / pin.LightPosition.w;
     
@@ -38,9 +45,12 @@ float4 main(PSInput pin) : SV_TARGET
     shadowUV.y = -lightcoord.y * 0.5f + 0.5f;
     
     float shadowDepth = ShadowMap.Sample(Sampler, shadowUV).r;
-    float shadow = 1.0f;
 
-    shadow = lightcoord.z - 0.0015f > shadowDepth ?
+    float bias = 0.001f;
+    float shadow;
+    //float shadow = ShadowMap.SampleCmpLevelZero(Sampler, shadowUV, lightcoord.z - bias);
+    //shadow = lerp(0.5f, 1.0f, shadow); 
+    shadow = lightcoord.z - bias > shadowDepth ?
                 0.5f : 1.0f;
     
     pout.xyz *= shadow;

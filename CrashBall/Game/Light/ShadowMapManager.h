@@ -61,6 +61,11 @@ public:
 		return m_camera->GetProj();
 	}
 
+	DirectX::SimpleMath::Vector3 GetLightDirection()
+	{
+		return m_lightDirection;
+	}
+
 	// 内部実装
 private:
 

@@ -49,7 +49,7 @@ struct ConstantBufferInfo
 				continue;
 
 			// 型・サイズが一致しているか確認
-			if (vari.size != sizeof(T))
+			if (vari.size > sizeof(T))
 				continue;
 
 			if (vari.offset + sizeof(T) > data.size())

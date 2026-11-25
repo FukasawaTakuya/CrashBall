@@ -32,7 +32,7 @@ ShadowMapManager::ShadowMapManager()
 	m_cameraObject->Start(GameContext{});
 
 	m_shadowMap = RenderTexture::CreateRenderTexture();
-	m_shadowMap->SizeResources(4096.0f * 2.0f, 4096.0f * 2.0f);
+	m_shadowMap->SizeResources(8192.0f, 8192.0f);
 	m_shadowMap->SetCamera(m_camera);
 
 	m_shadowMap->m_isDepth = true;

@@ -279,7 +279,6 @@ void Game::Update(DX::StepTimer const& timer)
         m_resourceContext);
 
     m_inputSystem->ResetWheelValue();
-
 }
 #pragma endregion
 
@@ -417,7 +416,8 @@ void Game::DoRenderCommandNoneSprite(
     // プリミティブの描画
     m_primitiveRendererManager->Render(context, m_state.get(), view, proj);
     // モデルの描画
-    m_modelRendererManager->Render(context, m_state.get(), view, proj, 
+    m_modelRendererManager->Render(context, m_state.get(), view, proj,
+        m_shadowMapManager->GetLightDirection(),
         m_shadowMapManager->GetView(),
         m_shadowMapManager->GetProj(),
         m_shadowMapManager->GetShadowMap());

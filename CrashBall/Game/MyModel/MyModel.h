@@ -78,6 +78,7 @@ public:
 		const DirectX::SimpleMath::Color& difuseColor,
 		Shader* vertexShader,
 		Shader* pixelShader,
+		const DirectX::SimpleMath::Vector3& lightDire,
 		const DirectX::SimpleMath::Matrix& lightView,
 		const DirectX::SimpleMath::Matrix& lightProj,
 		ID3D11ShaderResourceView* shadowMap,
