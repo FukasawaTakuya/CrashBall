@@ -2,16 +2,16 @@
 
 cbuffer ConstBuffer : register(b0)
 {
-    float4x4 World;
-    float4x4 View;
-    float4x4 Proj;
-    float4x4 WorldInvertTranspose;
+    float4x4 World;                 // ワールド行列
+    float4x4 View;                  // ビュー行列
+    float4x4 Proj;                  // プロジェクション行列
+    float4x4 WorldInvertTranspose;  // ワールド逆転置行列
 }
 
 cbuffer LightBuffer : register(b1)
 {
-    float4x4   LightView;
-    float4x4 LightProj;
+    float4x4 LightView; // 光源視点のビュー行列
+    float4x4 LightProj; // 光源視点のプロジェクション行列
 }
 
 VSOutput main(VSInput vin)

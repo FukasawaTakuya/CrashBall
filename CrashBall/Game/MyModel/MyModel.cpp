@@ -13,6 +13,8 @@
 #include "WICTextureLoader.h"
 #include "DX/ReadData.h"
 
+#include "Game/RenderTexture/MyRenderTexture.h"
+
 using namespace DirectX;
 
 /**
@@ -45,6 +47,7 @@ void MyModel::Draw(
 	const DirectX::SimpleMath::Matrix& lightView,
 	const DirectX::SimpleMath::Matrix& lightProj,
 	ID3D11ShaderResourceView* shadowMap,
+	MyRenderTexture* mask,
 	DirectX::CommonStates* states,
 	ID3D11DeviceContext1* context)
 {
@@ -100,8 +103,14 @@ void MyModel::Draw(
 		context->PSSetSamplers(0, 1, &sampler);
 
 		// シャドウマップの設定
-		if (pixelShader->GetShaderTextrueInfo("ShadowMap") != nullptr)
-			pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
+		pixelShader->GetShaderTextrueInfo("ShadowMap")->texture = shadowMap;
+
+		// マスクの設定
+		if (mask != nullptr)
+		{
+			pixelShader->GetShaderTextrueInfo("Mask")->texture = mask->GetShaderResourceView();
+			pixelShader->GetShaderTextrueInfo("Depth")->texture = mask->GetDepthStencilSrv();
+		}
 
 		for (auto& submesh : m_submeshList)
 		{
@@ -125,7 +134,10 @@ void MyModel::Draw(
 				psConstantBuffer->SetVariable("BaseColor", mat.baseColor);
 				psConstantBuffer->SetVariable("DiffuseColor", diffuseColor);
 				psConstantBuffer->SetVariable("TextureIndex", mat.textureIndex);
-				psConstantBuffer->SetVariable("LightDirection", XMFLOAT4(lightDire.x, lightDire.y, lightDire.z, 1.0f));
+				psConstantBuffer->SetVariable("LightDirection", SimpleMath::Vector4(lightDire.x, lightDire.y, lightDire.z, 1.0f));
+
+				if(mask != nullptr)
+					psConstantBuffer->SetVariable("MaskSize", SimpleMath::Vector2(mask->GetWidth(), mask->GetHeight()));
 			}
 			pixelShader->UpdateSubResources(context);
 			pixelShader->Bind(context);

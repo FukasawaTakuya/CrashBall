@@ -43,6 +43,8 @@ struct ConstantBufferInfo
 		const std::string& name,
 		const T& value)
 	{
+		if (this == nullptr) return;
+
 		for (auto& vari : variables)
 		{
 			if (vari.name != name)

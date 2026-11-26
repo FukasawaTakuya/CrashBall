@@ -63,11 +63,15 @@ void ModelRendererManager::ClearRenderCommand()
 
 /**
  * \brief 描画
- * 
- * \param context コンテキスト
+ *
+ * \param context デバイスコンテキスト
  * \param state コモンステート
  * \param view ビュー行列
  * \param proj プロジェクション行列
+ * \param lightDire 光の方向
+ * \param lightView	光源視点のビュー行列
+ * \param lightProj 光源視点のプロジェクション行列
+ * \param shadowMap シャドウマップ
  */
 void ModelRendererManager::Render(
 	ID3D11DeviceContext1* context,
@@ -96,6 +100,7 @@ void ModelRendererManager::Render(
 			lightView,
 			lightProj,
 			shadowMap,
+			m_mask,
 			state, 
 			context);
 	}
@@ -137,24 +142,33 @@ void ModelRendererManager::RenderDepth(
 			SimpleMath::Matrix::Identity,
 			SimpleMath::Matrix::Identity,
 			nullptr,
+			m_mask,
 			state,
 			context);
 	}
 }
 
 /**
- * \brief マスクの描画
+ * \brief 深度のみの描画
  *
  * \param context デバイスコンテキスト
  * \param state コモンステート
  * \param view ビュー行列
  * \param proj プロジェクション行列
+ * \param lightDire 光の方向
+ * \param lightView	光源視点のビュー行列
+ * \param lightProj 光源視点のプロジェクション行列
+ * \param shadowMap シャドウマップ
  */
 void ModelRendererManager::RenderMask(
-	ID3D11DeviceContext1* context, 
-	DirectX::CommonStates* state, const 
-	DirectX::SimpleMath::Matrix& view, 
-	const DirectX::SimpleMath::Matrix& proj)
+	ID3D11DeviceContext1* context,
+	DirectX::CommonStates* state,
+	const DirectX::SimpleMath::Matrix& view,
+	const DirectX::SimpleMath::Matrix& proj,
+	const DirectX::SimpleMath::Vector3& lightDire,
+	const DirectX::SimpleMath::Matrix& lightView,
+	const DirectX::SimpleMath::Matrix& lightProj,
+	ID3D11ShaderResourceView* shadowMap)
 {
 	m_mask->Begin(context);
 
@@ -173,7 +187,8 @@ void ModelRendererManager::RenderMask(
 			renderCommand.pixelShader,
 			SimpleMath::Vector3::Zero,
 			SimpleMath::Matrix::Identity,
-			SimpleMath::Matrix::Identity,
+			lightProj,
+			nullptr,
 			nullptr,
 			state,
 			context);
@@ -186,5 +201,5 @@ void ModelRendererManager::RenderMask(
  */
 void ModelRendererManager::CreateMask()
 {
-	m_mask = RenderTexture::CreateCustomRenderTexture(DXGI_FORMAT_R8_UNORM);
+	m_mask = RenderTexture::CreateCustomRenderTexture(DXGI_FORMAT_A8_UNORM);
 }

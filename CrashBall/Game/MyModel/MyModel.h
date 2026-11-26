@@ -10,6 +10,8 @@
 
 #include "Game/Shader/Shader.h"	
 
+class MyRenderTexture;
+
 struct ModelHeader
 {
 	uint32_t vertexCount = 0;	// 頂点数
@@ -82,6 +84,7 @@ public:
 		const DirectX::SimpleMath::Matrix& lightView,
 		const DirectX::SimpleMath::Matrix& lightProj,
 		ID3D11ShaderResourceView* shadowMap,
+		MyRenderTexture* mask,
 		DirectX::CommonStates* states,
 		ID3D11DeviceContext1* context);
 

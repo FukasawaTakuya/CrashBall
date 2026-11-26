@@ -340,11 +340,11 @@ void Game::Render()
     SimpleMath::Matrix debugView = m_debugCamera->GetComponent<Camera>()->GetView();
     SimpleMath::Matrix debugProj = m_gameViewTexture->GetCamera()->GetProj();
 
-    m_modelRendererManager->RenderMask(
-        context,
-        m_state.get(),
-        gameView,
-        gameProj);
+    m_modelRendererManager->RenderMask(context, m_state.get(), gameView, gameProj,
+        m_shadowMapManager->GetLightDirection(),
+        m_shadowMapManager->GetView(),
+        m_shadowMapManager->GetProj(),
+        m_shadowMapManager->GetShadowMap());
 
     // エディタが有効なら
     if (m_editGuiManager->GetIsActive())
